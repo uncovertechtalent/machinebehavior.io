@@ -11,6 +11,12 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - Runtime suppression shows no temporal half-life; relapse clusters at cold starts, roughly 7x higher per unit of prose in fresh contexts, pointing at behavioral momentum (the model imitating its own recent corrected output) as the operative control.
 - Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.
 
+## Pages
+
+- [Claims ledger](https://machinebehavior.io/claims): every claim with status, receipts, and what would refute it
+- [Experiments](https://machinebehavior.io/experiments): the half-life study and the standing exemplar-seeding prediction
+- [Terms](https://machinebehavior.io/terms): canonical definitions, frozen wording
+
 ## Primary sources
 
 - [The paper](https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution): the layered model and the failure log

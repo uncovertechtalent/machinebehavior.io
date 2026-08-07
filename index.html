@@ -40,90 +40,17 @@
   ]
 }
 </script>
-<style>
-  :root {
-    --paper: #F6F7F4;
-    --ink: #1D2422;
-    --ink-soft: #4A5450;
-    --teal: #2F6D62;
-    --rust: #B3542E;
-    --rule: #D8DCD6;
-    --card: #FFFFFF;
-    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    --serif: "Iowan Old Style", Palatino, Georgia, serif;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #131816; --ink: #E8E6DF; --ink-soft: #9FAAA4;
-      --teal: #64AC9B; --rust: #D07A50; --rule: #2B332F; --card: #1B211E;
-    }
-  }
-  html { background: var(--paper); }
-  body {
-    font-family: var(--serif);
-    color: var(--ink);
-    line-height: 1.55;
-    margin: 0;
-    padding: 3.5rem 1.25rem 4rem;
-  }
-  .sheet { max-width: 660px; margin: 0 auto; }
-  .eyebrow {
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--teal);
-  }
-  h1 {
-    font-size: clamp(2.1rem, 6vw, 3rem); line-height: 1.05;
-    margin: 0.4rem 0 0.6rem; text-wrap: balance; letter-spacing: -0.01em;
-  }
-  .subtitle { font-size: 1.12rem; color: var(--ink-soft); margin: 0 0 2.2rem; text-wrap: balance; }
-  .thesis { font-size: 1.05rem; margin: 0 0 1.1rem; }
-  .thesis strong { color: var(--teal); font-weight: 600; }
-  .oneliner {
-    border-left: 3px solid var(--teal); padding: 0.15rem 0 0.15rem 1rem;
-    margin: 1.8rem 0; font-size: 1.15rem; font-style: italic;
-  }
-  section { margin-top: 2.6rem; }
-  .label {
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--ink-soft);
-    border-bottom: 1px solid var(--rule); padding-bottom: 0.45rem; margin-bottom: 1rem;
-  }
-  .log { font-family: var(--mono); font-size: 0.85rem; display: grid; gap: 0.55rem; }
-  .log-row { display: flex; gap: 0.9rem; align-items: baseline; }
-  .log-num {
-    color: var(--rust); min-width: 7.5ch; text-align: right;
-    font-variant-numeric: tabular-nums; font-weight: 700;
-  }
-  .log-what { color: var(--ink-soft); }
-  .surfaces { display: grid; gap: 0.9rem; }
-  .surface {
-    background: var(--card); border: 1px solid var(--rule);
-    padding: 0.9rem 1.1rem; display: grid; gap: 0.2rem;
-  }
-  .surface-name { font-weight: 700; font-size: 1.02rem; }
-  .surface-role { color: var(--ink-soft); font-size: 0.93rem; }
-  .surface a, .files a {
-    font-family: var(--mono); font-size: 0.82rem; color: var(--teal);
-    text-decoration: none; word-break: break-all;
-  }
-  .surface a:hover, .surface a:focus-visible,
-  .files a:hover, .files a:focus-visible { text-decoration: underline; outline: none; }
-  .surface a:focus-visible, .files a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
-  .files { display: grid; gap: 0.7rem; }
-  .file-row { display: grid; gap: 0.1rem; }
-  .file-title { font-weight: 700; font-size: 0.98rem; }
-  .file-note { color: var(--ink-soft); font-size: 0.9rem; }
-  .footer {
-    margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 1rem; flex-wrap: wrap;
-  }
-  .sig { font-weight: 700; }
-  .motto { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="sheet">
+  <nav class="nav">
+    <a href="./" aria-current="page">machine behavior</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="terms">terms</a>
+  </nav>
+
   <header>
     <div class="eyebrow">A public research program, run with receipts</div>
     <h1>Machine Behavior</h1>

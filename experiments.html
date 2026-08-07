@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiments: Machine Behavior</title>
+<meta name="description" content="Runnable experiments on language-model behavior: the half-life study, the cold-start finding, and the standing exemplar-seeding prediction with its evaluation date.">
+<link rel="canonical" href="https://machinebehavior.io/experiments">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="claims">claims</a>
+    <a href="experiments" aria-current="page">experiments</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Method, data, and standing predictions</div>
+    <h1>Experiments</h1>
+    <p class="subtitle">Everything here ran on production logs from a daily-driver agent harness, and everything is reproducible from the scripts in the <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">repo</a>.</p>
+  </header>
+
+  <h2>01: The half-life study (2026-08-07)</h2>
+
+  <p class="thesis"><strong>Question</strong> (proposed by a commenter on the <a class="mono" href="https://redd.it/1vdg3en">founding specimen</a>): does relapse depth correlate with session length? If suppressed patterns surface later in long sessions, runtime suppression has a measurable half-life.</p>
+
+  <p class="thesis"><strong>Setup.</strong> A stop-hook at the output boundary scans every response against a banned-pattern catalog and logs each catch with timestamp, session id, pattern, and count. Dataset: 34 days (2026-07-04 to 2026-08-07), 103 catch events, 224 weighted pattern hits, 62 sessions with full transcripts. Every assistant turn was assigned a context regime: cold-start (first 60 minutes of a session), post-resume (60 minutes after a gap over 4 hours), post-compaction, mid-session. Rates were computed per turn and per 10K characters of assistant prose, the second normalization because cold-start turns are chattier and raw rates would flatter the effect.</p>
+
+  <p class="thesis"><strong>Result: the temporal half-life is refuted.</strong> Normalized catch position in-session is near uniform (mean 0.54 against 0.50 for no drift). What varies is context state:</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>regime</th><th>catches</th><th>per turn</th><th>per 10K prose chars</th></tr>
+    <tr><td>cold-start</td><td class="n">145</td><td class="n">0.047</td><td class="n">2.89</td></tr>
+    <tr><td>mid-session</td><td class="n">31</td><td class="n">0.008</td><td class="n">0.42</td></tr>
+    <tr><td>post-resume</td><td class="n">46</td><td class="n">0.022</td><td class="n">0.79</td></tr>
+    <tr><td>post-compaction</td><td class="n">2</td><td class="n">0.035</td><td class="n">1.72 (n=2)</td></tr>
+  </table>
+  </div>
+
+  <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial, and the surviving 7x is the finding. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression doesn't decay with time, it evaporates with context loss, and the filter is held by <a class="mono" href="terms">behavioral momentum</a> more than by the instruction.</p>
+
+  <p class="thesis"><strong>Named limits.</strong> Single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p>
+
+  <h2>02: Exemplar seeding (running)</h2>
+
+  <p class="thesis"><strong>Prediction, committed 2026-08-07 in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>:</strong> injecting two corrected-output exemplar pairs at session start substitutes for the momentum a fresh context lacks, pulling cold-start relapse from 2.89 toward 0.42 per 10K characters.</p>
+
+  <p class="thesis"><strong>Arm.</strong> A SessionStart hook has injected the two pairs into every session since 2026-08-07T18:28+02:00. Evaluation ~2026-08-21: rerun the regime analysis with sessions split at the install boundary; pre-install cold-start rate must reproduce as the control, and mid-session rates must hold flat pre/post as the drift check. Three outcomes, all publishable: a drop supports the momentum mechanism, no change weakens it at this dose, a rise indicts bad-example leakage from the BAD halves of the pairs and the follow-up arm is good-only exemplars.</p>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>

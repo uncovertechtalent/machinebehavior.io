@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claims ledger: Machine Behavior</title>
+<meta name="description" content="Every claim the Machine Behavior program has made, with status, receipts, and what would refute it. The falsification register, public.">
+<link rel="canonical" href="https://machinebehavior.io/claims">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="claims" aria-current="page">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">The falsification register, public</div>
+    <h1>Claims ledger</h1>
+    <p class="subtitle">Every substantive claim the program makes, with its status, its receipts, and the observation that would kill it. Refuted claims stay listed, because a ledger that only shows wins is marketing.</p>
+  </header>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.</span>
+      <span class="status supported">supported</span>
+    </div>
+    <div class="claim-meta">Receipts: months of suppression logs across lexical, stance, and premise layers, documented in <a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">the paper</a> and the <a class="mono" href="https://redd.it/1vdg3en">founding specimen</a>.</div>
+    <div class="claim-refute"><em>Would refute:</em> a model holding suppression at one layer, over months of production use, without the reflex surfacing at another.</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.</span>
+      <span class="status supported">supported</span>
+    </div>
+    <div class="claim-meta">Receipts: 297 boundary-gate catches of one pattern in 34 days with the instruction resident throughout; 8 stance-layer relapses in nine days, all eight caught externally, zero self-caught.</div>
+    <div class="claim-refute"><em>Would refute:</em> sustained instruction-only compliance across cold starts, or a documented self-catch of a stance-layer relapse.</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Runtime suppression decays with session length (a temporal half-life).</span>
+      <span class="status refuted">refuted</span>
+    </div>
+    <div class="claim-meta">Proposed by a commenter on the founding specimen; tested 2026-08-07. Catch position in-session is near uniform (mean normalized position 0.54 against 0.50 for no drift). Full method on the <a class="mono" href="experiments">experiments page</a> and in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>.</div>
+    <div class="claim-refute"><em>Kept because:</em> the program's first externally proposed test, and the refutation produced the cold-start finding below. Refuted claims are how the ledger earns the supported ones.</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Relapse clusters at cold starts: roughly 7x higher per unit of prose in fresh contexts than mid-session.</span>
+      <span class="status supported">supported</span>
+    </div>
+    <div class="claim-meta">Receipts: prose-normalized rates of 2.89 vs 0.42 catches per 10K characters (cold-start vs mid-session), 224 weighted catches, 62 sessions. Scope: single operator, single model family, lexical layer.</div>
+    <div class="claim-refute"><em>Would refute:</em> replication showing matched cold-start and mid-session rates without boundary enforcement, or evidence the ratio is an artifact of session-opening topic mix.</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Behavioral momentum holds the filter: the model's compliance is carried by imitating its own recent corrected output, more than by the standing instruction.</span>
+      <span class="status testing">under test</span>
+    </div>
+    <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluation ~2026-08-21.</div>
+    <div class="claim-refute"><em>Would refute:</em> no change (dose or mechanism wrong) or a rise (bad-example leakage). All three outcomes get published.</div>
+  </div>
+
+  <div class="claim">
+    <div class="claim-head">
+      <span class="claim-text">Stance and premise relapses are only catchable across turns, by external review; a same-turn detector cannot see them.</span>
+      <span class="status supported">supported</span>
+    </div>
+    <div class="claim-meta">Receipts: the per-turn scanner has caught every lexical relapse and zero structural ones; all eight register instances were caught by a human reading across turns. Convergent: in AI-text detection, hedging wordlists discriminate at 0.516 AUC while document-level shape reaches 0.897 (<a class="mono" href="https://github.com/SadhvikChirunomula/measured-humanizer">measured-humanizer</a>).</div>
+    <div class="claim-refute"><em>Would refute:</em> a same-turn detector that catches premise ratification at better than chance.</div>
+  </div>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>
