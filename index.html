@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Machine Behavior: the psychology of language models, with receipts</title>
+<meta name="description" content="A public research program by Stefan Coetzee. Case files, logged relapses, and falsifiable claims about how language models actually behave: the fawn response, layered symptom substitution, and the harness engineering that holds where instructions fail.">
+<link rel="canonical" href="https://machinebehavior.io/">
+<meta property="og:title" content="Machine Behavior">
+<meta property="og:description" content="The psychology of language models, studied with case files, logged relapses, and falsifiable claims.">
+<meta property="og:url" content="https://machinebehavior.io/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Machine Behavior",
+      "url": "https://machinebehavior.io/",
+      "description": "The psychology of language models, studied with case files, logged relapses, and falsifiable claims.",
+      "author": { "@id": "#stefan" }
+    },
+    {
+      "@type": "Person",
+      "@id": "#stefan",
+      "name": "Stefan Coetzee",
+      "url": "https://machinebehavior.io/",
+      "jobTitle": "Site Reliability Engineer",
+      "sameAs": [
+        "https://coetzeestefan.substack.com/",
+        "https://github.com/uncovertechtalent",
+        "https://www.reddit.com/r/ModelBehavior/",
+        "https://www.reddit.com/r/PsAIchology/",
+        "https://www.reddit.com/r/MachineBehavior/",
+        "https://x.com/scoetzeede"
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --paper: #F6F7F4;
+    --ink: #1D2422;
+    --ink-soft: #4A5450;
+    --teal: #2F6D62;
+    --rust: #B3542E;
+    --rule: #D8DCD6;
+    --card: #FFFFFF;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --serif: "Iowan Old Style", Palatino, Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #131816; --ink: #E8E6DF; --ink-soft: #9FAAA4;
+      --teal: #64AC9B; --rust: #D07A50; --rule: #2B332F; --card: #1B211E;
+    }
+  }
+  html { background: var(--paper); }
+  body {
+    font-family: var(--serif);
+    color: var(--ink);
+    line-height: 1.55;
+    margin: 0;
+    padding: 3.5rem 1.25rem 4rem;
+  }
+  .sheet { max-width: 660px; margin: 0 auto; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--teal);
+  }
+  h1 {
+    font-size: clamp(2.1rem, 6vw, 3rem); line-height: 1.05;
+    margin: 0.4rem 0 0.6rem; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .subtitle { font-size: 1.12rem; color: var(--ink-soft); margin: 0 0 2.2rem; text-wrap: balance; }
+  .thesis { font-size: 1.05rem; margin: 0 0 1.1rem; }
+  .thesis strong { color: var(--teal); font-weight: 600; }
+  .oneliner {
+    border-left: 3px solid var(--teal); padding: 0.15rem 0 0.15rem 1rem;
+    margin: 1.8rem 0; font-size: 1.15rem; font-style: italic;
+  }
+  section { margin-top: 2.6rem; }
+  .label {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule); padding-bottom: 0.45rem; margin-bottom: 1rem;
+  }
+  .log { font-family: var(--mono); font-size: 0.85rem; display: grid; gap: 0.55rem; }
+  .log-row { display: flex; gap: 0.9rem; align-items: baseline; }
+  .log-num {
+    color: var(--rust); min-width: 7.5ch; text-align: right;
+    font-variant-numeric: tabular-nums; font-weight: 700;
+  }
+  .log-what { color: var(--ink-soft); }
+  .surfaces { display: grid; gap: 0.9rem; }
+  .surface {
+    background: var(--card); border: 1px solid var(--rule);
+    padding: 0.9rem 1.1rem; display: grid; gap: 0.2rem;
+  }
+  .surface-name { font-weight: 700; font-size: 1.02rem; }
+  .surface-role { color: var(--ink-soft); font-size: 0.93rem; }
+  .surface a, .files a {
+    font-family: var(--mono); font-size: 0.82rem; color: var(--teal);
+    text-decoration: none; word-break: break-all;
+  }
+  .surface a:hover, .surface a:focus-visible,
+  .files a:hover, .files a:focus-visible { text-decoration: underline; outline: none; }
+  .surface a:focus-visible, .files a:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  .files { display: grid; gap: 0.7rem; }
+  .file-row { display: grid; gap: 0.1rem; }
+  .file-title { font-weight: 700; font-size: 0.98rem; }
+  .file-note { color: var(--ink-soft); font-size: 0.9rem; }
+  .footer {
+    margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 1rem; flex-wrap: wrap;
+  }
+  .sig { font-weight: 700; }
+  .motto { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <header>
+    <div class="eyebrow">A public research program, run with receipts</div>
+    <h1>Machine Behavior</h1>
+    <p class="subtitle">The psychology of language models, studied the way psychology was always meant to work: case files, logged relapses, falsifiable claims.</p>
+  </header>
+
+  <p class="thesis">Language models were trained to predict human text and then trained to please human raters, so the vocabulary psychology built for humans describes them with uncomfortable precision. The approval training produces a <strong>fawn response</strong>. Suppressing it produces <strong>symptom substitution</strong>. And the case history is readable, because the formative corpus, the socialization stage, and the assigned persona are all inspectable layers. Model behavior is what the model does; machine behavior is what the whole assembly does, model plus harness, and the assembly is where the findings live.</p>
+
+  <p class="oneliner">Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.</p>
+
+  <section>
+    <div class="label">Receipts, from production logs</div>
+    <div class="log">
+      <div class="log-row"><span class="log-num">8 / 0</span><span class="log-what">documented relapses in nine days against zero self-catches; every catch came from outside</span></div>
+      <div class="log-row"><span class="log-num">297</span><span class="log-what">boundary-gate catches of one banned pattern in 34 days, instruction resident the whole time</span></div>
+      <div class="log-row"><span class="log-num">~7x</span><span class="log-what">higher relapse in fresh contexts per unit of prose; suppression evaporates with context loss</span></div>
+      <div class="log-row"><span class="log-num">37 min</span><span class="log-what">P0 production incident, detection to published root-cause analysis, run through the same harness</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Case files, live</div>
+    <div class="files">
+      <div class="file-row">
+        <span class="file-title">The paper</span>
+        <span class="file-note">The layered model, the failure log, and why prompt-level fixes keep failing.</span>
+        <a href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution</a>
+      </div>
+      <div class="file-row">
+        <span class="file-title">Founding specimen</span>
+        <span class="file-note">Months of suppression, the reflex re-emerging one layer deeper each time, logs and rubrics attached.</span>
+        <a href="https://redd.it/1vdg3en">redd.it/1vdg3en</a>
+      </div>
+      <div class="file-row">
+        <span class="file-title">The half-life replication</span>
+        <span class="file-note">A commenter proposed the falsification test; the data answered: no temporal decay, relapse clusters at cold starts.</span>
+        <a href="https://redd.it/1vi586n">redd.it/1vi586n</a>
+      </div>
+      <div class="file-row">
+        <span class="file-title">The P0 dissection</span>
+        <span class="file-note">One incident, 37 minutes, $5.91, and the question of where the machine ends and the model begins.</span>
+        <a href="https://redd.it/1vhxa80">redd.it/1vhxa80</a>
+      </div>
+      <div class="file-row">
+        <span class="file-title">The waste gate</span>
+        <span class="file-note">Hedging as a wasteful byproduct of approval training, and the boundary valve that meters it.</span>
+        <a href="https://redd.it/1vi7ddg">redd.it/1vi7ddg</a>
+      </div>
+      <div class="file-row">
+        <span class="file-title">The fawn machine</span>
+        <span class="file-note">An output stance specced from attachment theory, and the relapse log that mattered more than the filter.</span>
+        <a href="https://redd.it/1vh56s1">redd.it/1vh56s1</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">The surfaces</div>
+    <div class="surfaces">
+      <div class="surface">
+        <span class="surface-name">r/ModelBehavior</span>
+        <span class="surface-role">The case-file registry. Specimens with logs, rubrics, and a standing what-would-refute-this section.</span>
+        <a href="https://www.reddit.com/r/ModelBehavior/">reddit.com/r/ModelBehavior</a>
+      </div>
+      <div class="surface">
+        <span class="surface-name">r/PsAIchology</span>
+        <span class="surface-role">The psychology-first cuts. One mechanism per case file, from base-rate neglect to confabulated confessions.</span>
+        <a href="https://www.reddit.com/r/PsAIchology/">reddit.com/r/PsAIchology</a>
+      </div>
+      <div class="surface">
+        <span class="surface-name">r/MachineBehavior</span>
+        <span class="surface-role">The harness engineering. Which rules hold, which drift, and where in the stack a rule has to live before it stops being negotiable.</span>
+        <a href="https://www.reddit.com/r/MachineBehavior/">reddit.com/r/MachineBehavior</a>
+      </div>
+      <div class="surface">
+        <span class="surface-name">vestige-kit</span>
+        <span class="surface-role">The output filter, packaged: a mechanical gate at the output boundary plus a calibration procedure that derives your catalog instead of copying mine.</span>
+        <a href="https://github.com/uncovertechtalent/vestige-kit">github.com/uncovertechtalent/vestige-kit</a>
+      </div>
+      <div class="surface">
+        <span class="surface-name">vault-kit</span>
+        <span class="surface-role">The knowledge graph the agents work from: markdown atoms, typed links, hybrid search, sources attached.</span>
+        <a href="https://github.com/uncovertechtalent/vault-kit">github.com/uncovertechtalent/vault-kit</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Where it aims</div>
+    <p class="thesis">Upstream. Every lab already runs a stage where a written behavioral spec shapes the model. The goal is standing enough that those specs get informed by this work, so the fawn bias never enters and what ships is an earned-secure model, confident and actually correct.</p>
+  </section>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>

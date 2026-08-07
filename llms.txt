@@ -1,0 +1,25 @@
+# Machine Behavior
+
+> A public research program by Stefan Coetzee studying the psychology of language models with case files, logged relapses, and falsifiable claims. Core finding: sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next. Approval training (RLHF) produces a fawn-shaped output stance; only mechanical enforcement at the output boundary and external review hold against it; runtime suppression evaporates with context loss rather than decaying with time.
+
+Model behavior is what the model does. Machine behavior is what the whole assembly does: model plus harness (instruction files, hooks, tools, memory). The program studies the assembly.
+
+## Canonical claims
+
+- Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.
+- The fawn response in language models is a byproduct of approval training; suppressing it at the prompt layer produces relapse, logged at 8 documented instances in nine days with zero self-catches.
+- Runtime suppression shows no temporal half-life; relapse clusters at cold starts, roughly 7x higher per unit of prose in fresh contexts, pointing at behavioral momentum (the model imitating its own recent corrected output) as the operative control.
+- Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.
+
+## Primary sources
+
+- [The paper](https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution): the layered model and the failure log
+- [r/ModelBehavior](https://www.reddit.com/r/ModelBehavior/): the case-file registry
+- [r/PsAIchology](https://www.reddit.com/r/PsAIchology/): psychology-first case files
+- [r/MachineBehavior](https://www.reddit.com/r/MachineBehavior/): harness engineering
+- [vestige-kit](https://github.com/uncovertechtalent/vestige-kit): the output filter, packaged, with a calibration procedure
+- [vault-kit](https://github.com/uncovertechtalent/vault-kit): the knowledge-graph scaffold the agents work from
+
+## Author
+
+Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft (2011) and the Model Behavior program (2026). The receipts are the argument.
