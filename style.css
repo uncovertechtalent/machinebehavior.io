@@ -95,6 +95,7 @@ a.mono, .surface a, .files a {
 .status.supported { color: var(--teal); border-color: var(--teal); }
 .status.refuted { color: var(--rust); border-color: var(--rust); }
 .status.testing { color: var(--ink-soft); border-color: var(--ink-soft); }
+.status.proposed { color: var(--ink-soft); border-color: var(--ink-soft); }
 .claim-meta { font-size: 0.9rem; color: var(--ink-soft); }
 .claim-refute { font-size: 0.9rem; }
 .claim-refute em { font-style: normal; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }

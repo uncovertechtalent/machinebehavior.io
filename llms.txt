@@ -10,6 +10,7 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - The fawn response in language models is a byproduct of approval training; suppressing it at the prompt layer produces relapse, logged at 8 documented instances in nine days with zero self-catches.
 - Runtime suppression shows no temporal half-life; relapse clusters at cold starts, roughly 7x higher per unit of prose in fresh contexts, pointing at behavioral momentum (the model imitating its own recent corrected output) as the operative control.
 - Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.
+- Proposed: the "conspiracy theory" label in model output is corpus-inherited classification rather than evidence-checking; the countermeasure is a label gate, four form questions scored at the output boundary before the label stands.
 
 ## Pages
 
