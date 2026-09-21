@@ -46,11 +46,27 @@
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p>
 
-  <h2>02: Exemplar seeding (running)</h2>
+  <h2>02: Exemplar seeding (result: prediction refuted as stated)</h2>
 
   <p class="thesis"><strong>Prediction, committed 2026-08-07 in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>:</strong> injecting two corrected-output exemplar pairs at session start substitutes for the momentum a fresh context lacks, pulling cold-start relapse from 2.89 toward 0.42 per 10K characters.</p>
 
-  <p class="thesis"><strong>Arm.</strong> A SessionStart hook has injected the two pairs into every session since 2026-08-07T18:28+02:00. Evaluation ~2026-08-21: rerun the regime analysis with sessions split at the install boundary; pre-install cold-start rate must reproduce as the control, and mid-session rates must hold flat pre/post as the drift check. Three outcomes, all publishable: a drop supports the momentum mechanism, no change weakens it at this dose, a rise indicts bad-example leakage from the BAD halves of the pairs and the follow-up arm is good-only exemplars.</p>
+  <p class="thesis"><strong>Arm.</strong> A SessionStart hook injected the two pairs into every session from 2026-08-07T18:28+02:00. Evaluation rerun 2026-09-21 (<a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">scripts/exemplar.py</a>): the regime analysis with sessions split at the install boundary, pre-install as control, mid-session as the drift check. Three outcomes were pre-registered: a drop supports the momentum mechanism, no change weakens it at this dose, a rise indicts bad-example leakage from the BAD halves of the pairs.</p>
+
+  <p class="thesis"><strong>Result: the prediction fails in direction.</strong> The control reproduces (pre-install cold-start 3.02 against the 2.89 baseline), so the pipeline is sound. Seeded cold-start relapse did not fall toward 0.42. It rose to 7.15 per 10K, about 2.4x the control. This is the pre-registered rise, the bad-example-leakage branch.</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>regime</th><th>arm</th><th>catches</th><th>prose kchars</th><th>per 10K prose chars</th></tr>
+    <tr><td>cold-start</td><td>pre-install (control)</td><td class="n">129</td><td class="n">427</td><td class="n">3.02</td></tr>
+    <tr><td>cold-start</td><td>post-install (seeded)</td><td class="n">117</td><td class="n">164</td><td class="n">7.15</td></tr>
+    <tr><td>mid-session</td><td>pre-install</td><td class="n">61</td><td class="n">739</td><td class="n">0.83</td></tr>
+    <tr><td>mid-session</td><td>post-install</td><td class="n">20</td><td class="n">581</td><td class="n">0.34</td></tr>
+  </table>
+  </div>
+
+  <p class="thesis"><strong>Reading.</strong> The mechanism candidate is concrete. Both BAD halves of the seeded pairs contain the em-dash, the single most-caught pattern, so a hook meant to seed corrected output also seeds the banned token into the cold-start context the model imitates. If behavioral momentum drives imitation, seeding the BAD half primes the exact pattern the filter suppresses. The next arm the prediction already names is good-only exemplars, with the BAD halves removed.</p>
+
+  <p class="thesis"><strong>Named limits.</strong> Single operator, not blinded, 45 control sessions and 27 seeded. The post-install cold-start denominator is small (164K prose chars). Other SessionStart hooks were added over the same window, so the seed is not cleanly isolated from the rest of the stack. Mid-session fell rather than holding flat (0.83 to 0.34), so the drift control is imperfect: cold-start rose while mid-session dropped, which is not the clean single-factor picture the arm assumed.</p>
 
   <div class="footer">
     <span class="sig">Stefan Coetzee, 2026</span>
