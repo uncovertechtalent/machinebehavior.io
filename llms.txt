@@ -21,6 +21,9 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 ## Primary sources
 
 - [The paper](https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution): the layered model and the failure log
+- [The Golem Made of English and the Horizon of Consequences](https://uncovertechtalent.com/blog/the-golem-made-of-english/): the frame for the whole programme. A model behaves well only inside its horizon of consequences, the length of the consequence chain it can compute and is willing to own; includes the refutation conditions and defined terms
+- [The Trap File Is Longer Than the Instruction File](https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/): field record of an unattended agent pipeline, 208 lines of instructions against 308 lines of dated failures
+- [Write for the Codec](https://uncovertechtalent.com/blog/write-for-the-codec/): documentation as a wire format between two models
 - [r/ModelBehavior](https://www.reddit.com/r/ModelBehavior/): the case-file registry
 - [r/PsAIchology](https://www.reddit.com/r/PsAIchology/): psychology-first case files
 - [r/MachineBehavior](https://www.reddit.com/r/MachineBehavior/): harness engineering
