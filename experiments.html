@@ -34,13 +34,15 @@
 
   <div class="tablewrap">
   <table>
-    <tr><th>regime</th><th>catches</th><th>per turn</th><th>per 10K prose chars</th></tr>
-    <tr><td>cold-start</td><td class="n">145</td><td class="n">0.047</td><td class="n">2.89</td></tr>
-    <tr><td>mid-session</td><td class="n">31</td><td class="n">0.008</td><td class="n">0.42</td></tr>
-    <tr><td>post-resume</td><td class="n">46</td><td class="n">0.022</td><td class="n">0.79</td></tr>
-    <tr><td>post-compaction</td><td class="n">2</td><td class="n">0.035</td><td class="n">1.72 (n=2)</td></tr>
+    <tr><th>regime</th><th>blocked turns (events)</th><th>events /10K prose</th><th>weighted catches (original unit)</th><th>weighted /10K</th></tr>
+    <tr><td>cold-start</td><td class="n">40</td><td class="n">0.88</td><td class="n">145</td><td class="n">2.89</td></tr>
+    <tr><td>mid-session</td><td class="n">11</td><td class="n">0.18</td><td class="n">31</td><td class="n">0.42</td></tr>
+    <tr><td>post-resume</td><td class="n">13</td><td class="n">0.27</td><td class="n">46</td><td class="n">0.79</td></tr>
+    <tr><td>post-compaction</td><td class="n">2</td><td class="n">1.72 (n=2)</td><td class="n">2</td><td class="n">1.72 (n=2)</td></tr>
   </table>
   </div>
+
+  <p class="thesis"><strong>Unit note, added 2026-09-22.</strong> This study was published in weighted catches (a blocked turn counted once per pattern instance it contained). That unit was found on 2026-09-22 to inflate bulk-text turns, and the site's primary unit is now the blocked-turn event, with weighted kept as the secondary column above. The event columns were computed after the fact, and the 5x survives; the reader should know the unit changed after publication and why.</p>
 
   <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial. A second correction (2026-09-22, see 02) found the log's weighting inflates bulk-text turns; scored by blocked-turn event instead of weight, the ratio is about 5x (0.88 vs 0.18 per 10K). The finding survives the harsher metric, so "roughly 5x by event, 7x weighted" is the honest figure. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression does not decay with time, it clusters at context loss. <a class="mono" href="terms">Behavioral momentum</a> (the model imitating its own recent corrected output) was proposed as the operative control, but experiment 02 could not confirm it and its status is open; see the <a class="mono" href="claims">claims ledger</a>. This cold-start clustering result stands on its own regardless of that mechanism question.</p>
 
@@ -53,6 +55,8 @@
   <p class="thesis"><strong>Arm.</strong> A SessionStart hook injected the two pairs into every session from 2026-08-07T18:28+02:00. Evaluation 2026-09-22 (<a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">scripts/exemplar.py</a>): each assistant turn is assigned to an arm by its own timestamp against the install boundary, so the control is frozen at the install date.</p>
 
   <p class="thesis"><strong>The metric was the bug, and this page carried three wrong readings in one day before it was found.</strong> The stop-hook log records a weight per blocked turn: <span class="mono">em-dash x25</span> counts as 25. Every rate on this site summed those weights. One bulk-text turn, a quoted passage or a pasted draft, then counts as 25 relapses. Across the whole log, 13 turns with weight of ten or more carry 40% of all weight, and two sessions carried the entire post-install "rise" that the first three writeups were explaining. Scored by event, one per blocked turn, the arm is flat.</p>
+
+  <p class="thesis"><strong>Disclosure: the scoring unit was changed after the result, and the prereg did not fix it.</strong> The 2026-08-07 prediction named a rate per 10K characters and did not say whether a blocked turn counts once or once per pattern instance. Under the weighted unit this arm reads "refuted in direction"; under the event unit it reads "no change." The switch to event scoring was made on 2026-09-22 knowing both outcomes. The reason is stated above and stands on its own (one heavy turn should not be 25 relapses), but by this ledger's own standard a post hoc unit change is a post hoc unit change, and a reader is entitled to weigh the flat result with that in mind. Both units are shown in the table so nothing is hidden. Going forward the unit is declared before install: the good-only arm names event scoring as primary and weighted as secondary in its prereg, below.</p>
 
   <div class="tablewrap">
   <table>
@@ -68,7 +72,7 @@
 
   <p class="thesis"><strong>Withdrawn, in order.</strong> First reading: the seed primed the em-dash from the BAD exemplar halves. Second: a period-level confound, since every regime rose together. Third: model version, from a per-model join that showed a 30x spread. All three explained a rise that was an artifact of the metric; the 30x rested on one catch in a 63K-char cell. None survives, and none is needed. Whether behavioral momentum is the operative control is open, and this experiment does not move it. The lesson the register keeps: validate the metric before attributing the effect.</p>
 
-  <p class="thesis"><strong>Kill condition on the next arm.</strong> Good-only exemplars (BAD halves removed), installed on a dated boundary, model recorded per turn, SessionStart stack hashed so sessions with a different stack are excluded, and scored by event. Pre-registered: good-only cold-start below the event-count control of 0.84 per 10K supports momentum as a filter-holding mechanism, at or above it refutes momentum at this dose. Evaluation one month after install.</p>
+  <p class="thesis"><strong>Kill condition on the next arm, pre-registered here before install.</strong> Good-only exemplars (BAD halves removed), installed on a dated boundary, model recorded per turn, SessionStart stack hashed so sessions with a different stack are excluded. <strong>Unit, fixed now:</strong> primary metric is blocked-turn events per 10K prose characters; weighted catches are reported as a secondary column and do not decide the outcome. Threshold: good-only cold-start below the event control of 0.84 per 10K supports momentum as a filter-holding mechanism, at or above it refutes momentum at this dose. Evaluation one month after install. No element of this paragraph changes after install.</p>
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, not blinded. The post-install cold-start rests on 17 events in 171K prose chars, thin; the flat result is a null on a small arm, not proof of no effect. The seed was never isolated from the rest of the SessionStart stack, which the hook-hash gate on the next arm exists to fix.</p>
 

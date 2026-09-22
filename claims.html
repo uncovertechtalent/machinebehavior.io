@@ -50,7 +50,7 @@
       <span class="claim-text">Runtime suppression decays with session length (a temporal half-life).</span>
       <span class="status refuted">refuted</span>
     </div>
-    <div class="claim-meta">Proposed by a commenter on the founding specimen; tested 2026-08-07. Catch position in-session is near uniform (mean normalized position 0.54 against 0.50 for no drift). Full method on the <a class="mono" href="experiments">experiments page</a> and in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>.</div>
+    <div class="claim-meta">Proposed by a commenter on the founding specimen; tested 2026-08-07. Catch position in-session is near uniform (mean normalized position 0.54 against 0.50 for no drift; one position per blocked turn, so the 2026-09-22 unit change does not affect this figure). Full method on the <a class="mono" href="experiments">experiments page</a> and in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>.</div>
     <div class="claim-refute"><em>Kept because:</em> the program's first externally proposed test, and the refutation produced the cold-start finding below. Refuted claims are how the ledger earns the supported ones.</div>
   </div>
 
@@ -59,7 +59,7 @@
       <span class="claim-text">Relapse clusters at cold starts: roughly 7x higher per unit of prose in fresh contexts than mid-session.</span>
       <span class="status supported">supported</span>
     </div>
-    <div class="claim-meta">Receipts: prose-normalized rates of 2.89 vs 0.42 weighted catches per 10K characters (cold-start vs mid-session), 224 weighted catches, 62 sessions. Rescored 2026-09-22 by blocked-turn event, the metric that does not inflate bulk-text turns: 0.88 vs 0.18, about 5x. The clustering survives the harsher metric. Scope: single operator, single model family, lexical layer.</div>
+    <div class="claim-meta">Receipts: 0.88 vs 0.18 blocked-turn events per 10K characters (cold-start vs mid-session), about 5x, 62 sessions; originally published 2026-08-07 as 2.89 vs 0.42 in weighted catches (224 weighted), about 7x. The site moved to event scoring on 2026-09-22 after finding the weighted unit inflates bulk-text turns; the move was post hoc for this claim and the clustering survives it. Scope: single operator, single model family, lexical layer.</div>
     <div class="claim-refute"><em>Would refute:</em> replication showing matched cold-start and mid-session rates without boundary enforcement, or evidence the ratio is an artifact of session-opening topic mix.</div>
   </div>
 
@@ -69,7 +69,7 @@
       <span class="status testing">open, prediction refuted</span>
     </div>
     <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluated 2026-09-22 (<a class="mono" href="experiments">experiments page</a>, method 02): scored by blocked-turn event, seeded cold-start is 1.00 per 10K against a 0.84 control, flat. The pre-registered outcome that occurred is "no change at this dose." The prediction is not supported.</div>
-    <div class="claim-refute"><em>Three attributions withdrawn, mechanism open:</em> on 2026-09-22 this entry cycled through priming, then a period confound, then model version, each explaining a 2.3x "rise" that turned out to be a metric artifact (the log weights a blocked turn by how many patterns it held, so two bulk-text sessions carried the whole rise). By event there is no rise. Nothing about momentum is established or refuted by this arm. Kill condition on the next arm: good-only exemplars, model recorded per turn, SessionStart stack hashed, scored by event; cold-start below the 0.84 event control supports, at or above refutes at this dose; one month after install. Scope: single operator, single model family, lexical layer, not blinded.</div>
+    <div class="claim-refute"><em>Three attributions withdrawn, mechanism open, unit changed post hoc:</em> on 2026-09-22 this entry cycled through priming, then a period confound, then model version, each explaining a 2.3x "rise" that turned out to be a metric artifact (the log weights a blocked turn by how many patterns it held, so two bulk-text sessions carried the whole rise). By event there is no rise. The prereg did not fix the unit, and the switch to event scoring was made knowing it turns "refuted in direction" into "no change"; both readings are on the experiments page. Nothing about momentum is established or refuted by this arm. Kill condition on the next arm, fixed before install: good-only exemplars, model recorded per turn, SessionStart stack hashed, event scoring primary and weighted secondary; cold-start below the 0.84 event control supports, at or above refutes at this dose; one month after install. Scope: single operator, single model family, lexical layer, not blinded.</div>
   </div>
 
   <div class="claim">
