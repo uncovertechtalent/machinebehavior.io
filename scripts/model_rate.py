@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Em-dash relapse rate by model version and regime.
+"""SUPERSEDED 2026-09-22, kept as a receipt. This script sums the log's per-turn weights,
+which inflate bulk-text turns; its '30x across models' finding rested on one catch in a
+63K-char cell and was withdrawn. See scripts/exemplar.py v4 for the event-scored method.
+
+Em-dash relapse rate by model version and regime.
 
 The exemplar-seeding arm (scripts/exemplar.py) is confounded: the model roster
 shifted across the install boundary. This script measures the confound directly.

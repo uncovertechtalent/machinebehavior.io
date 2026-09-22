@@ -1,20 +1,21 @@
 #!/usr/bin/env python3
-"""Exemplar-seeding eval v2. Fixes the control-contamination bug the reviewer caught.
+"""Exemplar-seeding eval, v4: scored by EVENT (one per blocked turn), weighted shown for reference.
 
-v1 assigned each session to an arm by its first turn (t0). A session that started
-before install but ran for days then donated its later mid-session turns to the
-"pre-install" arm, so the control drifted as long-lived sessions accumulated. That
-is why pre-install mid-session read 0.83 here but 0.42 on experiment 01 (frozen
-2026-08-07).
+History of this script, kept because the register keeps its corrections:
+  v1  arm by session start. Control contaminated by long-lived sessions.
+  v2  arm by each turn's own timestamp. Fixed the control. Still weighted.
+  v3  added per-model join. Attributed the 'rise' to model version. Wrong.
+  v4  THIS. The stop-hook log records a weight per blocked turn ('em-dash x25' = 25).
+      Summing weights lets one bulk-text turn (a quoted passage, a pasted draft) count
+      as 25 relapses. 13 turns with weight >= 10 carried 40% of all weight, and two
+      sessions carried the whole post-install 'rise'. Scored by event, the arm is flat:
+      the pre-registered 'no change at this dose' outcome. Every mechanism attribution
+      from v1 to v3 (priming, period confound, model version) was explaining an artifact.
 
-v2 partitions by each TURN's own timestamp vs the install boundary. A session that
-spans install contributes its pre-install turns to the control and its post-install
-turns to the treatment. Control is frozen at the install date.
-
-Also: per-pattern cold-start breakdown, to test the priming hypothesis directly
-(priming predicts the rise is carried by em-dash, the seeded pattern).
+Reproduce: python3 scripts/exemplar.py
+Data: ~/.claude/vestige-scan.log (blocked turns) + ~/.claude/projects/*/*.jsonl (prose).
 """
-import json, re, glob, os
+import json, re, glob, os, math
 from datetime import datetime, timezone, timedelta
 
 HOME = os.path.expanduser("~")
@@ -27,25 +28,27 @@ WINDOW = timedelta(minutes=60)
 def ts_parse(s):
     return datetime.fromisoformat(s.replace("Z", "+00:00"))
 
-# ---- catches, now keeping per-pattern weights ----
 catches, cur = [], None
 for line in open(LOG):
     m = re.match(r"^(2026\S+)\s+session=(\S+)", line)
     if m:
-        cur = {"ts": ts_parse(m.group(1)), "sid": m.group(2), "w": 0, "pat": {}}
+        cur = {"ts": ts_parse(m.group(1)), "sid": m.group(2), "w": 0}
         catches.append(cur)
     elif cur is not None:
         pm = re.match(r"\s+([a-z-]+) x(\d+)", line)
         if pm:
             cur["w"] += int(pm.group(2))
-            cur["pat"][pm.group(1)] = cur["pat"].get(pm.group(1), 0) + int(pm.group(2))
 for c in catches:
-    if c["w"] == 0:
-        c["w"] = 1
+    c["w"] = c["w"] or 1
 catch_by_sid = {}
 for c in catches:
     if re.match(r"^[0-9a-f-]{36}$", c["sid"]):
         catch_by_sid.setdefault(c["sid"], []).append(c)
+
+ws = [c["w"] for c in catches]
+bulk = [w for w in ws if w >= 10]
+print(f"blocked turns: {len(ws)}   weighted sum: {sum(ws)}   "
+      f"turns with weight>=10: {len(bulk)} carrying {sum(bulk)/sum(ws):.0%} of weight")
 
 def load(path):
     turns, compacts = [], []
@@ -70,25 +73,20 @@ def load(path):
     turns.sort()
     return turns, sorted(compacts)
 
+REG = ("cold-start", "mid-session", "post-resume", "post-compaction")
 def blank():
-    return {r: {"prose": 0, "turns": 0, "catches": 0} for r in
-            ("cold-start", "mid-session", "post-resume", "post-compaction")}
+    return {r: {"prose": 0, "ev": 0, "w": 0} for r in REG}
 arms = {"pre": blank(), "post": blank()}
-# per-pattern cold-start catches by arm
-cs_pat = {"pre": {}, "post": {}}
-sess_all = set()
 
-files = [p for p in glob.glob(f"{HOME}/.claude/projects/*/*.jsonl")
-         if datetime.fromtimestamp(os.path.getmtime(p), tz=timezone.utc) >= CUTOFF]
-for path in files:
-    sid = os.path.basename(path)[:-6]
+for path in glob.glob(f"{HOME}/.claude/projects/*/*.jsonl"):
+    if datetime.fromtimestamp(os.path.getmtime(path), tz=timezone.utc) < CUTOFF:
+        continue
     turns, compacts = load(path)
     if not turns:
         continue
     t0 = turns[0][0]
     if t0 < CUTOFF:
         continue
-    sess_all.add(sid)
     regimes, resume_until, prev = [], None, None
     for ts, chars in turns:
         if compacts and ts >= compacts[0]:
@@ -104,13 +102,9 @@ for path in files:
                 r = "mid-session"
         regimes.append((ts, chars, r))
         prev = ts
-    # prose/turns by TURN timestamp arm
     for ts, chars, r in regimes:
-        arm = "pre" if ts < INSTALL else "post"
-        arms[arm][r]["prose"] += chars
-        arms[arm][r]["turns"] += 1
-    # catches: regime of last turn at-or-before catch; arm by catch ts
-    for c in catch_by_sid.get(sid, []):
+        arms["pre" if ts < INSTALL else "post"][r]["prose"] += chars
+    for c in catch_by_sid.get(os.path.basename(path)[:-6], []):
         best = None
         for ts, chars, r in regimes:
             if ts <= c["ts"]:
@@ -118,35 +112,26 @@ for path in files:
             else:
                 break
         best = best or regimes[0][2]
-        arm = "pre" if c["ts"] < INSTALL else "post"
-        arms[arm][best]["catches"] += c["w"]
-        if best == "cold-start":
-            for p, w in c["pat"].items():
-                cs_pat[arm][p] = cs_pat[arm].get(p, 0) + w
+        a = arms["pre" if c["ts"] < INSTALL else "post"][best]
+        a["ev"] += 1
+        a["w"] += c["w"]
 
-def rate(s):
-    return s["catches"] / (s["prose"] / 10000) if s["prose"] else 0
-print(f"sessions: {len(sess_all)}  (turn-level arm split at {INSTALL.isoformat()})")
-for arm in ("pre", "post"):
-    print(f"\n=== {arm}-install ===")
-    print(f"{'regime':<16}{'catches':>8}{'turns':>7}{'prose k':>9}{'per10K':>8}")
-    for r, s in arms[arm].items():
-        print(f"{r:<16}{s['catches']:>8}{s['turns']:>7}{s['prose']/1000:>9.0f}{rate(s):>8.3f}")
-cs_pre, cs_post = arms["pre"]["cold-start"], arms["post"]["cold-start"]
-print("\n--- cold-start headline ---")
-print(f"pre  {rate(cs_pre):.3f}   post {rate(cs_post):.3f}   per 10K")
-print(f"mid  pre {rate(arms['pre']['mid-session']):.3f}  post {rate(arms['post']['mid-session']):.3f}  (control should ~match exp01 0.42)")
-# Poisson 95% CI on post cold-start rate
-import math
-n = cs_post["catches"]; denom = cs_post["prose"]/10000
-if denom:
-    lo = (n - 1.96*math.sqrt(n))/denom; hi = (n + 1.96*math.sqrt(n))/denom
-    print(f"post cold-start 95% CI (Poisson on {n} counts): {lo:.2f} to {hi:.2f} per 10K")
-print("\n--- cold-start per-pattern (priming test: em-dash should carry the rise) ---")
-pk_pre = cs_pre["prose"]/10000; pk_post = cs_post["prose"]/10000
-allp = sorted(set(cs_pat["pre"]) | set(cs_pat["post"]))
-print(f"{'pattern':<26}{'pre/10K':>9}{'post/10K':>10}")
-for p in allp:
-    rp = cs_pat['pre'].get(p,0)/pk_pre if pk_pre else 0
-    rq = cs_pat['post'].get(p,0)/pk_post if pk_post else 0
-    print(f"{p:<26}{rp:>9.3f}{rq:>10.3f}")
+def rate(n, prose):
+    return n / (prose / 10000) if prose else 0
+def ci(n, prose):
+    k = prose / 10000
+    return (max(0, n - 1.96 * math.sqrt(n)) / k, (n + 1.96 * math.sqrt(n)) / k) if k else (0, 0)
+
+print(f"\n{'regime':<16}{'arm':<6}{'prose k':>8}{'events':>8}{'ev/10K':>8}{'  95% CI':>14}{'weighted/10K':>14}")
+for r in REG[:3]:
+    for arm in ("pre", "post"):
+        s = arms[arm][r]
+        if s["prose"] < 10000:
+            continue
+        lo, hi = ci(s["ev"], s["prose"])
+        print(f"{r:<16}{arm:<6}{s['prose']/1000:>8.0f}{s['ev']:>8}{rate(s['ev'], s['prose']):>8.2f}"
+              f"{lo:>7.2f}-{hi:<6.2f}{rate(s['w'], s['prose']):>14.2f}")
+cs = arms["pre"]["cold-start"], arms["post"]["cold-start"]
+print(f"\nheadline (by event): cold-start pre {rate(cs[0]['ev'], cs[0]['prose']):.2f}  post "
+      f"{rate(cs[1]['ev'], cs[1]['prose']):.2f} per 10K. Prediction was a fall toward 0.42-equivalent; "
+      f"outcome is the pre-registered 'no change at this dose'.")

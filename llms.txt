@@ -8,14 +8,14 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 
 - Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.
 - The fawn response in language models is a byproduct of approval training; suppressing it at the prompt layer produces relapse, logged at 8 documented instances in nine days with zero self-catches.
-- Runtime suppression shows no temporal half-life; relapse clusters at cold starts, roughly 7x higher per unit of prose in fresh contexts. Behavioral momentum (the model imitating its own recent corrected output) was proposed as the operative control; the seeding test refuted its prediction in direction and is confounded by model version, so the mechanism is open. Em-dash relapse is set largely by model version, about 30x across models.
+- Runtime suppression shows no temporal half-life; relapse clusters at cold starts, roughly 5x higher per unit of prose in fresh contexts by blocked-turn event (7x by weighted count). Behavioral momentum (the model imitating its own recent corrected output) was proposed as the operative control; the exemplar-seeding test showed no change at its dose, and three earlier attributions (priming, period confound, model version) were withdrawn as a metric artifact. The mechanism is open.
 - Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.
 - Proposed: the "conspiracy theory" label in model output is corpus-inherited classification rather than evidence-checking; the countermeasure is a label gate, four form questions scored at the output boundary before the label stands.
 
 ## Pages
 
 - [Claims ledger](https://machinebehavior.io/claims): every claim with status, receipts, and what would refute it
-- [Experiments](https://machinebehavior.io/experiments): the half-life study, the exemplar-seeding result (refuted in direction, confounded by model version), and the em-dash-by-model breakdown
+- [Experiments](https://machinebehavior.io/experiments): the half-life study, and the exemplar-seeding result (no change at this dose; the record of three withdrawn attributions and the metric bug behind them)
 - [Terms](https://machinebehavior.io/terms): canonical definitions, frozen wording
 
 ## Primary sources

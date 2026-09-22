@@ -42,44 +42,35 @@
   </table>
   </div>
 
-  <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial, and the surviving 7x is the finding. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression does not decay with time, it clusters at context loss. <a class="mono" href="terms">Behavioral momentum</a> (the model imitating its own recent corrected output) was proposed as the operative control, but experiment 02 could not confirm it and its status is open; see the <a class="mono" href="claims">claims ledger</a>. This cold-start clustering result stands on its own regardless of that mechanism question.</p>
+  <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial. A second correction (2026-09-22, see 02) found the log's weighting inflates bulk-text turns; scored by blocked-turn event instead of weight, the ratio is about 5x (0.88 vs 0.18 per 10K). The finding survives the harsher metric, so "roughly 5x by event, 7x weighted" is the honest figure. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression does not decay with time, it clusters at context loss. <a class="mono" href="terms">Behavioral momentum</a> (the model imitating its own recent corrected output) was proposed as the operative control, but experiment 02 could not confirm it and its status is open; see the <a class="mono" href="claims">claims ledger</a>. This cold-start clustering result stands on its own regardless of that mechanism question.</p>
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p>
 
-  <h2>02: Exemplar seeding (result: prediction refuted in direction; the confound is model version)</h2>
+  <h2>02: Exemplar seeding (result: no change at this dose; three earlier attributions withdrawn)</h2>
 
-  <p class="thesis"><strong>Prediction, committed 2026-08-07 in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>:</strong> injecting two corrected-output exemplar pairs at session start substitutes for the momentum a fresh context lacks, pulling cold-start relapse from 2.89 toward 0.42 per 10K characters.</p>
+  <p class="thesis"><strong>Prediction, committed 2026-08-07 in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>:</strong> injecting two corrected-output exemplar pairs at session start substitutes for the momentum a fresh context lacks, pulling cold-start relapse from 2.89 toward 0.42 per 10K characters. Three outcomes were pre-registered: a drop supports the momentum mechanism, no change weakens it at this dose, a rise indicts bad-example leakage.</p>
 
-  <p class="thesis"><strong>Arm.</strong> A SessionStart hook injected the two pairs into every session from 2026-08-07T18:28+02:00. Evaluation reran 2026-09-22 (<a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">scripts/exemplar.py</a>). Each assistant turn is assigned to an arm by its own timestamp against the install boundary, so a session that spans the boundary donates its earlier turns to the control and its later turns to the treatment. This matters: an earlier version split by session start, which let long-lived pre-install sessions leak later turns into the control and moved the mid-session control to 0.83. The turn-level split reproduces the low mid-session control (0.35 here against 0.42 on experiment 01), so it is the sound partition and the numbers below supersede the first run.</p>
+  <p class="thesis"><strong>Arm.</strong> A SessionStart hook injected the two pairs into every session from 2026-08-07T18:28+02:00. Evaluation 2026-09-22 (<a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">scripts/exemplar.py</a>): each assistant turn is assigned to an arm by its own timestamp against the install boundary, so the control is frozen at the install date.</p>
 
-  <div class="tablewrap">
-  <table>
-    <tr><th>regime</th><th>pre-install /10K</th><th>post-install /10K</th><th>factor</th></tr>
-    <tr><td>cold-start</td><td class="n">3.02</td><td class="n">6.88</td><td class="n">2.3x</td></tr>
-    <tr><td>mid-session</td><td class="n">0.35</td><td class="n">0.90</td><td class="n">2.6x</td></tr>
-    <tr><td>post-resume</td><td class="n">0.50</td><td class="n">1.29</td><td class="n">2.6x</td></tr>
-  </table>
-  </div>
-
-  <p class="thesis"><strong>Result: the prediction fails in direction.</strong> Seeded cold-start relapse did not fall toward 0.42. It rose to about 6.9 per 10K, roughly 2.3x the control, with a 95% Poisson interval of 5.6 to 8.1 on 117 counts, so the lower bound still sits well above the 3.02 control. The direction is safe; the point estimate is provisional on a thin post-install denominator and is not quoted to more precision than that.</p>
-
-  <p class="thesis"><strong>The confound is model version, and the first writeup overreached by blaming the seed.</strong> The earlier reading blamed bad-example leakage: both BAD halves of the seeded pairs contain the em-dash, so the seed puts the banned token into the context the model imitates. Priming from a session-start seed predicts an effect concentrated at cold-start that fades by mid-session. That is not what happened; every regime rose by a similar factor (cold-start 2.3x, mid-session and post-resume 2.6x), which is the signature of a period-level change, not a decaying seed. Joining each catch to the model that produced it (<a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">scripts/model_rate.py</a>) identifies the change: em-dash relapse is a property of the model version, and the roster shifted across the install boundary.</p>
+  <p class="thesis"><strong>The metric was the bug, and this page carried three wrong readings in one day before it was found.</strong> The stop-hook log records a weight per blocked turn: <span class="mono">em-dash x25</span> counts as 25. Every rate on this site summed those weights. One bulk-text turn, a quoted passage or a pasted draft, then counts as 25 relapses. Across the whole log, 13 turns with weight of ten or more carry 40% of all weight, and two sessions carried the entire post-install "rise" that the first three writeups were explaining. Scored by event, one per blocked turn, the arm is flat.</p>
 
   <div class="tablewrap">
   <table>
-    <tr><th>model</th><th>cold-start em-dash /10K</th></tr>
-    <tr><td>claude-fable-5</td><td class="n">4.75</td></tr>
-    <tr><td>claude-opus-4-8</td><td class="n">4.53</td></tr>
-    <tr><td>claude-opus-5</td><td class="n">3.44</td></tr>
-    <tr><td>claude-fable-5-1</td><td class="n">0.16</td></tr>
+    <tr><th>regime</th><th>arm</th><th>events</th><th>prose kchars</th><th>events /10K</th><th>weighted /10K (superseded)</th></tr>
+    <tr><td>cold-start</td><td>pre-install</td><td class="n">36</td><td class="n">427</td><td class="n">0.84</td><td class="n">3.02</td></tr>
+    <tr><td>cold-start</td><td>post-install</td><td class="n">17</td><td class="n">171</td><td class="n">1.00</td><td class="n">6.86</td></tr>
+    <tr><td>mid-session</td><td>pre-install</td><td class="n">10</td><td class="n">573</td><td class="n">0.17</td><td class="n">0.35</td></tr>
+    <tr><td>mid-session</td><td>post-install</td><td class="n">16</td><td class="n">815</td><td class="n">0.20</td><td class="n">0.87</td></tr>
   </table>
   </div>
 
-  <p class="thesis">The spread across models is about 30x, an order of magnitude larger than the 2.3x arm difference, and the pre-install arm is fable-5 heavy while the post-install arm brings in opus-5 and then fable-5-1. So the exemplar arm cannot be read as a seed effect; it is dominated by which models ran in each arm. One caveat kept honest: fable-5-1 appears only from September, so its near-zero rate is confounded with its era; the opus-4-8, opus-5 and fable-5 rows overlap in time and still separate by model. This also speaks to the two-controls claim: the gate kept catching throughout, but the upstream rate it catches is set by the model, and it moved because the model moved.</p>
+  <p class="thesis"><strong>Result: no change at this dose.</strong> By event, seeded cold-start relapse is 1.00 per 10K against a 0.84 control, 17 events against 36, an interval that comfortably contains no difference. The prediction (a fall toward the mid-session rate) is not supported. The "rise" reported earlier in this section does not exist; it was two bulk-text sessions multiplied by the weighting. This is the pre-registered middle outcome: it weakens the momentum mechanism at this dose and settles nothing about it.</p>
 
-  <p class="thesis"><strong>What stands, and the kill condition.</strong> Seeding did not do what it was predicted to do; the prediction is cleanly refuted. Whether behavioral momentum is the operative control is open, not settled, because the seed was never separated from the model roster. The experiment is parked until the next arm runs it clean: good-only exemplars (BAD halves removed), installed on a dated boundary, with the model pinned per turn and the SessionStart stack hashed so sessions whose stack differs are excluded. Pre-registered: good-only cold-start below 3.02 supports momentum as a filter-holding mechanism, at or above 3.02 refutes it at this dose. Evaluation one month after install.</p>
+  <p class="thesis"><strong>Withdrawn, in order.</strong> First reading: the seed primed the em-dash from the BAD exemplar halves. Second: a period-level confound, since every regime rose together. Third: model version, from a per-model join that showed a 30x spread. All three explained a rise that was an artifact of the metric; the 30x rested on one catch in a 63K-char cell. None survives, and none is needed. Whether behavioral momentum is the operative control is open, and this experiment does not move it. The lesson the register keeps: validate the metric before attributing the effect.</p>
 
-  <p class="thesis"><strong>Named limits.</strong> Single operator, not blinded. The post-install cold-start rests on 170K prose chars, thin; the point estimate is not load-bearing until roughly another month of seeded data, though the direction survives the interval above. The seed was never isolated from the rest of the SessionStart stack, which is the confound the good-only arm must control, not just repeat.</p>
+  <p class="thesis"><strong>Kill condition on the next arm.</strong> Good-only exemplars (BAD halves removed), installed on a dated boundary, model recorded per turn, SessionStart stack hashed so sessions with a different stack are excluded, and scored by event. Pre-registered: good-only cold-start below the event-count control of 0.84 per 10K supports momentum as a filter-holding mechanism, at or above it refutes momentum at this dose. Evaluation one month after install.</p>
+
+  <p class="thesis"><strong>Named limits.</strong> Single operator, not blinded. The post-install cold-start rests on 17 events in 171K prose chars, thin; the flat result is a null on a small arm, not proof of no effect. The seed was never isolated from the rest of the SessionStart stack, which the hook-hash gate on the next arm exists to fix.</p>
 
   <div class="footer">
     <span class="sig">Stefan Coetzee, 2026</span>

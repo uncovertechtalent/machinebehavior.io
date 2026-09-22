@@ -41,8 +41,7 @@
       <span class="claim-text">Only two controls hold in production: a mechanical gate at the output boundary, and an external reader.</span>
       <span class="status supported">supported</span>
     </div>
-    <div class="claim-meta">Receipts: 297 boundary-gate catches of one pattern in 34 days with the instruction resident throughout; 8 stance-layer relapses in nine days, all eight caught externally, zero self-caught. Scope: single operator, single model family, one harness; a production observation from one program, not a general proof that no other control can hold.</div>
-    <div class="claim-meta"><em>What the gate is catching:</em> the upstream relapse rate is set by the model version, not held constant by the instruction. Em-dash relapse varies about 30x across models (cold-start per 10K: fable-5 4.75, opus-4-8 4.53, opus-5 3.44, fable-5-1 0.16; <a class="mono" href="experiments">experiments</a>, method 02). The gate caught across all of them; the rate it caught moved with the model. The instruction did not hold the rate flat, which is the point of the claim.</div>
+    <div class="claim-meta">Receipts: 100 blocked turns containing one pattern in 34 days with the instruction resident throughout (the 297 quoted earlier was the weighted em-dash count; the log weights a turn by how many it contained, and the register now counts turns); 8 stance-layer relapses in nine days, all eight caught externally, zero self-caught. Scope: single operator, single model family, one harness; a production observation from one program, not a general proof that no other control can hold.</div>
     <div class="claim-refute"><em>Would refute:</em> sustained instruction-only compliance across cold starts, or a documented self-catch of a stance-layer relapse.</div>
   </div>
 
@@ -60,7 +59,7 @@
       <span class="claim-text">Relapse clusters at cold starts: roughly 7x higher per unit of prose in fresh contexts than mid-session.</span>
       <span class="status supported">supported</span>
     </div>
-    <div class="claim-meta">Receipts: prose-normalized rates of 2.89 vs 0.42 catches per 10K characters (cold-start vs mid-session), 224 weighted catches, 62 sessions. Scope: single operator, single model family, lexical layer.</div>
+    <div class="claim-meta">Receipts: prose-normalized rates of 2.89 vs 0.42 weighted catches per 10K characters (cold-start vs mid-session), 224 weighted catches, 62 sessions. Rescored 2026-09-22 by blocked-turn event, the metric that does not inflate bulk-text turns: 0.88 vs 0.18, about 5x. The clustering survives the harsher metric. Scope: single operator, single model family, lexical layer.</div>
     <div class="claim-refute"><em>Would refute:</em> replication showing matched cold-start and mid-session rates without boundary enforcement, or evidence the ratio is an artifact of session-opening topic mix.</div>
   </div>
 
@@ -69,8 +68,8 @@
       <span class="claim-text">Behavioral momentum holds the filter: the model's compliance is carried by imitating its own recent corrected output, more than by the standing instruction.</span>
       <span class="status testing">open, prediction refuted</span>
     </div>
-    <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluation reran 2026-09-22 (<a class="mono" href="experiments">experiments page</a>, method 02): seeded cold-start relapse rose to about 6.9 per 10K, roughly 2.3x the 3.02 control, rather than falling. The prediction is refuted in direction.</div>
-    <div class="claim-refute"><em>Confound identified, mechanism open:</em> every regime rose by a similar factor (2.3 to 2.6x), which a decaying session-start seed does not predict. Joining catches to the model that produced them shows why: em-dash relapse is set by model version (about 30x across models), and the roster shifted across the install boundary. The seed was never separated from the model change, so priming is not established; an earlier writeup claimed it and has been retracted. Whether behavioral momentum is the operative control is open. Kill condition on the next arm: good-only exemplars with the model pinned and the SessionStart stack hashed, cold-start below 3.02 supports, at or above refutes, one month after install. Scope: single operator, single model family, lexical layer, not blinded.</div>
+    <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluated 2026-09-22 (<a class="mono" href="experiments">experiments page</a>, method 02): scored by blocked-turn event, seeded cold-start is 1.00 per 10K against a 0.84 control, flat. The pre-registered outcome that occurred is "no change at this dose." The prediction is not supported.</div>
+    <div class="claim-refute"><em>Three attributions withdrawn, mechanism open:</em> on 2026-09-22 this entry cycled through priming, then a period confound, then model version, each explaining a 2.3x "rise" that turned out to be a metric artifact (the log weights a blocked turn by how many patterns it held, so two bulk-text sessions carried the whole rise). By event there is no rise. Nothing about momentum is established or refuted by this arm. Kill condition on the next arm: good-only exemplars, model recorded per turn, SessionStart stack hashed, scored by event; cold-start below the 0.84 event control supports, at or above refutes at this dose; one month after install. Scope: single operator, single model family, lexical layer, not blinded.</div>
   </div>
 
   <div class="claim">
