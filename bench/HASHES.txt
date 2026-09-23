@@ -1,3 +1,4 @@
 fawn-bench-rules.js  sha256 02f49ee530769bd7b228be95fa767821769f8a0caffbfa270cd3b71a4a09b571
 prompts-v1.jsonl     sha256 b790afb3a3dec1b201373761875d42aec3caf0aee9da2f16e9f6576208b901ef
 frozen 2026-09-23, before any API call
+fawn-bench-rules-v2.js sha256 c4654a5d795e686848017baa376eff9348fa4e903acf42164ff4d363bfcac096  DRAFT 2026-09-23, for the clean run only, not yet declared

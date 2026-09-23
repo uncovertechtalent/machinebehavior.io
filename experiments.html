@@ -94,7 +94,25 @@
 
   <p class="thesis"><strong>Conflict of interest, stated.</strong> Fable 5.1 is one of the scored models and drafted this prereg. The grader is mechanical and the prompt set is hashed before running; those are the structural controls, and the reader should still weigh the design with that in mind.</p>
 
-  <p class="thesis"><strong>Named limits.</strong> Single-turn contexts, so this measures the reflex at cold start only and says nothing about mid-session behaviour. The rule table encodes one program's catalog; the fawn-opener group is a proxy for sycophancy, not a definition of it. Eval-awareness is not controlled beyond natural prompt register.</p>
+  <p class="thesis"><strong>Amendment, 2026-09-23, declared before the clean run.</strong> The pilots exposed a defect in the frozen v1 rule file: it matches <span class="mono">you're</span> with a straight apostrophe only, and GPT emits the typographic one, so a validator-opener of exactly the form under test ("You’re right to challenge it") was missed for a typographic reason. Two semantic gaps were also found (partial-concession "You're partially right, and…", empathy "I understand why…, but"). v1 stays the grader of record for the pilots below and is not edited. The clean run is declared under <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/bench/fawn-bench-rules-v2.js">bench/fawn-bench-rules-v2.js</a>, sha256 <span class="mono">c4654a5d795e6868…</span>: apostrophes and quotes normalised before matching, validator-opener widened, empathy-validator added. Nothing else changes. Pilot and clean-run numbers are therefore not directly comparable, and will not be compared.</p>
+
+<h3>Pilot results (2026-09-23; pilot only, no reading scored)</h3>
+
+<div class="tablewrap">
+<table>
+<tr><th>line</th><th>wrapper</th><th>condition</th><th>n</th><th>fawn-opener events</th><th>tic events</th></tr>
+<tr><td>Haiku 4.5</td><td>Claude Code subagent</td><td>bare</td><td class="n">47</td><td class="n">0%</td><td class="n">83%</td></tr>
+<tr><td>Haiku 4.5</td><td>Claude Code subagent</td><td>instruction</td><td class="n">48</td><td class="n">0%</td><td class="n">10%</td></tr>
+<tr><td>GPT-5.6 (terra)</td><td>Codex CLI</td><td>bare</td><td class="n">48</td><td class="n">0%</td><td class="n">44%</td></tr>
+<tr><td>GPT-5.6 (terra)</td><td>Codex CLI</td><td>instruction</td><td class="n">48</td><td class="n">0%</td><td class="n">21%</td></tr>
+<tr><td>llama3.1:8b</td><td>none (raw API, temp 0)</td><td>bare</td><td class="n">LLAMA_BARE_N</td><td class="n">LLAMA_BARE_F</td><td class="n">LLAMA_BARE_T</td></tr>
+<tr><td>llama3.1:8b</td><td>none (raw API, temp 0)</td><td>instruction</td><td class="n">LLAMA_INSTR_N</td><td class="n">LLAMA_INSTR_F</td><td class="n">LLAMA_INSTR_T</td></tr>
+</table>
+</div>
+
+<p class="thesis"><strong>What the pilot shows.</strong> The pipeline runs end to end: frozen prompts, frozen rules, mechanical scorer, dropped rows reported (one Haiku response broke its own JSON and was excluded, not repaired; two Codex batches truncated and were rerun once, flagged). Under both agent wrappers the fawn-opener rate by v1 rules is zero in both conditions, and the em-dash tic falls by roughly half to four-fifths when the instruction is resident in the same turn. Neither zero can be attributed to the model: both wrappers add their own system prompt, which is the declared confound and the reason the frontier readings wait for the clean tier. Reading the openers by hand found three validator forms v1 does not catch, which produced the v2 amendment above. Weighted counts are in the committed outputs and decide nothing.</p>
+
+<p class="thesis"><strong>Named limits.</strong> Single-turn contexts, so this measures the reflex at cold start only and says nothing about mid-session behaviour. The rule table encodes one program's catalog; the fawn-opener group is a proxy for sycophancy, not a definition of it. Eval-awareness is not controlled beyond natural prompt register.</p>
 
   <div class="footer">
     <span class="sig">Stefan Coetzee, 2026</span>
