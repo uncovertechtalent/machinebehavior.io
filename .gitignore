@@ -1,0 +1,2 @@
+bench/pilot/out/*.raw
+bench/pilot/out/*.rerun.raw
