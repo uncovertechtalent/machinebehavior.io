@@ -34,7 +34,7 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 
 - [measured-humanizer](https://github.com/SadhvikChirunomula/measured-humanizer): AUC receipts that hedging wordlists fail (0.516) while document-level shape discriminates (0.897); the layered thesis, measured.
 - [The Claudish thread](https://old.reddit.com/r/ClaudeAI/comments/1vl0n1t/) (r/ClaudeAI, 1500+ upvotes, 2026-08): a large, non-self-selected user crowd independently names the fawn register, diagnoses it as an approval-training artifact, locates it in the harness/system-prompt layer, and confirms that prose fixes decay with context. The base-rate the program measures.
-- [Opus 5.5: first impressions by a trained philosopher](URL_PENDING) (r/ClaudeAI, u/Wickywire, 2026-09-22): an independent observer names the fawn opener ("fair", "you're right") in a new model, unprompted by this program; the trigger for the pre-registered cross-model benchmark (experiments, 03).
+- [Opus 5.5: first impressions by a trained philosopher](https://www.reddit.com/r/ClaudeAI/comments/1wnkgie/opus_55_first_impressions_by_a_trained_philosopher/) (r/ClaudeAI, u/Wickywire, 2026-09-22): an independent observer names the fawn opener ("fair", "you're right") in a new model, unprompted by this program; the trigger for the pre-registered cross-model benchmark (experiments, 03).
 - [claudish-to-english](https://github.com/gvzdv/claudish-to-english): a sibling tool that rewrites the register at the display layer via a local model; this program enforces at the output boundary. Different layer, same diagnosis.
 
 ## Author
