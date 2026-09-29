@@ -36,6 +36,7 @@ page = f'''<!doctype html>
     <a href="./">machine behavior</a>
     <a href="claims">claims</a>
     <a href="experiments">experiments</a>
+    <a href="objections">objections</a>
     <a href="terms">terms</a>
   </nav>
 

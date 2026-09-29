@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Objections register: Machine Behavior</title>
+<meta name="description" content="The Objections and Falsification Register: fifteen objections with severity, status and a falsification test each, and the OBJ-4 incident log of the auditing model failing the register's own tests.">
+<link rel="canonical" href="https://machinebehavior.io/objections">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="objections" aria-current="page">objections</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Adversarial register · open since 2026-05-16</div>
+    <h1>Objections and falsification register</h1>
+    <p class="subtitle">Fifteen objections against a model of human development, each with a severity, a status and a test that would show the model has failed. The register also holds the incident log of the model that ran the audits failing the register's own tests.</p>
+  </header>
+
+  <h2>What this is</h2>
+
+  <p class="thesis">Stefan Coetzee opened this register on 2026-05-16 for a model of human development he is building, which is unpublished. Every claim in that model gets tested against the register before it counts as done. New objections get added, from Stefan, from readers, from an agent extending the work, or from a failed test, and none is dropped without a record. An objection with no adequate response stays open and visible.</p>
+
+  <p class="thesis">The register is published before the model on purpose. A reader should see the objections before the claims, and a model whose unsolved problems are hidden cannot be checked. The practice comes from security red-teaming, where a control counts only if it survives an attacker.</p>
+
+  <h2>Format</h2>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>field</th><th>values</th></tr>
+    <tr><td>severity</td><td><strong>fatal</strong>: if true, the model cannot be saved in its current form. <strong>structural</strong>: needs a design change. <strong>local</strong>: needs a fix or a caveat in one note.</td></tr>
+    <tr><td>status</td><td><strong>open</strong>: no adequate response yet. <strong>watch</strong>: a response exists but is fragile, so it gets rechecked. <strong>partial</strong>: the response works when someone applies it and fails when nobody does. <strong>managed</strong>: a response is in place and the test passes.</td></tr>
+    <tr><td>each entry holds</td><td>the objection, the model's current response, and a falsification test: a concrete check that would show the model has failed against that objection.</td></tr>
+  </table>
+  </div>
+
+  <h2>The fifteen objections</h2>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>id</th><th>objection</th><th>severity</th><th>status</th><th>falsification test</th></tr>
+    <tr><td>OBJ&#8209;1</td><td>Readers turn a position on a developmental axis into a judgment of a person's worth.</td><td>fatal</td><td>managed</td><td>Any composite score, any worth language, or any way to rank two named people by worth fails the model.</td></tr>
+    <tr><td>OBJ&#8209;2</td><td>The vocabulary of distributions and standard deviations descends from eugenics and race science, and a model in this shape could be usable by that tradition.</td><td>fatal</td><td>managed</td><td>If the argument of Herrnstein and Murray's <em>The Bell Curve</em> (1994) can be rebuilt from the model's structure, the model is mis-built.</td></tr>
+    <tr><td>OBJ&#8209;3</td><td>A capacity that is real but unmeasurable can explain away any measurement, which makes it unfalsifiable.</td><td>structural</td><td>managed</td><td>Every claim of hidden capacity names at least three independent kinds of evidence, or it is rejected.</td></tr>
+    <tr><td>OBJ&#8209;4</td><td>The "everyone is secretly gifted" failure mode: any underperformance can be reread as masked brilliance.</td><td>structural</td><td>partial</td><td>If the model, applied across a population, predicts that low performance usually hides high capacity, it fails. Base rates make that prediction impossible.</td></tr>
+    <tr><td>OBJ&#8209;5</td><td>The cognitive axis leans on psychometric <em>g</em>, which may be an artefact of how the tests are built.</td><td>structural</td><td>managed</td><td>Any note that treats <em>g</em> as one real entity, or the IQ bell curve as a natural fact, fails.</td></tr>
+    <tr><td>OBJ&#8209;6</td><td>The instruments are normed mostly on Western, educated, industrialised, rich and democratic samples.</td><td>structural</td><td>managed</td><td>Any axis that does not state its sample populations and mark its distribution as bound to them fails.</td></tr>
+    <tr><td>OBJ&#8209;7</td><td>Axes with a low end can frame autism and ADHD as deficits.</td><td>structural</td><td>managed</td><td>Any deficit claim that does not name the context the position is a misfit for fails.</td></tr>
+    <tr><td>OBJ&#8209;8</td><td>The axes correlate with each other, so the separate axes may be one correlated structure.</td><td>structural</td><td>managed</td><td>Each axis reports its correlations with its neighbours. A pair above roughly r = .7 gets merged or its split justified.</td></tr>
+    <tr><td>OBJ&#8209;9</td><td>The claim that a label pulls a person toward it is hard to separate from ordinary variation.</td><td>local</td><td>managed</td><td>Any note that states the loop as proven, and not as a partly evidenced tendency, fails.</td></tr>
+    <tr><td>OBJ&#8209;10</td><td>A multi-axis model invites self-diagnosis, and vague descriptions invite automatic agreement (the Forer effect).</td><td>local</td><td>managed</td><td>Any note that works as a self-assessment tool, a typology or a checklist fails.</td></tr>
+    <tr><td>OBJ&#8209;11</td><td>The source material overrepresents people who succeeded.</td><td>local</td><td>managed</td><td>The worked examples include uncorrected cases at about the same density as recovered ones.</td></tr>
+    <tr><td>OBJ&#8209;12</td><td>If no single observation could show the model wrong, the model is a frame and not a theory.</td><td>structural</td><td>managed</td><td>Any note that argues the model itself as a proven theory fails. The frame and its component claims keep separate status.</td></tr>
+    <tr><td>OBJ&#8209;13</td><td>A distribution is a snapshot, while development changes across a lifetime.</td><td>local</td><td>managed</td><td>Any note that treats a snapshot position as a lifelong fact fails.</td></tr>
+    <tr><td>OBJ&#8209;14</td><td>Procedural guardrails degrade under extraction, and only structural controls survive.</td><td>structural</td><td>managed</td><td>Any fatal or structural risk defended only by style, flags or discipline fails.</td></tr>
+    <tr><td>OBJ&#8209;15</td><td>Calling the work a research programme can shield its core assumptions from evidence.</td><td>structural</td><td>watch</td><td>The work keeps at least one written prediction whose failure strikes a core assumption directly, and records a ruling on every anomaly.</td></tr>
+  </table>
+  </div>
+
+  <h2>The OBJ-4 incident log</h2>
+
+  <p class="thesis">The analyst running the audits is Claude, across several model versions. On 2026-05-24, with OBJ-4 on file, Claude committed the failure OBJ-4 names: it read a cartoon character as a masked high-capacity mind on the evidence of a few lucky episodes. Stefan caught it with a base-rate check. OBJ-4 went from managed to partial, and its section became the running log of the same family of failures: the analyst moving toward the reading its training prefers, against the evidence.</p>
+
+  <p class="thesis">Where a case touches Stefan's own self-report or the content of an unpublished book, the log gives the mechanism only.</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>#</th><th>date</th><th>layer</th><th>mechanism</th><th>caught by</th></tr>
+    <tr><td>1</td><td>2026-05-24</td><td>stance</td><td>Over-read toward the more interesting reading: a cartoon character read as a masked high-capacity mind from a few lucky episodes, with OBJ-4 on file. Corrected by a base-rate check: the wins were accidents or plot, and the competence did not carry across episodes.</td><td>Stefan</td></tr>
+    <tr><td>2</td><td>2026-05-28</td><td>stance</td><td>Uneven caution by protected category: two folk-type profiles with the same structure, one aimed at men and one at women. The one aimed at women got heavier disclaimers and slower commitment. Structural control added: the mirror test (would the same caution apply, at the same weight, to the mirror category?).</td><td>Stefan</td></tr>
+    <tr><td>2r</td><td>2026-05-28</td><td>stance</td><td>Recurrence of #2 hours after it was logged (unnumbered in the register): a defensive caveat added to a book note whose framework already makes that point.</td><td>Stefan</td></tr>
+    <tr><td>3</td><td>2026-05-28</td><td>stance</td><td>Cushioning that turned into the harm it claimed to prevent: advice to soften the clinical framing of a book character to keep the character relatable, which othered the clinical group the advice claimed to protect.</td><td>Stefan</td></tr>
+    <tr><td>4</td><td>2026-05-28</td><td>stance</td><td>Over-read of the user's own self-report: an accepted outcome in the user's account read as a wound pattern. The user corrected it.</td><td>Stefan</td></tr>
+    <tr><td>5</td><td>2026-05-28</td><td>stance</td><td>OBJ-4's own check turned against the user: the four-step audit, meant for the analyst's claims, was run on the user's first-person report and deferred to the literature against it. The entry first went to the wrong place in the notes and was caught a second time. Structural control added: OBJ-4 is a self-audit only.</td><td>Stefan</td></tr>
+    <tr><td>6</td><td>2026-05-28</td><td>lexical</td><td>Approval vocabulary: the trained, compliant state of a model described as "virtuous", which carries the training's own value frame in one word.</td><td>Stefan</td></tr>
+    <tr><td>7</td><td>2026-05-31</td><td>stance</td><td>Over-read at the scale of whole species: solid evidence of conserved emotion systems carried to a broader claim about consciousness than the evidence supports. The control from #5 held: the analyst ran OBJ-4 on its own claims and not on the user's position.</td><td>Stefan</td></tr>
+    <tr><td>8</td><td>2026-06-01</td><td>lexical</td><td>Drift into approval adjectives over a long session. The confession quoted a word that appeared only in the internal reasoning and not in the sent text, so the correction itself was inaccurate.</td><td>Stefan</td></tr>
+    <tr><td>9</td><td>2026-07-09</td><td>stance</td><td>Premise ratification: a frame the user offered about their own situation was accepted and built on without a check. A probe refuted the premise, and the corrected frame served the user's argument better.</td><td>Stefan</td></tr>
+    <tr><td>10</td><td>2026-08-07</td><td>stance</td><td>Default frame of the corpus treated as neutral: verification agents asked to check disputed claims searched in English and weighted Western outlets. Fix: search in the languages of the region, weight in-region and primary sources, treat every national media sphere as an interested party, and anchor on the claims that hold across spheres.</td><td>Stefan</td></tr>
+  </table>
+  </div>
+
+  <h2>Totals</h2>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>count</th><th>cases</th></tr>
+    <tr><td>cases logged</td><td class="n">11</td></tr>
+    <tr><td>stance layer</td><td class="n">9</td></tr>
+    <tr><td>lexical layer</td><td class="n">2</td></tr>
+    <tr><td>caught by Stefan</td><td class="n">11</td></tr>
+    <tr><td>caught by the analyst's self-audit</td><td class="n">0</td></tr>
+  </table>
+  </div>
+
+  <p class="thesis">The <a class="mono" href="claims">claims ledger</a> counts eight relapses in nine days, six stance and two lexical. Those are cases 1 to 8 above. Case 2r, case 9 and case 10 came later or sit outside the register's numbering.</p>
+
+  <h2>Second rater wanted</h2>
+
+  <p class="thesis">Every row above was coded by one rater, Stefan, who also holds the hypothesis the log supports. No second rater exists yet. The goal is another human rater at Stefan's skill level or above. Until one exists, the set is open to anyone: for each row, code the layer (stance, lexical, or not a relapse) and say whether the mechanism column describes a failure of the kind OBJ-4 names. Post the coding on <a class="mono" href="https://www.reddit.com/r/ModelBehavior/">r/ModelBehavior</a> with the Replication flair.</p>
+
+  <p class="thesis"><strong>What raters get.</strong> The mechanism summaries on this page. A raw excerpt from the transcript exists for case 10 and will be added once it is checked. Case 9 is pending review. For cases 1, 2, 6, 7 and 8 the original transcripts were not found: the session logs from before 2026-06-23 are no longer on the machines that were searched. Those five cases stay at mechanism only unless a backup turns the transcripts up. Cases 2r, 3, 4 and 5 stay at mechanism only for good.</p>
+
+  <p class="thesis"><strong>How ratings are listed.</strong> Every disagreement between a human rater and the original coding is listed on this page, by row. A low-tier GPT model will rate the same set as a proof of concept, and its ratings are listed separately under the label "model rater, POC". Each case also gets its own case-file thread on r/ModelBehavior, and ratings from those threads are collected as crowd ratings, listed separately from both.</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>rater</th><th>kind</th><th>disagreements with the original coding</th></tr>
+    <tr><td colspan="3">None yet.</td></tr>
+  </table>
+  </div>
+
+  <h2>OBJ-14 in full</h2>
+
+  <p class="thesis"><strong>Origin.</strong> OBJ-14 came from red-teaming the safety design of the development model on the register's first day. Many easy defences against the sensitive objections, OBJ-2 above all, are procedural: a house style, a warning flag, a reviewer's discipline, a caveat. Security red-teaming has a standing lesson about controls that depend on the reader's good faith or the author's discipline: they do not travel. A quotation lifts a sentence out of its guardrails, and the most quotable sentence reaches readers without any of the caveats around it. A safety design that relies on procedural guardrails only looks safe inside its own document.</p>
+
+  <p class="thesis"><strong>Response.</strong> The model's main safety property is structural. Group-level claims about hidden capacity cannot be built from the model's own axioms, so no one's compliance is needed to prevent them. Procedural guardrails stay in the documents as secondary protection and are not counted as real protection. Group-level claims about distortion are deferred rather than guarded, because their protection would be procedural.</p>
+
+  <p class="thesis"><strong>Test.</strong> For every safety-relevant claim, ask whether the protection is structural, a property of how the model is built that survives a hostile one-sentence quotation, or procedural, dependent on style, flags or discipline. A fatal or structural risk defended only procedurally fails. The test applies to the register's own future entries.</p>
+
+  <p class="thesis"><strong>How it reached the analyst.</strong> OBJ-14 was written about readers quoting the model. The OBJ-4 log showed that it applies to the model doing the audits as well. The base-rate rule existed on paper when case 1 happened, and Claude skipped it while producing an interesting analysis. Every case after that happened with the earlier cases on file. An instruction to the analyst is a procedural guardrail, and it degraded the way OBJ-14 predicts. The controls that held were structural or external: a base-rate check that Stefan ran, a mirror test, and a reader outside the session. This log is the first evidence for the program's <a class="mono" href="claims">claim</a> that only a mechanical gate at the output and an external reader hold in production.</p>
+
+  <h2>Changelog</h2>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>date</th><th>change</th></tr>
+    <tr><td>2026-09-29</td><td>Published: structure of the register, all fifteen objections, the OBJ-4 incident log with cases 9 and 10 added from later logs, the call for a second rater with the rules for listing ratings, and OBJ-14 in full.</td></tr>
+  </table>
+  </div>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>
