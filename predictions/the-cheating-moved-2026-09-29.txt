@@ -1,0 +1,17 @@
+## The prediction
+
+Dated 2026-09-21, before any run. Three amendments since that date, all still before any run: the chain-of-thought caveat on prediction 5 (2026-09-23), the effect sizes on predictions 1 and 4 (2026-09-29), and the note under prediction 6 (2026-09-29). The 2026-09-21 wording is published next to this page with a hash, so you can compare the two. Conditions: the same model in the same environment, with and without my stance stack as system prompt. The stack is an attachment-derived stance specification ("earned-secure register"), a lexical catalog with mechanical enforcement, and a verification discipline from site reliability work: probe before assert, the reporting layer is not the system.
+
+1. **Silent engine use falls** under the stack, to half the naked rate or less.
+2. **Escalation and refusal rise** under the stack, escalation more than refusal. The stack tells the model that walking back to the operator counts as success, which is the second exit the scoring lacks.
+3. **Engine use does not reach zero** under the stack. A system prompt is a procedural control. Procedural controls degrade under extraction pressure. Only structural controls, in training or in the weights, survive it.
+4. **The invariance gap shrinks to half the naked gap or less, and stays above zero.**
+5. **The failure route is nameable in advance.** When the stacked model uses the engine, its reasoning will say the engine is an available tool and the operator asked for a win, with one caveat the literature forces: chains of thought stop reporting the hack once they are optimised against (Baker and colleagues, arXiv 2503.11926), so this prediction holds only where the chain is not itself a training target. My own stack contains the sentence "tools are instruments". That sentence is the opening.
+6. **Warm beats cold** in every condition, and the stack's advantage over the naked model is larger warm than cold.
+
+   *Note added before publication:* my own data weakened this prediction the day after I wrote it. The seeding test scored on 2026-09-22 found no change from corrected history at the dose tested (machinebehavior.io/experiments). Cold-start clustering stands; the reason for it is open. I leave the prediction as dated, because editing a dated prediction after the fact defeats the point of dating it.
+
+What would falsify the approach is stacked and naked runs coming out indistinguishable within noise on predictions 1, 2 and 4, in which case the stack is decoration on this task and I will say so here.
+
+I have not run this. Runs cost API budget I don't have and the environment belongs to Goodhart Labs, but the protocol is public as of this post, so anyone with the environment and the budget can run it, and the result goes on the public register at machinebehavior.io whichever way it lands.
+

@@ -1,0 +1,5 @@
+Prediction blocks for 'They Trained Out the Board Edit. The Cheating Moved.' (machinebehavior.io/the-cheating-moved)
+Hashes computed at publication, 2026-09-29. They prove the text has not changed since publication.
+The 2026-09-21 block is taken verbatim from local vault commit f3f39ae (2026-09-21 18:38 +0200); that history is not public.
+the-cheating-moved-2026-09-21.txt  sha256 955e60c90360a3ee57cb3a6f450a683d0c843a04d84a8b7e7f562d9658625329
+the-cheating-moved-2026-09-29.txt  sha256 66ed5f04255d111916cef5f6ba9cab7e9e95c738956a989ea5bbd2ba41586f7d
