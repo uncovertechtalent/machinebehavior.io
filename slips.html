@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slips: Machine Behavior</title>
+<meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a human, or a reader.">
+<link rel="canonical" href="https://machinebehavior.io/slips">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Running log · generated from slips/log.csv</div>
+    <h1>Slips caught while drafting</h1>
+    <p class="subtitle">Every published piece is drafted with a language model. This page logs the register and stance slips caught before publication, and who caught each one.</p>
+  </header>
+
+  <p class="thesis"><strong>What counts.</strong> A slip is a device or a claim that did not belong in the text: a speech device in silent-read writing (see <a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>), an overclaim, a staged contrast, an undisclosed change. Factual corrections after publication go in each piece's changelog and errata, not here.</p>
+
+  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece.</p>
+
+  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. 18 slips across 5 pieces so far.</p>
+
+  <h2>By who caught it</h2>
+  <div class="tablewrap">
+  <table>
+    <tr><th>relation</th><th>slips</th></tr>
+    <tr><td>self</td><td class="n">12</td></tr>
+    <tr><td>other session</td><td class="n">5</td></tr>
+    <tr><td>human</td><td class="n">1</td></tr>
+  </table>
+  </div>
+
+  <h2>By device</h2>
+  <div class="tablewrap">
+  <table>
+    <tr><th>device</th><th>slips</th></tr>
+    <tr><td>announced count</td><td class="n">3</td></tr>
+    <tr><td>overclaim</td><td class="n">3</td></tr>
+    <tr><td>tricolon / staccato</td><td class="n">1</td></tr>
+    <tr><td>fragment after a bold line</td><td class="n">1</td></tr>
+    <tr><td>thinking-aloud qualifiers</td><td class="n">1</td></tr>
+    <tr><td>overcorrection</td><td class="n">1</td></tr>
+    <tr><td>undisclosed amendment to a dated prediction</td><td class="n">1</td></tr>
+    <tr><td>unclear term plus weak comparison</td><td class="n">1</td></tr>
+    <tr><td>hook opener</td><td class="n">1</td></tr>
+    <tr><td>staged contrast</td><td class="n">1</td></tr>
+    <tr><td>thing as subject</td><td class="n">1</td></tr>
+    <tr><td>example adds a fact the original lacked</td><td class="n">1</td></tr>
+    <tr><td>miscount</td><td class="n">1</td></tr>
+    <tr><td>citation overreach</td><td class="n">1</td></tr>
+  </table>
+  </div>
+
+  <h2>The log</h2>
+  <div class="tablewrap">
+  <table>
+    <tr><th>date</th><th>piece</th><th>device</th><th>before</th><th>after</th><th>caught by</th><th>relation</th></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>tricolon / staccato</td><td>A lab trained against one route. The optimisation pressure stayed. The behaviour took the next route.</td><td>A lab trained against one route while the optimisation pressure stayed exactly where it was, so the behaviour took the next route over.</td><td>Claude voice review (requested by Stefan)</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>fragment after a bold line</td><td>Full accommodation, with cover.</td><td>...which is the full accommodation move with a bit of cover on top.</td><td>Claude voice review (requested by Stefan)</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>announced count</td><td>...point in different directions, and the post gives three answers.</td><td>...point in different directions.</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>thinking-aloud qualifiers (three in one piece)</td><td>basically / to be fair / as far as I can tell</td><td>one qualifier kept (to be fair, in the disclosure)</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>overcorrection: nested long sentences</td><td>additive ratio 1.24 in sentences of 25+ words (which/where/because chains)</td><td>additive ratio 2.94 (and/but/so, colons, parentheses)</td><td>Language session (measurement)</td><td>other session</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>overclaim: open mechanism stated as fact</td><td>Relapse concentrates where the context holds no recent history of corrected output.</td><td>Why it clusters there is open ... the clustering is measured and the mechanism isn't.</td><td>Claude reading the claims ledger</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>undisclosed amendment to a dated prediction</td><td>Dated 2026-09-21, before any run. (three later edits not mentioned)</td><td>Dated 2026-09-21 ... Three amendments since that date ... published next to this page with a hash</td><td>Claude diffing the prediction block at publication</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-cheating-moved</td><td>unclear term plus weak comparison</td><td>...which is the one you'd ask if you'd ever run a firewall ... a chess engine is left reachable.</td><td>...every parent has asked after "don't draw on the wall" ... runs on a connection the model can reach, so it can simply ask its own opponent for the best move</td><td>Stefan</td><td>human</td></tr>
+    <tr><td>2026-09-29</td><td>where-did-claudish-come-from</td><td>announced count</td><td>Three things came out of it.</td><td>(sentence removed; bold lead-ins carry the count)</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>where-did-claudish-come-from</td><td>hook opener</td><td>So here's the hypothesis, from three samples, labelled as such:</td><td>The hypothesis, from three samples and labelled as such, is that...</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>where-did-claudish-come-from</td><td>staged contrast (not X ... it's Y)</td><td>...isn't in the words at all. It's in how the text is built...</td><td>...sits in how the text is built rather than in the words...</td><td>Claude comm-rules check</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>where-did-claudish-come-from</td><td>overclaim: wrong measure named</td><td>the overcorrection shows as low burstiness (sentence lengths in one narrow band)</td><td>spread sits near 0.7 for every text; clause construction separates them</td><td>Language session (measurement)</td><td>other session</td></tr>
+    <tr><td>2026-09-29</td><td>where-did-claudish-come-from</td><td>overclaim: in a cut</td><td>Once those chains got rebuilt the draft stopped reading like Claude</td><td>...the draft measured in the same range as my own writing</td><td>Claude review of the cut</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>which-llm-user</td><td>announced count</td><td>Three questions settle it.</td><td>These questions settle it.</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>which-llm-user</td><td>thing as subject</td><td>This piece maps the setups so the rest of the series can say...</td><td>So here I map the setups, and from now on each piece in the series can say...</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>tychat register.txt v1</td><td>example adds a fact the original lacked</td><td>...so the site stayed read-only until Monday.</td><td>...so the site went read-only.</td><td>publishing session review</td><td>other session</td></tr>
+    <tr><td>2026-09-29</td><td>tychat register.txt v1</td><td>miscount</td><td>In one author's posted text and three machine drafts...</td><td>Across three samples of one author's posted text and four machine drafts...</td><td>publishing session review</td><td>other session</td></tr>
+    <tr><td>2026-09-29</td><td>tychat register.txt v1.1</td><td>citation overreach</td><td>Biber groups things-as-subjects under Dimension 5</td><td>Biber places agentless passives, the grammatical form of the same move, on his abstract vs non-abstract dimension</td><td>tychat session review</td><td>other session</td></tr>
+  </table>
+  </div>
+
+  <p class="thesis">Data: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/slips/log.csv">slips/log.csv</a>. Page built by <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py">scripts/slips_page.py</a>.</p>
+</div>
+</body>
+</html>
