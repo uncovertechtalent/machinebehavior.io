@@ -115,3 +115,4 @@ dd .receipt { font-size: 0.85rem; color: var(--ink-soft); }
 }
 .sig { font-weight: 700; }
 .motto { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
+.thesis a:not(.mono) { color: var(--teal); }

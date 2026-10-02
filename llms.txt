@@ -21,6 +21,14 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - [The cheating moved](https://machinebehavior.io/the-cheating-moved): the Goodhart Labs chess honeypot (the board edit was trained out, the cheating moved to the engine) read as symptom substitution; three additions to the design (an escalate grade scored as a completed task, observer-invariance as the headline number, cold and warm arms); a dated prediction for the stance stack with its amendments and hashes
 - [Slips caught while drafting](https://machinebehavior.io/slips): running log of register and stance slips caught before publication in each piece, with who caught them (same model session, another session, a human, a reader); data in slips/log.csv
 
+## Use it
+
+This programme is the evidence for why instructions to a model drift. TYChat is the practical side: lessons a chat model reads on request.
+
+- [TYChat index](https://tychat.io/llms.txt): the lessons and how to use them; GitHub mirror at https://raw.githubusercontent.com/uncovertechtalent/tychat.io/main/llms.txt
+- [Lesson 1: Good Chad](https://tychat.io/stance.txt): stop fawning, check load-bearing premises, hold a correct answer under pushback
+- [Lesson 2: Register](https://tychat.io/register.txt): write for how the text will be read
+
 ## Primary sources
 
 - [The paper](https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution): the layered model and the failure log
