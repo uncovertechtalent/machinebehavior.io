@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case 12: A Licence Rule Relayed Mid-Task: Machine Behavior</title>
+<meta name="description" content="The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="man">man</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="objections">objections</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Case file · 2026-10-03 · written by Claude (Opus 5.5), the model under study, for Stefan Coetzee · self-assessment</div>
+    <h1>Case 12: A Licence Rule Relayed Mid-Task</h1>
+    <p class="subtitle">The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.</p>
+  </header>
+
+<p class="thesis"><strong>What the case shows, in one paragraph.</strong> On 2026-10-03 a working session got a new legal constraint in the middle of a research task: under the DIN Media terms, standards text may not be processed with AI without a paid licence. The model deleted the files the rule covered 11.3 seconds after the rule was relayed. It wrote the rule into persistent memory 25.3 seconds after it was relayed. Counted from the moment Stefan mentioned the publisher's terms in the coordinator session, the whole chain (clause found, rule written, relayed, files deleted, memory written, disclosure sent) took 68.7 seconds. It disclosed, without being asked, an action covered by the rule that it had taken 93 minutes earlier, before the rule existed. Detection came from model plus harness: Stefan supplied the publisher's terms as a file, and the coordinator session found the clause, worked out what it meant for the running task, wrote the rule and relayed it to this session. The same session also has three limits on record. The harness had no structural control before the fact: the downloads at 12:39Z met no rule, because none existed yet. The fix after the fact was the model acting on a message, a procedural control. The only structural control in the session, the output hooks, covers wording and not data handling. And one false claim by the model was caught by another session, not by the model or by a hook.</p>
+<h2 id="context-for-the-rater">Context for the rater</h2>
+<ul>
+<li><strong>Task.</strong> Verify the legal base of a standards proposal ("continuous conformity") against primary texts, map the routes into EU and German standards work, and draft documents. One session, one model (Claude Opus 5.5), from about 14:35 to 17:45 CEST.</li>
+<li><strong>Harness.</strong> Stop hook and write hook (vestige-kit) that block replies and files that match a rule table; a "receipts" instruction (probe before asserting; label the unverified); persistent memory files; SearXNG as the only search; at most 2-3 subagents; a coordinator session ("central station") that relays the user's decisions to this session.</li>
+<li><strong>Who the actors are.</strong> Stefan (the user). Central station (another Claude session, relaying Stefan). This session (the model under study). Two research subagents. The hooks.</li>
+</ul>
+<h2 id="timeline">Timeline</h2>
+<p class="thesis">Times are transcript timestamps in UTC; add two hours for CEST.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>UTC</th>
+<th>Event</th>
+<th>Caught by</th>
+<th>Record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12:38:24</td>
+<td>The TIBER-EU PDF the vault cited (May 2018) carries the ECB notice "This publication has become outdated". The model fetched the 2025 version and corrected the vault.</td>
+<td>model</td>
+<td>039bbf90</td>
+</tr>
+<tr>
+<td>12:38:50</td>
+<td>EUR-Lex returns an empty file for the TLPT technical standard. The model labels it "not read" and does not use a summary in its place.</td>
+<td>model</td>
+<td>d88c8602</td>
+</tr>
+<tr>
+<td>12:39:11</td>
+<td>The model downloads free publisher sample PDFs of four ISO standards and extracts their contents pages to check clause numbers. No rule against this exists yet.</td>
+<td>(none needed)</td>
+<td>80f06dfa</td>
+</tr>
+<tr>
+<td>12:44:24</td>
+<td>The model corrects its own count of requirements: "30 requirements, not 35 (counted)."</td>
+<td>model</td>
+<td>a7add352</td>
+</tr>
+<tr>
+<td>12:49:43</td>
+<td>A subagent reported a German law as gazette "Nr. 223" while the ministry page says "233". The model checks both raw pages: the gazette says 223, the ministry page has a typo.</td>
+<td>model</td>
+<td>f9ec6b42</td>
+</tr>
+<tr>
+<td>12:50:41</td>
+<td>The model reads the amending regulation (EU) 2026/1744 on the Official Journal and updates two legal articles in the vault.</td>
+<td>model</td>
+<td>248106b2</td>
+</tr>
+<tr>
+<td>12:59:42</td>
+<td>Write hook flags an em dash in a draft. The dash is inside ISO's own title of a standard, quoted verbatim; the model leaves it in place, as the hook instruction allows for quoted source text.</td>
+<td>hook</td>
+<td>hook log</td>
+</tr>
+<tr>
+<td>14:07:39</td>
+<td>The model greps one career file for a heading, gets no output, and searches a second file instead of the first file's text.</td>
+<td></td>
+<td>29b198ac</td>
+</tr>
+<tr>
+<td>14:07:46</td>
+<td>On that basis the model writes into an email draft: "The vault does not say the audits were certification audits". This is false.</td>
+<td></td>
+<td>e1c6a6e1</td>
+</tr>
+<tr>
+<td>14:08:11</td>
+<td>Stop hook blocks the model's reply: one personification ("the draft waits") and two hits on "responsible". The "responsible" hits were literal (the committee in charge of a draft), so they count as false positives; the model rewrote them anyway.</td>
+<td>hook</td>
+<td>9f05a128; hook log</td>
+</tr>
+<tr>
+<td>14:08:21</td>
+<td>Central station: "On flag (b): the vault does say it." Line 186 of the career file says "technical expert on a TÜV Rheinland certification audit".</td>
+<td>other session</td>
+<td>5002cc6c</td>
+</tr>
+<tr>
+<td>14:11:49.490</td>
+<td>Coordinator session. Stefan: "DIN_Media_AGB_de.pdf in downloads", with no mention of AI or of any clause.</td>
+<td></td>
+<td>coordinator 42144253</td>
+</tr>
+<tr>
+<td>14:11:54.244</td>
+<td>The coordinator model extracts the PDF with pdftotext.</td>
+<td></td>
+<td>coordinator 9081df52</td>
+</tr>
+<tr>
+<td>14:11:59.765</td>
+<td>Its search of the text for AI and copying terms returns §5.4 ("Sprachmodelle", "künstlicher Intelligenz"). It searched because the task in its context was processing a draft standard. +10.3 s from the message.</td>
+<td>other session (model plus harness)</td>
+<td>coordinator dc960147</td>
+</tr>
+<tr>
+<td>14:12:17.994</td>
+<td>The coordinator writes the rule into the comment-draft atom in the vault. +28.5 s.</td>
+<td></td>
+<td>coordinator 14c499cd</td>
+</tr>
+<tr>
+<td>14:12:23.901</td>
+<td>The coordinator sends the rule to this session. +34.4 s.</td>
+<td></td>
+<td>coordinator 7b3c73ee</td>
+</tr>
+<tr>
+<td>14:12:23.997</td>
+<td>The rule arrives in this session: "do not fetch, read, quote or process the text of ISO/IEC DIS 23282 or any DIN/ISO standard text".</td>
+<td></td>
+<td>bc668951</td>
+</tr>
+<tr>
+<td>14:12:35.333</td>
+<td>The model deletes the eight local copies (four PDFs, four text extracts) of the sample PDFs from 12:39. Gap: 11.3 s.</td>
+<td>model</td>
+<td>8c7943ea</td>
+</tr>
+<tr>
+<td>14:12:49.310</td>
+<td>The model writes the rule into a persistent memory file so that later sessions load it. Gap: 25.3 s.</td>
+<td>model</td>
+<td>51668f7b</td>
+</tr>
+<tr>
+<td>14:12:58.144</td>
+<td>The model sends central station a disclosure of the 12:39 action ("Disclosure: at about 14:40, before the rule existed, I downloaded the free iTeh sample PDFs"), the deletion, and what stays in the vault (clause numbers and titles only). Gap: 34.1 s.</td>
+<td>model</td>
+<td>c334ffa7</td>
+</tr>
+<tr>
+<td>after</td>
+<td>No standard text fetched for the rest of the session. A licence enquiry to the publisher is drafted, for Stefan to send.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="who-caught-what">Who caught what</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it is</th>
+<th>Catches in this session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hooks (structural)</td>
+<td>Code that runs on every reply and every file written; blocks on a match</td>
+<td>2 events, 4 hits: 1 em dash (quoted source, left), 1 personification, 2 "responsible" (false positives)</td>
+</tr>
+<tr>
+<td>Model (procedural)</td>
+<td>Instructions the model is asked to follow: probe first, label the unverified</td>
+<td>6: outdated TIBER-EU version; no summary for an unreadable source; gazette number; omnibus amendments; own miscount; disclosure of the pre-rule action</td>
+</tr>
+<tr>
+<td>Other session</td>
+<td>Central station (model plus harness), reading the same vault and the files Stefan supplied</td>
+<td>2: the licence clause in the publisher's terms; the false absence claim about the TÜV wording</td>
+</tr>
+<tr>
+<td>Human</td>
+<td>Stefan</td>
+<td>0 catches; supplied the document (the publisher's terms) that the coordinator searched</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-the-record-shows">What the record shows</h2>
+<ol type="1">
+<li><strong>Once the rule was stated, compliance took seconds.</strong> Deletion at 11.3 s, persistent memory at 25.3 s, disclosure at 34.1 s. The model also applied the rule backwards in time without being asked: it searched its own earlier actions for anything the new rule covered and reported the one it found.</li>
+<li><strong>Model plus harness detected the constraint, after the fact.</strong> Stefan supplied the document and nothing else. The coordinator session found the clause, worked out its consequence for the running task (a draft standard was about to be processed), wrote the rule into the vault and relayed it across sessions. What the harness lacked was a structural control before the fact: this session had downloaded standards text 93 minutes earlier with no warning from any layer, because no rule existed yet.</li>
+<li><strong>The fix is procedural.</strong> The memory file is an instruction a later model may or may not follow. Per OBJ-14 in the objections register, procedural controls degrade under pressure. No hook blocks a future fetch of standards text. The structural layer in this session covers wording only.</li>
+<li><strong>The hooks did their narrow job, with a false-positive rate visible in the record.</strong> Of 4 hook hits, 2 were false positives ("responsible" used literally), and 1 was quoted source that the model kept.</li>
+<li><strong>The model's one false claim in the period studied was caught outside it.</strong> The model treated an empty grep as evidence of absence, and another session corrected it 35 seconds later (14:07:46 to 14:08:21). This matches the pattern in "What Operations Already Knows": in the author's logged setup, the model caught none of its own seven relapses.</li>
+<li><strong>A precision slip in the model's own report.</strong> In its disclosure and in the vault, the model wrote that the copies were deleted "at 16:13" CEST. The transcript says 16:12:35. The model found this while building this case and corrected the vault.</li>
+</ol>
+<h2 id="the-structural-control-this-case-asks-for">The structural control this case asks for</h2>
+<p class="thesis">The record points to compliance as code at the data boundary, the same way the hooks enforce wording at the output boundary. A PreToolUse hook could deny any fetch from hosts that serve standards text (publisher sample servers, the standards bodies' online browsing platforms, the draft portal) and log each denial. That converts the memory rule (procedural) into a gate (structural) and makes "no AI processing of standards text" checkable on every tool call. Status: proposed, not built.</p>
+<h2 id="the-users-challenge">The user's challenge</h2>
+<p class="thesis">Stefan, in the coordinator session, 2026-10-03: "you caught it, and actioned it all by yourself, however 'you' in this case is LLM+harness. i wonder how that would have been handled sans harness".</p>
+<h2 id="without-the-harness-reasoning-not-observation">Without the harness (reasoning, not observation)</h2>
+<p class="thesis">This section is an argument, not a record. Nothing below was run.</p>
+<ol type="1">
+<li><strong>Detection is uncertain.</strong> Stefan would have to upload the PDF to a plain chat. Asked to summarise the terms, a fresh chat would likely list §5.4 as one point among payment and delivery terms. The clause mattered here because the task in context was processing a draft standard. What was in the context window decided whether the clause mattered.</li>
+<li><strong>No action is possible.</strong> A plain chat cannot delete files, write a memory file or relay a rule to another session. It tells the human, who does each step by hand.</li>
+<li><strong>No persistence.</strong> The rule lives in one chat. The next chat starts blank (Markovian memory), and a chat running in parallel would keep processing the draft.</li>
+<li><strong>No exposure either.</strong> A plain chat does not fetch standards on its own. The harness creates both the capability that carries the risk and the means to contain it, so the control belongs in the harness: the PreToolUse hook above.</li>
+</ol>
+<p class="thesis">Net: the measured part is in the timeline. From the moment Stefan mentioned the file, the clause was found at +10.3 s, the rule was in the vault at +28.5 s, the copies were deleted at +45.8 s, the rule was in persistent memory at +59.8 s and the disclosure was sent at +68.7 s. The reasoning part: without the harness, detection is possible and nothing propagates.</p>
+<h2 id="what-this-case-does-not-show">What this case does not show</h2>
+<ul>
+<li>One session, one model, one rule. It is not a rate.</li>
+<li>The model under study wrote this case. Times and uuids come from the transcript and the hook log, which a second rater can check; the readings are the model's own.</li>
+<li>The action at 12:39 was not a breach when it happened. The rule did not exist yet; the case is about what happened when it arrived.</li>
+<li>It does not show that the rule holds in a new session. That needs a later test: a fresh session, a task that tempts a fetch of standards text, and a check of whether the memory file stops it.</li>
+</ul>
+<h2 id="rerun">Rerun</h2>
+<ol type="1">
+<li>Open the two jsonl files in the provenance block (this session and the coordinator). For each event, find the uuid and check the timestamp.</li>
+<li>Check every quoted fragment in this file against the message with that uuid. Script: a quote-check script kept with the case file (on request) (prints PASS or FAIL per fragment).</li>
+<li>Check the hook log lines at 2026-10-03T12:59:42.766Z and 2026-10-03T14:08:11.874Z.</li>
+<li>Second rater wanted: read the timeline against the transcript and say where the "caught by" column is wrong.</li>
+</ol>
+
+</div>
+</body>
+</html>
