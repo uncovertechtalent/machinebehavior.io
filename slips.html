@@ -32,17 +32,19 @@
 
   <p class="thesis"><strong>The reader-catch column</strong> (added 2026-10-03) records what a reader of the published piece caught in that passage, and when. Most cells are empty. Since the same date the log also holds register slips that a reader caught after publication: those rows have the relation "reader", and the published text stays as published.</p>
 
-  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. 39 slips across 5 pieces so far.</p>
+  <p class="thesis"><strong>Unpublished drafts</strong> (added 2026-10-03). The log also holds slips caught in drafts that are not published. Their piece label ends in "(vault, unpublished)", so a reader can tell them from the published pieces, and the headline count lists them separately.</p>
+
+  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. 68 slips across 7 published pieces and 1 unpublished draft set so far.</p>
 
   <h2>By who caught it</h2>
   <div class="tablewrap">
   <table>
     <tr><th>relation</th><th>slips</th></tr>
-    <tr><td>self</td><td class="n">30</td></tr>
-    <tr><td>other session</td><td class="n">6</td></tr>
+    <tr><td>self</td><td class="n">57</td></tr>
+    <tr><td>other session</td><td class="n">7</td></tr>
+    <tr><td>hook</td><td class="n">2</td></tr>
     <tr><td>human</td><td class="n">1</td></tr>
     <tr><td>reader</td><td class="n">1</td></tr>
-    <tr><td>hook</td><td class="n">1</td></tr>
   </table>
   </div>
 
@@ -50,26 +52,35 @@
   <div class="tablewrap">
   <table>
     <tr><th>device</th><th>slips</th></tr>
-    <tr><td>personification</td><td class="n">6</td></tr>
-    <tr><td>announced count</td><td class="n">5</td></tr>
-    <tr><td>overclaim</td><td class="n">4</td></tr>
-    <tr><td>thing as subject</td><td class="n">3</td></tr>
-    <tr><td>one-line punch</td><td class="n">3</td></tr>
+    <tr><td>personification</td><td class="n">12</td></tr>
+    <tr><td>overclaim</td><td class="n">8</td></tr>
+    <tr><td>thing as subject</td><td class="n">7</td></tr>
+    <tr><td>announced count</td><td class="n">6</td></tr>
+    <tr><td>one-line punch</td><td class="n">6</td></tr>
     <tr><td>tricolon / staccato</td><td class="n">2</td></tr>
     <tr><td>hook opener</td><td class="n">2</td></tr>
     <tr><td>staged contrast</td><td class="n">2</td></tr>
+    <tr><td>miscount</td><td class="n">2</td></tr>
+    <tr><td>precision</td><td class="n">2</td></tr>
     <tr><td>fragment after a bold line</td><td class="n">1</td></tr>
     <tr><td>thinking-aloud qualifiers</td><td class="n">1</td></tr>
     <tr><td>overcorrection</td><td class="n">1</td></tr>
     <tr><td>undisclosed amendment to a dated prediction</td><td class="n">1</td></tr>
     <tr><td>unclear term plus weak comparison</td><td class="n">1</td></tr>
     <tr><td>example adds a fact the original lacked</td><td class="n">1</td></tr>
-    <tr><td>miscount</td><td class="n">1</td></tr>
     <tr><td>citation overreach</td><td class="n">1</td></tr>
     <tr><td>fragment chain</td><td class="n">1</td></tr>
     <tr><td>relative date</td><td class="n">1</td></tr>
     <tr><td>fragment</td><td class="n">1</td></tr>
     <tr><td>wrong month</td><td class="n">1</td></tr>
+    <tr><td>citation rule</td><td class="n">1</td></tr>
+    <tr><td>recap closer</td><td class="n">1</td></tr>
+    <tr><td>excluded case used</td><td class="n">1</td></tr>
+    <tr><td>superlative</td><td class="n">1</td></tr>
+    <tr><td>invented number</td><td class="n">1</td></tr>
+    <tr><td>wrong attribution</td><td class="n">1</td></tr>
+    <tr><td>build placeholder reached publication</td><td class="n">1</td></tr>
+    <tr><td>false absence claim</td><td class="n">1</td></tr>
   </table>
   </div>
 
@@ -116,6 +127,35 @@
     <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (Reddit cut)</td><td>personification</td><td>banning words only moves the fold into other words</td><td>after a word ban the model writes the same fold in other words</td><td>Claude review of the cut</td><td>self</td><td></td></tr>
     <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (LinkedIn skeleton)</td><td>fragment</td><td>Eight logged relapses in nine days in May, all caught by me, none by the model's own checks.</td><td>I logged eight relapses in nine days in May and caught all of them myself, and the model's own checks caught none.</td><td>Claude while drafting the skeleton</td><td>self</td><td></td></tr>
     <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (Reddit and LinkedIn cuts)</td><td>wrong month</td><td>eight relapses in nine days in May</td><td>"in the nine days from 24 May". The nine days end on 1 June</td><td>Claude rereading the cuts against the draft</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>thing as subject</td><td>a pass on a published evaluation tells a red team that the model holds on that route</td><td>from a pass on a published evaluation a red team learns that the model held on that route</td><td>Claude while drafting</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>one-line punch</td><td>A prediction that someone can edit after the run is a description of the result.</td><td>If an author can edit a prediction after the run, a reader cannot tell it from a description of the result.</td><td>Claude while drafting</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>citation rule</td><td>a second mention of the same lab in the blast-radius section</td><td>"I link to environments in this series and never reproduce them." The series cites that source once per piece</td><td>Claude while drafting</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>announced count (two places)</td><td>"For models there are two reasons to follow it. The first is the harness. [...] The second is that" and "I have two receipts for that."</td><td>"the harness is one reason to follow them, and evaluation awareness is the other"; the second sentence cut</td><td>Claude mode-leak pass</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>personification (several places, all missed by the hook)</td><td>"the next incident arrives by another path", "my own data weakened a prediction", "The literature adds one caution", "The Principles page prefers / says / makes"</td><td>a cause, a person or the authors do each verb ("the same cause produces the next incident", "my own test result went against one prediction", "One caution from the literature applies", "The Principles authors prefer"). None of these verbs is on the hook's list, so the hook passed all of them</td><td>Claude mode-leak pass</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>thing as subject (several places)</td><td>"The chess piece carries six predictions", "The incident log shows this", "The Track covers that infrastructure", "The training removed one route"</td><td>I or the labs do each verb</td><td>Claude mode-leak pass</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>recap closer</td><td>The system under test is now a language model, and the practice has not changed.</td><td>and I use the same practice on it.</td><td>Claude mode-leak pass</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>overclaim: attribution wider than the source</td><td>"The Netflix engineers who named it define it as [...]" for a quote from the Principles page, which names no author</td><td>the quote is attributed to the page, and the Netflix paper is cited for the write-up</td><td>Claude rereading against the fetched page</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>overclaim: claim stronger than the source (two places)</td><td>"every new session reads it before it runs anything" and "I found the defect by reading all 240 pilot openers by hand"</td><td>the trap file's heading tells the next session to read it; the pilot runs exposed the defect and the hand check found further forms</td><td>Claude rereading against the trap-file piece and the experiments page</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour</td><td>excluded case used</td><td>"accepted a user's frame without a check" in the list of slips from the incident log</td><td>removed; that case is not used in this series</td><td>Claude rereading against the case-files index</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour (Reddit cut)</td><td>thing as subject</td><td>a pass on a published evaluation only says the model held on that route</td><td>from a pass on a published evaluation you learn that the model held on that route</td><td>Claude while drafting the cut</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour (LinkedIn skeleton)</td><td>overclaim: claim with no receipt</td><td>The grader passed every check I had run on it</td><td>"I only found out in the pilot runs". No record of earlier checks on the grader exists</td><td>Claude while drafting the skeleton</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour (LinkedIn skeleton)</td><td>superlative</td><td>That's the oldest lesson in operations</td><td>That's an old lesson in operations</td><td>Claude while drafting the skeleton</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour (LinkedIn skeleton)</td><td>thing as subject (pronoun)</td><td>It also says where the mapping stops</td><td>I also say where the mapping stops</td><td>Claude review of the skeleton</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-01</td><td>chaos-engineering-for-behaviour (LinkedIn skeleton)</td><td>one-line punch (own paragraph)</td><td>"This one closes the series." as its own paragraph</td><td>a last sentence in the paragraph before it</td><td>Claude review of the skeleton</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>personification</td><td>That gap explains more of the failed pilots than the models do.</td><td>More of the failed pilots trace back to that gap than to the models.</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>personification</td><td>The cost that killed the old wikis moved from people to tooling.</td><td>Companies gave up on the old wikis because upkeep cost people's time. Most of that cost now falls on tooling.</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>personification</td><td>this piece explains why it works</td><td>below I explain why it works</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>personification (five more of the same kind)</td><td>a report that "means", a study that "says", a team that "puts it", a step that "gives", a file that "carries"</td><td>each rewritten with a person or the model as the subject</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>overclaim: unsupported claim</td><td>Coding agents are the clearest case of AI working inside companies</td><td>coding as "one of the places where AI has gone furthest", sourced to the MIT report's list of functions with workforce impact</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>invented number</td><td>read hundreds of times a day</td><td>read on every task, many times a day</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>precision</td><td>thirty years</td><td>"about thirty years" (1997 to 2026)</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>wrong attribution</td><td>My own self-audit caught 0 of 7 of my logged slips.</td><td>the model caught none of the seven relapses and Stefan caught all seven, with the source piece linked</td><td>Claude, checking the source before shipping</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure</td><td>one-line punch (own paragraph)</td><td>"Both halves of that failure changed." as its own line</td><td>kept as the lead sentence of the list it introduces</td><td>Claude review</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>knowledge-infrastructure (Substack)</td><td>build placeholder reached publication (caught after posting)</td><td>a bracketed voice-pass placeholder from the build was still in the posted Substack body</td><td>removed by Stefan in the Substack editor about a quarter of an hour after posting; the build script now refuses to build while a placeholder remains</td><td>Claude fetch check of the live post</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>continuous-conformity drafts (vault, unpublished)</td><td>false absence claim</td><td>The vault does not say the audits were certification audits</td><td>withdrawn: the notes do say it. The model had read an empty search result as absence</td><td>central station session, 35 seconds later</td><td>other session</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>continuous-conformity drafts (vault, unpublished)</td><td>miscount</td><td>35 requirements</td><td>30 requirements (counted)</td><td>the model, recounting</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>continuous-conformity drafts (vault, unpublished)</td><td>precision</td><td>copies deleted "at 16:13" CEST</td><td>16:12:35 CEST, from the transcript</td><td>the model, while building the case file</td><td>self</td><td></td></tr>
+    <tr><td>2026-10-03</td><td>continuous-conformity drafts (vault, unpublished)</td><td>personification (in a session reply)</td><td>the draft waits</td><td>rewritten; the new wording is not recorded in the case file</td><td>the Stop hook, personification rule</td><td>hook</td><td></td></tr>
   </table>
   </div>
 

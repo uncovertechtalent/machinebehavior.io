@@ -7,7 +7,9 @@ by_rel = collections.Counter(r['relation'] for r in rows)
 by_dev = collections.Counter(r['device'].split(':')[0].split('(')[0].strip() for r in rows)
 # cut labels like "(Reddit cut)" and version suffixes like " v1.1" count toward their parent piece
 parent = lambda p: re.sub(r'\s+v\d+(\.\d+)*$', '', p.split(' (')[0]).strip()
-pieces = collections.Counter(parent(r['piece']) for r in rows)
+is_draft = lambda p: 'unpublished' in p
+pieces = collections.Counter(parent(r['piece']) for r in rows if not is_draft(r['piece']))
+drafts = collections.Counter(parent(r['piece']) for r in rows if is_draft(r['piece']))
 esc = lambda s: html.escape(s, quote=False)
 
 def table(counter, label):
@@ -55,7 +57,9 @@ page = f'''<!doctype html>
 
   <p class="thesis"><strong>The reader-catch column</strong> (added 2026-10-03) records what a reader of the published piece caught in that passage, and when. Most cells are empty. Since the same date the log also holds register slips that a reader caught after publication: those rows have the relation "reader", and the published text stays as published.</p>
 
-  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. {len(rows)} slips across {len(pieces)} pieces so far.</p>
+  <p class="thesis"><strong>Unpublished drafts</strong> (added 2026-10-03). The log also holds slips caught in drafts that are not published. Their piece label ends in "(vault, unpublished)", so a reader can tell them from the published pieces, and the headline count lists them separately.</p>
+
+  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. {len(rows)} slips across {len(pieces)} published pieces and {len(drafts)} unpublished draft set so far.</p>
 
   <h2>By who caught it</h2>
   <div class="tablewrap">
