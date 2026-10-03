@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Build slips.html from slips/log.csv. Run from the repo root: python3 scripts/slips_page.py"""
-import csv, collections, html
+import csv, collections, html, re
 
 rows = list(csv.DictReader(open('slips/log.csv')))
 by_rel = collections.Counter(r['relation'] for r in rows)
 by_dev = collections.Counter(r['device'].split(':')[0].split('(')[0].strip() for r in rows)
-pieces = collections.Counter(r['piece'] for r in rows)
+# cut labels like "(Reddit cut)" and version suffixes like " v1.1" count toward their parent piece
+parent = lambda p: re.sub(r'\s+v\d+(\.\d+)*$', '', p.split(' (')[0]).strip()
+pieces = collections.Counter(parent(r['piece']) for r in rows)
 esc = lambda s: html.escape(s, quote=False)
 
 def table(counter, label):
@@ -14,10 +16,10 @@ def table(counter, label):
         out.append(f'    <tr><td>{esc(k)}</td><td class="n">{v}</td></tr>')
     return '\n'.join(out)
 
-log = ['    <tr><th>date</th><th>piece</th><th>device</th><th>before</th><th>after</th><th>caught by</th><th>relation</th></tr>']
+log = ['    <tr><th>date</th><th>piece</th><th>device</th><th>before</th><th>after</th><th>caught by</th><th>relation</th><th>reader catch</th></tr>']
 for r in rows:
     log.append('    <tr>' + ''.join(f'<td>{esc(r[k])}</td>' for k in
-               ('date', 'piece', 'device', 'before', 'after', 'caught_by', 'relation')) + '</tr>')
+               ('date', 'piece', 'device', 'before', 'after', 'caught_by', 'relation', 'reader_catch')) + '</tr>')
 
 page = f'''<!doctype html>
 <html lang="en">
@@ -50,6 +52,8 @@ page = f'''<!doctype html>
   <p class="thesis"><strong>What counts.</strong> A slip is a device or a claim that did not belong in the text: a speech device in silent-read writing (see <a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>), an overclaim, a staged contrast, an undisclosed change. Factual corrections after publication go in each piece's changelog and errata, not here.</p>
 
   <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece. "hook" means a mechanical rule at the output boundary blocked the text before anyone read it (added 2026-10-03, with the first such row).</p>
+
+  <p class="thesis"><strong>The reader-catch column</strong> (added 2026-10-03) records what a reader of the published piece caught in that passage, and when. Most cells are empty. Since the same date the log also holds register slips that a reader caught after publication: those rows have the relation "reader", and the published text stays as published.</p>
 
   <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. {len(rows)} slips across {len(pieces)} pieces so far.</p>
 
