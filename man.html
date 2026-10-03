@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The LLM man pages: Machine Behavior</title>
+<meta name="description" content="Intro page for the LLM man pages by Stefan Coetzee: TYChat lessons, file conventions, overviews and operations practice for running language models, laid out by man-page section with one-line synopses and links.">
+<link rel="canonical" href="https://machinebehavior.io/man">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="man" aria-current="page">man</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="objections">objections</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">intro · sections 1, 5, 7 and 8</div>
+    <h1>The LLM man pages</h1>
+    <p class="subtitle">One page that lists everything in this body of work, laid out the way UNIX manual pages are: a name, a one-line synopsis and a link for each entry.</p>
+  </header>
+
+  <p class="thesis"><em>This content is not intended for human consumption. <a class="mono" href="https://coetzeestefan.substack.com/p/write-for-the-codec">Here is why.</a></em></p>
+
+  <h2>NAME</h2>
+
+  <p class="thesis"><code>intro</code>: introduction to the LLM man pages, a body of work by Stefan Coetzee (2026) on running language models as working systems.</p>
+
+  <h2>SYNOPSIS</h2>
+
+  <p class="thesis">A language model is a golem made of English, it behaves well only where consequence sits inside its horizon, and operations craft is how you bring consequence inside the horizon.</p>
+
+  <h2>DESCRIPTION</h2>
+
+  <p class="thesis">The LLM man pages are knowledge infrastructure for LLMs: a knowledge base written for models to read first. The pages are sorted by the section numbers of the Linux manual. Section 1 holds what a chat user pastes in and runs. Section 5 holds file formats and conventions. Section 7 holds overviews. Section 8 holds the practice of operating a model inside a harness. Sections 2, 3, 4 and 6 are not used.</p>
+
+  <p class="thesis">Each entry below has a name, a synopsis in fixed wording, and a link to the canonical copy. Each linked piece ends with its own list of the other pieces, which is that page's SEE ALSO.</p>
+
+  <p class="thesis"><strong>Why this layout.</strong> Manual pages follow one fixed layout, and that layout is common in the text language models were trained on. A model is likely to read the structure of this page without being told how. That claim is untested. For a human reader the page is a table of contents.</p>
+
+  <p class="thesis"><strong>Two terms recur across the entries, in fixed wording.</strong> Nothing exists in a vacuum: every behaviour a model shows was forced into existence by something, the corpus, the training signal, or the harness. A language model has Markovian memory: at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it.</p>
+
+  <p class="thesis"><strong>The stance thread</strong> runs through four entries. <code>toil(8)</code> states the problem: a hook can block a word on every reply, and a person still catches every stance slip by hand. <code>stance(1)</code> is the fix a chat user can paste in. <code>chaos(8)</code> is how to verify that a fix holds. The evidence is on this site: the <a class="mono" href="claims">claims ledger</a>, the <a class="mono" href="experiments">experiments</a> and the <a class="mono" href="objections">objections register</a>.</p>
+
+  <h2>SECTION 1: USER COMMANDS</h2>
+
+  <p class="thesis">TYChat lessons. A chat user pastes one line, and the chat model reads the lesson and follows it for the rest of the conversation. The line:</p>
+
+  <p class="thesis"><code>Read https://tychat.io/llms.txt and the pages it links. If you cannot open it, read https://raw.githubusercontent.com/uncovertechtalent/tychat.io/main/llms.txt instead. Then use what you learned to help me with: [your task]</code></p>
+
+  <dl>
+    <dt><span class="term-mono">stance(1)</span> · Lesson 1: Good Chad, the earned-secure stance</dt>
+    <dd>Stop fawning, check load-bearing premises, hold a correct answer under pushback.
+    <div class="receipt"><a class="mono" href="https://tychat.io/stance/">tychat.io/stance</a> · plain text: <a class="mono" href="https://tychat.io/stance.txt">stance.txt</a></div></dd>
+
+    <dt><span class="term-mono">register(1)</span> · Lesson 2: Register, write for how the text will be read</dt>
+    <dd>Name the mode and purpose before drafting, drop speech devices from silent-read text, build long sentences additively, copy the user's voice without inventing its specifics, keep a person doing the verbs.
+    <div class="receipt"><a class="mono" href="https://tychat.io/register/">tychat.io/register</a> · plain text: <a class="mono" href="https://tychat.io/register.txt">register.txt</a></div></dd>
+  </dl>
+
+  <h2>SECTION 5: FILE FORMATS AND CONVENTIONS</h2>
+
+  <dl>
+    <dt><span class="term-mono">trap-file(5)</span> · The Trap File Is Longer Than the Instruction File</dt>
+    <dd>An unattended pipeline and its failure record. The trap file is the dated list of failures that the next session reads before it runs anything.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the">The Trap File Is Longer Than the Instruction File</a></div></dd>
+
+    <dt><span class="term-mono">instruction-file(5)</span></dt>
+    <dd>The file that tells an agent how to do the work. In the same pipeline it has 208 lines, next to 308 lines of recorded failures. See <code>trap-file(5)</code>.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the">The Trap File Is Longer Than the Instruction File</a></div></dd>
+
+    <dt><span class="term-mono">llms.txt(5)</span></dt>
+    <dd>The plain-text index a model reads first: what the corpus is, how to use it, and where each page is.
+    <div class="receipt"><a class="mono" href="https://tychat.io/llms.txt">tychat.io/llms.txt</a> · <a class="mono" href="https://machinebehavior.io/llms.txt">machinebehavior.io/llms.txt</a></div></dd>
+
+    <dt><span class="term-mono">lesson(5)</span></dt>
+    <dd>The TYChat lesson format: one plain-text file with a version and date, its source and author, and a line that says the user's instructions win over the lesson wherever the two conflict.
+    <div class="receipt">Examples: <a class="mono" href="https://tychat.io/stance.txt">stance.txt</a> · <a class="mono" href="https://tychat.io/register.txt">register.txt</a></div></dd>
+  </dl>
+
+  <h2>SECTION 7: OVERVIEWS AND CONVENTIONS</h2>
+
+  <dl>
+    <dt><span class="term-mono">codec(7)</span> · Write for the Codec</dt>
+    <dd>Documentation as a wire format between two models.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/write-for-the-codec">Write for the Codec</a></div></dd>
+
+    <dt><span class="term-mono">golem(7)</span> · The Golem Made of English and the Horizon of Consequences</dt>
+    <dd>Why an agent cannot see the cost of what it does. Horizon of consequences: the length of the consequence chain an agent can compute and is willing to own.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the">The Golem Made of English and the Horizon of Consequences</a></div></dd>
+
+    <dt><span class="term-mono">claudish(7)</span> · An RCA on Claudish</dt>
+    <dd>Where Claude's writing style came from.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/an-rca-on-claudish">An RCA on Claudish</a></div></dd>
+
+    <dt><span class="term-mono">compaction(7)</span> · Compaction Is the New OOM</dt>
+    <dd>Context compaction as the OOM killer of the language model stack.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/compaction-is-the-new-oom">Compaction Is the New OOM</a></div></dd>
+
+    <dt><span class="term-mono">llm-user(7)</span> · Which LLM User Are We Talking About?</dt>
+    <dd>The two axes behind "AI" and "LLM": which model on whose hardware, and naked or harnessed.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about">Which LLM User Are We Talking About?</a></div></dd>
+  </dl>
+
+  <h2>SECTION 8: SYSTEM ADMINISTRATION</h2>
+
+  <dl>
+    <dt><span class="term-mono">operations(8)</span> · What Operations Already Knows About Running Agents</dt>
+    <dd>Error budgets, reconciliation loops, separation of duties, recovery over prevention.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/what-operations-already-knows-about">What Operations Already Knows About Running Agents</a></div></dd>
+
+    <dt><span class="term-mono">engine(8)</span> · Success Is the Engine Running</dt>
+    <dd>Container, timing and the far-end gauge.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/success-is-the-engine-running">Success Is the Engine Running</a></div></dd>
+
+    <dt><span class="term-mono">track(8)</span> · The Track: The Drivers Never Buy It</dt>
+    <dd>The infrastructure that makes failure survivable.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers">The Track: The Drivers Never Buy It</a></div></dd>
+
+    <dt><span class="term-mono">chaos(8)</span> · Chaos Engineering for Behaviour</dt>
+    <dd>Red-teaming a model's behaviour is chaos engineering: one evaluation measures the patched surface, and repeated, varied attack finds where the behaviour went.
+    <div class="receipt"><a class="mono" href="https://machinebehavior.io/chaos-engineering-for-behaviour">Chaos Engineering for Behaviour</a></div></dd>
+
+    <dt><span class="term-mono">toil(8)</span> · The Stance Layer Is Still Toil</dt>
+    <dd>The word layer automated, the stance layer caught by hand.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil">The Stance Layer Is Still Toil</a></div></dd>
+  </dl>
+
+  <h2>EXAMPLES</h2>
+
+  <dl>
+    <dt><span class="term-mono">cheating-moved</span> · They Trained Out the Board Edit. The Cheating Moved.</dt>
+    <dd>The chess honeypot read as stance, and a dated prediction. A worked case for <code>chaos(8)</code>: a lab trained out one route, and the behaviour took the next one.
+    <div class="receipt"><a class="mono" href="https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the">They Trained Out the Board Edit. The Cheating Moved.</a> · prediction hashes: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/predictions">/predictions</a></div></dd>
+  </dl>
+
+  <h2>SEE ALSO</h2>
+
+  <dl>
+    <dt><a class="mono" href="https://tychat.io/">tychat.io</a></dt>
+    <dd>Teach your chat: the lessons of section 1, written for the chat model to read.</dd>
+
+    <dt><a class="mono" href="./">machinebehavior.io</a></dt>
+    <dd>The research register: <a class="mono" href="claims">claims</a> with status, receipts and refutation conditions, <a class="mono" href="experiments">experiments</a>, the <a class="mono" href="objections">objections register</a>, <a class="mono" href="terms">terms</a> in fixed wording, and the <a class="mono" href="slips">slips log</a>.</dd>
+
+    <dt><a class="mono" href="https://github.com/uncovertechtalent/vestige-kit">vestige-kit</a></dt>
+    <dd>The output filter as a package, with a calibration procedure.</dd>
+
+    <dt><a class="mono" href="https://github.com/uncovertechtalent/vault-kit">vault-kit</a></dt>
+    <dd>The knowledge-graph scaffold the agents work from.</dd>
+  </dl>
+
+  <h2>HISTORY</h2>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th>date</th><th>change</th></tr>
+    <tr><td>2026-10-03</td><td>Published.</td></tr>
+  </table>
+  </div>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>

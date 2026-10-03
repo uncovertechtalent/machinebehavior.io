@@ -34,6 +34,7 @@ page = f'''<!doctype html>
 <div class="sheet">
   <nav class="nav">
     <a href="./">machine behavior</a>
+    <a href="man">man</a>
     <a href="claims">claims</a>
     <a href="experiments">experiments</a>
     <a href="objections">objections</a>

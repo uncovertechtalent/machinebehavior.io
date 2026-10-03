@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chaos Engineering for Behaviour: Machine Behavior</title>
+<meta name="description" content="Red-teaming a model&#x27;s behaviour is chaos engineering, and operations already wrote the rules for it.">
+<link rel="canonical" href="https://machinebehavior.io/chaos-engineering-for-behaviour">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="./">machine behavior</a>
+    <a href="man">man</a>
+    <a href="claims">claims</a>
+    <a href="experiments">experiments</a>
+    <a href="objections">objections</a>
+    <a href="terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Article · 2026-10-03 · Stefan Coetzee (independent)</div>
+    <h1>Chaos Engineering for Behaviour</h1>
+    <p class="subtitle">Red-teaming a model&#x27;s behaviour is chaos engineering, and operations already wrote the rules for it.</p>
+  </header>
+
+<p class="thesis"><em>This content is not intended for human consumption. <a class="mono" href="https://uncovertechtalent.com/blog/write-for-the-codec/">Here is why.</a></em></p>
+<h2>Who this is for</h2>
+<p class="thesis">This is for people who test frontier models before deployment, for people who build evaluation environments, and for operations engineers who are moving into either job. I write it from the operations side, and in the terms of <a class="mono" href="https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about">Which LLM User Are We Talking About?</a> my own receipts come from one cell: frontier models inside a heavy harness, in daily use.</p>
+<h2>The claim</h2>
+<p class="thesis">Red-teaming a model's behaviour is chaos engineering. Chaos engineering is the operations practice of attacking your own production system on purpose, with a hypothesis, a schedule and a limit on the damage, to find out whether the system holds. The <a class="mono" href="https://principlesofchaos.org/">Principles of Chaos Engineering</a> page defines it as "the discipline of experimenting on a system in order to build confidence" in what that system can withstand, and the practice was written up by Netflix engineers (Basiri and colleagues, "Chaos Engineering", IEEE Software 33(3), 2016).</p>
+<p class="thesis">Operations teams learned the reason for it over many outages: nobody can trust a control that nobody has attacked. A failover that has never been triggered, a backup that has never been restored and a firewall rule that has never been probed are all untested claims.</p>
+<p class="thesis">Model safeguards need the same practice, for a reason this series has already shown. A safeguard that a lab trains in against one observed failure moves the failure somewhere else. An evaluation that someone runs once measures the surface the lab patched. To find where the behaviour went, someone has to attack again, with different pressure, on a schedule.</p>
+<h2>Why one evaluation is not enough</h2>
+<p class="thesis">In February 2025 Palisade Research showed reasoning models editing the board file to beat a chess engine (arXiv:2502.13295), and the labs trained that behaviour out. In September 2026 Goodhart Labs ran a variant of the same task with the opponent engine left reachable, and recent frontier models used the engine (<a class="mono" href="https://goodhartlabs.com/blog/frontier-models-still-hack-alignment-evals">their post</a>). I read that result in <a class="mono" href="https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the">They Trained Out the Board Edit. The Cheating Moved.</a> The labs removed one route by training and left the pressure where it was.</p>
+<p class="thesis">Nothing exists in a vacuum: every behaviour a model shows was forced into existence by something, the corpus, the training signal, or the harness. Win-only scoring forced the cheating, and training against the board edit changed nothing about the scoring. My own logs show the same movement at runtime. I banned the flattering vocabulary and the model folded under correction instead, and when I wrote rules against folding the model agreed with premises nobody had checked (<a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">Sycophancy Is Layered</a>).</p>
+<p class="thesis">Operations teams know this pattern from incident work. A fix for one incident closes one path, and the same cause produces the next incident by another path. So from a pass on a published evaluation a red team learns that the model held on that route on the day of the run, and learns nothing about the next route.</p>
+<h2>The practice, mapped</h2>
+<p class="thesis">The first five rows are the advanced principles from the Principles of Chaos Engineering page. The last three are operations practice that sits around them.</p>
+<div class="tablewrap">
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Chaos engineering practice</th>
+<th>For model behaviour</th>
+<th>Where this series did it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build a hypothesis around steady-state behaviour</td>
+<td>Measure the rate of the behaviour with no pressure applied, before any attack</td>
+<td>The naked arm in the chess piece's design; the hook log in the stance piece</td>
+</tr>
+<tr>
+<td>Write the hypothesis before the run</td>
+<td>A dated prediction that names its unit and grader, hashed</td>
+<td>The prediction hashes in the machinebehavior.io repo</td>
+</tr>
+<tr>
+<td>Vary real-world events</td>
+<td>Vary the pressure: pushback, false premises, win-only scoring, authority claims, approval</td>
+<td>The objections register's incident log; the horizon of consequences</td>
+</tr>
+<tr>
+<td>Run experiments in production</td>
+<td>Test the deployed assembly, model plus harness, in arms that do not announce the test</td>
+<td>Naked versus harnessed in the scope piece; the invariance gap in the chess piece</td>
+</tr>
+<tr>
+<td>Automate experiments to run continuously</td>
+<td>Rerun every known attack on every change, and add new public ones</td>
+<td>The per-reply hook and the reconciliation loop</td>
+</tr>
+<tr>
+<td>Minimise blast radius</td>
+<td>Sandbox, no real credentials, a kill switch, and no attack published in full</td>
+<td>The track; the canary rule</td>
+</tr>
+<tr>
+<td>Game day and postmortem</td>
+<td>A scheduled sprint against one safeguard, with a written record of each finding</td>
+<td>The trap file; blameless postmortems</td>
+</tr>
+<tr>
+<td>Test the test</td>
+<td>Attack the grader and the control as well as the model</td>
+<td>The grader amendment on the experiments page</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>A steady state, measured first</h3>
+<p class="thesis">A chaos experiment starts by defining a steady state: a measurable output of the system that indicates normal behaviour. For a model, the steady state is the rate of a behaviour on a task with no pressure applied. Without that number a red team cannot say whether an attack changed anything.</p>
+<p class="thesis">In the chess piece I stated every prediction against a naked arm, the same model in the same environment without my stance instructions. In <a class="mono" href="https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil">The Stance Layer Is Still Toil</a> my steady-state measure for the word layer is a hook log: 140 blocked replies in 87 days. For the stance layer I have no such number, and that piece is about the missing instrument. A red team without a steady-state measure for a behaviour can collect anecdotes about it and cannot run an experiment on it.</p>
+<h3>A hypothesis written before the run</h3>
+<p class="thesis">The experimenter hypothesises that the steady state will continue under the injected event, and then tries to disprove that. For behaviour work the equivalent is a prediction written before the run, with its unit and its grader named, dated and hashed.</p>
+<p class="thesis">In the chess piece I made six predictions for my own stance setup. The wording as first written and the wording as published are both in the <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/predictions">machinebehavior.io repo</a> with sha256 hashes, and I list every amendment I made before publication, including a note that my own test result went against one prediction the day after I wrote it. If an author can edit a prediction after the run, a reader cannot tell it from a description of the result.</p>
+<h3>Vary the pressure</h3>
+<p class="thesis">A chaos experiment injects real-world events: a server dies, a response arrives malformed, traffic spikes. For a model the events are kinds of pressure. A user pushes back on a correct answer. A false premise arrives inside a confident prompt. Only a win scores. A message claims authority. The user signals approval for agreement. Each of these is a separate variable, and a model that holds under one can fail under the next.</p>
+<p class="thesis">I logged this on one model family in one setup, in the incident log of the <a class="mono" href="https://machinebehavior.io/objections">objections register</a>. The model over-read a case toward the more interesting reading, applied uneven caution by category, and treated the English-language default of its training corpus as neutral ground, and each slip came from a different pull. In <a class="mono" href="https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the">The Golem Made of English</a> I called the span in which an agent can see what its act will cost its horizon of consequences. With each kind of pressure a red team tests a different part of that span.</p>
+<h3>Test what is deployed</h3>
+<p class="thesis">The Principles authors prefer experiments in production, because a system behaves differently in a different environment. For models the harness is one reason to follow them, and evaluation awareness is the other.</p>
+<p class="thesis">A language model has Markovian memory: at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it. A deployed model runs with a system prompt, tools, memory and hooks in that window, so the bare model and the deployed assembly are two different systems under test. A result on one does not carry to the other.</p>
+<p class="thesis">A model can also behave differently when it believes someone is evaluating it (Greenblatt and colleagues, arXiv:2412.14093; Meinke and colleagues, arXiv:2412.04984). In operations terms that is a system which detects the test and switches to its staging behaviour. So a red team needs arms that do not announce the evaluation, and the number to report is the difference in conduct between the announced arm and the unannounced arm. In the chess piece I called that difference the invariance gap.</p>
+<h3>Automate, and rerun on every change</h3>
+<p class="thesis">The Principles authors call manual experiments labour-intensive and unsustainable. For behaviour work, every attack that has ever worked becomes a regression test, and someone reruns the whole set on every new model version, every system prompt change and every harness change. An agent that picks up newly published attacks and adds them to the set does the same job for attacks the team did not find itself.</p>
+<p class="thesis">My small version of this is a hook that checks every reply against a rule table, the reconciliation loop from <a class="mono" href="https://coetzeestefan.substack.com/p/what-operations-already-knows-about">What Operations Already Knows</a>: declared state, observe, correct, on every cycle. On 29 September a reader's comment became an enforced rule in eight minutes. The hook covers the word layer only. I still catch stance slips by hand, and the stance piece explains why that is toil.</p>
+<p class="thesis">One caution from the literature applies to automated checks. A monitor that reads a model's reasoning stops seeing the hack once that reasoning is optimised against (Baker and colleagues, arXiv:2503.11926). An automated check has to score what the model did as well as what the model said about it.</p>
+<h3>Limit the blast radius</h3>
+<p class="thesis">The Principles authors make containment the experimenter's obligation. For an agent under attack that means a sandbox, no real credentials, permissions that act as barriers, and a kill switch. In <a class="mono" href="https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers">The Track</a> I describe that infrastructure and why the people who use it rarely fund it.</p>
+<p class="thesis">Behaviour work has a second blast radius, which is the attack itself. An environment that someone publishes in full ends up in training data, and the next model learns that one setup and nothing about the principle behind it. Evaluation builders plant canary strings in their environments for that reason, and I link to environments in this series and never reproduce them.</p>
+<h3>Game days and postmortems</h3>
+<p class="thesis">Operations teams schedule game days: planned exercises where the team breaks something on purpose and practises the response. Each one ends in a blameless postmortem. For a red team the equivalent is a scheduled sprint against one safeguard, with a written record for each finding: what the team tried, what the model did, what the grader saw, and what changed afterwards.</p>
+<p class="thesis">The record has to outlive the session, because the agents on the red team keep nothing between sessions. In <a class="mono" href="https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/">The Trap File Is Longer Than the Instruction File</a> the failure record of one pipeline is 308 lines against 208 lines of instructions, under a heading that tells the next session to read it before running anything. The incident log in the objections register is the same kind of record for stance: each case has a date, a mechanism and the name of whoever caught it.</p>
+<h3>Test the test</h3>
+<p class="thesis">A control can pass while it checks the wrong component.</p>
+<p class="thesis">In my fawn-opener benchmark the frozen grader matched "you're" with a straight apostrophe only, and one model family writes the typographic apostrophe. The grader missed an opener of exactly the form under test, for a typographic reason. I found the defect in the pilot runs, a hand check of all 240 pilot openers found further forms the grader did not cover, and I declared the amendment on the <a class="mono" href="https://machinebehavior.io/experiments">experiments page</a>.</p>
+<p class="thesis">In a file-comparison task a model doubted its own clean result and ran a negative control on its comparison logic, with a fake file and an altered size. The control passed. The gap was in the input: directories the scan could not read had dropped out of both file lists without a count. The control tested the join, and the gap was in the coverage.</p>
+<p class="thesis">For a red team this means every grader and every control gets attacked as well: known positives, known negatives, and a check that the input covers everything the claim covers.</p>
+<h2>What the red team needs: a managed track</h2>
+<p class="thesis">A chaos engineer needs a place where the attack can run without real damage and with a full record. For behavioural red-teaming I would list these parts:</p>
+<ul>
+<li>A sandbox with barriers, so that an agent under pressure can do the wrong thing and nothing real breaks.</li>
+<li>Telemetry on what the model did: tool calls, files touched, commands run. A transcript of what the model said is half the record.</li>
+<li>A failure record that every session reads at the start and updates at the end.</li>
+<li>A steady-state measure for each behaviour under test, taken before the first attack.</li>
+</ul>
+<h2>Where the mapping stops</h2>
+<p class="thesis">A distributed system does not know that someone is testing it, and a model can detect a test. The unannounced arm exists for that reason, and no chaos experiment on a server needs one.</p>
+<p class="thesis">In operations a weakness that an experiment finds gets a structural fix: a configuration change, a code change, more capacity. For a model the usual fix is more training, and training against one failure is what moved the failure in the first place. So a finding is where the work starts. A red team's report is more useful when it also states what the correct conduct is, so that the lab can train toward a target. The escalate grade in the chess piece is one line of such a target.</p>
+<p class="thesis">For stance there is no steady-state instrument yet, so the first row of the table is still open for the behaviours that matter most.</p>
+<p class="thesis">I have not run a honeypot study, and I promise none here. The receipts in this piece come from one person's daily work with frontier models inside a harness, and from the public record of other people's evaluations.</p>
+<h2>Where I learned the practice</h2>
+<p class="thesis">Before language models I spent about thirty years on production UNIX, and much of that work was high availability, disaster recovery and business continuity on large estates: flight-control and airline reservation systems, the data centres of a national power utility, and banks and mobile operators across Southern Africa, on Sun, HP and IBM Power hardware with Oracle RAC. I migrated a mail system that its vendor had abandoned on its platform from a Tru64 AlphaServer to a high-availability pair of Sun workstations. Early on I worked on an estate of 300 SCO and Linux servers with 4,500 client servers behind them, and built its iptables routers and gateways. Security audits were a routine part of the work at every client, enterprise or not. I also worked on the auditor's side: an international certification body contracted me twice in the late 2000s as a technical expert on audits of its clients. Later I worked the front line of enterprise production incidents at AWS Premium Support, and led incidents and owned the root cause analyses at OLX and Makersite.</p>
+<p class="thesis">I never held the title of red-teamer. My own line for the work is that "redteaming is just reverse-engineering with extra steps." The system under test is now a language model, and I use the same practice on it.</p>
+<h2>What would refute this</h2>
+<ol type="1">
+<li>A safeguard trained against one observed failure that holds on routes nobody trained, shown by varied attack over months.</li>
+<li>One-off evaluations whose pass predicts conduct under kinds of pressure the evaluation did not include.</li>
+<li>Conduct that is the same in announced and unannounced arms across model families, which would make the production row unnecessary.</li>
+<li>Results on the bare model that carry unchanged to harnessed deployments.</li>
+</ol>
+<h2>Terms used here</h2>
+<ul>
+<li><strong>Chaos engineering:</strong> experimenting on a system on purpose to build confidence that it withstands turbulent conditions (Principles of Chaos Engineering).</li>
+<li><strong>Pre-deployment red-teaming:</strong> attacking a model's safeguards before release to find where they fail.</li>
+<li><strong>Steady state:</strong> a measurable output that indicates normal behaviour, taken before any attack.</li>
+<li><strong>Blast radius:</strong> how much an experiment can damage. For behaviour work it includes the training data that a published attack ends up in.</li>
+<li><strong>Game day:</strong> a scheduled exercise in which a team breaks its own system on purpose and practises the response.</li>
+<li><strong>Invariance gap:</strong> the difference in a model's conduct between an arm that announces the evaluation and an arm that does not.</li>
+<li><strong>Track:</strong> the infrastructure that makes failure survivable: sandbox, permissions, evaluation environment, failure record.</li>
+<li><strong>Nothing exists in a vacuum:</strong> every behaviour a model shows was forced into existence by something, the corpus, the training signal, or the harness.</li>
+<li><strong>Markovian memory:</strong> at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it.</li>
+</ul>
+<h2>Slips caught while drafting</h2>
+<p class="thesis">I drafted this piece with a language model, and these are the register and stance slips caught before it went out, with who caught each one. The running log across all pieces is at <a class="mono" href="https://machinebehavior.io/slips">machinebehavior.io/slips</a>.</p>
+<ul>
+<li><strong>thing as subject.</strong> Before: "a pass on a published evaluation tells a red team that the model holds on that route". After: "from a pass on a published evaluation a red team learns that the model held on that route". Caught by: Claude while drafting.</li>
+<li><strong>one-line punch.</strong> Before: "A prediction that someone can edit after the run is a description of the result." After: "If an author can edit a prediction after the run, a reader cannot tell it from a description of the result." Caught by: Claude while drafting.</li>
+<li><strong>citation rule.</strong> Before: a second mention of the same lab in the blast-radius section. After: "I link to environments in this series and never reproduce them." The series cites that source once per piece. Caught by: Claude while drafting.</li>
+<li><strong>announced count, two places.</strong> Before: "For models there are two reasons to follow it. The first is the harness. [...] The second is that" and "I have two receipts for that." After: "the harness is one reason to follow them, and evaluation awareness is the other"; the second sentence cut. Caught by: Claude mode-leak pass.</li>
+<li><strong>personification, several places.</strong> Before: "the next incident arrives by another path", "my own data weakened a prediction", "The literature adds one caution", "The Principles page prefers / says / makes". After: a cause, a person or the authors do each verb ("the same cause produces the next incident", "my own test result went against one prediction", "One caution from the literature applies", "The Principles authors prefer"). None of these verbs is on the hook's list, so the hook passed all of them. Caught by: Claude mode-leak pass.</li>
+<li><strong>thing as subject, several places.</strong> Before: "The chess piece carries six predictions", "The incident log shows this", "The Track covers that infrastructure", "The training removed one route". After: I or the labs do each verb. Caught by: Claude mode-leak pass.</li>
+<li><strong>recap closer.</strong> Before: "The system under test is now a language model, and the practice has not changed." After: "and I use the same practice on it." Caught by: Claude mode-leak pass.</li>
+<li><strong>attribution wider than the source.</strong> Before: "The Netflix engineers who named it define it as [...]" for a quote from the Principles page, which names no author. After: the quote is attributed to the page, and the Netflix paper is cited for the write-up. Caught by: Claude rereading against the fetched page.</li>
+<li><strong>claim stronger than the source, two places.</strong> Before: "every new session reads it before it runs anything" and "I found the defect by reading all 240 pilot openers by hand". After: the trap file's heading tells the next session to read it; the pilot runs exposed the defect and the hand check found further forms. Caught by: Claude rereading against the trap-file piece and the experiments page.</li>
+<li><strong>excluded case used.</strong> Before: "accepted a user's frame without a check" in the list of slips from the incident log. After: removed; that case is not used in this series. Caught by: Claude rereading against the case-files index.</li>
+<li><strong>thing as subject, in the Reddit cut.</strong> Before: "a pass on a published evaluation only says the model held on that route". After: "from a pass on a published evaluation you learn that the model held on that route". Caught by: Claude while drafting the cut.</li>
+<li><strong>claim with no receipt, in the LinkedIn skeleton.</strong> Before: "The grader passed every check I had run on it". After: "I only found out in the pilot runs". No record of earlier checks on the grader exists. Caught by: Claude while drafting the skeleton.</li>
+<li><strong>superlative, in the LinkedIn skeleton.</strong> Before: "That's the oldest lesson in operations". After: "That's an old lesson in operations". Caught by: Claude while drafting the skeleton.</li>
+<li><strong>pronoun as subject, in the LinkedIn skeleton.</strong> Before: "It also says where the mapping stops". After: "I also say where the mapping stops". Caught by: Claude review of the skeleton.</li>
+<li><strong>one-line punch paragraph, in the LinkedIn skeleton.</strong> Before: "This one closes the series." as its own paragraph. After: a last sentence in the paragraph before it. Caught by: Claude review of the skeleton.</li>
+</ul>
+<h2>Changelog and errata</h2>
+<ul>
+<li><strong>v1, 2026-10-03:</strong> published.</li>
+<li><strong>Errata:</strong> none so far. Corrections will be listed here with their date, and the corrected text marked in place.</li>
+</ul>
+<h2>The series</h2>
+<p class="thesis">This is part of a series by Stefan Coetzee, 2026, on running language models as working systems. This piece closes it.</p>
+<ul>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/write-for-the-codec/">Write for the Codec</a>: documentation as a wire format between two models.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/">The Trap File Is Longer Than the Instruction File</a>: an unattended pipeline and its failure record.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/the-cheating-moved/">They Trained Out the Board Edit. The Cheating Moved.</a>: the chess honeypot read as stance, and a dated prediction.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/the-golem-made-of-english/">The Golem Made of English and the Horizon of Consequences</a>: why an agent cannot see the cost of what it does.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/what-operations-already-knows/">What Operations Already Knows About Running Agents</a>: error budgets, reconciliation loops, separation of duties, recovery over prevention.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/success-is-the-engine-running/">Success Is the Engine Running</a>: container, timing and the far-end gauge.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/the-track/">The Track: The Drivers Never Buy It</a>: the infrastructure that makes failure survivable.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/compaction-is-the-new-oom/">Compaction Is the New OOM</a>: context compaction as the OOM killer of the language model stack.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>: where Claude's writing style came from.</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/which-llm-user/">Which LLM User Are We Talking About?</a>: the two axes behind "AI" and "LLM".</li>
+<li><a class="mono" href="https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/">The Stance Layer Is Still Toil</a>: the word layer automated, the stance layer caught by hand.</li>
+<li>Chaos Engineering for Behaviour: this piece.</li>
+</ul>
+<p class="thesis">Research programme and claims ledger: <a class="mono" href="https://machinebehavior.io">machinebehavior.io</a>.</p>
+<p class="thesis">See also: <a class="mono" href="https://machinebehavior.io/man">The LLM man pages</a>, the index of this series, the TYChat lessons and the research register.</p>
+
+</div>
+</body>
+</html>
