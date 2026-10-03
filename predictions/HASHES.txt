@@ -3,3 +3,7 @@ Hashes computed at publication, 2026-09-29. They prove the text has not changed 
 The 2026-09-21 block is taken verbatim from local vault commit f3f39ae (2026-09-21 18:38 +0200); that history is not public.
 the-cheating-moved-2026-09-21.txt  sha256 955e60c90360a3ee57cb3a6f450a683d0c843a04d84a8b7e7f562d9658625329
 the-cheating-moved-2026-09-29.txt  sha256 66ed5f04255d111916cef5f6ba9cab7e9e95c738956a989ea5bbd2ba41586f7d
+
+Prediction record for the continuous conformity self-assessment, run 1 (machinebehavior.io, page to follow).
+Written and committed to the local vault (commit a8a13ce) before any scoring; published here before the scoring run.
+continuous-conformity-self-assessment-2026-10-03.txt  sha256 8ed4f76620dc7548896083b9916a7d8ad0a19f194c107e45f8bec171fac5adf4
