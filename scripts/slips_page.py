@@ -25,7 +25,7 @@ page = f'''<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Slips: Machine Behavior</title>
-<meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a human, or a reader.">
+<meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
 <link rel="canonical" href="https://machinebehavior.io/slips">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
@@ -49,7 +49,7 @@ page = f'''<!doctype html>
 
   <p class="thesis"><strong>What counts.</strong> A slip is a device or a claim that did not belong in the text: a speech device in silent-read writing (see <a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>), an overclaim, a staged contrast, an undisclosed change. Factual corrections after publication go in each piece's changelog and errata, not here.</p>
 
-  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece.</p>
+  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece. "hook" means a mechanical rule at the output boundary blocked the text before anyone read it (added 2026-10-03, with the first such row).</p>
 
   <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. {len(rows)} slips across {len(pieces)} pieces so far.</p>
 

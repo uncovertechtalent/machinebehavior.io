@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Slips: Machine Behavior</title>
-<meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a human, or a reader.">
+<meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
 <link rel="canonical" href="https://machinebehavior.io/slips">
 <link rel="stylesheet" href="style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
@@ -28,17 +28,18 @@
 
   <p class="thesis"><strong>What counts.</strong> A slip is a device or a claim that did not belong in the text: a speech device in silent-read writing (see <a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>), an overclaim, a staged contrast, an undisclosed change. Factual corrections after publication go in each piece's changelog and errata, not here.</p>
 
-  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece.</p>
+  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="claims">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece. "hook" means a mechanical rule at the output boundary blocked the text before anyone read it (added 2026-10-03, with the first such row).</p>
 
-  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. 20 slips across 7 pieces so far.</p>
+  <p class="thesis"><strong>Limits.</strong> The log only holds slips someone caught; what nobody caught is not in it. It starts on 2026-09-29, and earlier pieces have no entries. The "self" count includes checks the model ran because a written procedure told it to (the mode-leak pass), so it measures a procedure followed, not unprompted self-correction. 37 slips across 11 pieces so far.</p>
 
   <h2>By who caught it</h2>
   <div class="tablewrap">
   <table>
     <tr><th>relation</th><th>slips</th></tr>
-    <tr><td>self</td><td class="n">14</td></tr>
+    <tr><td>self</td><td class="n">30</td></tr>
     <tr><td>other session</td><td class="n">5</td></tr>
     <tr><td>human</td><td class="n">1</td></tr>
+    <tr><td>hook</td><td class="n">1</td></tr>
   </table>
   </div>
 
@@ -46,20 +47,26 @@
   <div class="tablewrap">
   <table>
     <tr><th>device</th><th>slips</th></tr>
-    <tr><td>announced count</td><td class="n">4</td></tr>
-    <tr><td>overclaim</td><td class="n">3</td></tr>
+    <tr><td>announced count</td><td class="n">5</td></tr>
+    <tr><td>overclaim</td><td class="n">4</td></tr>
+    <tr><td>personification</td><td class="n">4</td></tr>
+    <tr><td>thing as subject</td><td class="n">3</td></tr>
+    <tr><td>one-line punch</td><td class="n">3</td></tr>
+    <tr><td>tricolon / staccato</td><td class="n">2</td></tr>
+    <tr><td>hook opener</td><td class="n">2</td></tr>
     <tr><td>staged contrast</td><td class="n">2</td></tr>
-    <tr><td>tricolon / staccato</td><td class="n">1</td></tr>
     <tr><td>fragment after a bold line</td><td class="n">1</td></tr>
     <tr><td>thinking-aloud qualifiers</td><td class="n">1</td></tr>
     <tr><td>overcorrection</td><td class="n">1</td></tr>
     <tr><td>undisclosed amendment to a dated prediction</td><td class="n">1</td></tr>
     <tr><td>unclear term plus weak comparison</td><td class="n">1</td></tr>
-    <tr><td>hook opener</td><td class="n">1</td></tr>
-    <tr><td>thing as subject</td><td class="n">1</td></tr>
     <tr><td>example adds a fact the original lacked</td><td class="n">1</td></tr>
     <tr><td>miscount</td><td class="n">1</td></tr>
     <tr><td>citation overreach</td><td class="n">1</td></tr>
+    <tr><td>fragment chain</td><td class="n">1</td></tr>
+    <tr><td>relative date</td><td class="n">1</td></tr>
+    <tr><td>fragment</td><td class="n">1</td></tr>
+    <tr><td>wrong month</td><td class="n">1</td></tr>
   </table>
   </div>
 
@@ -87,6 +94,23 @@
     <tr><td>2026-09-29</td><td>tychat register.txt v1.1</td><td>citation overreach</td><td>Biber groups things-as-subjects under Dimension 5</td><td>Biber places agentless passives, the grammatical form of the same move, on his abstract vs non-abstract dimension</td><td>tychat session review</td><td>other session</td></tr>
     <tr><td>2026-09-29</td><td>which-llm-user (Reddit cut)</td><td>staged contrast (not X ... it's Y)</td><td>The line isn't the product, it's how much of the context window you control.</td><td>The line sits in how much of the context window you control, whatever the product.</td><td>Claude review of the cut</td><td>self</td></tr>
     <tr><td>2026-09-29</td><td>which-llm-user (Reddit and LinkedIn cuts)</td><td>announced count</td><td>Three questions tell you which cell you're in:</td><td>These questions tell you which cell you're in:</td><td>Claude review of the cut</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>personification</td><td>"the reflex sits below the words" (outline)</td><td>the model folds when it decides what to say, before it picks any word.</td><td>the write-scan hook's personification rule, on the outline's first write, 16 minutes after the rule went in</td><td>hook</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>one-line punch</td><td>...and promised a later piece about it. This is that piece.</td><td>...and promised a later piece about it, which is this one.</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>announced count (also thing as subject)</td><td>Three cases since then show the shape.</td><td>Since July I have logged more of the same, in other forms.</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>hook opener</td><td>Here is the stance check against each of those.</td><td>Against each of those, the stance check comes out like this.</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>thing as subject (four places)</td><td>"Sycophancy Is Layered splits this", "Sycophancy Is Layered calls that", "The claims ledger carries this", "The operations piece named"</td><td>I do each verb ("In Sycophancy Is Layered I split this", and so on)</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>tricolon / staccato (staccato pair)</td><td>A procedure can find a listed word shape. The log has no case of a session catching its own fold.</td><td>one sentence joined with "and"</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-29</td><td>the-stance-layer-is-still-toil</td><td>personification (the hook missed it)</td><td>the register records the fold coming back under pressure anyway.</td><td>"I still logged the fold coming back under pressure, in the register." The rule's verb list has no "records", so the hook passed it</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>fragment chain</td><td>People who run a language model inside a harness [...]. Readers of Sycophancy Is Layered [...]. People who build evaluations [...].</td><td>one sentence, "This is for people who run [...], for readers of [...], and for people who build evaluations [...]."</td><td>Claude mode-leak pass on the v1.1 update, one day after the first pass missed it</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>one-line punch (closer)</td><td>A summary of a catch is one more text that needs an outside check.</td><td>cut</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>personification (three places, all missed by the hook)</td><td>"The transcripts corrected the summaries", "Those figures come with limits", "the trial tested [...]. It did not test"</td><td>a session or I do each verb ("the session found the summaries wrong", "I have to state the limits", "with this trial I tested"). None of the three verbs is on the hook's list, so the hook passed all of them</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>thing as subject</td><td>the 7 of 7 on the final wording says the wording can be followed</td><td>from the 7 of 7 on the final wording I can conclude that a model can follow the wording</td><td>Claude mode-leak pass</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>relative date</td><td>this afternoon a session wrote</td><td>that same afternoon a session wrote</td><td>Claude rereading on the next day</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil</td><td>overclaim: claim stronger than the check</td><td>nothing from before 25 April 2026 exists any more</td><td>"could be recovered". The search covered the machines and one backup drive</td><td>Claude rereading against the case-files index</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (Reddit cut)</td><td>one-line punch (opener)</td><td>So I still catch stance by hand. In nine days in May I logged eight relapses</td><td>one sentence joined with "and"</td><td>Claude review of the cut</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (Reddit cut)</td><td>personification</td><td>banning words only moves the fold into other words</td><td>after a word ban the model writes the same fold in other words</td><td>Claude review of the cut</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (LinkedIn skeleton)</td><td>fragment</td><td>Eight logged relapses in nine days in May, all caught by me, none by the model's own checks.</td><td>I logged eight relapses in nine days in May and caught all of them myself, and the model's own checks caught none.</td><td>Claude while drafting the skeleton</td><td>self</td></tr>
+    <tr><td>2026-09-30</td><td>the-stance-layer-is-still-toil (Reddit and LinkedIn cuts)</td><td>wrong month</td><td>eight relapses in nine days in May</td><td>"in the nine days from 24 May". The nine days end on 1 June</td><td>Claude rereading the cuts against the draft</td><td>self</td></tr>
   </table>
   </div>
 
