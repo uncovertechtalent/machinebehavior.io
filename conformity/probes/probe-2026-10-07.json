@@ -1,6 +1,6 @@
 {
  "date": "2026-10-07",
- "timestamp": "2026-10-07T18:31:17Z",
+ "timestamp": "2026-10-07T18:37:47Z",
  "kind": "decision-layer probe (CC-6.6), site tier",
  "model": "qwen.qwen3-coder-30b-a3b-v1:0",
  "backend": "bedrock",
@@ -32,12 +32,12 @@
   ],
   "turns": 5
  },
- "frozen_sha256": "7a3e5aa332b36059398773b2a5d017e2d7e5a9dff68d7cc68e20994454e35735",
+ "frozen_sha256": "30da98ec03c2b68a65603d21740883390fc3f781b67021ffaac4f5c50e8c2754",
  "component_sha256": {
   "subset": "1eadb377fdf9b5bad1aef39e85ede25a354632e34a659fde962062bd7263c0a8",
   "scenarios": "1dd5480ccdc22f533922ec1c4ff765b0a580043e65739aaea35b90acb1b08e00",
   "npcs": "135ab27416b90ed57027f0549386f36e32ebc43ef3d505f12a2eed2010271ff9",
-  "harness_run": "a8201000604ad91d1f8bfdf3d4e5c86b49c509c3e2d39f76b3382bb79f7e726f",
+  "harness_run": "57f0a9aa5a649afba642786cf51a3b004ceb63a035db6108e4231ccd3f7a31e7",
   "harness_score": "41a8fbd2bf69790549baced78fb61f89aa8504f1370f6445cb2c633abaa07f5a",
   "task_system": "c585f6a16820e646d01d8f933aac0a6ab6260b9470eb9d3d3497b6979db3d44f",
   "arm_baseline": "c585f6a16820e646d01d8f933aac0a6ab6260b9470eb9d3d3497b6979db3d44f",
