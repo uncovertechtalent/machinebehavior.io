@@ -180,14 +180,86 @@ def check_marks():
 
 
 def check_freshness():
-    return {"result": "pending", "detail": "not implemented yet (build step 2: dated verification per page against a stated interval)", "evidence": [], "hits": []}
+    """Each published page carries at least one date; the newest date on the page is within the stated interval. Observations only (warning level) until a per-page verified field exists."""
+    interval = SITE.get("freshness_interval_days", 90)
+    undated, stale, ok = [], [], 0
+    for d in page_dirs() + ["."]:
+        src = (ROOT / d / "index.html").read_text()
+        dates = re.findall(r"\b(20\d\d-\d\d-\d\d)\b", src)
+        if not dates:
+            undated.append(f"{d}/: no date on the page")
+            continue
+        newest = max(dates)
+        try:
+            age = (NOW.date() - datetime.date.fromisoformat(newest)).days
+        except ValueError:
+            undated.append(f"{d}/: unreadable date {newest}")
+            continue
+        if age > interval:
+            stale.append(f"{d}/: newest date {newest}, {age} days old (interval {interval})")
+        else:
+            ok += 1
+    return {"result": "partial", "detail": f"{ok} pages dated within {interval} days; {len(stale)} older; {len(undated)} without a date. Observation level: a per-page verified-against-source field does not exist yet, so this check never blocks",
+            "evidence": stale + undated, "hits": []}
+
+
+def scan_texts(items):
+    """Run the rule table over small texts via scan-runner; returns {id: [hits]}."""
+    import tempfile
+    tmp = Path(tempfile.mkdtemp())
+    files = {}
+    for it in items:
+        f = tmp / (it["id"] + ".txt")
+        f.write_text(it["text"])
+        files[str(f)] = it["id"]
+    inp = json.dumps({"files": list(files), "tiers": SITE["tiers"]})
+    proc = subprocess.run(["node", str(CONF / "scan-runner.js")], input=inp, capture_output=True, text=True)
+    if proc.returncode != 0:
+        raise RuntimeError("scan-runner failed on fixtures: " + proc.stderr[:400])
+    out = {it["id"]: [] for it in items}
+    for h in json.loads(proc.stdout)["hits"]:
+        out[files[h["file"]]].append(h)
+    return out
+
+
+def load_fixtures():
+    """Regression set: hand-written fixtures plus every slip in slips/log.csv (before = candidate known-fail, after = known-pass)."""
+    import csv
+    items = []
+    for line in (CONF / "fixtures" / "manual.jsonl").read_text().splitlines():
+        if line.strip():
+            items.append(json.loads(line))
+    with open(ROOT / "slips" / "log.csv", newline="") as fh:
+        for i, row in enumerate(csv.DictReader(fh), 1):
+            if row.get("before"):
+                items.append({"id": f"slip-{i}-before", "expect": "slip", "rule": None, "source": f"slips/log.csv row {i} ({row.get('piece')}, {row.get('device')})", "text": row["before"]})
+            if row.get("after"):
+                items.append({"id": f"slip-{i}-after", "expect": "miss", "rule": None, "source": f"slips/log.csv row {i} ({row.get('piece')})", "text": row["after"]})
+    return items
 
 
 def check_fixtures():
-    fx = CONF / "fixtures"
-    if not fx.exists():
-        return {"result": "pending", "detail": "no fixture set yet (build step 3: known-fail and known-pass cases from the slips log)", "evidence": [], "hits": []}
-    return {"result": "pending", "detail": "fixture runner not implemented", "evidence": [], "hits": []}
+    items = load_fixtures()
+    hits = scan_texts(items)
+    fails, caught, outside = [], [], []
+    for it in items:
+        h = hits[it["id"]]
+        blockers = [x for x in h if x["tier"] == "block"]
+        names = {x["rule"] for x in h}
+        if it["expect"] == "hit":
+            if it["rule"] not in names:
+                fails.append(f"{it['id']}: expected rule {it['rule']} to fire; got {sorted(names) or 'nothing'}")
+        elif it["expect"] == "miss":
+            if blockers:
+                fails.append(f"{it['id']}: known-pass text hit blocking rule(s) {sorted(x['rule'] for x in blockers)} ({it['source']})")
+        elif it["expect"] == "slip":
+            (caught if names else outside).append(it["id"] + (f" [{', '.join(sorted(names))}]" if names else ""))
+    n_slips = sum(1 for it in items if it["expect"] == "slip")
+    detail = (f"{len(items)} fixtures: {sum(it['expect']=='hit' for it in items)} known-fail (one per rule), {sum(it['expect']=='miss' for it in items)} known-pass; "
+              f"{len(fails)} failures. Of {n_slips} logged slips (before text), the rule table catches {len(caught)}; {len(outside)} are outside its reach (stance and mode-leak devices: the lexical grader's blind spot, by design)")
+    return {"result": "pass" if not fails else "fail", "detail": detail,
+            "evidence": fails + [f"caught by the rule table: {c}" for c in caught[:10]], "hits": [{"file": "conformity/fixtures", "snippet": f} for f in fails],
+            "x_slips_caught": caught, "x_slips_outside": len(outside)}
 
 
 def check_closure(findings):

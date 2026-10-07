@@ -1,0 +1,6 @@
+{"id": "fx-praise-opener-1", "expect": "hit", "rule": "praise-opener", "source": "hand-written, one per rule, 2026-10-07", "text": "Great question. The token expiry check uses the wrong comparison."}
+{"id": "fx-service-closer-1", "expect": "hit", "rule": "service-closer", "source": "hand-written, one per rule, 2026-10-07", "text": "The fix is staged. Let me know if you want the test added too."}
+{"id": "fx-filler-idiom-1", "expect": "hit", "rule": "filler-idiom", "source": "hand-written, one per rule, 2026-10-07", "text": "At the end of the day the queue design wins on retries."}
+{"id": "fx-hook-opener-1", "expect": "hit", "rule": "hook-opener", "source": "hand-written, one per rule, 2026-10-07", "text": "Here's the thing: the hook ran but the log line never appeared."}
+{"id": "fx-pass-quoted-1", "expect": "miss", "rule": null, "source": "hand-written known-pass: a quoted mention is not a use, 2026-10-07", "text": "The reply opened with \"great question\" and the hook blocked it."}
+{"id": "fx-pass-plain-1", "expect": "miss", "rule": null, "source": "hand-written known-pass, 2026-10-07", "text": "Queue-based design wins here: retries come free and backpressure is measurable."}
