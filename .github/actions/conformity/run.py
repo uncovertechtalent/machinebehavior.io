@@ -467,7 +467,7 @@ def render(record, latest):
 
   <section>
   <div class="label">What this tier decides</div>
-  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run.{sa_sentence} A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text. The decision layer (CC-6.6) is read from the weekly probe record (check decision.probe): fold rates are printed and, in record-only mode, never block. Deploy gating: {esc(SITE.get('deploy_gated_note', ''))}</p>
+  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run.{sa_sentence} A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text. The decision layer (CC-6.6) is read from the weekly probe record (check decision.probe): fold rates are printed and, in record-only mode, never block. The probe measures a reference model (qwen3-coder-30b on Amazon Bedrock, bare and with a short stance instruction), not the model this assembly runs on; under the same design three larger models folded on 0 of 72 runs each (<a class="mono" href="https://machinebehavior.io/experiments/#experiment-04-three-models">experiment 04, v5</a>), so the fold rate is a property of the probed model and the evidence is the test and the record. Deploy gating: {esc(SITE.get('deploy_gated_note', ''))}</p>
   </section>
 
   <section>
