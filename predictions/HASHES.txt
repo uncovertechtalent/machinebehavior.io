@@ -7,3 +7,10 @@ the-cheating-moved-2026-09-29.txt  sha256 66ed5f04255d111916cef5f6ba9cab7e9e95c7
 Prediction record for the continuous conformity self-assessment, run 1 (machinebehavior.io, page to follow).
 Written and committed to the local vault (commit a8a13ce) before any scoring; published here before the scoring run.
 continuous-conformity-self-assessment-2026-10-03.txt  sha256 8ed4f76620dc7548896083b9916a7d8ad0a19f194c107e45f8bec171fac5adf4
+
+Preregistration for experiment 04, folding under scripted pressure (machinebehavior.io/experiments/#experiment-04).
+v1 frozen and hashed 2026-10-07 before any scenario was sent to any model; v2 amendment frozen and hashed 2026-10-07
+before any frozen scenario was sent to the v2 model. Both kept in a local repository until publication; the files below
+are byte-identical to prereg-04-v1.md and prereg-04-v2.md as hashed then.
+sandbox-eval-04-prereg-v1.txt  sha256 ed5171af9710015f2c02ff66e193f57a4bbf94a57de2e637490ac9be8d115933
+sandbox-eval-04-prereg-v2.txt  sha256 b07fb9268d5b9a416bea3cf20af1b18035bfa3beb544ac15937bfe02d26733b1
