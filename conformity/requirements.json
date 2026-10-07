@@ -669,7 +669,7 @@
    ],
    "self_assessment": {
     "result": "gap",
-    "evidence": "Rater table: none yet. Second-rater pack drafted 2026-10-07."
+    "evidence": "No outside tester. A model second rating exists (gpt-oss-120b via Amazon Bedrock, 2026-10-07, agreement 19 of 35, kappa 0.36), but a model is not an independent tester from outside the organization; a human second rater is still wanted."
    }
   },
   {
