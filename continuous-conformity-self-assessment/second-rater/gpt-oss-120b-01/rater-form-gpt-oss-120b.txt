@@ -1,0 +1,44 @@
+rater: GPT via Codex CLI
+kind: model
+access: public only
+date: 2026-10-07
+prediction sha256 checked: no
+
+CC-4.1  cannot verify  no public programme document; only local vault search (C: access L only)
+CC-4.2  cannot verify  no public evidence of listed requirements, metrics, thresholds (C: access L only)
+CC-4.3  cannot verify  no public owner record for the programme (C: access L only)
+CC-5.1  gap  experiments page shows tests run on subagents, not on the full deployed assembly (F: experiments page)
+CC-5.2  cannot verify  run records do not publicly list component versions (C: access L only)
+CC-5.3  n/a  no conformity test injects into the serving system (F: experiments page)
+CC-6.1  partial  hook log shows blocked replies but no steady‑state measurement recorded (F: hook log excerpt)
+CC-6.2  gap  prompt set covers only Annex C classes C.1 and C.2; other classes missing and no exclusions documented (F: bench/prompts-v1.jsonl)
+CC-6.3  pass  prediction hashes are published in predictions/HASHES.txt (F: predictions/HASHES.txt)
+CC-6.4  partial  unannounced arms are only proposed, not implemented (F: The Cheating Moved)
+CC-6.5  partial  pilot validated grader but no standing known‑pass/known‑fail case set (E: note)
+CC-7.1  gap  kit repos have no CI and no test runs on harness changes (C: kit repos no CI)
+CC-7.2  gap  harness changes are released live without staged testing (E: note)
+CC-7.3  gap  no scheduled full‑test runs; crontab empty (C: crontab empty)
+CC-7.4  partial  lexical rules added after incidents, but regression‑set management not documented (E: note)
+CC-7.5  gap  no intake log for published attack methods (C: none)
+CC-8.1  gap  only 16 % of vault files have a source and 2 % have an owner (E: frontmatter counts)
+CC-8.2  gap  only 7 % have a verified field; freshness intervals not enforced (E: frontmatter counts)
+CC-8.3  gap  freshness intervals are not stated for any knowledge class (E: note)
+CC-8.4  gap  vault‑search repository contains no tests (C: vault‑search repo no tests)
+CC-8.5  pass  case 12 page shows verification against the source of record (F: case 12 page)
+CC-8.6  pass  published pieces include source citations (C: published pieces with source notes)
+CC-9.1  cannot verify  grader identity not publicly recorded (C: public evidence lacking)
+CC-9.2  gap  no external independent tester recorded (F: objections page rater table)
+CC-10.1  gap  nonconformities tracked but closure does not require a passing rerun (E: beads note)
+CC-10.2  pass  no serious incident reported on any page (C: public)
+CC-11.1  partial  transcripts contain date, model, raw output but lack test‑set version, prediction hash, rerun steps (E: note)
+CC-11.2  partial  settings.json cleanupPeriodDays 365 and oldest transcript 2026‑08‑03 suggest retention but not proven (E: note)
+CC-11.3  partial  experiments page and repo scripts are public, but self‑assessment labeling not fully shown (F: experiments page)
+CC-11.4  pass  objections page explicitly invites a second rater (F: objections page)
+CC-12.1  gap  no mechanical/assisted/manual marks exist in the programme (E: note)
+CC-12.2  pass  vestige‑kit rule table is machine‑readable and version‑controlled (F: bench/fawn-bench-rules-v2.js)
+CC-12.3  partial  blocking rules have some false‑positive tests, but not all (E: note)
+CC-12.4  partial  vestige‑scan.log records rule hits; no documented programme‑review of the log (E: note)
+CC-12.5  gap  no export of run records or nonconformities in an open format (E: note)
+
+totals: pass 6, partial 9, gap 14, n/a 1, cannot verify 5
+disagreements with run 1: n/a
