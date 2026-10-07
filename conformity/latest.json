@@ -71,10 +71,18 @@
    "overall": "pass",
    "findings_open": 0,
    "warnings": 0
+  },
+  {
+   "ts": "2026-10-07T17:59:49Z",
+   "trigger": "push",
+   "sha": "6350dc6d5f4d204317810d0633337665f7003443",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
   }
  ],
  "findings": [],
- "last_run": "2026-10-07T17:55:33Z",
+ "last_run": "2026-10-07T17:59:49Z",
  "overall": "pass",
  "requirement_states": {
   "CC-4.1": {
@@ -258,5 +266,6 @@
    "mark": "M"
   }
  },
- "site_commit": "44a6d5921a28a4198817a286e9f21c39701f3ee3"
+ "site_commit": "6350dc6d5f4d204317810d0633337665f7003443",
+ "site": "machinebehavior.io"
 }
