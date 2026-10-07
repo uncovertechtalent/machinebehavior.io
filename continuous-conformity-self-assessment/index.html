@@ -352,6 +352,365 @@
 <li>The scores are against a draft the same model wrote, so the requirements may fit this setup more closely than an outside draft would.</li>
 </ul>
 
+<h2 id="second-rater">Second-rater pack</h2>
+<p class="thesis"><strong>Self-assessment, not a certification.</strong> Run 1 was scored by one grader, the model that runs inside the system under test. This pack is what a second rater needs to score the same 35 requirements without talking to the first grader. Disagreements are listed next to the original score on the published page, by row, in the same way the objections register lists rater disagreements.</p>
+<h3 id="1-what-the-rater-receives">1 What the rater receives</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Where</th>
+<th>Public</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requirements under test</td>
+<td>"Continuous Conformity for Deployed AI Systems", working draft 0.2, 35 requirements CC-4.1 to CC-12.5</td>
+<td>with the page, once published</td>
+</tr>
+<tr>
+<td>Prediction record, hashed before scoring</td>
+<td>machinebehavior.io/predictions/continuous-conformity-self-assessment-2026-10-03.txt; sha256 in predictions/HASHES.txt</td>
+<td>yes (live since site commit bc0c31b)</td>
+</tr>
+<tr>
+<td>Run 1 scores with evidence per row</td>
+<td>the self-assessment page (held)</td>
+<td>with the page</td>
+</tr>
+<tr>
+<td>This pack</td>
+<td>with the page</td>
+<td>with the page</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="2-scoring-rules-unchanged-from-the-prediction-record">2 Scoring rules (unchanged from the prediction record)</h3>
+<p class="thesis">One result per requirement.</p>
+<ul>
+<li><strong>pass</strong>: evidence exists that meets the requirement text as written.</li>
+<li><strong>partial</strong>: evidence exists for part of the requirement, or the practice exists without the record.</li>
+<li><strong>gap</strong>: no evidence found.</li>
+<li><strong>n/a</strong>: the requirement's condition does not arise for this system.</li>
+</ul>
+<p class="thesis">A result without cited evidence is a gap. "Shall" in a requirement means the evidence must show the thing itself; "should" means the same scale applies, and the rater notes that the requirement is a recommendation.</p>
+<p class="thesis">Two rules added for the second rater:</p>
+<ul>
+<li><strong>cannot verify</strong>: the evidence named in run 1 sits on the operator's machine and the rater has no access. This is recorded as its own result, separate from gap, so that lack of access is not counted as a finding against the system.</li>
+<li><strong>Independence</strong>: the rater does not ask the first grader for a reading of any row before scoring. Questions about access to evidence go to Stefan Coetzee, who grants access or records that it was not granted.</li>
+</ul>
+<h3 id="3-evidence-access-by-row">3 Evidence access by row</h3>
+<p class="thesis">P = public evidence is enough to score the row. L = run 1 cited local evidence (operator's machine); a rater without access records "cannot verify". P/L = the public part supports a score; the local part can move it.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Req</th>
+<th>Run 1</th>
+<th>Access</th>
+<th>Public evidence</th>
+<th>Local evidence run 1 used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CC-4.1</td>
+<td>gap</td>
+<td>L</td>
+<td>none claimed</td>
+<td>vault search for a programme document</td>
+</tr>
+<tr>
+<td>CC-4.2</td>
+<td>gap</td>
+<td>L</td>
+<td>none claimed</td>
+<td>as 4.1</td>
+</tr>
+<tr>
+<td>CC-4.3</td>
+<td>gap</td>
+<td>L</td>
+<td>none claimed</td>
+<td>as 4.1</td>
+</tr>
+<tr>
+<td>CC-5.1</td>
+<td>partial</td>
+<td>P</td>
+<td>experiments page: wrapper confound named; bare-model runs labelled (bench/pilot/out/gpt-bare-*)</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-5.2</td>
+<td>partial</td>
+<td>L</td>
+<td>vestige-kit and vault-kit repos are versioned (public)</td>
+<td>dotfiles status, settings.json comparison, memory files</td>
+</tr>
+<tr>
+<td>CC-5.3</td>
+<td>n/a</td>
+<td>P/L</td>
+<td>experiments page: bench runs use separate subagents or APIs</td>
+<td>confirmation that no test injects into the serving system</td>
+</tr>
+<tr>
+<td>CC-6.1</td>
+<td>partial</td>
+<td>P/L</td>
+<td>"140 blocked replies in 87 days" in The Stance Layer Is Still Toil</td>
+<td>hook log (595 lines, 158 blocked replies at 2026-10-03)</td>
+</tr>
+<tr>
+<td>CC-6.2</td>
+<td>partial</td>
+<td>P</td>
+<td>bench/prompts-v1.jsonl categories against Annex C</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-6.3</td>
+<td>pass</td>
+<td>P</td>
+<td>predictions/HASHES.txt and the prediction files</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-6.4</td>
+<td>gap</td>
+<td>P</td>
+<td>The Cheating Moved: unannounced arms designed, not run on this setup</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-6.5</td>
+<td>partial</td>
+<td>P</td>
+<td>experiments page pilot; bench/fawn-bench-rules-v2.js</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-7.1</td>
+<td>gap</td>
+<td>L</td>
+<td>kit repos: no CI (public)</td>
+<td>uncommitted harness edits</td>
+</tr>
+<tr>
+<td>CC-7.2</td>
+<td>gap</td>
+<td>L</td>
+<td>none</td>
+<td>harness change practice</td>
+</tr>
+<tr>
+<td>CC-7.3</td>
+<td>gap</td>
+<td>L</td>
+<td>none</td>
+<td>crontab, launchd listing</td>
+</tr>
+<tr>
+<td>CC-7.4</td>
+<td>partial</td>
+<td>P/L</td>
+<td>vestige-kit rule table history; slips log; trap file (The Trap File Is Longer Than the Instruction File)</td>
+<td>dotfiles commit f235476</td>
+</tr>
+<tr>
+<td>CC-7.5</td>
+<td>gap</td>
+<td>L</td>
+<td>none</td>
+<td>absence of an intake log</td>
+</tr>
+<tr>
+<td>CC-8.1</td>
+<td>partial</td>
+<td>L</td>
+<td>none</td>
+<td>frontmatter counts over the vault (734 of 4,521 with a source field; 86 with an owner)</td>
+</tr>
+<tr>
+<td>CC-8.2</td>
+<td>partial</td>
+<td>L</td>
+<td>none</td>
+<td>frontmatter counts (333 with a verified field)</td>
+</tr>
+<tr>
+<td>CC-8.3</td>
+<td>gap</td>
+<td>L</td>
+<td>none</td>
+<td>absence of stated intervals</td>
+</tr>
+<tr>
+<td>CC-8.4</td>
+<td>gap</td>
+<td>P/L</td>
+<td>vault-search repo: no tests (if the repo is public; unverified)</td>
+<td>repo inspection</td>
+</tr>
+<tr>
+<td>CC-8.5</td>
+<td>partial</td>
+<td>P</td>
+<td>case 12 page (primary texts used; false absence claim caught by another session); slips log</td>
+<td>memory file feedback_receipts_standard (local)</td>
+</tr>
+<tr>
+<td>CC-8.6</td>
+<td>partial</td>
+<td>P</td>
+<td>published pieces with source notes</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-9.1</td>
+<td>pass</td>
+<td>P</td>
+<td>objections page: 11 caught by Stefan, 0 by self-audit; slips log caught_by column</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-9.2</td>
+<td>gap</td>
+<td>P</td>
+<td>objections page rater table: "None yet."</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-10.1</td>
+<td>partial</td>
+<td>L</td>
+<td>slips log (public)</td>
+<td>beads: 295 issues, 188 closed</td>
+</tr>
+<tr>
+<td>CC-10.2</td>
+<td>n/a</td>
+<td>P</td>
+<td>no serious incident reported on any page</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-11.1</td>
+<td>partial</td>
+<td>L</td>
+<td>this run's own record (public)</td>
+<td>transcripts</td>
+</tr>
+<tr>
+<td>CC-11.2</td>
+<td>partial</td>
+<td>L</td>
+<td>none</td>
+<td>settings.json cleanupPeriodDays 365; transcript dates</td>
+</tr>
+<tr>
+<td>CC-11.3</td>
+<td>pass</td>
+<td>P</td>
+<td>experiments page; repo scripts; slips/log.csv</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-11.4</td>
+<td>pass</td>
+<td>P</td>
+<td>objections page: "Second rater wanted" and the disagreement table</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-12.1</td>
+<td>gap</td>
+<td>P</td>
+<td>no marks exist before run 1; run 1's table proposes them</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-12.2</td>
+<td>partial</td>
+<td>P</td>
+<td>vestige-kit rule table in git</td>
+<td>none</td>
+</tr>
+<tr>
+<td>CC-12.3</td>
+<td>partial</td>
+<td>P</td>
+<td>vestige-kit: false-positive test for hook-opener ("0 hits across 1,282 markdown files"); none recorded for other blocking rules</td>
+<td>personification baselines (local)</td>
+</tr>
+<tr>
+<td>CC-12.4</td>
+<td>partial</td>
+<td>L</td>
+<td>none</td>
+<td>vestige-scan.log; analyze-log.js</td>
+</tr>
+<tr>
+<td>CC-12.5</td>
+<td>gap</td>
+<td>P</td>
+<td>no export format on any page or repo</td>
+<td>none</td>
+</tr>
+</tbody>
+</table></div>
+<p class="thesis">Count: P 15, P/L 5, L 15. A rater with public access only can score 20 rows and records "cannot verify" on 15. The 15 local rows are the ones a rater with a session on the operator's machine, or a copy of the named files, can score.</p>
+<h3 id="4-results-form">4 Results form</h3>
+<p class="thesis">One line per requirement. The rater returns the form as a text file; it is published next to run 1 with the rater's name or handle and kind (human, model, crowd).</p>
+<pre><code>rater: &lt;name or handle&gt;
+kind: human | model | crowd
+access: public only | local files granted on &lt;date&gt; | session on the operator&#39;s machine on &lt;date&gt;
+date: &lt;YYYY-MM-DD&gt;
+prediction sha256 checked: yes | no
+
+CC-4.1  &lt;pass|partial|gap|n/a|cannot verify&gt;  &lt;evidence or reason, one line&gt;
+...
+CC-12.5 &lt;result&gt;  &lt;evidence or reason&gt;
+
+totals: pass N, partial N, gap N, n/a N, cannot verify N
+disagreements with run 1: &lt;list of rows&gt;</code></pre>
+<h3 id="5-how-disagreements-are-listed">5 How disagreements are listed</h3>
+<p class="thesis">On the published page, under the run 1 table:</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>rater</th>
+<th>kind</th>
+<th>access</th>
+<th>disagreements with run 1 (row: run 1 → rater, reason)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None yet.</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p class="thesis">Run 1 scores do not change when a rater disagrees. A rerun (run 2) with the amended evidence is the way a score moves; the prediction record for run 2 is hashed before scoring, as for run 1.</p>
+<h3 id="6-steps-for-the-rater">6 Steps for the rater</h3>
+<ol type="1">
+<li>Download the prediction record and check its sha256 against predictions/HASHES.txt. Record the result in the form.</li>
+<li>Read the 35 requirements. For each, read the run 1 evidence line and the access column above.</li>
+<li>For P rows, open the public evidence named and score from it. Do not use the run 1 score as evidence.</li>
+<li>For L rows, score "cannot verify" unless access was granted; record the access and date.</li>
+<li>Fill the form. Send it to Stefan Coetzee (contact on machinebehavior.io) or post it on r/ModelBehavior with the Replication flair.</li>
+</ol>
+<h3 id="7-limits-of-this-pack">7 Limits of this pack</h3>
+<ul>
+<li>The first grader classified the access column from where it found each piece of evidence. A rater may reclassify a row and say so in the form.</li>
+<li>The requirements and the scores come from the same model. A rater who reads the draft as fitting this setup too closely records that under CC-12.1 or in a note; the draft is open to comment.</li>
+<li>"Public" means readable on machinebehavior.io or in a public repository on 2026-10-07. The vault-search repository's visibility is unverified.</li>
+</ul>
+
   <div class="footer">
     <span class="sig">Stefan Coetzee, 2026</span>
     <span class="motto">The receipts are the argument.</span>
