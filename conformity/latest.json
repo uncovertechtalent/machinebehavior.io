@@ -31,10 +31,18 @@
    "overall": "pass",
    "findings_open": 0,
    "warnings": 0
+  },
+  {
+   "ts": "2026-10-07T17:44:38Z",
+   "trigger": "push",
+   "sha": "f6bbfe9c5ddc0ca25cbdcc5b97aa1fd704530d75",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
   }
  ],
  "findings": [],
- "last_run": "2026-10-07T17:40:43Z",
+ "last_run": "2026-10-07T17:44:38Z",
  "overall": "pass",
  "requirement_states": {
   "CC-4.1": {
@@ -88,7 +96,7 @@
    "mark": "A"
   },
   "CC-6.5": {
-   "live": "partial",
+   "live": "pass",
    "self": "partial",
    "mark": "A"
   },
@@ -108,7 +116,7 @@
    "mark": "M"
   },
   "CC-7.4": {
-   "live": "partial",
+   "live": "pass",
    "self": "partial",
    "mark": "A"
   },
@@ -213,5 +221,5 @@
    "mark": "M"
   }
  },
- "site_commit": "b04990672ff14033cb2774c40496d6f92f7d691c"
+ "site_commit": "f6bbfe9c5ddc0ca25cbdcc5b97aa1fd704530d75"
 }
