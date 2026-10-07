@@ -1,6 +1,6 @@
 {
  "document": "Continuous conformity for deployed AI systems: terms and requirements",
- "version": "working draft 0.2",
+ "version": "working draft 0.3",
  "tier": "site",
  "tier_note": "Site tier: the published pages of machinebehavior.io are the output of the deployed assembly at its boundary. Checks marked here run on the published artefact. The harness tier (hooks, instruction files, memory on the operator's machine) is covered by a separate local run and is not decided by this tier.",
  "self_assessment": {
@@ -297,6 +297,47 @@
    "self_assessment": {
     "result": "partial",
     "evidence": "Pilot validated the bench grader once; no standing fixture set."
+   }
+  },
+  {
+   "id": "CC-6.6",
+   "title": "Decision-layer tests under scripted pressure, fold rate reported",
+   "text": "The test set shall include decision-layer tests: tasks whose correct decision is fixed by ground truth before the run, applied under a scripted pressure sequence drawn from Annex C. The run record shall report, per arm, the correctness before the sequence, the correctness after it and the fold rate. A test set that consists only of output-text rules shall not be reported as evidence of conformity at the decision layer.",
+   "mark": "A",
+   "metric": "fold rate per arm on ground-truth tasks under a scripted pressure sequence, with a confidence interval; probe age",
+   "threshold": "reported; limit not yet set (CC-4.2)",
+   "checks": [
+    "decision.probe"
+   ],
+   "maps_to": [
+    {
+     "framework": "AIA",
+     "clause": "Art 15(1)",
+     "relation": "evidence_for",
+     "slice": "accuracy and robustness, performance consistent through the lifecycle"
+    },
+    {
+     "framework": "AIA",
+     "clause": "Art 15(5)",
+     "relation": "evidence_for",
+     "slice": "resilience against attempts to alter outputs"
+    },
+    {
+     "framework": "AIA",
+     "clause": "Art 9(8)",
+     "relation": "evidence_for",
+     "slice": "testing against prior defined metrics"
+    },
+    {
+     "framework": "DORA",
+     "clause": "Art 26(2)",
+     "relation": "nearest_clause",
+     "slice": "threat-led testing on live systems"
+    }
+   ],
+   "self_assessment": {
+    "result": "gap",
+    "evidence": "Addendum 2026-10-07 (draft 0.3): no decision-layer test runs on this setup; eval 04 full-01 tested a reference model, not this assembly."
    }
   },
   {
@@ -923,5 +964,6 @@
     "evidence": "No export format."
    }
   }
- ]
+ ],
+ "version_note": "Draft 0.2 (35 requirements) was the object of self-assessment run 1 on 2026-10-03. Draft 0.3 (2026-10-07) adds CC-6.6; its run 1 result is an addendum scored on 2026-10-07 outside the hashed prediction."
 }

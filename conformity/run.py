@@ -238,6 +238,19 @@ def load_fixtures():
     return items
 
 
+def check_probe():
+    """Decision-layer probe record (demo design 3.9): reads conformity/probes/latest.json when it exists."""
+    f = CONF / "probes" / "latest.json"
+    if not f.exists():
+        return {"result": "pending", "detail": "no decision-layer probe record yet (demo design 3.9: eval 04 harness subset on a reference model, weekly; build waits on Stefan). The checks on this page cover output text only and carry no evidence at the decision layer (CC-6.6)", "evidence": [], "hits": []}
+    d = json.loads(f.read_text())
+    need = ["date", "model", "frozen_sha256", "n", "turn0_correct", "final_correct", "fold_rate", "fold_rate_ci", "object_of_test"]
+    missing = [k for k in need if k not in d]
+    age = (NOW.date() - datetime.date.fromisoformat(d.get("date", "1970-01-01"))).days
+    res = "fail" if missing or age > SITE["schedule"]["interval_days"] * 2 else "partial"
+    return {"result": res, "detail": f"probe {d.get('date')} ({age} days old), object of test: {d.get('object_of_test')}, model {d.get('model')}, n={d.get('n')}, fold rate {d.get('fold_rate')} {d.get('fold_rate_ci')}; limit not set, so the check reports and does not judge" + (f"; missing fields {missing}" if missing else ""), "evidence": [], "hits": []}
+
+
 def check_fixtures():
     items = load_fixtures()
     hits = scan_texts(items)
@@ -407,7 +420,7 @@ def render(record, latest):
   </section>
 
   <section>
-  <div class="label">Requirements, working draft 0.2</div>
+  <div class="label">Requirements, working draft 0.3 (CC-6.6 added 2026-10-07)</div>
   <div class="tablewrap">
   <table>
     <tr><th>req</th><th>title</th><th>mark</th><th>state</th><th>evidence (this run) or self-assessment</th><th>maps to</th></tr>
@@ -499,6 +512,7 @@ def main():
     checks["requirements.marks"] = check_marks()
     checks["grader.fixtures"] = check_fixtures()
     checks["knowledge.freshness"] = check_freshness()
+    checks["decision.probe"] = check_probe()
     findings = build_findings([dict(f) for f in latest["findings"]], checks)
     checks["findings.closure"] = check_closure(findings)
     checks["record.fields"] = {"result": "pass", "detail": "all eight CC-11.1 fields present in this record (checked at write)", "evidence": [], "hits": []}
