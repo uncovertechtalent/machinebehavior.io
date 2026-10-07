@@ -12,7 +12,7 @@ A bot commits `conformity/latest.json` and `conformity/index.html` after every r
 
 ## The deploy gate
 
-Every push to `main` runs the conformity checks first (`conformity/run.py`). The Pages deploy job depends on that job: a failing check blocks the deploy and the previous build stays live. A red run means a nonconformity on a published page, listed at https://machinebehavior.io/conformity/ and in `conformity/latest.json`.
+Every push to `main` runs the conformity checks first (`.github/actions/conformity/run.py` (the composite action; shared with tychat.io and uncovertechtalent.com)). The Pages deploy job depends on that job: a failing check blocks the deploy and the previous build stays live. A red run means a nonconformity on a published page, listed at https://machinebehavior.io/conformity/ and in `conformity/latest.json`.
 
 Blocking (deploy stops): rule hits in the blocking tier (`service-closer`, `filler-idiom`, `hook-opener`; see `conformity/site-tier.json`), placeholder text on a page (`TODO`, `TBD`, `[Voice pass ...]` and the like), a prediction file whose sha256 differs from `predictions/HASHES.txt`, a page directory missing from `sitemap.xml`, a page without `<link rel="canonical">`, relative or `.html` internal links (root-absolute only: `/man/`, `/style.css`), a page whose eyebrow says self-assessment without "not a certification".
 
@@ -23,7 +23,7 @@ Exempt from the rule scan: code, blockquotes, `<q>`, spans with class `mono`, te
 Check locally before pushing (Python 3 and Node, no network):
 
 ```bash
-python3 conformity/run.py --trigger manual --dry-run
+python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run
 ```
 
 ## Records and ownership

@@ -35,16 +35,12 @@ jobs:
           fetch-depth: 0
 
       - name: Run the checks
-        id: run
-        run: |
-          python3 conformity/run.py --trigger "${{ github.event_name }}" --sha "${{ github.sha }}" --runner "ubuntu-latest"
-
-      - name: Upload the run record
-        uses: actions/upload-artifact@v4
+        uses: ./.github/actions/conformity
         with:
-          name: conformity-run-${{ github.run_id }}
-          path: conformity/runs/*.json
-          retention-days: 90
+          root: .
+          config: conformity/site-tier.json
+          requirements: conformity/requirements.json
+          out: conformity
 
       - name: Commit latest.json and the page
         run: |

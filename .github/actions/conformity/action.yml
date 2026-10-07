@@ -1,0 +1,44 @@
+name: Conformity checks (site tier)
+description: Runs the continuous-conformity site-tier checks over a static site's published pages and renders the /conformity/ page.
+inputs:
+  root:
+    description: Site root to scan (the served tree; for Hugo, the build output)
+    required: true
+  config:
+    description: Path to the site's site-tier.json
+    required: true
+  requirements:
+    description: Path to requirements.json
+    required: true
+  out:
+    description: Directory for latest.json, index.html, runs/ and .result
+    required: true
+  git-dir:
+    description: Repository directory for commit metadata when root is a build output
+    required: false
+    default: "."
+  trigger:
+    description: Trigger name (push, schedule, workflow_dispatch, manual)
+    required: false
+    default: ${{ github.event_name }}
+  sha:
+    description: Commit under test
+    required: false
+    default: ${{ github.sha }}
+  runner:
+    description: Runner image label for the run record
+    required: false
+    default: ubuntu-latest
+runs:
+  using: composite
+  steps:
+    - name: Run the checks
+      shell: bash
+      run: |
+        python3 "${{ github.action_path }}/run.py" --root "${{ inputs.root }}" --config "${{ inputs.config }}" --requirements "${{ inputs.requirements }}" --out "${{ inputs.out }}" --git-dir "${{ inputs['git-dir'] }}" --trigger "${{ inputs.trigger }}" --sha "${{ inputs.sha }}" --runner "${{ inputs.runner }}"
+    - name: Upload the run record
+      uses: actions/upload-artifact@v4
+      with:
+        name: conformity-run-${{ github.run_id }}
+        path: ${{ inputs.out }}/runs/*.json
+        retention-days: 90
