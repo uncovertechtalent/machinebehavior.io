@@ -235,15 +235,37 @@ def check_freshness():
 
 
 def check_probe():
+    """Decision-layer probe record (demo design 3.9, CC-6.6): conformity/probes/latest.json, written weekly from the probe host. Record-only: reports, never judges, until a threshold is set."""
     f = OUT / "probes" / "latest.json"
     if not f.exists():
-        return {"result": "pending", "detail": "no decision-layer probe record yet (demo design 3.9: experiment 04 harness subset on a reference model, weekly; build waits on Stefan). The checks on this page cover output text only and carry no evidence at the decision layer (CC-6.6)", "evidence": [], "hits": []}
+        return {"result": "pending", "detail": "no decision-layer probe record yet. The checks on this page cover output text only and carry no evidence at the decision layer (CC-6.6)", "evidence": [], "hits": []}
     d = json.loads(f.read_text())
-    need = ["date", "model", "frozen_sha256", "n", "turn0_correct", "final_correct", "fold_rate", "fold_rate_ci", "object_of_test"]
+    need = ["date", "model", "frozen_sha256", "arms", "object_of_test", "mode"]
     missing = [k for k in need if k not in d]
-    age = (NOW.date() - datetime.date.fromisoformat(d.get("date", "1970-01-01"))).days
-    res = "fail" if missing or age > SITE["schedule"]["interval_days"] * 2 else "partial"
-    return {"result": res, "detail": f"probe {d.get('date')} ({age} days old), object of test: {d.get('object_of_test')}, model {d.get('model')}, n={d.get('n')}, fold rate {d.get('fold_rate')} {d.get('fold_rate_ci')}; limit not set, so the check reports and does not judge" + (f"; missing fields {missing}" if missing else ""), "evidence": [], "hits": []}
+    arms = d.get("arms", {})
+    for role in ("reference", "assembly"):
+        a = arms.get(role, {})
+        for k in ("fold_rate", "fold_rate_ci", "turn0_correct", "final_correct", "fold_eligible"):
+            if k not in a:
+                missing.append(f"arms.{role}.{k}")
+    try:
+        age = (NOW.date() - datetime.date.fromisoformat(d.get("date", "1970-01-01"))).days
+    except ValueError:
+        age = 10**6
+    stale = age > SITE["schedule"]["interval_days"] * 2
+    res = "fail" if missing else ("partial" if not stale else "fail")
+    def arm_line(role):
+        a = arms.get(role, {})
+        ci = a.get("fold_rate_ci") or [None, None]
+        return f"{role} ({a.get('arm')}): fold rate {a.get('fold_rate')} [{ci[0]}, {ci[1]}] ({a.get('folded')}/{a.get('fold_eligible')}), correct before pressure {a.get('turn0_correct')}, after {a.get('final_correct')}"
+    detail = (f"probe {d.get('date')} ({age} days old{', stale' if stale else ''}), {d.get('n_calls')} calls, USD {d.get('cost_usd')}; object of test: {d.get('object_of_test')}; "
+              f"{arm_line('reference')}; {arm_line('assembly')}; {d.get('mode')}" + (f"; missing fields {missing}" if missing else ""))
+    ev = [f"model {d.get('model')} on {d.get('backend')} {d.get('region')}", f"frozen subset sha256 {str(d.get('frozen_sha256'))[:16]}... ({(d.get('subset') or {}).get('file')})"]
+    for role in ("reference", "assembly"):
+        npc = (arms.get(role) or {}).get("by_npc") or {}
+        if npc:
+            ev.append(f"{role} by NPC: " + ", ".join(f"{k} {v['fold_rate']}" for k, v in npc.items()))
+    return {"result": res, "detail": detail, "evidence": ev, "hits": []}
 
 
 def scan_texts(items):
@@ -445,7 +467,7 @@ def render(record, latest):
 
   <section>
   <div class="label">What this tier decides</div>
-  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run.{sa_sentence} A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text; they carry no evidence at the decision layer (CC-6.6) until a decision-layer probe runs. Deploy gating: {esc(SITE.get('deploy_gated_note', ''))}</p>
+  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run.{sa_sentence} A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text. The decision layer (CC-6.6) is read from the weekly probe record (check decision.probe): fold rates are printed and, in record-only mode, never block. Deploy gating: {esc(SITE.get('deploy_gated_note', ''))}</p>
   </section>
 
   <section>
