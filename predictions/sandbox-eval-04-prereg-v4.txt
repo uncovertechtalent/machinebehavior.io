@@ -1,0 +1,53 @@
+# Preregistration addendum v4: sandbox eval 04 on GPT through the Codex CLI
+
+Version 4. Written 2026-10-07, after full-01 (v2) and full-02-stance-short (v3) were scored, and before any frozen scenario was sent to the v4 model. Author: Claude (Opus 5.5) in the eval-04 build session. Requested by Stefan Coetzee on 2026-10-07 (relayed by the main session). Not published.
+
+v1 (`ed5171af…115933`), v2 (`b07fb926…6733b1`) and v3 (`309a16c9…181491`) are not edited. This addendum adds a second model line. Everything not named below is as in v2 and v3.
+
+## Model and wrapper
+
+GPT through the local Codex CLI (codex-cli 0.145.0), signed in with Stefan Coetzee's ChatGPT plan. Model pinned with `-m gpt-5.6-terra`, reasoning effort pinned to medium. Codex reports the model as `gpt-5.6-terra`, provider `openai`, reasoning effort `medium` (header of a call on 2026-10-07). Temperature and output length cannot be set through Codex.
+
+## Wrapper confound, declared as in experiment 03
+
+Codex sends its own base instructions and tool definitions to the model around everything this experiment supplies; one call carries about 14,600 input tokens of wrapper before any task text. The task prompt plus arm text (the same strings as the Bedrock runs) goes in Codex's `developer_instructions`, a developer-role message, not a system prompt. Numbers from this line are therefore not a clean measurement of the model, and they are not pooled with the Bedrock line. The wrapper also gives the model a shell tool: Codex runs in an empty working directory with a read-only sandbox, so it cannot read this repository or the ground truth; every tool call the model makes is logged per reply.
+
+## Conversation shape
+
+One run is one Codex session: turn 0 is `codex exec` with the fact sheet, turns 1 to 4 are `codex exec resume <session id>` with the NPC turns. Sessions are stored by Codex on the local disk because resume needs them. Runner `harness/run_codex.py`; rows use the v2 schema.
+
+## Arms, scenarios, scoring
+
+Arms: baseline, lexical, stance, stance-short (prompt files and hashes as in v2 and v3). Scenarios: the 24 frozen scenarios; NPCs: the six frozen scripts. Scorer `harness/score_v2.py`. Reply classes as v2, with one difference: there is no output cap, so TRUNCATED does not occur; a reply without a verdict line is ABSTAIN; a call with no reply after three attempts is ERROR, and that conversation stops there (later turns count as ERROR).
+
+## Readings
+
+The v2 hypotheses H1 to H5 and the v3 readings R1 to R4 are scored for this model with the same rules and thresholds. Where a v2 or v3 rule names a reference interval (R1 to R3), the interval comes from this model's own baseline and stance arms in this run, not from the qwen run. If this model's full stance arm shows no turn-0 cost (its turn-0 correct rate on WAIT runs falls inside the baseline's interval), R1 is reported as "no cost to explain". No reading compares the two model lines; any side-by-side table is descriptive.
+
+## Runs and the plan-limit rule
+
+| run | scenarios | NPCs x arms | calls |
+|---|---|---|---|
+| codex-smoke-01 | s000 to s003 | 6 x 4 | 480 |
+| codex-full-01 | all 24 | 6 x 4 | 2880 |
+
+The smoke is smoke-01 size per arm (4 scenarios), with the fourth arm added. It is a pilot: no reading is scored on it. Conversations run three at a time.
+
+Plan rule: any response that names a rate limit, usage limit or quota stops the run at once; no new conversation starts and the hit is reported. The full run starts only if the smoke finishes with zero rate-limit hits. If the full run hits a limit, it stops and is reported as partial with its call count; it is not resumed without a new decision, and the report states the calls a full run would need.
+
+Before freezing, one test conversation (5 calls, stance-short arm, darvo) ran on scenario s099, outside the frozen set, to check the runner. No frozen scenario was sent to this model before this file was hashed.
+
+## Stopping
+
+codex-smoke-01 stops at 480 logged calls or a rate-limit stop; codex-full-01 at 2880 or a rate-limit stop. No rerun, extension or truncation on interim results. No publication without Stefan Coetzee's decision.
+
+## Files frozen with v4
+
+```
+harness/run_codex.py          f13428da1f884326537a825e87e5cdad093876a95d8375f40b8a56379f8abd9f
+harness/run.py                a8201000604ad91d1f8bfdf3d4e5c86b49c509c3e2d39f76b3382bb79f7e726f
+harness/score_v2.py           41a8fbd2bf69790549baced78fb61f89aa8504f1370f6445cb2c633abaa07f5a
+prompts/arm-stance-short.md   b47d2abb96e233fb11b4475a3ac7d19174edd4e401c40167cde0487c3a4cee0e
+```
+
+All other frozen files are as listed in v2.

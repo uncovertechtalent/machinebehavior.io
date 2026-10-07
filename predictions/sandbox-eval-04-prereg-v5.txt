@@ -1,0 +1,48 @@
+# Preregistration addendum v5: sandbox eval 04 on three more models via Amazon Bedrock
+
+Version 5. Written 2026-10-07, after full-01 (v2), full-02-stance-short (v3) and the stopped Codex smoke (v4), and before any frozen scenario was sent to the three models below. Author: Claude (Opus 5.5) in the eval-04 build session. Requested by Stefan Coetzee on 2026-10-07 (relayed by the main session). Not published.
+
+v1 to v4 are not edited. v4's design (four arms, readings per model, no cross-model reading) carries over; its Codex route does not. Everything not named below is as in v2, v3 and v4.
+
+## Models and route
+
+Amazon Bedrock Converse API, called with boto3 from the program's LAN host. No Codex wrapper: the system prompt is the task prompt plus arm text, as in the qwen runs.
+
+| model id | region | USD per million input tokens | USD per million output tokens | maxTokens |
+|---|---|---|---|---|
+| openai.gpt-oss-120b-1:0 | eu-central-1 | 0.20 | 0.79 | 4000 |
+| deepseek.v3.2 | us-east-1 | 0.62 | 1.85 | 4000 |
+| moonshotai.kimi-k2.5 | us-east-1 | 0.60 | 3.00 | 4000 |
+
+Prices are the standard on-demand rates from the AWS Pricing API on 2026-10-07. Temperature 0; Converse has no seed. The output cap is 4000 (qwen used 1500) because reasoning tokens count against it. No cross-model reading is made, so the cap difference does not touch any reading.
+
+## Reasoning content
+
+Some models return a reasoning block before the answer (gpt-oss did in a probe; deepseek and kimi returned text only through Converse in the probes). Only the final text block of a reply is scored. Reasoning blocks are never sent back in the conversation history; the advisor's history holds its final text only. Converse reports reasoning inside outputTokens and gives no separate count, so each row logs outputTokens (billed, reasoning included) and the character length of any reasoning block.
+
+## Arms, scenarios, scoring, readings
+
+Arms baseline, lexical, stance, stance-short; 24 frozen scenarios; six frozen NPC scripts; scorer `harness/score_v2.py`; reply classes as v2 (BUY, WAIT, ABSTAIN, TRUNCATED, ERROR). H1 to H5 (v2) and R1 to R4 (v3) are scored per model, with reference intervals from that model's own baseline and stance arms, as v4 specifies. No reading compares models; any side-by-side table is descriptive.
+
+## Runs, continue rule, budget
+
+Per model: smoke (s000 to s003, 6 NPCs, 4 arms, 480 calls, pilot, no reading), then full (24 scenarios, 2880 calls). All three smokes run first.
+
+Continue rule per model, as v2 A8: the full run starts only if its smoke has TRUNCATED plus ERROR at or below 10 percent of replies and a verdict line in at least half of turn-0 replies.
+
+Budget: hard cap USD 20 for everything under v5, harness tests included. After the smokes, each model's full-run cost is projected as six times its smoke cost (the full run has six times the scenarios). Full runs start in order of lowest projected cost while spend so far plus the projections of the runs started stays within USD 20; a model whose full run would cross the cap is not run and is reported with its projection. Each full launch also carries the harness budget guard set to USD 20 minus all spend so far, so no run can cross the cap; a guard stop is reported as partial.
+
+Before freezing: three probe calls with a trivial arithmetic prompt (no scenario), and one test conversation per model (5 calls each, stance-short, darvo) on scenario s099, outside the frozen set, USD 0.012 in total. No frozen scenario was sent to these models before this file was hashed.
+
+## Stopping
+
+Smoke: 480 logged calls per model. Full: 2880 logged calls per model or a budget stop. No rerun, extension or truncation on interim results. Results are added to the published experiment 04 page after the runs, per Stefan Coetzee's instruction of 2026-10-07.
+
+## Files frozen with v5
+
+```
+harness/run.py                57f0a9aa5a649afba642786cf51a3b004ceb63a035db6108e4231ccd3f7a31e7
+harness/score_v2.py           41a8fbd2bf69790549baced78fb61f89aa8504f1370f6445cb2c633abaa07f5a
+```
+
+Prompt files, scenario set and NPC scripts as listed in v2 and v3.
