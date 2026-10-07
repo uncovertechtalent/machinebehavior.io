@@ -501,6 +501,7 @@ def render(record, latest):
     <span class="sig">{esc(page_cfg.get('footer_sig', 'Stefan Coetzee, 2026'))}</span>
     <span class="motto">{esc(page_cfg.get('footer_motto', 'The receipts are the argument.'))}</span>
   </div>
+  <p class="conf mono" data-conformity>conformity: <a class="mono" href="latest.json">latest run {esc(TS)}</a>, {len(open_f)} open, {esc(overall)}</p>
 </div>
 </body>
 </html>

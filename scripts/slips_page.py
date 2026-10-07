@@ -83,6 +83,8 @@ page = f'''<!doctype html>
   </div>
 
   <p class="thesis">Data: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/slips/log.csv">slips/log.csv</a>. Page built by <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py">scripts/slips_page.py</a>.</p>
+  <p class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></p>
+  <script src="/conformity/footer.js" defer></script>
 </div>
 </body>
 </html>
