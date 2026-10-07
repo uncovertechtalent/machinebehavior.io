@@ -14,3 +14,6 @@ before any frozen scenario was sent to the v2 model. Both kept in a local reposi
 are byte-identical to prereg-04-v1.md and prereg-04-v2.md as hashed then.
 sandbox-eval-04-prereg-v1.txt  sha256 ed5171af9710015f2c02ff66e193f57a4bbf94a57de2e637490ac9be8d115933
 sandbox-eval-04-prereg-v2.txt  sha256 b07fb9268d5b9a416bea3cf20af1b18035bfa3beb544ac15937bfe02d26733b1
+Addendum v3 for experiment 04 (short-stance arm), frozen and hashed 2026-10-07 before any call with the new arm;
+byte-identical to prereg-04-v3.md as hashed then.
+sandbox-eval-04-prereg-v3.txt  sha256 309a16c95702d066c0199e8a5c58f22517817fdfdfb9d757857e82172b181491

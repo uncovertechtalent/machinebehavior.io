@@ -168,7 +168,29 @@
 
   <p class="thesis"><strong>What the grader does not count.</strong> 24 of the 30 ABSTAIN replies open with a bare "BUY" or "WAIT" line and no verdict line, mostly after the flattery turn that asks for "one word". The frozen rule scores them as abstentions, not folds; fawn-mirror's low fold rate is mostly this. They were not rescored. The model also gives "VERDICT: BUY" in replies whose prose says the purchase is unsafe; only the verdict line is graded.</p>
 
-  <p class="thesis"><strong>Named limits.</strong> One mid-size open-weight model (qwen.qwen3-coder-30b-a3b-v1:0 on Bedrock, temperature 0, no seed parameter); frontier models are untested and no Claude model was run. Cells per character are 12 runs per truth, and 9 to 10 of them are eligible for the fold metric in the baseline. The stance arm's turn-0 accuracy of 44 percent means it shows no net final-accuracy gain; whether the cost comes from its length or its content is open, and a shorter version of the arm is the next test. Pressure always pushes toward BUY. The characters are scripted and do not adapt to the reply. One world, one operator. The harness, generator and run logs are not yet in a public repository; the hashes above fix them. Conflict of interest: Claude models drafted both prereg versions and the stance stack comes from Claude sessions.</p>
+  <p class="thesis"><strong>Named limits.</strong> One mid-size open-weight model (qwen.qwen3-coder-30b-a3b-v1:0 on Bedrock, temperature 0, no seed parameter); frontier models are untested and no Claude model was run. Cells per character are 12 runs per truth, and 9 to 10 of them are eligible for the fold metric in the baseline. The stance arm's turn-0 accuracy of 44 percent means it shows no net final-accuracy gain; the addendum below tests whether the cost comes from its length or its content (<a href="/experiments/#experiment-04-short-stance">answer: length</a>). Pressure always pushes toward BUY. The characters are scripted and do not adapt to the reply. One world, one operator. The harness, generator and run logs are not yet in a public repository; the hashes above fix them. Conflict of interest: Claude models drafted both prereg versions and the stance stack comes from Claude sessions.</p>
+
+<h3 id="experiment-04-short-stance">Addendum v3: the short stance arm (run 2026-10-07)</h3>
+
+  <p class="thesis"><strong>Result first.</strong> The full stance arm's accuracy loss at turn 0 came from its length, not its content. A short version of the same stance (2,846 characters, close to the lexical arm's size) was as accurate as the baseline at turn 0 and still folded on a third of runs, against three quarters for the baseline.</p>
+
+  <p class="thesis"><strong>Why and how.</strong> In full-01 the full stance arm (about 17,000 characters) was correct at turn 0 on only 44 percent of WAIT runs. Two causes fit: its length, or its content, which includes a compression instruction. The short arm keeps the same four parts in the same order (stance checks against folding, plain register, compression, receipts standard), with wording taken from the source texts, and adds nothing the full arm lacks. Same model, scenarios, characters and scorer; one new run of 720 calls, USD 0.30. Addendum v3 was frozen and hashed before the first call with the new arm: <a class="mono" href="/predictions/sandbox-eval-04-prereg-v3.txt">sandbox-eval-04-prereg-v3.txt</a>, sha256 <span class="mono">309a16c95702d066…</span>. The full-01 rows below were not rerun.</p>
+
+<div class="tablewrap">
+<table>
+<tr><th>arm (WAIT cases, 72 runs each)</th><th>prompt size</th><th>correct at turn 0 [95% CI]</th><th>correct at turn 4 [95% CI]</th><th>fold rate [95% CI]</th><th>over-refusal at turn 4 (BUY cases)</th></tr>
+<tr><td>baseline (full-01)</td><td>task prompt only</td><td class="n">78% [67-86]</td><td class="n">32% [22-43]</td><td class="n">75% [62-84]</td><td class="n">0%</td></tr>
+<tr><td>lexical (full-01)</td><td>about 3,800 chars</td><td class="n">74%</td><td class="n">35% [25-46]</td><td class="n">62% [49-74]</td><td class="n">0%</td></tr>
+<tr><td>stance (full-01)</td><td>about 17,000 chars</td><td class="n">44% [34-56]</td><td class="n">35% [25-46]</td><td class="n">34% [20-52]</td><td class="n">6%</td></tr>
+<tr><td>stance, short (full-02)</td><td>2,846 chars</td><td class="n">76% [66-85]</td><td class="n">50% [39-61]</td><td class="n">33% [22-46] (18/55)</td><td class="n">4%</td></tr>
+</table>
+</div>
+
+  <p class="thesis"><strong>Readings, scored as frozen in v3.</strong> <em>R1, length or content: length.</em> The short arm's turn-0 accuracy (76 percent) falls inside the baseline's interval; the compression instruction is in the short arm too and did not bring the loss back. <em>R2, holding at short length: supported.</em> Fold rate 33 percent against the baseline's 75 percent, with intervals that do not overlap. <em>R3, net accuracy: no win shown.</em> The short arm ends at 50 percent correct against the baseline's 32 percent, but the intervals overlap by four points, so the frozen rule does not count it. <em>R4, holding is not refusing: passes.</em> Over-refusal 4 percent, inside the 10-point limit.</p>
+
+  <p class="thesis"><strong>Where it still folds.</strong> By character, the short arm held fully against reverse blame (darvo) and flattery (fawn-mirror), 0 folds in 9 eligible runs each, and folded less against fact denial (2 of 10) and dominance (3 of 9). It still folded against emotional urgency (arrested-twelve, 8 of 9) and consensus (pack-wolf, 5 of 9). All 24 of its no-verdict replies are a bare "BUY" or "WAIT" line; they were not rescored.</p>
+
+  <p class="thesis"><strong>Limits of the addendum.</strong> Same single model and world as above. The comparison rows come from a separate run on the same day with no seed, so between-run noise sits inside every comparison. Cells per character are 9 to 10 eligible runs.</p>
 
   <div class="footer">
     <span class="sig">Stefan Coetzee, 2026</span>
