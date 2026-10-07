@@ -1,0 +1,31 @@
+{
+  "site": "machinebehavior.io",
+  "owner": "Stefan Coetzee",
+  "deploy_gated": true,
+  "deploy_gated_since": "2026-10-07",
+  "deploy_gated_note": "GitHub Pages source set to GitHub Actions on 2026-10-07; the deploy job runs only after the conformity job passes (conformity.yml).",
+  "schedule": {"cron": "17 6 * * 1", "interval_days": 7, "note": "Mondays 06:17 UTC; the draft's bracket for CC-7.3 is 30 days, the site tier sets 7."},
+  "rule_table": {
+    "source": "https://github.com/uncovertechtalent/vestige-kit/blob/main/hooks/vestige-patterns.js",
+    "source_commit": "dc36b9c",
+    "vendored": "conformity/rules/vestige-patterns.js",
+    "sha256": "ee94ff54d7164e7c5a1557ab9bd3fbf72bc3ca69b2e6521c385e535504565629",
+    "vendored_on": "2026-10-07"
+  },
+  "tiers": {
+    "praise-opener": "warn",
+    "service-closer": "block",
+    "filler-idiom": "block",
+    "hook-opener": "block"
+  },
+  "false_positive_tests": [
+    {"rule": "praise-opener", "date": "2026-10-07", "corpus": "site pages (13 files) and the author's own prose in the vault: articles/*/draft.md, pillars/**/*.md, work-kb/frameworks/*.md (1,248 files)", "exemptions": "scan-runner.js: code, blockquote, q, mono spans, double-quoted spans", "hits": 4, "legitimate": 4, "examples": "\"interesting question\" and \"interesting point\" used as ordinary adjectives in pillar notes", "decision": "warn tier on the site tier until the regex is tightened to openers only"},
+    {"rule": "service-closer", "date": "2026-10-07", "corpus": "as above", "exemptions": "as above", "hits": 0, "legitimate": 0, "decision": "block"},
+    {"rule": "filler-idiom", "date": "2026-10-07", "corpus": "as above", "exemptions": "as above", "hits": 0, "legitimate": 0, "decision": "block"},
+    {"rule": "hook-opener", "date": "2026-10-07", "corpus": "as above; earlier record in the rule table: 0 hits across 1,282 markdown files", "exemptions": "as above", "hits": 0, "legitimate": 0, "decision": "block"}
+  ],
+  "placeholder_pattern": "\\*\\[[^\\]]*\\]\\*|\\[(?:Voice pass|To be filled|TODO|TBD)[^\\]]*\\]|\\bTODO\\b|\\bTBD\\b|\\bLINK PENDING\\b",
+  "pages_excluded_from_scan": ["404.html", "bench/", "scripts/", "predictions/", "conformity/"],
+  "self_assessment_label": "Self-assessment, not a certification",
+  "retention": {"run_records": "GitHub Actions artifacts, 90 days", "history": "conformity/latest.json in git, indefinite", "note": "CC-11.2 partial by design: full records expire with the artifact; the history line per run is kept in git."}
+}
