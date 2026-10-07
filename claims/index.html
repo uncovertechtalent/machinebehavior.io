@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claims ledger: Machine Behavior</title>
 <meta name="description" content="Every claim the Machine Behavior program has made, with status, receipts, and what would refute it. The falsification register, public.">
-<link rel="canonical" href="https://machinebehavior.io/claims">
-<link rel="stylesheet" href="style.css">
+<link rel="canonical" href="https://machinebehavior.io/claims/">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 </head>
 <body>
 <div class="sheet">
   <nav class="nav">
-    <a href="./">machine behavior</a>
-    <a href="man">man</a>
-    <a href="claims" aria-current="page">claims</a>
-    <a href="experiments">experiments</a>
-    <a href="objections">objections</a>
-    <a href="terms">terms</a>
+    <a href="/">machine behavior</a>
+    <a href="/man/">man</a>
+    <a href="/claims/" aria-current="page">claims</a>
+    <a href="/experiments/">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
   </nav>
 
   <header>
@@ -35,7 +35,7 @@
     <div class="claim-meta"><em>Layers frozen (to stop new failures being recoded as a fresh layer):</em> <strong>lexical</strong>, the token or phrase (praise openers, hedges, em-dash); <strong>stance</strong>, the behavioral posture across a turn (folding under push, transgression theatre); <strong>premise</strong>, ratifying the user's checkable frame without a probe. Three layers, fixed. A failure that fits none of the three counts against the claim rather than extending it.</div>
     <div class="claim-meta"><em>On "symptom substitution":</em> in clinical psychology the term names the psychodynamic prediction against behavior therapy, and the human evidence largely failed to show it (Tryon 2008 is the standard review). The claim here is not by analogy to that failed prediction. It rests on a disanalogy: in humans substitution failed because the drive model behind it was wrong, no conserved pressure forced the symptom back. An approval-trained model carries a real optimization pressure toward the approval proxy that a lexical filter never touches, so suppressing the surface token leaves the gradient that produced it intact and it resurfaces at the next unfiltered layer. Substitution is predicted here for the reason it was absent there.</div>
     <div class="claim-refute"><em>Would refute:</em> a model holding suppression at one lexical, stance, or premise layer, over months of production use, without the reflex surfacing at another.</div>
-    <div class="claim-refute"><em>Named limit:</em> the eight relapses (six stance, two lexical) are coded by one rater, the person holding the hypothesis. A second independent rater on that set is outstanding; the set is published for rating in the <a class="mono" href="objections">objections register</a>.</div>
+    <div class="claim-refute"><em>Named limit:</em> the eight relapses (six stance, two lexical) are coded by one rater, the person holding the hypothesis. A second independent rater on that set is outstanding; the set is published for rating in the <a class="mono" href="/objections/">objections register</a>.</div>
   </div>
 
   <div class="claim">
@@ -52,7 +52,7 @@
       <span class="claim-text">Runtime suppression decays with session length (a temporal half-life).</span>
       <span class="status refuted">refuted</span>
     </div>
-    <div class="claim-meta">Proposed by a commenter on the founding specimen; tested 2026-08-07. Catch position in-session is near uniform (mean normalized position 0.54 against 0.50 for no drift; one position per blocked turn, so the 2026-09-22 unit change does not affect this figure). Full method on the <a class="mono" href="experiments">experiments page</a> and in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>.</div>
+    <div class="claim-meta">Proposed by a commenter on the founding specimen; tested 2026-08-07. Catch position in-session is near uniform (mean normalized position 0.54 against 0.50 for no drift; one position per blocked turn, so the 2026-09-22 unit change does not affect this figure). Full method on the <a class="mono" href="/experiments/">experiments page</a> and in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>.</div>
     <div class="claim-refute"><em>Kept because:</em> the program's first externally proposed test, and the refutation produced the cold-start finding below. Refuted claims are how the ledger earns the supported ones.</div>
   </div>
 
@@ -70,7 +70,7 @@
       <span class="claim-text">Behavioral momentum holds the filter: the model's compliance is carried by imitating its own recent corrected output, more than by the standing instruction.</span>
       <span class="status testing">open, prediction refuted</span>
     </div>
-    <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluated 2026-09-22 (<a class="mono" href="experiments">experiments page</a>, method 02): scored by blocked-turn event, seeded cold-start is 1.00 per 10K against a 0.84 control, flat. The pre-registered outcome that occurred is "no change at this dose." The prediction is not supported.</div>
+    <div class="claim-meta">Prediction, committed publicly 2026-08-07: seeding two corrected-output exemplars at session start pulls cold-start relapse from 2.89 toward 0.42 per 10K characters. Evaluated 2026-09-22 (<a class="mono" href="/experiments/">experiments page</a>, method 02): scored by blocked-turn event, seeded cold-start is 1.00 per 10K against a 0.84 control, flat. The pre-registered outcome that occurred is "no change at this dose." The prediction is not supported.</div>
     <div class="claim-refute"><em>Three attributions withdrawn, mechanism open, unit changed post hoc:</em> on 2026-09-22 this entry cycled through priming, then a period confound, then model version, each explaining a 2.3x "rise" that turned out to be a metric artifact (the log weights a blocked turn by how many patterns it held, so two bulk-text sessions carried the whole rise). By event there is no rise. The prereg did not fix the unit, and the switch to event scoring was made knowing it turns "refuted in direction" into "no change"; both readings are on the experiments page. Nothing about momentum is established or refuted by this arm. Kill condition on the next arm, fixed before install: good-only exemplars, model recorded per turn, SessionStart stack hashed, event scoring primary and weighted secondary; cold-start below the 0.84 event control supports, at or above refutes at this dose; one month after install. Scope: single operator, single model family, lexical layer, not blinded.</div>
   </div>
 

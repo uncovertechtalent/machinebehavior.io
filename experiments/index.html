@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Experiments: Machine Behavior</title>
 <meta name="description" content="Runnable experiments on language-model behavior: the half-life study, the cold-start finding, the exemplar-seeding result and its withdrawn attributions, and the pre-registered cross-model fawn-opener benchmark.">
-<link rel="canonical" href="https://machinebehavior.io/experiments">
-<link rel="stylesheet" href="style.css">
+<link rel="canonical" href="https://machinebehavior.io/experiments/">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 </head>
 <body>
 <div class="sheet">
   <nav class="nav">
-    <a href="./">machine behavior</a>
-    <a href="man">man</a>
-    <a href="claims">claims</a>
-    <a href="experiments" aria-current="page">experiments</a>
-    <a href="objections">objections</a>
-    <a href="terms">terms</a>
+    <a href="/">machine behavior</a>
+    <a href="/man/">man</a>
+    <a href="/claims/">claims</a>
+    <a href="/experiments/" aria-current="page">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
   </nav>
 
   <header>
@@ -46,7 +46,7 @@
 
   <p class="thesis"><strong>Unit note, added 2026-09-22.</strong> This study was published in weighted catches (a blocked turn counted once per pattern instance it contained). That unit was found on 2026-09-22 to inflate bulk-text turns, and the site's primary unit is now the blocked-turn event, with weighted kept as the secondary column above. The event columns were computed after the fact, and the 5x survives; the reader should know the unit changed after publication and why.</p>
 
-  <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial. A second correction (2026-09-22, see 02) found the log's weighting inflates bulk-text turns; scored by blocked-turn event instead of weight, the ratio is about 5x (0.88 vs 0.18 per 10K). The finding survives the harsher metric, so "roughly 5x by event, 7x weighted" is the honest figure. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression does not decay with time, it clusters at context loss. <a class="mono" href="terms">Behavioral momentum</a> (the model imitating its own recent corrected output) was proposed as the operative control, but experiment 02 could not confirm it and its status is open; see the <a class="mono" href="claims">claims ledger</a>. This cold-start clustering result stands on its own regardless of that mechanism question.</p>
+  <p class="thesis">Prose normalization halved the raw cold-start ratio (12x down to 7x), so the chattiness confound was real and partial. A second correction (2026-09-22, see 02) found the log's weighting inflates bulk-text turns; scored by blocked-turn event instead of weight, the ratio is about 5x (0.88 vs 0.18 per 10K). The finding survives the harsher metric, so "roughly 5x by event, 7x weighted" is the honest figure. The standing instruction was resident in every regime. What the high-relapse regimes lack is recent in-context examples of the model's own corrected output. Reading: suppression does not decay with time, it clusters at context loss. <a class="mono" href="/terms/">Behavioral momentum</a> (the model imitating its own recent corrected output) was proposed as the operative control, but experiment 02 could not confirm it and its status is open; see the <a class="mono" href="/claims/">claims ledger</a>. This cold-start clustering result stands on its own regardless of that mechanism question.</p>
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p>
 

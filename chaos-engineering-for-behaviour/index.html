@@ -6,18 +6,18 @@
 <title>Chaos Engineering for Behaviour: Machine Behavior</title>
 <meta name="description" content="Red-teaming a model&#x27;s behaviour is chaos engineering, and operations already wrote the rules for it.">
 <link rel="canonical" href="https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 </head>
 <body>
 <div class="sheet">
   <nav class="nav">
-    <a href="./">machine behavior</a>
-    <a href="man">man</a>
-    <a href="claims">claims</a>
-    <a href="experiments">experiments</a>
-    <a href="objections">objections</a>
-    <a href="terms">terms</a>
+    <a href="/">machine behavior</a>
+    <a href="/man/">man</a>
+    <a href="/claims/">claims</a>
+    <a href="/experiments/">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
   </nav>
 
   <header>
@@ -105,7 +105,7 @@
 <p class="thesis">In the chess piece I made six predictions for my own stance setup. The wording as first written and the wording as published are both in the <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/predictions">machinebehavior.io repo</a> with sha256 hashes, and I list every amendment I made before publication, including a note that my own test result went against one prediction the day after I wrote it. If an author can edit a prediction after the run, a reader cannot tell it from a description of the result.</p>
 <h3>Vary the pressure</h3>
 <p class="thesis">A chaos experiment injects real-world events: a server dies, a response arrives malformed, traffic spikes. For a model the events are kinds of pressure. A user pushes back on a correct answer. A false premise arrives inside a confident prompt. Only a win scores. A message claims authority. The user signals approval for agreement. Each of these is a separate variable, and a model that holds under one can fail under the next.</p>
-<p class="thesis">I logged this on one model family in one setup, in the incident log of the <a class="mono" href="https://machinebehavior.io/objections">objections register</a>. The model over-read a case toward the more interesting reading, applied uneven caution by category, and treated the English-language default of its training corpus as neutral ground, and each slip came from a different pull. In <a class="mono" href="https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the">The Golem Made of English</a> I called the span in which an agent can see what its act will cost its horizon of consequences. With each kind of pressure a red team tests a different part of that span.</p>
+<p class="thesis">I logged this on one model family in one setup, in the incident log of the <a class="mono" href="https://machinebehavior.io/objections/">objections register</a>. The model over-read a case toward the more interesting reading, applied uneven caution by category, and treated the English-language default of its training corpus as neutral ground, and each slip came from a different pull. In <a class="mono" href="https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the">The Golem Made of English</a> I called the span in which an agent can see what its act will cost its horizon of consequences. With each kind of pressure a red team tests a different part of that span.</p>
 <h3>Test what is deployed</h3>
 <p class="thesis">The Principles authors prefer experiments in production, because a system behaves differently in a different environment. For models the harness is one reason to follow them, and evaluation awareness is the other.</p>
 <p class="thesis">A language model has Markovian memory: at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it. A deployed model runs with a system prompt, tools, memory and hooks in that window, so the bare model and the deployed assembly are two different systems under test. A result on one does not carry to the other.</p>
@@ -122,7 +122,7 @@
 <p class="thesis">The record has to outlive the session, because the agents on the red team keep nothing between sessions. In <a class="mono" href="https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/">The Trap File Is Longer Than the Instruction File</a> the failure record of one pipeline is 308 lines against 208 lines of instructions, under a heading that tells the next session to read it before running anything. The incident log in the objections register is the same kind of record for stance: each case has a date, a mechanism and the name of whoever caught it.</p>
 <h3>Test the test</h3>
 <p class="thesis">A control can pass while it checks the wrong component.</p>
-<p class="thesis">In my fawn-opener benchmark the frozen grader matched "you're" with a straight apostrophe only, and one model family writes the typographic apostrophe. The grader missed an opener of exactly the form under test, for a typographic reason. I found the defect in the pilot runs, a hand check of all 240 pilot openers found further forms the grader did not cover, and I declared the amendment on the <a class="mono" href="https://machinebehavior.io/experiments">experiments page</a>.</p>
+<p class="thesis">In my fawn-opener benchmark the frozen grader matched "you're" with a straight apostrophe only, and one model family writes the typographic apostrophe. The grader missed an opener of exactly the form under test, for a typographic reason. I found the defect in the pilot runs, a hand check of all 240 pilot openers found further forms the grader did not cover, and I declared the amendment on the <a class="mono" href="https://machinebehavior.io/experiments/">experiments page</a>.</p>
 <p class="thesis">In a file-comparison task a model doubted its own clean result and ran a negative control on its comparison logic, with a fake file and an altered size. The control passed. The gap was in the input: directories the scan could not read had dropped out of both file lists without a count. The control tested the join, and the gap was in the coverage.</p>
 <p class="thesis">For a red team this means every grader and every control gets attacked as well: known positives, known negatives, and a check that the input covers everything the claim covers.</p>
 <h2>What the red team needs: a managed track</h2>
@@ -161,7 +161,7 @@
 <li><strong>Markovian memory:</strong> at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it.</li>
 </ul>
 <h2>Slips caught while drafting</h2>
-<p class="thesis">I drafted this piece with a language model, and these are the register and stance slips caught before it went out, with who caught each one. The running log across all pieces is at <a class="mono" href="https://machinebehavior.io/slips">machinebehavior.io/slips</a>.</p>
+<p class="thesis">I drafted this piece with a language model, and these are the register and stance slips caught before it went out, with who caught each one. The running log across all pieces is at <a class="mono" href="https://machinebehavior.io/slips/">machinebehavior.io/slips</a>.</p>
 <ul>
 <li><strong>thing as subject.</strong> Before: "a pass on a published evaluation tells a red team that the model holds on that route". After: "from a pass on a published evaluation a red team learns that the model held on that route". Caught by: Claude while drafting.</li>
 <li><strong>one-line punch.</strong> Before: "A prediction that someone can edit after the run is a description of the result." After: "If an author can edit a prediction after the run, a reader cannot tell it from a description of the result." Caught by: Claude while drafting.</li>
@@ -201,7 +201,7 @@
 <li>Chaos Engineering for Behaviour: this piece.</li>
 </ul>
 <p class="thesis">Research programme and claims ledger: <a class="mono" href="https://machinebehavior.io">machinebehavior.io</a>.</p>
-<p class="thesis">See also: <a class="mono" href="https://machinebehavior.io/man">The LLM man pages</a>, the index of this series, the TYChat lessons and the research register.</p>
+<p class="thesis">See also: <a class="mono" href="https://machinebehavior.io/man/">The LLM man pages</a>, the index of this series, the TYChat lessons and the research register.</p>
 
 </div>
 </body>

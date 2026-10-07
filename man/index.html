@@ -5,19 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The LLM man pages: Machine Behavior</title>
 <meta name="description" content="Intro page for the LLM man pages by Stefan Coetzee: TYChat lessons, file conventions, overviews and operations practice for running language models, laid out by man-page section with one-line synopses and links.">
-<link rel="canonical" href="https://machinebehavior.io/man">
-<link rel="stylesheet" href="style.css">
+<link rel="canonical" href="https://machinebehavior.io/man/">
+<link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 </head>
 <body>
 <div class="sheet">
   <nav class="nav">
-    <a href="./">machine behavior</a>
-    <a href="man" aria-current="page">man</a>
-    <a href="claims">claims</a>
-    <a href="experiments">experiments</a>
-    <a href="objections">objections</a>
-    <a href="terms">terms</a>
+    <a href="/">machine behavior</a>
+    <a href="/man/" aria-current="page">man</a>
+    <a href="/claims/">claims</a>
+    <a href="/experiments/">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
   </nav>
 
   <header>
@@ -46,7 +46,7 @@
 
   <p class="thesis"><strong>Two terms recur across the entries, in fixed wording.</strong> Nothing exists in a vacuum: every behaviour a model shows was forced into existence by something, the corpus, the training signal, or the harness. A language model has Markovian memory: at runtime the next token depends only on what is in the context window, so anything outside the window does not exist for it.</p>
 
-  <p class="thesis"><strong>The stance thread</strong> runs through four entries. <code>toil(8)</code> states the problem: a hook can block a word on every reply, and a person still catches every stance slip by hand. <code>stance(1)</code> is the fix a chat user can paste in. <code>chaos(8)</code> is how to verify that a fix holds. The evidence is on this site: the <a class="mono" href="claims">claims ledger</a>, the <a class="mono" href="experiments">experiments</a> and the <a class="mono" href="objections">objections register</a>.</p>
+  <p class="thesis"><strong>The stance thread</strong> runs through four entries. <code>toil(8)</code> states the problem: a hook can block a word on every reply, and a person still catches every stance slip by hand. <code>stance(1)</code> is the fix a chat user can paste in. <code>chaos(8)</code> is how to verify that a fix holds. The evidence is on this site: the <a class="mono" href="/claims/">claims ledger</a>, the <a class="mono" href="/experiments/">experiments</a> and the <a class="mono" href="/objections/">objections register</a>.</p>
 
   <h2>SECTION 1: USER COMMANDS</h2>
 
@@ -133,7 +133,7 @@
 
     <dt><span class="term-mono">chaos(8)</span> · Chaos Engineering for Behaviour</dt>
     <dd>Red-teaming a model's behaviour is chaos engineering: one evaluation measures the patched surface, and repeated, varied attack finds where the behaviour went.
-    <div class="receipt"><a class="mono" href="https://machinebehavior.io/chaos-engineering-for-behaviour">Chaos Engineering for Behaviour</a></div></dd>
+    <div class="receipt"><a class="mono" href="https://machinebehavior.io/chaos-engineering-for-behaviour/">Chaos Engineering for Behaviour</a></div></dd>
 
     <dt><span class="term-mono">toil(8)</span> · The Stance Layer Is Still Toil</dt>
     <dd>The word layer automated, the stance layer caught by hand.
@@ -154,8 +154,8 @@
     <dt><a class="mono" href="https://tychat.io/">tychat.io</a></dt>
     <dd>Teach your chat: the lessons of section 1, written for the chat model to read.</dd>
 
-    <dt><a class="mono" href="./">machinebehavior.io</a></dt>
-    <dd>The research register: <a class="mono" href="claims">claims</a> with status, receipts and refutation conditions, <a class="mono" href="experiments">experiments</a>, the <a class="mono" href="objections">objections register</a>, <a class="mono" href="terms">terms</a> in fixed wording, and the <a class="mono" href="slips">slips log</a>.</dd>
+    <dt><a class="mono" href="/">machinebehavior.io</a></dt>
+    <dd>The research register: <a class="mono" href="/claims/">claims</a> with status, receipts and refutation conditions, <a class="mono" href="/experiments/">experiments</a>, the <a class="mono" href="/objections/">objections register</a>, <a class="mono" href="/terms/">terms</a> in fixed wording, and the <a class="mono" href="/slips/">slips log</a>.</dd>
 
     <dt><a class="mono" href="https://github.com/uncovertechtalent/vestige-kit">vestige-kit</a></dt>
     <dd>The output filter as a package, with a calibration procedure.</dd>
