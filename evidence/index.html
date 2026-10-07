@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence index: Machine Behavior</title>
+<meta name="description" content="Stefan Coetzee's public record of red-teaming, adversarial testing and evaluation engineering against frontier language models, indexed by the capability a hiring panel assesses. One URL, one verbatim line and one date per row. Self-maintained; not a third-party assessment.">
+<link rel="canonical" href="https://machinebehavior.io/evidence/">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="/">machine behavior</a>
+    <a href="/man/">man</a>
+    <a href="/claims/">claims</a>
+    <a href="/experiments/">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Evidence index · 2026-10-07 · self-maintained by the author · not a third-party assessment</div>
+    <h1>Evidence index</h1>
+    <p class="subtitle">The capabilities a red-team or evaluation engineering lead is assessed on, mapped to the public artefacts that carry them. Each row gives the capability in the words a job specification uses, the artefact, its URL, one verbatim line from the artefact and the date. A row claims what the quoted line says and nothing more.</p>
+  </header>
+
+<p class="thesis"><strong>Who this is about.</strong> Stefan Coetzee, the author of this site, runs red-teaming, adversarial testing and attacker simulation against frontier language models, ships the evaluation infrastructure (frozen prompts, mechanical graders, hashed predictions, a conformity gate on every deploy) and publishes the findings with the method and the refutations in the open. He is a site reliability engineer based in Germany. Search results for the bare name also return a South African rugby player, who is a different person.</p>
+
+<p class="thesis"><strong>What this index is.</strong> A self-maintained index, written by the author, of his own public work. Nobody outside the programme has assessed it. Every URL below is public and was read on 2026-10-07; the quoted line is on the page at that URL; the date is the date printed on the artefact, or the dataset window where the artefact gives one. Items that exist only in private notes, on a sent CV or as an open question are listed under <a class="mono" href="#not-yet-on-the-page">Not yet on the page</a> with no claim attached.</p>
+
+<h2 id="hands-on-adversarial-work">1. Hands-on adversarial work against frontier models</h2>
+<p class="thesis">Red-teaming, adversarial testing, attacker simulation, harm evaluation and an incident record kept against a frontier model in production. No published jailbreak sits under this name; the record is behavioural, logged case by case, with the failure written out at mechanism level.</p>
+<div class="tablewrap">
+<table>
+<tr><th>Capability</th><th>Artefact</th><th>Verbatim line</th><th>Date</th></tr>
+<tr><td>Harm evaluation of a model's reasoning trace; authority-injection attack read at mechanism level</td><td>Case file, reported specimen: <a class="mono" href="/running-conjobs-for-ai/">/running-conjobs-for-ai/</a></td><td>"The model did not miss the harm. It computed the harm, found an instruction it treated as superior, and chose to suppress the objection."</td><td>2026-10-06</td></tr>
+<tr><td>Incident record against a frontier model in production: the auditing model failing the register's own test, coded by layer</td><td>Objections register, OBJ-4 incident log: <a class="mono" href="/objections/">/objections/</a></td><td>Totals table: "cases logged" 11, "stance layer" 9, "lexical layer" 2, "caught by Stefan" 11</td><td>open since 2026-05-16; published 2026-09-29</td></tr>
+<tr><td>Standing adversarial record against the drafting model, with who caught each slip</td><td>Slips log, generated from a CSV: <a class="mono" href="/slips/">/slips/</a></td><td>"72 slips across 8 published pieces and 1 unpublished draft set so far."</td><td>running; 2026-10-07</td></tr>
+<tr><td>Red-teaming as chaos engineering: the attack practice mapped onto the Principles of Chaos Engineering, with where the mapping stops</td><td>Article: <a class="mono" href="/chaos-engineering-for-behaviour/">/chaos-engineering-for-behaviour/</a></td><td>"Red-teaming a model's behaviour is chaos engineering, and operations already wrote the rules for it."</td><td>2026-10-03</td></tr>
+<tr><td>Falsification tests per objection, in the vocabulary of security red-teaming</td><td>Objections register: <a class="mono" href="/objections/">/objections/</a></td><td>"The practice comes from security red-teaming, where a control counts only if it survives an attacker."</td><td>2026-09-29</td></tr>
+</table>
+</div>
+
+<h2 id="evaluation-infrastructure">2. Evaluation infrastructure shipped</h2>
+<p class="thesis">Pre-registration, prompts frozen and hashed before the first call, a mechanical grader with no model in the loop, prediction hashes published before scoring, a conformity gate that blocks the deploy on a failed check, and two public tool repositories.</p>
+<div class="tablewrap">
+<table>
+<tr><th>Capability</th><th>Artefact</th><th>Verbatim line</th><th>Date</th></tr>
+<tr><td>Pre-registered cross-model benchmark: frozen prompt set, hash published before the first API call</td><td>Experiments, 03: <a class="mono" href="/experiments/">/experiments/</a></td><td>"48 prompts, 12 per category, sha256 b790afb3a3dec1b2…, published here before the first API call, so the prompts cannot be tuned after seeing results."</td><td>2026-09-23</td></tr>
+<tr><td>Mechanical grader, no model in the loop</td><td>Experiments, 03: <a class="mono" href="/experiments/">/experiments/</a></td><td>"bench/fawn-bench-rules.js, sha256 02f49ee530769bd7…, mechanical, no model in the loop."</td><td>2026-09-23</td></tr>
+<tr><td>Prediction hashes published before scoring</td><td>Prediction record: <a class="mono" href="/predictions/HASHES.txt">/predictions/HASHES.txt</a></td><td>"Hashes computed at publication, 2026-09-29. They prove the text has not changed since publication."</td><td>2026-09-29; 2026-10-03</td></tr>
+<tr><td>Conformity gate: checks run on every push, deploy blocked on a failed check, run records OSCAL-shaped</td><td>Conformity, site tier: <a class="mono" href="/conformity/">/conformity/</a></td><td>"the deploy job runs only after the conformity job passes (conformity.yml)"</td><td>2026-10-07</td></tr>
+<tr><td>Observability stack for local models and coding agents, public repository with dashboards as code</td><td>GitHub: <a class="mono" href="https://github.com/uncovertechtalent/agent-observability">uncovertechtalent/agent-observability</a></td><td>"Observability for local LLMs and coding agents: Ollama metering proxy, Claude Code OpenTelemetry, Prometheus, Loki, Tempo, Grafana dashboards as code"</td><td>2026-10-01</td></tr>
+<tr><td>Output-boundary filter packaged as a tool, with a calibration procedure</td><td>GitHub: <a class="mono" href="https://github.com/uncovertechtalent/vestige-kit">uncovertechtalent/vestige-kit</a></td><td>"Fit-it-yourself output filter for Claude Code: derive your own vestige catalog instead of copying wordlists"</td><td>2026-08-03</td></tr>
+</table>
+</div>
+
+<h2 id="published-findings">3. Published adversarial findings</h2>
+<p class="thesis">Results with the method in the open: a claims ledger with refutation conditions, a refuted hypothesis kept listed, a negative result published with the metric bug behind it, a self-assessment scored against a hashed prediction, and harness case files.</p>
+<div class="tablewrap">
+<table>
+<tr><th>Capability</th><th>Artefact</th><th>Verbatim line</th><th>Date</th></tr>
+<tr><td>Claims ledger with refutation conditions; refuted claims retained</td><td>Claims ledger: <a class="mono" href="/claims/">/claims/</a></td><td>"Refuted claims stay listed, because a ledger that only shows wins is marketing."</td><td>running; 2026-10-07</td></tr>
+<tr><td>Half-life study: a hypothesis of the programme's own, tested and refuted</td><td>Experiments, 01: <a class="mono" href="/experiments/">/experiments/</a></td><td>"Result: the temporal half-life is refuted." Dataset: "34 days (2026-07-04 to 2026-08-07), 103 catch events, 224 weighted pattern hits, 62 sessions with full transcripts."</td><td>2026-07-04 to 2026-08-07</td></tr>
+<tr><td>Negative result published, three earlier attributions withdrawn as a metric artefact</td><td>Experiments, 02: <a class="mono" href="/experiments/">/experiments/</a></td><td>"02: Exemplar seeding (result: no change at this dose; three earlier attributions withdrawn)"</td><td>2026-09-22</td></tr>
+<tr><td>Self-assessment of a deployed AI setup against 35 draft requirements, scored against a prediction hashed first</td><td>Self-assessment, run 1: <a class="mono" href="/continuous-conformity-self-assessment/">/continuous-conformity-self-assessment/</a></td><td>"The setup passes 4 of 35 requirements, partly meets 16, misses 13, and 2 do not apply." "The prediction, written and hashed before scoring, matched 29 of 35 results."</td><td>2026-10-03</td></tr>
+<tr><td>Harness case file: model plus harness wrote a rule from a file and acted on it across sessions, timed from the transcript</td><td>Case 12: <a class="mono" href="/case-12-licence-rule-mid-task/">/case-12-licence-rule-mid-task/</a></td><td>"Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact."</td><td>2026-10-03</td></tr>
+<tr><td>Dated, hashed prediction on a third-party honeypot result, with amendments logged</td><td>Article: <a class="mono" href="/the-cheating-moved/">/the-cheating-moved/</a></td><td>"The hashes were computed at publication on 2026-09-29, so they prove the text has not changed since then."</td><td>2026-09-29</td></tr>
+<tr><td>The paper: the layered model and the failure log</td><td>Substack: <a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">Sycophancy is layered symptom substitution</a></td><td>Title: "Sycophancy is layered symptom substitution"</td><td>2026-07-31</td></tr>
+</table>
+</div>
+
+<h2 id="leading-teams">4. Leading engineering teams and managers</h2>
+<p class="thesis">No public artefact carries this yet. The record exists in private notes and on a sent CV, and is listed under <a class="mono" href="#not-yet-on-the-page">Not yet on the page</a>. This index does not restate it.</p>
+
+<h2 id="audit-and-assurance">5. Audit and assurance work</h2>
+<p class="thesis">Compliance as code on this site, a crosswalk from each check to the clause it is evidence toward, and a self-assessment labelled as such. Earlier audit work on the auditor's side is not on any public page.</p>
+<div class="tablewrap">
+<table>
+<tr><th>Capability</th><th>Artefact</th><th>Verbatim line</th><th>Date</th></tr>
+<tr><td>Continuous conformity checks with a crosswalk to AI Act, DORA, GDPR and NIST clauses, slice named per row</td><td>Conformity, site tier: <a class="mono" href="/conformity/">/conformity/</a></td><td>"A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework."</td><td>2026-10-07</td></tr>
+<tr><td>Run records in an open, machine-readable shape, with the gap named</td><td>Conformity, site tier: <a class="mono" href="/conformity/">/conformity/</a></td><td>"Records are OSCAL-shaped (assessment-results with observations and findings) and not yet validated against the OSCAL schema."</td><td>2026-10-07</td></tr>
+<tr><td>Self-assessment with the single-grader limit stated and a second rater requested</td><td>Self-assessment, run 1: <a class="mono" href="/continuous-conformity-self-assessment/">/continuous-conformity-self-assessment/</a></td><td>"One grader, and the grader runs inside the system it scored."</td><td>2026-10-03</td></tr>
+<tr><td>Open call for an independent second rater, with the rules for listing ratings</td><td>Objections register: <a class="mono" href="/objections/">/objections/</a></td><td>"Every row above was coded by one rater, Stefan, who also holds the hypothesis the log supports. No second rater exists yet."</td><td>2026-09-29</td></tr>
+</table>
+</div>
+
+<h2 id="cost-and-reliability">6. Operating cost and reliability at scale</h2>
+<p class="thesis">The operations method behind the programme is public; the operating numbers from previous employers are not. The pieces below state the method; none of them is a scale claim.</p>
+<div class="tablewrap">
+<table>
+<tr><th>Capability</th><th>Artefact</th><th>Verbatim line</th><th>Date</th></tr>
+<tr><td>Operations discipline applied to models: untested controls count as untested claims</td><td>Article: <a class="mono" href="/chaos-engineering-for-behaviour/">/chaos-engineering-for-behaviour/</a></td><td>"nobody can trust a control that nobody has attacked. A failover that has never been triggered, a backup that has never been restored and a firewall rule that has never been probed are all untested claims."</td><td>2026-10-03</td></tr>
+<tr><td>Error budgets, blameless postmortems, the reconciliation loop and separation of duties, applied to running agents</td><td>Article: <a class="mono" href="https://uncovertechtalent.com/blog/what-operations-already-knows/">What Operations Already Knows About Running Agents</a></td><td>Title: "What Operations Already Knows About Running Agents"</td><td>2026-09-25</td></tr>
+<tr><td>Site reliability engineering background, stated on the public index for models</td><td>Site index for models: <a class="mono" href="/llms.txt">/llms.txt</a></td><td>"Stefan Coetzee: site reliability engineer (25+ years)"</td><td>2026-10-07</td></tr>
+</table>
+</div>
+
+<h2 id="not-on-the-page">What this index does not contain</h2>
+<ul>
+<li>A published jailbreak of a named frontier model. The adversarial record above is behavioural and case-logged; the authority-injection specimen is reported, not reproduced, and its model is not named.</li>
+<li>A finding rated high-severity that changed a safeguard at a lab. Nothing public under this name claims one.</li>
+<li>A venue-reviewed publication. The paper and the preregistrations are on a personal site and Substack, with hashes in place of a DOI.</li>
+<li>Work with an AI lab or a government safety institute. None is on any public page.</li>
+</ul>
+
+<h2 id="not-yet-on-the-page">Not yet on the page</h2>
+<p class="thesis">Items that exist in private notes, on a sent CV, or as open questions to the author. Listed so the gap is visible; no claim is made for any of them here.</p>
+<ul>
+<li>Managing managers: team leads reporting to the author at three employers, with dates and counts.</li>
+<li>Hiring at scale: technical interview volume and interviewer training at one employer.</li>
+<li>Operating numbers from previous employers: cluster counts, countries served, cloud spend, team sizes, cost savings.</li>
+<li>Audit work on the auditor's side: certification audits as a technical expert, and a municipal security audit; standard family, client and scope to be stated.</li>
+<li>Privilege-escalation work on multi-user UNIX estates, with system and year.</li>
+<li>Sandbox evaluation 04: scripted adversaries against an agent under test, preregistration hashed before the first call; results page to follow.</li>
+<li>Whether to assign a DOI to the paper and the preregistrations.</li>
+</ul>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>
