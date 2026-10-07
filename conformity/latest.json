@@ -1,0 +1,193 @@
+{
+ "history": [
+  {
+   "ts": "2026-10-07T12:36:14Z",
+   "trigger": "push",
+   "sha": "ef622e04817a867cf7d3d70fedc211cbb3fd86e5",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
+  }
+ ],
+ "findings": [],
+ "last_run": "2026-10-07T12:36:14Z",
+ "overall": "pass",
+ "requirement_states": {
+  "CC-4.1": {
+   "live": null,
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-4.2": {
+   "live": null,
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-4.3": {
+   "live": null,
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-5.1": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-5.2": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-5.3": {
+   "live": null,
+   "self": "n/a",
+   "mark": "H"
+  },
+  "CC-6.1": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-6.2": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-6.3": {
+   "live": "pass",
+   "self": "pass",
+   "mark": "M"
+  },
+  "CC-6.4": {
+   "live": null,
+   "self": "gap",
+   "mark": "A"
+  },
+  "CC-6.5": {
+   "live": "partial",
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-7.1": {
+   "live": "pass",
+   "self": "gap",
+   "mark": "M"
+  },
+  "CC-7.2": {
+   "live": "pass",
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-7.3": {
+   "live": "partial",
+   "self": "gap",
+   "mark": "M"
+  },
+  "CC-7.4": {
+   "live": "partial",
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-7.5": {
+   "live": null,
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-8.1": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-8.2": {
+   "live": "partial",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-8.3": {
+   "live": null,
+   "self": "gap",
+   "mark": "A"
+  },
+  "CC-8.4": {
+   "live": null,
+   "self": "gap",
+   "mark": "A"
+  },
+  "CC-8.5": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-8.6": {
+   "live": null,
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-9.1": {
+   "live": null,
+   "self": "pass",
+   "mark": "H"
+  },
+  "CC-9.2": {
+   "live": null,
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-10.1": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-10.2": {
+   "live": null,
+   "self": "n/a",
+   "mark": "H"
+  },
+  "CC-11.1": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-11.2": {
+   "live": "partial",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-11.3": {
+   "live": "pass",
+   "self": "pass",
+   "mark": "H"
+  },
+  "CC-11.4": {
+   "live": null,
+   "self": "pass",
+   "mark": "H"
+  },
+  "CC-12.1": {
+   "live": "pass",
+   "self": "gap",
+   "mark": "H"
+  },
+  "CC-12.2": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "A"
+  },
+  "CC-12.3": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-12.4": {
+   "live": "pass",
+   "self": "partial",
+   "mark": "M"
+  },
+  "CC-12.5": {
+   "live": "partial",
+   "self": "gap",
+   "mark": "M"
+  }
+ },
+ "site_commit": "ef622e04817a867cf7d3d70fedc211cbb3fd86e5"
+}
