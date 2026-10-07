@@ -145,7 +145,7 @@ def check_site_consistency():
         r = rel(p); url = page_url(p)
         if url == "/" and SITE.get("skip_home_in_sitemap_check"):
             pass
-        if sitemap is not None and (base + url) not in sitemap and (base + url.rstrip("/")) not in sitemap:
+        if sitemap is not None and url not in SITE.get("sitemap_exempt", []) and (base + url) not in sitemap and (base + url.rstrip("/")) not in sitemap:
             (warns if SITE.get("sitemap_observation_only") else fails).append(f"{r}: missing from sitemap.xml ({url})")
         if url != "/" and (base + url) not in llms:
             warns.append(f"{r}: not listed in llms.txt")
