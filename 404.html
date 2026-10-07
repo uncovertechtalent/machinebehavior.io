@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Not found | machine behavior</title>
+<link rel="stylesheet" href="/style.css">
+<script>
+(function () {
+  var p = location.pathname;
+  var q = location.search + location.hash;
+  var target = null;
+  if (p.length > 1 && p.slice(-1) === '/') {
+    target = p.replace(/\/+$/, '');
+  } else if (/\.html$/.test(p)) {
+    target = p.replace(/\.html$/, '');
+  }
+  if (target && target !== p) {
+    var r = new XMLHttpRequest();
+    r.open('HEAD', target, true);
+    r.onload = function () { if (r.status === 200) location.replace(target + q); };
+    r.send();
+  }
+})();
+</script>
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="/">machine behavior</a>
+    <a href="/man">man</a>
+    <a href="/claims">claims</a>
+    <a href="/experiments">experiments</a>
+    <a href="/objections">objections</a>
+    <a href="/terms">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">404</div>
+    <h1>Not found</h1>
+    <p class="subtitle">Pages on this site have no trailing slash and no file extension. If the address ends in a slash, the page is one character back.</p>
+  </header>
+
+  <section>
+    <div class="label">Start from</div>
+    <ol>
+      <li><a class="mono" href="/man">machinebehavior.io/man</a>: the LLM man pages, an index of everything.</li>
+      <li><a class="mono" href="/claims">machinebehavior.io/claims</a>: every claim with its receipts.</li>
+      <li><a class="mono" href="/llms.txt">machinebehavior.io/llms.txt</a>: the index for models.</li>
+    </ol>
+  </section>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+</body>
+</html>
