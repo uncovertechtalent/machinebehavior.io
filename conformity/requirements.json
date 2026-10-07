@@ -337,7 +337,7 @@
    ],
    "self_assessment": {
     "result": "gap",
-    "evidence": "Addendum 2026-10-07 (draft 0.3): no decision-layer test runs on this setup; eval 04 full-01 tested a reference model, not this assembly."
+    "evidence": "Addendum 2026-10-07 (draft 0.3): no decision-layer test runs on this setup; experiment 04 full-01 (https://machinebehavior.io/experiments/#experiment-04) tested a reference model, not this assembly."
    }
   },
   {
