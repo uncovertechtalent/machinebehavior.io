@@ -231,6 +231,14 @@
    "overall": "fail",
    "findings_open": 1,
    "warnings": 0
+  },
+  {
+   "ts": "2026-10-08T14:06:59Z",
+   "trigger": "push",
+   "sha": "4c2ba56b7f91d9897227eba7626f994d9ede129c",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
   }
  ],
  "findings": [
@@ -241,15 +249,18 @@
    "rule": null,
    "snippet": "map/index.html: relative link ${esc(n.id)}",
    "requirements": [],
-   "status": "open",
+   "status": "closed",
    "opened": "2026-10-08T14:05:42Z",
    "opened_commit": "9168b4d00dece101513c693b7344bac0eabd4aec",
    "last_seen": "2026-10-08T14:05:42Z",
-   "runs_seen": 1
+   "runs_seen": 1,
+   "closed": "2026-10-08T14:06:59Z",
+   "closed_by_passing_run": "2026-10-08T14:06:59Z",
+   "closed_commit": "4c2ba56b7f91d9897227eba7626f994d9ede129c"
   }
  ],
- "last_run": "2026-10-08T14:05:42Z",
- "overall": "fail",
+ "last_run": "2026-10-08T14:06:59Z",
+ "overall": "pass",
  "requirement_states": {
   "CC-4.1": {
    "live": null,
@@ -432,6 +443,6 @@
    "mark": "M"
   }
  },
- "site_commit": "9168b4d00dece101513c693b7344bac0eabd4aec",
+ "site_commit": "4c2ba56b7f91d9897227eba7626f994d9ede129c",
  "site": "machinebehavior.io"
 }
