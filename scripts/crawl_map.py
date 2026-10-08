@@ -151,6 +151,8 @@ for u in sorted(set(pages)) + subs:
     for tgt, lk in [(t, 'body') for t in body_links] + [(t, 'nav') for t in nav_links]:
         tk = kind_of(tgt)
         if not tk: continue
+        if urlparse(tgt).path in ('/tags/', '/categories/'): lk = 'nav'  # "all tags" back-links are navigation
+        if k == 'tag' and urlparse(tgt).path == '/blog/': lk = 'nav'      # so is "all posts" on a tag page
         if tk in ('github', 'reddit'):
             add_node(tgt, tk, None, tk)
         elif tk in ('page', 'tag') and tgt not in nodes:
@@ -194,6 +196,12 @@ for key in [k for k in edges if k[0] in NONHTML or k[1] in NONHTML]:
     del edges[key]
 if NONHTML:
     print(f'dropped {len(NONHTML)} non-html pages', file=sys.stderr)
+
+# a description shared by three or more pages is the site default, not a summary of the page
+from collections import Counter as _C
+_shared = {d for d, c in _C(n.get('desc') for n in nodes.values() if n.get('desc')).items() if c >= 3}
+for n in nodes.values():
+    if n.get('desc') in _shared: del n['desc']
 
 # titles for satellites without one
 for n in nodes.values():
