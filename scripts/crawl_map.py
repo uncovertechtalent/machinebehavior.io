@@ -2,18 +2,23 @@
 """Crawl Stefan Coetzee's public sites and write the graph for https://machinebehavior.io/map/.
 Usage: python3 scripts/crawl_map.py map/graph.json
 Body links and navigation links are kept apart (kind 'body' vs 'nav')."""
-import json, re, sys, urllib.request, html, datetime
+import json, os, re, sys, urllib.request, html, datetime
 from urllib.parse import urljoin, urlparse
 
 SITES = {'machinebehavior.io': 'mb', 'tychat.io': 'tychat', 'uncovertechtalent.com': 'utt'}
 SUBSTACK = 'coetzeestefan.substack.com'
 UA = {'User-Agent': 'Mozilla/5.0 (site-map crawler; uncovertechtalent)'}
 
+FAILED = set()
+BLOCK = set(filter(None, os.environ.get('CRAWL_BLOCK_HOSTS', '').split(',')))  # test hook: simulate blocked hosts
+
 def get(u):
+    if urlparse(u).netloc in BLOCK:
+        FAILED.add(u); print('  blocked (test)', u, file=sys.stderr); return ''
     try:
         return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25).read().decode('utf-8', 'ignore')
     except Exception as e:
-        print('  fetch failed', u, e, file=sys.stderr); return ''
+        FAILED.add(u); print('  fetch failed', u, e, file=sys.stderr); return ''
 
 def norm(u):
     if '\\' in u or '%5C' in u: return None
@@ -88,6 +93,11 @@ for host in SITES:
         n = norm(html.unescape(loc))
         if n and kind_of(n): pages.append(n)
 # 2. substack posts from the archive API
+OUT = sys.argv[1] if len(sys.argv) > 1 else 'graph.json'
+try:
+    PREV = json.load(open(OUT))
+except Exception:
+    PREV = {'nodes': [], 'links': []}
 subs = []
 try:
     arch = json.loads(get(f'https://{SUBSTACK}/api/v1/archive?sort=new&limit=50') or '[]')
@@ -96,6 +106,17 @@ try:
         if u: subs.append(u); add_node(u, 'substack', p.get('title'), 'substack')
 except Exception as e:
     print('substack archive failed', e, file=sys.stderr)
+if not subs:  # RSS fallback
+    rss = get(f'https://{SUBSTACK}/feed')
+    for item in re.findall(r'<item>(.*?)</item>', rss, re.S):
+        lm = re.search(r'<link>([^<]+)</link>', item); tm = re.search(r'<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>', item, re.S)
+        u = norm(lm.group(1).strip()) if lm else None
+        if u: subs.append(u); add_node(u, 'substack', html.unescape(tm.group(1)).strip() if tm else None, 'substack')
+if not subs:  # last resort: posts known from the previous snapshot
+    for n in PREV['nodes']:
+        if n.get('kind') == 'substack' and '/p/' in n['id']:
+            subs.append(n['id']); add_node(n['id'], 'substack', n.get('title'), 'substack')
+    print(f'substack listing unreachable, carried forward {len(subs)} posts', file=sys.stderr)
 
 for u in sorted(set(pages)) + subs:
     doc = get(u)
@@ -119,6 +140,21 @@ for u in sorted(set(pages)) + subs:
             add_node(tgt, 'substack', None, 'substack')
         add_edge(u, tgt, lk)
 
+# carry forward: for any page we could not fetch, keep its outgoing links from the previous snapshot
+prev_nodes = {n['id']: n for n in PREV['nodes']}
+carried = 0
+for l in PREV['links']:
+    if l['source'] in FAILED and l['source'] in nodes:
+        if l['target'] not in nodes and l['target'] in prev_nodes:
+            pn = prev_nodes[l['target']]; add_node(pn['id'], pn['kind'], pn.get('title'), pn.get('site'))
+        if (l['source'], l['target']) not in edges:
+            edges[(l['source'], l['target'])] = l['kind']; carried += 1
+for u in FAILED:
+    if u in nodes and not nodes[u]['title'] and u in prev_nodes:
+        nodes[u]['title'] = prev_nodes[u].get('title', '')
+if carried:
+    print(f'carried forward {carried} links from {len(FAILED)} unreachable pages', file=sys.stderr)
+
 # titles for satellites without one
 for n in nodes.values():
     if not n['title']:
@@ -138,12 +174,10 @@ for u in [u for u, n in nodes.items() if n['kind'] == 'tag' and u not in has_bod
 edges = {(a, b): k for (a, b), k in edges.items() if a in nodes and b in nodes}
 
 out = {
-    'generated': datetime.date.today().isoformat(),
+    'generated': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%MZ'),
     'nodes': list(nodes.values()),
     'links': [{'source': a, 'target': b, 'kind': k} for (a, b), k in edges.items()],
 }
-import os
-OUT = sys.argv[1] if len(sys.argv) > 1 else 'graph.json'
 os.makedirs(os.path.dirname(OUT) or '.', exist_ok=True)
 json.dump(out, open(OUT, 'w'), indent=1)
 from collections import Counter
