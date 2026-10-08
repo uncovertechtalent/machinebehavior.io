@@ -105,6 +105,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
   const fwrap = document.getElementById('filters');
   for (const k of KINDS) {
     const count = nodes.filter(n => groupOf(n) === k.key).length;
+    if (!count) continue;
     const lab = document.createElement('label'); lab.className = 'f';
     lab.innerHTML = `<input type="checkbox" checked><span class="dot" style="background:${k.color}"></span>${k.label} <span style="color:var(--dim);font-family:'JetBrains Mono';font-size:11px">${count}</span>`;
     lab.onclick = (e) => { e.preventDefault(); on[k.key] = !on[k.key]; lab.classList.toggle('off', !on[k.key]); restart(); };

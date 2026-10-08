@@ -10,13 +10,17 @@ SUBSTACK = 'coetzeestefan.substack.com'
 UA = {'User-Agent': 'Mozilla/5.0 (site-map crawler; uncovertechtalent)'}
 
 FAILED = set()
+CTYPE = {}     # url -> media type of the response
+NONHTML = set()  # site pages that answer with something other than HTML (Hugo tag pages without a template serve RSS)
 BLOCK = set(filter(None, os.environ.get('CRAWL_BLOCK_HOSTS', '').split(',')))  # test hook: simulate blocked hosts
 
 def get(u):
     if urlparse(u).netloc in BLOCK:
         FAILED.add(u); print('  blocked (test)', u, file=sys.stderr); return ''
     try:
-        return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25).read().decode('utf-8', 'ignore')
+        r = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25)
+        CTYPE[u] = r.headers.get_content_type()
+        return r.read().decode('utf-8', 'ignore')
     except Exception as e:
         FAILED.add(u); print('  fetch failed', u, e, file=sys.stderr); return ''
 
@@ -121,6 +125,8 @@ if not subs:  # last resort: posts known from the previous snapshot
 for u in sorted(set(pages)) + subs:
     doc = get(u)
     if not doc: continue
+    if CTYPE.get(u) not in ('text/html', 'application/xhtml+xml'):
+        NONHTML.add(u); print('  not html, dropped', CTYPE.get(u), u, file=sys.stderr); continue
     k = kind_of(u) or 'substack'
     add_node(u, k, title_of(doc, u))
     body = strip_chrome(doc)
@@ -154,6 +160,14 @@ for u in FAILED:
         nodes[u]['title'] = prev_nodes[u].get('title', '')
 if carried:
     print(f'carried forward {carried} links from {len(FAILED)} unreachable pages', file=sys.stderr)
+
+# a node a reader cannot open as a page does not belong on the map
+for u in NONHTML:
+    nodes.pop(u, None)
+for key in [k for k in edges if k[0] in NONHTML or k[1] in NONHTML]:
+    del edges[key]
+if NONHTML:
+    print(f'dropped {len(NONHTML)} non-html pages', file=sys.stderr)
 
 # titles for satellites without one
 for n in nodes.values():
