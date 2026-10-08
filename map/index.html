@@ -331,9 +331,10 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
       const why = isMapPage(n.id) ? 'This page.' : `${SITE_NAME[n.site] || host} does not allow its pages inside other sites, so here is the summary.`;
       sCard.innerHTML = `<div class="eyebrow">${esc(why)}</div><h2>${esc(n.title)}</h2>` +
         (n.desc ? `<p>${esc(n.desc)}</p>` : '') +
-        (isMapPage(n.id) ? '' : `<a class="s-cta" href="${esc(n.id)}" target="_blank" rel="noopener">Read on ${esc(SITE_NAME[n.site] || host)} ↗</a>`) +
+        (isMapPage(n.id) ? '' : `<a class="s-cta" target="_blank" rel="noopener">Read on ${esc(SITE_NAME[n.site] || host)} ↗</a>`) +
         (near.length ? `<div class="eyebrow">Linked in the map · ${near.length}</div><ul class="s-near">` +
           near.map(m => `<li><button data-id="${esc(m.id)}"><span class="dot" style="background:${COLOR[groupOf(m)]}"></span><span class="t">${esc(m.title)}</span></button></li>`).join('') + '</ul>' : '');
+      const cta = sCard.querySelector('.s-cta'); if (cta) cta.href = n.id;
       sCard.classList.add('on'); sCard.scrollTop = 0;
     }
     const wasOpen = sheet.classList.contains('open');
