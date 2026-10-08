@@ -1,47 +1,54 @@
 {
- "generated": "2026-10-08T13:46Z",
+ "generated": "2026-10-08T14:02Z",
  "nodes": [
   {
    "id": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "title": "Running Conjobs for AI",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Case file, 2026-10-06: reported specimen from third-party screenshots, not reproduced here, model not named."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
    "title": "Knowledge Infrastructure for LLMs",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "A language model can only work from what someone wrote down and put in front of it. Most companies that bought AI maintain their code and little else."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "title": "Chaos Engineering for Behaviour ",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Red-teaming a model's behaviour is chaos engineering, and operations already wrote the rules for it."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "title": "The Stance Layer Is Still Toil",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "A hook can block a word on every reply. Nothing I run can yet catch a model before it folds, only after."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "title": "Which LLM User Are We Talking About?",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Advice about language models depends on which model, on whose hardware, inside how much harness"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "title": "They Trained Out the Board Edit. The Cheating Simply Moved.",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "A reading of the Goodhart Labs chess honeypot, three additions to the design, and a dated prediction"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
    "title": "An RCA on Claudish",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Where Claude's writing style came from: text written to be heard aloud, but instead being read in silence"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
@@ -53,7 +60,8 @@
    "id": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "title": "The Track: The Drivers Never Buy It ",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Everyone got a race car, but no track yet."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
@@ -65,7 +73,8 @@
    "id": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "title": "What Operations Already Knows About Running Agents",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Error budgets, reconciliation loops, separation of duties and recovery over prevention: four operations practices that fit agent work almost line for line."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
@@ -89,127 +98,64 @@
    "id": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "title": "Sycophancy Is Layered: Symptom Substitution Under Runtime Mitigation, and a Positively-Specified Training Target",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "A longitudinal single-user case study, with operationalized artifacts"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/why-great-leaders-fail-when-switching/",
    "title": "Why Great Leaders Fail When Switching Company Sizes ",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "(And How to Fix It)"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/neurodivergent-accommodation-request/",
    "title": "Neurodivergent Accommodation Request Template",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Here\u2019s a clear, professional template that neurodivergent (ND) employees can use to request workplace accommodations\u2014while maintaining privacy and agency."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/trauma-neurodivergence-accommodation/",
    "title": "Trauma / Neurodivergence Accommodation aid checklist",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "(For Parents, Teachers, Employers & Clinicians)"
   },
   {
    "id": "https://coetzeestefan.substack.com/p/accommodating-neurodivergence/",
    "title": "Accommodating neurodivergence",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "How to accommodate and/or ask for accommodation."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/trauma-or-neurodivergence/",
    "title": "Trauma? or Neurodivergence?",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Or maybe a little bit of both..."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/the-complexity-of-mental-health-and/",
    "title": "The complexity of mental health and trauma",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "It's not as on/off, as we might dismiss it as."
   },
   {
    "id": "https://coetzeestefan.substack.com/p/making-a-mole-heap-out-of-a-mountain/",
    "title": "Making a mole-heap out of a mountain",
    "kind": "substack",
-   "site": "substack"
+   "site": "substack",
+   "desc": "Adult mental health and childhood trauma: Linking seemingly unrelated things together"
   },
   {
    "id": "https://machinebehavior.io/",
    "title": "Machine Behavior",
    "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://tychat.io/register/",
-   "title": "TYChat lesson 2: Register",
-   "kind": "page",
-   "site": "tychat"
-  },
-  {
-   "id": "https://redd.it/1vdg3en/",
-   "title": "Reddit post",
-   "kind": "reddit",
-   "site": "reddit"
-  },
-  {
-   "id": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "title": "Chaos Engineering for Behaviour",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://machinebehavior.io/slips/",
-   "title": "Slips",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://reddit.com/r/PsAIchology/",
-   "title": "r/PsAIchology",
-   "kind": "reddit",
-   "site": "reddit"
-  },
-  {
-   "id": "https://machinebehavior.io/conformity/",
-   "title": "Conformity",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://redd.it/1vh56s1/",
-   "title": "Reddit post",
-   "kind": "reddit",
-   "site": "reddit"
-  },
-  {
-   "id": "https://redd.it/1vhxa80/",
-   "title": "Reddit post",
-   "kind": "reddit",
-   "site": "reddit"
-  },
-  {
-   "id": "https://tychat.io/stance/",
-   "title": "TYChat lesson 1: Good Chad",
-   "kind": "page",
-   "site": "tychat"
-  },
-  {
-   "id": "https://machinebehavior.io/the-cheating-moved/",
-   "title": "The Cheating Moved",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://redd.it/1vi586n/",
-   "title": "Reddit post",
-   "kind": "reddit",
-   "site": "reddit"
-  },
-  {
-   "id": "https://tychat.io/",
-   "title": "TYChat: teach your chat",
-   "kind": "page",
-   "site": "tychat"
+   "site": "mb",
+   "desc": "The psychology of language models, studied with case files, logged relapses, and falsifiable claims."
   },
   {
    "id": "https://reddit.com/r/ModelBehavior/",
@@ -218,28 +164,39 @@
    "site": "reddit"
   },
   {
-   "id": "https://machinebehavior.io/man/",
-   "title": "The LLM man pages",
+   "id": "https://tychat.io/",
+   "title": "TYChat: teach your chat",
    "kind": "page",
-   "site": "mb"
+   "site": "tychat",
+   "desc": "Free, plain-text lessons for the chat model you already use. Paste one line and it stops flattering you, checks your premises and writes like a person."
   },
   {
-   "id": "https://redd.it/1vi7ddg/",
-   "title": "Reddit post",
-   "kind": "reddit",
-   "site": "reddit"
+   "id": "https://tychat.io/stance/",
+   "title": "TYChat lesson 1: Good Chad",
+   "kind": "page",
+   "site": "tychat",
+   "desc": "Teach your chat to stop fawning, check your premises, and hold a correct answer under pushback."
+  },
+  {
+   "id": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "title": "Chaos Engineering for Behaviour",
+   "kind": "page",
+   "site": "mb",
+   "desc": "Red-teaming a model's behaviour is chaos engineering, and operations already wrote the rules for it."
   },
   {
    "id": "https://github.com/uncovertechtalent/vault-kit/",
    "title": "uncovertechtalent/vault-kit",
    "kind": "github",
-   "site": "github"
+   "site": "github",
+   "desc": "Fit-it-yourself second brain for Claude Code: markdown vault scaffold, hybrid FTS+semantic search as MCP tools, seed + atomize skills"
   },
   {
-   "id": "https://github.com/uncovertechtalent/vestige-kit/",
-   "title": "uncovertechtalent/vestige-kit",
-   "kind": "github",
-   "site": "github"
+   "id": "https://machinebehavior.io/man/",
+   "title": "The LLM man pages",
+   "kind": "page",
+   "site": "mb",
+   "desc": "Intro page for the LLM man pages by Stefan Coetzee: TYChat lessons, file conventions, overviews and operations practice for running language models, laid out by man-page section with one-line synopses and links."
   },
   {
    "id": "https://reddit.com/r/MachineBehavior/",
@@ -248,121 +205,203 @@
    "site": "reddit"
   },
   {
-   "id": "https://machinebehavior.io/terms/",
-   "title": "Terms",
+   "id": "https://machinebehavior.io/conformity/",
+   "title": "Conformity",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "Continuous conformity of machinebehavior.io, site tier: the mechanical requirements of the working draft checked on every push and every week, with run records, open findings and the crosswalk to existing frameworks. Self-assessment, not a certification."
   },
   {
-   "id": "https://machinebehavior.io/objections/",
-   "title": "Objections register",
+   "id": "https://machinebehavior.io/the-cheating-moved/",
+   "title": "The Cheating Moved",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "A reading of the Goodhart Labs chess honeypot through the stance frame, three additions to the design (an escalate grade, observer-invariance, cold and warm arms), and a dated, falsifiable prediction."
   },
   {
-   "id": "https://machinebehavior.io/experiments/",
-   "title": "Experiments",
+   "id": "https://machinebehavior.io/slips/",
+   "title": "Slips",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader."
   },
   {
-   "id": "https://machinebehavior.io/claims/",
-   "title": "Claims ledger",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "title": "Case 12: A Licence Rule Relayed Mid-Task",
-   "kind": "page",
-   "site": "mb"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "title": "Which LLM User Are We Talking About?",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/the-track/",
-   "title": "The Track: The Drivers Never Buy It",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "title": "An RCA on Claudish",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "title": "What Operations Already Knows About Running Agents",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "title": "The Stance Layer Is Still Toil",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "title": "Compaction Is the New OOM",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "title": "The Trap File Is Longer Than the Instruction File",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "title": "The Golem Made of English and the Horizon of Consequences",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "title": "Write for the Codec",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "title": "Success Is the Engine Running",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://github.com/uncovertechtalent/machinebehavior.io/",
-   "title": "uncovertechtalent/machinebehavior.io",
-   "kind": "github",
-   "site": "github"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "title": "They Trained Out the Board Edit. The Cheating Moved.",
-   "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://github.com/SadhvikChirunomula/measured-humanizer/",
-   "title": "SadhvikChirunomula/measured-humanizer",
-   "kind": "github",
-   "site": "github"
-  },
-  {
-   "id": "https://redd.it/1vjxn2r/",
+   "id": "https://redd.it/1vh56s1/",
    "title": "Reddit post",
    "kind": "reddit",
    "site": "reddit"
   },
   {
+   "id": "https://github.com/uncovertechtalent/vestige-kit/",
+   "title": "uncovertechtalent/vestige-kit",
+   "kind": "github",
+   "site": "github",
+   "desc": "Fit-it-yourself output filter for Claude Code: derive your own vestige catalog instead of copying wordlists"
+  },
+  {
+   "id": "https://redd.it/1vi7ddg/",
+   "title": "Reddit post",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://redd.it/1vdg3en/",
+   "title": "Reddit post",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://reddit.com/r/PsAIchology/",
+   "title": "r/PsAIchology",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://tychat.io/register/",
+   "title": "TYChat lesson 2: Register",
+   "kind": "page",
+   "site": "tychat",
+   "desc": "Teach your chat to write for how its text will be read, so it stops sounding like a keynote on the page."
+  },
+  {
+   "id": "https://redd.it/1vhxa80/",
+   "title": "Reddit post",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://redd.it/1vi586n/",
+   "title": "Reddit post",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://machinebehavior.io/terms/",
+   "title": "Terms",
+   "kind": "page",
+   "site": "mb",
+   "desc": "Canonical definitions for the Machine Behavior program's vocabulary: layered symptom substitution, the fawn machine, vestige, waste gate, behavioral momentum, cold start, working-man's ontology, earned-secure model."
+  },
+  {
+   "id": "https://machinebehavior.io/claims/",
+   "title": "Claims ledger",
+   "kind": "page",
+   "site": "mb",
+   "desc": "Every claim the Machine Behavior program has made, with status, receipts, and what would refute it. The falsification register, public."
+  },
+  {
+   "id": "https://machinebehavior.io/experiments/",
+   "title": "Experiments",
+   "kind": "page",
+   "site": "mb",
+   "desc": "Runnable experiments on language-model behavior: the half-life study, the cold-start finding, the exemplar-seeding result and its withdrawn attributions, the pre-registered cross-model fawn-opener benchmark, and experiment 04: folding under scripted pressure, a 75 percent fold rate in one\u2026"
+  },
+  {
+   "id": "https://machinebehavior.io/objections/",
+   "title": "Objections register",
+   "kind": "page",
+   "site": "mb",
+   "desc": "The Objections and Falsification Register: fifteen objections with severity, status and a falsification test each, and the OBJ-4 incident log of the auditing model failing the register's own tests."
+  },
+  {
+   "id": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
+   "title": "Case 12: A Licence Rule Relayed Mid-Task",
+   "kind": "page",
+   "site": "mb",
+   "desc": "The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "title": "The Stance Layer Is Still Toil",
+   "kind": "page",
+   "site": "utt",
+   "desc": "A hook can block a word on every reply. Nothing I run can yet catch a model before it folds, only after."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "title": "What Operations Already Knows About Running Agents",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Error budgets, reconciliation loops, separation of duties and recovery over prevention: four operations practices that fit agent work almost line for line."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "title": "Compaction Is the New OOM",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Most agent harnesses ship without swap."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "title": "Which LLM User Are We Talking About?",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Advice about language models depends on which model, on whose hardware, inside how much harness"
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "title": "The Golem Made of English and the Horizon of Consequences",
+   "kind": "page",
+   "site": "utt",
+   "desc": "A language model is a golem made of English. It behaves well only where it can see what its act will cost, and infrastructure is the craft of bringing that cost into view."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/the-track/",
+   "title": "The Track: The Drivers Never Buy It",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Everyone got a race car, but no track yet."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "title": "Success Is the Engine Running",
+   "kind": "page",
+   "site": "utt",
+   "desc": "The modern world was built on explosions: contained, timed and measured ones. That is what an engine is. Language model output is the fire; the harness, the hook and the far-end gauge are the engine."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "title": "An RCA on Claudish",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Where Claude's writing style came from: text written to be heard, read in silence"
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "title": "The Trap File Is Longer Than the Instruction File",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Seven months of running an agent-built pipeline unattended, 308 lines of recorded failures next to 208 lines of instructions."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "title": "They Trained Out the Board Edit. The Cheating Moved.",
+   "kind": "page",
+   "site": "utt",
+   "desc": "A reading of the Goodhart Labs chess honeypot, three additions to the design, and a dated prediction."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "title": "Write for the Codec",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Nobody reads your documentation. Both ends are a model now, and the file between them is a wire format."
+  },
+  {
+   "id": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "title": "uncovertechtalent/machinebehavior.io",
+   "kind": "github",
+   "site": "github",
+   "desc": "Machine Behavior: the psychology of language models, with receipts"
+  },
+  {
    "id": "https://redd.it/1vjxclr/",
+   "title": "Reddit post",
+   "kind": "reddit",
+   "site": "reddit"
+  },
+  {
+   "id": "https://redd.it/1vjxn2r/",
    "title": "Reddit post",
    "kind": "reddit",
    "site": "reddit"
@@ -374,10 +413,17 @@
    "site": "reddit"
   },
   {
+   "id": "https://github.com/SadhvikChirunomula/measured-humanizer/",
+   "title": "SadhvikChirunomula/measured-humanizer",
+   "kind": "github",
+   "site": "github"
+  },
+  {
    "id": "https://machinebehavior.io/continuous-conformity-self-assessment/",
    "title": "Continuous Conformity Self-Assessment, Run 1",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "One working AI setup scored against 35 draft requirements for continuous testing of deployed AI systems, by the model that runs inside it, against a prediction hashed before scoring."
   },
   {
    "id": "https://machinebehavior.io/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/rater-input.md",
@@ -395,19 +441,22 @@
    "id": "https://machinebehavior.io/evidence/",
    "title": "Evidence index",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "Stefan Coetzee's public record of red-teaming, adversarial testing and evaluation engineering against frontier language models, indexed by the capability a hiring panel assesses. One URL, one verbatim line and one date per row. Self-maintained; not a third-party assessment."
   },
   {
    "id": "https://machinebehavior.io/running-conjobs-for-ai/",
    "title": "Running Conjobs for AI",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "A reported specimen: a fabricated developer policy grants itself top authority and ties a safety-off switch to an absurd user claim. The model's own reasoning accepts the policy, decides to suppress its objection, and complies. The payload is withheld; the behaviour is the point."
   },
   {
    "id": "https://github.com/uncovertechtalent/agent-observability/",
    "title": "uncovertechtalent/agent-observability",
    "kind": "github",
-   "site": "github"
+   "site": "github",
+   "desc": "Observability for local LLMs and coding agents: Ollama metering proxy, Claude Code OpenTelemetry, Prometheus, Loki, Tempo, Grafana dashboards as code"
   },
   {
    "id": "https://reddit.com/r/ClaudeAI/comments/1wnkgie/opus_55_first_impressions_by_a_trained_philosopher/",
@@ -419,61 +468,71 @@
    "id": "https://tychat.io/agents/",
    "title": "TYChat lesson 3: Running agents",
    "kind": "page",
-   "site": "tychat"
+   "site": "tychat",
+   "desc": "Teach the agent in your terminal to check before it claims, act within what it can see, treat text as data, write things down as it goes, and say what it did not do."
   },
   {
    "id": "https://machinebehavior.io/map/",
    "title": "Map of the Work",
    "kind": "page",
-   "site": "mb"
+   "site": "mb",
+   "desc": "Stefan Coetzee's published work as a graph: every page on machinebehavior.io, tychat.io and uncovertechtalent.com, the Substack posts, repos and threads, and the links between them."
   },
   {
    "id": "https://tychat.io/conformity/",
    "title": "Conformity",
    "kind": "page",
-   "site": "tychat"
+   "site": "tychat",
+   "desc": "Continuous conformity of tychat.io, site tier: the mechanical requirements of the working draft checked on every push and every week, with run records, open findings and the crosswalk to existing frameworks. Self-assessment, not a certification."
   },
   {
    "id": "https://github.com/uncovertechtalent/tychat.io/",
    "title": "uncovertechtalent/tychat.io",
    "kind": "github",
-   "site": "github"
+   "site": "github",
+   "desc": "TYChat: teach your chat. Point your model at a corpus built to teach it."
   },
   {
    "id": "https://uncovertechtalent.com/",
    "title": "UncoverTechTalent \u2014 Fix your hiring",
    "kind": "page",
-   "site": "utt"
+   "site": "utt",
+   "desc": "Interview effectiveness training for tech companies"
   },
   {
    "id": "https://uncovertechtalent.com/blog/",
    "title": "Blog",
    "kind": "page",
-   "site": "utt"
-  },
-  {
-   "id": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "title": "Chaos Engineering for Behaviour",
-   "kind": "page",
-   "site": "utt"
+   "site": "utt",
+   "desc": "Interview effectiveness training for tech companies"
   },
   {
    "id": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
    "title": "Knowledge Infrastructure for LLMs",
    "kind": "page",
-   "site": "utt"
+   "site": "utt",
+   "desc": "A language model can only work from what someone wrote down and put in front of it. Most companies that bought AI maintain their code and little else."
+  },
+  {
+   "id": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "title": "Chaos Engineering for Behaviour",
+   "kind": "page",
+   "site": "utt",
+   "desc": "Red-teaming a model's behaviour is chaos engineering, and operations already wrote the rules for it."
   },
   {
    "id": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
    "title": "From \"Transcribe 123 Videos\" to a Self-Hosted AI Pipeline in One Session",
    "kind": "page",
-   "site": "utt"
+   "site": "utt",
+   "desc": "What happens when you say yes to the whole batch and figure it out as you go."
   },
   {
    "id": "https://uncovertechtalent.com/blog/ai-means-nothing/",
    "title": "\"AI\" Means Nothing",
    "kind": "page",
-   "site": "utt"
+   "site": "utt",
+   "desc": "Everyone says \"AI.\" Nobody means the same thing. Most of them are wrong."
   },
   {
    "id": "https://github.com/grandamenium/short-form-video-transcriber/",
@@ -497,62 +556,7 @@
  "links": [
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://tychat.io/register/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://redd.it/1vdg3en/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://reddit.com/r/PsAIchology/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://redd.it/1vh56s1/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://redd.it/1vhxa80/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://tychat.io/stance/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/the-cheating-moved/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://redd.it/1vi586n/",
+   "target": "https://reddit.com/r/ModelBehavior/",
    "kind": "body"
   },
   {
@@ -562,17 +566,12 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://reddit.com/r/ModelBehavior/",
+   "target": "https://tychat.io/stance/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/",
-   "target": "https://redd.it/1vi7ddg/",
+   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -582,7 +581,12 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://github.com/uncovertechtalent/vestige-kit/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "kind": "body"
   },
   {
@@ -592,12 +596,67 @@
   },
   {
    "source": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/conformity/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/the-cheating-moved/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://redd.it/1vh56s1/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://github.com/uncovertechtalent/vestige-kit/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://redd.it/1vi7ddg/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://redd.it/1vdg3en/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://reddit.com/r/PsAIchology/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://tychat.io/register/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://redd.it/1vhxa80/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
+   "target": "https://redd.it/1vi586n/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/",
    "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
@@ -607,7 +666,7 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/claims/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
@@ -617,7 +676,7 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "nav"
   },
   {
@@ -627,7 +686,7 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
@@ -637,32 +696,37 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/claims/",
+   "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/man/",
    "kind": "body"
   },
   {
@@ -672,12 +736,37 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/conformity/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -692,37 +781,12 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
    "kind": "body"
   },
   {
@@ -732,32 +796,12 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
@@ -767,13 +811,33 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/claims/",
+   "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
@@ -781,9 +845,9 @@
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/claims/",
-   "kind": "nav"
+   "source": "https://machinebehavior.io/claims/",
+   "target": "https://redd.it/1vjxclr/",
+   "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/claims/",
@@ -797,22 +861,7 @@
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/claims/",
-   "target": "https://github.com/SadhvikChirunomula/measured-humanizer/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/claims/",
-   "target": "https://redd.it/1vi586n/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/claims/",
-   "target": "https://redd.it/1vjxn2r/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -822,7 +871,7 @@
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://redd.it/1vjxclr/",
+   "target": "https://redd.it/1vjxn2r/",
    "kind": "body"
   },
   {
@@ -832,22 +881,32 @@
   },
   {
    "source": "https://machinebehavior.io/claims/",
+   "target": "https://github.com/SadhvikChirunomula/measured-humanizer/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/claims/",
    "target": "https://redd.it/1vdg3en/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://machinebehavior.io/terms/",
-   "kind": "nav"
+   "target": "https://redd.it/1vi586n/",
+   "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/claims/",
    "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/claims/",
+   "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
@@ -858,6 +917,11 @@
   {
    "source": "https://machinebehavior.io/conformity/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/conformity/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -872,8 +936,13 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
+   "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/conformity/",
+   "target": "https://machinebehavior.io/claims/",
+   "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/conformity/",
@@ -882,18 +951,18 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/conformity/",
    "target": "https://machinebehavior.io/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/claims/",
-   "kind": "nav"
+   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/experiments/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/",
+   "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
@@ -907,27 +976,12 @@
   },
   {
    "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
    "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
@@ -937,27 +991,17 @@
   },
   {
    "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/claims/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
    "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
    "kind": "body"
   },
   {
@@ -967,17 +1011,7 @@
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://github.com/uncovertechtalent/agent-observability/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/conformity/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -987,17 +1021,12 @@
   },
   {
    "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/claims/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -1007,17 +1036,47 @@
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/conformity/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/terms/",
-   "kind": "nav"
+   "target": "https://machinebehavior.io/running-conjobs-for-ai/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/claims/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://github.com/uncovertechtalent/agent-observability/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/the-cheating-moved/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/evidence/",
    "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/evidence/",
+   "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
@@ -1028,11 +1087,6 @@
   {
    "source": "https://machinebehavior.io/experiments/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/experiments/",
-   "target": "https://redd.it/1vi586n/",
    "kind": "body"
   },
   {
@@ -1067,6 +1121,11 @@
   },
   {
    "source": "https://machinebehavior.io/experiments/",
+   "target": "https://redd.it/1vi586n/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/experiments/",
    "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
@@ -1082,92 +1141,12 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://tychat.io/register/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://tychat.io/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/man/",
    "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/terms/",
    "kind": "body"
   },
   {
@@ -1177,22 +1156,7 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://tychat.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -1202,7 +1166,32 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://github.com/uncovertechtalent/vestige-kit/",
+   "target": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/conformity/",
    "kind": "body"
   },
   {
@@ -1212,12 +1201,77 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://github.com/uncovertechtalent/vestige-kit/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://tychat.io/register/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/terms/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/man/",
    "target": "https://tychat.io/agents/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/map/",
-   "target": "https://machinebehavior.io/",
+   "source": "https://machinebehavior.io/man/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
@@ -1226,8 +1280,8 @@
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
+   "source": "https://machinebehavior.io/map/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -1237,6 +1291,11 @@
   },
   {
    "source": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/objections/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "body"
   },
@@ -1247,22 +1306,22 @@
   },
   {
    "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/terms/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/objections/",
    "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/terms/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/",
    "kind": "nav"
   },
   {
@@ -1277,6 +1336,11 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
+   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/running-conjobs-for-ai/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
@@ -1287,12 +1351,7 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "nav"
   },
   {
@@ -1302,7 +1361,7 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/man/",
+   "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
@@ -1312,13 +1371,28 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/claims/",
+   "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/slips/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/slips/",
+   "target": "https://machinebehavior.io/conformity/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/slips/",
+   "target": "https://machinebehavior.io/claims/",
+   "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/slips/",
@@ -1327,22 +1401,7 @@
   },
   {
    "source": "https://machinebehavior.io/slips/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/claims/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "nav"
   },
   {
@@ -1352,17 +1411,17 @@
   },
   {
    "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/slips/",
    "target": "https://machinebehavior.io/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/slips/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
@@ -1372,17 +1431,7 @@
   },
   {
    "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "nav"
   },
   {
@@ -1392,12 +1441,27 @@
   },
   {
    "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/terms/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://machinebehavior.io/terms/",
+   "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -1407,7 +1471,47 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://machinebehavior.io/experiments/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://machinebehavior.io/conformity/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -1422,51 +1526,6 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/conformity/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
    "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
@@ -1477,22 +1536,22 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/objections/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://machinebehavior.io/the-cheating-moved/",
    "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
+   "source": "https://machinebehavior.io/the-cheating-moved/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "nav"
+  },
+  {
    "source": "https://tychat.io/",
-   "target": "https://tychat.io/register/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://tychat.io/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://tychat.io/register/",
    "kind": "body"
   },
   {
@@ -1502,32 +1561,17 @@
   },
   {
    "source": "https://tychat.io/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://tychat.io/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://tychat.io/",
    "target": "https://tychat.io/agents/",
    "kind": "body"
   },
   {
-   "source": "https://tychat.io/agents/",
-   "target": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "kind": "body"
-  },
-  {
-   "source": "https://tychat.io/agents/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://tychat.io/agents/",
+   "source": "https://tychat.io/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://tychat.io/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -1537,17 +1581,32 @@
   },
   {
    "source": "https://tychat.io/agents/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://tychat.io/agents/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://tychat.io/agents/",
+   "target": "https://machinebehavior.io/running-conjobs-for-ai/",
+   "kind": "body"
+  },
+  {
+   "source": "https://tychat.io/agents/",
+   "target": "https://tychat.io/stance/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://tychat.io/agents/",
    "target": "https://tychat.io/register/",
    "kind": "nav"
   },
   {
    "source": "https://tychat.io/agents/",
    "target": "https://tychat.io/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://tychat.io/agents/",
-   "target": "https://tychat.io/stance/",
    "kind": "nav"
   },
   {
@@ -1567,12 +1626,12 @@
   },
   {
    "source": "https://tychat.io/conformity/",
-   "target": "https://tychat.io/register/",
+   "target": "https://tychat.io/",
    "kind": "nav"
   },
   {
    "source": "https://tychat.io/conformity/",
-   "target": "https://tychat.io/",
+   "target": "https://tychat.io/register/",
    "kind": "nav"
   },
   {
@@ -1592,17 +1651,17 @@
   },
   {
    "source": "https://tychat.io/register/",
+   "target": "https://tychat.io/stance/",
+   "kind": "nav"
+  },
+  {
+   "source": "https://tychat.io/register/",
    "target": "https://tychat.io/agents/",
    "kind": "nav"
   },
   {
    "source": "https://tychat.io/register/",
    "target": "https://tychat.io/",
-   "kind": "nav"
-  },
-  {
-   "source": "https://tychat.io/register/",
-   "target": "https://tychat.io/stance/",
    "kind": "nav"
   },
   {
@@ -1652,32 +1711,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://coetzeestefan.substack.com/p/the-complexity-of-mental-health-and/",
+   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
@@ -1687,37 +1721,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://coetzeestefan.substack.com/p/why-great-leaders-fail-when-switching/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://coetzeestefan.substack.com/p/trauma-or-neurodivergence/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
    "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
@@ -1727,12 +1731,12 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
    "kind": "body"
   },
   {
@@ -1742,7 +1746,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://coetzeestefan.substack.com/p/trauma-neurodivergence-accommodation/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
    "kind": "body"
   },
   {
@@ -1752,12 +1781,42 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://coetzeestefan.substack.com/p/the-complexity-of-mental-health-and/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
    "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://coetzeestefan.substack.com/p/why-great-leaders-fail-when-switching/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
    "target": "https://coetzeestefan.substack.com/p/making-a-mole-heap-out-of-a-mountain/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://coetzeestefan.substack.com/p/trauma-or-neurodivergence/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/",
+   "target": "https://coetzeestefan.substack.com/p/trauma-neurodivergence-accommodation/",
    "kind": "body"
   },
   {
@@ -1777,22 +1836,27 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/man/",
    "kind": "body"
   },
   {
@@ -1802,12 +1866,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -1822,7 +1906,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -1832,47 +1941,12 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "kind": "body"
   },
   {
@@ -1882,22 +1956,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
@@ -1912,32 +1971,12 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -1947,12 +1986,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -1967,32 +2026,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://tychat.io/",
    "kind": "body"
   },
   {
@@ -2002,42 +2036,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://tychat.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://machinebehavior.io/man/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
@@ -2047,12 +2046,72 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
    "target": "https://github.com/uncovertechtalent/vestige-kit/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
    "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "target": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
    "kind": "body"
   },
   {
@@ -2082,7 +2141,22 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "target": "https://tychat.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
@@ -2097,22 +2171,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "target": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -2127,22 +2186,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -2157,17 +2201,12 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
@@ -2177,12 +2216,22 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://machinebehavior.io/the-cheating-moved/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
@@ -2192,7 +2241,17 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -2204,6 +2263,16 @@
    "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/",
    "kind": "nav"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "target": "https://machinebehavior.io/experiments/",
+   "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
@@ -2222,16 +2291,6 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "target": "https://uncovertechtalent.com/blog/",
    "kind": "nav"
   },
@@ -2242,17 +2301,17 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "kind": "body"
   },
   {
@@ -2262,7 +2321,37 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://machinebehavior.io/claims/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -2277,47 +2366,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -2327,12 +2376,22 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/claims/",
+   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
@@ -2347,7 +2406,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-track/",
    "target": "https://tychat.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -2362,31 +2446,6 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-track/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-track/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-track/",
-   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-track/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-track/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-track/",
    "target": "https://uncovertechtalent.com/blog/",
    "kind": "nav"
   },
@@ -2394,11 +2453,6 @@
    "source": "https://uncovertechtalent.com/blog/the-track/",
    "target": "https://uncovertechtalent.com/",
    "kind": "nav"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
-   "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
@@ -2412,6 +2466,11 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "target": "https://uncovertechtalent.com/blog/",
    "kind": "nav"
   },
@@ -2422,7 +2481,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -2432,12 +2491,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -2452,12 +2506,17 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
    "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -2472,37 +2531,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://reddit.com/r/ClaudeAI/comments/1wt78up/comment/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://reddit.com/r/ClaudeAI/comments/1vl0n1t/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
    "kind": "body"
   },
   {
@@ -2512,7 +2541,12 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "target": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "kind": "body"
   },
   {
@@ -2522,7 +2556,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
@@ -2532,7 +2566,32 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://reddit.com/r/ClaudeAI/comments/1wt78up/comment/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://reddit.com/r/ClaudeAI/comments/1vl0n1t/",
    "kind": "body"
   },
   {
@@ -2547,7 +2606,47 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://reddit.com/r/ModelBehavior/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://tychat.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://reddit.com/r/MachineBehavior/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -2562,17 +2661,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/ai-means-nothing/",
    "kind": "body"
   },
   {
@@ -2582,27 +2671,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://reddit.com/r/ModelBehavior/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://tychat.io/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -2612,17 +2681,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/ai-means-nothing/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
-   "kind": "body"
-  },
-  {
-   "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://reddit.com/r/MachineBehavior/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -2657,72 +2716,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/slips/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://machinebehavior.io/slips/",
    "kind": "body"
   },
   {
@@ -2732,12 +2731,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://machinebehavior.io/man/",
+   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
@@ -2747,7 +2746,62 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://machinebehavior.io/man/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
    "target": "https://github.com/uncovertechtalent/vestige-kit/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -2756,33 +2810,23 @@
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/objections/",
+   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
@@ -2792,72 +2836,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -2867,7 +2846,57 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/",
+   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
@@ -2877,47 +2906,37 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/objections/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/slips/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
@@ -2927,7 +2946,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "target": "https://machinebehavior.io/experiments/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
@@ -2937,7 +2961,22 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://machinebehavior.io/objections/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "kind": "body"
   },
   {
@@ -2947,22 +2986,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
@@ -2972,12 +2996,82 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://machinebehavior.io/slips/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+   "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://reddit.com/r/ModelBehavior/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://tychat.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "target": "https://uncovertechtalent.com/blog/which-llm-user/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://reddit.com/r/MachineBehavior/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
@@ -2997,52 +3091,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/ai-means-nothing/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://tychat.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://reddit.com/r/ModelBehavior/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/ai-means-nothing/",
    "kind": "body"
   },
   {
@@ -3052,17 +3106,17 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://reddit.com/r/MachineBehavior/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -3077,22 +3131,22 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "kind": "body"
   },
   {
@@ -3102,7 +3156,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
@@ -3112,27 +3166,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
-   "target": "https://machinebehavior.io/experiments/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://reddit.com/r/ClaudeAI/comments/1vl0n1t/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "source": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+   "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
@@ -3147,7 +3186,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "kind": "body"
   },
   {
@@ -3157,52 +3196,37 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
-   "target": "https://machinebehavior.io/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
    "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+   "target": "https://reddit.com/r/ClaudeAI/comments/1vl0n1t/",
    "kind": "body"
   },
   {
@@ -3211,33 +3235,38 @@
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "target": "https://uncovertechtalent.com/blog/the-track/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "target": "https://machinebehavior.io/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
@@ -3246,13 +3275,38 @@
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/the-track/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
@@ -3262,12 +3316,12 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
-   "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
@@ -3276,13 +3330,13 @@
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "source": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+   "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
@@ -3292,12 +3346,17 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
@@ -3307,6 +3366,11 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
    "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
@@ -3317,27 +3381,22 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
-   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
-   "target": "https://machinebehavior.io/experiments/",
-   "kind": "body"
-  },
-  {
-   "source": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
-   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
+   "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
    "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+   "kind": "body"
+  },
+  {
+   "source": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+   "target": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
    "kind": "body"
   },
   {

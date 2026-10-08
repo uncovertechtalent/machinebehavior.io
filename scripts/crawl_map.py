@@ -61,6 +61,18 @@ def title_of(doc, u):
         t = slug[-1].replace('-', ' ') if slug else urlparse(u).netloc
     return t
 
+def desc_of(doc):
+    # og:description first, then meta description; attribute order varies by generator
+    found = {}
+    for tag in re.findall(r'<meta\b[^>]*>', doc[:60000], re.I):
+        key = re.search(r'(?:property|name)\s*=\s*["\']([^"\']+)["\']', tag, re.I)
+        val = re.search(r'content\s*=\s*"([^"]*)"', tag, re.I) or re.search(r"content\s*=\s*'([^']*)'", tag, re.I)
+        if key and val: found.setdefault(key.group(1).lower(), val.group(1))
+    d = html.unescape(found.get('og:description') or found.get('description') or '').strip()
+    d = re.sub(r'\s+', ' ', d)
+    d = re.sub(r'^Originally published at \S+\s*', '', d)  # Substack cross-posts open with the canonical note
+    return d if len(d) <= 300 else d[:297].rsplit(' ', 1)[0] + '…'
+
 def strip_chrome(doc):
     body = re.sub(r'<(nav|footer)\b.*?</\1>', ' ', doc, flags=re.S | re.I)
     # drop a <header> only when it is site chrome (it held the nav); keep hero headers with content
@@ -129,6 +141,7 @@ for u in sorted(set(pages)) + subs:
         NONHTML.add(u); print('  not html, dropped', CTYPE.get(u), u, file=sys.stderr); continue
     k = kind_of(u) or 'substack'
     add_node(u, k, title_of(doc, u))
+    if desc_of(doc): nodes[u]['desc'] = desc_of(doc)
     body = strip_chrome(doc)
     if k == 'substack':  # only the post body counts on Substack
         m = re.search(r'<div class="available-content".*', doc, re.S)
@@ -158,6 +171,19 @@ for l in PREV['links']:
 for u in FAILED:
     if u in nodes and not nodes[u]['title'] and u in prev_nodes:
         nodes[u]['title'] = prev_nodes[u].get('title', '')
+
+# repo descriptions for the GitHub satellites (the preview card shows them)
+for n in nodes.values():
+    if n['kind'] == 'github' and 'desc' not in n:
+        d = desc_of(get(n['id']))
+        d = re.sub(r'\s*-\s*' + re.escape('/'.join(urlparse(n['id']).path.strip('/').split('/')[:2])) + r'$', '', d)
+        d = re.sub(r'^Contribute to \S+ development by creating an account on GitHub\.?$', '', d)
+        if d: n['desc'] = d
+# any node still without a description keeps the one from the previous snapshot
+for n in nodes.values():
+    old = re.sub(r'^Originally published at \S+\s*', '', prev_nodes.get(n['id'], {}).get('desc', ''))
+    if 'desc' not in n and old and n['id'] in FAILED:
+        n['desc'] = old
 if carried:
     print(f'carried forward {carried} links from {len(FAILED)} unreachable pages', file=sys.stderr)
 
