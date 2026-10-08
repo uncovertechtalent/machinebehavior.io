@@ -159,7 +159,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
   // view transform
   let t = d3.zoomIdentity.translate(W / 2, H / 2).scale(window.innerWidth < 600 ? 0.4 : 0.7);
   const zoom = d3.zoom().scaleExtent([0.2, 6])
-    .filter(e => e.type === 'wheel' || (!e.button && !(e.offsetX !== undefined && nodeAt(e.offsetX, e.offsetY))))
+    .filter(e => e.type === 'wheel' || (!e.button && !nodeAt(...pt(e))))
     .on('zoom', e => { t = e.transform; draw(); });
   d3.select(canvas).call(zoom).call(zoom.transform, t);
 
@@ -236,14 +236,16 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
   });
   canvas.addEventListener('mouseleave', () => { hover = null; tip.style.display = 'none'; draw(); });
   let dragging = null, moved = false;
+  const pt = e => (e.touches ? d3.pointers(e, canvas)[0] : d3.pointer(e, canvas)) || [NaN, NaN];
   d3.select(canvas).call(d3.drag()
     .container(canvas)
-    .filter(e => !!nodeAt(e.offsetX, e.offsetY))
-    .subject(e => nodeAt(e.x, e.y))
-    .on('start', e => { dragging = e.subject; moved = false; canvas.classList.add('dragging'); sim.alphaTarget(0.25).restart(); e.subject.fx = e.subject.x; e.subject.fy = e.subject.y; })
-    .on('drag', e => { moved = true; const [x, y] = t.invert([e.x, e.y]); e.subject.fx = x; e.subject.fy = y; })
-    .on('end', e => { canvas.classList.remove('dragging'); sim.alphaTarget(0); e.subject.fx = null; e.subject.fy = null;
-      if (!moved) window.open(e.subject.id, '_blank', 'noopener'); dragging = null; }));
+    .filter(e => !e.button && !!nodeAt(...pt(e)))
+    .subject(e => { const n = nodeAt(e.x, e.y); return n ? {node: n, x: e.x, y: e.y} : null; })
+    .on('start', e => { const n = e.subject.node; dragging = n; moved = false; canvas.classList.add('dragging');
+      sim.alphaTarget(0.25).restart(); n.fx = n.x; n.fy = n.y; })
+    .on('drag', e => { moved = true; const [x, y] = t.invert([e.x, e.y]); const n = e.subject.node; n.fx = x; n.fy = y; })
+    .on('end', e => { const n = e.subject.node; canvas.classList.remove('dragging'); sim.alphaTarget(0); n.fx = null; n.fy = null;
+      if (!moved) window.open(n.id, '_blank', 'noopener'); dragging = null; }));
   window.addEventListener('resize', () => { resize(); draw(); });
   if (window.innerWidth < 600) { document.getElementById('panel').classList.add('min'); document.getElementById('collapse').textContent = '+'; }
   restart();
