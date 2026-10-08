@@ -88,7 +88,14 @@ jobs:
         run: |
           cp map/graph.json /tmp/graph.committed.json
           if python3 scripts/crawl_map.py map/graph.json; then
-            python3 -c "import json; d=json.load(open('map/graph.json')); print('map refreshed, generated', d.get('generated'), 'nodes', len(d.get('nodes', [])))"
+            # Keep the refresh only if it lost nothing: a partial crawl (for example Substack answering 403
+            # to the runner) must not replace a fuller committed snapshot.
+            if python3 -c "import json,sys; n=json.load(open('map/graph.json')); o=json.load(open('/tmp/graph.committed.json')); print('refreshed nodes', len(n['nodes']), 'links', len(n['links']), '| committed nodes', len(o['nodes']), 'links', len(o['links'])); sys.exit(0 if len(n['nodes']) >= len(o['nodes']) and len(n['links']) >= len(o['links']) else 1)"; then
+              echo "map refreshed and deployed"
+            else
+              echo "::warning::map crawl returned fewer nodes or links than the committed snapshot; the committed snapshot is deployed"
+              cp /tmp/graph.committed.json map/graph.json
+            fi
           else
             echo "::warning::map crawl failed; the committed snapshot is deployed"
             cp /tmp/graph.committed.json map/graph.json
