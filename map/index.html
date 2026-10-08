@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Map of the Work: Machine Behavior</title>
+<meta name="description" content="Stefan Coetzee's published work as a graph: every page on machinebehavior.io, tychat.io and uncovertechtalent.com, the Substack posts, repos and threads, and the links between them.">
+<link rel="canonical" href="https://machinebehavior.io/map/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  :root {
+    --bg: #0A0C0F; --panel: rgba(18,22,27,0.88); --line: #1E252D; --ink: #F2F1EC; --dim: #7D8792;
+    --amber: #FFB547; --pass: #3DDC97; --blue: #6FA8FF; --pink: #FF8FD8; --fold: #FF4D5E; --ivory: #EFE6D2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden;
+    font-family: 'Space Grotesk', system-ui, sans-serif; }
+  canvas { display: block; cursor: grab; }
+  canvas.dragging { cursor: grabbing; }
+  .panel { position: fixed; left: 16px; top: 16px; width: 300px; max-width: calc(100vw - 32px); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; backdrop-filter: blur(6px); }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
+  h1 { margin: 6px 0 4px; font-size: 26px; line-height: 1.05; letter-spacing: -0.5px; }
+  .sub { font-size: 13px; color: var(--dim); line-height: 1.4; margin-bottom: 12px; }
+  .stats { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); margin-bottom: 12px; }
+  .stats b { color: var(--amber); }
+  input[type=search] { width: 100%; background: #0E1216; border: 1px solid var(--line); border-radius: 8px; color: var(--ink);
+    padding: 8px 10px; font-family: 'JetBrains Mono', monospace; font-size: 13px; margin-bottom: 12px; outline: none; }
+  input[type=search]:focus { border-color: var(--amber); }
+  .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; margin-bottom: 10px; }
+  label.f { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; user-select: none; }
+  label.f input { display: none; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  label.f.off { color: var(--dim); }
+  label.f.off .dot { background: transparent !important; border: 1px solid var(--dim); }
+  .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--dim); }
+  .toggle input { accent-color: var(--amber); }
+  .collapse { position: absolute; right: 12px; top: 12px; background: none; border: 0; color: var(--dim); font-size: 18px; cursor: pointer; }
+  .panel.min .body { display: none; }
+  .tip { position: fixed; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; max-width: 320px; font-size: 14px; line-height: 1.3; display: none; }
+  .tip .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; margin-top: 4px; }
+  .foot a { color: var(--dim); }
+  .foot { position: fixed; right: 16px; bottom: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); text-align: right; }
+  @media (max-width: 600px) { .panel { width: auto; right: 16px; } .filters { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="panel" id="panel">
+  <button class="collapse" id="collapse" aria-label="Collapse panel">–</button>
+  <div class="eyebrow"><a href="/" style="color:inherit;text-decoration:none">machinebehavior.io</a></div>
+  <h1>Map of the Work</h1>
+  <div class="eyebrow" style="margin-bottom:8px">Stefan Coetzee</div>
+  <div class="body">
+    <div class="sub">Every published page, post, repo and thread, and the links between them. Hover to see neighbours, click to open, drag to rearrange.</div>
+    <div class="stats" id="stats"></div>
+    <input type="search" id="q" placeholder="Search titles" autocomplete="off">
+    <div class="filters" id="filters"></div>
+    <label class="toggle"><input type="checkbox" id="nav"> Show navigation links</label>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+<div class="foot"><span id="foot"></span><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/" style="color:inherit">latest run</a></span> · <a href="/map/graph.json" style="color:inherit">graph.json</a></div>
+<noscript><p style="padding:24px;max-width:640px">Map of the Work is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
+<script src="/conformity/footer.js" defer></script>
+<script>
+const KINDS = [
+  {key: 'mb', label: 'machinebehavior.io', color: '#FFB547'},
+  {key: 'tychat', label: 'tychat.io', color: '#3DDC97'},
+  {key: 'utt', label: 'uncovertechtalent', color: '#6FA8FF'},
+  {key: 'substack', label: 'Substack', color: '#FF8FD8'},
+  {key: 'github', label: 'GitHub', color: '#EFE6D2'},
+  {key: 'reddit', label: 'Reddit', color: '#FF4D5E'},
+  {key: 'tag', label: 'Tags', color: '#7D8792'},
+];
+const COLOR = Object.fromEntries(KINDS.map(k => [k.key, k.color]));
+const groupOf = n => n.kind === 'tag' ? 'tag' : n.site;
+const on = Object.fromEntries(KINDS.map(k => [k.key, true]));
+let showNav = false, query = '', hover = null;
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H, DPR;
+function resize() {
+  DPR = window.devicePixelRatio || 1; W = window.innerWidth; H = window.innerHeight;
+  canvas.width = W * DPR; canvas.height = H * DPR; canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+}
+resize();
+
+fetch('/map/graph.json').then(r => r.json()).then(g => {
+  const nodes = g.nodes.map(n => ({...n}));
+  const byId = new Map(nodes.map(n => [n.id, n]));
+  const allLinks = g.links.filter(l => byId.has(l.source) && byId.has(l.target)).map(l => ({...l}));
+  // degree on body links drives size
+  for (const n of nodes) n.deg = 0;
+  for (const l of allLinks) if (l.kind === 'body') { byId.get(l.source).deg++; byId.get(l.target).deg++; }
+  for (const n of nodes) n.r = 2.5 + Math.sqrt(n.deg) * 1.6;
+  document.getElementById('foot').textContent = `crawled ${g.generated} · ${nodes.length} nodes · drag, scroll to zoom`;
+
+  // filters UI
+  const fwrap = document.getElementById('filters');
+  for (const k of KINDS) {
+    const count = nodes.filter(n => groupOf(n) === k.key).length;
+    const lab = document.createElement('label'); lab.className = 'f';
+    lab.innerHTML = `<input type="checkbox" checked><span class="dot" style="background:${k.color}"></span>${k.label} <span style="color:var(--dim);font-family:'JetBrains Mono';font-size:11px">${count}</span>`;
+    lab.onclick = (e) => { e.preventDefault(); on[k.key] = !on[k.key]; lab.classList.toggle('off', !on[k.key]); restart(); };
+    fwrap.appendChild(lab);
+  }
+  document.getElementById('nav').onchange = e => { showNav = e.target.checked; restart(); };
+  document.getElementById('q').oninput = e => { query = e.target.value.trim().toLowerCase(); draw(); };
+  document.getElementById('collapse').onclick = () => {
+    const p = document.getElementById('panel'); p.classList.toggle('min');
+    document.getElementById('collapse').textContent = p.classList.contains('min') ? '+' : '–';
+  };
+
+  let vis = [], links = [], neigh = new Map();
+  const sim = d3.forceSimulation()
+    .force('charge', d3.forceManyBody().strength(n => -70 - n.r * 14).distanceMax(700))
+    .force('link', d3.forceLink().id(n => n.id).distance(l => l.kind === 'nav' ? 120 : 34 + 9 * Math.sqrt((l.source.deg || 1) + (l.target.deg || 1))).strength(l => l.kind === 'nav' ? 0.02 : 0.18))
+    .force('x', d3.forceX(0).strength(n => n.deg ? 0.025 : 0.12))
+    .force('y', d3.forceY(0).strength(n => n.deg ? 0.03 : 0.12))
+    .force('collide', d3.forceCollide(n => n.r + 4))
+    .on('tick', () => { draw(); if (!fitted && ++ticks >= 260) { fitted = true; fit(); } })
+    .on('end', () => { if (!fitted) { fitted = true; fit(); } });
+  let fitted = false, ticks = 0;
+  function fit() {
+    if (!vis.length) return;
+    const core = vis.filter(n => neigh.get(n.id).size > 0);
+    const q = (arr, p) => arr.slice().sort((a, b) => a - b)[Math.floor(p * (arr.length - 1))];
+    const xs = core.map(n => n.x), ys = core.map(n => n.y);
+    const x0 = q(xs, 0.02), x1 = q(xs, 0.98), y0 = q(ys, 0.02), y1 = q(ys, 0.98);
+    const left = W > 900 ? 340 : 0, top = W > 900 ? 0 : 120;
+    const k = Math.min(3, 0.92 * Math.min((W - left - 40) / (x1 - x0 + 1), (H - top - 60) / (y1 - y0 + 1)));
+    const tx = left + (W - left) / 2 - k * (x0 + x1) / 2, ty = top + (H - top) / 2 - k * (y0 + y1) / 2;
+    d3.select(canvas).transition().duration(900).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(k));
+  }
+
+  function restart() {
+    vis = nodes.filter(n => on[groupOf(n)]);
+    const vset = new Set(vis.map(n => n.id));
+    links = allLinks.filter(l => (showNav || l.kind === 'body') &&
+      vset.has(typeof l.source === 'object' ? l.source.id : l.source) &&
+      vset.has(typeof l.target === 'object' ? l.target.id : l.target));
+    neigh = new Map(vis.map(n => [n.id, new Set()]));
+    for (const l of links) {
+      const s = l.source.id || l.source, t = l.target.id || l.target;
+      neigh.get(s).add(t); neigh.get(t).add(s);
+    }
+    sim.nodes(vis); sim.force('link').links(links);
+    sim.alpha(0.6).restart();
+    const body = links.filter(l => l.kind === 'body').length;
+    document.getElementById('stats').innerHTML = `<b>${vis.length}</b> nodes · <b>${body}</b> links${showNav ? ` · ${links.length - body} navigation` : ''}`;
+  }
+
+  // view transform
+  let t = d3.zoomIdentity.translate(W / 2, H / 2).scale(window.innerWidth < 600 ? 0.4 : 0.7);
+  const zoom = d3.zoom().scaleExtent([0.2, 6])
+    .filter(e => e.type === 'wheel' || (!e.button && !(e.offsetX !== undefined && nodeAt(e.offsetX, e.offsetY))))
+    .on('zoom', e => { t = e.transform; draw(); });
+  d3.select(canvas).call(zoom).call(zoom.transform, t);
+
+  function nodeAt(px, py) {
+    const [x, y] = t.invert([px, py]);
+    let best = null, bd = Infinity;
+    for (const n of vis) { const d = Math.hypot(n.x - x, n.y - y); if (d < n.r + 6 / t.k && d < bd) { bd = d; best = n; } }
+    return best;
+  }
+
+  function draw() {
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    ctx.fillStyle = '#0A0C0F'; ctx.fillRect(0, 0, W, H);
+    ctx.translate(t.x, t.y); ctx.scale(t.k, t.k);
+    const hl = hover ? neigh.get(hover.id) : null;
+    const match = query ? new Set(vis.filter(n => n.title.toLowerCase().includes(query)).map(n => n.id)) : null;
+    const lit = n => (!hover || n === hover || hl.has(n.id)) && (!match || match.has(n.id));
+    // links
+    for (const l of links) {
+      const a = l.source, b = l.target;
+      const active = hover && (a === hover || b === hover);
+      const dimmed = (hover && !active) || (match && !(match.has(a.id) || match.has(b.id)));
+      ctx.strokeStyle = active ? COLOR[groupOf(hover)] : l.kind === 'nav' ? 'rgba(150,160,172,0.20)' : 'rgba(196,204,214,0.36)';
+      ctx.globalAlpha = dimmed ? 0.25 : 1;
+      ctx.lineWidth = (active ? 1.6 : 0.9) / Math.sqrt(t.k);
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    // nodes
+    for (const n of vis) {
+      const isLit = lit(n);
+      ctx.globalAlpha = isLit ? 1 : 0.15;
+      ctx.fillStyle = COLOR[groupOf(n)];
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill();
+      if (n === hover) { ctx.strokeStyle = '#F2F1EC'; ctx.lineWidth = 1.5 / t.k; ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 3 / t.k, 0, Math.PI * 2); ctx.stroke(); }
+    }
+    // labels: biggest first, skip any that would collide on screen
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    const placed = [];
+    const rank = n => n === hover ? 3 : (match && match.has(n.id)) ? 2 : (hover && hl.has(n.id)) ? 1 : 0;
+    const order = vis.slice().sort((a, b) => rank(b) - rank(a) || b.r - a.r);
+    for (const n of order) {
+      const forced = n === hover || (match && match.has(n.id));
+      const show = forced || (hover && hl.has(n.id)) || n.r * t.k > 7 || t.k > 2.2;
+      if (!show || (!lit(n) && !(match && match.has(n.id)))) continue;
+      const px = 11 + Math.min(4, n.r * 0.25);
+      ctx.font = `${n === hover ? 700 : 500} ${px / t.k}px 'Space Grotesk', sans-serif`;
+      const label = n.title.length > 46 ? n.title.slice(0, 44) + '…' : n.title;
+      const wS = ctx.measureText(label).width * t.k, [sx, sy] = t.apply([n.x, n.y + n.r]);
+      const box = {x0: sx - wS / 2 - 3, x1: sx + wS / 2 + 3, y0: sy + 2, y1: sy + px + 6};
+      if (!forced && placed.some(b => box.x0 < b.x1 && b.x0 < box.x1 && box.y0 < b.y1 && b.y0 < box.y1)) continue;
+      placed.push(box);
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 3 / t.k; ctx.strokeStyle = '#0A0C0F'; ctx.strokeText(label, n.x, n.y + n.r + 3 / t.k);
+      ctx.fillStyle = n === hover ? '#F2F1EC' : 'rgba(242,241,236,0.82)'; ctx.fillText(label, n.x, n.y + n.r + 3 / t.k);
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // interaction: hover, click, drag
+  const tip = document.getElementById('tip');
+  const kindLabel = Object.fromEntries(KINDS.map(k => [k.key, k.label]));
+  canvas.addEventListener('mousemove', e => {
+    if (dragging) return;
+    const n = nodeAt(e.offsetX, e.offsetY);
+    if (n !== hover) { hover = n; draw(); }
+    if (n) {
+      tip.style.display = 'block';
+      tip.innerHTML = `<div>${n.title}</div><div class="k">${kindLabel[groupOf(n)]} · ${neigh.get(n.id).size} linked</div>`;
+      const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
+      tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
+      canvas.style.cursor = 'pointer';
+    } else { tip.style.display = 'none'; canvas.style.cursor = 'grab'; }
+  });
+  canvas.addEventListener('mouseleave', () => { hover = null; tip.style.display = 'none'; draw(); });
+  let dragging = null, moved = false;
+  d3.select(canvas).call(d3.drag()
+    .container(canvas)
+    .filter(e => !!nodeAt(e.offsetX, e.offsetY))
+    .subject(e => nodeAt(e.x, e.y))
+    .on('start', e => { dragging = e.subject; moved = false; canvas.classList.add('dragging'); sim.alphaTarget(0.25).restart(); e.subject.fx = e.subject.x; e.subject.fy = e.subject.y; })
+    .on('drag', e => { moved = true; const [x, y] = t.invert([e.x, e.y]); e.subject.fx = x; e.subject.fy = y; })
+    .on('end', e => { canvas.classList.remove('dragging'); sim.alphaTarget(0); e.subject.fx = null; e.subject.fy = null;
+      if (!moved) window.open(e.subject.id, '_blank', 'noopener'); dragging = null; }));
+  window.addEventListener('resize', () => { resize(); draw(); });
+  if (window.innerWidth < 600) { document.getElementById('panel').classList.add('min'); document.getElementById('collapse').textContent = '+'; }
+  restart();
+});
+</script>
+</body>
+</html>

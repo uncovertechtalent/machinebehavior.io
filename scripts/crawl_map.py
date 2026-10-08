@@ -1,0 +1,151 @@
+#!/usr/bin/env python3
+"""Crawl Stefan Coetzee's public sites and write the graph for https://machinebehavior.io/map/.
+Usage: python3 scripts/crawl_map.py map/graph.json
+Body links and navigation links are kept apart (kind 'body' vs 'nav')."""
+import json, re, sys, urllib.request, html, datetime
+from urllib.parse import urljoin, urlparse
+
+SITES = {'machinebehavior.io': 'mb', 'tychat.io': 'tychat', 'uncovertechtalent.com': 'utt'}
+SUBSTACK = 'coetzeestefan.substack.com'
+UA = {'User-Agent': 'Mozilla/5.0 (site-map crawler; uncovertechtalent)'}
+
+def get(u):
+    try:
+        return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=25).read().decode('utf-8', 'ignore')
+    except Exception as e:
+        print('  fetch failed', u, e, file=sys.stderr); return ''
+
+def norm(u):
+    if '\\' in u or '%5C' in u: return None
+    p = urlparse(u)
+    if not p.scheme.startswith('http'): return None
+    if p.netloc.endswith('substack.com') and re.search(r'/(comments|subscribe|share|about|archive)/?$', p.path): return None
+    host = p.netloc.lower().removeprefix('www.').removeprefix('old.')
+    parts = [x for x in p.path.split('/') if x]
+    if host == 'github.com' and len(parts) >= 2:
+        return f'https://github.com/{parts[0]}/{parts[1]}/'
+    if host == 'reddit.com' and len(parts) >= 4 and parts[2] == 'comments':
+        return f'https://reddit.com/r/{parts[1]}/comments/{parts[3]}/' + (parts[4] + '/' if len(parts) > 4 else '')
+    path = re.sub(r'/index\.html$', '/', p.path or '/')
+    if not path.endswith('/') and '.' not in path.rsplit('/', 1)[-1]: path += '/'
+    return f'https://{host}{path}'
+
+def kind_of(u):
+    host = urlparse(u).netloc
+    if host in SITES:
+        path = urlparse(u).path
+        if re.search(r'\.(txt|xml|json|csv|css|js|png|jpg|svg|ico|pdf)/?$', path): return None
+        if '/tags/' in path or '/categories/' in path: return 'tag'
+        return 'page'
+    if host == SUBSTACK and '/p/' in u: return 'substack'
+    if host == 'github.com' and len([x for x in urlparse(u).path.split('/') if x]) >= 2: return 'github'
+    if host in ('reddit.com', 'redd.it', 'old.reddit.com'): return 'reddit'
+    return None
+
+def title_of(doc, u):
+    m = re.search(r'<meta property="og:title" content="([^"]+)"', doc) or re.search(r'<title>([^<]+)</title>', doc)
+    t = html.unescape(m.group(1)).strip() if m else ''
+    t = re.sub(r'\s*(\||:|·|–|—|-)\s*(Machine Behavior|machinebehavior\.io|UncoverTechTalent|Uncover Tech Talent|TYChat|Stefan Coetzee)\s*$', '', t)
+    t = re.sub(r'\s+on UncoverTechTalent$', '', t).strip()
+    if not t:
+        slug = [x for x in urlparse(u).path.split('/') if x]
+        t = slug[-1].replace('-', ' ') if slug else urlparse(u).netloc
+    return t
+
+def strip_chrome(doc):
+    body = re.sub(r'<(nav|footer)\b.*?</\1>', ' ', doc, flags=re.S | re.I)
+    # drop a <header> only when it is site chrome (it held the nav); keep hero headers with content
+    def hdr(m):
+        return ' ' if re.search(r'class=["\']?site-header|<nav', m.group(0), re.I) or len(re.sub(r'<[^>]+>', '', m.group(0)).split()) < 12 else m.group(0)
+    return re.sub(r'<header\b.*?</header>', hdr, body, flags=re.S | re.I)
+
+def links(doc, base):
+    out = []
+    for a in re.findall(r'href=["\']?([^"\' >]+)', doc):
+        if a.startswith(('#', 'mailto:', 'javascript:')): continue
+        n = norm(urljoin(base, html.unescape(a)))
+        if n: out.append(n)
+    return out
+
+nodes, edges = {}, {}
+def add_node(u, kind, title=None, site=None):
+    if u not in nodes:
+        host = urlparse(u).netloc
+        nodes[u] = {'id': u, 'title': title or '', 'kind': kind, 'site': site or SITES.get(host, kind)}
+    elif title and not nodes[u]['title']:
+        nodes[u]['title'] = title
+
+def add_edge(a, b, k):
+    if a == b: return
+    key = (a, b)
+    if key not in edges or edges[key] == 'nav' and k == 'body': edges[key] = k
+
+# 1. pages from sitemaps
+pages = []
+for host in SITES:
+    sm = get(f'https://{host}/sitemap.xml')
+    for loc in re.findall(r'<loc>([^<]+)</loc>', sm):
+        n = norm(html.unescape(loc))
+        if n and kind_of(n): pages.append(n)
+# 2. substack posts from the archive API
+subs = []
+try:
+    arch = json.loads(get(f'https://{SUBSTACK}/api/v1/archive?sort=new&limit=50') or '[]')
+    for p in arch:
+        u = norm(p.get('canonical_url', ''))
+        if u: subs.append(u); add_node(u, 'substack', p.get('title'), 'substack')
+except Exception as e:
+    print('substack archive failed', e, file=sys.stderr)
+
+for u in sorted(set(pages)) + subs:
+    doc = get(u)
+    if not doc: continue
+    k = kind_of(u) or 'substack'
+    add_node(u, k, title_of(doc, u))
+    body = strip_chrome(doc)
+    if k == 'substack':  # only the post body counts on Substack
+        m = re.search(r'<div class="available-content".*', doc, re.S)
+        body = m.group(0) if m else ''
+    body_links = set(links(body, u))
+    nav_links = set(links(doc, u)) - body_links
+    for tgt, lk in [(t, 'body') for t in body_links] + [(t, 'nav') for t in nav_links]:
+        tk = kind_of(tgt)
+        if not tk: continue
+        if tk in ('github', 'reddit'):
+            add_node(tgt, tk, None, tk)
+        elif tk in ('page', 'tag') and tgt not in nodes:
+            add_node(tgt, tk)
+        elif tk == 'substack':
+            add_node(tgt, 'substack', None, 'substack')
+        add_edge(u, tgt, lk)
+
+# titles for satellites without one
+for n in nodes.values():
+    if not n['title']:
+        parts = [x for x in urlparse(n['id']).path.split('/') if x]
+        if n['kind'] == 'github': n['title'] = '/'.join(parts[:2])
+        elif n['kind'] == 'reddit':
+            if len(parts) >= 5: n['title'] = 'r/' + parts[1] + ': ' + parts[4].replace('_', ' ')
+            elif len(parts) >= 2 and parts[0] == 'r': n['title'] = 'r/' + parts[1]
+            else: n['title'] = 'Reddit post'
+        elif n['kind'] == 'tag': n['title'] = '#' + parts[-1]
+        else: n['title'] = (parts[-1] if parts else urlparse(n['id']).netloc).replace('-', ' ')
+
+# drop listing pages with no content links (empty tag pages)
+has_body = {a for (a, b), k in edges.items() if k == 'body'} | {b for (a, b), k in edges.items() if k == 'body'}
+for u in [u for u, n in nodes.items() if n['kind'] == 'tag' and u not in has_body]:
+    del nodes[u]
+edges = {(a, b): k for (a, b), k in edges.items() if a in nodes and b in nodes}
+
+out = {
+    'generated': datetime.date.today().isoformat(),
+    'nodes': list(nodes.values()),
+    'links': [{'source': a, 'target': b, 'kind': k} for (a, b), k in edges.items()],
+}
+import os
+OUT = sys.argv[1] if len(sys.argv) > 1 else 'graph.json'
+os.makedirs(os.path.dirname(OUT) or '.', exist_ok=True)
+json.dump(out, open(OUT, 'w'), indent=1)
+from collections import Counter
+print('nodes', len(out['nodes']), Counter(n['kind'] for n in out['nodes']))
+print('links', len(out['links']), Counter(l['kind'] for l in out['links']))
