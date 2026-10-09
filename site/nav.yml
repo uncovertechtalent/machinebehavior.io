@@ -73,6 +73,8 @@ sections:
     url: /inside/
     banner: true
     pages:
+      - title: Mission Control
+        url: /inside/mission-control/
       - title: Services
         url: /inside/services/
         auto: services
@@ -80,8 +82,6 @@ sections:
         url: /inside/status/
       - title: Board
         url: /inside/board/
-      - title: Dashboards
-        url: /inside/#dashboards
       - title: Gate runs
         url: /conformity/
       - title: Tour

@@ -9,6 +9,10 @@ type: reference
 ---
 [Inside](/inside/) is the front page for the whole body of work. It is one static HTML file, `inside/index.html`; every live panel is read in the visitor's browser when the page loads. Nothing runs on a server.
 
+## Mission Control
+
+The live operations view sits on its own page, [Mission Control](/inside/mission-control/): the gate and deploy state of the three sites, the last ten deploy runs, open incidents, this site's gate result and the dashboards as tabs, read from the same records as the panels below. The dashboard list is `/inside/dashboards.js`, shared by both pages. See [ADR-0026](doc:eng/adr-0026-mission-control).
+
 ## Panels and their data
 
 | Panel | Data | Notes |

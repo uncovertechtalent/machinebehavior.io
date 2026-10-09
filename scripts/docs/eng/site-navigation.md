@@ -15,7 +15,7 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 |---|---|---|
 | Home | `/` | |
 | Research | `/research/` | claims, experiments, objections, evidence, slips, case files, articles, man pages, terms, the continuous-conformity definition and the self-assessment |
-| Inside | `/inside/` | services (one page per service, from `services/*.yml`), status, board, dashboards, gate runs, tour, search |
+| Inside | `/inside/` | Mission Control, services (one page per service, from `services/*.yml`), status, board, gate runs, tour, search |
 | Docs | `/inside/docs/` | the space tree, from `inside/docs/tree.json` (written by `scripts/build_docs.py`) |
 | Topics | `/topics/` | one hub per topic in `site/topics.yml` |
 | Map | `/map/` | |

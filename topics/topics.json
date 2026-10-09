@@ -310,6 +310,7 @@
    "about": "Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.",
    "pages": [
     "/chaos-engineering-for-behaviour/",
+    "/inside/mission-control/",
     "/inside/status/",
     "/inside/services/",
     "/inside/board/",
@@ -523,11 +524,13 @@
    "url": "/topics/observability/",
    "about": "Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.",
    "pages": [
+    "/inside/mission-control/",
     "/inside/",
     "/inside/status/",
     "/inside/services/observability-stack/",
     "/inside/services/deploy-exporter/",
     "/inside/services/searxng/",
+    "/inside/docs/eng/adr-0026-mission-control/",
     "/inside/docs/fin/budgets-and-alerts/",
     "/inside/docs/obs/",
     "/inside/docs/obs/alerts-and-slos/",
@@ -558,6 +561,7 @@
     }
    ],
    "tickets": [
+    42,
     41,
     38,
     37,
@@ -745,6 +749,31 @@
   }
  ],
  "issues": [
+  {
+   "n": 43,
+   "t": "Structured data for answer engines: Person, WebSite, Article, DefinedTermSet",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/43",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site"
+   ]
+  },
+  {
+   "n": 42,
+   "t": "Mission Control at /inside/mission-control/",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/42",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "area: observability",
+    "P1",
+    "status: in progress"
+   ]
+  },
   {
    "n": 41,
    "t": "Incident records: when and how each incident was detected",

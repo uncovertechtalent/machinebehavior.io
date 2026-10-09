@@ -33,7 +33,7 @@ topics:
   - key: operations-and-sre
     title: Operations and SRE
     about: Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.
-    pages: [/chaos-engineering-for-behaviour/, /inside/status/, /inside/services/, /inside/board/, /inside/services/deploy-job/, /inside/services/machinebehavior-io/]
+    pages: [/chaos-engineering-for-behaviour/, /inside/mission-control/, /inside/status/, /inside/services/, /inside/board/, /inside/services/deploy-job/, /inside/services/machinebehavior-io/]
     docs_labels: [runbook, incident, incident-management, slo]
     docs_spaces: [sre]
     map_tags: [SRE, Operations, Toil, Error Budgets, Root Cause Analysis, Chaos Engineering]
@@ -43,7 +43,7 @@ topics:
   - key: observability
     title: Observability
     about: Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.
-    pages: [/inside/, /inside/status/, /inside/services/observability-stack/, /inside/services/deploy-exporter/, /inside/services/searxng/]
+    pages: [/inside/mission-control/, /inside/, /inside/status/, /inside/services/observability-stack/, /inside/services/deploy-exporter/, /inside/services/searxng/]
     docs_labels: [observability, prometheus, loki, grafana, alerts, slo, tempo]
     docs_spaces: [obs]
     map_tags: [Observability]

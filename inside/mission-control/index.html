@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission Control · Inside · Machine Behavior</title>
+<meta name="description" content="The live operations view of the platform behind machinebehavior.io on one screen: gate and deploy state of the three sites, the deploy feed, open incidents, the conformity gate result and the public Grafana dashboards.">
+<link rel="canonical" href="https://machinebehavior.io/inside/mission-control/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/inside/mission-control/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Mission Control: the live operations view of Inside">
+<meta property="og:description" content="Gate and deploy state of three sites, the deploy feed, open incidents, the gate result and the Grafana dashboards, on one screen.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="The Inside front page of machinebehavior.io.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/inside.css">
+<style>
+  /* colours from /design/tokens.css only */
+  main.wrap.mc { max-width: 1440px; }
+  .mc-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 6px 24px; margin-bottom: 14px; }
+  .mc-head .lede { margin: 0; max-width: 760px; }
+  .mc-asof { font: var(--mb-text-xs)/1.6 var(--mb-font-mono); color: var(--mb-text-dim); text-align: right; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .kpi { padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+  .kpi .k { font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--mb-text-dim); }
+  .kpi .v { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 500; color: var(--mb-text); }
+  .kpi .s { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); overflow-wrap: anywhere; }
+  .kpi a { color: inherit; }
+  .mc-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+  .mc-col { display: grid; gap: 14px; min-width: 0; }
+  .panel-c { padding: 14px 16px; min-width: 0; }
+  .panel-c h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0 0 10px; font: 400 var(--mb-text-xs)/1.4 var(--mb-font-mono);
+    letter-spacing: 2.4px; text-transform: uppercase; color: var(--mb-text-dim); border: 0; padding: 0; }
+  .panel-c h2 a { margin-left: auto; letter-spacing: 0; text-transform: none; color: var(--mb-text-soft); }
+  .sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px; }
+  .site { border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); padding: 10px 12px; display: grid; gap: 4px; min-width: 0; background: var(--mb-surface-sunken); }
+  .site b { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 14px; overflow-wrap: anywhere; }
+  .site .f { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); }
+  .site .f strong { color: var(--mb-text-soft); font-weight: 400; }
+  table.runs { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  table.runs col.c1 { width: 74px; } table.runs col.c3 { width: 84px; }
+  table.runs td { padding: 7px 6px 7px 0; border-top: 1px solid var(--mb-line); vertical-align: baseline; }
+  table.runs tr:first-child td { border-top: 0; }
+  table.runs .t { font: var(--mb-text-xs) var(--mb-font-mono); color: var(--mb-text-dim); white-space: nowrap; }
+  table.runs .m { color: var(--mb-text-soft); overflow-wrap: anywhere; }
+  table.runs .m a { color: var(--mb-text); text-decoration: none; }
+  table.runs .m a:hover { color: var(--mb-accent); text-decoration: underline; }
+  table.runs .w { display: block; font: var(--mb-text-2xs) var(--mb-font-mono); color: var(--mb-text-dim); }
+  table.runs .r { text-align: right; }
+  ul.inc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  ul.inc-list li { display: grid; gap: 3px; padding: 8px 0; border-top: 1px solid var(--mb-line); }
+  ul.inc-list li:first-child { border-top: 0; padding-top: 0; }
+  ul.inc-list a { color: var(--mb-text); font-weight: 500; text-decoration: none; }
+  ul.inc-list a:hover { color: var(--mb-accent); text-decoration: underline; }
+  .meta { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: center; }
+  .empty { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); margin: 0; }
+  .ticks { display: flex; gap: 3px; margin: 8px 0 4px; }
+  .ticks i { flex: 1; height: 16px; border-radius: 3px; background: var(--mb-ok); opacity: 0.85; }
+  .ticks i.bad { background: var(--mb-bad); }
+  .slot { border: 1px dashed var(--mb-line); border-radius: var(--mb-radius-m); padding: 12px 14px; background: transparent; }
+  .slot p { margin: 0 0 6px; font-size: 13.5px; line-height: 1.5; color: var(--mb-text-soft); }
+  .slot a { color: var(--mb-accent); }
+  .dash { margin-top: 14px; }
+  .dash .tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+  .dash .tabs button { background: none; border: 1px solid transparent; color: var(--mb-text-dim); font: var(--mb-text-xs) var(--mb-font-mono); padding: 4px 10px;
+    border-radius: var(--mb-radius-s); cursor: pointer; }
+  .dash .tabs button[aria-selected="true"] { color: var(--mb-text); border-color: var(--mb-line); background: var(--mb-surface-sunken); }
+  .dash .about { font-size: 13.5px; color: var(--mb-text-soft); margin: 0 0 10px; line-height: 1.45; }
+  .frame { position: relative; height: 860px; border-radius: var(--mb-radius-m); overflow: hidden; border: 1px solid var(--mb-line); background: var(--mb-surface-sunken); }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .frame .load { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 10px; padding: 20px; text-align: center; }
+  .frame .load p { margin: 0; max-width: 460px; font-size: 13.5px; color: var(--mb-text-soft); line-height: 1.5; }
+  .btn { font: 500 13px var(--mb-font-mono); padding: 8px 14px; border-radius: 8px; border: 1px solid var(--mb-amber-fill); background: var(--mb-amber-fill); color: var(--mb-on-fill); cursor: pointer; }
+  @media (max-width: 980px) { .mc-grid { grid-template-columns: minmax(0, 1fr); } .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } .frame { height: 720px; } }
+  @media (max-width: 480px) { .kpis { grid-template-columns: minmax(0, 1fr); } .mc-asof { text-align: left; } }
+</style>
+<!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Inside", "item": "https://machinebehavior.io/inside/"}, {"@type": "ListItem", "position": 3, "name": "Mission Control", "item": "https://machinebehavior.io/inside/mission-control/"}]}</script><!-- /mb:head --></head>
+<body class="mb-app mb-s-inside mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/" aria-current="true">Inside</a><a href="/inside/docs/">Docs</a><a href="/topics/">Topics</a><a href="/map/">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><aside class="mb-demo" aria-label="About this intranet"><span class="mb-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- /mb:bar -->
+
+<!-- mb:side --><nav class="mb-side" aria-label="Inside pages"><details class="mb-side-wrap" open><summary><span>Inside</span><span class="mb-side-n">19 pages</span></summary><a class="mb-side-head" href="/inside/">Inside</a><ul class="mb-side-tree"><li><a href="/inside/mission-control/" aria-current="page">Mission Control</a></li><li><details><summary><a href="/inside/services/">Services</a></summary><ul><li><a href="/inside/services/conformity-gate/">Conformity gate</a></li><li><a href="/inside/services/deploy-job/">Deploy job</a></li><li><a href="/inside/services/machinebehavior-io/">machinebehavior.io</a></li><li><a href="/inside/services/tychat-io/">tychat.io</a></li><li><a href="/inside/services/uncovertechtalent-com/">uncovertechtalent.com</a></li><li><a href="/inside/services/docs-build/">Docs build</a></li><li><a href="/inside/services/map-crawler/">Map crawler</a></li><li><a href="/inside/services/deploy-exporter/">Deploy exporter</a></li><li><a href="/inside/services/observability-stack/">Observability stack</a></li><li><a href="/inside/services/searxng/">SearXNG</a></li><li><a href="/inside/services/local-llm/">Local LLM</a></li><li><a href="/inside/services/agent-sessions/">Agent sessions</a></li></ul></details></li><li><a href="/inside/status/">Status</a></li><li><a href="/inside/board/">Board</a></li><li><a href="/conformity/">Gate runs</a></li><li><a href="/inside/tour/">Tour</a></li><li><a href="/inside/search/">Search</a></li></ul><div class="mb-topics"><a class="mb-side-label" href="/topics/">Topics</a><ul><li><a href="/topics/sycophancy-and-stance/">Sycophancy and stance</a></li><li><a href="/topics/conformity-and-law/">Conformity and law</a></li><li><a class="mb-topic-in" href="/topics/operations-and-sre/">Operations and SRE<span class="mb-sr"> (lists this page)</span></a></li><li><a class="mb-topic-in" href="/topics/observability/">Observability<span class="mb-sr"> (lists this page)</span></a></li><li><a href="/topics/finops/">FinOps</a></li><li><a href="/topics/agents-and-harness/">Agents and harness</a></li><li><a href="/topics/evaluation/">Evaluation</a></li></ul></div></details></nav><!-- /mb:side -->
+<main class="wrap mc" id="main"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/mission-control/" aria-current="page">Mission Control</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-10-09</span></p></div><!-- /mb:crumbs -->
+  <div class="mc-head">
+    <div>
+      <div class="eyebrow">Live operations view</div>
+      <h1>Mission Control</h1>
+      <p class="lede">The platform behind machinebehavior.io on one screen: the gate and deploy state of the three sites, the deploy feed, open incidents, this site's gate result and the dashboards. Read in your browser from the records the sites publish.</p>
+    </div>
+    <p class="mc-asof" id="asof">reading the records</p>
+  </div>
+
+  <ul class="kpis" aria-label="Summary">
+    <li class="card kpi"><span class="k">Sites passing the gate</span><span class="v" id="k-sites">…</span><span class="s" id="k-sites-s"></span></li>
+    <li class="card kpi"><span class="k">Last deploy</span><span class="v" id="k-deploy">…</span><span class="s" id="k-deploy-s"></span></li>
+    <li class="card kpi"><span class="k">Open incidents</span><span class="v" id="k-inc">…</span><span class="s" id="k-inc-s"></span></li>
+    <li class="card kpi"><span class="k">Gate, this site</span><span class="v" id="k-gate">…</span><span class="s" id="k-gate-s"></span></li>
+  </ul>
+
+  <div class="mc-grid">
+    <div class="mc-col">
+      <section class="card panel-c" aria-labelledby="h-sites">
+        <h2 id="h-sites">Sites <a href="/inside/status/">status page</a></h2>
+        <div class="sites" id="sites"><p class="empty">reading the gate records</p></div>
+      </section>
+      <section class="card panel-c" aria-labelledby="h-feed">
+        <h2 id="h-feed">Deploy feed <a href="/inside/#dashboards/deploys">full history</a></h2>
+        <table class="runs"><colgroup><col class="c1"><col><col class="c3"></colgroup><tbody id="feed"><tr><td class="empty" colspan="3">reading the deploy record</td></tr></tbody></table>
+        <p class="empty" id="feed-at"></p>
+      </section>
+    </div>
+    <div class="mc-col">
+      <section class="card panel-c" aria-labelledby="h-inc">
+        <h2 id="h-inc">Open incidents <a href="/inside/status/#history">history</a></h2>
+        <ul class="inc-list" id="incidents"><li class="empty">reading the incident record</li></ul>
+      </section>
+      <section class="card panel-c" aria-labelledby="h-gate">
+        <h2 id="h-gate">Conformity gate <a href="/conformity/">run record</a></h2>
+        <div id="gate"><p class="empty">reading the gate record</p></div>
+      </section>
+      <section class="card panel-c" aria-labelledby="h-aws">
+        <h2 id="h-aws">AWS spend</h2>
+        <div class="slot">
+          <p>The AWS account's month to date, forecast and budget sit on an internal dashboard; none of it is public. This slot holds that panel in the internal view.</p>
+          <p><a href="/inside/docs/fin/budgets-and-alerts/#aws-spend-internal">What the internal view shows</a></p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="card panel-c dash" id="dashboards" aria-labelledby="h-dash">
+    <h2 id="h-dash">Dashboards <span class="tabs" role="tablist" id="dash-tabs"></span> <a id="dash-open" target="_blank" rel="noopener" href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">open in Grafana</a></h2>
+    <p class="about" id="dash-about"></p>
+    <div class="frame" id="dash-frame"><div class="load"><p>The dashboards come from the Grafana server of the home lab. Nothing loads from it until you choose a tab or press the button.</p><button class="btn" type="button" id="dash-load">Load the dashboard</button></div></div>
+  </section>
+
+  <p class="page-note">Mission Control · data: each site's <a href="/conformity/latest.json">gate record</a>, the <a href="/inside/deploys.json">deploy feed</a> written at each deploy, the <a href="/inside/status/incidents.json">incident record</a>, and the public dashboards in <a href="/inside/dashboards.js">dashboards.js</a>. Decision record: <a href="/inside/docs/eng/adr-0026-mission-control/">ADR-0026</a>.</p>
+  <noscript><p>Mission Control reads its records in the browser. Without JavaScript: the gate at <a href="/conformity/">/conformity/</a>, the incidents at <a href="/inside/status/">/inside/status/</a>, the deploy record at <a href="/inside/deploys.json">/inside/deploys.json</a>.</p></noscript>
+</main>
+<script src="/inside/dashboards.js"></script>
+<script>
+// Mission Control: every figure is read in the browser from records the sites publish; nothing is stored on the device.
+const SITES = [
+  {key: 'mb', host: 'machinebehavior.io', repo: 'uncovertechtalent/machinebehavior.io', color: 'var(--mb-data-amber)'},
+  {key: 'tychat', host: 'tychat.io', repo: 'uncovertechtalent/tychat.io', color: 'var(--mb-data-green)'},
+  {key: 'utt', host: 'uncovertechtalent.com', repo: null, color: 'var(--mb-data-blue)'},  // private repo: the gate record only
+];
+const $ = id => document.getElementById(id);
+function el(tag, props = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'textContent' || k === 'className' || k === 'onclick') e[k] = v;
+    else if (k === 'style') e.style.cssText = v;
+    else e.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) if (c != null) e.append(c);
+  return e;
+}
+function link(url, text) { const a = el('a', {textContent: text}); a.href = url; return a; }
+const dot = c => el('span', {class: 'dot', style: 'background:' + c});
+const pill = (text, kind) => el('span', {class: 'mb-pill is-' + kind, textContent: text});
+const getJSON = url => fetch(url, {cache: 'no-cache'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+function ago(t) {
+  const s = (Date.now() - new Date(t).getTime()) / 1000;
+  if (!isFinite(s)) return '';
+  if (s < 90) return 'just now';
+  if (s < 5400) return Math.round(s / 60) + ' min ago';
+  if (s < 129600) return Math.round(s / 3600) + ' h ago';
+  return Math.round(s / 86400) + ' d ago';
+}
+const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+
+const gates = Promise.all(SITES.map(s => getJSON(`https://${s.host}/conformity/latest.json`).then(d => ({s, d})).catch(() => ({s, d: null}))));
+const deploys = getJSON('/inside/deploys.json').catch(() => null);
+const incidents = getJSON('/inside/status/incidents.json').catch(() => null);
+
+// sites and the summary
+Promise.all([gates, deploys]).then(([gs, dep]) => {
+  const runs = [];
+  if (dep && dep.repos) for (const s of SITES) for (const r of (s.repo && dep.repos[s.repo]) || []) runs.push({...r, site: s});
+  const box = $('sites'); box.replaceChildren();
+  let pass = 0, read = 0;
+  for (const {s, d} of gs) {
+    const card = el('div', {class: 'site'});
+    card.append(el('b', {}, dot(s.color), s.host));
+    if (!d) { card.append(el('span', {class: 'f', textContent: 'gate record not readable'})); box.append(card); continue; }
+    read++;
+    if (d.overall === 'pass') pass++;
+    const open = (d.findings || []).filter(f => f.status === 'open').length;
+    const last = runs.filter(r => r.site === s).sort((a, b) => b.updated_at.localeCompare(a.updated_at))[0];
+    card.append(el('span', {}, pill('gate ' + d.overall, d.overall === 'pass' ? 'ok' : 'bad')),
+      el('span', {class: 'f'}, 'last gate run ', el('strong', {textContent: ago(d.last_run)})),
+      el('span', {class: 'f'}, el('strong', {textContent: plural(open, 'open finding')})),
+      el('span', {class: 'f'}, last ? `last deploy run ${ago(last.updated_at)}, ${last.conclusion || last.status}` : (s.repo ? 'no run in the deploy feed' : 'deploy feed: private repository')));
+    box.append(card);
+  }
+  $('k-sites').replaceChildren(document.createTextNode(`${pass} of ${SITES.length}`));
+  $('k-sites-s').textContent = read < SITES.length ? `${SITES.length - read} record(s) not readable` : 'gate records of the three sites';
+
+  const feed = $('feed'); feed.replaceChildren();
+  const rows = runs.sort((a, b) => b.updated_at.localeCompare(a.updated_at)).slice(0, 10);
+  if (!rows.length) feed.append(el('tr', {}, el('td', {class: 'empty', colspan: '3', textContent: 'the deploy feed is written at each deploy; no snapshot here'})));
+  for (const r of rows) {
+    const ok = r.conclusion === 'success', run = r.status !== 'completed';
+    const m = el('td', {class: 'm'}, link(r.html_url, r.display_title), el('span', {class: 'w', textContent: `${r.site.host} #${r.run_number} · ${r.event}`}));
+    feed.append(el('tr', {}, el('td', {class: 't', textContent: ago(r.updated_at)}), m,
+      el('td', {class: 'r'}, pill(run ? r.status : (r.conclusion || 'unknown'), run ? 'info' : ok ? 'ok' : r.conclusion === 'cancelled' || r.conclusion === 'skipped' ? 'note' : 'bad'))));
+  }
+  if (dep && dep.generated) $('feed-at').textContent = 'as of the last deploy of this site, ' + ago(dep.generated);
+  const last = rows[0];
+  if (last) {
+    $('k-deploy').replaceChildren(pill(last.status !== 'completed' ? last.status : last.conclusion, last.conclusion === 'success' ? 'ok' : last.status !== 'completed' ? 'info' : 'bad'));
+    $('k-deploy-s').textContent = `${last.site.host}, ${ago(last.updated_at)}`;
+  } else { $('k-deploy').textContent = 'n/a'; $('k-deploy-s').textContent = 'no deploy feed snapshot'; }
+
+  const mine = gs.find(g => g.s.key === 'mb');
+  const g = $('gate'); g.replaceChildren();
+  if (!mine || !mine.d) { g.append(el('p', {class: 'empty', textContent: 'gate record not readable'})); $('k-gate').textContent = 'n/a'; }
+  else {
+    const d = mine.d, open = (d.findings || []).filter(f => f.status === 'open'), hist = (d.history || []).slice(-30);
+    $('k-gate').replaceChildren(pill(d.overall, d.overall === 'pass' ? 'ok' : 'bad'));
+    $('k-gate-s').textContent = `last run ${ago(d.last_run)}, ${plural(open.length, 'open finding')}`;
+    g.append(el('div', {class: 'meta'}, pill('overall ' + d.overall, d.overall === 'pass' ? 'ok' : 'bad'),
+      el('span', {textContent: 'last run ' + (d.last_run || '').replace('T', ' ').replace('Z', ' UTC')}),
+      el('span', {textContent: plural(hist.length ? hist[hist.length - 1].warnings || 0 : 0, 'warning')})));
+    const ticks = el('div', {class: 'ticks', 'aria-label': `last ${hist.length} runs: ${hist.filter(h => h.overall !== 'pass').length} not passed`});
+    for (const h of hist) ticks.append(el('i', {class: h.overall === 'pass' ? '' : 'bad', title: `${h.ts} ${h.trigger}: ${h.overall}`}));
+    g.append(ticks, el('p', {class: 'empty', textContent: `the last ${hist.length} runs, oldest left; a red bar blocked a deploy`}));
+    if (open.length) {
+      const ul = el('ul', {class: 'inc-list'});
+      for (const f of open.slice(0, 5)) ul.append(el('li', {}, el('span', {class: 'meta', textContent: `${f.id} · ${f.check} · ${f.file || ''}`})));
+      g.append(ul);
+    }
+  }
+  $('asof').textContent = 'read ' + new Date().toLocaleTimeString('en-GB', {hour: '2-digit', minute: '2-digit'}) + ' local time';
+});
+
+// open incidents from the status page's record
+incidents.then(d => {
+  const ul = $('incidents'); ul.replaceChildren();
+  const open = d ? d.incidents.filter(i => i.stage !== 'resolved') : [];
+  $('k-inc').textContent = d ? String(open.length) : 'n/a';
+  $('k-inc-s').textContent = d ? `${d.incidents.length} on record` : 'incident record not readable';
+  if (!open.length) { ul.append(el('li', {class: 'empty', textContent: d ? 'none open' : 'incident record not readable'})); return; }
+  for (const i of open) {
+    const last = i.updates[i.updates.length - 1];
+    ul.append(el('li', {}, link('/inside/status/#' + i.id, i.title),
+      el('span', {class: 'meta'}, el('span', {class: 'stage ' + i.stage, textContent: i.stage}), el('span', {textContent: 'impact ' + i.impact}),
+        el('span', {textContent: 'since ' + i.started}), last ? el('span', {textContent: 'updated ' + String(last.at).slice(0, 10)}) : null)));
+  }
+});
+
+// dashboards as tabs; a frame loads only on a click (ADR-0010)
+const DASHES = window.MB_DASHES || [];
+let dashKey = (DASHES[0] || {}).key, loaded = false;
+function showDash(key, load) {
+  const d = DASHES.find(x => x.key === key) || DASHES[0];
+  if (!d) return;
+  dashKey = d.key;
+  document.querySelectorAll('#dash-tabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.key === d.key)));
+  $('dash-about').textContent = d.about;
+  $('dash-open').href = window.MB_DASH_URL(d);
+  if (!load && !loaded) return;
+  loaded = true;
+  const f = el('iframe', {title: 'Grafana: ' + d.label, loading: 'lazy', referrerpolicy: 'no-referrer'});
+  f.src = window.MB_DASH_URL(d);
+  $('dash-frame').replaceChildren(f);
+}
+$('dash-tabs').append(...DASHES.map(d => el('button', {role: 'tab', type: 'button', textContent: d.label, 'data-key': d.key,
+  onclick: () => { showDash(d.key, true); history.replaceState(null, '', '#' + d.key); }})));
+$('dash-load').onclick = () => showDash(dashKey, true);
+const hk = location.hash.slice(1);
+showDash(DASHES.some(d => d.key === hk) ? hk : dashKey, false);
+</script>
+<!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/inside/mission-control/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/inside/mission-control/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Finside%2Fmission-control%2F%3A%20">Report an issue</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
+</body>
+</html>

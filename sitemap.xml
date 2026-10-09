@@ -20,6 +20,7 @@
   <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/search/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/tour/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/mission-control/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- services:begin (scripts/build_inside.py) -->
   <url><loc>https://machinebehavior.io/inside/services/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/agent-sessions/</loc><lastmod>2026-10-09</lastmod></url>
@@ -80,6 +81,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0024-sre-principles-in-practice/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0025-one-design-system/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0026-mission-control/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>
