@@ -32,7 +32,7 @@ This dashboard has no template variables, and the exporter keeps private reposit
 
 ## Claude Code agents
 
-Default range 24 hours. Cost, tokens, cache read share, API requests, prompts and tool calls over the range; cost per hour by model; tokens per second by type; cost by source (main loop, subagent, auxiliary). The values are sums over Claude Code events in Loki. The public cut drops the tools and API row, the traces row and the cost by skill and agent panel, because log lines show commands and file paths and skill names describe private work. Every query is wrapped in `sum without (...)` over identifying labels.
+Default range 24 hours. Cost, tokens, cache read share, API requests, prompts and tool calls over the range; the spend alert `ClaudeCodeSpendSpike` on a timeline (below USD 40, pending, firing); cost per hour by model, with the USD 40 threshold as a dashed line; tokens per second by type; cost by source (main loop, subagent, auxiliary). Cost, token and count values are sums over Claude Code events in Loki. The public cut drops the tools and API row, the traces row and the cost by skill and agent panel, because log lines show commands and file paths and skill names describe private work. Every query is wrapped in `sum without (...)` over identifying labels. Public dashboards drop annotations that query a data source, so the alert is a panel. The timeline reads the alert's own `ALERTS` series from 2026-10-09 11:00 UTC, when the USD 40 rule went live; earlier samples came from older rules, so before that point it replays the USD 40 rule on the recorded hourly cost, which starts at 07:29 UTC that day.
 
 ## Host
 
