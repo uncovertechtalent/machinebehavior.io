@@ -2,6 +2,10 @@ title: Public dashboards
 summary: The five Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.
 order: 40
 labels: grafana, dashboards, public
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Five dashboards are public at https://grafana.scoetzee.de and framed on [Inside](/inside/#dashboards). Grafana public dashboards do not resolve template variables, so every public dashboard is built without them in [grafana/build.py](https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py).
 

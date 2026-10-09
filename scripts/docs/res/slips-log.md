@@ -2,6 +2,10 @@ title: Slips log
 summary: Running log of register and stance slips caught while drafting the published pieces, with who caught each one; 72 slips from 2026-09-29 to 2026-10-06.
 order: 40
 labels: slips, register, self-audit, log
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The slips log records the register and stance slips caught while drafting the site's pieces, and who caught each one; it holds 72 slips across 8 published pieces and 1 unpublished draft set, 57 of them caught by the same model session that wrote the text.
 

@@ -2,6 +2,10 @@ title: Conformity self-assessment, run 1
 summary: One working AI setup scored by the model inside it against 35 draft requirements and a hashed prediction, with pass 4, partial 16, gap 13 and n/a 2 (self-assessment, not a certification).
 order: 70
 labels: conformity, self-assessment, prereg, second-rater
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 In run 1 the model inside Stefan Coetzee's working AI setup scored the setup against the 35 requirements of the working draft "Continuous Conformity for Deployed AI Systems" (draft 0.2): pass 4, partial 16, gap 13, n/a 2, against a prediction hashed before scoring that matched 29 of 35. Self-assessment, not a certification.
 

@@ -3,6 +3,10 @@ summary: Why Grafana stat panels on young series show No data over long time ran
 parent: runbooks
 order: 20
 labels: runbook, grafana, prometheus, loki
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 A stat panel shows "No data" when the dashboard range is long, for example 7 days, while the metric has a current value. This applies to the Website deploys dashboard: its default range is 7 days, and the deploy-exporter's series start when the exporter starts.
 

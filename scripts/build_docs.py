@@ -40,6 +40,21 @@ SPACES = [
      'about': 'Reference clusters from the knowledge vault for 28 standards, regulations and frameworks: ISO 27001 and 42001, NIS2, DORA, the EU AI Act, GDPR, SOC 2, TISAX, NIST and more.'},
 ]
 SPACE = {s['key']: s for s in SPACES}
+HAND = {'eng', 'obs', 'res', 'fin'}          # written in the repository; vault spaces come from the knowledge vault
+SPACE_OWNER = 'Stefan Coetzee'               # owner of a vault page that names none
+TYPES = ('tutorial', 'how-to', 'reference', 'explanation')  # Diátaxis
+DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+VAULT_TYPES = {  # vault note type -> Diátaxis type
+    'runbook': 'how-to',
+    'moc': 'reference', 'anchors': 'reference', 'iso-clause': 'reference', 'annex-a-theme': 'reference', 'tool': 'reference',
+    'regulation-concept': 'reference', 'framework-concept': 'reference', 'itil-concept': 'reference', 'togaf-component': 'reference',
+    'tisax-mechanism': 'reference', 'detection-method': 'reference', 'hardware': 'reference', 'togaf-mechanism': 'reference',
+    'tisax-catalogue': 'reference', 'threat-list': 'reference', 'itil-mechanism': 'reference', 'iso-concept': 'reference',
+    'framework-profile': 'reference', 'annex-a': 'reference', 'mitigations': 'explanation', 'method': 'explanation',
+    'metaphor': 'explanation', 'false-finding': 'explanation',
+    'position': 'explanation', 'cross-cutting': 'explanation', 'pattern': 'explanation', 'incident': 'explanation',
+    'root-cause': 'explanation', 'concept': 'explanation', 'mitigation': 'explanation', 'practice': 'explanation',
+}
 if '--only' in sys.argv:  # build a subset while other spaces are being written
     _only = sys.argv[sys.argv.index('--only') + 1].split(',')
     SPACES = [s for s in SPACES if s['key'] in _only]
@@ -62,6 +77,17 @@ def parse_source(path):
     meta['labels'] = [x.strip() for x in meta.get('labels', '').split(',') if x.strip()]
     meta['aliases'] = [x.strip() for x in meta.get('aliases', '').split('|') if x.strip()]
     meta['order'] = int(meta.get('order') or 1000)
+    if meta.get('type') and meta['type'] not in TYPES:
+        if not meta.get('origin'):
+            sys.exit(f'{path}: type must be one of {", ".join(TYPES)}')
+        # a vault note carries its own note type; map it to Diátaxis where the mapping is plain, else leave the type empty
+        meta['note_type'] = meta['type']
+        meta['type'] = VAULT_TYPES.get(meta['type'].strip().lower(), '')
+    rv = meta.get('reviewed', '')
+    if rv and rv != 'no' and not DATE.match(rv):
+        sys.exit(f'{path}: reviewed must be YYYY-MM-DD or no')
+    if meta.get('review_by') and not DATE.match(meta['review_by']):
+        sys.exit(f'{path}: review_by must be YYYY-MM-DD')
     return meta, body.strip('\n')
 
 
@@ -87,6 +113,8 @@ for sp in SPACES:
         p['url'] = f"/inside/docs/{sp['key']}/" + ('' if slug == 'index' else f'{slug}/')
         p['updated'] = meta.get('updated') or meta.get('created') or git_date(f)
         p['created'] = meta.get('created') or p['updated']
+        if not p.get('owner') and sp['key'] not in HAND:
+            p['owner'], p['owner_default'] = SPACE_OWNER, True
         pages[(sp['key'], slug)] = p
 
 spaces_present = [s for s in SPACES if (s['key'], 'index') in pages]
@@ -499,13 +527,25 @@ def page_html(p):
     extra = f'<meta name="docs-space" content="{sp["key"]}">\n'
     extra += f'<meta property="article:published_time" content="{p["created"]}">\n<meta property="article:modified_time" content="{p["updated"]}">\n'
     extra += ''.join(f'<meta property="article:tag" content="{esc(l)}">\n' for l in p['labels'])
+    for k in ('owner', 'reviewed', 'review_by', 'type'):
+        if p.get(k):
+            extra += f'<meta name="docs-{k.replace("_", "-")}" content="{esc(p[k])}">\n'
     if not is_home:
         par = pages[(p['space'], p['parent'])]
         extra += f'<link rel="up" href="{par["url"]}">\n'
     crumbs = '<a href="/inside/docs/">Docs</a>' + ''.join(f'<a href="{a["url"]}">{esc(SPACE[a["space"]]["name"] if a["slug"] == "index" else a["title"])}</a>' for a in anc)
     if is_home:
         crumbs = '<a href="/inside/docs/">Docs</a>'
-    by = f'<span>Stefan Coetzee</span><span>created {p["created"]}</span><span>updated {p["updated"]}</span><span>{max(1, round(p["words"] / 220))} min read</span>'
+    by = f'<span>owner {esc(p["owner"])}</span>' if p.get('owner') else '<span class="rv late">no owner</span>'
+    by += f'<span>created {p["created"]}</span><span>updated {p["updated"]}</span>'
+    rv, rb = p.get('reviewed', ''), p.get('review_by', '')
+    if rv == 'no' or not rv:
+        by += '<span class="rv no">not reviewed</span>'
+    elif rb and rb < TODAY:
+        by += f'<span>reviewed {rv}</span><span class="rv late">review overdue since {rb}</span>'
+    else:
+        by += f'<span>reviewed {rv}</span>' + (f'<span>review by {rb}</span>' if rb else '')
+    by += f'<span>{max(1, round(p["words"] / 220))} min read</span>'
     if p.get('type'):
         by += f'<span class="type">{esc(p["type"])}</span>'
     review = ''
@@ -579,9 +619,74 @@ def docs_home():
 <main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a></nav>
 <h1>Docs</h1>
-<p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">map of the work</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label.</p>
+<p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">map of the work</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label. Owners and review dates: <a href="/inside/docs/health/">Docs health</a>.</p>
 <section class="spaces">{cards}</section>
 <section class="home-recent"><h2>Recently updated</h2>{recent(pages.values(), 12)}</section>
+</main>
+</div>
+{footer()}
+{scripts()}
+</body>
+</html>
+'''
+
+
+def health_page():
+    url = '/inside/docs/health/'
+    allp = sorted(pages.values(), key=lambda p: (p['space'], p['title'].lower()))
+    hand = [p for p in allp if p['space'] in HAND]
+    def due(p):
+        return p.get('reviewed') not in (None, '', 'no') and p.get('review_by')
+    overdue = sorted((p for p in allp if due(p) and p['review_by'] < TODAY), key=lambda p: p['review_by'])
+    soon_limit = (datetime.date.today() + datetime.timedelta(days=30)).isoformat()
+    soon = sorted((p for p in allp if due(p) and TODAY <= p['review_by'] <= soon_limit), key=lambda p: p['review_by'])
+    no_owner = [p for p in allp if not p.get('owner')]
+    no_type = [p for p in hand if not p.get('type')]
+    not_rev = [p for p in allp if p.get('reviewed') in (None, '', 'no')]
+    reviewed = [p for p in allp if due(p)]
+
+    def table(rows, cols):
+        if not rows:
+            return '<p class="lede">None today.</p>'
+        h = '<div class="tbl"><table><thead><tr>' + ''.join(f'<th>{c}</th>' for c, _ in cols) + '</tr></thead><tbody>'
+        for p in rows:
+            h += '<tr>' + ''.join(f'<td>{f(p)}</td>' for _, f in cols) + '</tr>'
+        return h + '</tbody></table></div>'
+    link = lambda p: f'<a href="{p["url"]}">{esc(p["title"])}</a>'
+    spn = lambda p: esc(SPACE[p['space']]['name'])
+    cols_review = [('Page', link), ('Space', spn), ('Owner', lambda p: esc(p.get('owner', ''))), ('Reviewed', lambda p: p['reviewed']), ('Review by', lambda p: p['review_by'])]
+    by_space = ''
+    for sp in spaces_present:
+        ps = [p for p in allp if p['space'] == sp['key']]
+        nr = sum(1 for p in ps if p.get('reviewed') in (None, '', 'no'))
+        od = sum(1 for p in ps if due(p) and p['review_by'] < TODAY)
+        ty = sum(1 for p in ps if p.get('type'))
+        by_space += (f'<tr><td><a href="/inside/docs/{sp["key"]}/">{esc(sp["name"])}</a></td><td>{len(ps)}</td><td>{len(ps) - nr}</td><td>{nr}</td><td>{od}</td>'
+                     f'<td>{ty}</td><td>{"space default" if sp["key"] not in HAND else "per page"}</td></tr>')
+    desc = f'Docs health: which of the {len(allp)} docs pages have an owner, a type and a review date, which are past review and which have never been reviewed.'
+    return f'''{head('Docs health · Inside docs', desc, url, f'<meta property="article:modified_time" content="{TODAY}">' + chr(10), og_title='Docs health')}
+<body>
+{topbar()}
+<div class="layout wide">
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="{url}">Health</a></nav>
+<h1>Docs health</h1>
+<div class="byline"><span>built {TODAY}</span><span>{len(allp)} pages</span></div>
+<p class="lede">Each page should name an owner, the date it was last reviewed, the date of its next review and a type (tutorial, how-to, reference or explanation, after Diátaxis). This page lists what is missing or late. {len(reviewed)} pages have a review date, {len(overdue)} are past it, {len(not_rev)} have never been reviewed, and {len(no_owner)} have no owner. Pages from the knowledge vault start as not reviewed and take the space owner until a page names its own. A missing field or a late review does not block a deploy; whether it should is an open decision.</p>
+<article class="doc">
+<h2 id="overdue">Past the review date</h2>
+{table(overdue, cols_review)}
+<h2 id="soon">Due in the next 30 days</h2>
+{table(soon, cols_review)}
+<h2 id="no-owner">Without an owner</h2>
+{table(no_owner, [('Page', link), ('Space', spn)])}
+<h2 id="no-type">Hand-written pages without a type</h2>
+{table(no_type, [('Page', link), ('Space', spn)])}
+<h2 id="spaces">By space</h2>
+<div class="tbl"><table><thead><tr><th>Space</th><th>Pages</th><th>Reviewed</th><th>Not reviewed</th><th>Overdue</th><th>With type</th><th>Owner</th></tr></thead><tbody>{by_space}</tbody></table></div>
+<h2 id="fields">The fields</h2>
+<p>In the front matter of each source file: <code>owner</code> (who keeps the page true), <code>reviewed</code> (the date the page was last checked against the system or source it describes, or <code>no</code>), <code>review_by</code> (the date of the next check; 90 days after the review by default) and <code>type</code>. For a hand-written page, the date it was written from the source counts as its first review. How to set them: <a href="/inside/docs/eng/docs-tree/">Docs tree</a>.</p>
+</article>
 </main>
 </div>
 {footer()}
@@ -602,6 +707,11 @@ for p in pages.values():
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(page_html(p), encoding='utf-8')
 (OUT / 'index.html').write_text(docs_home(), encoding='utf-8')
+(OUT / 'health').mkdir(exist_ok=True)
+(OUT / 'health' / 'index.html').write_text(health_page(), encoding='utf-8')
+_missing = [p['src'] for p in pages.values() if p['space'] in HAND and not all(p.get(k) for k in ('owner', 'reviewed', 'review_by', 'type'))]
+for m in _missing:
+    print(f'warning: {m}: missing owner, reviewed, review_by or type', file=sys.stderr)
 
 index = [{'t': p['title'], 'u': p['url'], 's': p['space'], 'd': p['summary'], 'l': p['labels'],
           'x': text_of(p['html'])[:400]} for p in sorted(pages.values(), key=lambda p: (p['space'], p['url']))]
@@ -611,6 +721,7 @@ index = [{'t': p['title'], 'u': p['url'], 's': p['space'], 'd': p['summary'], 'l
 # sitemap: managed block
 sm = (ROOT / 'sitemap.xml').read_text()
 block = '  <!-- docs:begin (scripts/build_docs.py) -->\n' + f'  <url><loc>{BASE}/inside/docs/</loc><lastmod>{max(p["updated"] for p in pages.values())}</lastmod></url>\n'
+block += f'  <url><loc>{BASE}/inside/docs/health/</loc><lastmod>{TODAY}</lastmod></url>\n'
 block += ''.join(f'  <url><loc>{BASE}{p["url"]}</loc><lastmod>{p["updated"]}</lastmod></url>\n' for p in sorted(pages.values(), key=lambda p: p['url']))
 block += '  <!-- docs:end -->\n'
 sm = re.sub(r'  <!-- docs:begin.*?<!-- docs:end -->\n', '', sm, flags=re.S)
@@ -618,7 +729,7 @@ sm = sm.replace('</urlset>', block + '</urlset>')
 (ROOT / 'sitemap.xml').write_text(sm)
 
 # llms.txt: managed section "## Inside docs" (replaced in place, other sections untouched)
-sec = f'The documentation tree at {BASE}/inside/docs/ ({len(pages)} pages). Search index: {BASE}/inside/docs/search.json (docs only; the site-wide index is {BASE}/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.\n'
+sec = f'The documentation tree at {BASE}/inside/docs/ ({len(pages)} pages). Search index: {BASE}/inside/docs/search.json (docs only; the site-wide index is {BASE}/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: {BASE}/inside/docs/health/.\n'
 for s in spaces_present:
     home = pages[(s['key'], 'index')]
     sec += f'\n### {s["name"]}\n\n- [{s["name"]}]({BASE}{home["url"]}): {s["about"]}\n'

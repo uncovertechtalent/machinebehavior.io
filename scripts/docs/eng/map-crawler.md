@@ -2,6 +2,10 @@ title: Map crawler
 summary: scripts/crawl_map.py crawls the three sites and Substack into map/graph.json, splitting body links from navigation and keeping a node per page, post, repo, thread and tag.
 order: 50
 labels: map, crawler, graph
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 `scripts/crawl_map.py` builds `map/graph.json`, the data behind the [map of the work](/map/) and the front page of [Inside](/inside/). It runs in the deploy job on every push and on the Monday schedule, and by hand.
 

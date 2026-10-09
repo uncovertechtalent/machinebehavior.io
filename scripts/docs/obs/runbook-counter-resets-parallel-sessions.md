@@ -3,6 +3,10 @@ summary: Why Claude Code's cost counters in Prometheus report spend in the milli
 parent: runbooks
 order: 30
 labels: runbook, prometheus, loki, claude-code
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 Claude Code spend computed with `increase()` over its Prometheus cost counter reports millions of USD. In the week to 2026-10-09, `increase()` reported USD 1.97M, while the API calls cost USD 76 in the last 24 hours of that week.
 

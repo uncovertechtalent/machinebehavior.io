@@ -1,6 +1,10 @@
 title: Engineering
 summary: How the three sites are built, gated and deployed, plus the map crawler, the Inside portal and this docs tree.
 labels: moc, engineering
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 This space documents the systems behind machinebehavior.io, tychat.io and uncovertechtalent.com: how each site is built, the conformity gate that every push passes before it serves readers, the deploy job, the crawler that draws the [map of the work](/map/), the [Inside](/inside/) front page and this documentation tree.
 

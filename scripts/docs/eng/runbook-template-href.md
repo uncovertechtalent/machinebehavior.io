@@ -3,6 +3,10 @@ summary: The gate reads every href in the page source, including ones inside Jav
 parent: runbooks
 order: 30
 labels: runbook, gate, javascript
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 **Symptom.** `site.consistency` fails with "relative link" and a value that starts with a dollar sign and a brace, which does not appear on the rendered page.
 

@@ -3,6 +3,10 @@ summary: The recording rules, service level objectives and 13 alerts that Promet
 parent: metrics-reference
 order: 10
 labels: prometheus, alerts, slo, loki
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Prometheus evaluates recording rules and 13 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager.
 

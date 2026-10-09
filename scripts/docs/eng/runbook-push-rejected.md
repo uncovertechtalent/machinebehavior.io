@@ -3,6 +3,10 @@ summary: The conformity bot commits after every run, so main moves without you; 
 parent: runbooks
 order: 20
 labels: runbook, git
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 **Symptom.** `git push` fails with "rejected, fetch first" right after a run, although nobody else pushed.
 

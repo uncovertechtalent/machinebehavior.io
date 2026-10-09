@@ -2,8 +2,18 @@ title: Decision log
 summary: Dated decisions behind the setup, each with the reason and the consequence, in the shape of architecture decision records.
 order: 80
 labels: adr, decisions, governance
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
+
+## 2026-10-09: owner and review dates on every docs page
+
+- **Decision.** Docs front matter gains `owner`, `reviewed`, `review_by` and `type` (Diátaxis). All 50 hand-written pages carry the four fields, with the date each was written from its source as the first review and the next review 90 days later. Vault pages start as not reviewed and take the space owner. The byline shows the state and [Docs health](/inside/docs/health/) lists what is missing or late.
+- **Why.** The pages carried dates, but none said who keeps it true or when it was last checked.
+- **Consequence.** The first reviews fall due in January 2027. No gate check: whether a missing owner or an overdue review should block a deploy is an open decision, owned with the gate. See [Docs tree](doc:eng/docs-tree).
 
 ## 2026-10-09: a status page from records the site already publishes
 

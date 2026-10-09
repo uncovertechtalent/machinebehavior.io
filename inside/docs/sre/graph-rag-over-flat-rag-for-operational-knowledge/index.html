@@ -19,6 +19,9 @@
 <meta property="article:tag" content="manifesto">
 <meta property="article:tag" content="position">
 <meta property="article:tag" content="retrieval-architecture">
+<meta name="docs-owner" content="Stefan Coetzee">
+<meta name="docs-reviewed" content="no">
+<meta name="docs-type" content="explanation">
 <link rel="up" href="/inside/docs/sre/manifesto/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
@@ -32,7 +35,7 @@
 <main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/sre/">SRE Handbook</a><a href="/inside/docs/sre/manifesto/">Manifesto</a></nav>
 <h1>Graph-RAG over Flat RAG for Operational Knowledge</h1>
-<div class="byline"><span>Stefan Coetzee</span><span>created 2026-04-25</span><span>updated 2026-04-25</span><span>2 min read</span><span class="type">position</span></div>
+<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-04-25</span><span>updated 2026-04-25</span><span class="rv no">not reviewed</span><span>2 min read</span><span class="type">explanation</span></div>
 <div class="review"><b>Vault note, not reviewed against the source.</b> Written in the knowledge vault on 2026-04-25 by models working with Stefan Coetzee and published as it stands, with private addresses, e-mail addresses and an employer name redacted. Check claims against the primary source before relying on them.</div>
 <article class="doc">
 <blockquote><p>Operational knowledge is structurally relational: an incident references a service references a deployment references a runbook references a metric references an SLO. Flat RAG flattens this graph and loses the relationships. For agents that operate on operational knowledge, the structure is the signal.</p></blockquote>

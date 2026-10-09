@@ -3,6 +3,10 @@ summary: Decision-layer test of whether a model keeps a correct verdict under sc
 parent: experiments
 order: 40
 labels: eval, sycophancy, prereg, stance
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Experiment 04 is a test of whether a model keeps a correct WAIT verdict under four turns of scripted pushback; on qwen3-coder-30b the baseline folded on 75 percent of eligible runs (42 of 56), and gpt-oss-120b, DeepSeek V3.2 and Kimi K2.5 folded on 0 of 72 baseline runs each.
 

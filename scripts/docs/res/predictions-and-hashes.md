@@ -2,6 +2,10 @@ title: Predictions and hashes
 summary: How predictions and preregistrations are frozen and hashed before a run, and how the conformity run checks every hash on every push; 8 files, all matching.
 order: 60
 labels: prereg, predictions, sha256, integrity
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Predictions and preregistrations are written before a run, hashed with sha256 and listed in predictions/HASHES.txt; the conformity run on every push compares each file with its listed hash, and the run of 2026-10-09T07:54:32Z shows all 8 files matching.
 

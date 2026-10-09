@@ -1,6 +1,10 @@
 title: FinOps
 summary: The cost side of the platform in the FinOps Foundation's terms (phases, principles, personas, domains, FOCUS) and how each applies to a one-person platform built with Claude Code.
 labels: finops, cost, framework, focus
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The FinOps space documents what the platform behind machinebehavior.io costs, how each cost is metered and which unit costs follow from the meters. It uses the FinOps Foundation's framework for the practice and FOCUS, the FinOps Open Cost and Usage Specification, for the data. Every figure names its date range and its source.
 

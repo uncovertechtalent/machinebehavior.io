@@ -2,6 +2,10 @@ title: Unit economics
 summary: Cost per unit of output with real numbers: Claude Code spend per day, per model, per API call, per million tokens and per commit; runner time per deploy; cost per eval run.
 order: 20
 labels: finops, unit-economics, kpi, claude-code
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 The method follows [Unit Economics of Infrastructure](doc:sre/unit-economics-of-infrastructure) in the SRE Handbook: divide spend by a unit the work already counts. The units here are days, API calls, tokens, commits, deploy runs and eval runs. Claude Code figures are list-price values from Claude Code's own `cost_usd`; [Showback](doc:fin/showback) explains how they relate to the bill.
 

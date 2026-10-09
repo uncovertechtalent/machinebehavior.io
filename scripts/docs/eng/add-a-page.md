@@ -2,6 +2,10 @@ title: Add a page to machinebehavior.io
 summary: The five things a new page needs to pass the gate, and the commands to check them before pushing.
 order: 40
 labels: how-to, pages, gate
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 A new page passes the gate when it has a directory URL, a self canonical, a sitemap entry, an `llms.txt` line and root-absolute links. Docs pages get all five from the generator; see [Docs tree](doc:eng/docs-tree).
 

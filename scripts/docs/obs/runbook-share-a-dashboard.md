@@ -3,6 +3,10 @@ summary: How to build a variable-free public cut of a dashboard, provision it, a
 parent: runbooks
 order: 40
 labels: runbook, grafana, public-dashboards
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 A dashboard goes public in two parts: a public cut in build.py, and a public-dashboard record created through the Grafana API on the home server.
 

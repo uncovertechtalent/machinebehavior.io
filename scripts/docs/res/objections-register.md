@@ -2,6 +2,10 @@ title: Objections register and OBJ-4 incident log
 summary: Fifteen objections against an unpublished model of human development, each with severity, status and a falsification test, plus the OBJ-4 incident log of 11 cases, none self-caught.
 order: 30
 labels: objections, falsification, incident-log, second-rater
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The objections register holds fifteen objections against a model of human development that Stefan Coetzee is building (unpublished), each with a severity, a status and a falsification test; its OBJ-4 incident log records 11 cases of the auditing model committing the failure OBJ-4 names, all 11 caught by Stefan and 0 by the model's self-audit.
 

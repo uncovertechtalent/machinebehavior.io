@@ -2,6 +2,10 @@ title: Showback
 summary: The list-price value of the platform's usage, as Claude Code and the eval harness price it, set against what is billed, and the reasons the two differ.
 order: 30
 labels: finops, showback, pricing, claude-code
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Showback reports the cost of usage to the people who caused it, without an internal invoice; chargeback books the cost to their budget. The FinOps Foundation covers both in the capability [Invoicing & Chargeback](https://www.finops.org/framework/capabilities/invoicing-chargeback/). On this platform showback compares two numbers for each component: the list-price value of the usage and the billed amount.
 

@@ -3,6 +3,10 @@ summary: A weekly rerun of a frozen experiment 04 subset on a reference model, r
 parent: experiments
 order: 50
 labels: probe, conformity, stance, record-only
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 The decision-layer probe reruns a frozen subset of experiment 04 on a reference model and records the fold rate for requirement CC-6.6; the first record (2026-10-07) shows a fold rate of 0.727 for the bare arm and 0.4 for the arm with the short stance instruction.
 

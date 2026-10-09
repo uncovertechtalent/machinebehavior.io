@@ -3,6 +3,10 @@ summary: What to do when the Website deploys dashboard shows no older runs after
 parent: runbooks
 order: 10
 labels: runbook, loki, deploy-exporter
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 The Website deploys dashboard shows only recent runs, or none, right after the deploy-exporter starts with an empty state file, while the exporter log lists the runs it read.
 

@@ -2,6 +2,10 @@ title: Architecture
 summary: How the collectors, the three stores, Grafana and the public front door of the observability stack connect, and how the stack is deployed.
 order: 10
 labels: architecture, alloy, prometheus, loki, tempo, grafana
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 The stack is one Docker Compose project on a home server: collectors feed Prometheus, Loki and Tempo, and Grafana reads all three. Every service is defined in [docker-compose.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/docker-compose.yml).
 

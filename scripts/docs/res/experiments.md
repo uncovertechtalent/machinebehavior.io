@@ -2,6 +2,10 @@ title: Experiments
 summary: Overview of the four published experiments and the weekly decision-layer probe, with status, dates and headline numbers for each.
 order: 10
 labels: experiments, overview, eval
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Four studies are published on [/experiments/](/experiments/): the temporal half-life is refuted, exemplar seeding showed no change at its dose, the fawn-opener benchmark has a pilot only, and experiment 04 found folding under pressure in one of four open-weight models.
 

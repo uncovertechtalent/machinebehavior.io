@@ -3,6 +3,10 @@ summary: A standard-library Python service that reads the GitHub Actions deploy 
 parent: architecture
 order: 10
 labels: loki, prometheus, github-actions, deploys
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The deploy-exporter reads the GitHub Actions deploy runs of machinebehavior.io, tychat.io and uncovertechtalent.com and turns them into Loki lines and Prometheus metrics. It reads the GitHub API from outside the repositories, so the site workflows stayed unchanged, and a run that fails before any step finishes is still recorded. Source: [deploy-exporter/exporter.py](https://github.com/uncovertechtalent/agent-observability/blob/main/deploy-exporter/exporter.py), Python standard library only, running as user nobody.
 

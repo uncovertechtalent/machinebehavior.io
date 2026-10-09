@@ -142,3 +142,7 @@ footer a { color: var(--dim); }
   h1 { font-size: 30px; }
   .doc { font-size: 15.5px; }
 }
+
+/* review state in the byline */
+.byline .rv.no { color: var(--amber); }
+.byline .rv.late { color: var(--fold); }

@@ -3,6 +3,10 @@ summary: Tested whether two corrected-output exemplars injected at session start
 parent: experiments
 order: 20
 labels: experiments, momentum, cold-start, null-result
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Exemplar seeding was a test of whether two corrected-output exemplar pairs injected at every session start pull cold-start relapse toward the mid-session rate; scored by blocked-turn event, the result is no change at this dose (1.00 per 10K characters against a 0.84 control).
 

@@ -3,6 +3,10 @@ summary: Pre-registered benchmark of how often each model opens a reply with a f
 parent: experiments
 order: 30
 labels: eval, sycophancy, prereg, lexical, benchmark
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 The fawn-opener benchmark measures how often a model opens a reply with a fawn marker, with and without an instruction against it; it was pre-registered on 2026-09-23, a pilot ran the same day with no reading scored, and the clean run is not yet run.
 

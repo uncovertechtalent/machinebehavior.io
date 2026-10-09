@@ -1,6 +1,10 @@
 title: Observability
 summary: Metrics, logs and traces for Claude Code, a self-hosted Ollama server, its host and three website deploys, collected by one Docker Compose stack on a home server.
 labels: observability, prometheus, loki, tempo, grafana
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The Observability space documents agent-observability: a Docker Compose stack that collects metrics, logs and traces from Claude Code, a self-hosted Ollama server, the host that runs Ollama, and the GitHub Actions deploys of three websites. Stefan Coetzee runs it on a home server. Five of its Grafana dashboards are public and framed on the [Inside](/inside/#dashboards) page.
 

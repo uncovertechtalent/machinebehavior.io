@@ -1,6 +1,10 @@
 title: Research
 summary: Internal view of the published research on machinebehavior.io, one page per study or record, with status, numbers, repo files and rerun steps.
 labels: research, index
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Machine Behavior is a public research programme by Stefan Coetzee on the psychology of language models, run with case files, logged relapses and falsifiable claims. This space has one page per study or record published on [machinebehavior.io](/): what it is, its status and numbers, where its files are in the [repo](https://github.com/uncovertechtalent/machinebehavior.io), and how to rerun or check it.
 

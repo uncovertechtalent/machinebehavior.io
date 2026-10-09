@@ -2,6 +2,10 @@ title: Status page
 summary: How /inside/status/ decides the state of each service from records the site already publishes, and how to open, update and close an incident in incidents/*.yml.
 order: 67
 labels: inside, status, incidents, how-to
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 The [status page](/inside/status/) shows the current state of every service in the [catalog](/inside/services/) and the incident history. It is built by `scripts/build_inside.py` from `services/*.yml` and `incidents/*.yml`; the service states are read in the visitor's browser.
 

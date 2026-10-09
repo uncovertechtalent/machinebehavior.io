@@ -2,6 +2,10 @@ title: Metrics reference
 summary: Every Prometheus metric the deploy-exporter and the ollama-exporter serve, with type, labels and meaning, taken from the exporter source.
 order: 20
 labels: prometheus, metrics, reference
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 This page lists every metric the two exporters in the repository serve on `/metrics`. Names, types and labels come from [deploy-exporter/exporter.py](https://github.com/uncovertechtalent/agent-observability/blob/main/deploy-exporter/exporter.py) and [ollama-exporter/exporter.py](https://github.com/uncovertechtalent/agent-observability/blob/main/ollama-exporter/exporter.py). Each histogram also serves `_bucket`, `_sum` and `_count` series.
 

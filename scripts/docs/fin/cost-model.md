@@ -2,6 +2,10 @@ title: Cost model
 summary: Every cost component of the platform with its billing model, its meter and the amount where a source exists; components without a meter say so.
 order: 10
 labels: finops, cost-model, allocation
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Nine components make up the cost of the platform. Four have a meter in the observability stack or in a provider API: Claude Code, the Bedrock evals, GitHub Actions and the GPU's energy. The others are billed by invoice or through the household electricity meter, and their amounts are not published.
 

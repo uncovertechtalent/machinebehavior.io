@@ -2,6 +2,10 @@ title: Conformity gate
 summary: The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes and site consistency, with warnings logged.
 order: 30
 labels: conformity, gate, quality
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The conformity gate is a set of mechanical checks run by `.github/actions/conformity/run.py` against every published page. A blocking failure stops the deploy; the previous build stays live. Results are rendered at [/conformity/](/conformity/) (self-assessment, not a certification) and stored in `conformity/latest.json`.
 

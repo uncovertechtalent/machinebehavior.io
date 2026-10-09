@@ -2,6 +2,10 @@ title: Case files: case 12 and Running Conjobs for AI
 summary: Two harness case files: case 12, a licence rule found and acted on in 68.7 seconds, and a reported authority-injection specimen that was not reproduced.
 order: 50
 labels: case-file, harness, authority-injection, self-assessment
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Two case files record single events of machine behaviour: in case 12 (2026-10-03) model plus harness found a licence rule in a file and acted on it in 68.7 seconds; Running Conjobs for AI (2026-10-06) is a reported authority-injection specimen, not reproduced.
 

@@ -2,6 +2,10 @@ title: Docs tree
 summary: How this documentation is built from markdown sources and the knowledge vault, how front matter becomes the tree, labels and dates, and how pages enter the map.
 order: 70
 labels: docs, generator, front-matter
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/build_docs.py` from markdown files in `scripts/docs/<space>/`. Four spaces are written by hand in the repository (Engineering, Observability, Research, FinOps); two come from the knowledge vault through `scripts/import_vault_docs.py`.
 
@@ -24,7 +28,15 @@ The build writes one `index.html` per page, `inside/docs/search.json` (an input 
 | `order` | Sort key among siblings |
 | `labels` | Comma-separated; written as `article:tag` metas and shown as chips that open the search results for the label |
 | `created`, `updated` | Dates; without them the build uses the git date of the source file |
-| `origin`, `reviewed` | Vault pages only: the vault path, and `no` for the review label |
+| `owner` | Who keeps the page true. Required on hand-written pages; a vault page without one takes the space owner |
+| `reviewed` | The date the page was last checked against the system or source it describes, or `no`. For a hand-written page, the date it was written from the source counts as the first review. Vault pages start as `no` |
+| `review_by` | The date of the next review; 90 days after `reviewed` by default |
+| `type` | `tutorial`, `how-to`, `reference` or `explanation` ([Diátaxis](https://diataxis.fr/)). A vault note keeps its own note type, mapped to one of the four where the mapping is plain (`runbook` to how-to, `MOC` to reference, `position` to explanation) |
+| `origin` | Vault pages only: the vault path |
+
+## Ownership and review
+
+The byline of each page shows the owner, the review date and the next review date, or "not reviewed", or "review overdue since" in red. [Docs health](/inside/docs/health/) lists the pages past their review date, those due in the next 30 days, pages without an owner or a type, and the counts per space. The build stops on a malformed date or an unknown type, and prints a warning for a hand-written page that lacks one of the four fields. Nothing here blocks a deploy: whether the gate should check owners and review dates is an open decision for the gate owner.
 
 ## Links
 

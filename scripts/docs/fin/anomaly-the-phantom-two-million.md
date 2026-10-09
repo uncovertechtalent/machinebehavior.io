@@ -2,6 +2,10 @@ title: The phantom two million
 summary: A FinOps anomaly case from 2026-10-09: parallel Claude Code sessions wrote into one counter series, and Prometheus reported USD 1.97M for a week that cost USD 1,003 at list price.
 order: 40
 labels: finops, anomaly, data-quality, case, claude-code
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 For the week to 2026-10-09 00:00 UTC, `increase()` over Claude Code's cost counter in Prometheus reported USD 1,970,946.62. The per-request events in Loki for the same seven days (2026-10-02 to 2026-10-08) sum to USD 1,003.45 at list price. The counter overstated spend by a factor of about 1,960. No money moved; the defect was in the meter.
 

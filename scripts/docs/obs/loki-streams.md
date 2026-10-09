@@ -2,6 +2,10 @@ title: Loki streams
 summary: The Loki streams the stack writes, with their labels and line fields, for website deploy records and for Claude Code events.
 order: 30
 labels: loki, logql, reference
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Loki holds two kinds of data: website deploy records pushed by the deploy-exporter, and Claude Code events sent through Alloy. Retention is 90 days.
 

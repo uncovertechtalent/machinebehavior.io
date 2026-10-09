@@ -2,6 +2,10 @@ title: Ticket board
 summary: The board at /inside/board/ shows the work on the platform in columns, from GitHub Issues on the public repository, as a snapshot written at each deploy.
 order: 65
 labels: board, issues, workflow, inside
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The [board](/inside/board/) shows the open work on machinebehavior.io and the platform behind it, plus the work done in the last 30 days. GitHub Issues on [uncovertechtalent/machinebehavior.io](https://github.com/uncovertechtalent/machinebehavior.io/issues) is the system of record; the board is a read-only view of it.
 

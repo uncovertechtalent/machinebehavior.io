@@ -2,6 +2,10 @@ title: Claims ledger
 summary: Every substantive claim of the programme with its status, receipts and the observation that would refute it; seven claims, four supported, one refuted, one open, one proposed.
 order: 20
 labels: claims, falsification, ledger
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The claims ledger lists each claim of the programme with its status, receipts and refutation condition; of seven claims, four are supported, one is refuted, one is open with its prediction refuted, and one is proposed.
 

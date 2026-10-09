@@ -2,6 +2,10 @@ title: Top bar and search
 summary: One top bar on every Inside page from one Python source, and one search index over the docs, the services and the map, with a results page on Enter.
 order: 65
 labels: inside, search, navigation, frontend
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Every Inside page carries the same top bar: Inside, Docs, Services, Status, Board, Map, Infrastructure, Gate and a link to the site. The bar and its search box come from one source, so a page cannot show a different menu.
 

@@ -2,6 +2,10 @@ title: Runbooks
 summary: Step-by-step fixes for the failures seen so far in the build and deploy of the sites.
 order: 90
 labels: runbook, operations
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 Each runbook covers one failure that has happened, with how to see it, the cause and the fix. Observability runbooks (Loki, Grafana) are in the [Observability space](doc:obs/runbooks).
 

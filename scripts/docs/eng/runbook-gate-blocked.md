@@ -3,6 +3,10 @@ summary: The conformity job failed, so the deploy did not run and the previous b
 parent: runbooks
 order: 10
 labels: runbook, gate
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 **Symptom.** The Conformity workflow is red; the "Deploy to Pages" job shows as skipped; the live site still shows the previous build.
 

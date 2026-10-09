@@ -3,6 +3,10 @@ summary: Tested whether suppressed output patterns relapse more as a session get
 parent: experiments
 order: 10
 labels: experiments, half-life, cold-start, refuted
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 The half-life study was a test of whether relapse into banned output patterns grows with session length; the temporal half-life is refuted (mean normalised catch position 0.54 against 0.50 for no drift), and relapse clusters at cold starts, at about 5x the mid-session rate per unit of prose by blocked-turn event.
 

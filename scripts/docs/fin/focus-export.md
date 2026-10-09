@@ -2,6 +2,10 @@ title: FOCUS export
 summary: A FOCUS 1.4-shaped CSV of the platform's metered costs for 2026-10-01 to 2026-10-08, the script that writes it, the column mapping and the declared deviations from the specification.
 order: 60
 labels: finops, focus, export, csv
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: how-to
 ---
 The file [focus-2026-10-01-to-2026-10-08.csv](/inside/finops/focus-2026-10-01-to-2026-10-08.csv) holds the platform's metered costs in the Cost and Usage columns of FOCUS 1.4. It has 35 rows: 24 for Claude Code (one per UTC day and model) and 11 for GitHub Actions (one per UTC day and public repository). `scripts/focus_export.py` wrote it on 2026-10-09.
 

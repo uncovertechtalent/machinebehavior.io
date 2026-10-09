@@ -2,6 +2,10 @@ title: Deploy pipeline
 summary: One GitHub Actions workflow runs the conformity checks, commits the record, and deploys to Pages only when the checks pass.
 order: 20
 labels: deploy, github-actions, pipeline
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`. The workflow also runs every Monday at 06:17 UTC and by hand. It has two jobs, and the second runs only if the first passes.
 

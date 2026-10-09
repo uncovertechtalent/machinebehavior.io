@@ -2,6 +2,10 @@ title: Budgets and alerts
 summary: The one cost alert that exists, why nothing pages, how it behaved on real spend on 2026-10-09, the budget caps in the eval harness, and what a budget alert for Claude Code would look like.
 order: 50
 labels: finops, budgets, alerts, prometheus, loki
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price value of Claude Code calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. The stack runs no Alertmanager, so a firing alert is visible in Prometheus and Grafana and reaches nobody. No budget is set for any component; the eval harness caps each run.
 

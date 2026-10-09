@@ -2,6 +2,10 @@ title: Runbooks
 summary: Step-by-step fixes for the known traps in the observability stack: missing backfill in Loki, empty stat panels, Claude Code counter resets and sharing a dashboard.
 order: 60
 labels: runbook, operations
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 These runbooks cover the traps found while running the stack. Each one gives the symptom, the cause, a check and the fix. Commands run on the home server from the repository directory unless a step says otherwise.
 

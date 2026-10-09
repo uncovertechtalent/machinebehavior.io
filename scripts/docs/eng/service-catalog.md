@@ -2,6 +2,10 @@ title: Service catalog
 summary: The catalog at /inside/services/ is built from one YAML file per service in services/, validated at build; each service is a page and a node in the map.
 order: 66
 labels: inside, services, catalog, ownership
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: reference
 ---
 The [service catalog](/inside/services/) lists every service that runs the platform, with the owner, tier, lifecycle, SLOs, dashboard, runbooks, docs, repository and dependencies. Each service has its own page, and each page is a node in the [map](/map/) linked to its docs and dashboards.
 

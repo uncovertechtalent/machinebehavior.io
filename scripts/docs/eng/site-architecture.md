@@ -2,6 +2,10 @@ title: Site architecture
 summary: Three static sites on GitHub Pages, one shared conformity action, and Substack as the fourth publication.
 order: 10
 labels: architecture, github-pages, static-site
+owner: Stefan Coetzee
+reviewed: 2026-10-09
+review_by: 2027-01-07
+type: explanation
 ---
 Three sites publish the work. All three are static files served by GitHub Pages and deployed by GitHub Actions. A fourth publication, the Substack newsletter, is hosted by Substack and only read by the crawler.
 
