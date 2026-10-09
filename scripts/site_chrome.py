@@ -35,7 +35,7 @@ import mini_yaml  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 NAV_FILE = ROOT / 'site' / 'nav.yml'
 
-SIDEBARS = set()           # sections whose pages carry the section sidebar
+SIDEBARS = {'research', 'inside'}  # sections whose pages carry the section sidebar
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
@@ -47,6 +47,7 @@ LEGACY = [
     re.compile(r'[ \t]*<header class="ib">.*?</header>\n?', re.S),
     re.compile(r'[ \t]*<aside class="ib-demo".*?</aside>\n?', re.S),
     re.compile(r'[ \t]*<nav class="nav">.*?</nav>\n?', re.S),
+    re.compile(r'[ \t]*<nav class="crumbs" aria-label="Breadcrumb">.*?</nav>\n?', re.S),
     re.compile(r'[ \t]*<p class="conf mono" data-conformity>.*?</p>\n?', re.S),
     re.compile(r'[ \t]*<script src="/conformity/footer\.js" defer></script>\n?'),
     re.compile(r'[ \t]*<script src="/inside/bar\.js" defer></script>\n?'),
@@ -224,8 +225,43 @@ def crumbs_ld(t, trail):
 
 
 def side(t, node):
-    """The section sidebar: every page of the section, the current one marked. Filled in when the section is in SIDEBARS."""
-    return ''
+    """The section sidebar: every page of the section, the current one marked; groups as headings, a page with
+    children as a disclosure that is open when the current page is inside it. Open by default; /inside/bar.js
+    closes it on narrow screens, where it sits above the content."""
+    if node is None or node.section not in SIDEBARS:
+        return ''
+    sec = t.section(node.section)
+    here = {id(n) for n in t.trail(node)}
+
+    def link(n):
+        cur = ' aria-current="page"' if n is node else ''
+        return f'<a href="{n.url}"{cur}>{esc(n.title)}</a>'
+
+    def items(kids):
+        h = ''
+        for k in kids:
+            if k.group:
+                h += f'<li class="mb-side-group"><span class="mb-side-label">{esc(k.title)}</span><ul>{items(k.kids)}</ul></li>'
+            elif k.kids:
+                op = ' open' if id(k) in here else ''
+                h += f'<li><details{op}><summary>{link(k)}</summary><ul>{items(k.kids)}</ul></details></li>'
+            else:
+                h += f'<li>{link(k)}</li>'
+        return h
+
+    count = sum(1 for _ in _pages_under(sec))
+    head_cur = ' aria-current="page"' if node is sec else ''
+    return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
+            f'<summary><span>{esc(sec.title)}</span><span class="mb-side-n">{count} pages</span></summary>'
+            f'<a class="mb-side-head" href="{sec.url}"{head_cur}>{esc(sec.title)}</a>'
+            f'<ul class="mb-side-tree">{items(sec.kids)}</ul></details></nav>')
+
+
+def _pages_under(n):
+    for k in n.kids:
+        if k.url and '#' not in k.url:
+            yield k
+        yield from _pages_under(k)
 
 
 def foot(t, url, src, title):

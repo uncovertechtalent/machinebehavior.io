@@ -84,6 +84,10 @@ python3 scripts/site_chrome.py --check   # write nothing; exit 1 if a page diffe
 
 The report lists orphans (an `index.html` outside the tree), pages in the tree without a file, pages missing from `sitemap.xml`, sitemap URLs outside the tree, and pages missing from `llms.txt` (a warning).
 
+## Sidebars
+
+Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, groups as headings, Services as a disclosure open on a service page, the current page marked. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars).
+
 ## Layouts
 
 Two layouts under one brand. The reading layout keeps the serif column of the research pages (`/style.css`, `<div class="sheet">`). The app layout keeps the portal look of Inside, Docs and the map. `apply()` picks the layout from the stylesheet the page loads and sets `mb-read` or `mb-app` and `mb-s-<section>` on `<body>`. The styles are in `/design/`: `tokens.css` (colour, type, spacing), `chrome.css` (bar, breadcrumbs, footer, layouts) and `components.css`.

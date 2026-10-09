@@ -80,7 +80,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (372 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (373 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -108,6 +108,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (372 pages). S
 - [ADR-0019: Publish the definition draft before the committee route](https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/)
 - [ADR-0020: A five-minute founder tour on one page](https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/)
 - [ADR-0021: One navigation source for the whole site](https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/)
+- [ADR-0022: Section sidebars from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)

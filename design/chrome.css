@@ -106,3 +106,49 @@ body.mb-app main .mb-crumbs { margin-bottom: 10px; }
 .mb-s-map .mb-foot-site { font-size: 12px; }
 
 @media print { .mb-bar, .mb-demo, .mb-skip, .mb-foot-links { display: none; } }
+
+/* ---------- section sidebar (Research, Inside) ---------- */
+.mb-side { box-sizing: border-box; font: var(--mb-text-sm)/1.35 var(--mb-font-sans); color: var(--mb-text-soft); }
+.mb-side *, .mb-side *::before { box-sizing: border-box; }
+.mb-side ul { list-style: none; margin: 0; padding: 0; }
+.mb-side a { display: block; padding: 5px 10px; border-radius: var(--mb-radius-s); color: var(--mb-text-soft); text-decoration: none; overflow-wrap: anywhere; }
+.mb-side a:hover { background: var(--mb-accent-tint); color: var(--mb-text); }
+.mb-side a[aria-current="page"] { background: var(--mb-accent-tint); color: var(--mb-accent); font-weight: 500; box-shadow: inset 2px 0 0 var(--mb-accent); }
+.mb-side a:focus-visible, .mb-side summary:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 1px; }
+.mb-side-head { font-weight: 700; font-size: var(--mb-text-md); color: var(--mb-text) !important; margin-bottom: 6px; }
+.mb-side-label { display: block; margin: 14px 0 4px; padding: 0 10px; font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--mb-text-dim); }
+.mb-side-tree details > summary { list-style: none; display: flex; align-items: flex-start; cursor: pointer; }
+.mb-side-tree details > summary::-webkit-details-marker { display: none; }
+.mb-side-tree details > summary::before { content: '▸'; content: '▸' / ''; width: 14px; flex: none; padding-top: 4px; font-size: 12px; line-height: 1.2; color: var(--mb-text-dim); transition: transform .15s; }
+.mb-side-tree details[open] > summary::before { transform: rotate(90deg); }
+.mb-side-tree details > summary > a { flex: 1; min-width: 0; margin-left: -4px; }
+.mb-side-tree details ul { margin: 2px 0 4px 10px; padding-left: 8px; border-left: 1px solid var(--mb-line); }
+.mb-side-wrap > summary { list-style: none; cursor: pointer; display: flex; align-items: baseline; gap: 10px;
+  font: var(--mb-text-xs)/1.3 var(--mb-font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--mb-text-soft); }
+.mb-side-wrap > summary::-webkit-details-marker { display: none; }
+.mb-side-wrap > summary::after { content: '▾'; content: '▾' / ''; margin-left: auto; color: var(--mb-text-dim); letter-spacing: 0; transition: transform .15s; }
+.mb-side-wrap:not([open]) > summary::after { transform: rotate(-90deg); }
+.mb-side-n { letter-spacing: 0; text-transform: none; color: var(--mb-text-dim); }
+@media (prefers-reduced-motion: reduce) { .mb-side-tree details > summary::before, .mb-side-wrap > summary::after { transition: none; } }
+
+/* narrow: a disclosure above the content */
+@media (max-width: 1099px) {
+  .mb-side { border-bottom: 1px solid var(--mb-line); background: var(--mb-surface-sunken); }
+  .mb-side-wrap > summary { padding: 12px var(--mb-gutter); }
+  .mb-side-wrap[open] { padding-bottom: 12px; }
+  .mb-side-wrap > a, .mb-side-wrap > ul { margin: 0 calc(var(--mb-gutter) - 10px); }
+  body.mb-read > .mb-side .mb-side-wrap > a, body.mb-read > .mb-side .mb-side-wrap > ul { max-width: 680px; }
+}
+
+/* wide: a column beside the content, sticky under the bar */
+@media (min-width: 1100px) {
+  body.mb-has-side { display: grid; grid-template-columns: var(--mb-side-w) minmax(0, 1fr); min-height: 100vh; align-content: start; }
+  body.mb-read.mb-has-side { grid-template-rows: auto 1fr auto; }
+  body.mb-app.mb-has-side { grid-template-rows: auto auto 1fr auto; }
+  body.mb-has-side > .mb-bar, body.mb-has-side > .mb-demo, body.mb-has-side > .mb-foot { grid-column: 1 / -1; }
+  body.mb-has-side > .mb-side { grid-column: 1; position: sticky; top: var(--mb-bar-h); align-self: start;
+    max-height: calc(100vh - var(--mb-bar-h)); overflow: auto; padding: 22px 14px 32px 18px; border-right: 1px solid var(--mb-line);
+    scrollbar-width: thin; scrollbar-color: var(--mb-line) transparent; }
+  body.mb-has-side > main, body.mb-has-side > .sheet { grid-column: 2; min-width: 0; }
+  .mb-side-wrap > summary { display: none; }
+}
