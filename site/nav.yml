@@ -155,3 +155,12 @@ sections:
     title: Map
     url: /map/
     about: Every page, post, repository and thread, and the links between them, as one graph.
+
+  - key: cto
+    title: CTO
+    url: /your-next-cto/
+    about: What Stefan Coetzee builds for a company of 10 to 200 people as a fractional CTO, the engagement shapes, the build-exit pattern, and the live pages that show each part.
+    pages:
+      - title: The build-exit CTO experiment
+        url: /your-next-cto/experiment/
+        published: 2026-10-09

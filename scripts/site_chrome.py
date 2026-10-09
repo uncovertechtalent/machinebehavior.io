@@ -35,7 +35,7 @@ import mini_yaml  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 NAV_FILE = ROOT / 'site' / 'nav.yml'
 
-SIDEBARS = {'research', 'red-team', 'inside', 'topics', 'aieo'}  # sections whose pages carry the section sidebar
+SIDEBARS = {'research', 'red-team', 'inside', 'topics', 'aieo', 'cto'}  # sections whose pages carry the section sidebar
 TOPICS_FILE = ROOT / 'site' / 'topics.yml'
 TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')

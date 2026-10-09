@@ -141,7 +141,7 @@ def home():
     def count(n):
         return sum(1 for _ in site_chrome._pages_under(n))
     cards = []
-    for key in ('research', 'red-team', 'inside', 'docs', 'topics', 'map'):
+    for key in ('research', 'red-team', 'inside', 'docs', 'topics', 'map', 'cto'):
         sec = t.section(key)
         n = count(sec)
         meta = f'{n} pages' if key in ('research', 'red-team', 'docs') else f'{n} hubs' if key == 'topics' else ''

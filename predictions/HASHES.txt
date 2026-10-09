@@ -22,3 +22,7 @@ experiment 04, each frozen and hashed 2026-10-07 before any frozen scenario reac
 byte-identical to prereg-04-v4.md and prereg-04-v5.md as hashed then.
 sandbox-eval-04-prereg-v4.txt  sha256 47108e396eea01437919d8623349e6b50af1092cf3b70525a02a4d6a6e8a666a
 sandbox-eval-04-prereg-v5.txt  sha256 ddf2cfd140d30f2fab11666420b53c37356fd6dea5e446954a2c79847218d29d
+
+Prediction record for the build-exit CTO experiment (machinebehavior.io/your-next-cto/experiment/).
+Written and hashed 2026-10-09, before the page went live and before any probe of the engines it names.
+build-exit-cto-aeo-2026-10-09.txt  sha256 b990c08bcf47c3b8a09d79da894201e07b3e22bcc3b4afa2830098e876bcea74
