@@ -402,6 +402,8 @@ def page_ld(t, node, trail, url, src, layout):
         page['dateModified'] = modified
     if m.get('article:tag'):
         page['keywords'] = ', '.join(m['article:tag'])
+    if m.get('og:image'):
+        page['image'] = m['og:image'][0]
     if cfg.get('contributor'):
         page['contributor'] = {'@type': 'SoftwareApplication', 'name': cfg['contributor']}
     graph = [person, website, page]

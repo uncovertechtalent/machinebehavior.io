@@ -1,5 +1,5 @@
 title: ADR-0027: Structured data on every page from the navigation source
-summary: Every page carries one JSON-LD graph written by the chrome: Stefan Coetzee as Person and author, the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with its dates, a BreadcrumbList, and DefinedTermSet on the two pages that define terms. The build fails on invalid JSON-LD.
+summary: Every page carries one JSON-LD graph written by the chrome, for entity understanding (no claim that it drives AI citations): Stefan Coetzee as Person and author, the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with its dates, a BreadcrumbList, and DefinedTermSet on the two pages that define terms. The build fails on invalid JSON-LD.
 parent: decision-log
 order: 27
 adr: 27
@@ -13,7 +13,9 @@ type: explanation
 ---
 ## Context
 
-Answer engines and search crawlers read schema.org markup to decide who wrote a page, what it is, when it was published and what a term means. The site had a BreadcrumbList on every page since [ADR-0021](doc:eng/adr-0021-one-navigation-source) and one hand-written WebSite and Person block on the home page; no page said who wrote it, and the canonical definitions on [Terms](/terms/) and in clause 3 of the [definition draft](/continuous-conformity/) were plain text. Stefan Coetzee's aim is to be the cited source for his terms, on the honest side: every claim in the markup true and visible on the page.
+The site had a BreadcrumbList on every page since [ADR-0021](doc:eng/adr-0021-one-navigation-source) and one hand-written WebSite and Person block on the home page; no page said in markup who wrote it, and the canonical definitions on [Terms](/terms/) and in clause 3 of the [definition draft](/continuous-conformity/) were plain text. Stefan Coetzee wants these pages and terms to be found and attributed to him, on the honest side: every claim in the markup true and visible on the page.
+
+Google's guidance on its AI features (developers.google.com/search/docs/fundamentals/ai-optimization-guide) says structured data is not required for them and that no special schema exists for them; it names indexable, snippet-eligible, useful pages, a good page experience and content that can be crawled without JavaScript. Google ignores llms.txt. Schema.org markup still states the author, the page type, the dates and the meaning of a term in a form that search engines and other tools can read, at little cost.
 
 ## Decision
 
@@ -28,4 +30,4 @@ The home page's hand-written block went into the shared Person; its subreddit li
 
 ## Consequences
 
-A new page gets the markup on the next run of the chrome. A research page that states a publication date needs it in `site/nav.yml` as `published`. The legislation-track builders run the chrome after writing, so the definition draft's terms follow its text. Whether the markup changes citations is not measured here; the measurement needs search-console accounts and is a separate decision.
+A new page gets the markup on the next run of the chrome. A research page that states a publication date needs it in `site/nav.yml` as `published`. The legislation-track builders run the chrome after writing, so the definition draft's terms follow its text. The markup is not expected to bring citations in AI answers by itself; what Google names for that is useful, crawlable pages. So the pages that fill their lists in the browser (Inside, the board, Mission Control) also carry the same lists as static HTML, written at build time by `scripts/build_fallbacks.py`, and no page carries a `noindex` except the 404 page. Whether any of this changes citations is not measured here; the measurement needs search-console accounts and is a separate decision.

@@ -751,7 +751,7 @@
  "issues": [
   {
    "n": 43,
-   "t": "Structured data for answer engines: Person, WebSite, Article, DefinedTermSet",
+   "t": "Structured data: Person, WebSite with search, Article and TechArticle, DefinedTermSet",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/43",
    "labels": [
@@ -759,7 +759,9 @@
     "P1",
     "status: in progress",
     "area: site"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 42,
@@ -772,7 +774,9 @@
     "area: observability",
     "P1",
     "status: in progress"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 41,
@@ -784,7 +788,9 @@
     "area: observability",
     "P2",
     "status: ready"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 40,
@@ -796,7 +802,9 @@
     "area: docs",
     "area: gate",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 39,
@@ -807,7 +815,9 @@
     "type: chore",
     "area: gate",
     "P3"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 38,
@@ -819,7 +829,9 @@
     "area: observability",
     "P2",
     "status: ready"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 37,
@@ -831,7 +843,9 @@
     "area: observability",
     "P2",
     "status: ready"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 36,
@@ -843,7 +857,9 @@
     "area: observability",
     "P1",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 35,
@@ -855,7 +871,9 @@
     "area: docs",
     "P2",
     "status: in progress"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 34,
@@ -867,7 +885,9 @@
     "P1",
     "status: in progress",
     "area: site"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 33,
@@ -879,7 +899,9 @@
     "P2",
     "status: in progress",
     "area: site"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 32,
@@ -891,7 +913,9 @@
     "P1",
     "status: in progress",
     "area: site"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 31,
@@ -903,7 +927,9 @@
     "P1",
     "status: in progress",
     "area: site"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 30,
@@ -914,7 +940,9 @@
     "type: feature",
     "area: inside",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 29,
@@ -926,7 +954,9 @@
     "area: observability",
     "P2",
     "status: ready"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 28,
@@ -937,7 +967,9 @@
     "type: feature",
     "area: inside",
     "P3"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 27,
@@ -950,7 +982,9 @@
     "area: gate",
     "P3",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 26,
@@ -962,7 +996,9 @@
     "area: security",
     "P2",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 25,
@@ -974,7 +1010,9 @@
     "area: observability",
     "area: legal",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 24,
@@ -986,7 +1024,9 @@
     "area: inside",
     "area: map",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 23,
@@ -997,7 +1037,9 @@
     "type: feature",
     "area: docs",
     "P3"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 22,
@@ -1008,7 +1050,9 @@
     "type: docs",
     "area: observability",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 21,
@@ -1019,7 +1063,9 @@
     "type: docs",
     "area: docs",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 20,
@@ -1030,7 +1076,9 @@
     "type: docs",
     "area: docs",
     "P2"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 19,
@@ -1041,7 +1089,9 @@
     "type: docs",
     "area: docs",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 18,
@@ -1052,7 +1102,9 @@
     "type: feature",
     "area: observability",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 17,
@@ -1064,7 +1116,9 @@
     "area: inside",
     "area: security",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 16,
@@ -1076,7 +1130,9 @@
     "area: inside",
     "area: search",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 15,
@@ -1087,7 +1143,9 @@
     "type: feature",
     "area: observability",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 14,
@@ -1098,7 +1156,9 @@
     "type: feature",
     "area: docs",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 13,
@@ -1109,7 +1169,9 @@
     "type: feature",
     "area: inside",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 12,
@@ -1121,7 +1183,9 @@
     "area: security",
     "P1",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 11,
@@ -1133,7 +1197,9 @@
     "area: legal",
     "P0",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 10,
@@ -1145,7 +1211,9 @@
     "area: legal",
     "P0",
     "status: blocked"
-   ]
+   ],
+   "closed": "",
+   "reason": ""
   },
   {
    "n": 9,
@@ -1156,7 +1224,9 @@
     "type: feature",
     "area: docs",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 8,
@@ -1167,7 +1237,9 @@
     "type: feature",
     "area: inside",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 7,
@@ -1178,7 +1250,9 @@
     "type: docs",
     "area: docs",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 6,
@@ -1190,7 +1264,9 @@
     "area: observability",
     "area: search",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 5,
@@ -1201,7 +1277,9 @@
     "type: bug",
     "area: security",
     "P0"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 4,
@@ -1212,7 +1290,9 @@
     "type: bug",
     "area: legal",
     "P0"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 3,
@@ -1223,7 +1303,9 @@
     "type: feature",
     "area: inside",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 2,
@@ -1234,7 +1316,9 @@
     "type: feature",
     "area: map",
     "P2"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 1,
@@ -1245,7 +1329,9 @@
     "type: feature",
     "area: docs",
     "P1"
-   ]
+   ],
+   "closed": "2026-10-09",
+   "reason": "completed"
   }
  ]
 }

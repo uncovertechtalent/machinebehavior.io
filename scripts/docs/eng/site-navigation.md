@@ -93,7 +93,7 @@ Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site
 
 `site/topics.yml` holds the topics and the rules that select their members: hand-written and Inside pages, docs labels and spaces, tag pages on the map, words in Substack titles, and board labels or words. `scripts/build_hubs.py` builds the hubs at `/topics/<key>/`, the index at `/topics/` and `/topics/topics.json`, then writes the chrome of every page again so the Topics block in each sidebar marks the topics that list the page. The docs sidebar holds the block as `<!-- mb:topics --><!-- /mb:topics -->`. See [ADR-0023](doc:eng/adr-0023-topic-hubs).
 
-Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chrome.py --check`.
+Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chrome.py --check`. `build_hubs.py` also runs `build_fallbacks.py`, which writes static versions of the lists that Inside, the board and Mission Control fill in the browser (between `<!-- static:NAME -->` markers), so the pages read the same without JavaScript.
 
 ## Structured data
 

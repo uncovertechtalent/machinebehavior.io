@@ -145,7 +145,8 @@ def fetch_issues():
         print(f'warning: board issues not read ({e}); the last list in topics/topics.json stays', file=sys.stderr)
         return None
     return [{'n': i['number'], 't': i['title'], 'state': i['state'], 'u': i['html_url'],
-             'labels': [l['name'] for l in i['labels']]} for i in out]
+             'labels': [l['name'] for l in i['labels']], 'closed': (i.get('closed_at') or '')[:10],
+             'reason': i.get('state_reason') or ''} for i in out]
 
 
 def load_sources():
@@ -319,6 +320,8 @@ def topics():
 
 def main():
     entries = research() + topics()
+    import build_fallbacks  # static text for the pages that fill their lists in the browser
+    build_fallbacks.main(json.loads(TOPICS_JSON.read_text(encoding='utf-8')).get('issues', []))
     inside_chrome.sitemap_block('hubs', [(u, d) for u, d, _, _ in entries], source='scripts/build_hubs.py')
     inside_chrome.llms_section('Site sections', '\n'.join(f'- [{t}]({BASE}{u}): {d}' for u, _, t, d in entries))
     print(f'hubs: {len(entries)} pages')
