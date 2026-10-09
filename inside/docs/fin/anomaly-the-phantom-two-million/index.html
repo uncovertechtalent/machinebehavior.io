@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The phantom two million · FinOps · Inside docs</title>
+<meta name="description" content="A FinOps anomaly case from 2026-10-09: parallel Claude Code sessions wrote into one counter series, and Prometheus reported USD 1.97M for a week that cost USD 1,003 at list price.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/fin/anomaly-the-phantom-two-million/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/fin/anomaly-the-phantom-two-million/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="The phantom two million">
+<meta property="og:description" content="A FinOps anomaly case from 2026-10-09: parallel Claude Code sessions wrote into one counter series, and Prometheus reported USD 1.97M for a week that cost USD 1,003 at list price.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="fin">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="finops">
+<meta property="article:tag" content="anomaly">
+<meta property="article:tag" content="data-quality">
+<meta property="article:tag" content="case">
+<meta property="article:tag" content="claude-code">
+<link rel="up" href="/inside/docs/fin/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in FinOps"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/fin/"><span class="sp-icon" style="background:#FF7A6B">FIN</span><span>FinOps</span></a><ul><li class="leaf"><a href="/inside/docs/fin/cost-model/">Cost model</a></li><li class="leaf"><a href="/inside/docs/fin/unit-economics/">Unit economics</a></li><li class="leaf"><a href="/inside/docs/fin/showback/">Showback</a></li><li class="leaf"><a href="/inside/docs/fin/anomaly-the-phantom-two-million/" aria-current="page">The phantom two million</a></li><li class="leaf"><a href="/inside/docs/fin/budgets-and-alerts/">Budgets and alerts</a></li><li class="leaf"><a href="/inside/docs/fin/focus-export/">FOCUS export</a></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/fin/">FinOps</a></nav>
+<h1>The phantom two million</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>3 min read</span></div>
+
+<article class="doc">
+<p>For the week to 2026-10-09 00:00 UTC, <code>increase()</code> over Claude Code's cost counter in Prometheus reported USD 1,970,946.62. The per-request events in Loki for the same seven days (2026-10-02 to 2026-10-08) sum to USD 1,003.45 at list price. The counter overstated spend by a factor of about 1,960. No money moved; the defect was in the meter.</p>
+<h2 id="the-case-in-finops-terms">The case in FinOps terms</h2>
+<div class="tbl"><table><thead><tr><th>Field</th><th>Value</th></tr></thead><tbody><tr><td>Capability</td><td>Anomaly Management, domain Understand Usage &amp; Cost</td></tr><tr><td>Principle at stake</td><td>FinOps data should be accessible, timely, and accurate</td></tr><tr><td>Kind</td><td>Data-quality anomaly in the meter</td></tr><tr><td>Found</td><td>2026-10-09, during work on the Claude Code cost panels</td></tr><tr><td>Downstream effect</td><td>The cost panels and the spend alert read the faulty series</td></tr><tr><td>Resolution</td><td>Spend and tokens summed from per-request events in Loki</td></tr></tbody></table></div>
+<h2 id="timeline-utc">Timeline (UTC)</h2>
+<ul><li>2026-10-01 15:21: first Claude Code event in Loki. From then on Claude Code wrote both the counters and the events.</li><li>2026-10-02 07:54: <code>ClaudeCodeSpendSpike</code> starts firing on the counter-based expression. Up to the fix it is in firing state for 7,691 of 10,533 minutes, 73% of the time (Prometheus <code>ALERTS</code> series).</li><li>2026-10-09 07:23: end of the verification window. In the 24 hours before it, <code>increase()</code> reports USD 2,096.72 and the Loki events sum to USD 74.45.</li><li>2026-10-09 07:29: the dashboards and the alert move to sums over the events (<a href="https://github.com/uncovertechtalent/agent-observability/commit/c163b429a63c69cff49dcde533da45f4a2c2f206">agent-observability c163b42</a>).</li><li>2026-10-09 07:43 to 10:18: the fixed alert fires on real spend, with a peak of USD 56.7 in the trailing hour at 08:30 (<a href="/inside/docs/fin/budgets-and-alerts/">Budgets and alerts</a>).</li></ul>
+<h2 id="cause">Cause</h2>
+<p>Claude Code exports cumulative cost counters with no attribute that tells one process from another. The desktop app ran up to about 12 Claude Code processes at once, and all of them wrote one Prometheus series. Every export from a process with a lower running total looks like a counter reset, and <code>increase()</code> adds the full value after each reset. <code>resets()</code> counted 230,328 resets in the week. The mechanics and the check queries are in the runbook <a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a>.</p>
+<h2 id="fix">Fix</h2>
+<p>Claude Code also writes one <code>api_request</code> event per API call, with its <code>cost_usd</code> and four token counts. A sum over those events is exact, and over a week it matched the local session transcripts within 0.1% for the main model (<a href="https://github.com/uncovertechtalent/agent-observability#design-decisions">README, cost and tokens from per-request events</a>). <code>request_sum()</code> in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py">grafana/build.py</a> builds every spend and token query from the events. For the alert, the Loki ruler records the trailing-hour sum by model and writes it to Prometheus. The counters still arrive; no panel or rule sums them.</p>
+<h2 id="lessons-for-cost-data">Lessons for cost data</h2>
+<ol><li>Reconcile a cost meter against a second record before it feeds a decision. The events were checked against the session transcripts; the counters never were.</li><li>Watch the meter as well as the spend. A rule on <code>resets()</code> of a cost counter separates a broken meter from a spending spike. On 2026-10-09 the reset count, 230,328 in a week, is the figure that shows the cause.</li><li>Prefer per-event sums when many unlabelled writers report one quantity. A counter needs one writer per series; parallel agent sessions break that rule by default.</li><li>An alert that fires 73% of the time carries no signal, and a reader learns to ignore the spend line.</li></ol>
+<h2 id="figures-and-sources">Figures and sources</h2>
+<div class="tbl"><table><thead><tr><th>Figure</th><th>Value</th><th>Source</th></tr></thead><tbody><tr><td><code>increase()</code> over 7 days to 2026-10-09 00:00 UTC</td><td>USD 1,970,946.62</td><td>Prometheus, <code>claude_code_cost_usage_USD_total</code></td></tr><tr><td><code>resets()</code> over the same 7 days</td><td>230,328</td><td>Prometheus</td></tr><tr><td>Events, 2026-10-02 to 2026-10-08</td><td>USD 1,003.45</td><td>Loki, <code>api_request</code> events</td></tr><tr><td><code>increase()</code>, 24 hours to 2026-10-09 07:23 UTC</td><td>USD 2,096.72</td><td>Prometheus</td></tr><tr><td>Events, same 24 hours</td><td>USD 74.45</td><td>Loki</td></tr><tr><td>Alert in firing state before the fix</td><td>7,691 of 10,533 minutes</td><td>Prometheus <code>ALERTS</code></td></tr></tbody></table></div>
+<p>All queried on 2026-10-09.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=finops">finops</a><a href="/inside/docs/#q=anomaly">anomaly</a><a href="/inside/docs/#q=data-quality">data-quality</a><a href="/inside/docs/#q=case">case</a><a href="/inside/docs/#q=claude-code">claude-code</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/fin/budgets-and-alerts/">Budgets and alerts</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/cost-model/">Cost model</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/">FinOps</a><span class="mono">FinOps</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#the-case-in-finops-terms">The case in FinOps terms</a></li><li class="l2"><a href="#timeline-utc">Timeline (UTC)</a></li><li class="l2"><a href="#cause">Cause</a></li><li class="l2"><a href="#fix">Fix</a></li><li class="l2"><a href="#lessons-for-cost-data">Lessons for cost data</a></li><li class="l2"><a href="#figures-and-sources">Figures and sources</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/fin/anomaly-the-phantom-two-million.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/fin/anomaly-the-phantom-two-million.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

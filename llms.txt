@@ -76,7 +76,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (336 pages). Search index: https://machinebehavior.io/inside/docs/search.json. Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.
+The documentation tree at https://machinebehavior.io/inside/docs/ (343 pages). Search index: https://machinebehavior.io/inside/docs/search.json. Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.
 
 ### Engineering
 
@@ -125,6 +125,16 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (336 pages). S
 - [Objections register and OBJ-4 incident log](https://machinebehavior.io/inside/docs/res/objections-register/)
 - [Predictions and hashes](https://machinebehavior.io/inside/docs/res/predictions-and-hashes/)
 - [Slips log](https://machinebehavior.io/inside/docs/res/slips-log/)
+
+### FinOps
+
+- [FinOps](https://machinebehavior.io/inside/docs/fin/): What the platform costs and how it is metered: the cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.
+- [The phantom two million](https://machinebehavior.io/inside/docs/fin/anomaly-the-phantom-two-million/)
+- [Budgets and alerts](https://machinebehavior.io/inside/docs/fin/budgets-and-alerts/)
+- [Cost model](https://machinebehavior.io/inside/docs/fin/cost-model/)
+- [FOCUS export](https://machinebehavior.io/inside/docs/fin/focus-export/)
+- [Showback](https://machinebehavior.io/inside/docs/fin/showback/)
+- [Unit economics](https://machinebehavior.io/inside/docs/fin/unit-economics/)
 
 ### SRE Handbook
 

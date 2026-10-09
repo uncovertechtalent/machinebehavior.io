@@ -3,7 +3,7 @@ summary: How this documentation is built from markdown sources and the knowledge
 order: 70
 labels: docs, generator, front-matter
 ---
-The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/build_docs.py` from markdown files in `scripts/docs/<space>/`. Two spaces are written by hand in the repository; two come from the knowledge vault through `scripts/import_vault_docs.py`.
+The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/build_docs.py` from markdown files in `scripts/docs/<space>/`. Four spaces are written by hand in the repository (Engineering, Observability, Research, FinOps); two come from the knowledge vault through `scripts/import_vault_docs.py`.
 
 ## Build
 

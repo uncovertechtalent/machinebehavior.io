@@ -34,7 +34,7 @@
 <div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
 
 <article class="doc">
-<p>The docs at <a href="/inside/docs/">/inside/docs/</a> are static pages built by <code>scripts/build_docs.py</code> from markdown files in <code>scripts/docs/&lt;space&gt;/</code>. Two spaces are written by hand in the repository; two come from the knowledge vault through <code>scripts/import_vault_docs.py</code>.</p>
+<p>The docs at <a href="/inside/docs/">/inside/docs/</a> are static pages built by <code>scripts/build_docs.py</code> from markdown files in <code>scripts/docs/&lt;space&gt;/</code>. Four spaces are written by hand in the repository (Engineering, Observability, Research, FinOps); two come from the knowledge vault through <code>scripts/import_vault_docs.py</code>.</p>
 <h2 id="build">Build</h2>
 <pre><code class="lang-bash">python3 scripts/import_vault_docs.py ~/vault   # vault spaces: sre, std (only on the machine with the vault)
 python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, search index</code></pre>

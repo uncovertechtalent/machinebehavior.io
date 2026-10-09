@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Budgets and alerts · FinOps · Inside docs</title>
+<meta name="description" content="The one cost alert that exists, why nothing pages, how it behaved on real spend on 2026-10-09, the budget caps in the eval harness, and what a budget alert for Claude Code would look like.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/fin/budgets-and-alerts/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/fin/budgets-and-alerts/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Budgets and alerts">
+<meta property="og:description" content="The one cost alert that exists, why nothing pages, how it behaved on real spend on 2026-10-09, the budget caps in the eval harness, and what a budget alert for Claude Code would look like.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="fin">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="finops">
+<meta property="article:tag" content="budgets">
+<meta property="article:tag" content="alerts">
+<meta property="article:tag" content="prometheus">
+<meta property="article:tag" content="loki">
+<link rel="up" href="/inside/docs/fin/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in FinOps"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/fin/"><span class="sp-icon" style="background:#FF7A6B">FIN</span><span>FinOps</span></a><ul><li class="leaf"><a href="/inside/docs/fin/cost-model/">Cost model</a></li><li class="leaf"><a href="/inside/docs/fin/unit-economics/">Unit economics</a></li><li class="leaf"><a href="/inside/docs/fin/showback/">Showback</a></li><li class="leaf"><a href="/inside/docs/fin/anomaly-the-phantom-two-million/">The phantom two million</a></li><li class="leaf"><a href="/inside/docs/fin/budgets-and-alerts/" aria-current="page">Budgets and alerts</a></li><li class="leaf"><a href="/inside/docs/fin/focus-export/">FOCUS export</a></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/fin/">FinOps</a></nav>
+<h1>Budgets and alerts</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>3 min read</span></div>
+
+<article class="doc">
+<p>One alert watches cost: <code>ClaudeCodeSpendSpike</code>. It fires when the list-price value of Claude Code calls in the trailing hour stays above USD 20 for 10 minutes. The stack runs no Alertmanager, so a firing alert is visible in Prometheus and Grafana and reaches nobody. No budget is set for any component; the eval harness caps each run.</p>
+<h2 id="what-exists">What exists</h2>
+<div class="tbl"><table><thead><tr><th>Control</th><th>Where</th><th>What it does</th><th>State on 2026-10-09</th></tr></thead><tbody><tr><td><code>ClaudeCodeSpendSpike</code></td><td><a href="https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml">prometheus/rules/alerts.yml</a></td><td><code>sum(model:claude_code_cost_usd:sum1h) &gt; 20</code> for 10 minutes, severity ticket</td><td>Evaluated; no notification route</td></tr><tr><td><code>model:claude_code_cost_usd:sum1h</code></td><td><a href="https://github.com/uncovertechtalent/agent-observability/blob/main/loki/rules/fake/claude-code.yml">loki/rules/fake/claude-code.yml</a></td><td>Trailing-hour sum of <code>cost_usd</code> by model, every minute, written to Prometheus by the Loki ruler</td><td>Recording</td></tr><tr><td>Alert tests</td><td><a href="https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml">prometheus/tests/alerts_test.yml</a></td><td>The spend alert fires at USD 25 per hour and holds at USD 15</td><td>In the repository; run with promtool</td></tr><tr><td>Eval run cap</td><td>Experiment 04 harness, <code>--budget-usd</code></td><td>Starts no new conversation once the projected spend would cross the cap</td><td>v5 cap USD 20, spent USD 12.87</td></tr><tr><td>Probe cap</td><td><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a></td><td>Same guard, cap USD 1.0</td><td>First run USD 0.269</td></tr></tbody></table></div>
+<p><code>alerts.yml</code> holds 13 alert rules; the other 12 watch the local LLM, Ollama and SearXNG (<a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>). Account-level budgets at the cloud provider are outside this documentation.</p>
+<h2 id="the-spend-alert-on-real-spend">The spend alert on real spend</h2>
+<p>After the switch to per-request events (<a href="/inside/docs/fin/anomaly-the-phantom-two-million/">The phantom two million</a>), the alert fired on 2026-10-09 from 07:43 to 10:18 UTC. The trailing-hour value, in 15-minute samples:</p>
+<div class="tbl"><table><thead><tr><th>UTC</th><th>07:30</th><th>08:00</th><th>08:30</th><th>09:00</th><th>09:30</th><th>10:00</th><th>10:30</th></tr></thead><tbody><tr><td>USD in the trailing hour</td><td>18.2</td><td>33.1</td><td>56.7</td><td>52.7</td><td>44.2</td><td>34.3</td><td>18.5</td></tr></tbody></table></div>
+<p>Several Claude Code sessions ran in parallel that morning. In the week before (clock hours from 2026-10-02 to 2026-10-08, Loki), 69 of 168 hours had any spend, the median of those hours was USD 10.59, 16 hours were above USD 20 and the busiest hour reached USD 87.41. A USD 20 threshold sits below 16 of that week's clock hours. As a spike detector the alert needs a threshold above the week's busiest hour, or a rule relative to recent hours.</p>
+<h2 id="what-a-budget-means-on-a-subscription">What a budget means on a subscription</h2>
+<p>On a flat plan a dollar budget limits nothing that is billed. It is a usage budget written in list-price dollars, a proxy for the share of the plan's limits that is used (<a href="/inside/docs/fin/showback/">Showback</a>). On API billing the same rules would track the bill directly.</p>
+<h2 id="a-budget-alert-for-claude-code-proposal-not-deployed">A budget alert for Claude Code (proposal, not deployed)</h2>
+<ol><li>Delivery first. Add Alertmanager with one receiver that reaches a person, such as mail or a push service. Without it, none of the rules below reaches anyone.</li><li>Record a daily and a weekly sum with the Loki ruler, next to the hourly rule:</li></ol>
+<pre><code class="lang-yaml"># loki/rules/fake/claude-code.yml, proposal
+- record: claude_code_cost_usd:sum24h
+  expr: sum(sum_over_time({service_name=~&quot;claude-code.*&quot;} | event_name=&quot;api_request&quot; | keep cost_usd | unwrap cost_usd [24h]))
+- record: claude_code_cost_usd:sum7d   # in a group with interval: 1h; a 7-day range every minute is wasteful
+  expr: sum(sum_over_time({service_name=~&quot;claude-code.*&quot;} | event_name=&quot;api_request&quot; | keep cost_usd | unwrap cost_usd [7d]))</code></pre>
+<ol><li>Keep the budget as a series, so the threshold lives in one place, and alert on the day and on a 30-day forecast from the last seven days:</li></ol>
+<pre><code class="lang-yaml"># prometheus/rules/alerts.yml, proposal
+- record: budget:claude_code_cost_usd:per_day
+  expr: vector(150)   # example: the mean day of 2026-10-02 to 2026-10-08 was USD 143.35
+- alert: ClaudeCodeDailyBudget
+  expr: claude_code_cost_usd:sum24h &gt; on() 0.8 * budget:claude_code_cost_usd:per_day
+  for: 15m
+  labels: {severity: ticket}
+- alert: ClaudeCodeMonthlyForecast
+  expr: claude_code_cost_usd:sum7d / 7 * 30 &gt; on() 30 * budget:claude_code_cost_usd:per_day
+  for: 1h
+  labels: {severity: ticket}</code></pre>
+<ol><li>Watch the meter. A rule on <code>resets()</code> of a cost counter flags a broken meter. On this stack it would fire until the unused Claude Code counters are dropped in Alloy, because they still arrive and still reset.</li><li>Test each new rule with promtool, as the existing spend alert is tested: one case above the threshold, one below.</li></ol>
+<p>The owner sets the budget figure. The value 150 in the example stands in for that decision: it is the mean of the measured week, rounded up.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=finops">finops</a><a href="/inside/docs/#q=budgets">budgets</a><a href="/inside/docs/#q=alerts">alerts</a><a href="/inside/docs/#q=prometheus">prometheus</a><a href="/inside/docs/#q=loki">loki</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/fin/">FinOps</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/anomaly-the-phantom-two-million/">The phantom two million</a><span class="mono">FinOps</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#what-exists">What exists</a></li><li class="l2"><a href="#the-spend-alert-on-real-spend">The spend alert on real spend</a></li><li class="l2"><a href="#what-a-budget-means-on-a-subscription">What a budget means on a subscription</a></li><li class="l2"><a href="#a-budget-alert-for-claude-code-proposal-not-deployed">A budget alert for Claude Code (proposal, not deployed)</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/fin/budgets-and-alerts.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/fin/budgets-and-alerts.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

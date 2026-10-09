@@ -2,7 +2,7 @@
 """Build the Inside documentation tree (/inside/docs/) from markdown sources.
 
 Sources: scripts/docs/<space>/<slug>.md, one file per page, front matter then a line '---' then the body.
-Hand-written spaces (eng, obs, res) are edited in place; vault spaces (sre, std) are written by
+Hand-written spaces (eng, obs, res, fin) are edited in place; vault spaces (sre, std) are written by
 scripts/import_vault_docs.py and should not be edited here.
 
 Output: inside/docs/index.html (space directory), inside/docs/<space>/index.html (space home),
@@ -28,6 +28,8 @@ SPACES = [
      'about': 'Prometheus, Loki and Grafana behind the public dashboards: the deploy exporter, metrics, streams and runbooks.'},
     {'key': 'res', 'name': 'Research', 'color': '#FF8FD8',
      'about': 'The research programme as an internal wiki: studies, registers, logs and case files, with their data and how to rerun them.'},
+    {'key': 'fin', 'name': 'FinOps', 'color': '#FF7A6B',
+     'about': 'What the platform costs and how it is metered: the cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.'},
     {'key': 'sre', 'name': 'SRE Handbook', 'color': '#6FA8FF',
      'about': 'Site reliability engineering from the knowledge vault: the manifesto, ten pillars, patterns, runbooks, tools and incident records.'},
     {'key': 'std', 'name': 'Standards and Compliance', 'color': '#B79CFF',
@@ -560,7 +562,7 @@ def page_html(p):
 
 def docs_home():
     url = '/inside/docs/'
-    desc = 'Inside docs: the documentation tree of Stefan Coetzee\'s work in five spaces, Engineering, Observability, Research, an SRE handbook and standards and compliance reference clusters.'
+    desc = 'Inside docs: the documentation tree of Stefan Coetzee\'s work in six spaces, Engineering, Observability, Research, FinOps, an SRE handbook and standards and compliance reference clusters.'
     cards = ''
     for s in spaces_present:
         n = sum(1 for k in pages if k[0] == s['key'])

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showback · FinOps · Inside docs</title>
+<meta name="description" content="The list-price value of the platform&#x27;s usage, as Claude Code and the eval harness price it, set against what is billed, and the reasons the two differ.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/fin/showback/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/fin/showback/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Showback">
+<meta property="og:description" content="The list-price value of the platform&#x27;s usage, as Claude Code and the eval harness price it, set against what is billed, and the reasons the two differ.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="fin">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="finops">
+<meta property="article:tag" content="showback">
+<meta property="article:tag" content="pricing">
+<meta property="article:tag" content="claude-code">
+<link rel="up" href="/inside/docs/fin/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in FinOps"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/fin/"><span class="sp-icon" style="background:#FF7A6B">FIN</span><span>FinOps</span></a><ul><li class="leaf"><a href="/inside/docs/fin/cost-model/">Cost model</a></li><li class="leaf"><a href="/inside/docs/fin/unit-economics/">Unit economics</a></li><li class="leaf"><a href="/inside/docs/fin/showback/" aria-current="page">Showback</a></li><li class="leaf"><a href="/inside/docs/fin/anomaly-the-phantom-two-million/">The phantom two million</a></li><li class="leaf"><a href="/inside/docs/fin/budgets-and-alerts/">Budgets and alerts</a></li><li class="leaf"><a href="/inside/docs/fin/focus-export/">FOCUS export</a></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/fin/">FinOps</a></nav>
+<h1>Showback</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>Showback reports the cost of usage to the people who caused it, without an internal invoice; chargeback books the cost to their budget. The FinOps Foundation covers both in the capability <a href="https://www.finops.org/framework/capabilities/invoicing-chargeback/">Invoicing &amp; Chargeback</a>. On this platform showback compares two numbers for each component: the list-price value of the usage and the billed amount.</p>
+<h2 id="list-price-value-against-billed-amount">List-price value against billed amount</h2>
+<div class="tbl"><table><thead><tr><th>Component</th><th>List-price value</th><th>Billed</th><th>Range</th></tr></thead><tbody><tr><td>Claude Code</td><td>USD 1,021.01 for 5,505 API calls (Loki)</td><td>A flat subscription fee; the amount is not published</td><td>2026-10-01 15:21 to 2026-10-09 00:00 UTC</td></tr><tr><td>GitHub Actions</td><td>USD 0.28 for 47.0 runner minutes at the private-repository rate of USD 0.006 a minute</td><td>USD 0: public repositories run free</td><td>2026-10-01 to 2026-10-08</td></tr><tr><td>Bedrock evals</td><td>USD 14.94 for 14,040 calls at the harness's declared on-demand prices</td><td>The AWS invoice; not published</td><td>Runs of 2026-10-07</td></tr></tbody></table></div>
+<h2 id="why-the-claude-code-figures-differ">Why the Claude Code figures differ</h2>
+<ul><li>The plan covers the usage. For Pro and Max subscribers, the Claude Code documentation says "the session cost figure isn't relevant for billing purposes" (<a href="https://code.claude.com/docs/en/costs">Manage costs</a>).</li><li>The figure is computed on the client. Claude Code multiplies the token counts of each response by list prices and reports the product as <code>cost_usd</code>. The Manage costs page calls the figure an estimate and names the Claude Console usage page as the authoritative record for API billing; the <a href="https://code.claude.com/docs/en/monitoring-usage">monitoring reference</a> lists <code>cost_usd</code> as an estimated cost.</li><li>List price is not a contracted rate. An organisation can set <code>modelPricing</code> in managed settings so that the figure uses its contracted rates. This platform does not set it, so every figure here is at list price.</li><li>A subscription caps usage. Plans set limits per session window and per week. The list-price value is a proxy for how fast those limits fill. The plan's limit bars are not exported over OpenTelemetry, so the stack cannot meter them.</li></ul>
+<h2 id="the-list-price-multiple">The list-price multiple</h2>
+<p>For a flat plan the useful ratio is list-price value divided by the fee for the same period. With the fee F for October, the October multiple is the October list-price value divided by F. The fee is not published, so the multiple is not published either. The marginal cost of an API call on the plan is zero until a limit binds; after that, the cost is waiting time or usage credits.</p>
+<h2 id="why-the-bedrock-figures-can-differ">Why the Bedrock figures can differ</h2>
+<p>The harness prices each reply's tokens at on-demand list prices from the AWS Pricing API (2026-10-07), per model and region. The AWS invoice can differ from that sum, for example through tax or credits. FOCUS requires <code>BilledCost</code> to be the invoiced amount, so the <a href="/inside/docs/fin/focus-export/">FOCUS export</a> leaves the Bedrock runs out.</p>
+<h2 id="github">GitHub</h2>
+<p>GitHub's billing page lists standard runners in public repositories as free, and the run timing endpoint reported 0 billable ms for a machinebehavior.io run checked on 2026-10-09. The private-repository figure is there to show what the same deploys would cost on a private repository.</p>
+<h2 id="not-in-the-showback">Not in the showback</h2>
+<p>The subscription fee, the AWS invoice lines for Bedrock and the reverse proxy, the domain fees and the electricity tariff. They are kept private, so this page shows list-price value and usage only. The components and their meters: <a href="/inside/docs/fin/cost-model/">Cost model</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=finops">finops</a><a href="/inside/docs/#q=showback">showback</a><a href="/inside/docs/#q=pricing">pricing</a><a href="/inside/docs/#q=claude-code">claude-code</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/fin/budgets-and-alerts/">Budgets and alerts</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/cost-model/">Cost model</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/">FinOps</a><span class="mono">FinOps</span></li><li><a href="/inside/docs/fin/unit-economics/">Unit economics</a><span class="mono">FinOps</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#list-price-value-against-billed-amount">List-price value against billed amount</a></li><li class="l2"><a href="#why-the-claude-code-figures-differ">Why the Claude Code figures differ</a></li><li class="l2"><a href="#the-list-price-multiple">The list-price multiple</a></li><li class="l2"><a href="#why-the-bedrock-figures-can-differ">Why the Bedrock figures can differ</a></li><li class="l2"><a href="#github">GitHub</a></li><li class="l2"><a href="#not-in-the-showback">Not in the showback</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/fin/showback.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/fin/showback.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>
