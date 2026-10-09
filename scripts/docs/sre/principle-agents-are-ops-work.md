@@ -1,4 +1,4 @@
-title: AI agents are ops work
+title: Agents in production are ops work
 summary: An AI agent in production is a service and needs what services need: owners, SLOs, paging, runbooks, cost control and canaries. Here the agent sessions are a catalogued service that pushes through the same gate, with metered spend and an incident record; they have no SLOs and no canary set.
 parent: principles-in-practice
 order: 140

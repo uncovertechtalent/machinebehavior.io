@@ -49,6 +49,8 @@ A page with `adr: N` in its front matter is a numbered decision record under [De
 - `[text](doc:space/slug)` links to another docs page; an unknown target stops the build.
 - Vault notes keep their wikilinks. A wikilink to a note in the export becomes a link; a link to a note outside it shows as plain text with a dotted underline.
 - Every page lists the pages that link to it under "Linked from".
+- A wikilink or a vault path resolves in this order: page titles, then aliases, then vault paths, then `space/slug`. Within each, the exact spelling wins over a match that ignores case. The build prints a warning for two titles that differ only in case, and for an alias that equals another page's title or alias, because a link by that name reaches one of them only. Keep titles unique across all spaces, ignoring case.
+- Lists that sort by title (the tree, "Linked from", recent pages, docs health) break ties by URL, so two builds of the same sources write the same files.
 
 ## Principle pages
 
@@ -70,3 +72,4 @@ Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<l
 - Redacted: private IPv4 addresses and LAN shorthand, e-mail addresses, the former employer's name, home directory paths, private host names. Each change is listed in `scripts/docs/IMPORT-REPORT.md`.
 - ISO clause notes: blockquotes are dropped unread, so no standards text is machine-processed.
 - Every vault page carries a label: not reviewed against the source.
+- An alias of a vault note that equals another page's title is dropped on import and listed in the report; the title keeps the name.

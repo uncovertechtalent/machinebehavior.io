@@ -138,7 +138,7 @@ for (sk, slug), p in pages.items():
     p['parent'] = par
     children.setdefault((sk, par), []).append(p)
 for k in children:
-    children[k].sort(key=lambda p: (p['order'], p['title'].lower()))
+    children[k].sort(key=lambda p: (p['order'], p['title'].lower(), p['url']))  # url breaks ties: same order and title
 
 
 def ancestors(p):
@@ -149,16 +149,25 @@ def ancestors(p):
     return list(reversed(out))
 
 
-# link index: titles, aliases, slugs and vault origin paths
-LINK = {}
+# link index: titles, aliases, slugs and vault origin paths.
+# Registered in passes, so a clash is decided by the kind of key and not by file order: titles, then aliases, then
+# vault paths, then space/slug. A lookup tries the exact spelling first (LINK_EXACT), then the lowercase key (LINK).
+LINK, LINK_EXACT = {}, {}
 def reg(key, p):
-    k = key.strip().lower()
-    if k and k not in LINK:
-        LINK[k] = p
+    key = key.strip()
+    if key and key not in LINK_EXACT:
+        LINK_EXACT[key] = p
+    if key and key.lower() not in LINK:
+        LINK[key.lower()] = p
+def find(key):
+    key = key.strip()
+    return LINK_EXACT.get(key) or LINK.get(key.lower())
 for p in pages.values():
     reg(p['title'], p)
+for p in pages.values():
     for a in p['aliases']:
         reg(a, p)
+for p in pages.values():
     if p.get('origin'):
         o = p['origin']
         reg(o, p); reg(re.sub(r'\.md$', '', o), p)
@@ -168,6 +177,20 @@ for p in pages.values():
             reg(d.rstrip('/'), p); reg(d + 'index', p)
 for p in pages.values():
     reg(f"{p['space']}/{p['slug']}", p)
+
+# titles that differ only in case, and aliases that equal another page's title or alias: a link by that name
+# goes to one page only, so each clash is a warning; rename one side
+_names = {}
+for p in pages.values():
+    _names.setdefault(p['title'].strip().lower(), []).append((p, 'title'))
+    for a in p['aliases']:
+        _names.setdefault(a.strip().lower(), []).append((p, 'alias'))
+NAME_CLASHES = []
+for k, owners in sorted(_names.items()):
+    if len({id(o) for o, _ in owners}) > 1:
+        NAME_CLASHES.append(k)
+        print(f'warning: name clash ignoring case, {k!r}: ' + ', '.join(f'{o["src"]} ({kind})' for o, kind in owners)
+              + f'; a link by this name goes to {LINK[k]["src"]}', file=sys.stderr)
 
 
 # ---------- markdown ----------
@@ -208,7 +231,7 @@ def resolve_href(url, ctx):
         base = os.path.normpath(os.path.join(os.path.dirname(origin), path))
         cands += [base, re.sub(r'\.md$', '', base)]
     for c in cands:
-        t = LINK.get(c.lower())
+        t = find(c)
         if t:
             ctx.out_links.add(t['url'])
             return t['url'] + (f'#{slugify(frag)}' if frag else '')
@@ -229,7 +252,7 @@ def wikilink(inner, ctx):
     target, _, frag = target.partition('#')
     label = label or (target if target else frag)
     label = re.sub(r'^.*/', '', label) if '|' not in inner else label
-    t = LINK.get(target.strip().lower()) or LINK.get(target.strip().split('/')[-1].lower())
+    t = find(target) or find(target.strip().split('/')[-1])
     if not target.strip():
         return f'<a href="#{slugify(frag)}">{html.escape(label)}</a>'
     if t:
@@ -579,7 +602,7 @@ def child_list(key):
 
 
 def recent(pool, k=8):
-    rows = sorted(pool, key=lambda p: (p['updated'], p['title']), reverse=True)[:k]
+    rows = sorted(pool, key=lambda p: (p['updated'], p['title'], p['url']), reverse=True)[:k]
     h = '<ul class="recent">'
     for r in rows:
         sp = SPACE[r['space']]
@@ -633,7 +656,7 @@ def page_html(p):
     labels = ''
     if p['labels']:
         labels = '<nav class="labels" aria-label="Labels">' + ''.join(f'<a href="/inside/search/?q={esc(quote(l))}">{esc(l)}</a>' for l in p['labels']) + '</nav>'
-    bl = sorted((pages[k] for k in backlinks.get(p['url'], set())), key=lambda x: x['title'].lower())
+    bl = sorted((pages[k] for k in backlinks.get(p['url'], set())), key=lambda x: (x['title'].lower(), x['url']))  # a set: the url keeps equal titles in one order
     back = ''
     if bl:
         back = '<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul>' + ''.join(
@@ -708,7 +731,7 @@ def docs_home():
 
 def health_page():
     url = '/inside/docs/health/'
-    allp = sorted(pages.values(), key=lambda p: (p['space'], p['title'].lower()))
+    allp = sorted(pages.values(), key=lambda p: (p['space'], p['title'].lower(), p['url']))
     hand = [p for p in allp if not p.get('origin')]
     def due(p):
         return p.get('reviewed') not in (None, '', 'no') and p.get('review_by')

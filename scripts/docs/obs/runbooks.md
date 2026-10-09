@@ -1,4 +1,4 @@
-title: Runbooks
+title: Observability runbooks
 summary: Step-by-step fixes for the known traps in the observability stack: missing backfill in Loki, empty stat panels, Claude Code counter resets and sharing a dashboard.
 order: 60
 labels: runbook, operations

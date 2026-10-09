@@ -348,6 +348,29 @@ emit('std', 'index', {'title': 'Standards and Compliance', 'summary': 'Reference
                       'origin': 'pillars/', 'reviewed': 'no', 'labels': 'moc, compliance', 'created': '2026-05-12'}, body)
 print('std pages', std_count + 1)
 
+# An alias equal to another page's title (any space, case ignored) makes a link by that name ambiguous: drop it.
+titles = {}
+for f in OUT.glob('*/*.md'):
+    m = re.search(r'^title: (.+)$', f.read_text(encoding='utf-8').partition('\n---\n')[0], re.M)
+    if m:
+        titles.setdefault(m.group(1).strip().lower(), set()).add(f)
+for f in sorted(list((OUT / 'sre').glob('*.md')) + list((OUT / 'std').glob('*.md'))):
+    head, sep, body = f.read_text(encoding='utf-8').partition('\n---\n')
+    lines = head.split('\n')
+    i = next((k for k, l in enumerate(lines) if l.startswith('aliases: ')), None)
+    if i is None or not any(l.startswith('origin:') for l in lines):
+        continue
+    names = [x.strip() for x in lines[i][len('aliases: '):].split('|') if x.strip()]
+    drop = [a for a in names if titles.get(a.lower(), set()) - {f}]
+    if drop:
+        keep = [a for a in names if a not in drop]
+        if keep:
+            lines[i] = 'aliases: ' + ' | '.join(keep)
+        else:
+            del lines[i]
+        f.write_text('\n'.join(lines) + sep + body, encoding='utf-8')
+        report.append(f'- `{f.relative_to(OUT).as_posix()}`: alias dropped, it is the title of another page: ' + ', '.join(drop))
+
 (OUT / 'IMPORT-REPORT.md').write_text('# Vault import report\n\nWritten by scripts/import_vault_docs.py. One line per note that was changed on the way in.\n\n'
                                       + '\n'.join(report) + '\n', encoding='utf-8')
 print('changes', len(report))

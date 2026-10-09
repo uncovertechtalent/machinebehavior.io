@@ -127,7 +127,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (394 pages). S
 - [Gate blocked a deploy](https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/)
 - [Push rejected after a deploy](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
 - [Link check flags a template string](https://machinebehavior.io/inside/docs/eng/runbook-template-href/)
-- [Runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
+- [Engineering runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
 - [Service catalog](https://machinebehavior.io/inside/docs/eng/service-catalog/)
 - [Site architecture](https://machinebehavior.io/inside/docs/eng/site-architecture/)
 - [Site navigation and chrome](https://machinebehavior.io/inside/docs/eng/site-navigation/)
@@ -149,7 +149,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (394 pages). S
 - [Backfilled runs missing in Loki](https://machinebehavior.io/inside/docs/obs/runbook-loki-backfill-missing/)
 - [Share a dashboard publicly](https://machinebehavior.io/inside/docs/obs/runbook-share-a-dashboard/)
 - [Stat panel shows No data](https://machinebehavior.io/inside/docs/obs/runbook-stat-panel-no-data/)
-- [Runbooks](https://machinebehavior.io/inside/docs/obs/runbooks/)
+- [Observability runbooks](https://machinebehavior.io/inside/docs/obs/runbooks/)
 
 ### Research
 
@@ -240,7 +240,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (394 pages). S
 - [7. Performance](https://machinebehavior.io/inside/docs/sre/performance/)
 - [Personal Digital Twin Architecture](https://machinebehavior.io/inside/docs/sre/personal-digital-twin-architecture/)
 - [The ten pillars](https://machinebehavior.io/inside/docs/sre/pillars/)
-- [AI agents are ops work](https://machinebehavior.io/inside/docs/sre/principle-agents-are-ops-work/)
+- [Agents in production are ops work](https://machinebehavior.io/inside/docs/sre/principle-agents-are-ops-work/)
 - [Cost per unit of work](https://machinebehavior.io/inside/docs/sre/principle-cost-per-unit-of-work/)
 - [Eliminate toil](https://machinebehavior.io/inside/docs/sre/principle-eliminate-toil/)
 - [Risk is a budget](https://machinebehavior.io/inside/docs/sre/principle-embracing-risk/)

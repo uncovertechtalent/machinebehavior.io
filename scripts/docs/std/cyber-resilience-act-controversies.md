@@ -3,7 +3,7 @@ summary: Stub atom for documented controversies around EU Cyber Resilience Act (
 parent: cyber-resilience-act
 order: 100
 labels: cyber-resilience-act, stub
-aliases: Cyber Resilience Act Controversies | CRA Controversies
+aliases: Cyber Resilience Act Controversies
 type: stub
 created: 2026-05-27
 updated: 2026-06-08

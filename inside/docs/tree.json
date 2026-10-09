@@ -232,7 +232,7 @@
 },
 {
 "u": "/inside/docs/eng/runbooks/",
-"t": "Runbooks",
+"t": "Engineering runbooks",
 "p": "/inside/docs/eng/"
 },
 {
@@ -297,7 +297,7 @@
 },
 {
 "u": "/inside/docs/obs/runbooks/",
-"t": "Runbooks",
+"t": "Observability runbooks",
 "p": "/inside/docs/obs/"
 },
 {
@@ -537,7 +537,7 @@
 },
 {
 "u": "/inside/docs/sre/principle-agents-are-ops-work/",
-"t": "AI agents are ops work",
+"t": "Agents in production are ops work",
 "p": "/inside/docs/sre/principles-in-practice/"
 },
 {

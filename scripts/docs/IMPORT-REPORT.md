@@ -30,3 +30,4 @@ Written by scripts/import_vault_docs.py. One line per note that was changed on t
 - `pillars/tisax/TISAX Cluster.md`: 2 x employer redacted
 - `pillars/slsa-sbom/SLSA Levels and SBOM Formats.md`: 1 x placeholder word written out
 - `pillars/togaf/TOGAF Cluster.md`: 1 x employer redacted
+- `std/cyber-resilience-act-controversies.md`: alias dropped, it is the title of another page: CRA Controversies
