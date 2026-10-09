@@ -303,6 +303,14 @@
    "overall": "pass",
    "findings_open": 0,
    "warnings": 0
+  },
+  {
+   "ts": "2026-10-09T07:23:11Z",
+   "trigger": "push",
+   "sha": "97792dfec0365949061fe3dba205a7fce2c915af",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
   }
  ],
  "findings": [
@@ -323,7 +331,7 @@
    "closed_commit": "4c2ba56b7f91d9897227eba7626f994d9ede129c"
   }
  ],
- "last_run": "2026-10-09T07:21:27Z",
+ "last_run": "2026-10-09T07:23:11Z",
  "overall": "pass",
  "requirement_states": {
   "CC-4.1": {
@@ -507,6 +515,6 @@
    "mark": "M"
   }
  },
- "site_commit": "fd27588e0c4f9317c5c546e5879453d02e8aa97c",
+ "site_commit": "97792dfec0365949061fe3dba205a7fce2c915af",
  "site": "machinebehavior.io"
 }
