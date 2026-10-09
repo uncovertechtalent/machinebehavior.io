@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inside: Machine Behavior</title>
-<meta name="description" content="One front page for Stefan Coetzee's published work: the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, live deploy and gate status of the three sites, experiment results, dashboards and tools.">
+<meta name="description" content="One front page for Stefan Coetzee's published work: the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, live deploy and gate status of the three sites, experiment results, the live Grafana dashboards and the tools.">
 <link rel="canonical" href="https://machinebehavior.io/inside/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://machinebehavior.io/inside/">
@@ -101,6 +101,12 @@
   ul.plain a { text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   ul.plain a:hover { color: var(--amber); }
   ul.plain .mono { color: var(--dim); font-size: 12px; white-space: nowrap; }
+  .dash { margin-top: 16px; scroll-margin-top: 12px; }
+  .dash .about { font-size: 13.5px; color: var(--soft); margin: 0 0 12px; line-height: 1.45; }
+  .frame { position: relative; height: 900px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #111217; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .frame .wait { position: absolute; inset: 0; display: grid; place-items: center; }
+  @media (max-width: 900px) { .frame { height: 720px; } }
   footer { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
   footer a { color: var(--dim); }
   .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
@@ -133,7 +139,7 @@
     <div class="col">
       <section class="card" aria-labelledby="fp">
         <h2 id="fp">Front page
-          <span class="tabs" role="tablist">
+          <span class="tabs" role="tablist" id="fp-tabs">
             <button role="tab" aria-selected="true" data-sort="latest">latest</button>
             <button role="tab" aria-selected="false" data-sort="linked">most linked</button>
           </span>
@@ -142,7 +148,7 @@
         <ol class="items" id="items"><li><span></span><span class="wait">loading the snapshot</span></li></ol>
       </section>
       <section class="card" aria-labelledby="df">
-        <h2 id="df">Deploy feed <a class="more" id="grafana-link" href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">full history in Grafana</a></h2>
+        <h2 id="df">Deploy feed <a class="more" href="#dashboards/deploys" data-dash="deploys">full history in Grafana</a></h2>
         <table class="feed"><colgroup><col class="c1"><col><col class="c3"><col class="c4"></colgroup><tbody id="feed"><tr><td class="wait">reading GitHub Actions</td></tr></tbody></table>
         <p class="note">Each push to a site runs the conformity checks first. A failed check blocks the deploy and the previous build stays live. <a href="/conformity/">How the gate works</a>.</p>
       </section>
@@ -169,6 +175,15 @@
     </div>
   </div>
 
+  <section class="card dash" id="dashboards" aria-labelledby="db">
+    <h2 id="db">Dashboards
+      <span class="tabs" role="tablist" id="dash-tabs"></span>
+      <a class="more" id="dash-open" target="_blank" rel="noopener" href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">open in Grafana</a>
+    </h2>
+    <p class="about" id="dash-about"></p>
+    <div class="frame" id="dash-frame"><span class="wait">loads when in view</span></div>
+  </section>
+
   <footer>
     <span id="snap"></span> · data: <a href="/map/graph.json">graph.json</a>, each site's <a href="/conformity/latest.json">conformity record</a>, GitHub Actions, the <a href="/conformity/probes/latest.json">probe record</a><br>
     <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
@@ -190,9 +205,9 @@ const LIVING = new Set(['/claims/', '/experiments/', '/terms/', '/slips/', '/obj
 const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
 const APPS = [
   ['Map of the Work', 'every page and link', '/map/'],
-  ['Website deploys', 'Grafana', GRAFANA + 'e0f6a0c8f3a64884a67faac5cf4c3ad4'],
-  ['Claude Code agents', 'Grafana', GRAFANA + '3a4ba6b21e6f4924ab2845b47a300af0'],
-  ['Local LLM', 'Grafana', GRAFANA + 'e6a9dd2153004ad0a868ce6f0e19071f'],
+  ['Website deploys', 'Grafana', '#dashboards/deploys'],
+  ['Claude Code agents', 'Grafana', '#dashboards/agents'],
+  ['Local LLM', 'Grafana', '#dashboards/llm'],
   ['TYChat lessons', 'tychat.io', 'https://tychat.io/'],
   ['Claims ledger', 'what is claimed', '/claims/'],
   ['Evidence index', 'capability to artefact', '/evidence/'],
@@ -233,7 +248,11 @@ const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
 const fmtDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'});
 const getJSON = url => fetch(url, {cache: 'no-cache'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
 
-for (const [name, sub, url] of APPS) $('apps').append(link(url, '', ''));
+for (const [name, sub, url] of APPS) {
+  const a = link(url, '', '');
+  if (url.startsWith('#dashboards/')) a.dataset.dash = url.split('/')[1];
+  $('apps').append(a);
+}
 [...$('apps').children].forEach((a, i) => { a.append(el('b', {textContent: APPS[i][0]}), el('span', {textContent: APPS[i][1]})); });
 
 // ---- eval 04 (published results, prereg v1 to v5, hashes in /predictions/HASHES.txt)
@@ -285,8 +304,8 @@ getJSON('/map/graph.json').then(g => {
         el('span', {class: 'count'}, String(r.links), el('small', {textContent: r.links === 1 ? 'link in' : 'links in'})), meta);
     }));
   }
-  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
-    document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+  document.querySelectorAll('#fp-tabs button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('#fp-tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
     render(b.dataset.sort);
   });
   render('latest');
@@ -372,6 +391,47 @@ getJSON('/conformity/probes/latest.json').then(p => {
     el('span', {class: 'bar'}, el('i', {style: `width:${st * 100}%;background:#FFB547`})),
     el('span', {textContent: `n = ${p.n} runs per arm, cost USD ${p.cost_usd}; recorded, never blocks a deploy`, style: 'color:var(--dim);font-size:12px;grid-column:1/-1'}));
 }).catch(() => $('probe').replaceChildren(el('span', {class: 'wait', textContent: 'probe record unavailable'})));
+
+// ---- Grafana: the public dashboards from the agent-observability stack on .161, framed here
+const DASHES = [
+  {key: 'deploys', label: 'deploys', token: 'e0f6a0c8f3a64884a67faac5cf4c3ad4', range: 'now-2d',
+   about: 'Every GitHub Actions run of the three sites: outcome per hour, push-to-live time, where the time goes per step, the gate result for each check on every run, and what the deploy shipped.'},
+  {key: 'agents', label: 'claude code', token: '3a4ba6b21e6f4924ab2845b47a300af0', range: 'now-7d',
+   about: 'The Claude Code sessions that build this work, from their OpenTelemetry export: spend by model, tokens by type, prompt-cache reads, tool calls and API latency. Metrics only; identifying labels are stripped before storage.'},
+  {key: 'llm', label: 'local llm', token: 'e6a9dd2153004ad0a868ce6f0e19071f', range: 'now-7d',
+   about: 'The self-hosted model server on the home lab, metered by a pass-through proxy: time to first token, decode speed, token counts, model load time, and which models sit in GPU memory.'},
+  {key: 'host', label: 'host', token: '81c9dfd269cc430abaf6a6ce7b64c4d6', range: 'now-24h',
+   about: 'The box that runs all of this: CPU, memory, ZFS, disks, network, GPU and sensors.'},
+];
+let dashKey = 'deploys', dashSeen = false;
+const dashUrl = d => `https://grafana.scoetzee.de/public-dashboards/${d.token}?from=${d.range}&to=now`;
+function showDash(key, load) {
+  const d = DASHES.find(x => x.key === key) || DASHES[0];
+  dashKey = d.key;
+  document.querySelectorAll('#dash-tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.key === d.key));
+  $('dash-about').textContent = d.about;
+  $('dash-open').href = dashUrl(d);
+  if (!load && !dashSeen) return;
+  dashSeen = true;
+  const f = el('iframe', {title: 'Grafana: ' + d.label, loading: 'lazy', referrerPolicy: 'no-referrer'});
+  f.src = dashUrl(d);  // a fresh frame per switch keeps the page history clean
+  $('dash-frame').replaceChildren(f);
+}
+$('dash-tabs').append(...DASHES.map(d => el('button', {role: 'tab', textContent: d.label, 'data-key': d.key,
+  onclick: () => { showDash(d.key, true); history.replaceState(null, '', '#dashboards/' + d.key); }})));
+showDash('deploys', false);
+new IntersectionObserver((es, o) => { if (es.some(e => e.isIntersecting)) { o.disconnect(); if (!dashSeen) showDash(dashKey, true); } }, {rootMargin: '200px'})
+  .observe($('dash-frame'));
+document.addEventListener('click', e => {
+  const a = e.target.closest('[data-dash]');
+  if (!a) return;
+  e.preventDefault();
+  showDash(a.dataset.dash, true);
+  history.replaceState(null, '', '#dashboards/' + a.dataset.dash);
+  $('dashboards').scrollIntoView({behavior: 'smooth'});
+});
+const hm = location.hash.match(/^#dashboards(?:\/(\w+))?/);
+if (hm) { showDash(hm[1] || 'deploys', true); setTimeout(() => $('dashboards').scrollIntoView(), 300); }
 </script>
 </body>
 </html>
