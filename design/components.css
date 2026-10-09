@@ -1,17 +1,51 @@
-/* Components of machinebehavior.io shared by the reading and the app layout. Tokens in /design/tokens.css. */
+/* Components of machinebehavior.io, shared by the reading and the app layout. Values from /design/tokens.css.
+   Each canonical class (mb-) is listed with the older class names that render the same component, so pages written
+   before the design system take the same shape. Colour variants stay with the page styles that define them. */
+
+/* page header: section label, title, meta line (owner, dates, status) */
+.mb-head { margin: 0 0 var(--mb-space-5); }
+.mb-head-label, .eyebrow { font-family: var(--mb-font-mono); font-size: var(--mb-text-2xs); font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mb-accent); }
+.mb-head-label a, .eyebrow a { color: inherit; }
+.mb-head-meta, .byline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; font: var(--mb-text-xs)/1.6 var(--mb-font-mono); color: var(--mb-text-dim); }
+
+/* pills: status, tier, lifecycle, stage, type */
+.mb-pill, .chip, .pill, .stage, .st, .byline .type, .byline .adr-st {
+  display: inline-block; font-family: var(--mb-font-mono); font-size: var(--mb-text-2xs); font-weight: 400; line-height: 1.5; letter-spacing: 0;
+  padding: 0 8px; border: 1px solid var(--mb-line); border-radius: 999px; white-space: nowrap; vertical-align: 1px; }
+.mb-pill.is-ok { color: var(--mb-ok); border-color: color-mix(in srgb, var(--mb-ok) 45%, transparent); background: color-mix(in srgb, var(--mb-ok) 8%, transparent); }
+.mb-pill.is-warn { color: var(--mb-warn); border-color: color-mix(in srgb, var(--mb-warn) 45%, transparent); background: color-mix(in srgb, var(--mb-warn) 8%, transparent); }
+.mb-pill.is-bad { color: var(--mb-bad); border-color: color-mix(in srgb, var(--mb-bad) 45%, transparent); background: color-mix(in srgb, var(--mb-bad) 8%, transparent); }
+.mb-pill.is-info { color: var(--mb-info); border-color: color-mix(in srgb, var(--mb-info) 45%, transparent); background: color-mix(in srgb, var(--mb-info) 8%, transparent); }
+.mb-pill.is-note { color: var(--mb-note); border-color: color-mix(in srgb, var(--mb-note) 45%, transparent); background: color-mix(in srgb, var(--mb-note) 8%, transparent); }
+
+/* cards */
+.mb-card, .card, .svc-card, .inc, .surface, .claim, .mb-entry {
+  background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); }
+.mb-card { padding: var(--mb-space-3) var(--mb-space-4); }
+
+/* panels: a coloured left edge for notes, tips, warnings */
+.mb-panel { border: 1px solid var(--mb-line); border-left: 3px solid var(--mb-text-dim); border-radius: var(--mb-radius-s); padding: 10px 14px; margin: 14px 0;
+  background: var(--mb-surface-raised); color: var(--mb-text-soft); }
+.mb-panel.is-info { border-left-color: var(--mb-info); background: color-mix(in srgb, var(--mb-info) 7%, var(--mb-surface-raised)); }
+.mb-panel.is-note { border-left-color: var(--mb-note); background: color-mix(in srgb, var(--mb-note) 7%, var(--mb-surface-raised)); }
+.mb-panel.is-ok { border-left-color: var(--mb-ok); background: color-mix(in srgb, var(--mb-ok) 7%, var(--mb-surface-raised)); }
+.mb-panel.is-warn { border-left-color: var(--mb-warn); background: color-mix(in srgb, var(--mb-warn) 7%, var(--mb-surface-raised)); }
+
+/* tables: wrap them in .mb-tablewrap (or .tablewrap, .tbl) so a wide table scrolls inside its box on a phone */
+.mb-tablewrap, .tablewrap, .tbl { overflow-x: auto; max-width: 100%; }
+.mb-table { border-collapse: collapse; width: 100%; font-size: var(--mb-text-sm); }
+.mb-table th, .mb-table td { border-bottom: 1px solid var(--mb-line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.mb-table th { background: var(--mb-surface-sunken); font-weight: 600; color: var(--mb-text); }
+.mb-table td.n { text-align: right; font-variant-numeric: tabular-nums; }
 
 /* entry list: a page per row with its description and date (section and topic hubs) */
 .mb-entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.mb-entry { background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); padding: 12px 16px; }
+.mb-entry { padding: 12px 16px; }
 .mb-entry > a { font-weight: 700; font-size: 1.02rem; color: var(--mb-text); text-decoration: none; }
 .mb-entry > a:hover { color: var(--mb-accent); text-decoration: underline; }
 .mb-entry > a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 3px; }
 .mb-entry p { margin: 4px 0 6px; color: var(--mb-text-soft); font-size: 0.93rem; line-height: 1.5; }
 .mb-entry-meta { font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text-dim); }
-
-/* the build note at the end of a page */
-.page-note { font: var(--mb-text-xs)/1.7 var(--mb-font-mono); color: var(--mb-text-dim); }
-.page-note a { color: var(--mb-text-soft); }
 
 /* compact link list: title, one line of summary, meta (topic hubs: docs, posts, tickets) */
 .mb-links { list-style: none; margin: 0 0 6px; padding: 0; }
@@ -31,3 +65,14 @@
 .mb-more { margin: 4px 0 10px; }
 .mb-more > summary { cursor: pointer; font: var(--mb-text-xs)/1.6 var(--mb-font-mono); color: var(--mb-text-soft); padding: 4px 0; }
 .mb-more > summary:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; }
+
+/* the build note at the end of a page */
+.page-note { font: var(--mb-text-xs)/1.7 var(--mb-font-mono); color: var(--mb-text-dim); }
+.page-note a { color: var(--mb-text-soft); }
+
+/* focus: visible on every interactive element that has no ring of its own */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; }
+}

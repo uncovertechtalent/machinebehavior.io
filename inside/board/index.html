@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/inside/docs/docs.css">
 <style>
-  :root { --coral: #FF7A6B; }
   main.wrap { max-width: 1440px; margin: 0 auto; padding: 22px 18px 40px; }
   .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
   .head .lede { margin: 0; }
@@ -32,8 +31,8 @@
     border: 1px solid var(--line); background: var(--card2); color: var(--soft); cursor: pointer; }
   .btn:hover, .btn:focus-visible { border-color: var(--amber); color: var(--ink); outline: none; }
   .btn[hidden] { display: none; }
-  .btn.primary { background: var(--amber); border-color: var(--amber); color: #0A0C0F; }
-  .btn.primary:hover { color: #0A0C0F; filter: brightness(1.08); }
+  .btn.primary { background: var(--mb-amber-fill); border-color: var(--mb-amber-fill); color: var(--mb-on-fill); }
+  .btn.primary:hover { color: var(--mb-on-fill); filter: brightness(1.08); }
 
   .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 22px 0 14px; padding: 10px 12px;
     background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
@@ -69,9 +68,9 @@
   .how p { margin: 0 0 8px; }
   .how a { color: var(--amber); }
 
-  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 35; }
+  .scrim { position: fixed; inset: 0; background: var(--mb-scrim); z-index: 35; }
   .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 40; overflow-y: auto; background: var(--card);
-    border-left: 1px solid var(--line); box-shadow: -16px 0 40px rgba(0,0,0,0.45); padding: 16px 22px 30px; }
+    border-left: 1px solid var(--line); box-shadow: var(--mb-shadow); padding: 16px 22px 30px; }
   .scrim[hidden], .drawer[hidden] { display: none; }
   body.locked { overflow: hidden; }
   .d-head { display: flex; align-items: center; gap: 10px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
@@ -81,13 +80,13 @@
   .d-facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; margin: 0 0 16px; font: 12.5px 'JetBrains Mono', monospace; }
   .d-facts dt { color: var(--dim); }
   .d-facts dd { margin: 0; color: var(--soft); overflow-wrap: anywhere; }
-  .d-body { font-size: 15px; line-height: 1.6; color: #E4E6E8; border-top: 1px solid var(--line); padding-top: 14px; overflow-wrap: anywhere; }
+  .d-body { font-size: 15px; line-height: 1.6; color: var(--mb-text); border-top: 1px solid var(--line); padding-top: 14px; overflow-wrap: anywhere; }
   .d-body p { margin: 0 0 12px; }
   .d-body ul { margin: 0 0 12px; padding-left: 20px; }
   .d-body li { margin: 3px 0; }
   .d-body h3 { font-size: 16px; margin: 16px 0 6px; }
   .d-body a { color: var(--amber); }
-  .d-body code { font-size: 13px; background: #161B21; border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px; }
+  .d-body code { font-size: 13px; background: var(--mb-surface-sunken); border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px; }
   .d-body b { font-weight: 600; color: var(--ink); }
   .d-gh { margin-top: 14px; }
   .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
@@ -100,7 +99,7 @@
 <body class="mb-app mb-s-inside mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/" aria-current="true">Inside</a><a href="/inside/docs/">Docs</a><a href="/topics/">Topics</a><a href="/map/">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><aside class="mb-demo" aria-label="About this intranet"><span class="mb-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- /mb:bar -->
 
 <!-- mb:side --><nav class="mb-side" aria-label="Inside pages"><details class="mb-side-wrap" open><summary><span>Inside</span><span class="mb-side-n">18 pages</span></summary><a class="mb-side-head" href="/inside/">Inside</a><ul class="mb-side-tree"><li><details><summary><a href="/inside/services/">Services</a></summary><ul><li><a href="/inside/services/conformity-gate/">Conformity gate</a></li><li><a href="/inside/services/deploy-job/">Deploy job</a></li><li><a href="/inside/services/machinebehavior-io/">machinebehavior.io</a></li><li><a href="/inside/services/tychat-io/">tychat.io</a></li><li><a href="/inside/services/uncovertechtalent-com/">uncovertechtalent.com</a></li><li><a href="/inside/services/docs-build/">Docs build</a></li><li><a href="/inside/services/map-crawler/">Map crawler</a></li><li><a href="/inside/services/deploy-exporter/">Deploy exporter</a></li><li><a href="/inside/services/observability-stack/">Observability stack</a></li><li><a href="/inside/services/searxng/">SearXNG</a></li><li><a href="/inside/services/local-llm/">Local LLM</a></li><li><a href="/inside/services/agent-sessions/">Agent sessions</a></li></ul></details></li><li><a href="/inside/status/">Status</a></li><li><a href="/inside/board/" aria-current="page">Board</a></li><li><a href="/inside/#dashboards">Dashboards</a></li><li><a href="/conformity/">Gate runs</a></li><li><a href="/inside/tour/">Tour</a></li><li><a href="/inside/search/">Search</a></li></ul><div class="mb-topics"><a class="mb-side-label" href="/topics/">Topics</a><ul><li><a href="/topics/sycophancy-and-stance/">Sycophancy and stance</a></li><li><a href="/topics/conformity-and-law/">Conformity and law</a></li><li><a class="mb-topic-in" href="/topics/operations-and-sre/">Operations and SRE<span class="mb-sr"> (lists this page)</span></a></li><li><a href="/topics/observability/">Observability</a></li><li><a href="/topics/finops/">FinOps</a></li><li><a href="/topics/agents-and-harness/">Agents and harness</a></li><li><a href="/topics/evaluation/">Evaluation</a></li></ul></div></details></nav><!-- /mb:side -->
-<main class="wrap" id="main"><!-- mb:crumbs --><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/board/" aria-current="page">Board</a></li></ol></nav><!-- /mb:crumbs -->
+<main class="wrap" id="main"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/board/" aria-current="page">Board</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-10-09</span></p></div><!-- /mb:crumbs -->
   <div class="head">
     <div>
       <h1>Board</h1>
@@ -147,14 +146,14 @@
 const REPO = 'uncovertechtalent/machinebehavior.io';
 const ISSUES = 'https://github.com/' + REPO + '/issues';
 const COLS = [
-  {key: 'backlog', name: 'Backlog', color: '#7D8792', about: 'open, not yet scoped'},
-  {key: 'ready', name: 'Ready', color: '#3DDC97', about: 'scoped, can start'},
-  {key: 'progress', name: 'In progress', color: '#FFB547', about: 'being worked on'},
-  {key: 'blocked', name: 'Blocked', color: '#FF4D5E', about: 'waits on a decision or an input'},
-  {key: 'done', name: 'Done', color: '#6FA8FF', about: 'closed in the last 30 days'},
+  {key: 'backlog', name: 'Backlog', color: 'var(--mb-data-grey)', about: 'open, not yet scoped'},
+  {key: 'ready', name: 'Ready', color: 'var(--mb-data-green)', about: 'scoped, can start'},
+  {key: 'progress', name: 'In progress', color: 'var(--mb-data-amber)', about: 'being worked on'},
+  {key: 'blocked', name: 'Blocked', color: 'var(--mb-data-red)', about: 'waits on a decision or an input'},
+  {key: 'done', name: 'Done', color: 'var(--mb-data-blue)', about: 'closed in the last 30 days'},
 ];
-const PRIO = {P0: '#FF4D5E', P1: '#FF7A6B', P2: '#FFB547', P3: '#9AA3AD'};
-const TYPE = {feature: '#6FA8FF', bug: '#FF4D5E', chore: '#9AA3AD', docs: '#B79CFF'};
+const PRIO = {P0: 'var(--mb-bad)', P1: 'var(--mb-rust)', P2: 'var(--mb-warn)', P3: 'var(--mb-text-dim)'};
+const TYPE = {feature: 'var(--mb-info)', bug: 'var(--mb-bad)', chore: 'var(--mb-text-dim)', docs: 'var(--mb-note)'};
 const TYPE_ORDER = ['feature', 'bug', 'chore', 'docs'];
 
 const $ = id => document.getElementById(id);
@@ -168,7 +167,7 @@ function el(tag, props = {}, ...kids) {
   return e;
 }
 const dot = c => el('span', {class: 'dot', style: 'background:' + c});
-const tag = (text, c) => el('span', {class: 'tag', textContent: text, style: `color:${c};border-color:${c}66;background:${c}14`});
+const tag = (text, c) => el('span', {class: 'tag', textContent: text, style: `color:${c};border-color:color-mix(in srgb, ${c} 40%, transparent);background:color-mix(in srgb, ${c} 8%, transparent)`});
 const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
 function age(t) {
   const s = Math.max(0, (Date.now() - new Date(t).getTime()) / 1000);
@@ -255,7 +254,7 @@ function card(i) {
   a.dataset.n = i.n;
   a.append(
     el('span', {class: 'c-top'}, el('span', {class: 'num', textContent: '#' + i.n}),
-      i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || '#9AA3AD') : null),
+      i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || 'var(--mb-text-dim)') : null),
     el('span', {class: 'c-title', textContent: i.title}),
     el('span', {class: 'c-meta'}, ...i.areas.map(x => el('span', {class: 'area', textContent: x})),
       i.comments ? el('span', {textContent: plural(i.comments, 'comment')}) : null,
@@ -302,7 +301,7 @@ function openDrawer(n) {
   const col = COLS.find(c => c.key === i.col);
   $('d-num').replaceChildren(dot(col.color), document.createTextNode(` #${i.n} · ${col.name}`));
   $('d-title').textContent = i.title;
-  $('d-tags').replaceChildren(...[i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || '#9AA3AD') : null,
+  $('d-tags').replaceChildren(...[i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || 'var(--mb-text-dim)') : null,
     ...i.areas.map(x => el('span', {class: 'area', textContent: x}))].filter(Boolean));
   const facts = [['opened', day(i.created) + ' (' + age(i.created) + ' ago)'], ['updated', day(i.updated) + ' (' + age(i.updated) + ' ago)']];
   if (i.closed) facts.push(['closed', day(i.closed) + ' (' + age(i.closed) + ' ago)']);

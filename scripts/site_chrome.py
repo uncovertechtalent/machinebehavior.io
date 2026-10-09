@@ -96,6 +96,8 @@ class Tree:
                 self._auto(node, s['auto'])
         if self.home is None:
             raise SystemExit('site/nav.yml: no section with key home')
+        sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
+        self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 
     def _index(self, node):
         if node.url and node.url not in self.by_url:
@@ -215,12 +217,20 @@ def banner():
             '<a href="/inside/tour/">Five-minute tour</a></aside>')
 
 
-def crumbs(trail):
+def page_meta(t, url):
+    """Owner and last update of a hand-written page (the sitemap date the author set), shown beside the breadcrumbs."""
+    d = t.lastmod.get(url)
+    return (f'<p class="mb-page-meta"><span>Owner {esc(t.site["owner"])}</span>'
+            + (f'<span>Updated {d}</span>' if d else '') + '</p>')  # no <time>: the map crawler reads the first <time> as the publish date
+
+
+def crumbs(trail, meta=''):
     items = []
     for i, n in enumerate(trail):
         cur = ' aria-current="page"' if i == len(trail) - 1 else ''
         items.append(f'<li><a href="{n.url}"{cur}>{esc(n.title)}</a></li>')
-    return '<nav class="mb-crumbs" aria-label="Breadcrumb"><ol>' + ''.join(items) + '</ol></nav>'
+    nav = '<nav class="mb-crumbs" aria-label="Breadcrumb"><ol>' + ''.join(items) + '</ol></nav>'
+    return f'<div class="mb-crumbbar">{nav}{meta}</div>' if meta else nav
 
 
 def crumbs_ld(t, trail):
@@ -382,11 +392,13 @@ def apply(src, rel):
     source = ms.group(1) if ms else rel
     has_fonts = '/fonts/fonts.css' in src
     has_side = bool(node is not None and node.section in SIDEBARS and side(t, node))
+    # page facts beside the breadcrumbs: hand-written pages only (generated pages carry their own byline)
+    hand = ms is None and node is not None and node.url not in ('/', '/map/') and rel not in DEPLOY_ONLY and 'class="byline"' not in src
 
     blocks = {
         'head': head(t, trail, has_fonts),
         'bar': bar(t, node, layout),
-        'crumbs': crumbs(trail),
+        'crumbs': crumbs(trail, page_meta(t, url) if hand else ''),
         'side': side(t, node) if has_side else '',
         'foot': foot(t, url, source, trail[-1].title),
         'topics': topics_block(t, url),  # only where a page holds the marker (the docs sidebar)

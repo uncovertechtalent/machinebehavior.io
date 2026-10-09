@@ -97,6 +97,8 @@ Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chr
 
 ## Layouts
 
-Two layouts under one brand. The reading layout keeps the serif column of the research pages (`/style.css`, `<div class="sheet">`). The app layout keeps the portal look of Inside, Docs and the map. `apply()` picks the layout from the stylesheet the page loads and sets `mb-read` or `mb-app` and `mb-s-<section>` on `<body>`. The styles are in `/design/`: `tokens.css` (colour, type, spacing), `chrome.css` (bar, breadcrumbs, footer, layouts) and `components.css`.
+Two layouts under one brand. The reading layout keeps the serif column of the research pages (`/style.css`, `<div class="sheet">`, teal accent). The app layout keeps the portal look of Inside, Docs and the map (amber accent). `apply()` picks the layout from the stylesheet the page loads and sets `mb-read` or `mb-app` and `mb-s-<section>` on `<body>`. Light and dark follow the system setting in both layouts. The styles are in `/design/`: `tokens.css` (colour, type, spacing; the older page variables map onto it), `chrome.css` (bar, breadcrumbs, sidebars, footer, layouts) and `components.css` (page header, pills, cards, panels, tables, lists). See [ADR-0025](doc:eng/adr-0025-one-design-system).
+
+Hand-written pages show their owner and the date from `sitemap.xml` beside the breadcrumbs; generated pages carry their own byline.
 
 Related: [Top bar and search](doc:eng/top-bar-and-search), [Add a page to machinebehavior.io](doc:eng/add-a-page), [ADR-0021](doc:eng/adr-0021-one-navigation-source).

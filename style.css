@@ -1,29 +1,16 @@
-:root {
-  --paper: #F6F7F4;
-  --ink: #1D2422;
-  --ink-soft: #4A5450;
-  --teal: #2F6D62;
-  --rust: #B3542E;
-  --rule: #D8DCD6;
-  --card: #FFFFFF;
-  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  --serif: "Iowan Old Style", Palatino, Georgia, serif;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #131816; --ink: #E8E6DF; --ink-soft: #9FAAA4;
-    --teal: #64AC9B; --rust: #D07A50; --rule: #2B332F; --card: #1B211E;
-  }
-}
+/* Reading layout of machinebehavior.io: the serif column of the research pages.
+   Colours, type and spacing come from /design/tokens.css (loaded by every page); the variables below
+   (--paper, --ink, --teal ...) are mapped onto the tokens there, so this file holds no colour values. The import keeps a page that lacks the head block styled. */
+@import url("/design/tokens.css");
 html { background: var(--paper); }
 body {
-  font-family: var(--serif);
+  font-family: var(--mb-font-serif);
   color: var(--ink);
   line-height: 1.55;
   margin: 0;
   padding: 3.5rem 1.25rem 4rem;
 }
-.sheet { max-width: 660px; margin: 0 auto; }
+.sheet { max-width: var(--mb-read-w); margin: 0 auto; }
 .nav {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -67,7 +54,7 @@ section { margin-top: 2.6rem; }
 .log-what { color: var(--ink-soft); }
 .surfaces, .files { display: grid; gap: 0.9rem; }
 .surface {
-  background: var(--card); border: 1px solid var(--rule);
+  background: var(--card); border: 1px solid var(--rule); border-radius: var(--mb-radius-s);
   padding: 0.9rem 1.1rem; display: grid; gap: 0.2rem;
 }
 .surface-name { font-weight: 700; font-size: 1.02rem; }
@@ -82,14 +69,14 @@ a.mono, .surface a, .files a {
 .file-title { font-weight: 700; font-size: 0.98rem; }
 .file-note { color: var(--ink-soft); font-size: 0.9rem; }
 .claim {
-  background: var(--card); border: 1px solid var(--rule);
+  background: var(--card); border: 1px solid var(--rule); border-radius: var(--mb-radius-s);
   padding: 1rem 1.1rem; display: grid; gap: 0.45rem; margin-bottom: 0.9rem;
 }
 .claim-head { display: flex; gap: 0.8rem; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
 .claim-text { font-size: 1.02rem; font-weight: 600; }
 .status {
   font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em;
-  text-transform: uppercase; padding: 0.15rem 0.55rem; border: 1px solid;
+  text-transform: uppercase; padding: 0.15rem 0.55rem; border: 1px solid; border-radius: 999px;
   white-space: nowrap;
 }
 .status.supported { color: var(--teal); border-color: var(--teal); }
@@ -132,4 +119,10 @@ body.home { padding-top: calc(min(100vw, 880px) * 0.2575 - 0.5rem); }
   mask-image: linear-gradient(to bottom, #000 62%, transparent 100%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
   mask-composite: intersect; }
 @media (prefers-color-scheme: dark) { .hero { background-image: url("/map/home-net-dark.png"); } }
+a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 2px; }
 .sheet { position: relative; z-index: 1; }
+/* long hashes, URLs and code wrap inside the column; on a phone a wide table scrolls inside its own box */
+.sheet { overflow-wrap: break-word; }
+.sheet code, .sheet .mono, .sheet a { overflow-wrap: anywhere; }
+.sheet pre { max-width: 100%; overflow-x: auto; }
+@media (max-width: 819px) { .sheet table { display: block; max-width: 100%; overflow-x: auto; } }

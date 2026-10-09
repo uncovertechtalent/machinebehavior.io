@@ -1,6 +1,8 @@
 /* Design tokens of machinebehavior.io: colour, type, spacing. One file; every page loads it.
    Light and dark follow the visitor's system setting (prefers-color-scheme). Nothing is stored on the device.
-   Every token starts with --mb- so it never collides with the older page variables (--ink, --line, --card ...). */
+   Every token starts with --mb-. The older page variables (--ink, --line, --card, --amber ...) are mapped onto the
+   tokens at the end of this file, so pages written before the design system follow it too.
+   Contrast: text tokens reach 4.5:1 on --mb-surface and --mb-surface-raised in both schemes (WCAG 2.2 AA). */
 :root {
   color-scheme: light dark;
 
@@ -32,25 +34,46 @@
   --mb-gutter: 16px;
   --mb-bar-h: 54px;
   --mb-side-w: 264px;
+  --mb-read-w: 660px;
 
-  /* page surfaces, light */
+  /* neutrals, light */
   --mb-surface: #F6F7F4;
   --mb-surface-raised: #FFFFFF;
   --mb-surface-sunken: #ECEEE9;
-  --mb-text: #1D2422;
-  --mb-text-soft: #4A5450;
-  --mb-text-dim: #5B6560;
-  --mb-line: #D8DCD6;
-  --mb-accent: #2F6D62;
-  --mb-accent-2: #A84C27;
-  --mb-accent-tint: rgba(47, 109, 98, 0.10);
-  --mb-focus: #2F6D62;
+  --mb-surface-hover: #E4E8E2;
+  --mb-text: #1B2120;
+  --mb-text-soft: #3F4945;
+  --mb-text-dim: #56605B;
+  --mb-line: #D5D9D3;
+  --mb-shadow: 0 10px 30px rgba(27, 33, 32, 0.14);
+  --mb-scrim: rgba(27, 33, 32, 0.45);
 
-  /* status colours, light */
-  --mb-ok: #1F7A50;
-  --mb-warn: #8A5A00;
-  --mb-bad: #B3261E;
-  --mb-info: #2F5FA8;
+  /* brand, light: teal leads the reading layout, amber the app layout, rust marks a refutation */
+  --mb-teal: #2B6A5F;
+  --mb-amber: #8A5200;
+  --mb-rust: #A3471F;
+  --mb-amber-fill: #FFB547;   /* fills under dark text: buttons, the skip link, space icons */
+  --mb-on-fill: #0A0C0F;
+
+  /* status, light */
+  --mb-ok: #17754A;
+  --mb-warn: #8A5200;
+  --mb-bad: #B42318;
+  --mb-info: #2B5FA6;
+  --mb-note: #6A4BC4;
+
+  /* data colours for dots, bars and the map, light (darker than in dark mode, so they hold on a light surface) */
+  --mb-data-amber: #C77D00;
+  --mb-data-green: #12925F;
+  --mb-data-blue: #2F6FD6;
+  --mb-data-pink: #C63E92;
+  --mb-data-violet: #7353D6;
+  --mb-data-red: #D93445;
+  --mb-data-coral: #D9533F;
+  --mb-data-ivory: #8E7A55;
+  --mb-data-aqua: #138C80;
+  --mb-data-yellow: #9A8C00;
+  --mb-data-grey: #6C7680;
 
   /* the top bar is dark in both schemes */
   --mb-bar-bg: #0E1216;
@@ -60,48 +83,83 @@
   --mb-bar-dim: #8C96A1;
   --mb-bar-accent: #FFB547;
   --mb-bar-field: #161B21;
+
+  /* layout accent: teal on reading pages; app pages switch it to amber below */
+  --mb-accent: var(--mb-teal);
+  --mb-focus: var(--mb-teal);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --mb-surface: #131816;
-    --mb-surface-raised: #1B211E;
-    --mb-surface-sunken: #0F1311;
-    --mb-text: #E8E6DF;
-    --mb-text-soft: #B4BDB8;
-    --mb-text-dim: #95A09A;
-    --mb-line: #2B332F;
-    --mb-accent: #64AC9B;
-    --mb-accent-2: #D9875E;
-    --mb-accent-tint: rgba(100, 172, 155, 0.14);
-    --mb-focus: #FFB547;
+    --mb-surface: #0C0F12;
+    --mb-surface-raised: #13181D;
+    --mb-surface-sunken: #090B0E;
+    --mb-surface-hover: #1A2129;
+    --mb-text: #EEEDE8;
+    --mb-text-soft: #C4CAD0;
+    --mb-text-dim: #929CA6;
+    --mb-line: #232B33;
+    --mb-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --mb-scrim: rgba(0, 0, 0, 0.6);
+
+    --mb-teal: #6CB5A3;
+    --mb-amber: #FFB547;
+    --mb-rust: #E0916A;
+
     --mb-ok: #3DDC97;
     --mb-warn: #FFB547;
     --mb-bad: #FF7A6B;
     --mb-info: #6FA8FF;
+    --mb-note: #B79CFF;
+
+    --mb-data-amber: #FFB547;
+    --mb-data-green: #3DDC97;
+    --mb-data-blue: #6FA8FF;
+    --mb-data-pink: #FF8FD8;
+    --mb-data-violet: #B79CFF;
+    --mb-data-red: #FF4D5E;
+    --mb-data-coral: #FF7A6B;
+    --mb-data-ivory: #EFE6D2;
+    --mb-data-aqua: #5EEAD4;
+    --mb-data-yellow: #E8E26A;
+    --mb-data-grey: #8C96A1;
+
+    --mb-focus: #FFB547;
   }
 }
 
-/* App pages (Inside, Docs, Map) keep the dark portal look until their own styles move onto these tokens. */
-body.mb-app {
-  color-scheme: dark;
-  --mb-surface: #0A0C0F;
-  --mb-surface-raised: #11151A;
-  --mb-surface-sunken: #0E1216;
-  --mb-text: #F2F1EC;
-  --mb-text-soft: #C9CDD2;
-  --mb-text-dim: #8C96A1;
-  --mb-line: #1E252D;
-  --mb-accent: #FFB547;
-  --mb-accent-2: #FF8FD8;
-  --mb-accent-tint: rgba(255, 181, 71, 0.12);
-  --mb-focus: #FFB547;
-  --mb-ok: #3DDC97;
-  --mb-warn: #FFB547;
-  --mb-bad: #FF7A6B;
-  --mb-info: #6FA8FF;
-}
+/* App pages (Inside, Docs, Map): amber leads */
+body.mb-app { --mb-accent: var(--mb-amber); --mb-focus: var(--mb-amber); }
+
+:root, body.mb-app { --mb-accent-tint: color-mix(in srgb, var(--mb-accent) 13%, transparent); }
 
 @media (max-width: 819px) {
   :root { --mb-bar-h: 92px; }
+}
+
+/* Older page variables, mapped onto the tokens. */
+:root {
+  --paper: var(--mb-surface);
+  --ink: var(--mb-text);
+  --ink-soft: var(--mb-text-soft);
+  --teal: var(--mb-teal);
+  --rust: var(--mb-rust);
+  --rule: var(--mb-line);
+  --card: var(--mb-surface-raised);
+  --mono: var(--mb-font-mono);
+  --serif: var(--mb-font-serif);
+  --bg: var(--mb-surface);
+  --card2: var(--mb-surface-sunken);
+  --line: var(--mb-line);
+  --soft: var(--mb-text-soft);
+  --dim: var(--mb-text-dim);
+  --amber: var(--mb-amber);
+  --pass: var(--mb-ok);
+  --fold: var(--mb-bad);
+  --blue: var(--mb-info);
+  --violet: var(--mb-note);
+  --pink: var(--mb-data-pink);
+  --ivory: var(--mb-data-ivory);
+  --coral: var(--mb-data-coral);
+  --panel: color-mix(in srgb, var(--mb-surface-raised) 90%, transparent);
 }

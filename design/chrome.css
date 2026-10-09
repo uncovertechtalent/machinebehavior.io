@@ -6,9 +6,9 @@
 .mb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 
 /* skip link: first focusable element on every page */
-.mb-skip { position: absolute; left: 12px; top: -60px; z-index: 60; background: var(--mb-bar-accent); color: #0A0C0F; padding: 8px 12px;
+.mb-skip { position: absolute; left: 12px; top: -60px; z-index: 60; background: var(--mb-amber-fill); color: var(--mb-on-fill); padding: 8px 12px;
   border-radius: var(--mb-radius-s); font: 500 13px/1.2 var(--mb-font-mono); text-decoration: none; }
-.mb-skip:focus { top: 8px; outline: 2px solid #0A0C0F; outline-offset: 2px; }
+.mb-skip:focus { top: 8px; outline: 2px solid var(--mb-on-fill); outline-offset: 2px; }
 
 /* ---------- top bar ---------- */
 .mb-bar { position: sticky; top: 0; z-index: 50; box-sizing: border-box; height: var(--mb-bar-h); display: flex; align-items: center; gap: 22px;
@@ -60,14 +60,17 @@
 @media (max-width: 400px) { .mb-name { font-size: 14px; } }
 
 /* ---------- public-demo banner (Inside and Docs app pages) ---------- */
-.mb-demo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 8px 18px; background: rgba(255,181,71,0.07);
-  border-bottom: 1px solid rgba(255,181,71,0.25); font: 13px/1.45 var(--mb-font-sans); color: var(--mb-text-soft); }
-.mb-demo-tag { font: 500 11px var(--mb-font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--mb-accent); white-space: nowrap; }
-.mb-demo a { color: var(--mb-accent); text-underline-offset: 2px; white-space: nowrap; }
+.mb-demo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 8px 18px; background: color-mix(in srgb, var(--mb-amber) 8%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--mb-amber) 28%, transparent); font: 13px/1.45 var(--mb-font-sans); color: var(--mb-text-soft); }
+.mb-demo-tag { font: 500 11px var(--mb-font-mono); letter-spacing: 1.5px; text-transform: uppercase; color: var(--mb-amber); white-space: nowrap; }
+.mb-demo a { color: var(--mb-amber); text-underline-offset: 2px; white-space: nowrap; }
 .mb-demo a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 4px; }
 @media (max-width: 819px) { .mb-demo { padding: 8px var(--mb-gutter); font-size: 12.5px; } }
 
-/* ---------- breadcrumbs ---------- */
+/* ---------- breadcrumbs, with the page facts (owner, updated) beside them on hand-written pages ---------- */
+.mb-crumbbar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 18px; margin: 0 0 14px; }
+.mb-crumbbar .mb-crumbs { margin: 0; }
+.mb-page-meta { margin: 0; display: flex; flex-wrap: wrap; gap: 2px 12px; font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); }
 .mb-crumbs { margin: 0 0 14px; font: var(--mb-text-xs)/1.5 var(--mb-font-mono); letter-spacing: 0; text-transform: none; }
 .mb-crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 0; }
 .mb-crumbs li { display: inline-flex; align-items: baseline; min-width: 0; }
@@ -160,3 +163,10 @@ body.mb-app main .mb-crumbs { margin-bottom: 10px; }
 .mb-topics ul { list-style: none; margin: 0; padding: 0; }
 .mb-topics a.mb-topic-in::after { content: '●'; content: '●' / ''; margin-left: 6px; font-size: 9px; vertical-align: 2px; color: var(--mb-accent); }
 .side .mb-topics a { font-size: 13.5px; }
+
+/* the footer sits at the bottom of the window on a short page */
+body.mb-read:not(.mb-has-side), body.mb-app:not(.mb-has-side):not(.mb-s-map) { display: flex; flex-direction: column; min-height: 100vh; }
+body:not(.mb-has-side) > .mb-foot { margin-top: auto; }
+body:not(.mb-has-side) > :is(.mb-bar, .mb-demo, .mb-foot, .sheet, main, .layout) { flex-shrink: 0; width: 100%; box-sizing: border-box; }
+body.mb-read > .sheet { box-sizing: border-box; width: 100%; max-width: calc(var(--mb-read-w) + 40px); }
+@media (max-width: 819px) { body.mb-read > .sheet { max-width: none; } }
