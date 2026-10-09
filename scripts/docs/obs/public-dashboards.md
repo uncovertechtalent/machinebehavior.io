@@ -1,9 +1,9 @@
 title: Public dashboards
-summary: The four Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.
+summary: The five Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.
 order: 40
 labels: grafana, dashboards, public
 ---
-Four dashboards are public at https://grafana.scoetzee.de and framed on [Inside](/inside/#dashboards). Grafana public dashboards do not resolve template variables, so every public dashboard is built without them in [grafana/build.py](https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py).
+Five dashboards are public at https://grafana.scoetzee.de and framed on [Inside](/inside/#dashboards). Grafana public dashboards do not resolve template variables, so every public dashboard is built without them in [grafana/build.py](https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py).
 
 | Dashboard | Grafana uid | Link |
 |---|---|---|
@@ -11,6 +11,7 @@ Four dashboards are public at https://grafana.scoetzee.de and framed on [Inside]
 | Claude Code agents, public | claude-code-public | [open](https://grafana.scoetzee.de/public-dashboards/3a4ba6b21e6f4924ab2845b47a300af0) |
 | Host (Ollama box), public | host-public | [open](https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6) |
 | Local LLM (Ollama), public | local-llm-public | [open](https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f) |
+| SearXNG search engines | searxng-public | [open](https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346) |
 
 On 2026-10-09 each link returned the dashboard named in the table, with the same panels as the JSON in the repository.
 
@@ -36,5 +37,9 @@ Default range 6 hours. Overview stats (uptime, CPU, load, memory, root filesyste
 ## Local LLM
 
 Default range 6 hours. Service level stats (requests per minute, error ratio, slow first token, time to first token p95, decode tokens per second, Ollama up), a time-to-first-token heatmap, p50 and p95 by model, decode speed, model load time, token and request throughput, resident models with their GPU and CPU split, GPU utilisation and host CPU. The public cut replaces the model variable filter with `.*`.
+
+## SearXNG search engines
+
+The self-hosted SearXNG instance that research agents search through. Stats: instance up, searches per hour, share of searches with results over 24 hours, results per search, median search time, engines answering now. A table of the engines in use with their current state (ok, no results, rate-limited, blocked), answered share and median time over 24 hours, plus an engine status timeline and searches per hour by outcome. The public cut is a separate dashboard (`searxng-public`); the internal one is not shared. It shows engine names and outcomes only, nothing about how requests leave the network.
 
 To add a dashboard to this list: [Share a dashboard publicly](doc:obs/runbook-share-a-dashboard).

@@ -13,7 +13,7 @@ labels: inside, portal, frontend
 | Deploy feed | GitHub Actions API for the two public repositories | Unauthenticated: 60 requests per hour per visitor IP |
 | Front page (latest, most linked) | `/map/graph.json` | Cross-posts of one piece are merged; site order mb, UTT, TYChat, Substack |
 | Experiments | Eval 04 figures in the page, plus `/conformity/probes/latest.json` for the weekly probe | |
-| Dashboards | Grafana public dashboards in an iframe | Loaded when the section scrolls into view; `#dashboards/<key>` opens a tab (deploys, agents, llm, host) |
+| Dashboards | Grafana public dashboards in an iframe | Loaded when the section scrolls into view; `#dashboards/<key>` opens a tab (deploys, agents, llm, host, search) |
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
 
 ## Rules for the page

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Public dashboards · Observability · Inside docs</title>
-<meta name="description" content="The four Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.">
+<meta name="description" content="The five Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.">
 <link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/public-dashboards/">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/public-dashboards/">
 <meta property="og:site_name" content="Machine Behavior">
 <meta property="og:title" content="Public dashboards">
-<meta property="og:description" content="The four Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.">
+<meta property="og:description" content="The five Grafana dashboards shared at grafana.scoetzee.de, what their panels show, and how each public cut differs from the internal dashboard.">
 <meta property="og:image" content="https://machinebehavior.io/inside/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="docs-space" content="obs">
@@ -32,11 +32,11 @@
 <main>
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a></nav>
 <h1>Public dashboards</h1>
-<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>3 min read</span></div>
 
 <article class="doc">
-<p>Four dashboards are public at <a href="https://grafana.scoetzee.de">https://grafana.scoetzee.de</a> and framed on <a href="/inside/#dashboards">Inside</a>. Grafana public dashboards do not resolve template variables, so every public dashboard is built without them in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py">grafana/build.py</a>.</p>
-<div class="tbl"><table><thead><tr><th>Dashboard</th><th>Grafana uid</th><th>Link</th></tr></thead><tbody><tr><td>Website deploys</td><td>site-deploys</td><td><a href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">open</a></td></tr><tr><td>Claude Code agents, public</td><td>claude-code-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/3a4ba6b21e6f4924ab2845b47a300af0">open</a></td></tr><tr><td>Host (Ollama box), public</td><td>host-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6">open</a></td></tr><tr><td>Local LLM (Ollama), public</td><td>local-llm-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f">open</a></td></tr></tbody></table></div>
+<p>Five dashboards are public at <a href="https://grafana.scoetzee.de">https://grafana.scoetzee.de</a> and framed on <a href="/inside/#dashboards">Inside</a>. Grafana public dashboards do not resolve template variables, so every public dashboard is built without them in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py">grafana/build.py</a>.</p>
+<div class="tbl"><table><thead><tr><th>Dashboard</th><th>Grafana uid</th><th>Link</th></tr></thead><tbody><tr><td>Website deploys</td><td>site-deploys</td><td><a href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">open</a></td></tr><tr><td>Claude Code agents, public</td><td>claude-code-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/3a4ba6b21e6f4924ab2845b47a300af0">open</a></td></tr><tr><td>Host (Ollama box), public</td><td>host-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6">open</a></td></tr><tr><td>Local LLM (Ollama), public</td><td>local-llm-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f">open</a></td></tr><tr><td>SearXNG search engines</td><td>searxng-public</td><td><a href="https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346">open</a></td></tr></tbody></table></div>
 <p>On 2026-10-09 each link returned the dashboard named in the table, with the same panels as the JSON in the repository.</p>
 <h2 id="website-deploys">Website deploys</h2>
 <p>Default range 7 days, refresh every minute.</p>
@@ -48,6 +48,8 @@
 <p>Default range 6 hours. Overview stats (uptime, CPU, load, memory, root filesystem, GPU temperature and power, failed systemd units), then rows for CPU, memory with ZFS ARC, disk, network, and GPU and sensors. The public cut sums or maxes per-device series into one line each, removes unit, container, mount, disk, network interface, sensor and job names, and drops the containers row: 30 panels against 34, rows not counted.</p>
 <h2 id="local-llm">Local LLM</h2>
 <p>Default range 6 hours. Service level stats (requests per minute, error ratio, slow first token, time to first token p95, decode tokens per second, Ollama up), a time-to-first-token heatmap, p50 and p95 by model, decode speed, model load time, token and request throughput, resident models with their GPU and CPU split, GPU utilisation and host CPU. The public cut replaces the model variable filter with <code>.*</code>.</p>
+<h2 id="searxng-search-engines">SearXNG search engines</h2>
+<p>The self-hosted SearXNG instance that research agents search through. Stats: instance up, searches per hour, share of searches with results over 24 hours, results per search, median search time, engines answering now. A table of the engines in use with their current state (ok, no results, rate-limited, blocked), answered share and median time over 24 hours, plus an engine status timeline and searches per hour by outcome. The public cut is a separate dashboard (<code>searxng-public</code>); the internal one is not shared. It shows engine names and outcomes only, nothing about how requests leave the network.</p>
 <p>To add a dashboard to this list: <a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a>.</p>
 </article>
 
@@ -55,7 +57,7 @@
 <nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=grafana">grafana</a><a href="/inside/docs/#q=dashboards">dashboards</a><a href="/inside/docs/#q=public">public</a></nav>
 <nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/architecture/">Architecture</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a><span class="mono">Observability</span></li><li><a href="/inside/docs/eng/inside-portal/">Inside portal</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/obs/">Observability</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a><span class="mono">Observability</span></li></ul></nav>
 </main>
-<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#website-deploys">Website deploys</a></li><li class="l2"><a href="#claude-code-agents">Claude Code agents</a></li><li class="l2"><a href="#host">Host</a></li><li class="l2"><a href="#local-llm">Local LLM</a></li></ul></nav>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#website-deploys">Website deploys</a></li><li class="l2"><a href="#claude-code-agents">Claude Code agents</a></li><li class="l2"><a href="#host">Host</a></li><li class="l2"><a href="#local-llm">Local LLM</a></li><li class="l2"><a href="#searxng-search-engines">SearXNG search engines</a></li></ul></nav>
 </div>
 <footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/public-dashboards.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/public-dashboards.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
 <script src="/inside/docs/docs.js" defer></script>
