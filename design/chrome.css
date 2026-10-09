@@ -152,3 +152,11 @@ body.mb-app main .mb-crumbs { margin-bottom: 10px; }
   body.mb-has-side > main, body.mb-has-side > .sheet { grid-column: 2; min-width: 0; }
   .mb-side-wrap > summary { display: none; }
 }
+
+/* Topics block at the end of each sidebar; a dot marks a topic that lists the current page */
+.mb-topics { margin-top: 18px; padding-top: 6px; border-top: 1px solid var(--mb-line); }
+.mb-topics .mb-side-label { display: block; margin: 8px 0 4px; padding: 0 10px; text-decoration: none; background: none; box-shadow: none; }
+.mb-topics .mb-side-label:hover { color: var(--mb-accent); background: none; }
+.mb-topics ul { list-style: none; margin: 0; padding: 0; }
+.mb-topics a.mb-topic-in::after { content: '●'; content: '●' / ''; margin-left: 6px; font-size: 9px; vertical-align: 2px; color: var(--mb-accent); }
+.side .mb-topics a { font-size: 13.5px; }

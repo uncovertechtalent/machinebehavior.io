@@ -2,7 +2,8 @@
 """Crawl Stefan Coetzee's public sites and write the graph for https://machinebehavior.io/map/.
 Usage: python3 scripts/crawl_map.py map/graph.json
 Body links and navigation links are kept apart (kind 'body' vs 'nav'); a docs or service page's parent link is kind 'tree'.
-Service pages (/inside/services/<id>/) are kind 'service'; public Grafana dashboards they link become 'dashboard' nodes."""
+Service pages (/inside/services/<id>/) are kind 'service'; public Grafana dashboards they link become 'dashboard' nodes.
+Topic hubs (/topics/ and /topics/<key>/, scripts/build_hubs.py) are kind 'topic'; their listings are body links."""
 import json, os, re, sys, urllib.request, html, datetime
 from urllib.parse import urljoin, urlparse
 
@@ -51,6 +52,7 @@ def kind_of(u):
         if '/tags/' in path or '/categories/' in path: return 'tag'
         if host == 'machinebehavior.io' and path.startswith('/inside/docs/'): return 'doc'
         if host == 'machinebehavior.io' and re.match(r'^/inside/services/[^/]+/$', path): return 'service'
+        if host == 'machinebehavior.io' and path.startswith('/topics/'): return 'topic'
         return 'page'
     if host == SUBSTACK and '/p/' in u: return 'substack'
     if host == 'github.com' and len([x for x in urlparse(u).path.split('/') if x]) >= 2: return 'github'
@@ -200,7 +202,7 @@ for u in sorted(set(pages)) + subs:
         if k == 'tag' and urlparse(tgt).path == '/blog/': lk = 'nav'      # so is "all posts" on a tag page
         if tk in ('github', 'reddit', 'dashboard'):
             add_node(tgt, tk, None, tk)
-        elif tk in ('page', 'tag', 'doc', 'service') and tgt not in nodes:
+        elif tk in ('page', 'tag', 'doc', 'service', 'topic') and tgt not in nodes:
             add_node(tgt, tk)
         elif tk == 'substack':
             add_node(tgt, 'substack', None, 'substack')

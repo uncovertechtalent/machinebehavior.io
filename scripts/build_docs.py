@@ -605,7 +605,7 @@ def page_html(p):
         home_extra = f'<section class="home-recent"><h2>Recently updated in this space</h2>{recent(pool, 6)}</section>'
     side = (f'<nav class="side" aria-label="Pages in {esc(sp["name"])}"><details class="side-wrap" open><summary>Pages in this space</summary>'
             f'<a class="space-head" href="/inside/docs/{sp["key"]}/"><span class="sp-icon" style="background:{sp["color"]}">{sp["key"].upper()}</span>'
-            f'<span>{esc(sp["name"])}</span></a>{tree_html(p["space"], p)}</details></nav>')
+            f'<span>{esc(sp["name"])}</span></a>{tree_html(p["space"], p)}<!-- mb:topics --><!-- /mb:topics --></details></nav>')
     h1 = esc(sp['name']) if is_home else esc(p['title'])
     return f'''{head(title, p["summary"], p["url"], extra, og_title=sp["name"] if is_home else p["title"], src=p["src"])}
 <body>

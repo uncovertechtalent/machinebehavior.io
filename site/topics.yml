@@ -1,0 +1,77 @@
+# Topic hubs at /topics/<key>/, built by scripts/build_hubs.py.
+#
+# A hub lists everything tagged with its topic across the site and beyond it:
+#   pages         hand-written pages and Inside pages (the tag map for pages without front matter)
+#   docs_labels   docs pages whose front matter carries one of these labels
+#   docs_spaces   whole docs spaces
+#   map_tags      uncovertechtalent.com tag pages on the map; the posts they list belong to the topic
+#   post_words    words in the title of a Substack post (cross-posts are listed once)
+#   ticket_labels board issues with one of these labels
+#   ticket_words  words in the title of a board issue
+# Words match the start of a word, without case.
+
+topics:
+  - key: sycophancy-and-stance
+    title: Sycophancy and stance
+    about: The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
+    pages: [/claims/, /objections/, /experiments/, /slips/, /terms/, /the-cheating-moved/, /running-conjobs-for-ai/]
+    docs_labels: [sycophancy, stance, cold-start, second-rater]
+    map_tags: [Sycophancy, Alignment]
+    post_words: [sycophan, fawn, stance]
+    ticket_words: [sycophan, stance, fold]
+
+  - key: conformity-and-law
+    title: Conformity and law
+    about: Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
+    pages: [/continuous-conformity/, /continuous-conformity-self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
+    docs_labels: [conformity, gate, self-assessment]
+    docs_spaces: [std]
+    post_words: [conformity, regulation]
+    ticket_labels: ["area: legal", "area: gate", "area: security"]
+    ticket_words: [conformity, impressum, privacy]
+
+  - key: operations-and-sre
+    title: Operations and SRE
+    about: Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.
+    pages: [/chaos-engineering-for-behaviour/, /inside/status/, /inside/services/, /inside/board/, /inside/services/deploy-job/, /inside/services/machinebehavior-io/]
+    docs_labels: [runbook, incident, incident-management, slo]
+    docs_spaces: [sre]
+    map_tags: [SRE, Operations, Toil, Error Budgets, Root Cause Analysis, Chaos Engineering]
+    post_words: [operations, toil, rca, oom, track, engine]
+    ticket_words: [incident, postmortem, on-call, runbook, onboarding]
+
+  - key: observability
+    title: Observability
+    about: Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.
+    pages: [/inside/, /inside/status/, /inside/services/observability-stack/, /inside/services/deploy-exporter/, /inside/services/searxng/]
+    docs_labels: [observability, prometheus, loki, grafana, alerts, slo, tempo]
+    docs_spaces: [obs]
+    map_tags: [Observability]
+    ticket_labels: ["area: observability"]
+    ticket_words: [dashboard, alert, metric]
+
+  - key: finops
+    title: FinOps
+    about: What the platform costs and how it is metered. The cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.
+    pages: [/inside/services/agent-sessions/, /inside/services/local-llm/]
+    docs_labels: [finops, focus]
+    docs_spaces: [fin]
+    ticket_words: [cost, spend, budget, finops]
+
+  - key: agents-and-harness
+    title: Agents and harness
+    about: Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
+    pages: [/man/, /case-12-licence-rule-mid-task/, /running-conjobs-for-ai/, /slips/, /inside/services/agent-sessions/, /inside/services/local-llm/]
+    docs_labels: [ai-agents, claude-code, llm, graph-rag, rag, retrieval, ai-era-ops]
+    map_tags: [AI Agents, Claude Code, Claude, Context Engineering, Knowledge Graph, Knowledge Infrastructure, Local LLM, TYChat]
+    post_words: [agent, golem, trap, codec, claudish, compaction, knowledge infrastructure, llm user]
+    ticket_words: [agent, session]
+
+  - key: evaluation
+    title: Evaluation
+    about: Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.
+    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /continuous-conformity-self-assessment/]
+    docs_labels: [eval, experiments, prereg, falsification, second-rater]
+    map_tags: [Evaluations, Red Teaming, Goodhart Labs]
+    post_words: [cheating, chaos engineering, benchmark]
+    ticket_words: [eval, probe, benchmark, rater]

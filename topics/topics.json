@@ -1,0 +1,1202 @@
+{
+ "generated": "2026-10-09",
+ "source": "site/topics.yml",
+ "topics": [
+  {
+   "key": "sycophancy-and-stance",
+   "title": "Sycophancy and stance",
+   "url": "/topics/sycophancy-and-stance/",
+   "about": "The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.",
+   "pages": [
+    "/claims/",
+    "/objections/",
+    "/experiments/",
+    "/slips/",
+    "/terms/",
+    "/the-cheating-moved/",
+    "/running-conjobs-for-ai/",
+    "/inside/docs/res/conformity-self-assessment/",
+    "/inside/docs/res/decision-layer-probe/",
+    "/inside/docs/res/exemplar-seeding/",
+    "/inside/docs/res/experiment-04-folding-under-pressure/",
+    "/inside/docs/res/fawn-opener-benchmark/",
+    "/inside/docs/res/half-life-study/",
+    "/inside/docs/res/objections-register/"
+   ],
+   "posts": [
+    {
+     "t": "Chaos Engineering for Behaviour",
+     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "date": "2026-10-03"
+    },
+    {
+     "t": "The Stance Layer Is Still Toil",
+     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "date": "2026-10-01"
+    },
+    {
+     "t": "They Trained Out the Board Edit. The Cheating Moved.",
+     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "What Operations Already Knows About Running Agents",
+     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "date": "2026-09-25"
+    },
+    {
+     "t": "The Golem Made of English and the Horizon of Consequences",
+     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "date": "2026-09-21"
+    },
+    {
+     "t": "Sycophancy Is Layered: Symptom Substitution Under Runtime Mitigation, and a Positively-Specified Training Target",
+     "u": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
+     "also": null,
+     "date": "2026-07-31"
+    }
+   ],
+   "tickets": []
+  },
+  {
+   "key": "conformity-and-law",
+   "title": "Conformity and law",
+   "url": "/topics/conformity-and-law/",
+   "about": "Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.",
+   "pages": [
+    "/continuous-conformity/",
+    "/continuous-conformity-self-assessment/",
+    "/evidence/",
+    "/case-12-licence-rule-mid-task/",
+    "/conformity/",
+    "/inside/services/conformity-gate/",
+    "/inside/docs/eng/add-a-page/",
+    "/inside/docs/eng/adr-0019-definition-published-before-committee/",
+    "/inside/docs/eng/conformity-gate/",
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-template-href/",
+    "/inside/docs/res/case-files/",
+    "/inside/docs/res/conformity-self-assessment/",
+    "/inside/docs/res/decision-layer-probe/",
+    "/inside/docs/std/",
+    "/inside/docs/std/bsi-grundschutz-anchors/",
+    "/inside/docs/std/bsi-grundschutz-position/",
+    "/inside/docs/std/bsi-grundschutz/",
+    "/inside/docs/std/cmmi-anchors/",
+    "/inside/docs/std/cmmi-controversies/",
+    "/inside/docs/std/cmmi-maturity-and-capability-levels/",
+    "/inside/docs/std/cmmi-position/",
+    "/inside/docs/std/cmmi/",
+    "/inside/docs/std/cobit-anchors/",
+    "/inside/docs/std/cobit-controversies/",
+    "/inside/docs/std/cobit-governance-and-management-objectives/",
+    "/inside/docs/std/cobit-position/",
+    "/inside/docs/std/cobit/",
+    "/inside/docs/std/cra-controversies/",
+    "/inside/docs/std/cra-essential-requirements/",
+    "/inside/docs/std/csa-ccm-anchors/",
+    "/inside/docs/std/csa-ccm-control-domains/",
+    "/inside/docs/std/csa-ccm-controversies/",
+    "/inside/docs/std/csa-ccm-position/",
+    "/inside/docs/std/csa-ccm/",
+    "/inside/docs/std/cyber-resilience-act-anchors/",
+    "/inside/docs/std/cyber-resilience-act-controversies/",
+    "/inside/docs/std/cyber-resilience-act-position/",
+    "/inside/docs/std/cyber-resilience-act/",
+    "/inside/docs/std/dora-anchors/",
+    "/inside/docs/std/dora-controversies/",
+    "/inside/docs/std/dora-governance-and-penalties/",
+    "/inside/docs/std/dora-ict-risk-management/",
+    "/inside/docs/std/dora-ict-third-party-risk/",
+    "/inside/docs/std/dora-incident-reporting/",
+    "/inside/docs/std/dora-position/",
+    "/inside/docs/std/dora-resilience-testing/",
+    "/inside/docs/std/dora/",
+    "/inside/docs/std/eu-ai-act-anchors/",
+    "/inside/docs/std/eu-ai-act-controversies/",
+    "/inside/docs/std/eu-ai-act-governance/",
+    "/inside/docs/std/eu-ai-act-gpai-obligations/",
+    "/inside/docs/std/eu-ai-act-high-risk-obligations/",
+    "/inside/docs/std/eu-ai-act-position/",
+    "/inside/docs/std/eu-ai-act-risk-tiers/",
+    "/inside/docs/std/eu-ai-act-timeline/",
+    "/inside/docs/std/eu-ai-act/",
+    "/inside/docs/std/fedramp-and-cmmc-controversies/",
+    "/inside/docs/std/fedramp-and-cmmc-mechanics/",
+    "/inside/docs/std/fedramp-cmmc-anchors/",
+    "/inside/docs/std/fedramp-cmmc-position/",
+    "/inside/docs/std/fedramp-cmmc/",
+    "/inside/docs/std/gdpr-anchors/",
+    "/inside/docs/std/gdpr-controller-and-processor/",
+    "/inside/docs/std/gdpr-controversies/",
+    "/inside/docs/std/gdpr-cross-border-transfers/",
+    "/inside/docs/std/gdpr-data-subject-rights/",
+    "/inside/docs/std/gdpr-enforcement-and-dpas/",
+    "/inside/docs/std/gdpr-lawful-bases/",
+    "/inside/docs/std/gdpr-position/",
+    "/inside/docs/std/gdpr-principles/",
+    "/inside/docs/std/gdpr/",
+    "/inside/docs/std/hitrust-anchors/",
+    "/inside/docs/std/hitrust-assessment-levels/",
+    "/inside/docs/std/hitrust-controversies/",
+    "/inside/docs/std/hitrust-position/",
+    "/inside/docs/std/hitrust/",
+    "/inside/docs/std/iso-21434-anchors/",
+    "/inside/docs/std/iso-21434-controversies/",
+    "/inside/docs/std/iso-21434-lifecycle-and-tara/",
+    "/inside/docs/std/iso-21434-position/",
+    "/inside/docs/std/iso-21434/",
+    "/inside/docs/std/iso-22301-anchors/",
+    "/inside/docs/std/iso-22301-clause-structure-and-key-concepts/",
+    "/inside/docs/std/iso-22301-controversies/",
+    "/inside/docs/std/iso-22301-position/",
+    "/inside/docs/std/iso-22301/",
+    "/inside/docs/std/iso-27001-anchors/",
+    "/inside/docs/std/iso-27001-annex-a-5-organizational-controls/",
+    "/inside/docs/std/iso-27001-annex-a-6-people-controls/",
+    "/inside/docs/std/iso-27001-annex-a-7-physical-controls/",
+    "/inside/docs/std/iso-27001-annex-a-8-technological-controls/",
+    "/inside/docs/std/iso-27001-certification-process/",
+    "/inside/docs/std/iso-27001-clause-10-improvement/",
+    "/inside/docs/std/iso-27001-clause-4-context/",
+    "/inside/docs/std/iso-27001-clause-5-leadership/",
+    "/inside/docs/std/iso-27001-clause-6-planning/",
+    "/inside/docs/std/iso-27001-clause-7-support/",
+    "/inside/docs/std/iso-27001-clause-8-operation/",
+    "/inside/docs/std/iso-27001-clause-9-performance-evaluation/",
+    "/inside/docs/std/iso-27001-controversies/",
+    "/inside/docs/std/iso-27001-family-and-sector-variants/",
+    "/inside/docs/std/iso-27001-position/",
+    "/inside/docs/std/iso-27001-version-history/",
+    "/inside/docs/std/iso-27001/",
+    "/inside/docs/std/iso-42001-ai-system-lifecycle/",
+    "/inside/docs/std/iso-42001-anchors/",
+    "/inside/docs/std/iso-42001-annex-a-controls/",
+    "/inside/docs/std/iso-42001-certification-process/",
+    "/inside/docs/std/iso-42001-clause-structure/",
+    "/inside/docs/std/iso-42001-controversies/",
+    "/inside/docs/std/iso-42001-position/",
+    "/inside/docs/std/iso-42001-vs-iso-27001-integration/",
+    "/inside/docs/std/iso-42001/",
+    "/inside/docs/std/it-grundschutz-certification/",
+    "/inside/docs/std/it-grundschutz-controversies/",
+    "/inside/docs/std/it-grundschutz-methodology-and-bausteine/",
+    "/inside/docs/std/itil-4-certification-scheme/",
+    "/inside/docs/std/itil-4-four-dimensions/",
+    "/inside/docs/std/itil-4-guiding-principles/",
+    "/inside/docs/std/itil-4-practices/",
+    "/inside/docs/std/itil-4-service-value-chain/",
+    "/inside/docs/std/itil-4-service-value-system/",
+    "/inside/docs/std/itil-anchors/",
+    "/inside/docs/std/itil-controversies/",
+    "/inside/docs/std/itil-position/",
+    "/inside/docs/std/itil-version-history/",
+    "/inside/docs/std/itil-vs-iso-20000/",
+    "/inside/docs/std/itil/",
+    "/inside/docs/std/mitre-anchors/",
+    "/inside/docs/std/mitre-atlas/",
+    "/inside/docs/std/mitre-att-ck/",
+    "/inside/docs/std/mitre-d3fend/",
+    "/inside/docs/std/mitre-position/",
+    "/inside/docs/std/mitre/",
+    "/inside/docs/std/nis2-anchors/",
+    "/inside/docs/std/nis2-controversies/",
+    "/inside/docs/std/nis2-governance-and-penalties/",
+    "/inside/docs/std/nis2-incident-reporting/",
+    "/inside/docs/std/nis2-position/",
+    "/inside/docs/std/nis2-scope-and-entities/",
+    "/inside/docs/std/nis2-security-measures/",
+    "/inside/docs/std/nis2-vs-iso-27001/",
+    "/inside/docs/std/nis2/",
+    "/inside/docs/std/nist-ai-rmf-anchors/",
+    "/inside/docs/std/nist-ai-rmf-controversies/",
+    "/inside/docs/std/nist-ai-rmf-core-functions/",
+    "/inside/docs/std/nist-ai-rmf-genai-profile/",
+    "/inside/docs/std/nist-ai-rmf-position/",
+    "/inside/docs/std/nist-ai-rmf-vs-iso-42001/",
+    "/inside/docs/std/nist-ai-rmf/",
+    "/inside/docs/std/nist-csf-anchors/",
+    "/inside/docs/std/nist-csf-controversies/",
+    "/inside/docs/std/nist-csf-core-functions/",
+    "/inside/docs/std/nist-csf-position/",
+    "/inside/docs/std/nist-csf-vs-iso-27001-and-nist-ai-rmf/",
+    "/inside/docs/std/nist-csf/",
+    "/inside/docs/std/oecd-ai-anchors/",
+    "/inside/docs/std/oecd-ai-controversies/",
+    "/inside/docs/std/oecd-ai-position/",
+    "/inside/docs/std/oecd-ai-values-based-principles/",
+    "/inside/docs/std/oecd-ai/",
+    "/inside/docs/std/owasp-llm-mitigations/",
+    "/inside/docs/std/owasp-llm-top-10-2025/",
+    "/inside/docs/std/owasp-llm-top-10-anchors/",
+    "/inside/docs/std/owasp-llm-top-10-controversies/",
+    "/inside/docs/std/owasp-llm-top-10-position/",
+    "/inside/docs/std/owasp-llm-top-10/",
+    "/inside/docs/std/owasp-llm-vs-top-10-web/",
+    "/inside/docs/std/pci-dss-anchors/",
+    "/inside/docs/std/pci-dss-controversies/",
+    "/inside/docs/std/pci-dss-position/",
+    "/inside/docs/std/pci-dss-twelve-requirements-and-compliance/",
+    "/inside/docs/std/pci-dss/",
+    "/inside/docs/std/prince2-anchors/",
+    "/inside/docs/std/prince2-controversies/",
+    "/inside/docs/std/prince2-position/",
+    "/inside/docs/std/prince2-principles-aspects-processes/",
+    "/inside/docs/std/prince2/",
+    "/inside/docs/std/slsa-levels-and-sbom-formats/",
+    "/inside/docs/std/slsa-sbom-anchors/",
+    "/inside/docs/std/slsa-sbom-controversies/",
+    "/inside/docs/std/slsa-sbom-position/",
+    "/inside/docs/std/slsa-sbom/",
+    "/inside/docs/std/soc-2-assessment-process/",
+    "/inside/docs/std/soc-2-controversies/",
+    "/inside/docs/std/soc-2-trust-services-criteria/",
+    "/inside/docs/std/soc-2-type-1-vs-type-2/",
+    "/inside/docs/std/soc-2-vs-iso-27001/",
+    "/inside/docs/std/soc2-anchors/",
+    "/inside/docs/std/soc2-position/",
+    "/inside/docs/std/soc2/",
+    "/inside/docs/std/tisax-anchors/",
+    "/inside/docs/std/tisax-assessment-levels/",
+    "/inside/docs/std/tisax-assessment-process/",
+    "/inside/docs/std/tisax-controversies/",
+    "/inside/docs/std/tisax-labels-and-scopes/",
+    "/inside/docs/std/tisax-position/",
+    "/inside/docs/std/tisax-vda-isa-catalogue/",
+    "/inside/docs/std/tisax-vs-iso-27001/",
+    "/inside/docs/std/tisax/",
+    "/inside/docs/std/togaf-adm/",
+    "/inside/docs/std/togaf-anchors/",
+    "/inside/docs/std/togaf-architecture-capability/",
+    "/inside/docs/std/togaf-certification-scheme/",
+    "/inside/docs/std/togaf-content-framework/",
+    "/inside/docs/std/togaf-controversies/",
+    "/inside/docs/std/togaf-enterprise-continuum/",
+    "/inside/docs/std/togaf-position/",
+    "/inside/docs/std/togaf-version-history/",
+    "/inside/docs/std/togaf-vs-other-ea-frameworks/",
+    "/inside/docs/std/togaf/",
+    "/inside/docs/std/un-r155-csms-and-r156-sums/",
+    "/inside/docs/std/un-r155-r156-anchors/",
+    "/inside/docs/std/un-r155-r156-controversies/",
+    "/inside/docs/std/un-r155-r156-position/",
+    "/inside/docs/std/un-r155-r156/"
+   ],
+   "posts": [],
+   "tickets": [
+    40,
+    39,
+    27,
+    26,
+    25,
+    12,
+    11,
+    10,
+    17,
+    5,
+    4
+   ]
+  },
+  {
+   "key": "operations-and-sre",
+   "title": "Operations and SRE",
+   "url": "/topics/operations-and-sre/",
+   "about": "Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.",
+   "pages": [
+    "/chaos-engineering-for-behaviour/",
+    "/inside/status/",
+    "/inside/services/",
+    "/inside/board/",
+    "/inside/services/deploy-job/",
+    "/inside/services/machinebehavior-io/",
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-push-rejected/",
+    "/inside/docs/eng/runbook-template-href/",
+    "/inside/docs/eng/runbooks/",
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
+    "/inside/docs/obs/runbook-loki-backfill-missing/",
+    "/inside/docs/obs/runbook-share-a-dashboard/",
+    "/inside/docs/obs/runbook-stat-panel-no-data/",
+    "/inside/docs/obs/runbooks/",
+    "/inside/docs/sre/",
+    "/inside/docs/sre/ai-agents-are-ops-work/",
+    "/inside/docs/sre/apple-silicon-vs-desktop-gpu-for-inference/",
+    "/inside/docs/sre/authenticated-cookie-jar-for-gated-posts/",
+    "/inside/docs/sre/back-up-sqlite-with-the-backup-command/",
+    "/inside/docs/sre/blameless-postmortem-discipline/",
+    "/inside/docs/sre/blind-search-ratchet-minecraft-beats-itself/",
+    "/inside/docs/sre/bm25-hybrid-retrieval-for-graph-rag/",
+    "/inside/docs/sre/bracket-pattern-process-check/",
+    "/inside/docs/sre/certificate-rotation/",
+    "/inside/docs/sre/cicd-deployment/",
+    "/inside/docs/sre/claude-data-export-for-graph-ingestion/",
+    "/inside/docs/sre/compaction-is-the-new-oom/",
+    "/inside/docs/sre/compare-videos-found-against-the-in-app-count/",
+    "/inside/docs/sre/compare-videos-found-run-to-run/",
+    "/inside/docs/sre/context-window-sizes-and-effective-range/",
+    "/inside/docs/sre/cost-optimization/",
+    "/inside/docs/sre/cpu-cache-hierarchy-and-speculative-execution/",
+    "/inside/docs/sre/credential-rotation/",
+    "/inside/docs/sre/database-failover/",
+    "/inside/docs/sre/defense-in-depth-and-trust-boundaries/",
+    "/inside/docs/sre/differential-test-in-the-same-minutes/",
+    "/inside/docs/sre/dolt-versioned-database-for-task-state/",
+    "/inside/docs/sre/eliminate-concurrent-saves-before-blaming-the-scraper/",
+    "/inside/docs/sre/enumeration-retry-with-unauthenticated-fallback/",
+    "/inside/docs/sre/error-budgets-as-reliability-currency/",
+    "/inside/docs/sre/expired-bot-manager-cookie-returns-empty-body/",
+    "/inside/docs/sre/file-copy-of-a-wal-mode-database-misses-recent-writes/",
+    "/inside/docs/sre/filter-expired-cookies-before-each-run/",
+    "/inside/docs/sre/generate-and-test-over-reason-from-model/",
+    "/inside/docs/sre/graph-rag-over-flat-rag-for-operational-knowledge/",
+    "/inside/docs/sre/hand-check-output-against-the-primary-source/",
+    "/inside/docs/sre/handle-based-ad-filter-matches-artist-accounts/",
+    "/inside/docs/sre/headscale-mesh-vpn-for-data-sovereignty/",
+    "/inside/docs/sre/horizontal-vs-vertical-scaling/",
+    "/inside/docs/sre/idempotence-as-the-iac-invariant/",
+    "/inside/docs/sre/incident-2026-02-27-dead-collection-short-links/",
+    "/inside/docs/sre/incident-2026-07-14-backup-missed-wal-writes/",
+    "/inside/docs/sre/incident-2026-07-14-short-scrape-looked-like-a-quiet-feed/",
+    "/inside/docs/sre/incident-2026-07-19-pending-status-on-finished-videos/",
+    "/inside/docs/sre/incident-2026-07-21-ad-filter-removed-artist-videos/",
+    "/inside/docs/sre/incident-2026-07-summaries-inverted-irony/",
+    "/inside/docs/sre/incident-2026-08-08-empty-transcript-videos-invisible-to-review/",
+    "/inside/docs/sre/incident-2026-08-08-false-enumeration-bug-finding/",
+    "/inside/docs/sre/incident-2026-09-11-three-morning-cron-crash/",
+    "/inside/docs/sre/incident-2026-09-13-ghost-still-running-job/",
+    "/inside/docs/sre/incident-2026-09-16-server-cannot-list-the-collection/",
+    "/inside/docs/sre/incident-management/",
+    "/inside/docs/sre/incidents/",
+    "/inside/docs/sre/infrastructure-as-code/",
+    "/inside/docs/sre/legacy-restoration-as-sre-craft/",
+    "/inside/docs/sre/llm-as-software-defined-cpu/",
+    "/inside/docs/sre/manifesto/",
+    "/inside/docs/sre/memory-architecture-l0-l4/",
+    "/inside/docs/sre/no-transcript-bucket-in-the-review-tool/",
+    "/inside/docs/sre/observability/",
+    "/inside/docs/sre/opencode-self-hosted-llm-configuration/",
+    "/inside/docs/sre/patterns/",
+    "/inside/docs/sre/performance/",
+    "/inside/docs/sre/personal-digital-twin-architecture/",
+    "/inside/docs/sre/pillars/",
+    "/inside/docs/sre/probe-pending-rows-before-calling-them-backlog/",
+    "/inside/docs/sre/probe-the-artifact-before-reasoning-from-counts/",
+    "/inside/docs/sre/probing-microarchitecture-for-vulnerability-discovery/",
+    "/inside/docs/sre/process-check-matches-its-own-shell/",
+    "/inside/docs/sre/progressive-delivery-patterns/",
+    "/inside/docs/sre/publish-date-treated-as-time-in-collection/",
+    "/inside/docs/sre/pull-the-full-row-list-after-any-scrape/",
+    "/inside/docs/sre/re-scrape-relinks-processed-rows-as-pending/",
+    "/inside/docs/sre/reliability/",
+    "/inside/docs/sre/review-tool-lists-only-rows-with-a-transcript/",
+    "/inside/docs/sre/rollback-deployment/",
+    "/inside/docs/sre/runbooks/",
+    "/inside/docs/sre/scalability/",
+    "/inside/docs/sre/security/",
+    "/inside/docs/sre/sensitivity-gated-posts-vanish-from-unauthenticated-listing/",
+    "/inside/docs/sre/service-outage-response/",
+    "/inside/docs/sre/short-link-redirects-to-the-homepage/",
+    "/inside/docs/sre/single-video-url-as-the-collection-argument/",
+    "/inside/docs/sre/small-local-model-misreads-ironic-register/",
+    "/inside/docs/sre/sre-as-truth-verified-working/",
+    "/inside/docs/sre/summaries-are-a-triage-index/",
+    "/inside/docs/sre/swallowed-stderr-hides-the-cause/",
+    "/inside/docs/sre/symptoms-over-causes-for-alerting/",
+    "/inside/docs/sre/tencent-agent-memory-four-tier/",
+    "/inside/docs/sre/the-disappearing-full-stack-ops-engineer/",
+    "/inside/docs/sre/toil-reduction/",
+    "/inside/docs/sre/toil-vs-engineering-and-the-50-percent-rule/",
+    "/inside/docs/sre/tools/",
+    "/inside/docs/sre/transcriber-incident-register/",
+    "/inside/docs/sre/unit-economics-of-infrastructure/",
+    "/inside/docs/sre/use-method-for-resource-saturation/",
+    "/inside/docs/sre/vault-search-fastembed-migration/",
+    "/inside/docs/sre/verify-transcript-length-never-status/"
+   ],
+   "posts": [
+    {
+     "t": "Knowledge Infrastructure for LLMs",
+     "u": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+     "also": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "date": "2026-10-03"
+    },
+    {
+     "t": "Chaos Engineering for Behaviour",
+     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "date": "2026-10-03"
+    },
+    {
+     "t": "The Stance Layer Is Still Toil",
+     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "date": "2026-10-01"
+    },
+    {
+     "t": "Which LLM User Are We Talking About?",
+     "u": "https://uncovertechtalent.com/blog/which-llm-user/",
+     "also": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "They Trained Out the Board Edit. The Cheating Moved.",
+     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "An RCA on Claudish",
+     "u": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+     "also": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "Compaction Is the New OOM",
+     "u": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+     "also": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "date": "2026-09-28"
+    },
+    {
+     "t": "The Track: The Drivers Never Buy It",
+     "u": "https://uncovertechtalent.com/blog/the-track/",
+     "also": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "date": "2026-09-27"
+    },
+    {
+     "t": "Success Is the Engine Running",
+     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "date": "2026-09-26"
+    },
+    {
+     "t": "What Operations Already Knows About Running Agents",
+     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "date": "2026-09-25"
+    },
+    {
+     "t": "The Trap File Is Longer Than the Instruction File",
+     "u": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+     "also": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "date": "2026-09-21"
+    },
+    {
+     "t": "The Golem Made of English and the Horizon of Consequences",
+     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "date": "2026-09-21"
+    }
+   ],
+   "tickets": [
+    41,
+    29,
+    22,
+    21,
+    18
+   ]
+  },
+  {
+   "key": "observability",
+   "title": "Observability",
+   "url": "/topics/observability/",
+   "about": "Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.",
+   "pages": [
+    "/inside/",
+    "/inside/status/",
+    "/inside/services/observability-stack/",
+    "/inside/services/deploy-exporter/",
+    "/inside/services/searxng/",
+    "/inside/docs/fin/budgets-and-alerts/",
+    "/inside/docs/obs/",
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/architecture/",
+    "/inside/docs/obs/dashboards-as-code/",
+    "/inside/docs/obs/deploy-exporter/",
+    "/inside/docs/obs/loki-streams/",
+    "/inside/docs/obs/metrics-reference/",
+    "/inside/docs/obs/on-call/",
+    "/inside/docs/obs/public-dashboards/",
+    "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
+    "/inside/docs/obs/runbook-loki-backfill-missing/",
+    "/inside/docs/obs/runbook-share-a-dashboard/",
+    "/inside/docs/obs/runbook-stat-panel-no-data/",
+    "/inside/docs/obs/runbooks/",
+    "/inside/docs/sre/cpu-cache-hierarchy-and-speculative-execution/",
+    "/inside/docs/sre/error-budgets-as-reliability-currency/",
+    "/inside/docs/sre/symptoms-over-causes-for-alerting/"
+   ],
+   "posts": [
+    {
+     "t": "Success Is the Engine Running",
+     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "date": "2026-09-26"
+    }
+   ],
+   "tickets": [
+    41,
+    38,
+    37,
+    36,
+    29,
+    25,
+    22,
+    18,
+    15,
+    6,
+    5
+   ]
+  },
+  {
+   "key": "finops",
+   "title": "FinOps",
+   "url": "/topics/finops/",
+   "about": "What the platform costs and how it is metered. The cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.",
+   "pages": [
+    "/inside/services/agent-sessions/",
+    "/inside/services/local-llm/",
+    "/inside/docs/fin/",
+    "/inside/docs/fin/anomaly-the-phantom-two-million/",
+    "/inside/docs/fin/budgets-and-alerts/",
+    "/inside/docs/fin/cost-model/",
+    "/inside/docs/fin/focus-export/",
+    "/inside/docs/fin/showback/",
+    "/inside/docs/fin/unit-economics/",
+    "/inside/docs/sre/unit-economics-of-infrastructure/"
+   ],
+   "posts": [],
+   "tickets": [
+    38,
+    29,
+    7
+   ]
+  },
+  {
+   "key": "agents-and-harness",
+   "title": "Agents and harness",
+   "url": "/topics/agents-and-harness/",
+   "about": "Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.",
+   "pages": [
+    "/man/",
+    "/case-12-licence-rule-mid-task/",
+    "/running-conjobs-for-ai/",
+    "/slips/",
+    "/inside/services/agent-sessions/",
+    "/inside/services/local-llm/",
+    "/inside/docs/fin/anomaly-the-phantom-two-million/",
+    "/inside/docs/fin/showback/",
+    "/inside/docs/fin/unit-economics/",
+    "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
+    "/inside/docs/sre/ai-agents-are-ops-work/",
+    "/inside/docs/sre/apple-silicon-vs-desktop-gpu-for-inference/",
+    "/inside/docs/sre/bm25-hybrid-retrieval-for-graph-rag/",
+    "/inside/docs/sre/claude-data-export-for-graph-ingestion/",
+    "/inside/docs/sre/compaction-is-the-new-oom/",
+    "/inside/docs/sre/context-window-sizes-and-effective-range/",
+    "/inside/docs/sre/llm-as-software-defined-cpu/",
+    "/inside/docs/sre/memory-architecture-l0-l4/",
+    "/inside/docs/sre/opencode-self-hosted-llm-configuration/",
+    "/inside/docs/sre/personal-digital-twin-architecture/",
+    "/inside/docs/sre/tencent-agent-memory-four-tier/"
+   ],
+   "posts": [
+    {
+     "t": "Knowledge Infrastructure for LLMs",
+     "u": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
+     "also": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "date": "2026-10-03"
+    },
+    {
+     "t": "The Stance Layer Is Still Toil",
+     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
+     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "date": "2026-10-01"
+    },
+    {
+     "t": "Which LLM User Are We Talking About?",
+     "u": "https://uncovertechtalent.com/blog/which-llm-user/",
+     "also": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "An RCA on Claudish",
+     "u": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
+     "also": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "date": "2026-09-29"
+    },
+    {
+     "t": "Compaction Is the New OOM",
+     "u": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
+     "also": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "date": "2026-09-28"
+    },
+    {
+     "t": "The Track: The Drivers Never Buy It",
+     "u": "https://uncovertechtalent.com/blog/the-track/",
+     "also": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "date": "2026-09-27"
+    },
+    {
+     "t": "Success Is the Engine Running",
+     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
+     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "date": "2026-09-26"
+    },
+    {
+     "t": "What Operations Already Knows About Running Agents",
+     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
+     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "date": "2026-09-25"
+    },
+    {
+     "t": "Write for the Codec",
+     "u": "https://uncovertechtalent.com/blog/write-for-the-codec/",
+     "also": "https://coetzeestefan.substack.com/p/write-for-the-codec/",
+     "date": "2026-09-21"
+    },
+    {
+     "t": "The Trap File Is Longer Than the Instruction File",
+     "u": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
+     "also": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "date": "2026-09-21"
+    },
+    {
+     "t": "The Golem Made of English and the Horizon of Consequences",
+     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
+     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "date": "2026-09-21"
+    },
+    {
+     "t": "From \"Transcribe 123 Videos\" to a Self-Hosted AI Pipeline in One Session",
+     "u": "https://uncovertechtalent.com/blog/self-hosted-ai-pipeline-one-session/",
+     "also": null,
+     "date": "2026-02-08"
+    }
+   ],
+   "tickets": [
+    37,
+    21
+   ]
+  },
+  {
+   "key": "evaluation",
+   "title": "Evaluation",
+   "url": "/topics/evaluation/",
+   "about": "Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.",
+   "pages": [
+    "/experiments/",
+    "/claims/",
+    "/evidence/",
+    "/objections/",
+    "/the-cheating-moved/",
+    "/chaos-engineering-for-behaviour/",
+    "/continuous-conformity-self-assessment/",
+    "/inside/docs/res/claims-ledger/",
+    "/inside/docs/res/conformity-self-assessment/",
+    "/inside/docs/res/exemplar-seeding/",
+    "/inside/docs/res/experiment-04-folding-under-pressure/",
+    "/inside/docs/res/experiments/",
+    "/inside/docs/res/fawn-opener-benchmark/",
+    "/inside/docs/res/half-life-study/",
+    "/inside/docs/res/objections-register/",
+    "/inside/docs/res/predictions-and-hashes/"
+   ],
+   "posts": [
+    {
+     "t": "Chaos Engineering for Behaviour",
+     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "date": "2026-10-03"
+    },
+    {
+     "t": "They Trained Out the Board Edit. The Cheating Moved.",
+     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "date": "2026-09-29"
+    }
+   ],
+   "tickets": []
+  }
+ ],
+ "issues": [
+  {
+   "n": 41,
+   "t": "Incident records: when and how each incident was detected",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/41",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "P2",
+    "status: ready"
+   ]
+  },
+  {
+   "n": 40,
+   "t": "CI check: generated pages match their sources",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/40",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "area: gate",
+    "P2"
+   ]
+  },
+  {
+   "n": 39,
+   "t": "Toil: the bot commit on main forces a rebase before every push",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/39",
+   "labels": [
+    "type: chore",
+    "area: gate",
+    "P3"
+   ]
+  },
+  {
+   "n": 38,
+   "t": "Error budget policy: what happens when a service spends its budget",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/38",
+   "labels": [
+    "type: docs",
+    "area: observability",
+    "P2",
+    "status: ready"
+   ]
+  },
+  {
+   "n": 37,
+   "t": "SLOs for the tier-1 services and the agent sessions",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/37",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "P2",
+    "status: ready"
+   ]
+  },
+  {
+   "n": 36,
+   "t": "Alert routing: Alertmanager, a Watchdog and receivers chosen by the operator",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/36",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "P1",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 35,
+   "t": "SRE principles in practice: one page per principle, linked to the services that apply it",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/35",
+   "labels": [
+    "type: docs",
+    "area: docs",
+    "P2",
+    "status: in progress"
+   ]
+  },
+  {
+   "n": 34,
+   "t": "One design system: tokens and component CSS, reading and app layouts",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/34",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site"
+   ]
+  },
+  {
+   "n": 33,
+   "t": "Topic hubs at /topics/<topic>/",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/33",
+   "labels": [
+    "type: feature",
+    "P2",
+    "status: in progress",
+    "area: site"
+   ]
+  },
+  {
+   "n": 32,
+   "t": "Section sidebars for Research and Inside",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/32",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site"
+   ]
+  },
+  {
+   "n": 31,
+   "t": "One navigation source: site/nav.yml, one top bar, breadcrumbs on every page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/31",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site"
+   ]
+  },
+  {
+   "n": 30,
+   "t": "Founder tour at /inside/tour/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/30",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "P1"
+   ]
+  },
+  {
+   "n": 29,
+   "t": "Cost counters: drop them or alert on their resets (incident follow-up)",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/29",
+   "labels": [
+    "type: chore",
+    "area: observability",
+    "P2",
+    "status: ready"
+   ]
+  },
+  {
+   "n": 28,
+   "t": "Left sidebar for Inside pages",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/28",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "P3"
+   ]
+  },
+  {
+   "n": 27,
+   "t": "Gate check for docs owner and review dates (open decision)",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/27",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "area: gate",
+    "P3",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 26,
+   "t": "Security headers",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/26",
+   "labels": [
+    "type: feature",
+    "area: security",
+    "P2",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 25,
+   "t": "Retention statement for the metrics and log stores",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/25",
+   "labels": [
+    "type: docs",
+    "area: observability",
+    "area: legal",
+    "P2"
+   ]
+  },
+  {
+   "n": 24,
+   "t": "Accessibility pass to WCAG 2.2 AA",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/24",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "area: map",
+    "P2"
+   ]
+  },
+  {
+   "n": 23,
+   "t": "Withdrawn-page pattern",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/23",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "P3"
+   ]
+  },
+  {
+   "n": 22,
+   "t": "Postmortem index",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/22",
+   "labels": [
+    "type: docs",
+    "area: observability",
+    "P2"
+   ]
+  },
+  {
+   "n": 21,
+   "t": "Onboarding path for a new engineer or agent session",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/21",
+   "labels": [
+    "type: docs",
+    "area: docs",
+    "P2"
+   ]
+  },
+  {
+   "n": 20,
+   "t": "Templates space",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/20",
+   "labels": [
+    "type: docs",
+    "area: docs",
+    "P2"
+   ]
+  },
+  {
+   "n": 19,
+   "t": "Numbered decision records and a changelog",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/19",
+   "labels": [
+    "type: docs",
+    "area: docs",
+    "P2"
+   ]
+  },
+  {
+   "n": 18,
+   "t": "On-call and escalation page, and Alertmanager",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/18",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "P2"
+   ]
+  },
+  {
+   "n": 17,
+   "t": "Access model page and public demo banner",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/17",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "area: security",
+    "P2"
+   ]
+  },
+  {
+   "n": 16,
+   "t": "One top bar and one search",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/16",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "area: search",
+    "P1"
+   ]
+  },
+  {
+   "n": 15,
+   "t": "Status page at /inside/status/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/15",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "P1"
+   ]
+  },
+  {
+   "n": 14,
+   "t": "Owner and review date on every docs page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/14",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "P1"
+   ]
+  },
+  {
+   "n": 13,
+   "t": "Service catalog at /inside/services/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/13",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "P1"
+   ]
+  },
+  {
+   "n": 12,
+   "t": "security.txt",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/12",
+   "labels": [
+    "type: feature",
+    "area: security",
+    "P1",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 11,
+   "t": "Privacy notice on all three sites",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/11",
+   "labels": [
+    "type: feature",
+    "area: legal",
+    "P0",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 10,
+   "t": "Impressum on all three sites",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/10",
+   "labels": [
+    "type: feature",
+    "area: legal",
+    "P0",
+    "status: blocked"
+   ]
+  },
+  {
+   "n": 9,
+   "t": "Report an issue link on every docs page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/9",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "P1"
+   ]
+  },
+  {
+   "n": 8,
+   "t": "Ticket board at /inside/board/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/8",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "P1"
+   ]
+  },
+  {
+   "n": 7,
+   "t": "FinOps space in the docs",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/7",
+   "labels": [
+    "type: docs",
+    "area: docs",
+    "P2"
+   ]
+  },
+  {
+   "n": 6,
+   "t": "SearXNG search engines dashboard on Inside",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/6",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "area: search",
+    "P2"
+   ]
+  },
+  {
+   "n": 5,
+   "t": "Remove internal host details from the public dashboards",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/5",
+   "labels": [
+    "type: bug",
+    "area: security",
+    "P0"
+   ]
+  },
+  {
+   "n": 4,
+   "t": "No third-party requests on page load",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/4",
+   "labels": [
+    "type: bug",
+    "area: legal",
+    "P0"
+   ]
+  },
+  {
+   "n": 3,
+   "t": "Inside and infrastructure in the menu on every page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/3",
+   "labels": [
+    "type: feature",
+    "area: inside",
+    "P2"
+   ]
+  },
+  {
+   "n": 2,
+   "t": "Docs pages in the map of the work",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/2",
+   "labels": [
+    "type: feature",
+    "area: map",
+    "P2"
+   ]
+  },
+  {
+   "n": 1,
+   "t": "Docs tree at /inside/docs/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/1",
+   "labels": [
+    "type: feature",
+    "area: docs",
+    "P1"
+   ]
+  }
+ ]
+}

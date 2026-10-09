@@ -98,7 +98,7 @@
   @media (max-width: 600px) { .panel { width: auto; right: 16px; } .filters { grid-template-columns: 1fr 1fr; } }
 </style>
 <!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Map", "item": "https://machinebehavior.io/map/"}]}</script><!-- /mb:head --></head>
-<body class="mb-app mb-s-map"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/">Inside</a><a href="/inside/docs/">Docs</a><a href="/map/" aria-current="page">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- /mb:bar -->
+<body class="mb-app mb-s-map"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/">Inside</a><a href="/inside/docs/">Docs</a><a href="/topics/">Topics</a><a href="/map/" aria-current="page">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- /mb:bar -->
 
 <main id="main">
 <canvas id="c" aria-label="Graph of the published work"></canvas>
@@ -143,10 +143,11 @@ const KINDS = [
   {key: 'docs', label: 'Inside docs', color: '#B79CFF'},
   {key: 'services', label: 'Services', color: '#E8E26A'},
   {key: 'dashboard', label: 'Dashboards', color: '#5EEAD4'},
+  {key: 'topics', label: 'Topic hubs', color: '#FF7A45'},
   {key: 'tag', label: 'Tags', color: '#7D8792'},
 ];
 const COLOR = Object.fromEntries(KINDS.map(k => [k.key, k.color]));
-const groupOf = n => n.kind === 'tag' ? 'tag' : n.kind === 'doc' ? 'docs' : n.kind === 'service' ? 'services' : n.site;
+const groupOf = n => n.kind === 'tag' ? 'tag' : n.kind === 'doc' ? 'docs' : n.kind === 'service' ? 'services' : n.kind === 'topic' ? 'topics' : n.site;
 const on = Object.fromEntries(KINDS.map(k => [k.key, true]));
 let showNav = false, query = '', hover = null, selected = null;
 

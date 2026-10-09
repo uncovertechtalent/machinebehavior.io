@@ -40,6 +40,14 @@
   <!-- status:end -->
   <!-- hubs:begin (scripts/build_hubs.py) -->
   <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/observability/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/finops/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/agents-and-harness/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- hubs:end -->
   <!-- docs:begin (scripts/build_docs.py) -->
   <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-09</lastmod></url>
@@ -69,6 +77,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>

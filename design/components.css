@@ -12,3 +12,22 @@
 /* the build note at the end of a page */
 .page-note { font: var(--mb-text-xs)/1.7 var(--mb-font-mono); color: var(--mb-text-dim); }
 .page-note a { color: var(--mb-text-soft); }
+
+/* compact link list: title, one line of summary, meta (topic hubs: docs, posts, tickets) */
+.mb-links { list-style: none; margin: 0 0 6px; padding: 0; }
+.mb-links li { display: grid; gap: 1px; padding: 8px 0; border-top: 1px solid var(--mb-line); }
+.mb-links li:first-child { border-top: 0; }
+.mb-links a { color: var(--mb-accent); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
+.mb-links a:hover { text-decoration: underline; }
+.mb-links a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 3px; }
+.mb-links li > span { color: var(--mb-text-soft); font-size: 0.92rem; line-height: 1.45; }
+.mb-links .mb-links-meta { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); }
+.mb-links .mb-links-meta a { font-weight: 400; color: var(--mb-text-soft); }
+.mb-links-inline { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.mb-links-inline li { border: 0; padding: 2px 0; }
+.mb-group { font-size: 1rem; margin: 1.4rem 0 0.4rem; }
+.mb-n { font-family: var(--mb-font-mono); font-size: 0.8em; font-weight: 400; color: var(--mb-text-dim); letter-spacing: 0; }
+.mb-counts { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); margin: -1.2rem 0 1.6rem; }
+.mb-more { margin: 4px 0 10px; }
+.mb-more > summary { cursor: pointer; font: var(--mb-text-xs)/1.6 var(--mb-font-mono); color: var(--mb-text-soft); padding: 4px 0; }
+.mb-more > summary:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; }

@@ -17,9 +17,10 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 | Research | `/research/` | claims, experiments, objections, evidence, slips, case files, articles, man pages, terms, the continuous-conformity definition and the self-assessment |
 | Inside | `/inside/` | services (one page per service, from `services/*.yml`), status, board, dashboards, gate runs, tour, search |
 | Docs | `/inside/docs/` | the space tree, from `inside/docs/tree.json` (written by `scripts/build_docs.py`) |
+| Topics | `/topics/` | one hub per topic in `site/topics.yml` |
 | Map | `/map/` | |
 
-`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself.
+`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. The same script builds the topic hubs.
 
 ## site/nav.yml
 
@@ -87,6 +88,12 @@ The report lists orphans (an `index.html` outside the tree), pages in the tree w
 ## Sidebars
 
 Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, groups as headings, Services as a disclosure open on a service page, the current page marked. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars).
+
+## Topics
+
+`site/topics.yml` holds the topics and the rules that select their members: hand-written and Inside pages, docs labels and spaces, tag pages on the map, words in Substack titles, and board labels or words. `scripts/build_hubs.py` builds the hubs at `/topics/<key>/`, the index at `/topics/` and `/topics/topics.json`, then writes the chrome of every page again so the Topics block in each sidebar marks the topics that list the page. The docs sidebar holds the block as `<!-- mb:topics --><!-- /mb:topics -->`. See [ADR-0023](doc:eng/adr-0023-topic-hubs).
+
+Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chrome.py --check`.
 
 ## Layouts
 

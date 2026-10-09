@@ -196,6 +196,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0023-topic-hubs/",
+"t": "ADR-0023: Topic hubs across research, docs, posts and tickets",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

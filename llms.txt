@@ -80,7 +80,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (373 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (374 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -109,6 +109,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (373 pages). S
 - [ADR-0020: A five-minute founder tour on one page](https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/)
 - [ADR-0021: One navigation source for the whole site](https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/)
 - [ADR-0022: Section sidebars from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/)
+- [ADR-0023: Topic hubs across research, docs, posts and tickets](https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)
@@ -502,3 +503,11 @@ The status page at https://machinebehavior.io/inside/status/: the state of each 
 ## Site sections
 
 - [Research](https://machinebehavior.io/research/): the Research section front page: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
+- [Topics](https://machinebehavior.io/topics/): Topics on machinebehavior.io: 7 hubs, each listing the research pages, Inside pages, docs, posts and tickets on one subject.
+- [Sycophancy and stance](https://machinebehavior.io/topics/sycophancy-and-stance/): topic hub, 7 research pages, 7 docs pages, 6 posts. The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
+- [Conformity and law](https://machinebehavior.io/topics/conformity-and-law/): topic hub, 4 research pages, 2 Inside pages, 211 docs pages, 11 tickets. Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
+- [Operations and SRE](https://machinebehavior.io/topics/operations-and-sre/): topic hub, 1 research page, 5 Inside pages, 104 docs pages, 12 posts, 5 tickets. Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.
+- [Observability](https://machinebehavior.io/topics/observability/): topic hub, 5 Inside pages, 18 docs pages, 1 post, 11 tickets. Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.
+- [FinOps](https://machinebehavior.io/topics/finops/): topic hub, 2 Inside pages, 8 docs pages, 3 tickets. What the platform costs and how it is metered. The cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.
+- [Agents and harness](https://machinebehavior.io/topics/agents-and-harness/): topic hub, 4 research pages, 2 Inside pages, 15 docs pages, 12 posts, 2 tickets. Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
+- [Evaluation](https://machinebehavior.io/topics/evaluation/): topic hub, 7 research pages, 9 docs pages, 2 posts. Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.

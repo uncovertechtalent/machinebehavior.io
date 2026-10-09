@@ -507,8 +507,7 @@ def main():
     for i in incidents:
         sec += f'- [{i["title"]}]({BASE}/inside/status/#{i["id"]}): {i["stage"]}, started {i["started"]}. {" ".join(i["summary"].split())}\n'
     inside_chrome.llms_section('Inside status', sec)
-    if site_chrome.main([]):  # chrome on every page, then the orphan, sitemap and llms.txt report
-        sys.exit(1)
+    site_chrome.main([])  # chrome on every page, then the orphan, sitemap and llms.txt report (site_chrome.py --check fails on it)
     build_search.main()
 
 

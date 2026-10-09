@@ -8,8 +8,9 @@
 #   title  the name in the breadcrumbs and the sidebar
 #   url    a root-absolute page path ending in /, or an anchor on a page (/inside/#dashboards)
 #   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb
-#   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py)
-#          and services (inside/services/services.json, written by scripts/build_inside.py)
+#   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
+#          services (inside/services/services.json, written by scripts/build_inside.py)
+#          and topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
 #   pages  the pages under an entry
 #
 # Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
@@ -93,6 +94,11 @@ sections:
     url: /inside/docs/
     banner: true
     auto: docs
+
+  - key: topics
+    title: Topics
+    url: /topics/
+    auto: topics
 
   - key: map
     title: Map

@@ -35,7 +35,9 @@ import mini_yaml  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 NAV_FILE = ROOT / 'site' / 'nav.yml'
 
-SIDEBARS = {'research', 'inside'}  # sections whose pages carry the section sidebar
+SIDEBARS = {'research', 'inside', 'topics'}  # sections whose pages carry the section sidebar
+TOPICS_FILE = ROOT / 'site' / 'topics.yml'
+TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
@@ -124,6 +126,9 @@ class Tree:
                 par = made.get(p.get('p') or node.url, node)
                 made[p['u']] = par.add(Node(p['t'], p['u'], node.section))
                 self._index(made[p['u']])
+        elif kind == 'topics':
+            for tp in mini_yaml.load_file(TOPICS_FILE)['topics']:
+                self._index(node.add(Node(tp['title'], f'/topics/{tp["key"]}/', node.section)))
         elif kind == 'services':
             f = ROOT / 'inside' / 'services' / 'services.json'
             if not f.exists():
@@ -224,6 +229,41 @@ def crumbs_ld(t, trail):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
 
+_MEMBERS = None
+
+
+def reload_topics():
+    global _MEMBERS
+    _MEMBERS = None
+
+
+def topic_members():
+    """{topic url: set of page urls}, from topics/topics.json; empty before the first build of the hubs."""
+    global _MEMBERS
+    if _MEMBERS is None:
+        _MEMBERS = {}
+        if TOPICS_JSON.exists():
+            for tp in json.loads(TOPICS_JSON.read_text(encoding='utf-8'))['topics']:
+                _MEMBERS[tp['url']] = set(tp['pages'])
+    return _MEMBERS
+
+
+def topics_block(t, url):
+    """The Topics block of a sidebar: every topic hub; a mark on each topic that lists the current page."""
+    sec = t.section('topics')
+    if sec is None or not sec.kids:
+        return ''
+    mem = topic_members()
+    li = ''
+    for k in sec.kids:
+        if url in mem.get(k.url, ()):
+            li += f'<li><a class="mb-topic-in" href="{k.url}">{esc(k.title)}<span class="mb-sr"> (lists this page)</span></a></li>'
+        else:
+            li += f'<li><a href="{k.url}">{esc(k.title)}</a></li>'
+    return (f'<div class="mb-topics"><a class="mb-side-label" href="{sec.url}">Topics</a>'
+            f'<ul>{li}</ul></div>')
+
+
 def side(t, node):
     """The section sidebar: every page of the section, the current one marked; groups as headings, a page with
     children as a disclosure that is open when the current page is inside it. Open by default; /inside/bar.js
@@ -251,10 +291,11 @@ def side(t, node):
 
     count = sum(1 for _ in _pages_under(sec))
     head_cur = ' aria-current="page"' if node is sec else ''
+    topics = topics_block(t, node.url) if node.section != 'topics' else ''
     return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
             f'<summary><span>{esc(sec.title)}</span><span class="mb-side-n">{count} pages</span></summary>'
             f'<a class="mb-side-head" href="{sec.url}"{head_cur}>{esc(sec.title)}</a>'
-            f'<ul class="mb-side-tree">{items(sec.kids)}</ul></details></nav>')
+            f'<ul class="mb-side-tree">{items(sec.kids)}</ul>{topics}</details></nav>')
 
 
 def _pages_under(n):
@@ -348,6 +389,7 @@ def apply(src, rel):
         'crumbs': crumbs(trail),
         'side': side(t, node) if has_side else '',
         'foot': foot(t, url, source, trail[-1].title),
+        'topics': topics_block(t, url),  # only where a page holds the marker (the docs sidebar)
     }
     main_open = r'<div class="sheet"[^>]*>' if layout == 'read' else r'<main\b[^>]*>'
     main_before = r'<div class="sheet"' if layout == 'read' else r'<main\b'
@@ -365,7 +407,7 @@ def apply(src, rel):
         if sentinel in src:
             src = src.replace(sentinel, block, 1)
             continue
-        if name == 'side' and not body:
+        if (name == 'side' and not body) or name == 'topics':
             continue
         fn, pat = anchors[name]
         nl = '\n' if name in ('bar', 'side', 'foot') else ''
