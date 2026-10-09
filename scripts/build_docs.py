@@ -13,6 +13,10 @@ Run from the repo root:  python3 scripts/build_docs.py
 """
 import datetime, html, json, os, re, shutil, subprocess, sys
 from pathlib import Path
+from urllib.parse import quote
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import inside_chrome  # the one top bar of Inside
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'scripts' / 'docs'
@@ -424,12 +428,7 @@ ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.or
 
 
 def topbar():
-    return ('<header class="bar"><nav class="bar-nav" aria-label="Inside">'
-            '<a class="brand" href="/inside/"><span class="logo">i</span>Inside</a>'
-            '<a href="/inside/docs/" class="here">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a>'
-            '<a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav>'
-            '<div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off">'
-            '<ul id="hits" class="hits"></ul></div></header>')
+    return inside_chrome.bar('docs')
 
 
 def footer(p=None):
@@ -464,11 +463,12 @@ def head(title, desc, url, extra='', og_title=None):
 {extra}{ICON}
 {FONTS}
 <link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
 </head>'''
 
 
 def scripts():
-    return '<script src="/inside/docs/docs.js" defer></script>\n<script src="/conformity/footer.js" defer></script>'
+    return '<script src="/inside/bar.js" defer></script>\n<script src="/inside/docs/docs.js" defer></script>\n<script src="/conformity/footer.js" defer></script>'
 
 
 def child_list(key):
@@ -515,7 +515,7 @@ def page_html(p):
                   'Check claims against the primary source before relying on them.</div>')
     labels = ''
     if p['labels']:
-        labels = '<nav class="labels" aria-label="Labels">' + ''.join(f'<a href="/inside/docs/#q={esc(l)}">{esc(l)}</a>' for l in p['labels']) + '</nav>'
+        labels = '<nav class="labels" aria-label="Labels">' + ''.join(f'<a href="/inside/search/?q={esc(quote(l))}">{esc(l)}</a>' for l in p['labels']) + '</nav>'
     bl = sorted((pages[k] for k in backlinks.get(p['url'], set())), key=lambda x: x['title'].lower())
     back = ''
     if bl:
@@ -538,7 +538,7 @@ def page_html(p):
 {topbar()}
 <div class="layout">
 {side}
-<main>
+<main id="main">
 <nav class="crumbs" aria-label="Breadcrumb">{crumbs}</nav>
 <h1>{h1}</h1>
 <div class="byline">{by}</div>
@@ -576,7 +576,7 @@ def docs_home():
 <body>
 {topbar()}
 <div class="layout wide">
-<main>
+<main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a></nav>
 <h1>Docs</h1>
 <p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">map of the work</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label.</p>
@@ -617,16 +617,14 @@ sm = re.sub(r'  <!-- docs:begin.*?<!-- docs:end -->\n', '', sm, flags=re.S)
 sm = sm.replace('</urlset>', block + '</urlset>')
 (ROOT / 'sitemap.xml').write_text(sm)
 
-# llms.txt: managed section at the end
-ll = (ROOT / 'llms.txt').read_text()
-ll = re.sub(r'\n## Inside docs\n.*', '\n', ll, flags=re.S).rstrip('\n') + '\n'
-sec = f'\n## Inside docs\n\nThe documentation tree at {BASE}/inside/docs/ ({len(pages)} pages). Search index: {BASE}/inside/docs/search.json. Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.\n'
+# llms.txt: managed section "## Inside docs" (replaced in place, other sections untouched)
+sec = f'The documentation tree at {BASE}/inside/docs/ ({len(pages)} pages). Search index: {BASE}/inside/docs/search.json (docs only; the site-wide index is {BASE}/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.\n'
 for s in spaces_present:
     home = pages[(s['key'], 'index')]
     sec += f'\n### {s["name"]}\n\n- [{s["name"]}]({BASE}{home["url"]}): {s["about"]}\n'
     for p in sorted((q for q in pages.values() if q['space'] == s['key'] and q['slug'] != 'index'), key=lambda q: q['url']):
         sec += f'- [{p["title"]}]({BASE}{p["url"]})\n'
-(ROOT / 'llms.txt').write_text(ll + sec)
+inside_chrome.llms_section('Inside docs', sec)
 
 miss = sorted({m for p in pages.values() for m in p['missing']})
 print(f'pages {len(pages)} in {len(spaces_present)} spaces; links {sum(len(p["out_links"]) for p in pages.values())}; unresolved wikilinks {len(miss)}')

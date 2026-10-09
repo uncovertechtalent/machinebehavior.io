@@ -19,6 +19,7 @@
 <meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/bar.css">
 <style>
   :root {
     --bg: #0A0C0F; --card: #11151A; --card2: #0E1216; --line: #1E252D; --ink: #F2F1EC; --soft: #C9CDD2; --dim: #7D8792;
@@ -31,19 +32,9 @@
   .mono { font-family: 'JetBrains Mono', monospace; }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
   .eyebrow a { text-decoration: none; }
-  header.top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 18px 28px; align-items: end; margin-bottom: 18px; }
+  header.top { margin-bottom: 18px; }
   h1 { margin: 6px 0 4px; font-size: 40px; line-height: 1; letter-spacing: -1px; }
   .sub { color: var(--soft); font-size: 15px; line-height: 1.45; margin: 8px 0 0; max-width: 640px; }
-  .search { position: relative; }
-  .search input { width: 100%; background: var(--card2); border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
-    padding: 11px 14px; font: 14px 'JetBrains Mono', monospace; outline: none; }
-  .search input:focus { border-color: var(--amber); }
-  .results { list-style: none; margin: 6px 0 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--card); display: none; }
-  .results.on { display: block; }
-  .results li a { display: flex; gap: 10px; align-items: center; padding: 8px 12px; text-decoration: none; font-size: 14px; border-top: 1px solid var(--line); }
-  .results li:first-child a { border-top: 0; }
-  .results li a:hover, .results li a:focus { background: #161B21; outline: none; }
-  .results .k { margin-left: auto; color: var(--dim); font-size: 11px; white-space: nowrap; }
   .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; display: inline-block; }
   .status { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
@@ -100,7 +91,7 @@
   ul.plain a { text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   ul.plain a:hover { color: var(--amber); }
   ul.plain .mono { color: var(--dim); font-size: 12px; white-space: nowrap; }
-  .dash { margin-top: 16px; scroll-margin-top: 12px; }
+  .dash { margin-top: 16px; scroll-margin-top: calc(var(--ib-h) + 12px); }
   .dash .about { font-size: 13.5px; color: var(--soft); margin: 0 0 12px; line-height: 1.45; }
   .frame { position: relative; height: 900px; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #111217; }
   .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -109,22 +100,19 @@
   footer { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
   footer a { color: var(--dim); }
   .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
-  @media (max-width: 900px) { header.top, .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 34px; } }
+  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 34px; } }
   @media (max-width: 480px) { .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>
-<div class="wrap">
+<!-- inside-bar:begin here=inside --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/" aria-current="page"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<main class="wrap" id="main">
   <header class="top">
     <div>
-      <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside · <a href="/inside/docs/">docs</a> · <a href="/inside/board/">board</a></div>
+      <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside</div>
       <h1>Inside</h1>
       <div class="eyebrow">Stefan Coetzee</div>
       <p class="sub">Everything published across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, the state of the three sites as of this minute, and the tools that run them.</p>
-    </div>
-    <div class="search">
-      <input type="search" id="q" placeholder="Search pages, posts, repos and threads" autocomplete="off" aria-label="Search the published work">
-      <ul class="results" id="results"></ul>
     </div>
   </header>
 
@@ -189,7 +177,8 @@
     <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
   </footer>
   <noscript><p>Inside reads live data in the browser. Without JavaScript: the work is listed at <a href="/llms.txt">/llms.txt</a>, the graph at <a href="/map/graph.json">/map/graph.json</a> and the gate at <a href="/conformity/">/conformity/</a>.</p></noscript>
-</div>
+</main>
+<script src="/inside/bar.js" defer></script>
 <script src="/conformity/footer.js" defer></script>
 <script>
 const SITES = [
@@ -321,20 +310,6 @@ getJSON('/map/graph.json').then(g => {
   $('repos').replaceChildren(...repos.map(n => el('li', {}, link(n.id, n.title), el('span', {class: 'mono', textContent: plural(inbound.get(n.id)?.size || 0, 'link') + ' in'}))),
     el('li', {}, link('/map/', `${threads.length} Reddit threads on the map`), el('span', {class: 'mono', textContent: 'Reddit'})));
 
-  // search over titles and descriptions
-  const items = g.nodes.filter(n => n.kind !== 'tag');
-  $('q').oninput = e => {
-    const q = e.target.value.trim().toLowerCase();
-    if (q.length < 2) { $('results').classList.remove('on'); return; }
-    const hits = items.map(n => ({n, s: (n.title.toLowerCase().includes(q) ? 2 : 0) + ((n.desc || '').toLowerCase().includes(q) ? 1 : 0)}))
-      .filter(h => h.s).sort((a, b) => b.s - a.s || (inbound.get(b.n.id)?.size || 0) - (inbound.get(a.n.id)?.size || 0)).slice(0, 9);
-    $('results').replaceChildren(...(hits.length ? hits.map(({n}) => {
-      const a = link(n.id, '');
-      a.append(dot(COLOR[n.kind === 'tag' ? 'tag' : n.site] || '#7D8792'), el('span', {textContent: n.title}), el('span', {class: 'k mono', textContent: SITE_LABEL[n.site] || n.site}));
-      return el('li', {}, a);
-    }) : [el('li', {}, el('span', {class: 'wait', style: 'display:block;padding:8px 12px', textContent: 'nothing matches'}))]));
-    $('results').classList.add('on');
-  };
 }).catch(() => { $('items').replaceChildren(el('li', {}, el('span'), el('span', {class: 'wait', textContent: 'the snapshot did not load; the list is at /llms.txt'}))); });
 
 // ---- site status and deploy feed: each site's gate record, plus the Actions runs of the public repos.

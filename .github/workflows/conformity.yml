@@ -103,6 +103,12 @@ jobs:
             cp /tmp/graph.committed.json map/graph.json
           fi
 
+      - name: Rebuild the search index from the refreshed map (artifact only, never committed)
+        # /inside/search.json merges the docs, the services and map/graph.json; rebuilt here so search matches the deployed map.
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python3 scripts/build_search.py
+
       - name: Snapshot the deploy feed for Inside (artifact only, never committed)
         # Inside reads /inside/deploys.json instead of calling the GitHub API from each visitor's browser.
         continue-on-error: true

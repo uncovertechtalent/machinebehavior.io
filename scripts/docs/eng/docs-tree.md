@@ -9,10 +9,11 @@ The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/bu
 
 ```bash
 python3 scripts/import_vault_docs.py ~/vault   # vault spaces: sre, std (only on the machine with the vault)
-python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, search index
+python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, docs search index
+python3 scripts/build_inside.py                # bar sync, services, status, the site-wide search index
 ```
 
-The build writes one `index.html` per page, `inside/docs/search.json` for the search box, a managed block in `sitemap.xml` and a managed section at the end of `llms.txt`. Then run the gate dry run and push as usual.
+The build writes one `index.html` per page, `inside/docs/search.json` (an input to the site-wide index; see [Top bar and search](doc:eng/top-bar-and-search)), a managed block in `sitemap.xml` and a managed section at the end of `llms.txt`. Then run the gate dry run and push as usual.
 
 ## Front matter
 
@@ -21,7 +22,7 @@ The build writes one `index.html` per page, `inside/docs/search.json` for the se
 | `title`, `summary` | Required. The summary is the meta description, the line in child-page lists and the search snippet |
 | `parent` | Slug of the parent page in the same space; empty means under the space home |
 | `order` | Sort key among siblings |
-| `labels` | Comma-separated; written as `article:tag` metas and shown as chips |
+| `labels` | Comma-separated; written as `article:tag` metas and shown as chips that open the search results for the label |
 | `created`, `updated` | Dates; without them the build uses the git date of the source file |
 | `origin`, `reviewed` | Vault pages only: the vault path, and `no` for the review label |
 

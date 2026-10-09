@@ -19,6 +19,7 @@
 <meta name="twitter:image" content="https://machinebehavior.io/map/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/bar.css">
 <script src="/vendor/d3-7.9.0.min.js"></script>
 <style>
   :root {
@@ -30,7 +31,8 @@
     font-family: 'Space Grotesk', system-ui, sans-serif; }
   canvas { display: block; cursor: grab; }
   canvas.dragging { cursor: grabbing; }
-  .panel { position: fixed; left: 16px; top: 16px; width: 300px; max-width: calc(100vw - 32px); background: var(--panel);
+  .ib { position: fixed; left: 0; right: 0; }
+  .panel { position: fixed; left: 16px; top: calc(var(--ib-h) + 14px); max-height: calc(100vh - var(--ib-h) - 28px); overflow: auto; width: 300px; max-width: calc(100vw - 32px); background: var(--panel);
     border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; backdrop-filter: blur(6px); }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
   h1 { margin: 6px 0 4px; font-size: 26px; line-height: 1.05; letter-spacing: -0.5px; }
@@ -98,16 +100,18 @@
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
+<!-- inside-bar:begin here=map --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/board/">Board</a><a href="/map/" aria-current="page">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<main id="main">
+<canvas id="c" aria-label="Graph of the published work"></canvas>
 <div class="panel" id="panel">
   <button class="collapse" id="collapse" aria-label="Collapse panel">–</button>
-  <div class="eyebrow"><a href="/" style="color:inherit;text-decoration:none">machinebehavior.io</a> · <a href="/inside/" style="color:inherit">inside</a> · <a href="/inside/#dashboards" style="color:inherit">infrastructure</a></div>
+  <div class="eyebrow"><a href="/" style="color:inherit;text-decoration:none">machinebehavior.io</a> / map</div>
   <h1>Map of the Work</h1>
   <div class="eyebrow" style="margin-bottom:8px">Stefan Coetzee</div>
   <div class="body">
     <div class="sub">Every published page, post, repo and thread, and the links between them. Hover to see neighbours, click to read, drag to rearrange.</div>
     <div class="stats" id="stats"></div>
-    <input type="search" id="q" placeholder="Search titles" autocomplete="off">
+    <input type="search" id="q" placeholder="Filter the map by title" aria-label="Filter the map by title" autocomplete="off">
     <div class="filters" id="filters"></div>
     <label class="toggle"><input type="checkbox" id="nav"> Show navigation links</label>
   </div>
@@ -127,6 +131,8 @@
 </section>
 <div class="foot"><span id="foot"></span><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/" style="color:inherit">latest run</a></span> · <a href="/map/graph.json" style="color:inherit">graph.json</a></div>
 <noscript><p style="padding:24px;max-width:640px">Map of the Work is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
+</main>
+<script src="/inside/bar.js" defer></script>
 <script src="/conformity/footer.js" defer></script>
 <script>
 const KINDS = [
@@ -197,7 +203,8 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     const q = (arr, p) => arr.slice().sort((a, b) => a - b)[Math.floor(p * (arr.length - 1))];
     const xs = core.map(n => n.x), ys = core.map(n => n.y);
     const x0 = q(xs, 0.02), x1 = q(xs, 0.98), y0 = q(ys, 0.02), y1 = q(ys, 0.98);
-    const left = W > 900 ? 340 : 0, top = W > 900 ? 0 : 120;
+    const ibh = (document.querySelector('.ib') || {}).offsetHeight || 0;
+    const left = W > 900 ? 340 : 0, top = ibh + (W > 900 ? 0 : 120);
     const k = Math.min(3, 0.92 * Math.min((W - left - 40) / (x1 - x0 + 1), (H - top - 60) / (y1 - y0 + 1)));
     const tx = left + (W - left) / 2 - k * (x0 + x1) / 2, ty = top + (H - top) / 2 - k * (y0 + y1) / 2;
     d3.select(canvas).transition().duration(900).call(zoom.transform, d3.zoomIdentity.translate(tx, ty).scale(k));

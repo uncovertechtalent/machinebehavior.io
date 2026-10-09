@@ -20,6 +20,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
 <style>
   :root { --coral: #FF7A6B; }
   main.wrap { max-width: 1440px; margin: 0 auto; padding: 22px 18px 40px; }
@@ -98,8 +99,8 @@
 </style>
 </head>
 <body>
-<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/">Docs</a><a href="/inside/board/" class="here">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
-<main class="wrap">
+<!-- inside-bar:begin here=board --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/board/" aria-current="page">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<main class="wrap" id="main">
   <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/board/">Board</a></nav>
   <div class="head">
     <div>
@@ -145,7 +146,7 @@
   <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
 </footer>
 <noscript><p style="max-width:1440px;margin:0 auto;padding:0 18px">The board draws its cards in the browser. Without JavaScript: the issues are at <a href="https://github.com/uncovertechtalent/machinebehavior.io/issues">GitHub Issues</a> and the snapshot at <a href="/inside/board/issues.json">/inside/board/issues.json</a>.</p></noscript>
-<script src="/inside/docs/docs.js" defer></script>
+<script src="/inside/bar.js" defer></script>
 <script src="/conformity/footer.js" defer></script>
 <script>
 // The board reads /inside/board/issues.json, written by the deploy job (scripts/board_snapshot.py). No request to GitHub on load.

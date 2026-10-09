@@ -19,6 +19,10 @@ A new page passes the gate when it has a directory URL, a self canonical, a site
 
 If a page builds links in JavaScript, set `a.href` in code. The gate reads `href="..."` in the page source, and a template string such as an interpolated `href` is read as a relative link. See [Link check flags a template string](doc:eng/runbook-template-href).
 
+## Inside pages
+
+A page under `/inside/` carries the Inside top bar instead of the site menu. Put the marked block `<!-- inside-bar:begin here=<section> --><!-- inside-bar:end -->` right after `<body>`, link `/inside/bar.css` and `/inside/bar.js`, add the page to `SYNCED` in `scripts/inside_chrome.py` and run it. See [Top bar and search](doc:eng/top-bar-and-search).
+
 ## Menu
 
 Every page carries the same menu: machine behavior, man, claims, experiments, objections, terms, inside, infrastructure. Copy it from an existing page. The conformity page builds its menu from the `nav` list in `conformity/site-tier.json`.

@@ -5,6 +5,12 @@ labels: adr, decisions, governance
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: one top bar and one search index for Inside
+
+- **Decision.** Every Inside page carries one top bar, written by `bar()` in `scripts/inside_chrome.py`: generators call it, hand-written pages hold a marked block the script rewrites. One index, `/inside/search.json`, merges the docs, the services and the map; the search box is a form that submits to `/inside/search/`, so Enter opens a results page. The deploy job rebuilds the index after the map refresh, artifact only.
+- **Why.** There were three navigations (site menu, Inside header, docs bar) and two search boxes over two indexes, and docs search opened the first hit on Enter. A reader could not search the docs from Inside, or the published work from the docs.
+- **Consequence.** A new Inside page must carry the marked block and be listed in `SYNCED`; `python3 scripts/inside_chrome.py --check` reports drift. The index is about 190 KB and loads when the box gets focus. See [Top bar and search](doc:eng/top-bar-and-search).
+
 ## 2026-10-09: a public ticket board from GitHub Issues
 
 - **Decision.** Work items are GitHub Issues on the public repository, shown on [the board](/inside/board/). The deploy job writes `inside/board/issues.json` from the Issues API in a new artifact-only step (`scripts/board_snapshot.py`), and the workflow permissions gain `issues: read`. The workflow gets no `issues` trigger.

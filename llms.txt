@@ -29,6 +29,7 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - [Map of the Work](https://machinebehavior.io/map/): interactive graph of Stefan Coetzee's published work, every page on machinebehavior.io, tychat.io and uncovertechtalent.com plus the Substack posts, repos and threads, and the body links between them; machine-readable data at https://machinebehavior.io/map/graph.json
 - [Inside](https://machinebehavior.io/inside/): one front page for Stefan Coetzee's published work: the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack ranked by date or by links in, the live deploy and conformity-gate status of the three sites, the eval 04 results and the weekly decision-layer probe, the live Grafana dashboards (website deploys, Claude Code agents, local LLM, host) framed on the page, and links to the map and the reference pages
 - [Inside board](https://machinebehavior.io/inside/board/): the work on machinebehavior.io and the platform behind it as a board (backlog, ready, in progress, blocked, done) with filters by area, type and priority. GitHub Issues on the public repository is the system of record; the snapshot at https://machinebehavior.io/inside/board/issues.json is written at each deploy
+- [Inside search](https://machinebehavior.io/inside/search/): one search over the Inside docs, the service catalog and every page, post, repository and thread on the map; the index is https://machinebehavior.io/inside/search.json, rebuilt at each deploy
 - [Evidence index](https://machinebehavior.io/evidence/): Stefan Coetzee's public record of red-teaming, adversarial testing, attacker simulation and harm evaluation against frontier language models, the evaluation infrastructure shipped (frozen prompts, mechanical grader, hashed predictions, conformity gate) and the published findings, mapped per capability to one URL, one verbatim line and one date. Self-maintained, not a third-party assessment; what is not on the page is listed too
 - [Slips caught while drafting](https://machinebehavior.io/slips/): running log of register and stance slips caught before publication in each piece, with who caught them (same model session, another session, a human, a reader); data in slips/log.csv
 
@@ -77,7 +78,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (344 pages). Search index: https://machinebehavior.io/inside/docs/search.json. Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.
+The documentation tree at https://machinebehavior.io/inside/docs/ (345 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources.
 
 ### Engineering
 
@@ -95,6 +96,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (344 pages). S
 - [Link check flags a template string](https://machinebehavior.io/inside/docs/eng/runbook-template-href/)
 - [Runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
 - [Site architecture](https://machinebehavior.io/inside/docs/eng/site-architecture/)
+- [Top bar and search](https://machinebehavior.io/inside/docs/eng/top-bar-and-search/)
 
 ### Observability
 

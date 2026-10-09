@@ -24,12 +24,13 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
 </head>
 <body>
-<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
 <div class="layout">
 <nav class="side" aria-label="Pages in Research"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/res/"><span class="sp-icon" style="background:#FF8FD8">RES</span><span>Research</span></a><ul><li><details><summary><a href="/inside/docs/res/experiments/">Experiments</a></summary><ul><li class="leaf"><a href="/inside/docs/res/half-life-study/">01: The half-life study</a></li><li class="leaf"><a href="/inside/docs/res/exemplar-seeding/">02: Exemplar seeding</a></li><li class="leaf"><a href="/inside/docs/res/fawn-opener-benchmark/">03: Cross-model fawn-opener benchmark</a></li><li class="leaf"><a href="/inside/docs/res/experiment-04-folding-under-pressure/">Experiment 04: folding under pressure</a></li><li class="leaf"><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/res/claims-ledger/">Claims ledger</a></li><li class="leaf"><a href="/inside/docs/res/objections-register/">Objections register and OBJ-4 incident log</a></li><li class="leaf"><a href="/inside/docs/res/slips-log/">Slips log</a></li><li class="leaf"><a href="/inside/docs/res/case-files/">Case files: case 12 and Running Conjobs for AI</a></li><li class="leaf"><a href="/inside/docs/res/predictions-and-hashes/" aria-current="page">Predictions and hashes</a></li><li class="leaf"><a href="/inside/docs/res/conformity-self-assessment/">Conformity self-assessment, run 1</a></li></ul></details></nav>
-<main>
+<main id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/res/">Research</a></nav>
 <h1>Predictions and hashes</h1>
 <div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
@@ -51,12 +52,13 @@
 </article>
 
 
-<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=prereg">prereg</a><a href="/inside/docs/#q=predictions">predictions</a><a href="/inside/docs/#q=sha256">sha256</a><a href="/inside/docs/#q=integrity">integrity</a></nav>
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=prereg">prereg</a><a href="/inside/search/?q=predictions">predictions</a><a href="/inside/search/?q=sha256">sha256</a><a href="/inside/search/?q=integrity">integrity</a></nav>
 <nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/res/experiment-04-folding-under-pressure/">Experiment 04: folding under pressure</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/experiments/">Experiments</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/">Research</a><span class="mono">Research</span></li></ul></nav>
 </main>
 <nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#the-files">The files</a></li><li class="l2"><a href="#what-a-hash-proves">What a hash proves</a></li><li class="l2"><a href="#how-the-gate-checks-them">How the gate checks them</a></li><li class="l2"><a href="#files-and-rerun">Files and rerun</a></li></ul></nav>
 </div>
 <footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/res/predictions-and-hashes.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/res/predictions-and-hashes.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
 <script src="/inside/docs/docs.js" defer></script>
 <script src="/conformity/footer.js" defer></script>
 </body>
