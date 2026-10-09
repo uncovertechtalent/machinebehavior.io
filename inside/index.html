@@ -206,7 +206,7 @@ const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
 const APPS = [
   ['Map of the Work', 'every page and link', '/map/'],
   ['Website deploys', 'Grafana', '#dashboards/deploys'],
-  ['Claude Code agents', 'Grafana', '#dashboards/agents'],
+  ['Host', 'Grafana', '#dashboards/host'],
   ['Local LLM', 'Grafana', '#dashboards/llm'],
   ['TYChat lessons', 'tychat.io', 'https://tychat.io/'],
   ['Claims ledger', 'what is claimed', '/claims/'],
@@ -396,8 +396,6 @@ getJSON('/conformity/probes/latest.json').then(p => {
 const DASHES = [
   {key: 'deploys', label: 'deploys', token: 'e0f6a0c8f3a64884a67faac5cf4c3ad4', range: 'now-2d',
    about: 'Every GitHub Actions run of the three sites: outcome per hour, push-to-live time, where the time goes per step, the gate result for each check on every run, and what the deploy shipped.'},
-  {key: 'agents', label: 'claude code', token: '3a4ba6b21e6f4924ab2845b47a300af0', range: 'now-7d',
-   about: 'The Claude Code sessions that build this work, from their OpenTelemetry export: spend by model, tokens by type, prompt-cache reads, tool calls and API latency. Metrics only; identifying labels are stripped before storage.'},
   {key: 'llm', label: 'local llm', token: 'e6a9dd2153004ad0a868ce6f0e19071f', range: 'now-7d',
    about: 'The self-hosted model server on the home lab, metered by a pass-through proxy: time to first token, decode speed, token counts, model load time, and which models sit in GPU memory.'},
   {key: 'host', label: 'host', token: '81c9dfd269cc430abaf6a6ce7b64c4d6', range: 'now-24h',
