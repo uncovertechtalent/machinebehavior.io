@@ -123,8 +123,13 @@ dd .receipt { font-size: 0.85rem; color: var(--ink-soft); }
 .figure img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--rule); }
 .figure figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.55rem; }
 .figure figcaption a { color: var(--teal); }
-/* home page: a strip of the map across the top, edges faded into the map's own background */
-.banner { position: relative; height: clamp(120px, 20vw, 284px); background: #0A0C0F; overflow: hidden; margin: -3.5rem -1.25rem 2.4rem; }
-.banner::before { content: ""; position: absolute; inset: 0; background: url("/map/home-strip.png") center / auto 100% no-repeat;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%); }
+/* home page: a band of nodes and links from the map above the menu; its sides and bottom fade into the page */
+body.home { padding-top: calc(min(100vw, 880px) * 0.3866 - 0.5rem); }
+.hero { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, 880px); aspect-ratio: 1138 / 440;
+  pointer-events: none; z-index: 0; background: url("/map/home-net-light.png") center / 100% 100% no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 100%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-composite: intersect; }
+@media (prefers-color-scheme: dark) { .hero { background-image: url("/map/home-net-dark.png"); } }
+.sheet { position: relative; z-index: 1; }
