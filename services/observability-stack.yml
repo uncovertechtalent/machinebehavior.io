@@ -12,7 +12,7 @@ repository: https://github.com/uncovertechtalent/agent-observability
 dashboard:
   name: Host
   url: https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6
-docs: [doc:obs/architecture, doc:obs/alerts-and-slos, doc:obs/public-dashboards, doc:obs/dashboards-as-code]
+docs: [doc:obs/architecture, doc:obs/alerts-and-slos, doc:obs/public-dashboards, doc:obs/dashboards-as-code, doc:obs/on-call]
 runbooks: [doc:obs/runbook-share-a-dashboard, doc:obs/runbook-stat-panel-no-data, doc:obs/runbook-loki-backfill-missing]
 depends_on: []
 external: [Docker Compose]

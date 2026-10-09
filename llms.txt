@@ -78,7 +78,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (348 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (349 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -110,6 +110,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (348 pages). S
 - [Deploy exporter](https://machinebehavior.io/inside/docs/obs/deploy-exporter/)
 - [Loki streams](https://machinebehavior.io/inside/docs/obs/loki-streams/)
 - [Metrics reference](https://machinebehavior.io/inside/docs/obs/metrics-reference/)
+- [On-call and escalation](https://machinebehavior.io/inside/docs/obs/on-call/)
 - [Public dashboards](https://machinebehavior.io/inside/docs/obs/public-dashboards/)
 - [Counter resets from parallel sessions](https://machinebehavior.io/inside/docs/obs/runbook-counter-resets-parallel-sessions/)
 - [Backfilled runs missing in Loki](https://machinebehavior.io/inside/docs/obs/runbook-loki-backfill-missing/)

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>On-call and escalation · Observability · Inside docs</title>
+<meta name="description" content="The real on-call model: one operator, agent sessions as responders, the deploy gate as the one control that acts on its own, and 13 alert rules that page nobody because no Alertmanager runs. With a proposed routing.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/on-call/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/on-call/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="On-call and escalation">
+<meta property="og:description" content="The real on-call model: one operator, agent sessions as responders, the deploy gate as the one control that acts on its own, and 13 alert rules that page nobody because no Alertmanager runs. With a proposed routing.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="on-call">
+<meta property="article:tag" content="alerts">
+<meta property="article:tag" content="alertmanager">
+<meta property="article:tag" content="escalation">
+<meta property="article:tag" content="incidents">
+<meta name="docs-owner" content="Stefan Coetzee">
+<meta name="docs-reviewed" content="2026-10-09">
+<meta name="docs-review-by" content="2027-01-07">
+<meta name="docs-type" content="explanation">
+<link rel="up" href="/inside/docs/obs/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a></aside>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/on-call/" aria-current="page">On-call and escalation</a></li><li><details><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a></nav>
+<h1>On-call and escalation</h1>
+<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>reviewed 2026-10-09</span><span>review by 2027-01-07</span><span>4 min read</span><span class="type">explanation</span></div>
+
+<article class="doc">
+<p>Nothing pages anyone. Prometheus evaluates 13 alert rules, but the stack runs no Alertmanager and Prometheus has no <code>alerting</code> target, so a firing alert stays in Prometheus and Grafana until someone looks. One person answers for every service, and the agent sessions that build the platform are the responders. The one control that acts without a person is the <a href="/inside/docs/eng/conformity-gate/">deploy gate</a>: a failed check stops the deploy and the previous build stays live.</p>
+<h2 id="roles">Roles</h2>
+<div class="tbl"><table><thead><tr><th>Role</th><th>Who</th><th>What they do</th></tr></thead><tbody><tr><td>Operator</td><td>Stefan Coetzee</td><td>Owns every service in the <a href="/inside/services/">catalog</a>, decides, starts and stops agent sessions, holds the credentials</td></tr><tr><td>Responders</td><td>Claude Code sessions, one per track of work</td><td>Read the records and dashboards, follow the runbooks, fix within their track, push through the gate, write the incident record</td></tr><tr><td>Gate owner</td><td>The legislation-track session</td><td>Owns the conformity checks; tier changes are the operator's decision</td></tr><tr><td>Control</td><td>The conformity gate</td><td>Runs before every deploy of the three sites; blocks on a failed check without anyone on call</td></tr></tbody></table></div>
+<p>A responder session works only while the operator has it running. There is no rotation, no second person and no response time agreed with anyone.</p>
+<h2 id="how-a-problem-is-noticed-today">How a problem is noticed today</h2>
+<ol><li><strong>The gate fails.</strong> The deploy does not run, the run is red on GitHub Actions, the <a href="/inside/status/">status page</a> shows the site as degraded and the <a href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">Website deploys</a> dashboard shows the failing check. Readers keep the previous build.</li><li><strong>An alert fires.</strong> It shows in Prometheus and on the internal Grafana dashboards. Nobody is told.</li><li><strong>A session or the operator sees it</strong> while working: a dashboard, a failed search, a wrong number.</li><li><strong>A reader reports it</strong> as a <a href="https://github.com/uncovertechtalent/machinebehavior.io/issues">GitHub issue</a>; it reaches the <a href="/inside/board/">board</a> after triage.</li></ol>
+<p>The four incidents on the status page were all found by the third route.</p>
+<h2 id="the-alert-rules">The alert rules</h2>
+<div class="tbl"><table><thead><tr><th>Group</th><th>Rules</th><th>Severity</th></tr></thead><tbody><tr><td>Local LLM SLOs</td><td>LocalLLMAvailabilityBudgetBurnFast, LocalLLMLatencyBudgetBurnFast, LocalLLMAvailabilityBudgetBurnSlow</td><td>page, page, ticket</td></tr><tr><td>Local LLM symptoms</td><td>OllamaDown, OllamaExporterDown, ModelSpilledToCPU</td><td>page, page, info</td></tr><tr><td>Claude Code spend</td><td>ClaudeCodeSpendSpike</td><td>ticket</td></tr><tr><td>SearXNG</td><td>SearXNGDown, SearXNGProxyEgressDown, SearXNGTunnelDown, SearXNGEngineFailing, SearXNGDegradedSearches, SearXNGSlowSearches</td><td>page, then five ticket</td></tr></tbody></table></div>
+<p>Five rules carry <code>severity: page</code>, seven <code>ticket</code> and one <code>info</code>. Conditions and tests: <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+<h2 id="response">Response</h2>
+<ol><li>Open a record in <code>incidents/</code> with an <code>investigating</code> update and push; the status page shows it after the deploy. See <a href="/inside/docs/eng/status-page/">Status page</a>.</li><li>Find the service in the <a href="/inside/services/">catalog</a> and follow its runbook.</li><li>Fix through the gate. A fix that cannot pass the gate does not go out.</li><li>Move the record through identified, monitoring and resolved.</li><li>For anything readers saw, write the cause and the fix into the docs and link it from the record.</li></ol>
+<p>Order of work follows the service tier: tier 1 first, tier 2 the same day, tier 3 in the next working session.</p>
+<h2 id="escalation">Escalation</h2>
+<div class="tbl"><table><thead><tr><th>From</th><th>To</th><th>When</th></tr></thead><tbody><tr><td>Responder session</td><td>The operator, in the session</td><td>Anything outside the session's track, anything that needs a credential, a cost, a change to the gate or a public statement</td></tr><tr><td>Operator</td><td>The gate owner</td><td>A false positive or a rule change in the gate</td></tr><tr><td>Operator</td><td>The provider</td><td>GitHub for Pages and Actions, Anthropic for the API, the upstream search engines for blocks</td></tr></tbody></table></div>
+<h2 id="proposed-routing">Proposed routing</h2>
+<p>This is a proposal and is not wired. Sending a page to a phone or an address needs the operator's go and a receiver the operator chooses.</p>
+<pre><code class="lang-yaml"># alertmanager.yml (proposal)
+route:
+  receiver: board            # default: a ticket on the board
+  group_by: [alertname]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 24h
+  routes:
+    - matchers: [severity=&quot;page&quot;]
+      receiver: operator-push
+      repeat_interval: 1h
+      active_time_intervals: [waking-hours]
+    - matchers: [severity=&quot;page&quot;]   # outside waking hours a page becomes a ticket
+      receiver: board
+    - matchers: [severity=&quot;info&quot;]
+      receiver: blackhole
+    - matchers: [alertname=&quot;Watchdog&quot;]
+      receiver: heartbeat
+      repeat_interval: 5m
+inhibit_rules:
+  - source_matchers: [alertname=&quot;OllamaDown&quot;]
+    target_matchers: [alertname=~&quot;LocalLLM.+|ModelSpilledToCPU|OllamaExporterDown&quot;]
+  - source_matchers: [alertname=&quot;SearXNGDown&quot;]
+    target_matchers: [alertname=~&quot;SearXNG.+&quot;]
+time_intervals:
+  - name: waking-hours
+    time_intervals:
+      - times: [{start_time: &quot;08:00&quot;, end_time: &quot;22:00&quot;}]
+        location: Europe/Berlin
+receivers:
+  - name: operator-push      # a push service on the operator&#x27;s phone; not chosen
+  - name: board              # a webhook that opens or updates a GitHub issue with type and area labels
+  - name: heartbeat          # an external check that alarms when the Watchdog stops arriving
+  - name: blackhole</code></pre>
+<p>What it would change:</p>
+<ul><li>The five page rules reach a person during waking hours; at night they wait as tickets, which matches one operator.</li><li>Tickets land on the board as issues, so an alert has an owner and a history next to the other work.</li><li>An always-firing <code>Watchdog</code> rule and an outside heartbeat check would show when the alerting path itself is down. Without it, a dead Prometheus and a quiet night look the same.</li><li>Inhibition keeps one cause from raising five alerts: a down Ollama silences the SLO burns behind it.</li></ul>
+<p>Wiring it needs an Alertmanager service in the compose file, an <code>alerting</code> block in <code>prometheus.yml</code>, a <code>Watchdog</code> rule, promtool tests for the routes, and the operator's choice of receivers.</p>
+<h2 id="related">Related</h2>
+<ul><li><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>: every rule and its condition.</li><li><a href="/inside/docs/obs/runbooks/">Runbooks</a> and the <a href="/inside/docs/eng/runbooks/">Engineering runbooks</a>.</li><li><a href="/inside/docs/eng/access-model/">Access model</a>: who can reach what.</li></ul>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=on-call">on-call</a><a href="/inside/search/?q=alerts">alerts</a><a href="/inside/search/?q=alertmanager">alertmanager</a><a href="/inside/search/?q=escalation">escalation</a><a href="/inside/search/?q=incidents">incidents</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a><span class="mono">Observability</span></li><li><a href="/inside/docs/eng/decision-log/">Decision log</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/obs/">Observability</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#roles">Roles</a></li><li class="l2"><a href="#how-a-problem-is-noticed-today">How a problem is noticed today</a></li><li class="l2"><a href="#the-alert-rules">The alert rules</a></li><li class="l2"><a href="#response">Response</a></li><li class="l2"><a href="#escalation">Escalation</a></li><li class="l2"><a href="#proposed-routing">Proposed routing</a></li><li class="l2"><a href="#related">Related</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/on-call.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/on-call.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

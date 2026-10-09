@@ -38,6 +38,7 @@ Source: [uncovertechtalent/agent-observability](https://github.com/uncovertechta
 
 - [Architecture](doc:obs/architecture): collectors, stores, Grafana, the front door and the deployment.
 - [Public dashboards](doc:obs/public-dashboards): the five shared dashboards and their links.
+- [On-call and escalation](doc:obs/on-call): who responds, how a problem is noticed, and why no alert pages anyone.
 - [Metrics reference](doc:obs/metrics-reference) and [Loki streams](doc:obs/loki-streams): names, labels and fields.
 - [Runbooks](doc:obs/runbooks): fixes for the known traps.
 

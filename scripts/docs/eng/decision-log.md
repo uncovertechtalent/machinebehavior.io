@@ -9,6 +9,12 @@ type: explanation
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: state the on-call model, propose Alertmanager routing
+
+- **Decision.** An [On-call and escalation](doc:obs/on-call) page states the model as it runs: one operator, agent sessions as responders, the deploy gate as the only control that acts on its own, and 13 alert rules with no Alertmanager, so nothing pages anyone. It proposes a routing (pages to a push receiver in waking hours, tickets to the board, a Watchdog heartbeat, inhibition) and leaves it unwired.
+- **Why.** A founder checking the setup asks who gets woken up. Saying "nobody" is accurate; wiring a page to a personal device needs the operator's choice of receiver.
+- **Consequence.** Alerts stay visible only to someone who looks. The four incidents of the week were all found that way.
+
 ## 2026-10-09: a public-demo banner and a stated access model
 
 - **Decision.** Every Inside page except the map carries a banner saying the intranet is a public demo and that in production it sits behind single sign-on, linking an [Access model](doc:eng/access-model) page: public, internal and restricted spaces, who grants each, and access per user and device without a network perimeter. No login and no credential form exist on the site.

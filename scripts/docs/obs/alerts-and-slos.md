@@ -8,7 +8,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-Prometheus evaluates recording rules and 13 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager.
+Prometheus evaluates recording rules and 13 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager, so no alert reaches a person; who responds and a proposed routing are on [On-call and escalation](doc:obs/on-call).
 
 ## Service level objectives
 

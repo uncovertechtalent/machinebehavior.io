@@ -301,7 +301,8 @@
     "/inside/docs/obs/architecture/",
     "/inside/docs/obs/alerts-and-slos/",
     "/inside/docs/obs/public-dashboards/",
-    "/inside/docs/obs/dashboards-as-code/"
+    "/inside/docs/obs/dashboards-as-code/",
+    "/inside/docs/obs/on-call/"
    ],
    "runbooks": [
     "/inside/docs/obs/runbook-share-a-dashboard/",
@@ -409,7 +410,8 @@
    "docs": [
     "/inside/docs/fin/cost-model/",
     "/inside/docs/fin/budgets-and-alerts/",
-    "/inside/docs/fin/anomaly-the-phantom-two-million/"
+    "/inside/docs/fin/anomaly-the-phantom-two-million/",
+    "/inside/docs/obs/on-call/"
    ],
    "runbooks": [
     "/inside/docs/obs/runbook-counter-resets-parallel-sessions/"
