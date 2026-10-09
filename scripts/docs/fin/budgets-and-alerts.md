@@ -3,15 +3,15 @@ summary: The one cost alert that exists, why nothing pages, how it behaved on re
 order: 50
 labels: finops, budgets, alerts, prometheus, loki
 ---
-One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price value of Claude Code calls in the trailing hour stays above USD 20 for 10 minutes. The stack runs no Alertmanager, so a firing alert is visible in Prometheus and Grafana and reaches nobody. No budget is set for any component; the eval harness caps each run.
+One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price value of Claude Code calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. The stack runs no Alertmanager, so a firing alert is visible in Prometheus and Grafana and reaches nobody. No budget is set for any component; the eval harness caps each run.
 
 ## What exists
 
 | Control | Where | What it does | State on 2026-10-09 |
 |---|---|---|---|
-| `ClaudeCodeSpendSpike` | [prometheus/rules/alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml) | `sum(model:claude_code_cost_usd:sum1h) > 20` for 10 minutes, severity ticket | Evaluated; no notification route |
+| `ClaudeCodeSpendSpike` | [prometheus/rules/alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml) | `sum(model:claude_code_cost_usd:sum1h) > 40` for 10 minutes, severity ticket | Evaluated; no notification route |
 | `model:claude_code_cost_usd:sum1h` | [loki/rules/fake/claude-code.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/loki/rules/fake/claude-code.yml) | Trailing-hour sum of `cost_usd` by model, every minute, written to Prometheus by the Loki ruler | Recording |
-| Alert tests | [prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) | The spend alert fires at USD 25 per hour and holds at USD 15 | In the repository; run with promtool |
+| Alert tests | [prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) | The spend alert fires at USD 45 per hour, holds at USD 35 and holds on 8 minutes above the threshold | In the repository; run with promtool |
 | Eval run cap | Experiment 04 harness, `--budget-usd` | Starts no new conversation once the projected spend would cross the cap | v5 cap USD 20, spent USD 12.87 |
 | Probe cap | [Weekly decision-layer probe](doc:res/decision-layer-probe) | Same guard, cap USD 1.0 | First run USD 0.269 |
 
@@ -19,13 +19,24 @@ One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price val
 
 ## The spend alert on real spend
 
-After the switch to per-request events ([The phantom two million](doc:fin/anomaly-the-phantom-two-million)), the alert fired on 2026-10-09 from 07:43 to 10:18 UTC. The trailing-hour value, in 15-minute samples:
+After the switch to per-request events ([The phantom two million](doc:fin/anomaly-the-phantom-two-million)), the alert, then at USD 20, fired on 2026-10-09 from 07:43 to 10:18 UTC. The trailing-hour value, in 15-minute samples:
 
 | UTC | 07:30 | 08:00 | 08:30 | 09:00 | 09:30 | 10:00 | 10:30 |
 |---|---|---|---|---|---|---|---|
 | USD in the trailing hour | 18.2 | 33.1 | 56.7 | 52.7 | 44.2 | 34.3 | 18.5 |
 
-Several Claude Code sessions ran in parallel that morning. In the week before (clock hours from 2026-10-02 to 2026-10-08, Loki), 69 of 168 hours had any spend, the median of those hours was USD 10.59, 16 hours were above USD 20 and the busiest hour reached USD 87.41. A USD 20 threshold sits below 16 of that week's clock hours. As a spike detector the alert needs a threshold above the week's busiest hour, or a rule relative to recent hours.
+Several Claude Code sessions ran in parallel that morning. In the week before (clock hours from 2026-10-02 to 2026-10-08, Loki), 69 of 168 hours had any spend, the median of those hours was USD 10.59, 16 hours were above USD 20 and the busiest hour reached USD 87.41. A USD 20 threshold sits below 16 of that week's clock hours.
+
+The threshold moved to USD 40 the same day. Replayed on the trailing-hour series from 2026-10-02 to 2026-10-09 11:00 UTC in 5-minute steps, USD 20 fires 21 times and USD 40 fires four times:
+
+| Firing (UTC) | Peak USD in the trailing hour |
+|---|---|
+| 2026-10-07 12:20 to 12:30 | 40.9 |
+| 2026-10-07 18:15 to 18:40 | 44.6 |
+| 2026-10-07 20:20 to 22:10 | 87.4 |
+| 2026-10-09 08:20 to 09:45 | 56.8 |
+
+Each is a busy hour with several sessions in parallel. USD 40 marks those hours and stays quiet through ordinary ones. A rule relative to recent hours, 1.5 times the 7-day 99th percentile of the trailing hour with a USD 30 floor, fires once in the same replay; it needs seven days of the Prometheus series, which starts on 2026-10-09.
 
 ## What a budget means on a subscription
 

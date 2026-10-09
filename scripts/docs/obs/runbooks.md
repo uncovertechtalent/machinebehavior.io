@@ -31,7 +31,7 @@ curl -s http://localhost:11435/metrics | grep ollama_up
 | Deploy-exporter poll errors | `site_deploy_exporter_errors_total` | Flat; it counts failed repository polls since the exporter started |
 | Ollama reachable | `ollama_up` | 1; the `OllamaDown` alert fires after 2 minutes at 0 |
 | Proxy scraped | `up{job="ollama-exporter"}` | 1; the `OllamaExporterDown` alert fires after 2 minutes at 0 |
-| Claude Code spend | `sum(model:claude_code_cost_usd:sum1h)` | Under USD 20 per hour, the `ClaudeCodeSpendSpike` threshold |
+| Claude Code spend | `sum(model:claude_code_cost_usd:sum1h)` | Under USD 40 per hour, the `ClaudeCodeSpendSpike` threshold |
 
 The deploy-exporter writes one log line per run it reads, with site, run number, outcome, duration and gate result. Failure lines carry `poll failed`, `log fetch failed`, `loki flush failed`, `probe fetch failed` or `state save failed`, followed by the site where one applies and the error.
 

@@ -1,10 +1,10 @@
 title: Alerts and SLOs
-summary: The recording rules, service level objectives and seven alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.
+summary: The recording rules, service level objectives and 13 alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.
 parent: metrics-reference
 order: 10
 labels: prometheus, alerts, slo, loki
 ---
-Prometheus evaluates recording rules and seven alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager.
+Prometheus evaluates recording rules and 13 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager.
 
 ## Service level objectives
 
@@ -27,9 +27,19 @@ SLI rules record the error ratio and the slow-first-token ratio over 5m, 30m, 1h
 | OllamaDown | `ollama_up == 0` for 2 minutes | page |
 | OllamaExporterDown | `up{job="ollama-exporter"} == 0` for 2 minutes | page |
 | ModelSpilledToCPU | A resident model on split or cpu while requests are in flight, for 5 minutes | info |
-| ClaudeCodeSpendSpike | `sum(model:claude_code_cost_usd:sum1h) > 20` for 10 minutes | ticket |
+| ClaudeCodeSpendSpike | `sum(model:claude_code_cost_usd:sum1h) > 40` for 10 minutes | ticket |
+| SearXNGDown | `searxng_up == 0` for 3 minutes | page |
+| SearXNGProxyEgressDown | `searxng_proxy_up == 0` for 5 minutes | ticket |
+| SearXNGTunnelDown | The SSH tunnel behind the proxy egress not active on the home server for 2 minutes | ticket |
+| SearXNGEngineFailing | One engine failed over 80% of its calls in 30 minutes (rate limit, block, timeout or error), with at least 5 calls, for 10 minutes | ticket |
+| SearXNGDegradedSearches | `search.sh` returned `SEARXNG_DEGRADED` 3 or more times in 15 minutes | ticket |
+| SearXNGSlowSearches | Search latency p95 above 8 s over 30 minutes, with more than one search per 5 minutes, for 10 minutes | ticket |
 
 The burn-rate alerts follow the multi-window, multi-burn-rate pattern from chapter 5 of the Google SRE Workbook. A homelab LLM serves a handful of requests per hour, and one failed request in a quiet hour is a 100% error ratio. The traffic floor on the two availability alerts holds the page in that case.
+
+The SearXNG exporter pushes from the laptop that runs the instance, so a sleeping laptop leaves a gap in the series, not a zero. The SearXNG rules read pushed values, or failure ratios with a minimum number of calls; none reads `up` or `absent()`.
+
+The spend threshold comes from the week of 2026-10-02 to 2026-10-08 in Loki: the median hour with any spend was USD 10.59, the 99th percentile of the trailing hour USD 47.71 and the busiest hour USD 87.41. Replayed on the trailing-hour series from 2026-10-02 to 2026-10-09 11:00 UTC in 5-minute steps, USD 40 fires four times, each on a busy hour with several sessions in parallel; the earlier USD 20 threshold fires 21 times. Details: [Budgets and alerts](doc:fin/budgets-and-alerts).
 
 ## Spend rule from Loki
 
@@ -37,7 +47,7 @@ The burn-rate alerts follow the multi-window, multi-burn-rate pattern from chapt
 
 ## Tests
 
-[prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) checks four cases with promtool. The fast availability alert fires at 20% errors and one request per second, and the traffic floor holds it at one request per hour. The spend alert fires at USD 25 per hour and does not fire at USD 15.
+[prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) checks 11 cases with promtool. The fast availability alert fires at 20% errors and one request per second, and the traffic floor holds it at one request per hour. The spend alert fires at USD 45 per hour summed over two models, does not fire at USD 35, and does not fire on 8 minutes above the threshold, inside the 10-minute hold. The SearXNG cases cover a down instance, a sleeping laptop, a rate-limited engine above and below the call floor, and degraded searches above and below the count.
 
 ```bash
 docker run --rm -v "$PWD/prometheus:/p:ro" -w /p/tests --entrypoint promtool \

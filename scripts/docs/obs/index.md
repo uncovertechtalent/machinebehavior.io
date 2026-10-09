@@ -2,7 +2,7 @@ title: Observability
 summary: Metrics, logs and traces for Claude Code, a self-hosted Ollama server, its host and three website deploys, collected by one Docker Compose stack on a home server.
 labels: observability, prometheus, loki, tempo, grafana
 ---
-The Observability space documents agent-observability: a Docker Compose stack that collects metrics, logs and traces from Claude Code, a self-hosted Ollama server, the host that runs Ollama, and the GitHub Actions deploys of three websites. Stefan Coetzee runs it on a home server. Four of its Grafana dashboards are public and framed on the [Inside](/inside/#dashboards) page.
+The Observability space documents agent-observability: a Docker Compose stack that collects metrics, logs and traces from Claude Code, a self-hosted Ollama server, the host that runs Ollama, and the GitHub Actions deploys of three websites. Stefan Coetzee runs it on a home server. Five of its Grafana dashboards are public and framed on the [Inside](/inside/#dashboards) page.
 
 Source: [uncovertechtalent/agent-observability](https://github.com/uncovertechtalent/agent-observability) on GitHub, MIT licence.
 
@@ -33,7 +33,7 @@ Source: [uncovertechtalent/agent-observability](https://github.com/uncovertechta
 ## Start here
 
 - [Architecture](doc:obs/architecture): collectors, stores, Grafana, the front door and the deployment.
-- [Public dashboards](doc:obs/public-dashboards): the four shared dashboards and their links.
+- [Public dashboards](doc:obs/public-dashboards): the five shared dashboards and their links.
 - [Metrics reference](doc:obs/metrics-reference) and [Loki streams](doc:obs/loki-streams): names, labels and fields.
 - [Runbooks](doc:obs/runbooks): fixes for the known traps.
 
