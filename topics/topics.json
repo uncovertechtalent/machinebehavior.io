@@ -750,6 +750,20 @@
  ],
  "issues": [
   {
+   "n": 44,
+   "t": "Home page as the portal front page",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/44",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site"
+   ],
+   "closed": "",
+   "reason": ""
+  },
+  {
    "n": 43,
    "t": "Structured data: Person, WebSite with search, Article and TechArticle, DefinedTermSet",
    "state": "closed",

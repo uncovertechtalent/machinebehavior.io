@@ -126,3 +126,51 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 .sheet code, .sheet .mono, .sheet a { overflow-wrap: anywhere; }
 .sheet pre { max-width: 100%; overflow-x: auto; }
 @media (max-width: 819px) { .sheet table { display: block; max-width: 100%; overflow-x: auto; } }
+
+/* home page: a portal front page in the reading brand. Hero with the map, receipts as tiles, section cards,
+   the latest research, topics, the TYChat lessons, the other surfaces and the aim. Lists between static: markers
+   are written by scripts/build_fallbacks.py. */
+body.mb-read.home > .sheet { max-width: 1160px; }
+.home-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 40px; align-items: center; margin: 0.6rem 0 0; }
+.home-hero h1 { font-size: clamp(2.5rem, 5.4vw, 3.9rem); margin: 0.3rem 0 0.7rem; letter-spacing: -0.02em; }
+.home-hero .subtitle { font-size: 1.22rem; margin-bottom: 1.3rem; }
+.home-hero .thesis { max-width: 620px; }
+.home-hero .oneliner { margin: 1.4rem 0; max-width: 620px; }
+.home-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 1.6rem 0 0; }
+.home-btn { display: inline-block; font: 500 var(--mb-text-md)/1.2 var(--mb-font-sans); padding: 11px 18px; border-radius: 999px; text-decoration: none;
+  color: var(--mb-text); background: var(--mb-surface-raised); border: 1px solid var(--mb-line); }
+.home-btn:hover { border-color: var(--mb-teal); color: var(--mb-teal); }
+.home-btn.primary { background: var(--mb-teal); border-color: var(--mb-teal); color: var(--mb-surface); }
+.home-btn.primary:hover { color: var(--mb-surface); filter: brightness(1.08); }
+.home-map { margin: 0; }
+.home-map img { display: block; width: 100%; height: auto; border-radius: var(--mb-radius-l); border: 1px solid var(--mb-line); box-shadow: var(--mb-shadow); }
+.home-map figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.7rem; }
+.home-map figcaption a { color: var(--teal); }
+.home-band { margin-top: 3.4rem; }
+.home-band h2.label { display: flex; align-items: baseline; gap: 12px; font-size: 0.72rem; font-weight: 400; margin: 0 0 1.1rem; }
+.home-more { margin-left: auto; font-family: var(--mb-font-mono); letter-spacing: 0; text-transform: none; color: var(--teal); }
+.home-tiles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.home-tile { background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); padding: 16px 16px 14px; display: grid; gap: 6px; align-content: start; }
+.home-tile-n { font-family: var(--mb-font-serif); font-size: 2rem; line-height: 1; font-weight: 700; color: var(--rust); font-variant-numeric: tabular-nums; }
+.home-tile-t { font-size: 0.92rem; line-height: 1.45; color: var(--ink-soft); }
+.home-tile-t a { color: var(--teal); }
+.home-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; }
+.home-grid.two { grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); }
+.home-grid .mb-entry { padding: 16px 18px; }
+.home-grid .mb-entry > a { font-size: 1.08rem; }
+.home-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.home-chips a { display: inline-flex; align-items: baseline; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--mb-line);
+  background: var(--mb-surface-raised); color: var(--mb-text); text-decoration: none; font: 500 var(--mb-text-md)/1.2 var(--mb-font-sans); }
+.home-chips a:hover { border-color: var(--teal); color: var(--teal); }
+.home-chips span { display: none; }
+.home-else { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 4px 28px; }
+.home-else li { display: grid; gap: 2px; padding: 10px 0; border-top: 1px solid var(--mb-line); }
+.home-else a { font-weight: 700; color: var(--mb-text); text-decoration: none; }
+.home-else a:hover { color: var(--teal); text-decoration: underline; }
+.home-else span { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.45; }
+.home-aims .thesis { font-size: 1.2rem; max-width: 760px; }
+@media (max-width: 960px) {
+  .home-hero { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .home-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) { .home-tiles { grid-template-columns: minmax(0, 1fr); } .home-tile-n { font-size: 1.7rem; } }

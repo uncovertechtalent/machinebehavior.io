@@ -8,6 +8,7 @@
 #   title  the name in the breadcrumbs and the sidebar
 #   url    a root-absolute page path ending in /, or an anchor on a page (/inside/#dashboards)
 #   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb
+#   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py)
 #          and topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
@@ -94,9 +95,11 @@ sections:
     title: Inside
     url: /inside/
     banner: true
+    about: The portal behind the research. Services with owners and SLOs, a status page, the board, the tour and the tools that run the work.
     pages:
       - title: Mission Control
         url: /inside/mission-control/
+        about: The live operations view. Gate and deploy state of the three sites, open incidents and the dashboards on one screen.
       - title: Services
         url: /inside/services/
         auto: services
@@ -115,13 +118,16 @@ sections:
     title: Docs
     url: /inside/docs/
     banner: true
+    about: The documentation tree in six spaces. Engineering, observability, research, FinOps, an SRE handbook and standards, each page with an owner and a review date.
     auto: docs
 
   - key: topics
     title: Topics
     url: /topics/
+    about: Hubs that gather one subject across research pages, Inside, the docs, posts and the board.
     auto: topics
 
   - key: map
     title: Map
     url: /map/
+    about: Every page, post, repository and thread, and the links between them, as one graph.

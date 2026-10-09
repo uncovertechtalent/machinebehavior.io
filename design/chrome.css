@@ -97,8 +97,6 @@
 body.mb-read { padding: 0; }
 body.mb-read > .sheet { padding: 22px 20px 56px; }
 body.mb-read.home { padding-top: 0; }
-body.mb-read.home .hero { top: var(--mb-bar-h); }
-body.mb-read.home > .sheet { padding-top: calc(min(100vw, 880px) * 0.2575 - 0.5rem); }
 @media (max-width: 819px) { body.mb-read > .sheet { padding: 18px var(--mb-gutter) 44px; } }
 
 /* ---------- app layout: Inside, Docs, Map ---------- */

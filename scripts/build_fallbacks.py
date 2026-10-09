@@ -5,7 +5,8 @@ the page script fills; the script replaces it on load with the live version.
 
 - /inside/: the three sites, the latest pieces, the living documents and the repositories (map/graph.json);
 - /inside/board/: the open issues by column and the issues closed in the last 30 days (GitHub Issues, as of the build);
-- /inside/mission-control/: the three sites, the open incidents (inside/status/incidents.json), the gate and the feed.
+- /inside/mission-control/: the three sites, the open incidents (inside/status/incidents.json), the gate and the feed;
+- /: the section cards, the latest research pages and the topics (site/nav.yml, site/topics.yml, topics/topics.json).
 
 Called by scripts/build_hubs.py with the board issues it read; run on its own it uses topics/topics.json.
 """
@@ -133,6 +134,44 @@ def mission_control():
     return len(open_)
 
 
+def home():
+    sys.path.insert(0, str(ROOT / 'scripts'))
+    import site_chrome
+    t = site_chrome.tree(reload=True)
+    def count(n):
+        return sum(1 for _ in site_chrome._pages_under(n))
+    cards = []
+    for key in ('research', 'inside', 'docs', 'topics', 'map'):
+        sec = t.section(key)
+        n = count(sec)
+        meta = f'{n} pages' if key in ('research', 'docs') else f'{n} hubs' if key == 'topics' else ''
+        cards.append((sec.title, sec.url, sec.cfg.get('about', ''), meta))
+        if key == 'inside':
+            mc = t.by_url['/inside/mission-control/']
+            cards.append((mc.title, mc.url, mc.cfg_page.get('about', ''), 'live'))
+    put('index.html', 'home-sections', ''.join(
+        f'<li class="mb-entry"><a href="{u}">{esc(ti)}</a><p>{esc(a)}</p>' + (f'<span class="mb-entry-meta">{esc(m)}</span>' if m else '') + '</li>'
+        for ti, u, a, m in cards))
+    research = [n for n in site_chrome._pages_under(t.section('research')) if getattr(n, 'cfg_page', {}).get('published')]
+    research.sort(key=lambda n: (str(n.cfg_page['published']), n.url), reverse=True)
+    li = ''
+    for n in research[:4]:
+        src = (ROOT / n.url.strip('/') / 'index.html').read_text(encoding='utf-8')
+        m = re.search(r'<meta property="og:title" content="([^"]*)"', src) or re.search(r'<title>([^<:]*)', src)
+        d = re.search(r'<meta name="description" content="([^"]*)"', src)
+        title = html.unescape(m.group(1)) if m else n.title
+        desc = html.unescape(d.group(1)) if d else ''
+        desc = desc if len(desc) <= 220 else desc[:217].rsplit(' ', 1)[0] + '…'
+        li += (f'<li class="mb-entry"><a href="{n.url}">{esc(title)}</a><p>{esc(desc)}</p>'
+               f'<span class="mb-entry-meta">published {n.cfg_page["published"]}</span></li>')
+    put('index.html', 'home-latest', li)
+    tj = ROOT / 'topics' / 'topics.json'
+    sizes = {tp['key']: len(tp['pages']) + len(tp['posts']) + len(tp['tickets']) for tp in json.loads(tj.read_text(encoding='utf-8'))['topics']} if tj.exists() else {}
+    put('index.html', 'home-topics', ''.join(
+        f'<li><a href="{k.url}">{esc(k.title)}</a><span>{sizes.get(k.url.strip("/").split("/")[-1], "")}</span></li>' for k in t.section('topics').kids))
+    return len(cards)
+
+
 def main(issues=None):
     if issues is None:
         tj = ROOT / 'topics' / 'topics.json'
@@ -140,7 +179,8 @@ def main(issues=None):
     n_items = inside_front()
     n_issues = board(issues)
     n_inc = mission_control()
-    print(f'fallbacks: Inside {n_items} pieces, board {n_issues} issues, Mission Control {n_inc} open incidents')
+    n_home = home()
+    print(f'fallbacks: Inside {n_items} pieces, board {n_issues} issues, Mission Control {n_inc} open incidents, home {n_home} section cards')
 
 
 if __name__ == '__main__':
