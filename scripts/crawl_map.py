@@ -103,11 +103,16 @@ def add_edge(a, b, k):
 
 # 1. pages from sitemaps
 pages = []
+DATES = {}  # url -> YYYY-MM-DD, best known: the page's own date, else sitemap lastmod, else the Substack post date
 for host in SITES:
     sm = get(f'https://{host}/sitemap.xml')
-    for loc in re.findall(r'<loc>([^<]+)</loc>', sm):
-        n = norm(html.unescape(loc))
-        if n and kind_of(n): pages.append(n)
+    for entry in re.findall(r'<url>(.*?)</url>', sm, re.S):
+        loc = re.search(r'<loc>([^<]+)</loc>', entry)
+        n = norm(html.unescape(loc.group(1))) if loc else None
+        if n and kind_of(n):
+            pages.append(n)
+            lm = re.search(r'<lastmod>(\d{4}-\d{2}-\d{2})', entry)
+            if lm: DATES[n] = lm.group(1)
 # 2. substack posts from the archive API
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'graph.json'
 try:
@@ -119,7 +124,9 @@ try:
     arch = json.loads(get(f'https://{SUBSTACK}/api/v1/archive?sort=new&limit=50') or '[]')
     for p in arch:
         u = norm(p.get('canonical_url', ''))
-        if u: subs.append(u); add_node(u, 'substack', p.get('title'), 'substack')
+        if u:
+            subs.append(u); add_node(u, 'substack', p.get('title'), 'substack')
+            if (p.get('post_date') or '')[:10]: DATES[u] = p['post_date'][:10]
 except Exception as e:
     print('substack archive failed', e, file=sys.stderr)
 if not subs:  # RSS fallback
@@ -127,7 +134,12 @@ if not subs:  # RSS fallback
     for item in re.findall(r'<item>(.*?)</item>', rss, re.S):
         lm = re.search(r'<link>([^<]+)</link>', item); tm = re.search(r'<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>', item, re.S)
         u = norm(lm.group(1).strip()) if lm else None
-        if u: subs.append(u); add_node(u, 'substack', html.unescape(tm.group(1)).strip() if tm else None, 'substack')
+        if u:
+            subs.append(u); add_node(u, 'substack', html.unescape(tm.group(1)).strip() if tm else None, 'substack')
+            pd = re.search(r'<pubDate>([^<]+)</pubDate>', item)
+            if pd:
+                try: DATES[u] = datetime.datetime.strptime(pd.group(1).strip()[:16], '%a, %d %b %Y').strftime('%Y-%m-%d')
+                except ValueError: pass
 if not subs:  # last resort: posts known from the previous snapshot
     for n in PREV['nodes']:
         if n.get('kind') == 'substack' and '/p/' in n['id']:
@@ -142,6 +154,10 @@ for u in sorted(set(pages)) + subs:
     k = kind_of(u) or 'substack'
     add_node(u, k, title_of(doc, u))
     if desc_of(doc): nodes[u]['desc'] = desc_of(doc)
+    own = re.search(r'<meta[^>]+article:published_time[^>]+content="(\d{4}-\d{2}-\d{2})', doc) or \
+        (k == 'page' and re.search(r'<time[^>]*datetime=["\']?(\d{4}-\d{2}-\d{2})', doc)) or \
+        (k == 'page' and re.search(r'class="[^"]*(?:eyebrow|kicker|dateline)[^"]*"[^>]*>[^<]{0,120}?(\d{4}-\d{2}-\d{2})', doc))  # machinebehavior.io headers
+    if own: DATES[u] = own.group(1)
     body = strip_chrome(doc)
     if k == 'substack':  # only the post body counts on Substack
         m = re.search(r'<div class="available-content".*', doc, re.S)
@@ -196,6 +212,11 @@ for key in [k for k in edges if k[0] in NONHTML or k[1] in NONHTML]:
     del edges[key]
 if NONHTML:
     print(f'dropped {len(NONHTML)} non-html pages', file=sys.stderr)
+
+# dates: what this crawl found, else the previous snapshot's
+for n in nodes.values():
+    d = DATES.get(n['id']) or prev_nodes.get(n['id'], {}).get('date')
+    if d: n['date'] = d
 
 # a description shared by three or more pages is the site default, not a summary of the page
 from collections import Counter as _C

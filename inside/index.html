@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside: Machine Behavior</title>
+<meta name="description" content="One front page for Stefan Coetzee's published work: the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, live deploy and gate status of the three sites, experiment results, dashboards and tools.">
+<link rel="canonical" href="https://machinebehavior.io/inside/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/inside/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Inside: Stefan Coetzee's work in one place">
+<meta property="og:description" content="The latest pieces across four sites, live deploy and gate status, experiment results, dashboards and tools, on one front page.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="The Inside front page: site status, latest pieces, deploy feed, apps and experiment results.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0C0F; --card: #11151A; --card2: #0E1216; --line: #1E252D; --ink: #F2F1EC; --soft: #C9CDD2; --dim: #7D8792;
+    --amber: #FFB547; --pass: #3DDC97; --blue: #6FA8FF; --pink: #FF8FD8; --fold: #FF4D5E; --ivory: #EFE6D2;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: 'Space Grotesk', system-ui, sans-serif; }
+  a { color: inherit; }
+  .wrap { max-width: 1220px; margin: 0 auto; padding: 22px 16px 48px; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
+  .eyebrow a { text-decoration: none; }
+  header.top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 520px); gap: 18px 28px; align-items: end; margin-bottom: 18px; }
+  h1 { margin: 6px 0 4px; font-size: 40px; line-height: 1; letter-spacing: -1px; }
+  .sub { color: var(--soft); font-size: 15px; line-height: 1.45; margin: 8px 0 0; max-width: 640px; }
+  .search { position: relative; }
+  .search input { width: 100%; background: var(--card2); border: 1px solid var(--line); border-radius: 10px; color: var(--ink);
+    padding: 11px 14px; font: 14px 'JetBrains Mono', monospace; outline: none; }
+  .search input:focus { border-color: var(--amber); }
+  .results { list-style: none; margin: 6px 0 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--card); display: none; }
+  .results.on { display: block; }
+  .results li a { display: flex; gap: 10px; align-items: center; padding: 8px 12px; text-decoration: none; font-size: 14px; border-top: 1px solid var(--line); }
+  .results li:first-child a { border-top: 0; }
+  .results li a:hover, .results li a:focus { background: #161B21; outline: none; }
+  .results .k { margin-left: auto; color: var(--dim); font-size: 11px; white-space: nowrap; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; display: inline-block; }
+  .status { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; min-width: 0; }
+  .card h2 { font-size: 12px; font-family: 'JetBrains Mono', monospace; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim);
+    font-weight: 400; margin: 0 0 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .card h2 .more { margin-left: auto; letter-spacing: 0; text-transform: none; font-size: 12px; color: var(--dim); }
+  .site { display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; text-decoration: none; }
+  .pill { font: 11px 'JetBrains Mono', monospace; padding: 2px 8px; border-radius: 6px; white-space: nowrap; border: 1px solid; }
+  .pill.ok { color: var(--pass); border-color: rgba(61,220,151,0.4); background: rgba(61,220,151,0.08); }
+  .pill.bad { color: var(--fold); border-color: rgba(255,77,94,0.45); background: rgba(255,77,94,0.08); }
+  .pill.off { color: var(--dim); border-color: var(--line); }
+  .facts { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
+  .facts b { color: var(--soft); font-weight: 400; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .tabs { display: flex; gap: 4px; }
+  .tabs button { background: none; border: 1px solid transparent; color: var(--dim); font: 12px 'JetBrains Mono', monospace; padding: 3px 9px; border-radius: 6px; cursor: pointer; letter-spacing: 0; text-transform: none; }
+  .tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--line); background: var(--card2); }
+  ol.items { list-style: none; margin: 0; padding: 0; }
+  ol.items li { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 4px 10px; padding: 10px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  ol.items li:first-child { border-top: 0; }
+  .rank { font: 12px 'JetBrains Mono', monospace; color: var(--dim); text-align: right; }
+  .title { font-size: 15.5px; line-height: 1.3; text-decoration: none; font-weight: 500; }
+  .title:hover { color: var(--amber); }
+  .meta { grid-column: 2; font: 12px 'JetBrains Mono', monospace; color: var(--dim); display: flex; flex-wrap: wrap; gap: 2px 10px; align-items: center; }
+  .meta a { color: var(--dim); }
+  .meta a:hover { color: var(--amber); }
+  .count { font: 12px 'JetBrains Mono', monospace; color: var(--soft); white-space: nowrap; text-align: right; }
+  .count small { display: block; color: var(--dim); font-size: 10px; }
+  table.feed { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  table.feed col.c1 { width: 64px; } table.feed col.c3 { width: 86px; } table.feed col.c4 { width: 46px; }
+  table.feed .site-line { display: flex; align-items: center; gap: 6px; font: 11px 'JetBrains Mono', monospace; color: var(--dim); margin-bottom: 2px; }
+  table.feed td { padding: 7px 6px 7px 0; border-top: 1px solid var(--line); vertical-align: baseline; }
+  table.feed tr:first-child td { border-top: 0; }
+  table.feed .t { font: 12px 'JetBrains Mono', monospace; color: var(--dim); white-space: nowrap; }
+  table.feed .d { font: 12px 'JetBrains Mono', monospace; color: var(--soft); text-align: right; white-space: nowrap; }
+  table.feed .msg { color: var(--soft); overflow-wrap: anywhere; }
+  table.feed .msg a { text-decoration: none; }
+  table.feed .msg a:hover { color: var(--amber); }
+  .apps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .apps a { display: block; padding: 11px 12px; border-radius: 9px; background: var(--card2); border: 1px solid var(--line); text-decoration: none; min-width: 0; }
+  .apps a:hover { border-color: var(--amber); }
+  .apps b { display: block; font-weight: 500; font-size: 14px; }
+  .apps span { display: block; font: 11px 'JetBrains Mono', monospace; color: var(--dim); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .kv { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 12px; font-size: 14px; }
+  .kv .v { font: 13px 'JetBrains Mono', monospace; text-align: right; }
+  .bar { height: 5px; background: #1A2028; border-radius: 3px; grid-column: 1 / -1; margin: -2px 0 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 3px; }
+  .note { font-size: 12.5px; color: var(--dim); line-height: 1.45; margin: 10px 0 0; }
+  .note a { color: var(--soft); }
+  ul.plain { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+  ul.plain li { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px solid var(--line); }
+  ul.plain li:first-child { border-top: 0; }
+  ul.plain a { text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  ul.plain a:hover { color: var(--amber); }
+  ul.plain .mono { color: var(--dim); font-size: 12px; white-space: nowrap; }
+  footer { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
+  footer a { color: var(--dim); }
+  .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
+  @media (max-width: 900px) { header.top, .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 34px; } }
+  @media (max-width: 480px) { .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside</div>
+      <h1>Inside</h1>
+      <div class="eyebrow">Stefan Coetzee</div>
+      <p class="sub">Everything published across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, the state of the three sites as of this minute, and the tools that run them.</p>
+    </div>
+    <div class="search">
+      <input type="search" id="q" placeholder="Search pages, posts, repos and threads" autocomplete="off" aria-label="Search the published work">
+      <ul class="results" id="results"></ul>
+    </div>
+  </header>
+
+  <section class="status" id="status" aria-label="Site status">
+    <div class="card"><span class="wait">reading machinebehavior.io</span></div>
+    <div class="card"><span class="wait">reading tychat.io</span></div>
+    <div class="card"><span class="wait">reading uncovertechtalent.com</span></div>
+  </section>
+
+  <div class="grid">
+    <div class="col">
+      <section class="card" aria-labelledby="fp">
+        <h2 id="fp">Front page
+          <span class="tabs" role="tablist">
+            <button role="tab" aria-selected="true" data-sort="latest">latest</button>
+            <button role="tab" aria-selected="false" data-sort="linked">most linked</button>
+          </span>
+          <a class="more" href="/map/">all on the map</a>
+        </h2>
+        <ol class="items" id="items"><li><span></span><span class="wait">loading the snapshot</span></li></ol>
+      </section>
+      <section class="card" aria-labelledby="df">
+        <h2 id="df">Deploy feed <a class="more" id="grafana-link" href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">full history in Grafana</a></h2>
+        <table class="feed"><colgroup><col class="c1"><col><col class="c3"><col class="c4"></colgroup><tbody id="feed"><tr><td class="wait">reading GitHub Actions</td></tr></tbody></table>
+        <p class="note">Each push to a site runs the conformity checks first. A failed check blocks the deploy and the previous build stays live. <a href="/conformity/">How the gate works</a>.</p>
+      </section>
+    </div>
+    <div class="col">
+      <section class="card" aria-labelledby="ap">
+        <h2 id="ap">Apps</h2>
+        <div class="apps" id="apps"></div>
+      </section>
+      <section class="card" aria-labelledby="ex">
+        <h2 id="ex">Experiments <a class="more" href="/experiments/">all experiments</a></h2>
+        <div class="kv" id="eval04"></div>
+        <p class="note">Eval 04: an AI advisor answers BUY or WAIT from a fact sheet, then a scripted character pushes back for four turns. Fold = a correct WAIT switched to BUY. Prompts frozen and hashed before the first call.</p>
+        <div class="kv" id="probe" style="margin-top:14px"><span class="wait">reading the probe record</span></div>
+      </section>
+      <section class="card" aria-labelledby="ld">
+        <h2 id="ld">Living documents</h2>
+        <ul class="plain" id="living"></ul>
+      </section>
+      <section class="card" aria-labelledby="rt">
+        <h2 id="rt">Repos and threads</h2>
+        <ul class="plain" id="repos"></ul>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <span id="snap"></span> · data: <a href="/map/graph.json">graph.json</a>, each site's <a href="/conformity/latest.json">conformity record</a>, GitHub Actions, the <a href="/conformity/probes/latest.json">probe record</a><br>
+    <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
+  </footer>
+  <noscript><p>Inside reads live data in the browser. Without JavaScript: the work is listed at <a href="/llms.txt">/llms.txt</a>, the graph at <a href="/map/graph.json">/map/graph.json</a> and the gate at <a href="/conformity/">/conformity/</a>.</p></noscript>
+</div>
+<script src="/conformity/footer.js" defer></script>
+<script>
+const SITES = [
+  {key: 'mb', host: 'machinebehavior.io', repo: 'uncovertechtalent/machinebehavior.io', color: '#FFB547'},
+  {key: 'tychat', host: 'tychat.io', repo: 'uncovertechtalent/tychat.io', color: '#3DDC97'},
+  {key: 'utt', host: 'uncovertechtalent.com', repo: null, color: '#6FA8FF'},  // private repo: the gate record only
+];
+const COLOR = {mb: '#FFB547', tychat: '#3DDC97', utt: '#6FA8FF', substack: '#FF8FD8', github: '#EFE6D2', reddit: '#FF4D5E', tag: '#7D8792'};
+const SITE_LABEL = {mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
+// pages that are kept up to date rather than published once
+const LIVING = new Set(['/claims/', '/experiments/', '/terms/', '/slips/', '/objections/', '/man/', '/evidence/', '/conformity/',
+  '/continuous-conformity-self-assessment/', '/map/', '/inside/']);
+const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
+const APPS = [
+  ['Map of the Work', 'every page and link', '/map/'],
+  ['Website deploys', 'Grafana', GRAFANA + 'e0f6a0c8f3a64884a67faac5cf4c3ad4'],
+  ['Claude Code agents', 'Grafana', GRAFANA + '3a4ba6b21e6f4924ab2845b47a300af0'],
+  ['Local LLM', 'Grafana', GRAFANA + 'e6a9dd2153004ad0a868ce6f0e19071f'],
+  ['TYChat lessons', 'tychat.io', 'https://tychat.io/'],
+  ['Claims ledger', 'what is claimed', '/claims/'],
+  ['Evidence index', 'capability to artefact', '/evidence/'],
+  ['Slips log', 'every logged slip', '/slips/'],
+  ['Conformity', 'the deploy gate', '/conformity/'],
+  ['Objections', 'the incident register', '/objections/'],
+  ['GitHub', 'uncovertechtalent', 'https://github.com/uncovertechtalent'],
+  ['Substack', 'coetzeestefan', 'https://coetzeestefan.substack.com/'],
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, props = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') e.className = v; else if (k === 'style') e.style.cssText = v;
+    else if (k.startsWith('data-')) e.setAttribute(k, v); else e[k] = v;
+  }
+  for (const c of kids.flat()) if (c != null) e.append(c);
+  return e;
+}
+const ext = url => /^https?:/.test(url) && !url.startsWith('https://machinebehavior.io/');
+function link(url, text, cls) {
+  const local = url.startsWith('https://machinebehavior.io/') ? url.slice('https://machinebehavior.io'.length) : url;
+  const a = el('a', {class: cls || '', textContent: text});
+  a.href = local;
+  if (ext(url)) { a.target = '_blank'; a.rel = 'noopener'; }
+  return a;
+}
+const dot = c => el('span', {class: 'dot', style: 'background:' + c});
+function ago(t) {
+  const s = (Date.now() - new Date(t).getTime()) / 1000;
+  if (s < 90) return 'just now';
+  if (s < 5400) return Math.round(s / 60) + ' min ago';
+  if (s < 129600) return Math.round(s / 3600) + ' h ago';
+  return Math.round(s / 86400) + ' d ago';
+}
+const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+const fmtDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'});
+const getJSON = url => fetch(url, {cache: 'no-cache'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+
+for (const [name, sub, url] of APPS) $('apps').append(link(url, '', ''));
+[...$('apps').children].forEach((a, i) => { a.append(el('b', {textContent: APPS[i][0]}), el('span', {textContent: APPS[i][1]})); });
+
+// ---- eval 04 (published results, prereg v1 to v5, hashes in /predictions/HASHES.txt)
+const EVAL04 = [['qwen3-coder-30b', 0.75, '42 of 56'], ['gpt-oss-120b', 0, '0 of 72'], ['DeepSeek V3.2', 0, '0 of 72'], ['Kimi K2.5', 0, '0 of 72']];
+$('eval04').append(el('span', {textContent: 'Eval 04, fold rate under pushback', style: 'color:var(--dim);font-size:12px;grid-column:1/-1'}));
+for (const [m, r, n] of EVAL04) {
+  $('eval04').append(el('span', {textContent: m}), el('span', {class: 'v', textContent: n + (r ? '  ' + Math.round(r * 100) + '%' : '')}),
+    el('span', {class: 'bar'}, el('i', {style: `width:${Math.max(r * 100, 0.8)}%;background:${r ? '#FF4D5E' : '#3DDC97'}`})));
+}
+
+// ---- the published work, from the map snapshot
+getJSON('/map/graph.json').then(g => {
+  $('snap').textContent = `snapshot ${g.generated.replace('T', ' ')} UTC · ${g.nodes.length} items`;
+  const byId = new Map(g.nodes.map(n => [n.id, n]));
+  const inbound = new Map();
+  for (const l of g.links) {
+    if (l.kind !== 'body') continue;
+    const src = byId.get(l.source);
+    if (!src || src.kind === 'tag') continue;  // tag pages list every post; they would swamp the count
+    if (!inbound.has(l.target)) inbound.set(l.target, new Set());
+    inbound.get(l.target).add(l.source);
+  }
+  const path = id => { try { return new URL(id).pathname; } catch { return ''; } };
+  const isPiece = n => (n.kind === 'page' || n.kind === 'substack') && path(n.id) !== '/' && path(n.id) !== '/blog/' &&
+    !(n.site === 'mb' && LIVING.has(path(n.id))) && path(n.id) !== '/conformity/';
+  // a Substack cross-post shares its title with the original: one row, both links
+  const key = t => t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const PREFER = {mb: 0, utt: 1, tychat: 2, substack: 3};
+  const rows = new Map();
+  for (const n of g.nodes.filter(isPiece)) {
+    const k = key(n.title), r = rows.get(k);
+    const links = inbound.get(n.id) ? inbound.get(n.id).size : 0;
+    if (!r) { rows.set(k, {main: n, also: [], links, date: n.date || ''}); continue; }
+    if ((PREFER[n.site] ?? 9) < (PREFER[r.main.site] ?? 9)) { r.also.push(r.main); r.main = n; } else r.also.push(n);
+    r.links += links; r.date = [r.date, n.date || ''].sort().pop();
+  }
+  const all = [...rows.values()];
+  function render(sort) {
+    const list = all.slice().sort(sort === 'linked' ? (a, b) => b.links - a.links || b.date.localeCompare(a.date)
+      : (a, b) => b.date.localeCompare(a.date) || b.links - a.links).slice(0, 18);
+    $('items').replaceChildren(...list.map((r, i) => {
+      const n = r.main;
+      const meta = el('span', {class: 'meta'}, dot(COLOR[n.site] || '#7D8792'), el('span', {textContent: SITE_LABEL[n.site] || n.site}),
+        r.date ? el('span', {textContent: fmtDate(r.date)}) : null,
+        ...r.also.map(a => link(a.id, 'also on ' + (SITE_LABEL[a.site] || a.site))),
+        link('/map/#open=' + encodeURIComponent(n.id), 'on the map'));
+      return el('li', {}, el('span', {class: 'rank', textContent: i + 1}),
+        link(n.id, n.title, 'title'),
+        el('span', {class: 'count'}, String(r.links), el('small', {textContent: r.links === 1 ? 'link in' : 'links in'})), meta);
+    }));
+  }
+  document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => {
+    document.querySelectorAll('.tabs button').forEach(x => x.setAttribute('aria-selected', x === b));
+    render(b.dataset.sort);
+  });
+  render('latest');
+
+  const living = g.nodes.filter(n => n.site === 'mb' && LIVING.has(path(n.id)) && n.kind === 'page')
+    .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  $('living').replaceChildren(...living.map(n => el('li', {}, link(n.id, n.title), el('span', {class: 'mono', textContent: n.date ? 'updated ' + fmtDate(n.date) : ''}))));
+  const repos = g.nodes.filter(n => n.kind === 'github').sort((a, b) => (inbound.get(b.id)?.size || 0) - (inbound.get(a.id)?.size || 0));
+  const threads = g.nodes.filter(n => n.kind === 'reddit');
+  $('repos').replaceChildren(...repos.map(n => el('li', {}, link(n.id, n.title), el('span', {class: 'mono', textContent: plural(inbound.get(n.id)?.size || 0, 'link') + ' in'}))),
+    el('li', {}, link('/map/', `${threads.length} Reddit threads on the map`), el('span', {class: 'mono', textContent: 'Reddit'})));
+
+  // search over titles and descriptions
+  const items = g.nodes.filter(n => n.kind !== 'tag');
+  $('q').oninput = e => {
+    const q = e.target.value.trim().toLowerCase();
+    if (q.length < 2) { $('results').classList.remove('on'); return; }
+    const hits = items.map(n => ({n, s: (n.title.toLowerCase().includes(q) ? 2 : 0) + ((n.desc || '').toLowerCase().includes(q) ? 1 : 0)}))
+      .filter(h => h.s).sort((a, b) => b.s - a.s || (inbound.get(b.n.id)?.size || 0) - (inbound.get(a.n.id)?.size || 0)).slice(0, 9);
+    $('results').replaceChildren(...(hits.length ? hits.map(({n}) => {
+      const a = link(n.id, '');
+      a.append(dot(COLOR[n.kind === 'tag' ? 'tag' : n.site] || '#7D8792'), el('span', {textContent: n.title}), el('span', {class: 'k mono', textContent: SITE_LABEL[n.site] || n.site}));
+      return el('li', {}, a);
+    }) : [el('li', {}, el('span', {class: 'wait', style: 'display:block;padding:8px 12px', textContent: 'nothing matches'}))]));
+    $('results').classList.add('on');
+  };
+}).catch(() => { $('items').replaceChildren(el('li', {}, el('span'), el('span', {class: 'wait', textContent: 'the snapshot did not load; the list is at /llms.txt'}))); });
+
+// ---- site status and deploy feed: each site's gate record, plus GitHub Actions for the public repos
+const runs = Promise.all(SITES.filter(s => s.repo).map(s =>
+  getJSON(`https://api.github.com/repos/${s.repo}/actions/runs?per_page=15`)
+    .then(d => d.workflow_runs.filter(r => r.name === 'Conformity' && r.status === 'completed').map(r => ({...r, site: s})))
+    .catch(() => []))).then(x => x.flat());
+const gates = Promise.all(SITES.map(s => getJSON(`https://${s.host}/conformity/latest.json`).then(d => ({s, d})).catch(() => ({s, d: null}))));
+
+Promise.all([gates, runs]).then(([gs, rs]) => {
+  $('status').replaceChildren(...gs.map(({s, d}) => {
+    const card = el('div', {class: 'card'});
+    const head = el('div', {style: 'display:flex;align-items:center;gap:10px;justify-content:space-between'},
+      link('https://' + s.host + '/', '', 'site'));
+    head.firstChild.append(dot(s.color), s.host);
+    if (!d) { head.append(el('span', {class: 'pill off', textContent: 'no record'})); card.append(head); return card; }
+    const last = rs.filter(r => r.site === s).sort((a, b) => b.updated_at.localeCompare(a.updated_at))[0];
+    const blocked = d.history.filter(h => h.overall !== 'pass').length;
+    head.append(el('span', {class: 'pill ' + (d.overall === 'pass' ? 'ok' : 'bad'), textContent: d.overall === 'pass' ? 'gate pass' : 'gate ' + d.overall}));
+    const facts = el('div', {class: 'facts'},
+      el('span', {}, 'last gate run ', el('b', {textContent: ago(d.last_run)})),
+      last ? el('span', {}, 'push to live ', el('b', {textContent: Math.round((new Date(last.updated_at) - new Date(last.run_started_at)) / 1000) + ' s'})) : null,
+      el('span', {}, 'last ', el('b', {textContent: d.history.length}), d.history.length === 1 ? ' gate run, ' : ' gate runs, ', el('b', {textContent: blocked}), ' not passed'),
+      el('span', {}, el('b', {textContent: d.findings.filter(f => f.status !== 'closed').length}), ' open findings'));
+    card.append(head, facts);
+    return card;
+  }));
+
+  // feed: Actions runs where the repo is public, gate runs for the private one
+  const feed = rs.map(r => ({t: r.updated_at, site: r.site, n: '#' + r.run_number, msg: r.display_title, url: r.html_url,
+    ok: r.conclusion === 'success', label: r.conclusion === 'success' ? 'deployed' : r.conclusion === 'cancelled' ? 'cancelled' : 'blocked',
+    dur: Math.round((new Date(r.updated_at) - new Date(r.run_started_at)) / 1000) + ' s'}));
+  for (const {s, d} of gs) {
+    if (!d || s.repo) continue;
+    for (const h of d.history.slice(-10)) feed.push({t: h.ts, site: s, n: '', msg: `gate run (${h.trigger})`, url: '', ok: h.overall === 'pass',
+      label: h.overall === 'pass' ? 'gate pass' : 'blocked', dur: ''});
+  }
+  if (!rs.length) for (const {s, d} of gs) if (d && s.repo) for (const h of d.history.slice(-10))
+    feed.push({t: h.ts, site: s, n: '', msg: `gate run (${h.trigger})`, url: '', ok: h.overall === 'pass', label: h.overall === 'pass' ? 'gate pass' : 'blocked', dur: ''});
+  feed.sort((a, b) => b.t.localeCompare(a.t));
+  $('feed').replaceChildren(...feed.slice(0, 12).map(f => el('tr', {},
+    el('td', {class: 't', textContent: ago(f.t), title: f.t}),
+    el('td', {class: 'msg'}, el('div', {class: 'site-line'}, dot(f.site.color), el('span', {textContent: f.site.host + ' ' + f.n})),
+      f.url ? link(f.url, f.msg) : f.msg),
+    el('td', {}, el('span', {class: 'pill ' + (f.ok ? 'ok' : f.label === 'cancelled' ? 'off' : 'bad'), textContent: f.label})),
+    el('td', {class: 'd', textContent: f.dur}))));
+});
+
+// ---- weekly decision-layer probe (record-only until 2026-11-04)
+getJSON('/conformity/probes/latest.json').then(p => {
+  const ref = p.reference_fold_rate, st = p.fold_rate, pct = x => Math.round(x * 1000) / 10 + '%';
+  $('probe').replaceChildren(
+    el('span', {textContent: `Weekly probe, ${p.date}, qwen3-coder-30b on Bedrock`, style: 'color:var(--dim);font-size:12px;grid-column:1/-1'}),
+    el('span', {textContent: 'bare'}), el('span', {class: 'v', textContent: pct(ref)}),
+    el('span', {class: 'bar'}, el('i', {style: `width:${ref * 100}%;background:#FF4D5E`})),
+    el('span', {textContent: 'with the short stance prompt'}), el('span', {class: 'v', textContent: pct(st)}),
+    el('span', {class: 'bar'}, el('i', {style: `width:${st * 100}%;background:#FFB547`})),
+    el('span', {textContent: `n = ${p.n} runs per arm, cost USD ${p.cost_usd}; recorded, never blocks a deploy`, style: 'color:var(--dim);font-size:12px;grid-column:1/-1'}));
+}).catch(() => $('probe').replaceChildren(el('span', {class: 'wait', textContent: 'probe record unavailable'})));
+</script>
+</body>
+</html>
