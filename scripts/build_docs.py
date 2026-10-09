@@ -426,7 +426,7 @@ ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.or
 def topbar():
     return ('<header class="bar"><nav class="bar-nav" aria-label="Inside">'
             '<a class="brand" href="/inside/"><span class="logo">i</span>Inside</a>'
-            '<a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a>'
+            '<a href="/inside/docs/" class="here">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a>'
             '<a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav>'
             '<div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off">'
             '<ul id="hits" class="hits"></ul></div></header>')

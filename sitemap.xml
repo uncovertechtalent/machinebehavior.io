@@ -16,10 +16,12 @@
   <url><loc>https://machinebehavior.io/evidence/</loc><lastmod>2026-10-07</lastmod></url>
   <url><loc>https://machinebehavior.io/map/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- docs:begin (scripts/build_docs.py) -->
   <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/add-a-page/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/decision-log/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-09</lastmod></url>

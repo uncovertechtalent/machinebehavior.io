@@ -15,6 +15,7 @@ labels: inside, portal, frontend
 | Experiments | Eval 04 figures in the page, plus `/conformity/probes/latest.json` for the weekly probe | |
 | Dashboards | Grafana public dashboards in an iframe | Loaded when the section scrolls into view; `#dashboards/<key>` opens a tab (deploys, agents, llm, host, search) |
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
+| Board | [Board](/inside/board/), from `/inside/board/issues.json` written by the deploy job | Work items from GitHub Issues; see [Ticket board](doc:eng/board) |
 
 ## Rules for the page
 

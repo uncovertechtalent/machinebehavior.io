@@ -117,7 +117,7 @@
 <div class="wrap">
   <header class="top">
     <div>
-      <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside · <a href="/inside/docs/">docs</a></div>
+      <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside · <a href="/inside/docs/">docs</a> · <a href="/inside/board/">board</a></div>
       <h1>Inside</h1>
       <div class="eyebrow">Stefan Coetzee</div>
       <p class="sub">Everything published across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, the state of the three sites as of this minute, and the tools that run them.</p>
@@ -201,10 +201,11 @@ const COLOR = {mb: '#FFB547', tychat: '#3DDC97', utt: '#6FA8FF', substack: '#FF8
 const SITE_LABEL = {mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
 // pages that are kept up to date rather than published once
 const LIVING = new Set(['/claims/', '/experiments/', '/terms/', '/slips/', '/objections/', '/man/', '/evidence/', '/conformity/',
-  '/continuous-conformity-self-assessment/', '/map/', '/inside/']);
+  '/continuous-conformity-self-assessment/', '/map/', '/inside/', '/inside/board/']);
 const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
 const APPS = [
   ['Docs', 'six spaces, every system', '/inside/docs/'],
+  ['Board', 'work items, from GitHub Issues', '/inside/board/'],
   ['Map of the Work', 'every page and link', '/map/'],
   ['Website deploys', 'Grafana', '#dashboards/deploys'],
   ['Claude Code agents', 'Grafana', '#dashboards/agents'],

@@ -5,6 +5,12 @@ labels: adr, decisions, governance
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: a public ticket board from GitHub Issues
+
+- **Decision.** Work items are GitHub Issues on the public repository, shown on [the board](/inside/board/). The deploy job writes `inside/board/issues.json` from the Issues API in a new artifact-only step (`scripts/board_snapshot.py`), and the workflow permissions gain `issues: read`. The workflow gets no `issues` trigger.
+- **Why.** The backlog from the platform review belongs in one public system of record. Reading a snapshot keeps visitors' browsers off the GitHub API, as for the deploy feed. An `issues` trigger would let anyone who opens an issue start a gate run, a bot commit and a deploy.
+- **Consequence.** The board is as fresh as the last deploy; a manual run of the workflow refreshes it. Only issues with a type label are shown, so a new report waits for triage before its text appears on the site. See [Ticket board](doc:eng/board).
+
 ## 2026-10-09: no third-party requests on page load
 
 - **Decision.** Fonts (Space Grotesk, JetBrains Mono) and d3 are served from the site itself, and the Inside deploy feed is a JSON written by the deploy job. Opening a page sends no request to Google, a CDN or the GitHub API.

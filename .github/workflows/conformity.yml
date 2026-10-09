@@ -17,6 +17,7 @@ permissions:
   pages: write
   id-token: write
   actions: read
+  issues: read
 
 concurrency:
   group: conformity-${{ github.ref }}
@@ -127,6 +128,16 @@ jobs:
           json.dump(out, open('inside/deploys.json', 'w'), indent=1)
           print('deploy feed', {k: len(v) for k, v in out['repos'].items()})
           PY
+
+      - name: Snapshot the issues for the board (artifact only, never committed)
+        # /inside/board/ reads /inside/board/issues.json instead of calling the GitHub API from each visitor's browser.
+        # No issues trigger on purpose: anyone can open an issue on a public repo, and each event would run the gate,
+        # write a bot commit and redeploy. The board is as fresh as the last deploy; workflow_dispatch refreshes it.
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/board_snapshot.py inside/board/issues.json
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

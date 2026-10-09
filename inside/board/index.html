@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board · Inside · Machine Behavior</title>
+<meta name="description" content="The open work on machinebehavior.io and the platform behind it as a board: backlog, ready, in progress, blocked and done. GitHub Issues on the public repository is the system of record; the board is a snapshot taken at each deploy.">
+<link rel="canonical" href="https://machinebehavior.io/inside/board/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/inside/board/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Inside board: the work on machinebehavior.io">
+<meta property="og:description" content="Backlog, ready, in progress, blocked and done for the platform behind machinebehavior.io, from GitHub Issues on the public repository.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="The Inside front page of machinebehavior.io.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<style>
+  :root { --coral: #FF7A6B; }
+  main.wrap { max-width: 1440px; margin: 0 auto; padding: 22px 18px 40px; }
+  .head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; }
+  .head .lede { margin: 0; }
+  .asof { font: 12px 'JetBrains Mono', monospace; color: var(--dim); margin: 10px 0 0; line-height: 1.6; }
+  .asof a { color: var(--soft); }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { display: inline-block; font: 13px 'JetBrains Mono', monospace; text-decoration: none; padding: 7px 12px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--card2); color: var(--soft); cursor: pointer; }
+  .btn:hover, .btn:focus-visible { border-color: var(--amber); color: var(--ink); outline: none; }
+  .btn[hidden] { display: none; }
+  .btn.primary { background: var(--amber); border-color: var(--amber); color: #0A0C0F; }
+  .btn.primary:hover { color: #0A0C0F; filter: brightness(1.08); }
+
+  .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 22px 0 14px; padding: 10px 12px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  .filters label { display: flex; align-items: center; gap: 6px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
+  .filters select { background: var(--card2); color: var(--ink); border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px;
+    font: 13px 'JetBrains Mono', monospace; max-width: 46vw; }
+  .filters select:focus { border-color: var(--amber); outline: none; }
+  .filters .btn { padding: 5px 10px; font-size: 12px; }
+  .filters .shown { margin-left: auto; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
+
+  .board { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; align-items: start; }
+  .col { background: var(--card2); border: 1px solid var(--line); border-radius: 12px; padding: 10px; min-width: 0; }
+  .col-h { display: flex; align-items: center; gap: 8px; margin: 2px 4px 2px; font: 500 12px 'JetBrains Mono', monospace; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--soft); }
+  .col-h .n { margin-left: auto; letter-spacing: 0; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
+  .col-about { margin: 2px 4px 10px; font-size: 12px; color: var(--dim); }
+  ol.cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  ol.cards .empty { font: 12px 'JetBrains Mono', monospace; color: var(--dim); padding: 10px 6px; border: 1px dashed var(--line); border-radius: 9px; text-align: center; }
+  a.card { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px 10px; }
+  a.card:hover { border-color: var(--amber); }
+  a.card:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+  .c-top, .c-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+  .num { font: 12px 'JetBrains Mono', monospace; color: var(--dim); margin-right: 2px; }
+  .c-title { display: block; font-size: 14.5px; line-height: 1.35; font-weight: 500; margin: 6px 0 7px; overflow-wrap: anywhere; }
+  .c-meta { font: 11px 'JetBrains Mono', monospace; color: var(--dim); }
+  .c-meta .age { margin-left: auto; white-space: nowrap; }
+  .tag { font: 11px 'JetBrains Mono', monospace; padding: 1px 6px; border-radius: 5px; border: 1px solid; white-space: nowrap; }
+  .area { color: var(--soft); border: 1px solid var(--line); border-radius: 5px; padding: 0 5px; white-space: nowrap; }
+  .done a.card .c-title { color: var(--soft); }
+
+  .how { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--soft); line-height: 1.55; max-width: 860px; }
+  .how h2 { font: 400 12px 'JetBrains Mono', monospace; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim); margin: 0 0 8px; }
+  .how p { margin: 0 0 8px; }
+  .how a { color: var(--amber); }
+
+  .scrim { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 35; }
+  .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 40; overflow-y: auto; background: var(--card);
+    border-left: 1px solid var(--line); box-shadow: -16px 0 40px rgba(0,0,0,0.45); padding: 16px 22px 30px; }
+  .scrim[hidden], .drawer[hidden] { display: none; }
+  body.locked { overflow: hidden; }
+  .d-head { display: flex; align-items: center; gap: 10px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
+  .d-head .btn { margin-left: auto; padding: 4px 10px; }
+  .drawer h2 { font-size: 22px; line-height: 1.25; letter-spacing: -0.3px; margin: 12px 0 10px; overflow-wrap: anywhere; }
+  .d-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+  .d-facts { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 14px; margin: 0 0 16px; font: 12.5px 'JetBrains Mono', monospace; }
+  .d-facts dt { color: var(--dim); }
+  .d-facts dd { margin: 0; color: var(--soft); overflow-wrap: anywhere; }
+  .d-body { font-size: 15px; line-height: 1.6; color: #E4E6E8; border-top: 1px solid var(--line); padding-top: 14px; overflow-wrap: anywhere; }
+  .d-body p { margin: 0 0 12px; }
+  .d-body ul { margin: 0 0 12px; padding-left: 20px; }
+  .d-body li { margin: 3px 0; }
+  .d-body h3 { font-size: 16px; margin: 16px 0 6px; }
+  .d-body a { color: var(--amber); }
+  .d-body code { font-size: 13px; background: #161B21; border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px; }
+  .d-body b { font-weight: 600; color: var(--ink); }
+  .d-gh { margin-top: 14px; }
+  .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
+  footer .note { margin: 0; }
+
+  @media (max-width: 820px) { main.wrap { padding: 18px 16px 36px; } .drawer { padding: 14px 16px 28px; } }
+  @media (max-width: 520px) { .filters .shown { margin-left: 0; width: 100%; } .filters label { flex: 1 1 40%; } .filters select { flex: 1; max-width: none; min-width: 0; } }
+</style>
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/">Docs</a><a href="/inside/board/" class="here">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<main class="wrap">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/board/">Board</a></nav>
+  <div class="head">
+    <div>
+      <h1>Board</h1>
+      <p class="lede">The work on machinebehavior.io and the platform behind it. Each card is an issue on the public repository; GitHub Issues is the system of record and this page is a snapshot of it.</p>
+      <p class="asof" id="asof">reading the snapshot</p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new">New issue</a>
+      <a class="btn" href="https://github.com/uncovertechtalent/machinebehavior.io/issues">All issues on GitHub</a>
+    </div>
+  </div>
+
+  <section class="filters" aria-label="Filters">
+    <label>area <select id="f-area"><option value="">all</option></select></label>
+    <label>type <select id="f-type"><option value="">all</option></select></label>
+    <label>priority <select id="f-prio"><option value="">all</option></select></label>
+    <button class="btn" id="f-clear" type="button">clear</button>
+    <span class="shown" id="shown"></span>
+  </section>
+
+  <div class="board" id="board"><p class="wait">loading the board</p></div>
+
+  <section class="how" aria-labelledby="how">
+    <h2 id="how">How the board works</h2>
+    <p>The column comes from the status label on each issue: <span class="mono">status: ready</span>, <span class="mono">status: in progress</span> or <span class="mono">status: blocked</span>. An open issue without one sits in Backlog; a closed issue is Done for 30 days. Labels also set the type, the area and the priority, P0 first.</p>
+    <p>The deploy job reads the issues from the GitHub API and writes <a href="/inside/board/issues.json">issues.json</a> next to this page, so opening the board sends no request to GitHub. New reports appear here once a maintainer gives them a type label. Details, labels and the workflow: <a href="/inside/docs/eng/board/">Ticket board</a> in the Engineering docs.</p>
+  </section>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-title" hidden>
+  <div class="d-head"><span id="d-num"></span><button class="btn" id="d-close" type="button">close</button></div>
+  <h2 id="d-title"></h2>
+  <div class="d-tags" id="d-tags"></div>
+  <dl class="d-facts" id="d-facts"></dl>
+  <div class="d-body" id="d-body"></div>
+  <p class="d-gh"><a class="btn primary" id="d-gh">Open on GitHub</a></p>
+</aside>
+
+<footer>
+  Inside board · Stefan Coetzee · data: <a href="/inside/board/issues.json">issues.json</a>, written at each deploy from <a href="https://github.com/uncovertechtalent/machinebehavior.io/issues">GitHub Issues</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/board_snapshot.py">board_snapshot.py</a><br>
+  <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
+</footer>
+<noscript><p style="max-width:1440px;margin:0 auto;padding:0 18px">The board draws its cards in the browser. Without JavaScript: the issues are at <a href="https://github.com/uncovertechtalent/machinebehavior.io/issues">GitHub Issues</a> and the snapshot at <a href="/inside/board/issues.json">/inside/board/issues.json</a>.</p></noscript>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+<script>
+// The board reads /inside/board/issues.json, written by the deploy job (scripts/board_snapshot.py). No request to GitHub on load.
+const REPO = 'uncovertechtalent/machinebehavior.io';
+const ISSUES = 'https://github.com/' + REPO + '/issues';
+const COLS = [
+  {key: 'backlog', name: 'Backlog', color: '#7D8792', about: 'open, not yet scoped'},
+  {key: 'ready', name: 'Ready', color: '#3DDC97', about: 'scoped, can start'},
+  {key: 'progress', name: 'In progress', color: '#FFB547', about: 'being worked on'},
+  {key: 'blocked', name: 'Blocked', color: '#FF4D5E', about: 'waits on a decision or an input'},
+  {key: 'done', name: 'Done', color: '#6FA8FF', about: 'closed in the last 30 days'},
+];
+const PRIO = {P0: '#FF4D5E', P1: '#FF7A6B', P2: '#FFB547', P3: '#9AA3AD'};
+const TYPE = {feature: '#6FA8FF', bug: '#FF4D5E', chore: '#9AA3AD', docs: '#B79CFF'};
+const TYPE_ORDER = ['feature', 'bug', 'chore', 'docs'];
+
+const $ = id => document.getElementById(id);
+function el(tag, props = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (k === 'class') e.className = v; else if (k === 'style') e.style.cssText = v;
+    else if (k.includes('-')) e.setAttribute(k, v); else e[k] = v;
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) e.append(c);
+  return e;
+}
+const dot = c => el('span', {class: 'dot', style: 'background:' + c});
+const tag = (text, c) => el('span', {class: 'tag', textContent: text, style: `color:${c};border-color:${c}66;background:${c}14`});
+const plural = (n, w) => n + ' ' + w + (n === 1 ? '' : 's');
+function age(t) {
+  const s = Math.max(0, (Date.now() - new Date(t).getTime()) / 1000);
+  if (s < 3600) return Math.max(1, Math.round(s / 60)) + ' min';
+  if (s < 172800) return Math.round(s / 3600) + ' h';
+  return Math.round(s / 86400) + ' d';
+}
+const day = t => new Date(t).toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric'});
+const stamp = t => t.replace('T', ' ').replace(/:\d\dZ$/, ' UTC');
+function extLink(url, text) {
+  const a = el('a', {textContent: text, target: '_blank', rel: 'noopener noreferrer'});
+  a.href = url;
+  return a;
+}
+function shortUrl(u) {
+  const m = u.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/commit\/([0-9a-f]{7})/);
+  if (m) return (m[1] === REPO ? '' : m[1].split('/')[1] + ' ') + 'commit ' + m[2];
+  const i = u.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/(issues|pull)\/(\d+)/);
+  if (i) return (i[1] === REPO ? '' : i[1].split('/')[1]) + '#' + i[3];
+  return u.replace(/^https?:\/\//, '').slice(0, 60);
+}
+
+let ALL = [], BY_N = new Map(), SNAP = null;
+const lab = (i, prefix) => i.labels.filter(l => l.startsWith(prefix)).map(l => l.slice(prefix.length));
+function enrich(i) {
+  i.type = lab(i, 'type: ')[0] || '';
+  i.areas = lab(i, 'area: ');
+  i.prio = i.labels.find(l => /^P[0-3]$/.test(l)) || '';
+  const st = lab(i, 'status: ');
+  i.col = i.state === 'closed' ? (i.reason === 'not_planned' ? null : 'done')
+    : st.includes('blocked') ? 'blocked' : st.includes('in progress') ? 'progress' : st.includes('ready') ? 'ready' : 'backlog';
+  return i;
+}
+const prioRank = i => i.prio ? +i.prio[1] : 9;
+
+// ---- issue text: a small markdown subset, built as DOM nodes (no innerHTML)
+function inlineMd(s) {
+  const out = [];
+  let last = 0;
+  const re = /\*\*([^*]+)\*\*|`([^`]+)`|\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s<>()]+[^\s<>().,;:!?'"])|(?<![\w/])#(\d+)\b/g;
+  for (const m of s.matchAll(re)) {
+    if (m.index > last) out.push(s.slice(last, m.index));
+    if (m[1]) out.push(el('b', {textContent: m[1]}));
+    else if (m[2]) out.push(el('code', {textContent: m[2]}));
+    else if (m[3]) out.push(extLink(m[4], m[3]));
+    else if (m[5]) out.push(extLink(m[5], shortUrl(m[5])));
+    else if (BY_N.has(+m[6])) { const a = el('a', {textContent: '#' + m[6]}); a.href = '#issue-' + m[6]; out.push(a); }
+    else out.push(m[0]);
+    last = m.index + m[0].length;
+  }
+  out.push(s.slice(last));
+  return out;
+}
+function renderBody(md) {
+  const out = [];
+  let para = [], list = null;
+  const flush = () => {
+    if (para.length) { out.push(el('p', {}, inlineMd(para.join(' ')))); para = []; }
+    if (list) { out.push(list); list = null; }
+  };
+  for (const raw of md.replace(/\r/g, '').split('\n')) {
+    const line = raw.trim();
+    if (!line) { flush(); continue; }
+    const h = line.match(/^#{1,6}\s+(.*)$/);
+    const li = line.match(/^(?:[-*+]|\d+[.)])\s+(?:\[([ xX])\]\s+)?(.*)$/);
+    if (h) { flush(); out.push(el('h3', {}, inlineMd(h[1]))); }
+    else if (li) {
+      if (para.length) { out.push(el('p', {}, inlineMd(para.join(' ')))); para = []; }
+      if (!list) list = el('ul');
+      list.append(el('li', {}, li[1] ? (li[1].trim() ? '☑ ' : '☐ ') : null, inlineMd(li[2])));
+    } else {
+      if (list) { out.push(list); list = null; }
+      para.push(line);
+    }
+  }
+  flush();
+  return out.length ? out : [el('p', {class: 'wait', textContent: 'No description.'})];
+}
+
+// ---- board
+function card(i) {
+  const a = el('a', {class: 'card'});
+  a.href = '#issue-' + i.n;
+  a.dataset.n = i.n;
+  a.append(
+    el('span', {class: 'c-top'}, el('span', {class: 'num', textContent: '#' + i.n}),
+      i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || '#9AA3AD') : null),
+    el('span', {class: 'c-title', textContent: i.title}),
+    el('span', {class: 'c-meta'}, ...i.areas.map(x => el('span', {class: 'area', textContent: x})),
+      i.comments ? el('span', {textContent: plural(i.comments, 'comment')}) : null,
+      i.col === 'done'
+        ? el('span', {class: 'age', textContent: 'done ' + age(i.closed) + ' ago', title: 'closed ' + stamp(i.closed)})
+        : el('span', {class: 'age', textContent: 'opened ' + age(i.created) + ' ago', title: 'opened ' + stamp(i.created)})));
+  return el('li', {}, a);
+}
+function filters() { return {area: $('f-area').value, type: $('f-type').value, p: $('f-prio').value}; }
+function render() {
+  const f = filters(), on = !!(f.area || f.type || f.p);
+  const live = ALL.filter(i => i.col);
+  const shown = live.filter(i => (!f.area || i.areas.includes(f.area)) && (!f.type || i.type === f.type) && (!f.p || i.prio === f.p));
+  $('board').replaceChildren(...COLS.map(c => {
+    const all = live.filter(i => i.col === c.key);
+    const items = shown.filter(i => i.col === c.key).sort(c.key === 'done'
+      ? (a, b) => b.closed.localeCompare(a.closed)
+      : (a, b) => prioRank(a) - prioRank(b) || a.n - b.n);
+    const list = el('ol', {class: 'cards'}, ...items.map(card));
+    if (!items.length) list.append(el('li', {class: 'empty', textContent: on && all.length ? 'none match the filters' : 'empty'}));
+    return el('section', {class: 'col ' + c.key, 'aria-label': c.name + ', ' + plural(items.length, 'issue')},
+      el('h2', {class: 'col-h'}, dot(c.color), el('span', {textContent: c.name}),
+        el('span', {class: 'n', textContent: on ? items.length + ' of ' + all.length : String(all.length)})),
+      el('p', {class: 'col-about', textContent: c.about}), list);
+  }));
+  $('shown').textContent = on ? `${shown.length} of ${live.length} issues shown` : `${live.length} issues`;
+  $('f-clear').hidden = !on;
+  const q = new URLSearchParams();
+  if (f.area) q.set('area', f.area);
+  if (f.type) q.set('type', f.type);
+  if (f.p) q.set('priority', f.p);
+  history.replaceState(history.state, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+}
+function fillSelect(id, values, count) {
+  $(id).append(...values.map(v => el('option', {value: v, textContent: `${v} (${count(v)})`})));
+}
+
+// ---- ticket drawer
+let lastFocus = null, current = null;
+function openDrawer(n) {
+  const i = BY_N.get(n);
+  if (!i || !i.col) { hideDrawer(); return; }
+  current = n;
+  const col = COLS.find(c => c.key === i.col);
+  $('d-num').replaceChildren(dot(col.color), document.createTextNode(` #${i.n} · ${col.name}`));
+  $('d-title').textContent = i.title;
+  $('d-tags').replaceChildren(...[i.prio ? tag(i.prio, PRIO[i.prio]) : null, i.type ? tag(i.type, TYPE[i.type] || '#9AA3AD') : null,
+    ...i.areas.map(x => el('span', {class: 'area', textContent: x}))].filter(Boolean));
+  const facts = [['opened', day(i.created) + ' (' + age(i.created) + ' ago)'], ['updated', day(i.updated) + ' (' + age(i.updated) + ' ago)']];
+  if (i.closed) facts.push(['closed', day(i.closed) + ' (' + age(i.closed) + ' ago)']);
+  facts.push(['assignee', i.assignees.length ? i.assignees.join(', ') : 'nobody yet'], ['comments', String(i.comments)]);
+  if (i.milestone) facts.push(['milestone', i.milestone]);
+  $('d-facts').replaceChildren(...facts.flatMap(([k, v]) => [el('dt', {textContent: k}), el('dd', {textContent: v})]));
+  $('d-body').replaceChildren(...renderBody(i.body || ''));
+  const gh = $('d-gh');
+  gh.textContent = `Open #${i.n} on GitHub`;
+  gh.target = '_blank'; gh.rel = 'noopener noreferrer';
+  gh.href = /^https:\/\/github\.com\//.test(i.url) ? i.url : ISSUES + '/' + i.n;
+  $('drawer').scrollTop = 0;
+  $('drawer').hidden = false; $('scrim').hidden = false; document.body.classList.add('locked');
+  $('d-close').focus();
+}
+function hideDrawer() {
+  if ($('drawer').hidden) return;
+  $('drawer').hidden = true; $('scrim').hidden = true; document.body.classList.remove('locked');
+  const back = lastFocus && document.contains(lastFocus) ? lastFocus : document.querySelector('a.card[data-n="' + current + '"]');
+  if (back) back.focus();
+}
+function closeDrawer() {
+  if (history.state && history.state.board) history.back();  // opened from a card: back returns to the board
+  else { history.replaceState(null, '', location.pathname + location.search); hideDrawer(); }
+}
+function route() {
+  const m = location.hash.match(/^#issue-(\d+)$/);
+  if (m) openDrawer(+m[1]); else hideDrawer();
+}
+document.addEventListener('click', e => {
+  const a = e.target.closest('a.card, .d-body a[href^="#issue-"]');
+  if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  const n = a.dataset.n || a.hash.slice(7);
+  if (a.classList.contains('card')) lastFocus = a;
+  history.pushState({board: 1}, '', location.pathname + location.search + '#issue-' + n);
+  route();
+});
+window.addEventListener('popstate', route);
+$('d-close').onclick = closeDrawer;
+$('scrim').onclick = closeDrawer;
+document.addEventListener('keydown', e => {
+  if ($('drawer').hidden) return;
+  if (e.key === 'Escape') { e.preventDefault(); closeDrawer(); return; }
+  if (e.key !== 'Tab') return;
+  const f = [...$('drawer').querySelectorAll('a[href], button')].filter(x => !x.hidden);
+  if (!f.length) return;
+  if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+  else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+});
+
+// ---- load the snapshot
+fetch('/inside/board/issues.json', {cache: 'no-cache'}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(d => {
+  SNAP = d;
+  ALL = d.issues.map(enrich);
+  BY_N = new Map(ALL.map(i => [i.n, i]));
+  const live = ALL.filter(i => i.col);
+  const open = live.filter(i => i.col !== 'done').length, done = live.length - open;
+  const all = el('a', {textContent: 'live list on GitHub'});
+  all.href = ISSUES;
+  const line = [`Snapshot as of the last deploy of this site, ${age(d.generated)} ago (${stamp(d.generated)}): ${open} open, ${done} done in the last ${d.closed_window_days} days. `, all, '.'];
+  if (d.untriaged) {
+    const t = el('a', {textContent: plural(d.untriaged, 'new report') + ' waiting for triage'});
+    t.href = ISSUES + '?q=' + encodeURIComponent('is:issue is:open no:label');
+    line.push(' ', t, ', not shown until labelled.');
+  }
+  $('asof').replaceChildren(...line);
+
+  const areas = [...new Set(live.flatMap(i => i.areas))].sort();
+  const types = TYPE_ORDER.filter(t => live.some(i => i.type === t));
+  const prios = ['P0', 'P1', 'P2', 'P3'].filter(p => live.some(i => i.prio === p));
+  fillSelect('f-area', areas, v => live.filter(i => i.areas.includes(v)).length);
+  fillSelect('f-type', types, v => live.filter(i => i.type === v).length);
+  fillSelect('f-prio', prios, v => live.filter(i => i.prio === v).length);
+  const q = new URLSearchParams(location.search);
+  if (areas.includes(q.get('area'))) $('f-area').value = q.get('area');
+  if (types.includes(q.get('type'))) $('f-type').value = q.get('type');
+  if (prios.includes(q.get('priority'))) $('f-prio').value = q.get('priority');
+  for (const id of ['f-area', 'f-type', 'f-prio']) $(id).onchange = render;
+  $('f-clear').onclick = () => { for (const id of ['f-area', 'f-type', 'f-prio']) $(id).value = ''; render(); };
+  render();
+  route();
+}).catch(() => {
+  $('asof').textContent = 'The snapshot did not load.';
+  const a = el('a', {textContent: 'GitHub Issues'});
+  a.href = ISSUES;
+  $('board').replaceChildren(el('p', {class: 'wait'}, 'The board snapshot is not available. The issues are on ', a, '.'));
+});
+</script>
+</body>
+</html>

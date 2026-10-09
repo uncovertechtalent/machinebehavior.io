@@ -3,3 +3,4 @@ bench/pilot/out/*.rerun.raw
 conformity/runs/
 conformity/.result
 inside/deploys.json
+inside/board/issues.json
