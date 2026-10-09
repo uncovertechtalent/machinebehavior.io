@@ -1,5 +1,5 @@
 title: On-call and escalation
-summary: The real on-call model: one operator, agent sessions as responders, the deploy gate as the one control that acts on its own, and 13 alert rules that page nobody because no Alertmanager runs. With a proposed routing.
+summary: The real on-call model: one operator, agent sessions as responders, the deploy gate as the one control that acts on its own, and 17 alert rules that page nobody because no Alertmanager runs. With a proposed routing.
 order: 15
 labels: on-call, alerts, alertmanager, escalation, incidents
 owner: Stefan Coetzee
@@ -7,7 +7,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: explanation
 ---
-Nothing pages anyone. Prometheus evaluates 13 alert rules, but the stack runs no Alertmanager and Prometheus has no `alerting` target, so a firing alert stays in Prometheus and Grafana until someone looks. One person answers for every service, and the agent sessions that build the platform are the responders. The one control that acts without a person is the [deploy gate](doc:eng/conformity-gate): a failed check stops the deploy and the previous build stays live.
+Nothing pages anyone. Prometheus evaluates 17 alert rules, but the stack runs no Alertmanager and Prometheus has no `alerting` target, so a firing alert stays in Prometheus and Grafana until someone looks. One person answers for every service, and the agent sessions that build the platform are the responders. The one control that acts without a person is the [deploy gate](doc:eng/conformity-gate): a failed check stops the deploy and the previous build stays live.
 
 ## Roles
 
@@ -37,8 +37,9 @@ The four incidents on the status page were all found by the third route.
 | Local LLM symptoms | OllamaDown, OllamaExporterDown, ModelSpilledToCPU | page, page, info |
 | Claude Code spend | ClaudeCodeSpendSpike | ticket |
 | SearXNG | SearXNGDown, SearXNGProxyEgressDown, SearXNGTunnelDown, SearXNGEngineFailing, SearXNGDegradedSearches, SearXNGSlowSearches | page, then five ticket |
+| AWS cost | AWSCostForecastOverBudget, AWSCostMonthToDateOver80, AWSCostDailySpike, AWSCostExporterStale | ticket |
 
-Five rules carry `severity: page`, seven `ticket` and one `info`. Conditions and tests: [Alerts and SLOs](doc:obs/alerts-and-slos).
+Five rules carry `severity: page`, eleven `ticket` and one `info`. Outside the stack, the AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend; it is the one cost alert that reaches a person ([Budgets and alerts](doc:fin/budgets-and-alerts)). Conditions and tests: [Alerts and SLOs](doc:obs/alerts-and-slos).
 
 ## Response
 

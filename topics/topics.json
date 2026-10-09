@@ -83,6 +83,7 @@
     "/inside/docs/res/case-files/",
     "/inside/docs/res/conformity-self-assessment/",
     "/inside/docs/res/decision-layer-probe/",
+    "/inside/docs/sre/principle-release-engineering/",
     "/inside/docs/std/",
     "/inside/docs/std/bsi-grundschutz-anchors/",
     "/inside/docs/std/bsi-grundschutz-position/",
@@ -385,6 +386,21 @@
     "/inside/docs/sre/performance/",
     "/inside/docs/sre/personal-digital-twin-architecture/",
     "/inside/docs/sre/pillars/",
+    "/inside/docs/sre/principle-agents-are-ops-work/",
+    "/inside/docs/sre/principle-cost-per-unit-of-work/",
+    "/inside/docs/sre/principle-eliminate-toil/",
+    "/inside/docs/sre/principle-embracing-risk/",
+    "/inside/docs/sre/principle-everything-in-git/",
+    "/inside/docs/sre/principle-incidents-end-in-records/",
+    "/inside/docs/sre/principle-monitor-symptoms/",
+    "/inside/docs/sre/principle-ops-as-software/",
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-service-level-objectives/",
+    "/inside/docs/sre/principle-simplicity/",
+    "/inside/docs/sre/principle-sre-is-ops/",
+    "/inside/docs/sre/principle-standby/",
+    "/inside/docs/sre/principle-truth-verified-working/",
+    "/inside/docs/sre/principles-in-practice/",
     "/inside/docs/sre/probe-pending-rows-before-calling-them-backlog/",
     "/inside/docs/sre/probe-the-artifact-before-reasoning-from-counts/",
     "/inside/docs/sre/probing-microarchitecture-for-vulnerability-discovery/",
@@ -529,6 +545,8 @@
     "/inside/docs/obs/runbooks/",
     "/inside/docs/sre/cpu-cache-hierarchy-and-speculative-execution/",
     "/inside/docs/sre/error-budgets-as-reliability-currency/",
+    "/inside/docs/sre/principle-monitor-symptoms/",
+    "/inside/docs/sre/principle-service-level-objectives/",
     "/inside/docs/sre/symptoms-over-causes-for-alerting/"
    ],
    "posts": [
@@ -568,6 +586,7 @@
     "/inside/docs/fin/focus-export/",
     "/inside/docs/fin/showback/",
     "/inside/docs/fin/unit-economics/",
+    "/inside/docs/sre/principle-cost-per-unit-of-work/",
     "/inside/docs/sre/unit-economics-of-infrastructure/"
    ],
    "posts": [],
@@ -603,6 +622,7 @@
     "/inside/docs/sre/memory-architecture-l0-l4/",
     "/inside/docs/sre/opencode-self-hosted-llm-configuration/",
     "/inside/docs/sre/personal-digital-twin-architecture/",
+    "/inside/docs/sre/principle-agents-are-ops-work/",
     "/inside/docs/sre/tencent-agent-memory-four-tier/"
    ],
    "posts": [
@@ -823,7 +843,7 @@
   {
    "n": 33,
    "t": "Topic hubs at /topics/<topic>/",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/33",
    "labels": [
     "type: feature",

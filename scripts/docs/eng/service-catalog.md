@@ -40,6 +40,7 @@ python3 scripts/build_inside.py
 | `depends_on` | yes | Service ids; may be empty |
 | `external` | no | Dependencies outside the catalog, as plain names |
 | `status` | no | Where the [status page](/inside/status/) reads the current state: `gate` (a `conformity/latest.json` URL) and `deploys` (a repository in the deploy feed) |
+| `principles` | no | The SRE principles the service applies, as `doc:sre/principle-<name>`; each must be a page under [Principles in practice](doc:sre/principles-in-practice). Shown under "SRE principles applied"; the principle page lists the service back |
 
 The build stops on an unknown field, a missing required field, a value outside the allowed set, an id that differs from the file name, a docs link to a page that does not exist, or a dependency on an unknown service.
 
@@ -53,7 +54,7 @@ The build stops on an unknown field, a missing required field, a value outside t
 
 ## In the map
 
-The crawler gives `/inside/services/<id>/` pages the kind `service` and adds the public Grafana dashboards they link as `dashboard` nodes, titled by the link text used most often. A service page's `<link rel="up">` to the catalog is a `tree` link. See [Map crawler](doc:eng/map-crawler).
+A service page links its principle pages in the body, and each principle page links back to the services that name it, so the map holds those links in both directions. The crawler gives `/inside/services/<id>/` pages the kind `service` and adds the public Grafana dashboards they link as `dashboard` nodes, titled by the link text used most often. A service page's `<link rel="up">` to the catalog is a `tree` link. See [Map crawler](doc:eng/map-crawler).
 
 ## Add or change a service
 

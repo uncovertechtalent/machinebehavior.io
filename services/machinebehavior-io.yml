@@ -14,6 +14,7 @@ dashboard:
   url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
 docs: [doc:eng/site-architecture, doc:eng/add-a-page, doc:eng/inside-portal]
 runbooks: [doc:eng/runbook-gate-blocked, doc:eng/runbook-push-rejected, doc:eng/runbook-template-href]
+principles: [doc:sre/principle-truth-verified-working, doc:sre/principle-release-engineering, doc:sre/principle-simplicity, doc:sre/principle-everything-in-git]
 depends_on: [conformity-gate, deploy-job, docs-build, map-crawler]
 external: [GitHub Pages, GitHub Actions]
 status:

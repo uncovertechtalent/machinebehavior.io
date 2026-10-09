@@ -80,7 +80,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (374 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (390 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -110,6 +110,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (374 pages). S
 - [ADR-0021: One navigation source for the whole site](https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/)
 - [ADR-0022: Section sidebars from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/)
 - [ADR-0023: Topic hubs across research, docs, posts and tickets](https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/)
+- [ADR-0024: SRE principles tied to the running platform](https://machinebehavior.io/inside/docs/eng/adr-0024-sre-principles-in-practice/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)
@@ -173,7 +174,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (374 pages). S
 
 ### SRE Handbook
 
-- [SRE Handbook](https://machinebehavior.io/inside/docs/sre/): Site reliability engineering from the knowledge vault: the manifesto, ten pillars, patterns, runbooks, tools and incident records.
+- [SRE Handbook](https://machinebehavior.io/inside/docs/sre/): Site reliability engineering from the knowledge vault: the manifesto, ten pillars, patterns, runbooks, tools and incident records, plus principles in practice tied to this platform.
 - [AI Agents are Ops Work](https://machinebehavior.io/inside/docs/sre/ai-agents-are-ops-work/)
 - [Apple Silicon vs Desktop GPU for Inference](https://machinebehavior.io/inside/docs/sre/apple-silicon-vs-desktop-gpu-for-inference/)
 - [Authenticated Cookie Jar for Gated Posts](https://machinebehavior.io/inside/docs/sre/authenticated-cookie-jar-for-gated-posts/)
@@ -234,6 +235,21 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (374 pages). S
 - [7. Performance](https://machinebehavior.io/inside/docs/sre/performance/)
 - [Personal Digital Twin Architecture](https://machinebehavior.io/inside/docs/sre/personal-digital-twin-architecture/)
 - [The ten pillars](https://machinebehavior.io/inside/docs/sre/pillars/)
+- [AI agents are ops work](https://machinebehavior.io/inside/docs/sre/principle-agents-are-ops-work/)
+- [Cost per unit of work](https://machinebehavior.io/inside/docs/sre/principle-cost-per-unit-of-work/)
+- [Eliminate toil](https://machinebehavior.io/inside/docs/sre/principle-eliminate-toil/)
+- [Risk is a budget](https://machinebehavior.io/inside/docs/sre/principle-embracing-risk/)
+- [If it is not in git, it does not exist](https://machinebehavior.io/inside/docs/sre/principle-everything-in-git/)
+- [Every incident ends in a record](https://machinebehavior.io/inside/docs/sre/principle-incidents-end-in-records/)
+- [Monitor symptoms, page on user pain](https://machinebehavior.io/inside/docs/sre/principle-monitor-symptoms/)
+- [Operations work done as software](https://machinebehavior.io/inside/docs/sre/principle-ops-as-software/)
+- [Every change passes the same gate](https://machinebehavior.io/inside/docs/sre/principle-release-engineering/)
+- [Service level objectives](https://machinebehavior.io/inside/docs/sre/principle-service-level-objectives/)
+- [Simplicity](https://machinebehavior.io/inside/docs/sre/principle-simplicity/)
+- [SRE is a role inside Ops](https://machinebehavior.io/inside/docs/sre/principle-sre-is-ops/)
+- [Someone carries the pager](https://machinebehavior.io/inside/docs/sre/principle-standby/)
+- [Truth, verified, working](https://machinebehavior.io/inside/docs/sre/principle-truth-verified-working/)
+- [Principles in practice](https://machinebehavior.io/inside/docs/sre/principles-in-practice/)
 - [Probe Pending Rows Before Calling Them Backlog](https://machinebehavior.io/inside/docs/sre/probe-pending-rows-before-calling-them-backlog/)
 - [Probe the Artifact Before Reasoning From Counts](https://machinebehavior.io/inside/docs/sre/probe-the-artifact-before-reasoning-from-counts/)
 - [Probing Microarchitecture for Vulnerability Discovery](https://machinebehavior.io/inside/docs/sre/probing-microarchitecture-for-vulnerability-discovery/)
@@ -505,9 +521,9 @@ The status page at https://machinebehavior.io/inside/status/: the state of each 
 - [Research](https://machinebehavior.io/research/): the Research section front page: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
 - [Topics](https://machinebehavior.io/topics/): Topics on machinebehavior.io: 7 hubs, each listing the research pages, Inside pages, docs, posts and tickets on one subject.
 - [Sycophancy and stance](https://machinebehavior.io/topics/sycophancy-and-stance/): topic hub, 7 research pages, 7 docs pages, 6 posts. The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
-- [Conformity and law](https://machinebehavior.io/topics/conformity-and-law/): topic hub, 4 research pages, 2 Inside pages, 211 docs pages, 11 tickets. Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
-- [Operations and SRE](https://machinebehavior.io/topics/operations-and-sre/): topic hub, 1 research page, 5 Inside pages, 104 docs pages, 12 posts, 5 tickets. Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.
-- [Observability](https://machinebehavior.io/topics/observability/): topic hub, 5 Inside pages, 18 docs pages, 1 post, 11 tickets. Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.
-- [FinOps](https://machinebehavior.io/topics/finops/): topic hub, 2 Inside pages, 8 docs pages, 3 tickets. What the platform costs and how it is metered. The cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.
-- [Agents and harness](https://machinebehavior.io/topics/agents-and-harness/): topic hub, 4 research pages, 2 Inside pages, 15 docs pages, 12 posts, 2 tickets. Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
+- [Conformity and law](https://machinebehavior.io/topics/conformity-and-law/): topic hub, 4 research pages, 2 Inside pages, 212 docs pages, 11 tickets. Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
+- [Operations and SRE](https://machinebehavior.io/topics/operations-and-sre/): topic hub, 1 research page, 5 Inside pages, 119 docs pages, 12 posts, 5 tickets. Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.
+- [Observability](https://machinebehavior.io/topics/observability/): topic hub, 5 Inside pages, 20 docs pages, 1 post, 11 tickets. Prometheus, Loki and Grafana behind the public dashboards, the alert rules and SLOs, and the status page that reads the published records.
+- [FinOps](https://machinebehavior.io/topics/finops/): topic hub, 2 Inside pages, 9 docs pages, 3 tickets. What the platform costs and how it is metered. The cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.
+- [Agents and harness](https://machinebehavior.io/topics/agents-and-harness/): topic hub, 4 research pages, 2 Inside pages, 16 docs pages, 12 posts, 2 tickets. Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
 - [Evaluation](https://machinebehavior.io/topics/evaluation/): topic hub, 7 research pages, 9 docs pages, 2 posts. Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.

@@ -36,4 +36,5 @@ This space documents the systems behind machinebehavior.io, tychat.io and uncove
 - Adding a page: follow [Add a page to machinebehavior.io](doc:eng/add-a-page).
 - A deploy did not go out: start at [Runbooks](doc:eng/runbooks).
 - Why something is the way it is: the [Decision records](doc:eng/decision-log), numbered ADR-0001 onward.
+- Which SRE principles the platform applies, and where it falls short: [Principles in practice](doc:sre/principles-in-practice) in the SRE Handbook.
 - What changed and when: the [Changelog](doc:eng/changelog).

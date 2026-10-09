@@ -13,5 +13,6 @@ dashboard:
   url: https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346
 docs: [doc:obs/alerts-and-slos, doc:obs/public-dashboards]
 runbooks: []
+principles: [doc:sre/principle-monitor-symptoms, doc:sre/principle-incidents-end-in-records]
 depends_on: [observability-stack]
 external: [Upstream search engines]

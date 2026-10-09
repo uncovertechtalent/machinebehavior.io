@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Copy the SRE folder and the standards clusters of the knowledge vault into docs sources.
 
-Writes scripts/docs/sre/*.md and scripts/docs/std/*.md (both directories are replaced on each run),
-then scripts/build_docs.py renders them. Run from the repo root on the machine that holds the vault:
+Writes scripts/docs/sre/*.md and scripts/docs/std/*.md, then scripts/build_docs.py renders them. On each run it
+removes the pages it wrote before (those with an `origin:` line in the front matter) and keeps every other file:
+hand-written pages in the same folders (the SRE principles in practice) survive a re-import. A vault page whose
+slug equals a hand-written file name stops the import. Run from the repo root on the machine that holds the vault:
 
     python3 scripts/import_vault_docs.py [~/vault]
 
@@ -17,7 +19,7 @@ What is published and what is changed (decided by Stefan Coetzee, 2026-10-09):
 - Every page is labelled as a vault note not reviewed against its source (reviewed: no).
 A report of every change is written to scripts/docs/IMPORT-REPORT.md.
 """
-import re, shutil, subprocess, sys
+import re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -137,6 +139,8 @@ def git_dates(path):
 
 
 def emit(space, slug, meta_out, body):
+    if slug in KEEP.get(space, ()):
+        sys.exit(f'import_vault_docs: vault page {space}/{slug} would overwrite the hand-written page scripts/docs/{space}/{slug}.md')
     lines = [f'{k}: {v}' for k, v in meta_out.items() if v not in (None, '', [])]
     (OUT / space / f'{slug}.md').write_text('\n'.join(lines) + '\n---\n' + body.strip('\n') + '\n', encoding='utf-8')
 
@@ -170,11 +174,22 @@ def note(path, space, slug, parent, order, title=None, title_prefix=''):
     return t
 
 
+KEEP = {}  # space -> slugs of hand-written pages (no origin line); never removed or overwritten
+
+
 def reset(space):
+    """Remove the pages this script wrote before (front matter with origin:); keep hand-written pages."""
     d = OUT / space
-    if d.exists():
-        shutil.rmtree(d)
-    d.mkdir(parents=True)
+    d.mkdir(parents=True, exist_ok=True)
+    KEEP[space] = set()
+    for f in d.glob('*.md'):
+        head = f.read_text(encoding='utf-8').partition('\n---\n')[0]
+        if re.search(r'^origin:', head, re.M):
+            f.unlink()
+        else:
+            KEEP[space].add(f.stem)
+    if KEEP[space]:
+        print(f'{space}: kept {len(KEEP[space])} hand-written pages')
 
 
 # ---------- SRE ----------

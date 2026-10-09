@@ -11,5 +11,6 @@ url: https://machinebehavior.io/inside/docs/
 repository: https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py
 docs: [doc:eng/docs-tree, doc:eng/top-bar-and-search]
 runbooks: []
+principles: [doc:sre/principle-ops-as-software, doc:sre/principle-truth-verified-working, doc:sre/principle-eliminate-toil, doc:sre/principle-everything-in-git]
 depends_on: [conformity-gate]
 external: []

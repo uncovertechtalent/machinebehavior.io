@@ -41,8 +41,9 @@ SERVICE_FIELDS = {
     'id': (True, str), 'name': (True, str), 'description': (True, str), 'owner': (True, str), 'operator': (False, str),
     'tier': (True, int), 'lifecycle': (True, str), 'system': (True, str), 'url': (False, str), 'repository': (False, str),
     'dashboard': (False, dict), 'slo': (False, list), 'docs': (True, list), 'runbooks': (True, list),
-    'depends_on': (True, list), 'external': (False, list), 'status': (False, dict),
+    'depends_on': (True, list), 'external': (False, list), 'status': (False, dict), 'principles': (False, list),
 }
+PRINCIPLES = '/inside/docs/sre/principle-'  # principles: entries must be pages under SRE principles in practice
 
 
 def fail(msg):
@@ -120,6 +121,10 @@ def load_services():
                 fail(f'{where}: status keys are gate and deploys')
         s['docs_l'] = [doc_ref(r, where) for r in s['docs']]
         s['runbooks_l'] = [doc_ref(r, where) for r in s['runbooks']]
+        s['principles_l'] = [doc_ref(r, where) for r in s.get('principles') or []]
+        for u, _ in s['principles_l']:
+            if not u.startswith(PRINCIPLES):
+                fail(f'{where}: principles entries are pages under SRE principles in practice, got {u}')
         s['src'] = where
         s['updated'] = git_date(f)
         s['page'] = f'/inside/services/{s["id"]}/'
@@ -211,7 +216,7 @@ def service_page(s, all_s, status_live):
                ''.join(f'<tr><td>{esc(o["name"])}</td><td class="mono">{esc(o["target"])}</td><td>{esc(o["good"])}</td></tr>' for o in s['slo']) +
                '</tbody></table></div><p class="note">Defined and measured in Prometheus; see <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>')
     else:
-        slo = '<h2 id="slo">Service level objectives</h2><p class="note">None defined. Health is read from the records listed on the status page.</p>'
+        slo = '<h2 id="slo">Service level objectives</h2><p class="note">None defined. Health is read from the records listed on the status page. Why that is a gap and what closes it: <a href="/inside/docs/sre/principle-service-level-objectives/">Service level objectives</a>.</p>'
 
     def links(items, empty):
         if not items:
@@ -224,6 +229,8 @@ def service_page(s, all_s, status_live):
     desc = ' '.join(s['description'].split())
     body = f'''<h2 id="docs">Docs</h2>{links(s["docs_l"], "No docs page yet.")}
 <h2 id="runbooks">Runbooks</h2>{links(s["runbooks_l"], "No runbook yet.")}
+<h2 id="principles">SRE principles applied</h2>{links(s["principles_l"], "None named yet.")}
+<p class="note">Each principle, how this platform applies it and where it falls short: <a href="/inside/docs/sre/principles-in-practice/">Principles in practice</a>.</p>
 {slo}
 <h2 id="dependencies">Dependencies</h2>
 <div class="cols"><div><h3>Depends on</h3>{deps}<p class="note">Outside the catalog: {ext}.</p></div><div><h3>Used by</h3>{used}</div></div>'''
@@ -298,7 +305,7 @@ def build_services(svcs, status_live):
         {'id': s['id'], 'name': s['name'], 'url': s['page'], 'description': ' '.join(s['description'].split()), 'owner': s['owner'],
          'operator': s.get('operator'), 'tier': s['tier'], 'lifecycle': s['lifecycle'], 'system': s['system'], 'address': s.get('url'),
          'repository': s.get('repository'), 'dashboard': s.get('dashboard'), 'slo': s.get('slo') or [],
-         'docs': [u for u, _ in s['docs_l']], 'runbooks': [u for u, _ in s['runbooks_l']], 'depends_on': s['depends_on'],
+         'docs': [u for u, _ in s['docs_l']], 'runbooks': [u for u, _ in s['runbooks_l']], 'principles': [u for u, _ in s['principles_l']], 'depends_on': s['depends_on'],
          'external': s.get('external') or [], 'status': s.get('status') or {}, 'updated': s['updated']}
         for s in sorted(svcs.values(), key=lambda s: (SYSTEMS.index(s['system']), s['tier'], s['name'].lower()))]}
     (out / 'services.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8')

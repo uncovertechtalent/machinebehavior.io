@@ -27,6 +27,13 @@
     "/inside/docs/eng/runbook-gate-blocked/",
     "/inside/docs/eng/runbook-template-href/"
    ],
+   "principles": [
+    "/inside/docs/sre/principle-truth-verified-working/",
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-embracing-risk/",
+    "/inside/docs/sre/principle-ops-as-software/",
+    "/inside/docs/sre/principle-sre-is-ops/"
+   ],
    "depends_on": [],
    "external": [
     "GitHub Actions"
@@ -59,6 +66,11 @@
    "runbooks": [
     "/inside/docs/eng/runbook-push-rejected/",
     "/inside/docs/eng/runbook-gate-blocked/"
+   ],
+   "principles": [
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-eliminate-toil/",
+    "/inside/docs/sre/principle-simplicity/"
    ],
    "depends_on": [
     "conformity-gate",
@@ -101,6 +113,12 @@
     "/inside/docs/eng/runbook-push-rejected/",
     "/inside/docs/eng/runbook-template-href/"
    ],
+   "principles": [
+    "/inside/docs/sre/principle-truth-verified-working/",
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-simplicity/",
+    "/inside/docs/sre/principle-everything-in-git/"
+   ],
    "depends_on": [
     "conformity-gate",
     "deploy-job",
@@ -141,6 +159,10 @@
     "/inside/docs/eng/runbook-gate-blocked/",
     "/inside/docs/eng/runbook-push-rejected/"
    ],
+   "principles": [
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-simplicity/"
+   ],
    "depends_on": [
     "conformity-gate"
    ],
@@ -177,6 +199,10 @@
    "runbooks": [
     "/inside/docs/eng/runbook-gate-blocked/"
    ],
+   "principles": [
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-simplicity/"
+   ],
    "depends_on": [
     "conformity-gate"
    ],
@@ -209,6 +235,12 @@
     "/inside/docs/eng/top-bar-and-search/"
    ],
    "runbooks": [],
+   "principles": [
+    "/inside/docs/sre/principle-ops-as-software/",
+    "/inside/docs/sre/principle-truth-verified-working/",
+    "/inside/docs/sre/principle-eliminate-toil/",
+    "/inside/docs/sre/principle-everything-in-git/"
+   ],
    "depends_on": [
     "conformity-gate"
    ],
@@ -234,6 +266,10 @@
     "/inside/docs/eng/map-crawler/"
    ],
    "runbooks": [],
+   "principles": [
+    "/inside/docs/sre/principle-ops-as-software/",
+    "/inside/docs/sre/principle-eliminate-toil/"
+   ],
    "depends_on": [
     "machinebehavior-io",
     "tychat-io",
@@ -270,6 +306,11 @@
    "runbooks": [
     "/inside/docs/obs/runbook-loki-backfill-missing/",
     "/inside/docs/obs/runbook-stat-panel-no-data/"
+   ],
+   "principles": [
+    "/inside/docs/sre/principle-monitor-symptoms/",
+    "/inside/docs/sre/principle-release-engineering/",
+    "/inside/docs/sre/principle-ops-as-software/"
    ],
    "depends_on": [
     "observability-stack"
@@ -309,6 +350,12 @@
     "/inside/docs/obs/runbook-stat-panel-no-data/",
     "/inside/docs/obs/runbook-loki-backfill-missing/"
    ],
+   "principles": [
+    "/inside/docs/sre/principle-monitor-symptoms/",
+    "/inside/docs/sre/principle-everything-in-git/",
+    "/inside/docs/sre/principle-ops-as-software/",
+    "/inside/docs/sre/principle-cost-per-unit-of-work/"
+   ],
    "depends_on": [],
    "external": [
     "Docker Compose"
@@ -338,6 +385,10 @@
     "/inside/docs/obs/public-dashboards/"
    ],
    "runbooks": [],
+   "principles": [
+    "/inside/docs/sre/principle-monitor-symptoms/",
+    "/inside/docs/sre/principle-incidents-end-in-records/"
+   ],
    "depends_on": [
     "observability-stack"
    ],
@@ -381,6 +432,11 @@
     "/inside/docs/obs/architecture/"
    ],
    "runbooks": [],
+   "principles": [
+    "/inside/docs/sre/principle-service-level-objectives/",
+    "/inside/docs/sre/principle-embracing-risk/",
+    "/inside/docs/sre/principle-monitor-symptoms/"
+   ],
    "depends_on": [
     "observability-stack"
    ],
@@ -415,6 +471,12 @@
    ],
    "runbooks": [
     "/inside/docs/obs/runbook-counter-resets-parallel-sessions/"
+   ],
+   "principles": [
+    "/inside/docs/sre/principle-agents-are-ops-work/",
+    "/inside/docs/sre/principle-cost-per-unit-of-work/",
+    "/inside/docs/sre/principle-incidents-end-in-records/",
+    "/inside/docs/sre/principle-sre-is-ops/"
    ],
    "depends_on": [
     "observability-stack",

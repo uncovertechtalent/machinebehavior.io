@@ -20,5 +20,6 @@ slo:
     good: A streamed chat request with a first token within 4 s
 docs: [doc:obs/alerts-and-slos, doc:obs/metrics-reference, doc:obs/architecture]
 runbooks: []
+principles: [doc:sre/principle-service-level-objectives, doc:sre/principle-embracing-risk, doc:sre/principle-monitor-symptoms]
 depends_on: [observability-stack]
 external: [Ollama]

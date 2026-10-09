@@ -201,6 +201,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0024-sre-principles-in-practice/",
+"t": "ADR-0024: SRE principles tied to the running platform",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
@@ -439,6 +444,81 @@
 "u": "/inside/docs/sre/the-disappearing-full-stack-ops-engineer/",
 "t": "The Disappearing Full-Stack Ops Engineer",
 "p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/principles-in-practice/",
+"t": "Principles in practice",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/principle-truth-verified-working/",
+"t": "Truth, verified, working",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-sre-is-ops/",
+"t": "SRE is a role inside Ops",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-standby/",
+"t": "Someone carries the pager",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-ops-as-software/",
+"t": "Operations work done as software",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-embracing-risk/",
+"t": "Risk is a budget",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-service-level-objectives/",
+"t": "Service level objectives",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-monitor-symptoms/",
+"t": "Monitor symptoms, page on user pain",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-eliminate-toil/",
+"t": "Eliminate toil",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-release-engineering/",
+"t": "Every change passes the same gate",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-simplicity/",
+"t": "Simplicity",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-everything-in-git/",
+"t": "If it is not in git, it does not exist",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-incidents-end-in-records/",
+"t": "Every incident ends in a record",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-cost-per-unit-of-work/",
+"t": "Cost per unit of work",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
+"u": "/inside/docs/sre/principle-agents-are-ops-work/",
+"t": "AI agents are ops work",
+"p": "/inside/docs/sre/principles-in-practice/"
 },
 {
 "u": "/inside/docs/sre/pillars/",

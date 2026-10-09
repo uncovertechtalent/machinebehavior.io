@@ -13,5 +13,6 @@ dashboard:
   url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
 docs: [doc:obs/deploy-exporter, doc:obs/metrics-reference, doc:obs/loki-streams]
 runbooks: [doc:obs/runbook-loki-backfill-missing, doc:obs/runbook-stat-panel-no-data]
+principles: [doc:sre/principle-monitor-symptoms, doc:sre/principle-release-engineering, doc:sre/principle-ops-as-software]
 depends_on: [observability-stack]
 external: [GitHub API]

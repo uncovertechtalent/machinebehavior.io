@@ -11,5 +11,6 @@ url: https://machinebehavior.io/map/
 repository: https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/crawl_map.py
 docs: [doc:eng/map-crawler]
 runbooks: []
+principles: [doc:sre/principle-ops-as-software, doc:sre/principle-eliminate-toil]
 depends_on: [machinebehavior-io, tychat-io, uncovertechtalent-com]
 external: [Substack]

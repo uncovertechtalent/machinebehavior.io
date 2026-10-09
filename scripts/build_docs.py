@@ -3,7 +3,8 @@
 
 Sources: scripts/docs/<space>/<slug>.md, one file per page, front matter then a line '---' then the body.
 Hand-written spaces (eng, obs, res, fin) are edited in place; vault spaces (sre, std) are written by
-scripts/import_vault_docs.py and should not be edited here.
+scripts/import_vault_docs.py and should not be edited here, except for hand-written pages without an `origin:` line
+(the SRE principles in practice), which the import keeps.
 
 Output: inside/docs/index.html (space directory), inside/docs/<space>/index.html (space home),
 inside/docs/<space>/<slug>/index.html (pages), inside/docs/search.json, plus a managed block in
@@ -17,6 +18,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import inside_chrome, site_chrome  # sitemap and llms.txt helpers; the chrome of every page
+import mini_yaml  # services/*.yml, for the principle pages
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'scripts' / 'docs'
@@ -35,12 +37,13 @@ SPACES = [
     {'key': 'fin', 'name': 'FinOps', 'color': '#FF7A6B',
      'about': 'What the platform costs and how it is metered: the cost model, unit economics, showback, budgets and alerts, an anomaly case and a FOCUS export.'},
     {'key': 'sre', 'name': 'SRE Handbook', 'color': '#6FA8FF',
-     'about': 'Site reliability engineering from the knowledge vault: the manifesto, ten pillars, patterns, runbooks, tools and incident records.'},
+     'about': 'Site reliability engineering from the knowledge vault: the manifesto, ten pillars, patterns, runbooks, tools and incident records, plus principles in practice tied to this platform.'},
     {'key': 'std', 'name': 'Standards and Compliance', 'color': '#B79CFF',
      'about': 'Reference clusters from the knowledge vault for 28 standards, regulations and frameworks: ISO 27001 and 42001, NIS2, DORA, the EU AI Act, GDPR, SOC 2, TISAX, NIST and more.'},
 ]
 SPACE = {s['key']: s for s in SPACES}
 HAND = {'eng', 'obs', 'res', 'fin'}          # written in the repository; vault spaces come from the knowledge vault
+                                             # a page is hand-written when it has no origin line, in any space
 SPACE_OWNER = 'Stefan Coetzee'               # owner of a vault page that names none
 TYPES = ('tutorial', 'how-to', 'reference', 'explanation')  # Diátaxis
 DATE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
@@ -113,7 +116,7 @@ for sp in SPACES:
         p['url'] = f"/inside/docs/{sp['key']}/" + ('' if slug == 'index' else f'{slug}/')
         p['updated'] = meta.get('updated') or meta.get('created') or git_date(f)
         p['created'] = meta.get('created') or p['updated']
-        if not p.get('owner') and sp['key'] not in HAND:
+        if not p.get('owner') and meta.get('origin'):
             p['owner'], p['owner_default'] = SPACE_OWNER, True
         pages[(sp['key'], slug)] = p
 
@@ -441,6 +444,43 @@ for p in pages.values():
             rows.append(f'| [ADR-{int(a["adr"]):04d}](doc:{a["space"]}/{a["slug"]}) | {a["title"].split(": ", 1)[-1]} | {a["created"]} | {st} |')
         p['body'] = ADR_MARK.sub(lambda m: '\n'.join(rows), p['body'])
 
+# SRE principles in practice: children of sre/principles-in-practice carry state and source in the front matter.
+# The body's "## State" section opens with the same state in bold; the build stops when the two disagree.
+# <!-- principle-services --> lists the services whose YAML names the page under principles:;
+# <!-- principle-index --> on the parent writes the table of all principles.
+PRINCIPLE_PARENT = ('sre', 'principles-in-practice')
+PRINCIPLE_STATES = ('in place', 'partial', 'gap')
+principles = sorted((p for p in pages.values() if (p['space'], p.get('parent')) == PRINCIPLE_PARENT), key=lambda p: p['order'])
+svc_by_principle = {}
+for f in sorted((ROOT / 'services').glob('*.yml')):
+    svc = mini_yaml.load_file(f)
+    for ref in svc.get('principles') or []:
+        svc_by_principle.setdefault(ref, []).append((svc['name'], f'/inside/services/{svc["id"]}/'))
+for p in principles:
+    if p.get('state') not in PRINCIPLE_STATES or not p.get('source'):
+        sys.exit(f'{p["src"]}: a principle page needs state ({", ".join(PRINCIPLE_STATES)}) and source')
+    m = re.search(r'^## State\n+\*\*([^*]+?)\.\*\*', p['body'], re.M)
+    if not m or m.group(1).lower() != p['state']:
+        sys.exit(f'{p["src"]}: the State section must open with **{p["state"].capitalize()}.** to match the front matter')
+    p['services'] = sorted(svc_by_principle.get(f'doc:sre/{p["slug"]}', []), key=lambda x: x[0].lower())
+known = {f'doc:sre/{p["slug"]}' for p in principles}
+for ref in svc_by_principle:
+    if ref not in known:
+        sys.exit(f'services: principles entry {ref} is not a page under {"/".join(PRINCIPLE_PARENT)}')
+SVC_MARK = re.compile(r'^<!-- principle-services -->$', re.M)
+IDX_MARK = re.compile(r'^<!-- principle-index -->$', re.M)
+for p in principles:
+    if SVC_MARK.search(p['body']):
+        lst = '\n'.join(f'- [{n}]({u})' for n, u in p['services']) or 'No service in the catalog names this principle.'
+        p['body'] = SVC_MARK.sub(lambda m: lst, p['body'])
+for p in pages.values():
+    if IDX_MARK.search(p['body']):
+        rows = ['| Principle | Source | State | Services that name it |', '|---|---|---|---|']
+        for q in principles:
+            sv = ', '.join(f'[{n}]({u})' for n, u in q['services']) or 'none'
+            rows.append(f'| [{q["title"]}](doc:sre/{q["slug"]}) | {q["source"]} | {q["state"]} | {sv} |')
+        p['body'] = IDX_MARK.sub(lambda m: '\n'.join(rows), p['body'])
+
 for p in pages.values():
     ctx = Ctx(p)
     toc = []
@@ -573,6 +613,8 @@ def page_html(p):
     by += f'<span>{max(1, round(p["words"] / 220))} min read</span>'
     if p.get('type'):
         by += f'<span class="type">{esc(p["type"])}</span>'
+    if p.get('state') and (p['space'], p.get('parent')) == PRINCIPLE_PARENT:
+        by += f'<span class="{"rv late" if p["state"] == "gap" else "type"}">state: {esc(p["state"])}</span>'
     adr_panel = ''
     if p.get('adr'):
         by = f'<span class="adr-st {esc(p["status"])}">{esc(p["status"])}</span>' + by
@@ -666,7 +708,7 @@ def docs_home():
 def health_page():
     url = '/inside/docs/health/'
     allp = sorted(pages.values(), key=lambda p: (p['space'], p['title'].lower()))
-    hand = [p for p in allp if p['space'] in HAND]
+    hand = [p for p in allp if not p.get('origin')]
     def due(p):
         return p.get('reviewed') not in (None, '', 'no') and p.get('review_by')
     overdue = sorted((p for p in allp if due(p) and p['review_by'] < TODAY), key=lambda p: p['review_by'])
@@ -694,7 +736,7 @@ def health_page():
         od = sum(1 for p in ps if due(p) and p['review_by'] < TODAY)
         ty = sum(1 for p in ps if p.get('type'))
         by_space += (f'<tr><td><a href="/inside/docs/{sp["key"]}/">{esc(sp["name"])}</a></td><td>{len(ps)}</td><td>{len(ps) - nr}</td><td>{nr}</td><td>{od}</td>'
-                     f'<td>{ty}</td><td>{"space default" if sp["key"] not in HAND else "per page"}</td></tr>')
+                     f'<td>{ty}</td><td>{"per page" if sp["key"] in HAND else ("space default" if all(p.get("origin") for p in ps) else "space default, per page when hand-written")}</td></tr>')
     desc = f'Docs health: which of the {len(allp)} docs pages have an owner, a type and a review date, which are past review and which have never been reviewed.'
     return f'''{head('Docs health · Inside docs', desc, url, f'<meta property="article:modified_time" content="{TODAY}">' + chr(10), og_title='Docs health')}
 <body>
@@ -749,7 +791,7 @@ for p in pages.values():
     write(p['url'], page_html(p))
 write('/inside/docs/', docs_home())
 write('/inside/docs/health/', health_page())
-_missing = [p['src'] for p in pages.values() if p['space'] in HAND and not all(p.get(k) for k in ('owner', 'reviewed', 'review_by', 'type'))]
+_missing = [p['src'] for p in pages.values() if not p.get('origin') and not all(p.get(k) for k in ('owner', 'reviewed', 'review_by', 'type'))]
 for m in _missing:
     print(f'warning: {m}: missing owner, reviewed, review_by or type', file=sys.stderr)
 

@@ -12,5 +12,6 @@ dashboard:
   url: https://grafana.scoetzee.de/public-dashboards/3a4ba6b21e6f4924ab2845b47a300af0
 docs: [doc:fin/cost-model, doc:fin/budgets-and-alerts, doc:fin/anomaly-the-phantom-two-million, doc:obs/on-call]
 runbooks: [doc:obs/runbook-counter-resets-parallel-sessions]
+principles: [doc:sre/principle-agents-are-ops-work, doc:sre/principle-cost-per-unit-of-work, doc:sre/principle-incidents-end-in-records, doc:sre/principle-sre-is-ops]
 depends_on: [observability-stack, conformity-gate, searxng, local-llm]
 external: [Anthropic API]
