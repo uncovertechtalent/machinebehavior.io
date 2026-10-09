@@ -209,6 +209,54 @@ def check_page_label():
     return {"result": "pass" if not missing else "fail", "detail": f"pages that present themselves as a self-assessment carry the label \"{label}\": {len(missing)} missing", "evidence": missing, "hits": []}
 
 
+def check_chrome():
+    """Warning tier (Stefan, 2026-10-09): site chrome present and in step with the nav tree, no orphan pages,
+    breadcrumb JSON-LD matching the visible trail, no colour values outside the design tokens. Enabled per site with
+    site config key "chrome_checks"; never blocks (result "warn" when something is found)."""
+    cfg = SITE.get("chrome_checks")
+    if not cfg:
+        na = {"result": "n/a", "detail": "chrome checks not enabled for this site", "evidence": [], "hits": []}
+        return dict(na), dict(na), dict(na), dict(na)
+    repo = Path(ARGS.git_dir or ROOT).resolve()
+    script = repo / cfg.get("script", "scripts/site_chrome.py")
+    differ, orphans, other = [], [], []
+    if script.exists():
+        proc = subprocess.run([sys.executable, str(script), "--check"], cwd=str(repo), capture_output=True, text=True)
+        for line in proc.stdout.splitlines():
+            if line.startswith("chrome differs"):
+                differ.append(line)
+            elif line.startswith("error orphan") or line.startswith("error missing page") or "outside site/nav.yml" in line:
+                orphans.append(line[6:] if line.startswith("error ") else line)
+            elif line.startswith("error "):
+                other.append(line[6:])
+    else:
+        differ.append(f"chrome script not found: {script}")
+    w = lambda items: "warn" if items else "pass"
+    blocks = {"result": w(differ), "detail": f"pages whose chrome blocks differ from the nav source: {len(differ)} (site_chrome.py --check)", "evidence": differ[:30], "hits": []}
+    orph = {"result": w(orphans + other), "detail": f"pages outside the nav tree or tree entries without a page: {len(orphans)}; other tree errors: {len(other)}", "evidence": (orphans + other)[:30], "hits": []}
+    crumb_bad, colour_bad = [], []
+    hexre = re.compile(r"#[0-9a-fA-F]{3,8}\b|\brgba?\(|\bhsla?\(")
+    for p in html_pages():
+        src = p.read_text(errors="replace")
+        m = re.search(r'"@type": "BreadcrumbList".*?"itemListElement": (\[.*?\])\}</script>', src, re.S)
+        vis = re.search(r'<nav class="mb-crumbs"[^>]*>(.*?)</nav>', src, re.S)
+        if m or vis:
+            try:
+                ld = [i["name"] for i in json.loads(m.group(1))] if m else None
+            except Exception:
+                ld = None
+            shown = [html.unescape(re.sub(r"<[^>]+>", "", x)).strip() for x in re.findall(r"<li>(.*?)</li>", vis.group(1), re.S)] if vis else None
+            if ld != shown:
+                crumb_bad.append(f"{rel(p)}: JSON-LD {ld} vs visible {shown}")
+        css = " ".join(re.findall(r"<style[^>]*>(.*?)</style>", src, re.S)) + " " + " ".join(re.findall(r'\bstyle="([^"]*)"', src))
+        n = len(hexre.findall(css))
+        if n:
+            colour_bad.append(f"{rel(p)}: {n} colour value(s) in page CSS")
+    crumbs = {"result": w(crumb_bad), "detail": f"pages whose breadcrumb JSON-LD differs from the visible trail: {len(crumb_bad)}", "evidence": crumb_bad[:30], "hits": []}
+    colours = {"result": w(colour_bad), "detail": f"pages with colour values outside /design/tokens.css: {len(colour_bad)}", "evidence": colour_bad[:30], "hits": []}
+    return blocks, orph, crumbs, colours
+
+
 def check_marks():
     unmarked = [r["id"] for r in REQ["requirements"] if r.get("mark") not in ("M", "A", "H")]
     m_without = [r["id"] for r in REQ["requirements"] if r.get("mark") == "M" and not r.get("checks")]
@@ -446,7 +494,7 @@ def render(record, latest):
 .st {{ font-family: var(--mono); font-size: .8em; padding: .1em .45em; border-radius: .3em; border: 1px solid var(--rule); white-space: nowrap; }}
 .st-pass {{ color: var(--teal); border-color: var(--teal); }}
 .st-fail, .st-gap {{ color: var(--rust); border-color: var(--rust); }}
-.st-partial, .st-pending, .st-n\\/a {{ color: var(--ink-soft); }}
+.st-partial, .st-pending, .st-n\\/a, .st-warn {{ color: var(--ink-soft); }}
 .st-self {{ color: var(--ink-soft); border-style: dashed; }}
 .self {{ color: var(--ink-soft); font-size: .85em; }}
 .kpi {{ display: flex; gap: 1.2em; flex-wrap: wrap; margin: .6em 0 1em; font-family: var(--mono); font-size: .9em; }}
@@ -560,6 +608,7 @@ def main():
     checks["trigger.push"], checks["deploy.gated"], checks["trigger.schedule"] = check_triggers(latest["history"])
     checks["page.label"] = check_page_label()
     checks["requirements.marks"] = check_marks()
+    checks["chrome.blocks"], checks["chrome.orphans"], checks["chrome.breadcrumbs"], checks["design.colours"] = check_chrome()
     checks["grader.fixtures"] = check_fixtures()
     checks["knowledge.freshness"] = check_freshness()
     checks["decision.probe"] = check_probe()

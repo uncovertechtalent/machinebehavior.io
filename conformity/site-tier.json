@@ -132,5 +132,10 @@
   ],
   "footer_sig": "Stefan Coetzee, 2026",
   "footer_motto": "The receipts are the argument."
+ },
+ "chrome_checks": {
+  "script": "scripts/site_chrome.py",
+  "tier": "warn",
+  "decided": "Stefan, 2026-10-09: warn tier for all four (chrome blocks, orphans, breadcrumb JSON-LD, colours outside tokens)"
  }
 }
