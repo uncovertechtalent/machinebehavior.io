@@ -123,5 +123,3 @@ dd .receipt { font-size: 0.85rem; color: var(--ink-soft); }
 .figure img { display: block; width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--rule); }
 .figure figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.55rem; }
 .figure figcaption a { color: var(--teal); }
-/* the image runs the width of the window (16px gutters), centred on the text column; the caption stays in the column */
-.figure .bleed { display: block; width: min(calc(100vw - 32px), 1600px); margin-left: 50%; transform: translateX(-50%); }
