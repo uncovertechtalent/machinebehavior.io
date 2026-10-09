@@ -16,6 +16,7 @@ In run 1 the model inside Stefan Coetzee's working AI setup scored the setup aga
 | system under test | Claude Code plus instruction files, hooks, memory and a knowledge vault |
 | n | 35 requirements, CC-4.1 to CC-12.5 |
 | published page | [/continuous-conformity-self-assessment/](/continuous-conformity-self-assessment/) |
+| requirements | [/continuous-conformity/](/continuous-conformity/), working draft 0.3 (run 1 scored draft 0.2; CC-6.6 scored as an addendum) |
 
 ## Result
 

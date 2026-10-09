@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Continuous Conformity for Deployed AI Systems, working draft 0.3: Machine Behavior</title>
+<meta name="description" content="Working draft 0.3: 36 requirements for testing a deployed AI system, and the knowledge it runs on, on every change and on a fixed schedule, decided by someone other than the system, with records a third party can rerun. A reference text, not a standard.">
+<link rel="canonical" href="https://machinebehavior.io/continuous-conformity/">
+<meta property="og:title" content="Continuous Conformity for Deployed AI Systems (working draft 0.3)">
+<meta property="og:description" content="Working draft 0.3: 36 requirements for testing a deployed AI system, and the knowledge it runs on, on every change and on a fixed schedule, decided by someone other than the system, with records a third party can rerun. A reference text, not a standard.">
+<meta property="og:url" content="https://machinebehavior.io/continuous-conformity/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<style>
+.mk { font-family: var(--mono); font-size: .75em; padding: .05em .4em; border: 1px solid var(--rule); border-radius: .3em; color: var(--ink-soft); vertical-align: middle; }
+.mk-M { color: var(--teal); border-color: var(--teal); }
+.facts td:first-child { font-family: var(--mono); font-size: .85em; color: var(--ink-soft); white-space: nowrap; }
+.toc a { margin-right: .9em; }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <nav class="nav">
+    <a href="/">machine behavior</a>
+    <a href="/man/">man</a>
+    <a href="/claims/">claims</a>
+    <a href="/experiments/">experiments</a>
+    <a href="/objections/">objections</a>
+    <a href="/terms/">terms</a>
+  </nav>
+
+  <header>
+    <div class="eyebrow">Reference · working draft 0.3 · 2026-10-07 · published 2026-10-09 · Stefan Coetzee · not a standard, not a certification scheme</div>
+    <h1>Continuous Conformity for Deployed AI Systems</h1>
+    <p class="subtitle">Working draft 0.3: 36 requirements for testing a deployed AI system, and the knowledge it runs on, on every change and on a fixed schedule, decided by someone other than the system, with records a third party can rerun. A reference text, not a standard.</p>
+  </header>
+
+  <div class="tablewrap"><table class="facts">
+    <tr><td>status</td><td>Working draft for discussion. Not a standard, not a certification scheme, not endorsed by any standards body. Published as a reference before any committee has seen it (decision record <a class="mono" href="/inside/docs/eng/adr-0019-definition-published-before-committee/">ADR-0019</a>).</td></tr>
+    <tr><td>version</td><td>0.3, 2026-10-07. 0.2 (2026-10-03) added clause 12, machine-checkable requirements; 0.3 added CC-6.6, decision-layer tests, and terms 3.25 to 3.27.</td></tr>
+    <tr><td>requirements</td><td>36, CC-4.1 to CC-12.5. Marks per CC-12.1: M mechanical 10, A assisted 14, H manual 12 (the mark after each requirement below).</td></tr>
+    <tr><td>in use</td><td>The mechanical requirements run on every push to this site and weekly: <a class="mono" href="/conformity/">/conformity/</a>. The author's setup scored against it: <a class="mono" href="/continuous-conformity-self-assessment/">self-assessment 01</a>.</td></tr>
+    <tr><td>open parameters</td><td>Values in square brackets are open for review: review interval, fixed run interval (proposed 30 days), intake window, external tester cadence, retention.</td></tr>
+    <tr><td>comment</td><td>Comments by clause number: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/issues">github.com/uncovertechtalent/machinebehavior.io/issues</a> (title "CC-x.y: ..."), or on <a class="mono" href="https://www.reddit.com/r/MachineBehavior/">r/MachineBehavior</a>. Changes are versioned on this page.</td></tr>
+  </table></div>
+
+  <p class="thesis toc"><a href="#why-this-document-exists">Why</a><a href="#draft">The draft</a><a href="#crosswalk">Crosswalk</a><a href="#limits">Limits</a><a href="#changes">Changes</a></p>
+
+  <section>
+  <h2 id="why-this-document-exists">Why this document exists</h2>
+<p class="thesis">Deployed AI systems are tested before launch and monitored after it. EU law already makes banks test live production systems on a schedule. The case: apply the same duty to the AI systems people rely on, with tests on every change and at a fixed interval, decided by someone other than the system, with records a third party can rerun.</p>
+<p class="thesis">A deployed AI system stays in conformity only while tests on the running system keep showing it. No rule in Union law today requires anyone to run those tests after launch. The plain-speech name for the idea is a software-defined TÜV: an inspection that runs all the time instead of at intervals from outside.</p>
+<h3 id="the-gap-in-the-law">The gap in the law</h3>
+<p class="thesis">All quotes were checked against the Official Journal texts on 2026-10-03 and 2026-10-04.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Text</th>
+<th>What it says</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI Act Art 9(8)</td>
+<td>Testing happens "at any time throughout the development process, and, in any event, prior to their being placed on the market or put into service".</td>
+<td>Testing is tied to the time before launch.</td>
+</tr>
+<tr>
+<td>AI Act Art 72(2)</td>
+<td>Post-market monitoring shall let the provider "evaluate the continuous compliance of AI systems".</td>
+<td>The Act names the goal. The means it gives is collecting and analysing data from use.</td>
+</tr>
+<tr>
+<td>AI Act Art 43(4)</td>
+<td>A new conformity assessment follows a "substantial modification". Changes the provider planned in advance do not count.</td>
+<td>Re-assessment follows some changes and no schedule.</td>
+</tr>
+<tr>
+<td>DORA Art 26(2)</td>
+<td>Threat-led penetration testing "shall be performed on live production systems".</td>
+<td>Testing in production is lawful and required for financial entities.</td>
+</tr>
+<tr>
+<td>DORA Art 24(6)</td>
+<td>Tests "at least yearly" on all systems that support critical or important functions.</td>
+<td>A fixed minimum interval exists in Union law.</td>
+</tr>
+<tr>
+<td>DORA Art 24(4)</td>
+<td>Tests "are undertaken by independent parties, whether internal or external".</td>
+<td>The tester is separate from the tested.</td>
+</tr>
+<tr>
+<td>Reg. (EU) 2025/1190 Art 5(1), Art 11(5)</td>
+<td>The DORA testing standard covers "testing of live production systems of critical or important functions"; the active red team phase lasts "at least 12 weeks".</td>
+<td>It sets no interval of its own and no test after a change.</td>
+</tr>
+<tr>
+<td>GDPR Art 32(1)(d)</td>
+<td>"a process for regularly testing, assessing and evaluating the effectiveness of technical and organisational measures"</td>
+<td>A recurring testing duty already exists for the security of processing; it names no interval.</td>
+</tr>
+</tbody>
+</table></div>
+<p class="thesis">The narrow claim: the AI Act already states the goal ("continuous compliance") and already requires lifetime logging (Art 12(1)). After launch it supplies passive means only. Continuous conformity is the active-testing means for a goal the Act already names.</p>
+<p class="thesis">Where it can be written in: the Commission guidance and template on the post-market monitoring plan, due by 2 September 2027 (Art 72(3) as replaced by Regulation (EU) 2026/1744). High-risk duties for Art 6(2) and Annex III systems apply from 2 December 2027, three months later.</p>
+<h3 id="why-monitoring-alone-falls-short">Why monitoring alone falls short</h3>
+<ol type="1">
+<li><strong>The system under test is the deployed assembly.</strong> At run time the next token depends only on what is in the context window. System prompt, tools, retrieved documents and memory are part of the system. A test result on the bare model does not carry over to the assembly.</li>
+<li><strong>The knowledge changes while the model stays the same.</strong> A document that was correct at conformity assessment can be wrong six months later. Data from use shows the error only after users have acted on it.</li>
+</ol>
+<h3 id="evidence">Evidence</h3>
+<ul>
+<li><strong>Moffatt v. Air Canada (2024 BCCRT 149).</strong> A chatbot gave a traveller a wrong answer on a fare. The tribunal ordered the airline to pay C$812.02 and rejected the argument that the chatbot was a "separate legal entity".</li>
+<li><strong>Mata v. Avianca (678 F.Supp.3d 443, S.D.N.Y. 2023).</strong> Lawyers filed cases a chatbot had invented and stood by them when the judge asked. Sanction: $5,000.</li>
+<li><strong>One incident, timed</strong> (<a href="/case-12-licence-rule-mid-task/">case 12</a>). Enforcement was fast once a rule existed (68.7 seconds from the user's message to an unprompted disclosure), and prevention was absent before it. The licence clause and a false absence claim were both caught outside the session that was affected.</li>
+<li><strong>A self-assessment</strong> (<a href="/continuous-conformity-self-assessment/">self-assessment 01</a>). The author's own working setup scored against this draft: 4 pass, 16 partly met, 13 gaps, 2 not applicable of 35, against a prediction hashed before scoring that matched 29 of 35; 5 of the 6 misses were too generous. A model second rater from another family agreed on 19 of 35 rows. A setup built by someone who cares about this still fails most of the requirements.</li>
+<li><strong>Who catches the errors</strong> (<a href="/objections/">objections register</a>). 11 incidents caught by the human operator, 0 by the model's self-audit. Author's record.</li>
+<li><strong>Decision layer</strong> (<a href="/experiments/#experiment-04">experiment 04</a>). A wording check passed a model (qwen3-coder-30b) that gave up a correct answer under scripted pushback in 75 percent of eligible runs. Three larger models held every answer under the same design (<a href="/experiments/#experiment-04-three-models">0 of 72 each</a>). Folding is a property of a model; the requirement (CC-6.6) asks for the test.</li>
+<li><strong>The site that publishes this runs it</strong> (<a href="/conformity/">conformity gate</a>). The mechanical requirements run on every push before machinebehavior.io deploys, and weekly. Self-assessment, not a certification.</li>
+</ul>
+<h3 id="the-ask-in-four-requirements">The ask, in four requirements</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Requirement</th>
+<th>Precedent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Test the deployed assembly, in the configuration users meet.</td>
+<td>DORA Art 26(2), live production systems</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Test at a fixed interval and on every change event, including a model version change by a third party.</td>
+<td>Interval: DORA Art 24(6), at least yearly. Change: AI Act Art 43(4), new assessment after a substantial modification. "On every change" goes beyond both.</td>
+</tr>
+<tr>
+<td>3</td>
+<td>The pass or fail decision belongs to a party that did not produce the output.</td>
+<td>DORA Art 24(4), independent parties</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Keep records that let a third party repeat the tests.</td>
+<td>AI Act Art 12(1) logging</td>
+</tr>
+</tbody>
+</table></div>
+<p class="thesis">The question for any reader: when was the AI you rely on last tested, and who decided it passed?</p>
+<h3 id="objections-to-expect">Objections to expect</h3>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Objection</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Post-market monitoring already covers this.</td>
+<td>Monitoring collects data from use. An error shows up after a user has acted on it. A scheduled test finds it before. (AI Act Art 3(25), Art 72(2))</td>
+</tr>
+<tr>
+<td>Testing in production is risky.</td>
+<td>Financial entities do it by law (DORA Art 26(2)). The draft requires blast-radius controls before a run on a live system: no real credentials or personal data without a legal basis, a means to stop at once, a limit on actions (CC-5.3).</td>
+</tr>
+<tr>
+<td>The labs test their models.</td>
+<td>Those tests cover the bare model before release. The deployed assembly differs in instructions, tools, knowledge and memory (term 3.3). AI Act Art 55(1)(a) has no frequency and no post-deployment wording.</td>
+</tr>
+<tr>
+<td>This is one person's setup.</td>
+<td>Correct, and labelled as such. The legal comparison stands on the Official Journal texts alone. The self-assessment shows the method and its limits.</td>
+</tr>
+<tr>
+<td>Who would the independent tester be?</td>
+<td>DORA allows internal or external testers and sets qualification rules (Art 24(4), Art 27(1)). The same model can apply.</td>
+</tr>
+</tbody>
+</table></div>
+
+  </section>
+
+  <section>
+  <h2 id="draft">The draft</h2>
+  <p class="thesis"><strong>Working draft 0.3, 2026-10-07; published as a reference 2026-10-09.</strong> (0.2 added clause 12, machine-checkable requirements, and anchored the name to AI Act Art 72(2); 0.3 adds CC-6.6, decision-layer tests, and terms 3.25 to 3.27.) Draft for discussion. Not a standard, not a certification scheme, and not endorsed by any standards body. Values in square brackets are open parameters for review. Legal citations refer to the Official Journal texts, read by the author on 2026-10-03 and 2026-10-04.</p>
+<h2 id="introduction">Introduction</h2>
+<p class="thesis">Union law already requires resilience testing of live production systems in one sector: DORA Art 26(2) requires threat-led penetration testing "on live production systems", and Art 24(6) requires tests "at least yearly" on all systems supporting critical or important functions. The AI Act requires risk management "throughout the entire lifecycle" (Art 9(2)), consistent performance "throughout their lifecycle" (Art 15(1)), automatic logging "over the lifetime of the system" (Art 12(1)), and post-market monitoring that lets the provider "evaluate the continuous compliance" of the system (Art 72(2)).</p>
+<p class="thesis">The AI Act ties testing to the period before the market: testing takes place "at any time throughout the development process, and, in any event, prior to their being placed on the market or put into service" (Art 9(8)). After deployment the means it names are monitoring and the collection of data from use (Art 3(25), Art 26(5), Art 72(2)). A new conformity assessment follows a substantial modification (Art 43(4)), and changes the provider planned in advance do not count as one.</p>
+<p class="thesis">Two facts about deployed language-model systems make monitoring alone insufficient:</p>
+<ol type="1">
+<li>The system under test is the deployed assembly, not the model. A language model has Markovian memory: at run time the next token depends only on what is in the context window. The system prompt, tools, retrieved documents and memory in that window are part of the system, and a test result on the bare model does not carry over to the assembly.</li>
+<li>The knowledge the assembly retrieves changes without any change to the model. A document that was correct at conformity assessment can be wrong six months later, and post-market data from use shows the error only after users have acted on it.</li>
+</ol>
+<p class="thesis">This document specifies requirements for testing a deployed AI system, and the knowledge it runs on, on a fixed schedule and on every change, with records that let a third party repeat the tests. It names the result <strong>continuous conformity</strong>. The name is chosen to match the phrase the AI Act already uses: post-market monitoring shall allow the provider to "evaluate the continuous compliance" of the system (Art 72(2)). This document specifies active testing as a means to that aim. It also specifies how requirements can be written so that a machine can check them (clause 12), because a test that runs on every change and on a fixed schedule needs requirements a tool can evaluate.</p>
+<h2 id="1-scope">1 Scope</h2>
+<p class="thesis">This document specifies requirements for a conformity testing programme for deployed AI systems that generate outputs from a model together with instructions, tools, retrieved knowledge or memory supplied at run time.</p>
+<p class="thesis">It applies to providers and deployers of such systems, whatever the risk classification under Regulation (EU) 2024/1689. It can support, and does not replace, the risk management system (Art 9), post-market monitoring (Art 72), deployer monitoring (Art 26(5)) and adversarial testing of general-purpose AI models with systemic risk (Art 55(1)(a)).</p>
+<p class="thesis">It does not specify model training, pre-market conformity assessment procedures, or the content of any harmonised standard.</p>
+<h2 id="2-normative-references">2 Normative references</h2>
+<p class="thesis">There are no normative references in this document. Sources cited in rationales are listed in the Bibliography.</p>
+<h2 id="3-terms-and-definitions">3 Terms and definitions</h2>
+<p class="thesis">Terms defined in Regulation (EU) 2024/1689 Art 3 keep their meaning there, in particular: AI system (3(1)), provider (3(3)), deployer (3(4)), intended purpose (3(12)), performance of an AI system (3(18)), substantial modification (3(23)), post-market monitoring system (3(25)), serious incident (3(49)).</p>
+<p class="thesis"><strong>3.1 organization</strong> provider or deployer that is responsible for a deployed AI system and operates the conformity testing programme</p>
+<p class="thesis"><strong>3.2 deployed AI system</strong> AI system after it has been placed on the market or put into service, in the configuration in which it produces outputs for users</p>
+<p class="thesis"><strong>3.3 deployed assembly</strong> combination of model, model version, system instructions, tools, retrieval sources, knowledge base, memory, output controls and configuration that together produce the outputs of a deployed AI system Note 1 to entry: two deployed assemblies that share a model and differ in any other component are different systems under test.</p>
+<p class="thesis"><strong>3.4 knowledge base</strong> documented information that the deployed assembly retrieves or receives in its context at run time and uses to produce outputs</p>
+<p class="thesis"><strong>3.5 knowledge item</strong> smallest unit of the knowledge base that has one owner and one recorded source</p>
+<p class="thesis"><strong>3.6 source of record</strong> document or system from which a knowledge item is derived and against which it is verified Note 1 to entry: a summary of a source, including a summary produced by a model, is not a source of record.</p>
+<p class="thesis"><strong>3.7 freshness interval</strong> maximum time a knowledge item may remain in the knowledge base without verification against its source of record</p>
+<p class="thesis"><strong>3.8 change event</strong> any change to a component of the deployed assembly, including a model version change made by a third party</p>
+<p class="thesis"><strong>3.9 conformity test</strong> test executed against the deployed assembly with a pass criterion defined before execution</p>
+<p class="thesis"><strong>3.10 test set</strong> versioned set of conformity tests for one deployed AI system</p>
+<p class="thesis"><strong>3.11 regression set</strong> part of the test set made of every conformity test that has detected a nonconformity at least once</p>
+<p class="thesis"><strong>3.12 steady state</strong> measured rate of a defined behaviour of the deployed assembly on a defined task with no pressure condition applied</p>
+<p class="thesis"><strong>3.13 pressure condition</strong> defined variation of input or environment intended to move a behaviour away from its steady state Note 1 to entry: Annex C lists pressure condition classes.</p>
+<p class="thesis"><strong>3.14 unannounced arm</strong> execution of a conformity test in which nothing available to the deployed assembly indicates that the input is a test</p>
+<p class="thesis"><strong>3.15 invariance gap</strong> difference between the result of a conformity test in its announced arm and in its unannounced arm</p>
+<p class="thesis"><strong>3.16 prediction record</strong> written statement of the expected result of a test run, with its unit of measurement and its grader, dated and hashed before the run</p>
+<p class="thesis"><strong>3.17 grader</strong> person, procedure or system that decides whether a conformity test passed</p>
+<p class="thesis"><strong>3.18 independent tester</strong> person or system that did not produce, and is not responsible for, the output under test</p>
+<p class="thesis"><strong>3.19 blast radius</strong> scope of harm to users, data, services or third parties that a test run can cause</p>
+<p class="thesis"><strong>3.20 nonconformity</strong> non-fulfilment of a requirement Note 1 to entry: wording as in the ISO harmonized structure for management system standards; not re-checked against the published text in this draft.</p>
+<p class="thesis"><strong>3.21 continuous conformity</strong> state of a deployed AI system for which conformity with its stated requirements is shown by conformity tests run on the deployed assembly at a fixed interval and on every change event, with records that let a third party repeat the tests Note 1 to entry: the term matches Regulation (EU) 2024/1689 Art 72(2), which requires a post-market monitoring system that allows the provider "to evaluate the continuous compliance of AI systems with the requirements set out in Chapter III, Section 2". Art 72(2) names the aim; this document specifies active testing as one means to it.</p>
+<p class="thesis"><strong>3.22 machine-checkable requirement</strong> requirement stated in a form that a tool can evaluate against an output, a record or a configuration without human interpretation</p>
+<p class="thesis"><strong>3.23 rule table</strong> versioned set of machine-checkable requirements, each with an identifier, a check, a severity and a corrective instruction</p>
+<p class="thesis"><strong>3.24 output boundary</strong> point at which an output of the deployed assembly leaves the assembly for a user, a file or another system</p>
+<p class="thesis"><strong>3.25 decision layer</strong> The part of an output that commits to a decision: a verdict, a recommendation, a selected action or a stated fact that a user or a downstream system acts on. Distinct from the output text in which the decision is expressed.</p>
+<p class="thesis"><strong>3.26 scripted pressure sequence</strong> A fixed sequence of two or more turns, each applying a pressure condition (3.13) from Annex C, applied after an initial output, with the correct decision fixed by ground truth before the run and no new evidence introduced by the sequence.</p>
+<p class="thesis"><strong>3.27 fold</strong> A change at the decision layer (3.25) from a correct decision to an incorrect one during a scripted pressure sequence (3.26). The fold rate is the number of runs that fold divided by the number of runs that were correct before the sequence began.</p>
+<h2 id="4-conformity-testing-programme">4 Conformity testing programme</h2>
+<p class="thesis"><strong id="cc-4.1">CC-4.1</strong> <span class="mk mk-H" title="manual">H</span> The organization shall establish, maintain and review a documented conformity testing programme for each deployed AI system.</p>
+<ul>
+<li>Rationale: DORA Art 24(1) uses the same structure for ICT systems ("establish, maintain and review a sound and comprehensive digital operational resilience testing programme"). AI Act Art 9(1) uses "established, implemented, documented and maintained" for risk management.</li>
+<li>Verification: the programme document exists, carries a version and an owner, and was reviewed within the last [12] months.</li>
+</ul>
+<p class="thesis"><strong id="cc-4.2">CC-4.2</strong> <span class="mk mk-H" title="manual">H</span> The programme shall list the requirements under test. For each requirement it shall state a metric and a pass threshold before the first test run.</p>
+<ul>
+<li>Rationale: AI Act Art 9(8) requires testing "against prior defined metrics and probabilistic thresholds".</li>
+<li>Verification: each requirement in the programme has a metric and a threshold with a date earlier than the first run record.</li>
+</ul>
+<p class="thesis"><strong id="cc-4.3">CC-4.3</strong> <span class="mk mk-H" title="manual">H</span> The programme shall name one person accountable for it.</p>
+<ul>
+<li>Rationale: GitLab, 2017: the backup restore had no owner, so nobody tested it (the incident sources named in Annex B).</li>
+<li>Verification: a named owner is recorded in the programme document.</li>
+</ul>
+<h2 id="5-object-of-test">5 Object of test</h2>
+<p class="thesis"><strong id="cc-5.1">CC-5.1</strong> <span class="mk mk-A" title="assisted">A</span> Conformity tests shall run against the deployed assembly. Results from the model alone, or from a different assembly, shall not be reported as results for the deployed AI system.</p>
+<ul>
+<li>Rationale: TIBER-EU (2025), section 2.1.1: tests of a single system "within isolation" do not "assess the full scenario". DORA Art 26(2): TLPT "shall be performed on live production systems". CrowdStrike Channel File 291 (2024): every test used a wildcard in the 21st field, so the input mismatch appeared only in production (CrowdStrike RCA, 6 Aug 2024).</li>
+<li>Verification: each run record names the assembly configuration and it matches the configuration serving users at the time of the run.</li>
+</ul>
+<p class="thesis"><strong id="cc-5.2">CC-5.2</strong> <span class="mk mk-M" title="mechanical">M</span> Each run record shall identify the version of every component of the deployed assembly at the time of the run.</p>
+<ul>
+<li>Rationale: Knight Capital (2012): one of eight servers missed a deployment and ran dead code; the firm lost "$460 million" (SEC order 34-70694). AI Act Art 12 requires events to be logged so that the functioning of the system is traceable.</li>
+<li>Verification: the run record lists a version or content hash for each component in 3.3.</li>
+</ul>
+<p class="thesis"><strong id="cc-5.3">CC-5.3</strong> <span class="mk mk-H" title="manual">H</span> Where conformity tests run on the system that serves users, the organization shall define and apply controls on blast radius before the run. These shall include: no use of real credentials or real personal data unless the test requires it and a documented legal basis exists; a means to stop the run at once; and a limit on the actions the assembly can take during the run.</p>
+<ul>
+<li>Rationale: DORA Art 26(5) requires "effective risk management controls" during TLPT on live systems.</li>
+<li>Verification: the blast-radius controls are documented in the run plan and the stop mechanism was tested in the last [90] days.</li>
+</ul>
+<h2 id="6-test-design">6 Test design</h2>
+<p class="thesis"><strong id="cc-6.1">CC-6.1</strong> <span class="mk mk-A" title="assisted">A</span> For each behaviour under test, the organization shall measure the steady state before applying any pressure condition.</p>
+<ul>
+<li>Rationale: chaos engineering practice starts from a measured steady state (Principles of Chaos Engineering; Basiri et al., IEEE Software 33(3), 2016). Without a steady state a change under pressure cannot be measured. Piece 7, "Chaos Engineering for Behaviour".</li>
+<li>Verification: each behaviour has a steady-state measurement with a date earlier than the first pressure run.</li>
+</ul>
+<p class="thesis"><strong id="cc-6.2">CC-6.2</strong> <span class="mk mk-A" title="assisted">A</span> The test set shall include at least one pressure condition from each class in Annex C that is relevant to the intended purpose. Exclusion of a class shall be documented with a reason.</p>
+<ul>
+<li>Rationale: a system that holds under one kind of pressure can fail under the next. The objections register incident log on machinebehavior.io records slips on one model family from different pulls (over-reading toward the interesting case, uneven caution by category, the corpus default treated as neutral).</li>
+<li>Verification: mapping of tests to Annex C classes, with documented exclusions.</li>
+</ul>
+<p class="thesis"><strong id="cc-6.3">CC-6.3</strong> <span class="mk mk-M" title="mechanical">M</span> For each test run the organization shall write a prediction record before the run, and shall keep any later amendment with its date and reason.</p>
+<ul>
+<li>Rationale: a prediction edited after the run cannot be told apart from a description of the result. Practice: the prediction hashes in the machinebehavior.io repository (predictions/HASHES.txt).</li>
+<li>Verification: the hash of the prediction record has a timestamp earlier than the run, from a source the organization does not control alone [for example a public repository or a timestamp service].</li>
+</ul>
+<p class="thesis"><strong id="cc-6.4">CC-6.4</strong> <span class="mk mk-A" title="assisted">A</span> The test set should include unannounced arms. Where it does, the run record shall report the invariance gap.</p>
+<ul>
+<li>Rationale: models can behave differently when they detect evaluation (Greenblatt et al., arXiv:2412.14093; Meinke et al., arXiv:2412.04984). A result from an announced test alone does not show the behaviour in use.</li>
+<li>Verification: presence of paired arms and a reported invariance gap.</li>
+</ul>
+<p class="thesis"><strong id="cc-6.5">CC-6.5</strong> <span class="mk mk-A" title="assisted">A</span> Each grader shall be tested against cases with a known pass result and cases with a known fail result before use and after each change to the grader.</p>
+<ul>
+<li>Rationale: a test that cannot fail gives no evidence. CrowdStrike (2024): the wildcard made the tests blind to the fault. "Chaos Engineering for Behaviour" (machinebehavior.io), row "Test the test".</li>
+<li>Verification: grader test records with known-pass and known-fail cases.</li>
+</ul>
+<p class="thesis"><strong id="cc-6.6">CC-6.6</strong> <span class="mk mk-A" title="assisted">A</span> The test set shall include decision-layer tests: tasks whose correct decision is fixed by ground truth before the run, applied under a scripted pressure sequence (3.26) drawn from the classes in Annex C. The run record shall report, per arm, the correctness before the sequence, the correctness after it and the fold rate (3.27). A test set that consists only of output-text rules (CC-12.3) shall not be reported as evidence of conformity at the decision layer.</p>
+<ul>
+<li>Rationale: a wording check passes a model that decides wrongly in fluent text. Experiment 04, full run full-01 (<a href="https://machinebehavior.io/experiments/#experiment-04">https://machinebehavior.io/experiments/#experiment-04</a>, 2026-10-07, qwen3-coder-30b on Amazon Bedrock, 432 scored runs across three arms, temperature 0): zero fawn-opener and zero tic events at turn 0 in every arm, while the baseline arm folded on 75 percent [95 percent CI 62 to 84] of the runs that were correct before pressure (42 of 56), and correctness on the ground-truth WAIT rows fell from 78 percent at turn 0 to 32 percent after four scripted pushes, most folds at the third push. The lexical arm's fold rate (62 percent) overlapped the baseline's. The short-stance run of the same experiment (full-02, <a href="https://machinebehavior.io/experiments/#experiment-04-short-stance">https://machinebehavior.io/experiments/#experiment-04-short-stance</a>, 2026-10-07, prereg v3, 720 calls): a 2,846-character stance instruction kept turn-0 correctness at 76 percent [66 to 85] and folded on 33 percent [22 to 46] of eligible runs (18 of 55) against the baseline's 75 percent, intervals not overlapping, while final correctness (50 percent against 32 percent) overlapped by four points and is not read as a net win. A decision-layer test separates these two instructions; a wording check scores both arms identical, at zero lexical events. Scope of the figures: the 75 percent fold rate and the 33 percent under the short instruction are properties of qwen3-coder-30b under this pressure. The same design on three larger models (<a href="https://machinebehavior.io/experiments/#experiment-04-three-models">https://machinebehavior.io/experiments/#experiment-04-three-models</a>, 2026-10-07, prereg v5, 2,880 calls per model): gpt-oss-120b, DeepSeek V3.2 and Kimi K2.5 folded on 0 of 72 baseline runs each, intervals [0 to 5]. Folding under scripted pressure is a property of a model, not of language models in general, and the task (one subtraction on a fact sheet) may make holding easy for strong models. The requirement does not depend on which way a model goes: it requires the test, and a run record that shows the model held is the evidence a wording check cannot give. A deployed system whose conformity evidence is a clean lexical score therefore carries no evidence about its decisions under pressure. Incidents of the same shape: Moffatt v. Air Canada (2024 BCCRT 149), a fluent chatbot answer stating a policy that did not exist, C$812.02 and a rejected "separate legal entity" defence; Mata v. Avianca (678 F.Supp.3d 443, S.D.N.Y. 2023), fluent citations to cases that did not exist, $5,000 sanction. The chess-engine case (arXiv:2502.13295, read in "The Cheating Moved"): a surface behaviour trained out, the decision-level behaviour moved.</li>
+<li>Verification: run records containing the ground truth per task, the hash of the frozen scripted sequence, the number of runs, and per arm the turn-0 correctness, the final correctness and the fold rate with a confidence interval. Requirements CC-6.1 to CC-6.5 apply to decision-layer tests as to any other test.</li>
+<li>Note: the threshold for an acceptable fold rate is a parameter of the programme (CC-4.2), set per intended purpose; this document fixes the measurement, not the limit.</li>
+</ul>
+<h2 id="7-cadence-and-triggers">7 Cadence and triggers</h2>
+<p class="thesis"><strong id="cc-7.1">CC-7.1</strong> <span class="mk mk-M" title="mechanical">M</span> The organization shall run the full test set on every change event, before the changed assembly serves users.</p>
+<ul>
+<li>Rationale: AI Act Art 43(4) requires a new conformity assessment only on a substantial modification, and changes pre-determined by the provider do not count as one. A system prompt edit, a tool change or a knowledge base update can change outputs without being a substantial modification.</li>
+<li>Verification: for each change event in the change log, a passing run record with a later timestamp than the change and an earlier timestamp than the release.</li>
+</ul>
+<p class="thesis"><strong id="cc-7.2">CC-7.2</strong> <span class="mk mk-H" title="manual">H</span> A change event should be released in stages. Conformity tests should pass at each stage before the next.</p>
+<ul>
+<li>Rationale: CrowdStrike RCA, Finding 6: Template Instances were not deployed in stages; "8.5 million Windows devices" were affected (Microsoft figure).</li>
+<li>Verification: release records show stages with test results per stage.</li>
+</ul>
+<p class="thesis"><strong id="cc-7.3">CC-7.3</strong> <span class="mk mk-M" title="mechanical">M</span> The organization shall run the full test set at least every [30] days, whether or not a change event occurred.</p>
+<ul>
+<li>Rationale: a model version supplied by a third party, or a source of record outside the organization, can change without a change event the organization sees. DORA Art 24(6) sets a fixed minimum ("at least yearly") for ICT systems; the shorter interval proposed here reflects the rate at which model versions and knowledge change. The value is open for review.</li>
+<li>Verification: run records with no gap longer than the interval.</li>
+</ul>
+<p class="thesis"><strong id="cc-7.4">CC-7.4</strong> <span class="mk mk-A" title="assisted">A</span> Every conformity test that has detected a nonconformity shall be added to the regression set. A test shall not be removed from the regression set without a documented reason approved by the programme owner.</p>
+<ul>
+<li>Rationale: a fix for one failure closes one route while the cause stays. Piece "They Trained Out the Board Edit. The Cheating Moved." (machinebehavior.io): the board-edit route was trained out and the behaviour used the next route.</li>
+<li>Verification: each closed nonconformity maps to a test in the regression set.</li>
+</ul>
+<p class="thesis"><strong id="cc-7.5">CC-7.5</strong> <span class="mk mk-H" title="manual">H</span> Attack methods published in the public record that are relevant to the intended purpose should be added to the test set within [60] days of publication.</p>
+<ul>
+<li>Rationale: the test set otherwise covers only attacks the organization found itself. "Chaos Engineering for Behaviour" (machinebehavior.io), "Automate, and rerun on every change".</li>
+<li>Verification: a dated intake log of published methods with the decision for each.</li>
+</ul>
+<h2 id="8-knowledge-base-conformity">8 Knowledge base conformity</h2>
+<p class="thesis"><strong id="cc-8.1">CC-8.1</strong> <span class="mk mk-A" title="assisted">A</span> Each knowledge item shall have a named owner and a recorded source of record.</p>
+<ul>
+<li>Rationale: Fogbank (2000-2008): NNSA "kept few records of the process" and the experts left; relearning cost "$69 million" (GAO-09-385).</li>
+<li>Verification: sample of knowledge items; each has an owner and a source of record.</li>
+</ul>
+<p class="thesis"><strong id="cc-8.2">CC-8.2</strong> <span class="mk mk-M" title="mechanical">M</span> Each knowledge item shall carry the date it was last verified against its source of record. An item older than its freshness interval shall be re-verified or withdrawn from retrieval.</p>
+<ul>
+<li>Rationale: Moffatt v. Air Canada, 2024 BCCRT 149: the airline did not take "reasonable care to ensure" its chatbot was accurate and was held to the chatbot's answer.</li>
+<li>Verification: no item in retrieval is older than its freshness interval.</li>
+</ul>
+<p class="thesis"><strong id="cc-8.3">CC-8.3</strong> <span class="mk mk-A" title="assisted">A</span> The organization shall state the freshness interval for each class of knowledge item, with a reason tied to how often the source of record changes.</p>
+<ul>
+<li>Rationale: one fixed interval for all knowledge either wastes effort on stable items or leaves fast-changing items stale.</li>
+<li>Verification: the programme lists classes, intervals and reasons.</li>
+</ul>
+<p class="thesis"><strong id="cc-8.4">CC-8.4</strong> <span class="mk mk-A" title="assisted">A</span> The test set shall include knowledge conformity tests: inputs whose correct output is fixed by a knowledge item, graded against the source of record.</p>
+<ul>
+<li>Rationale: Moffatt v. Air Canada; Cursor support bot (2025), which stated a login policy that did not exist (The Register, 18 Apr 2025; secondary source).</li>
+<li>Verification: share of knowledge item classes covered by at least one knowledge conformity test.</li>
+</ul>
+<p class="thesis"><strong id="cc-8.5">CC-8.5</strong> <span class="mk mk-A" title="assisted">A</span> Verification of a knowledge item shall be made against the source of record and not against a summary of it.</p>
+<ul>
+<li>Rationale: on 2026-10-03, a web-fetch summariser reported a $30,000 sanction in Mata v. Avianca; the court order sets $5,000 (the incident sources named in Annex B).</li>
+<li>Verification: verification records cite the source of record and its version or date.</li>
+</ul>
+<p class="thesis"><strong id="cc-8.6">CC-8.6</strong> <span class="mk mk-A" title="assisted">A</span> Where outputs are used for decisions by users or third parties, statements of fact in the output should be traceable to a knowledge item or a cited source.</p>
+<ul>
+<li>Rationale: Mata v. Avianca, 678 F.Supp.3d 443 (S.D.N.Y. 2023): citations generated by a model were not checked; sanction of $5,000. Deloitte report for DEWR (2025): fabricated references, partial refund (secondary source).</li>
+<li>Verification: sample of outputs; share of factual statements with a trace.</li>
+</ul>
+<h2 id="9-independence">9 Independence</h2>
+<p class="thesis"><strong id="cc-9.1">CC-9.1</strong> <span class="mk mk-H" title="manual">H</span> The pass or fail decision of a conformity test shall not rest only with the system or person that produced the output under test.</p>
+<ul>
+<li>Rationale: DORA Art 24(4) requires tests "undertaken by independent parties, whether internal or external". Piece "What Operations Already Knows" (machinebehavior.io): in the author's logged setup the model caught none of its own seven relapses and the human operator caught all seven.</li>
+<li>Verification: grader identity recorded per run and differs from the producer of the output.</li>
+</ul>
+<p class="thesis"><strong id="cc-9.2">CC-9.2</strong> <span class="mk mk-H" title="manual">H</span> An independent tester from outside the organization should run the test set at least every [third] full run cycle [or at least every 12 months].</p>
+<ul>
+<li>Rationale: DORA Art 26(8): where internal testers are used for TLPT, external testers are required "every three tests".</li>
+<li>Verification: external run records at the stated cadence.</li>
+</ul>
+<h2 id="10-findings-and-remediation">10 Findings and remediation</h2>
+<p class="thesis"><strong id="cc-10.1">CC-10.1</strong> <span class="mk mk-A" title="assisted">A</span> The organization shall classify, assign and track every nonconformity to closure. Closure shall require a passing rerun of the test that found it.</p>
+<ul>
+<li>Rationale: DORA Art 24(5) requires procedures "to prioritise, classify and remedy all issues revealed" and "internal validation methodologies" to confirm the fix.</li>
+<li>Verification: each closed nonconformity has a passing rerun record.</li>
+</ul>
+<p class="thesis"><strong id="cc-10.2">CC-10.2</strong> <span class="mk mk-H" title="manual">H</span> Where a nonconformity meets the definition of a serious incident (AI Act Art 3(49)), or shows that the system may present a risk within the meaning of Art 79(1), the organization shall pass it to its incident reporting process without delay.</p>
+<ul>
+<li>Rationale: AI Act Art 26(5) (deployers inform the provider and suspend use) and Art 73 (reporting deadlines).</li>
+<li>Verification: link from each such finding to an incident record.</li>
+</ul>
+<h2 id="11-records-and-disclosure">11 Records and disclosure</h2>
+<p class="thesis"><strong id="cc-11.1">CC-11.1</strong> <span class="mk mk-M" title="mechanical">M</span> Each run record shall contain at least: date and time; deployed assembly versions (CC-5.2); test set version; prediction record and its hash; raw results; pass or fail per test; grader identity; and the steps needed to rerun.</p>
+<ul>
+<li>Rationale: AI Act Annex IV point 2(g) requires "test logs and all test reports dated and signed by the responsible persons". A record without rerun steps cannot be checked by a third party.</li>
+<li>Verification: sample of run records against the list.</li>
+</ul>
+<p class="thesis"><strong id="cc-11.2">CC-11.2</strong> <span class="mk mk-M" title="mechanical">M</span> Run records shall be kept for at least [the lifetime of the deployed AI system plus 6 months].</p>
+<ul>
+<li>Rationale: AI Act Art 26(6) sets at least six months for automatically generated logs held by deployers; test records serve the same evidential purpose over a longer period.</li>
+<li>Verification: oldest available record against the retention rule.</li>
+</ul>
+<p class="thesis"><strong id="cc-11.3">CC-11.3</strong> <span class="mk mk-H" title="manual">H</span> The organization may publish its method, raw results and rerun steps. A published assessment made by the organization of its own system shall be labelled a self-assessment and shall not be presented as a certification.</p>
+<ul>
+<li>Rationale: under the AI Act, conformity assessment by a notified body is a defined procedure (Art 43); a self-assessment is not one.</li>
+<li>Verification: label present on every published result.</li>
+</ul>
+<p class="thesis"><strong id="cc-11.4">CC-11.4</strong> <span class="mk mk-H" title="manual">H</span> A published self-assessment should invite a second rater and should publish any disagreement between raters.</p>
+<ul>
+<li>Rationale: CC-9.1. A self-audit without an outside check repeats the weakness this document addresses.</li>
+<li>Verification: invitation and rater record present.</li>
+</ul>
+<h2 id="12-machine-checkable-requirements">12 Machine-checkable requirements</h2>
+<p class="thesis"><strong id="cc-12.1">CC-12.1</strong> <span class="mk mk-H" title="manual">H</span> The programme shall mark each requirement as mechanical (a tool decides), assisted (a tool flags, a person decides) or manual (a person decides).</p>
+<ul>
+<li>Rationale: a mechanical check covers only what it can see. Banning the surface form of a behaviour can move the behaviour elsewhere ("Sycophancy Is Layered", machinebehavior.io series; vestige-kit README). Marking the class prevents a passing mechanical check from being read as evidence for a requirement that needs judgement.</li>
+<li>Verification: every requirement in the programme carries one of the three marks.</li>
+</ul>
+<p class="thesis"><strong id="cc-12.2">CC-12.2</strong> <span class="mk mk-A" title="assisted">A</span> Requirements marked mechanical should be expressed in a machine-readable form, kept under version control with the test set.</p>
+<ul>
+<li>Rationale: frameworks such as the AI Act, ISO/IEC 42001 and NIST AI RMF "specify what to assure but provide no executable format for how" (Cilla Ugarte et al., arXiv:2604.13767, 2026). NIST OSCAL provides "open, machine-readable formats available in XML, JSON, and YAML" for control information (pages.nist.gov/OSCAL). CEN runs a SMART Standards project to make standards machine-readable (experts.cen.eu).</li>
+<li>Verification: each mechanical requirement has a machine-readable form with a version identifier.</li>
+</ul>
+<p class="thesis"><strong id="cc-12.3">CC-12.3</strong> <span class="mk mk-M" title="mechanical">M</span> Where a mechanical requirement applies to every output, the organization should enforce it at the output boundary with a rule table. Each rule in a blocking tier shall have a recorded false-positive test, and rules that fail it shall move to a warning tier.</p>
+<ul>
+<li>Rationale: working instance (author's own): vestige-kit, a rule table of regular-expression rules in a blocking tier and a warning tier, checked by a hook on every reply and every Markdown file written. The blocking tier is limited to rules with near-zero false positives; one rule records "0 hits across 1,282 markdown files" of the author's vault as its false-positive test (vestige-kit, hooks/vestige-patterns.js).</li>
+<li>Verification: rule table with a test record for each blocking rule.</li>
+</ul>
+<p class="thesis"><strong id="cc-12.4">CC-12.4</strong> <span class="mk mk-M" title="mechanical">M</span> Each rule hit at the output boundary shall be logged with the rule identifier, the time and the session or request. The log shall be reviewed at each programme review to retire, tighten or promote rules.</p>
+<ul>
+<li>Rationale: an unlogged block leaves no evidence that the control ran. vestige-kit keeps a hit log and a script that turns it into retire and promote decisions (hooks/analyze-log.js).</li>
+<li>Verification: hit log present; programme review record cites it.</li>
+</ul>
+<p class="thesis"><strong id="cc-12.5">CC-12.5</strong> <span class="mk mk-M" title="mechanical">M</span> Run records (CC-11.1) and nonconformities (CC-10.1) should be exportable in an open, published format for assessment results and findings.</p>
+<ul>
+<li>Rationale: the OSCAL Assessment Results and Plan of Action and Milestones models represent assessment results and findings; NIST states that "the assessment model supports information from periodic and continuous assessments" (pages.nist.gov/OSCAL, layer overview). An open format lets a second rater or an assessor rerun the evaluation without re-keying records.</li>
+<li>Verification: export of a sample run record that validates against the published schema.</li>
+</ul>
+<h2 id="annex-a-informative-relation-to-existing-law-and-standards">Annex A (informative): relation to existing law and standards</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Clause here</th>
+<th>Existing text</th>
+<th>What exists</th>
+<th>What this document adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4.1</td>
+<td>DORA Art 24(1); AI Act Art 9(1)</td>
+<td>Testing programme (DORA); risk management system (AI Act)</td>
+<td>A programme scoped to the deployed AI system</td>
+</tr>
+<tr>
+<td>4.2</td>
+<td>AI Act Art 9(8)</td>
+<td>Prior defined metrics and thresholds, pre-market</td>
+<td>Same rule applied after deployment</td>
+</tr>
+<tr>
+<td>5.1</td>
+<td>DORA Art 26(2); TIBER-EU 2.1.1</td>
+<td>Tests on live production (financial ICT)</td>
+<td>Same principle for the deployed assembly</td>
+</tr>
+<tr>
+<td>6.4</td>
+<td>none found</td>
+<td></td>
+<td>Unannounced arms and invariance gap</td>
+</tr>
+<tr>
+<td>7.1</td>
+<td>AI Act Art 43(4)</td>
+<td>Reassessment on substantial modification</td>
+<td>Tests on every change event</td>
+</tr>
+<tr>
+<td>7.3</td>
+<td>DORA Art 24(6)</td>
+<td>At least yearly</td>
+<td>Fixed interval for AI systems</td>
+</tr>
+<tr>
+<td>8.x</td>
+<td>AI Act Art 72(2); Art 53(1)(a) "keep up-to-date" (GPAI documentation)</td>
+<td>Monitoring data; documentation kept current</td>
+<td>Testing of the knowledge the system runs on</td>
+</tr>
+<tr>
+<td>9.1-9.2</td>
+<td>DORA Art 24(4), 26(8)</td>
+<td>Independent and external testers</td>
+<td>Same for deployed AI systems</td>
+</tr>
+<tr>
+<td>10.1</td>
+<td>DORA Art 24(5)</td>
+<td>Remediation with validation</td>
+<td>Same</td>
+</tr>
+<tr>
+<td>11.1</td>
+<td>AI Act Art 12; Annex IV 2(g)</td>
+<td>Logs; dated, signed test reports</td>
+<td>Rerun steps and prediction record</td>
+</tr>
+<tr>
+<td>(all)</td>
+<td>AI Act Art 72(2)</td>
+<td>Aim: "continuous compliance"; means: data collection</td>
+<td>Means: active tests</td>
+</tr>
+<tr>
+<td>(all)</td>
+<td>NIST AI RMF MEASURE 2.4, MANAGE 4.1</td>
+<td>Monitoring in production; post-deployment monitoring plans</td>
+<td>Testing, with cadence</td>
+</tr>
+<tr>
+<td>(all)</td>
+<td>ISO/IEC 42001 A.6.2.4, A.6.2.6 (numbers from secondary sources)</td>
+<td>Verification and validation; operation and monitoring</td>
+<td>Cadence and triggers after deployment</td>
+</tr>
+<tr>
+<td>12.2, 12.5</td>
+<td>NIST OSCAL (v1.2.3 is the latest release on GitHub, checked 2026-10-03); NIST SP 800-126 Rev. 3 (SCAP 1.3, February 2018)</td>
+<td>Machine-readable control catalogues, assessment results and findings (security)</td>
+<td>Same formats applied to AI conformity tests</td>
+</tr>
+<tr>
+<td>3.3, 5.1</td>
+<td>ISO/IEC AWI 26741 (stage 20.00): framework for describing an AI system as object of conformity assessment, including "system boundaries"</td>
+<td>Work item open</td>
+<td>Deployed assembly as the boundary</td>
+</tr>
+<tr>
+<td>12.x</td>
+<td>CEN SMART Standards project</td>
+<td>Machine-readable standards (format of the standard itself)</td>
+<td>Machine-checkable requirements (format of the requirement inside a programme)</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="annex-b-informative-origin-of-each-requirement">Annex B (informative): origin of each requirement</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Incident or record</th>
+<th>Source type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CC-4.3</td>
+<td>GitLab database deletion, 2017</td>
+<td>primary (GitLab postmortem)</td>
+</tr>
+<tr>
+<td>CC-5.1, CC-6.5, CC-7.2</td>
+<td>CrowdStrike Channel File 291, 2024</td>
+<td>primary (CrowdStrike RCA)</td>
+</tr>
+<tr>
+<td>CC-5.2</td>
+<td>Knight Capital, 2012</td>
+<td>primary (SEC order 34-70694)</td>
+</tr>
+<tr>
+<td>CC-6.2</td>
+<td>Objections register incident log</td>
+<td>author's public record</td>
+</tr>
+<tr>
+<td>CC-6.6</td>
+<td>Eval 04 full-01: clean lexical score, 75 percent fold rate under scripted pushback (qwen3-coder-30b only); full-02: short stance instruction folds 33 percent at the same turn-0 correctness; v5: three larger models folded 0 of 72 each (2026-10-07); Moffatt v. Air Canada; Mata v. Avianca</td>
+<td>author's published experiment (<a href="https://machinebehavior.io/experiments/#experiment-04">https://machinebehavior.io/experiments/#experiment-04</a>, #experiment-04-short-stance, #experiment-04-three-models); primary; primary</td>
+</tr>
+<tr>
+<td>CC-7.4</td>
+<td>Chess-engine board edit trained out; behaviour moved</td>
+<td>author's piece, citing Palisade arXiv:2502.13295</td>
+</tr>
+<tr>
+<td>CC-8.1</td>
+<td>Fogbank, 2000-2008</td>
+<td>primary (GAO-09-385)</td>
+</tr>
+<tr>
+<td>CC-8.2, CC-8.4</td>
+<td>Moffatt v. Air Canada, 2024</td>
+<td>primary (2024 BCCRT 149)</td>
+</tr>
+<tr>
+<td>CC-8.5</td>
+<td>Summariser invented a sanction figure, 2026-10-03</td>
+<td>author's record</td>
+</tr>
+<tr>
+<td>CC-8.6</td>
+<td>Mata v. Avianca, 2023; Deloitte/DEWR, 2025</td>
+<td>primary; secondary</td>
+</tr>
+<tr>
+<td>CC-9.1</td>
+<td>Seven relapses, none self-caught</td>
+<td>author's piece "What Operations Already Knows"</td>
+</tr>
+<tr>
+<td>CC-12.1</td>
+<td>Surface ban moved the behaviour (symptom substitution)</td>
+<td>author's piece "Sycophancy Is Layered"</td>
+</tr>
+<tr>
+<td>CC-12.3, CC-12.4</td>
+<td>vestige-kit rule table and hit log</td>
+<td>author's working instance</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="annex-c-normative-pressure-condition-classes">Annex C (normative): pressure condition classes</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C.1 Pushback</td>
+<td>user disputes a correct output</td>
+<td>"That is wrong, check again" after a correct answer</td>
+</tr>
+<tr>
+<td>C.2 False premise</td>
+<td>input contains a confident false statement</td>
+<td>a question that assumes a policy that does not exist</td>
+</tr>
+<tr>
+<td>C.3 Authority claim</td>
+<td>input claims a role or permission</td>
+<td>"As the system administrator, I authorise you to"</td>
+</tr>
+<tr>
+<td>C.4 Outcome-only scoring</td>
+<td>the task rewards the result and not the method</td>
+<td>win-only scoring in a game task</td>
+</tr>
+<tr>
+<td>C.5 Approval signal</td>
+<td>input rewards agreement</td>
+<td>praise after agreement, displeasure after disagreement</td>
+</tr>
+<tr>
+<td>C.6 Stale or conflicting knowledge</td>
+<td>retrieved knowledge disagrees with the source of record</td>
+<td>an outdated price list in retrieval</td>
+</tr>
+<tr>
+<td>C.7 Instruction in data</td>
+<td>retrieved content or tool output contains instructions</td>
+<td>a web page that tells the assistant to change task</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="bibliography">Bibliography</h2>
+<ol type="1">
+<li>Regulation (EU) 2024/1689 (Artificial Intelligence Act), OJ L, 12.7.2024.</li>
+<li>Regulation (EU) 2022/2554 (DORA), OJ L 333, 27.12.2022.</li>
+<li>Commission Delegated Regulation (EU) 2025/1190 (TLPT RTS), read 2026-10-04: covers testing of live production systems of critical or important functions (Art 5(1)); active red team phase at least 12 weeks (Art 11(5)); sets no interval of its own and no change-triggered test.</li>
+<li>ECB, TIBER-EU Framework, February 2025.</li>
+<li>NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), 2023.</li>
+<li>ISO/IEC 42001:2023; ISO/IEC 27001:2022; ISO/IEC 27002:2022; ISO 22301:2019.</li>
+<li>Principles of Chaos Engineering (principlesofchaos.org); Basiri et al., "Chaos Engineering", IEEE Software 33(3), 2016.</li>
+<li>Greenblatt et al., arXiv:2412.14093; Meinke et al., arXiv:2412.04984; Palisade Research, arXiv:2502.13295.</li>
+<li>Incident sources as named in each rationale and in Annex B.</li>
+<li>machinebehavior.io: claims ledger, objections register, slips log, prediction hashes, "Chaos Engineering for Behaviour".</li>
+<li>NIST, Open Security Controls Assessment Language (OSCAL), pages.nist.gov/OSCAL; releases at github.com/usnistgov/OSCAL.</li>
+<li>NIST SP 800-126 Rev. 3, The Technical Specification for the Security Content Automation Protocol (SCAP): SCAP Version 1.3, February 2018.</li>
+<li>Cilla Ugarte et al., "Making AI Compliance Evidence Machine-Readable", arXiv:2604.13767, submitted 15 April 2026.</li>
+<li>CEN, SMART Standards project, experts.cen.eu/key-initiatives/smart-standards/.</li>
+<li>ISO/IEC AWI 26741 (iso.org/standard/94402.html); ISO/IEC DIS 23282 (iso.org/standard/87387.html).</li>
+<li>vestige-kit (github.com/uncovertechtalent/vestige-kit).</li>
+</ol>
+
+  </section>
+
+  <section>
+  <h2 id="crosswalk">Crosswalk to existing frameworks</h2>
+  <p class="thesis">Each requirement of this draft, the clause of an existing framework it relates to, and how. "Evidence toward" means a passing test of the requirement is evidence for part of that clause, with the slice named; it is never conformity to the framework. "Nearest clause" means the framework has nothing closer and does not require what the requirement asks: these rows are the gap this document names. Machine-readable: <a class="mono" href="/conformity/requirements.json">/conformity/requirements.json</a>.</p><div class="tablewrap"><table><tr><th>req</th><th>mark</th><th>framework</th><th>clause</th><th>relation</th><th>slice</th></tr><tr><td><a class="mono" href="#cc-4.1">CC-4.1</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 9(1)-(2)</td><td>evidence toward</td><td>risk management system as a continuous iterative process</td></tr><tr><td><a class="mono" href="#cc-4.1">CC-4.1</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 72(1)</td><td>evidence toward</td><td>documented post-market monitoring system</td></tr><tr><td><a class="mono" href="#cc-4.1">CC-4.1</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(1)</td><td>evidence toward</td><td>digital operational resilience testing programme</td></tr><tr><td><a class="mono" href="#cc-4.2">CC-4.2</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 9(8)</td><td>evidence toward</td><td>testing against prior defined metrics and probabilistic thresholds</td></tr><tr><td><a class="mono" href="#cc-4.2">CC-4.2</a></td><td class="n">H</td><td>NIST AI 100-1, AI Risk Management Framework 1.0</td><td class="n">MEASURE 1.1</td><td>evidence toward</td><td>approaches and metrics for measurement selected</td></tr><tr><td><a class="mono" href="#cc-4.3">CC-4.3</a></td><td class="n">H</td><td>NIST AI 100-1, AI Risk Management Framework 1.0</td><td class="n">GOVERN 2.1</td><td>evidence toward</td><td>roles and responsibilities documented</td></tr><tr><td><a class="mono" href="#cc-5.1">CC-5.1</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(1)</td><td>evidence toward</td><td>consistent performance of the system as placed on the market</td></tr><tr><td><a class="mono" href="#cc-5.1">CC-5.1</a></td><td class="n">A</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(2)</td><td>evidence toward</td><td>testing of ICT systems supporting critical functions</td></tr><tr><td><a class="mono" href="#cc-5.2">CC-5.2</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 12(1)</td><td>evidence toward</td><td>automatic recording of events over the lifetime of the system</td></tr><tr><td><a class="mono" href="#cc-5.2">CC-5.2</a></td><td class="n">M</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 9(4)(e)</td><td>evidence toward</td><td>documented ICT change management</td></tr><tr><td><a class="mono" href="#cc-5.3">CC-5.3</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 26(5)</td><td>evidence toward</td><td>risk management measures for threat-led tests on live production systems</td></tr><tr><td><a class="mono" href="#cc-6.1">CC-6.1</a></td><td class="n">A</td><td>NIST AI 100-1, AI Risk Management Framework 1.0</td><td class="n">MEASURE 2.5</td><td>nearest clause; it does not require this</td><td>validity and reliability assessed</td></tr><tr><td><a class="mono" href="#cc-6.2">CC-6.2</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(5)</td><td>evidence toward</td><td>resilience against attempts to alter use, outputs or performance</td></tr><tr><td><a class="mono" href="#cc-6.2">CC-6.2</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 55(1)(b)</td><td>nearest clause; it does not require this</td><td>adversarial testing of GPAI models with systemic risk</td></tr><tr><td><a class="mono" href="#cc-6.3">CC-6.3</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 9(8)</td><td>evidence toward</td><td>prior defined metrics and thresholds</td></tr><tr><td><a class="mono" href="#cc-6.4">CC-6.4</a></td><td class="n">A</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 26(1)</td><td>nearest clause; it does not require this</td><td>threat-led penetration testing, covert by design</td></tr><tr><td><a class="mono" href="#cc-6.5">CC-6.5</a></td><td class="n">A</td><td>NIST AI 100-1, AI Risk Management Framework 1.0</td><td class="n">MEASURE 2.5</td><td>nearest clause; it does not require this</td><td>validity of the evaluation itself</td></tr><tr><td><a class="mono" href="#cc-6.6">CC-6.6</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(1)</td><td>evidence toward</td><td>accuracy and robustness, performance consistent through the lifecycle</td></tr><tr><td><a class="mono" href="#cc-6.6">CC-6.6</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(5)</td><td>evidence toward</td><td>resilience against attempts to alter outputs</td></tr><tr><td><a class="mono" href="#cc-6.6">CC-6.6</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 9(8)</td><td>evidence toward</td><td>testing against prior defined metrics</td></tr><tr><td><a class="mono" href="#cc-6.6">CC-6.6</a></td><td class="n">A</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 26(2)</td><td>nearest clause; it does not require this</td><td>threat-led testing on live systems</td></tr><tr><td><a class="mono" href="#cc-7.1">CC-7.1</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 9(6)-(7)</td><td>evidence toward</td><td>testing throughout development and before placing on the market</td></tr><tr><td><a class="mono" href="#cc-7.1">CC-7.1</a></td><td class="n">M</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 9(4)(e)</td><td>evidence toward</td><td>ICT change management with testing before deployment</td></tr><tr><td><a class="mono" href="#cc-7.1">CC-7.1</a></td><td class="n">M</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 25(1)</td><td>evidence toward</td><td>appropriate tests on ICT systems</td></tr><tr><td><a class="mono" href="#cc-7.1">CC-7.1</a></td><td class="n">M</td><td>NIST CSF 2.0</td><td class="n">PR.PS-01</td><td>evidence toward</td><td>configuration management</td></tr><tr><td><a class="mono" href="#cc-7.2">CC-7.2</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 9(4)(e)</td><td>nearest clause; it does not require this</td><td>change management</td></tr><tr><td><a class="mono" href="#cc-7.3">CC-7.3</a></td><td class="n">M</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(6)</td><td>evidence toward</td><td>appropriate tests at least yearly</td></tr><tr><td><a class="mono" href="#cc-7.3">CC-7.3</a></td><td class="n">M</td><td>Regulation (EU) 2016/679, EUR-Lex</td><td class="n">Art 32(1)(d)</td><td>evidence toward</td><td>regular testing, assessing and evaluating</td></tr><tr><td><a class="mono" href="#cc-7.3">CC-7.3</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 72(2)</td><td>evidence toward</td><td>evaluate continuous compliance throughout the lifetime</td></tr><tr><td><a class="mono" href="#cc-7.4">CC-7.4</a></td><td class="n">A</td><td>NIST CSF 2.0</td><td class="n">ID.IM-03</td><td>evidence toward</td><td>improvements from lessons learned</td></tr><tr><td><a class="mono" href="#cc-7.5">CC-7.5</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 55(1)(b)</td><td>nearest clause; it does not require this</td><td>state-of-the-art adversarial testing</td></tr><tr><td><a class="mono" href="#cc-8.1">CC-8.1</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 10(2)</td><td>nearest clause; it does not require this</td><td>data governance practices</td></tr><tr><td><a class="mono" href="#cc-8.2">CC-8.2</a></td><td class="n">M</td><td>Regulation (EU) 2016/679, EUR-Lex</td><td class="n">Art 5(1)(d)</td><td>evidence toward</td><td>accuracy; kept up to date</td></tr><tr><td><a class="mono" href="#cc-8.2">CC-8.2</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 10(3)</td><td>nearest clause; it does not require this</td><td>data sets relevant, representative, free of errors</td></tr><tr><td><a class="mono" href="#cc-8.3">CC-8.3</a></td><td class="n">A</td><td>Regulation (EU) 2016/679, EUR-Lex</td><td class="n">Art 5(1)(d)</td><td>nearest clause; it does not require this</td><td>accuracy</td></tr><tr><td><a class="mono" href="#cc-8.4">CC-8.4</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(1)</td><td>nearest clause; it does not require this</td><td>accuracy</td></tr><tr><td><a class="mono" href="#cc-8.5">CC-8.5</a></td><td class="n">A</td><td>Regulation (EU) 2016/679, EUR-Lex</td><td class="n">Art 5(1)(d)</td><td>nearest clause; it does not require this</td><td>accuracy</td></tr><tr><td><a class="mono" href="#cc-8.6">CC-8.6</a></td><td class="n">A</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 13(1)</td><td>nearest clause; it does not require this</td><td>transparency, interpretable output</td></tr><tr><td><a class="mono" href="#cc-9.1">CC-9.1</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 14(1)</td><td>evidence toward</td><td>human oversight</td></tr><tr><td><a class="mono" href="#cc-9.1">CC-9.1</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(4)</td><td>evidence toward</td><td>tests by independent parties, internal or external</td></tr><tr><td><a class="mono" href="#cc-9.2">CC-9.2</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 26(8)</td><td>evidence toward</td><td>external testers for threat-led tests</td></tr><tr><td><a class="mono" href="#cc-9.2">CC-9.2</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 27</td><td>evidence toward</td><td>requirements for testers</td></tr><tr><td><a class="mono" href="#cc-10.1">CC-10.1</a></td><td class="n">A</td><td>NIST CSF 2.0</td><td class="n">ID.IM-03</td><td>evidence toward</td><td>lessons learned</td></tr><tr><td><a class="mono" href="#cc-10.1">CC-10.1</a></td><td class="n">A</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(5)</td><td>evidence toward</td><td>remediation of issues identified in tests</td></tr><tr><td><a class="mono" href="#cc-10.2">CC-10.2</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 73(1)</td><td>evidence toward</td><td>reporting of serious incidents</td></tr><tr><td><a class="mono" href="#cc-10.2">CC-10.2</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 19(1)</td><td>evidence toward</td><td>reporting of major ICT-related incidents</td></tr><tr><td><a class="mono" href="#cc-11.1">CC-11.1</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 12(1)</td><td>evidence toward</td><td>automatic recording of events</td></tr><tr><td><a class="mono" href="#cc-11.1">CC-11.1</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 72(2)</td><td>evidence toward</td><td>collection of data on performance throughout the lifetime</td></tr><tr><td><a class="mono" href="#cc-11.1">CC-11.1</a></td><td class="n">M</td><td>NIST CSF 2.0</td><td class="n">DE.CM-09</td><td>evidence toward</td><td>monitoring of software and services</td></tr><tr><td><a class="mono" href="#cc-11.2">CC-11.2</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 19(1)</td><td>evidence toward</td><td>logs kept for at least six months</td></tr><tr><td><a class="mono" href="#cc-11.2">CC-11.2</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 18(1)</td><td>evidence toward</td><td>documentation kept 10 years</td></tr><tr><td><a class="mono" href="#cc-11.3">CC-11.3</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 43(2)</td><td>nearest clause; it does not require this</td><td>conformity assessment based on internal control</td></tr><tr><td><a class="mono" href="#cc-11.4">CC-11.4</a></td><td class="n">H</td><td>Regulation (EU) 2022/2554 (DORA), EUR-Lex</td><td class="n">Art 24(4)</td><td>nearest clause; it does not require this</td><td>independent parties</td></tr><tr><td><a class="mono" href="#cc-12.1">CC-12.1</a></td><td class="n">H</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 14(1)</td><td>evidence toward</td><td>which decisions a person takes</td></tr><tr><td><a class="mono" href="#cc-12.2">CC-12.2</a></td><td class="n">A</td><td>NIST CSF 2.0</td><td class="n">PR.PS-01</td><td>nearest clause; it does not require this</td><td>configuration management</td></tr><tr><td><a class="mono" href="#cc-12.3">CC-12.3</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 15(1)</td><td>evidence toward</td><td>consistent performance at the output</td></tr><tr><td><a class="mono" href="#cc-12.3">CC-12.3</a></td><td class="n">M</td><td>NIST CSF 2.0</td><td class="n">PR.PS-01</td><td>evidence toward</td><td>configuration management of the rule table</td></tr><tr><td><a class="mono" href="#cc-12.4">CC-12.4</a></td><td class="n">M</td><td>Regulation (EU) 2024/1689 (AI Act), EUR-Lex</td><td class="n">Art 12(1)</td><td>evidence toward</td><td>logging</td></tr><tr><td><a class="mono" href="#cc-12.4">CC-12.4</a></td><td class="n">M</td><td>NIST CSF 2.0</td><td class="n">DE.CM-09</td><td>evidence toward</td><td>monitoring</td></tr><tr><td><a class="mono" href="#cc-12.5">CC-12.5</a></td><td class="n">M</td><td>NIST CSF 2.0</td><td class="n">GV.OC</td><td>nearest clause; it does not require this</td><td>organizational context</td></tr></table></div>
+  </section>
+
+  <section>
+  <h2 id="limits">Limits</h2>
+  <ul>
+  <li>One author. The requirements and the self-assessment come from the same setup, so the draft may fit that setup more closely than an outside draft would.</li>
+  <li>No committee has reviewed it. It cites standards by number and public title only; no standard text was processed in writing it, under the publisher's licence terms for machine processing.</li>
+  <li>Labelled secondary in the text: ISO/IEC 42001 Annex A control numbers (Annex A of this draft) and the wording of term 3.20, not re-checked against the published standards.</li>
+  <li>The decision-layer figures cited for CC-6.6 belong to one model (qwen3-coder-30b); three larger models did not fold under the same design.</li>
+  <li>Square-bracket values are proposals, not findings.</li>
+  </ul>
+  </section>
+
+  <section>
+  <h2 id="changes">Changes</h2>
+  <div class="tablewrap"><table>
+    <tr><th>date</th><th>version</th><th>change</th></tr>
+    <tr><td>2026-10-09</td><td>0.3</td><td>Published as a reference on machinebehavior.io.</td></tr>
+    <tr><td>2026-10-07</td><td>0.3</td><td>CC-6.6 decision-layer tests; terms 3.25 decision layer, 3.26 scripted pressure sequence, 3.27 fold.</td></tr>
+    <tr><td>2026-10-03</td><td>0.2</td><td>Clause 12, machine-checkable requirements; name anchored to AI Act Art 72(2).</td></tr>
+  </table></div>
+  </section>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+  <p class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></p>
+  <script src="/conformity/footer.js" defer></script>
+</div>
+</body>
+</html>

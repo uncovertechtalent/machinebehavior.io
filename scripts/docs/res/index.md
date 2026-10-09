@@ -32,6 +32,7 @@ Working practice on the published pages: predictions and prompt sets are hashed 
 | [Case files](doc:res/case-files) | Case 12 and Running Conjobs for AI | 2 case files |
 | [Predictions and hashes](doc:res/predictions-and-hashes) | Hashing before a run, checked on every push | 8 files, all match |
 | [Conformity self-assessment, run 1](doc:res/conformity-self-assessment) | One AI setup scored against 35 draft requirements | pass 4, partial 16, gap 13, n/a 2 |
+| [Definition draft (public reference)](/continuous-conformity/) | Continuous Conformity for Deployed AI Systems, working draft 0.3: 36 requirements with M/A/H marks and the crosswalk | published 2026-10-09 |
 
 Run 1 and case 12 are labelled self-assessment, not a certification.
 

@@ -88,7 +88,7 @@
  "require_root_absolute_links": true,
  "slips_log": "slips/log.csv",
  "links": {
-  "draft": "/continuous-conformity-self-assessment/",
+  "draft": "/continuous-conformity/",
   "self_assessment": "/continuous-conformity-self-assessment/",
   "objections": "/objections/"
  },
