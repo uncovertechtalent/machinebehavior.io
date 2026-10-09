@@ -82,6 +82,7 @@ class Tree:
         self.base = self.site['base'].rstrip('/')
         self.repo = self.site['repo'].rstrip('/')
         self.legal = cfg.get('legal') or []
+        self.bar = cfg.get('bar') or {}
         self.sections, self.by_url = [], {}
         self.home = None
         for s in cfg['sections']:
@@ -180,30 +181,65 @@ def url_of(rel):
 
 
 # ---------- the blocks ----------
+BAR_JS = ('<script>(function(){var q=function(){return document.querySelectorAll(".mb-bar details[open]")};'
+          'document.addEventListener("click",function(e){q().forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});'
+          'document.addEventListener("keydown",function(e){if(e.key==="Escape")q().forEach(function(d){d.removeAttribute("open");'
+          'var s=d.querySelector("summary");if(s)s.focus()})})})();</script>')
+
+
 def bar(t, node, layout):
+    """The top bar: brand, sections (groups as one menu), search and the action button; below 900 px the sections move into
+    one Menu panel. The menus are <details> elements, so they open without JavaScript; a few lines close them on a click
+    outside or on Escape."""
     sec = node.section if node else None
-    links = []
-    for s in t.sections:
-        if s.section == 'home':
-            continue
-        cur = ''
+    cfg = t.bar
+    grouped = {k: g for g in cfg.get('groups', []) for k in g['sections']}
+    action = cfg.get('action')
+
+    def cur(s):
         if node is s:
-            cur = ' aria-current="page"'
-        elif sec == s.section:
-            cur = ' aria-current="true"'
-        links.append(f'<a href="{s.url}"{cur}>{esc(s.title)}</a>')
+            return ' aria-current="page"'
+        return ' aria-current="true"' if sec == s.section else ''
+
+    inline, menu, seen = [], [], set()
+    for s in t.sections:
+        if s.section in ('home', action) or s.section in seen:
+            continue
+        g = grouped.get(s.section)
+        if g:
+            members = [t.section(k) for k in g['sections'] if t.section(k)]
+            seen.update(g['sections'])
+            here = any(m.section == sec for m in members)
+            links = ''.join(f'<li><a href="{m.url}"{cur(m)}>{esc(m.title)}</a></li>' for m in members)
+            mark = ' class="is-current"' if here else ''
+            sr = '<span class="mb-sr"> (current section)</span>' if here else ''
+            inline.append(f'<li class="mb-nav-group"><details class="mb-drop"><summary{mark}>{esc(g["title"])}{sr}</summary>'
+                          f'<ul class="mb-drop-panel">{links}</ul></details></li>')
+            menu.append(f'<li class="mb-menu-group"><span class="mb-menu-label">{esc(g["title"])}</span><ul>{links}</ul></li>')
+            continue
+        inline.append(f'<li><a href="{s.url}"{cur(s)}>{esc(s.title)}</a></li>')
+        menu.append(f'<li><a href="{s.url}"{cur(s)}>{esc(s.title)}</a></li>')
+    act = ''
+    if action and t.section(action):
+        a = t.section(action)
+        act = f'<a class="mb-cta" href="{a.url}"{cur(a)}>{esc(a.title)}</a>'
+        menu.append(f'<li><a href="{a.url}"{cur(a)}>{esc(a.title)}</a></li>')
     home_cur = ' aria-current="page"' if node is t.home else ''
     out = ('<a class="mb-skip" href="#main">Skip to content</a>'
            '<header class="mb-bar">'
            f'<a class="mb-brand" href="/"{home_cur}><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">{esc(t.site["name"])}</span></a>'
-           '<nav class="mb-nav" aria-label="Sections">' + ''.join(links) + '</nav>'
+           '<nav class="mb-nav" aria-label="Sections"><ul class="mb-nav-list">' + ''.join(inline) + '</ul></nav>'
            f'<form class="mb-search" role="search" action="{t.site["search"]}" method="get">'
            '<label class="mb-sr" for="ib-q">Search the site</label>'
            '<input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" '
            'aria-controls="ib-hits" aria-describedby="ib-help">'
            '<span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span>'
            '<kbd class="mb-key" aria-hidden="true">/</kbd>'
-           '<ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>')
+           '<ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form>'
+           + act +
+           '<details class="mb-menu"><summary><span class="mb-menu-icon" aria-hidden="true"></span>Menu</summary>'
+           '<nav class="mb-menu-panel" aria-label="All sections"><ul>' + ''.join(menu) + '</ul></nav></details>'
+           '</header>' + BAR_JS)
     s = t.section(sec) if sec else None
     if s is not None and s.cfg.get('banner') and layout == 'app' and node is not None and node.url != '/map/':
         out += banner()

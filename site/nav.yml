@@ -38,6 +38,15 @@ site:
 # Impressum and privacy links go here as entries with title and url. Both wait on the business address (issues #10 and #11).
 legal: []
 
+# How the top bar shows the sections (scripts/site_chrome.py bar()). A group is one menu in the bar; its sections keep
+# their own URLs, breadcrumbs and sidebars. The action is the conversion link: a button at the end of the bar, visible at
+# every width. Below 900 px the sections sit in one Menu panel.
+bar:
+  groups:
+    - title: Research
+      sections: [research, red-team, aieo]
+  action: cto
+
 sections:
   - key: home
     title: Home
