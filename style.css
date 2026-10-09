@@ -124,8 +124,8 @@ dd .receipt { font-size: 0.85rem; color: var(--ink-soft); }
 .figure figcaption { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.55rem; }
 .figure figcaption a { color: var(--teal); }
 /* home page: a band of nodes and links from the map above the menu; its sides and bottom fade into the page */
-body.home { padding-top: calc(min(100vw, 880px) * 0.3866 - 0.5rem); }
-.hero { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, 880px); aspect-ratio: 1138 / 440;
+body.home { padding-top: calc(min(100vw, 880px) * 0.2575 - 0.5rem); }
+.hero { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, 880px); aspect-ratio: 1138 / 293;
   pointer-events: none; z-index: 0; background: url("/map/home-net-light.png") center / 100% 100% no-repeat;
   -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%), linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
   -webkit-mask-composite: source-in;
