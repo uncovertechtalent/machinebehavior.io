@@ -43,6 +43,8 @@ page = f'''<!doctype html>
     <a href="/experiments/">experiments</a>
     <a href="/objections/">objections</a>
     <a href="/terms/">terms</a>
+    <a href="/inside/">inside</a>
+    <a href="/inside/#dashboards">infrastructure</a>
   </nav>
 
   <header>

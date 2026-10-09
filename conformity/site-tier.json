@@ -120,6 +120,14 @@
    [
     "terms",
     "/terms/"
+   ],
+   [
+    "inside",
+    "/inside/"
+   ],
+   [
+    "infrastructure",
+    "/inside/#dashboards"
    ]
   ],
   "footer_sig": "Stefan Coetzee, 2026",
