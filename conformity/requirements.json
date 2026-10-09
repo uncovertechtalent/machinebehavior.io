@@ -433,6 +433,12 @@
      "clause": "Art 72(2)",
      "relation": "evidence_for",
      "slice": "evaluate continuous compliance throughout the lifetime"
+    },
+    {
+     "framework": "AIA",
+     "clause": "Art 17(1)(d)",
+     "relation": "evidence_for",
+     "slice": "test procedures after development at a stated frequency (high-risk providers; frequency set by the provider)"
     }
    ],
    "self_assessment": {
