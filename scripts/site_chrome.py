@@ -389,6 +389,8 @@ def page_ld(t, node, trail, url, src, layout):
             'author': {'@id': person_id}, 'publisher': {'@id': person_id}}
     if kind in ('Article', 'TechArticle'):
         page['headline'] = title[:110]
+        # breadcrumb belongs to WebPage: an article names the web page it is the main entity of, and that page has the trail
+        page['mainEntityOfPage'] = {'@type': 'WebPage', '@id': base + url, 'breadcrumb': page.pop('breadcrumb')}
     desc = (m.get('description') or m.get('og:description') or [''])[0]
     if desc:
         page['description'] = desc
