@@ -32,4 +32,5 @@ This space documents the systems behind machinebehavior.io, tychat.io and uncove
 - New to the setup: read [Site architecture](doc:eng/site-architecture), then [Deploy pipeline](doc:eng/deploy-pipeline).
 - Adding a page: follow [Add a page to machinebehavior.io](doc:eng/add-a-page).
 - A deploy did not go out: start at [Runbooks](doc:eng/runbooks).
-- Why something is the way it is: the [Decision log](doc:eng/decision-log).
+- Why something is the way it is: the [Decision records](doc:eng/decision-log), numbered ADR-0001 onward.
+- What changed and when: the [Changelog](doc:eng/changelog).

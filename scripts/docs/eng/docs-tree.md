@@ -13,6 +13,7 @@ The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/bu
 
 ```bash
 python3 scripts/import_vault_docs.py ~/vault   # vault spaces: sre, std (only on the machine with the vault)
+python3 scripts/build_changelog.py             # eng/changelog.md from closed issues and commits (needs the network)
 python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, docs search index
 python3 scripts/build_inside.py                # bar sync, services, status, the site-wide search index
 ```
@@ -37,6 +38,10 @@ The build writes one `index.html` per page, `inside/docs/search.json` (an input 
 ## Ownership and review
 
 The byline of each page shows the owner, the review date and the next review date, or "not reviewed", or "review overdue since" in red. [Docs health](/inside/docs/health/) lists the pages past their review date, those due in the next 30 days, pages without an owner or a type, and the counts per space. The build stops on a malformed date or an unknown type, and prints a warning for a hand-written page that lacks one of the four fields. Nothing here blocks a deploy: whether the gate should check owners and review dates is an open decision for the gate owner.
+
+## Decision records
+
+A page with `adr: N` in its front matter is a numbered decision record under [Decision records](doc:eng/decision-log). It also carries `status` (`proposed`, `accepted`, `superseded`) and, when one record replaces another, `supersedes` on the new one and `superseded_by` on the old one. The build stops when the two sides disagree or two records share a number, and writes the index table where the parent page holds the marker `<!-- adr-index -->`.
 
 ## Links
 

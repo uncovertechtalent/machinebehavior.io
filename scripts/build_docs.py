@@ -413,6 +413,34 @@ def text_of(h):
     return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', h))).strip()
 
 
+# decision records: status values, supersede links that agree on both sides, and the generated index table
+ADR_STATUS = ('proposed', 'accepted', 'superseded')
+adrs = sorted((p for p in pages.values() if p.get('adr')), key=lambda p: int(p['adr']))
+for p in adrs:
+    if p.get('status') not in ADR_STATUS:
+        sys.exit(f'{p["src"]}: status must be one of {", ".join(ADR_STATUS)}')
+    for old in [x.strip() for x in p.get('supersedes', '').split(',') if x.strip()]:
+        o = pages.get((p['space'], old))
+        if not o or o.get('superseded_by') != p['slug'] or o.get('status') != 'superseded':
+            sys.exit(f'{p["src"]}: supersedes {old}, but that record is not marked superseded by this one')
+    if p.get('status') == 'superseded':
+        n = pages.get((p['space'], p.get('superseded_by', '')))
+        if not n or p['slug'] not in [x.strip() for x in n.get('supersedes', '').split(',')]:
+            sys.exit(f'{p["src"]}: superseded, but superseded_by does not name a record that supersedes it')
+if len({p['adr'] for p in adrs}) != len(adrs):
+    sys.exit('two decision records share a number')
+ADR_MARK = re.compile(r'^<!-- adr-index -->$', re.M)  # on a line of its own; a mention in running text stays as written
+for p in pages.values():
+    if ADR_MARK.search(p['body']):
+        rows = ['| Record | Decision | Date | Status |', '|---|---|---|---|']
+        for a in sorted(adrs, key=lambda a: -int(a['adr'])):
+            st = a['status']
+            if st == 'superseded':
+                n = pages[(a['space'], a['superseded_by'])]
+                st = f'superseded by [ADR-{int(n["adr"]):04d}](doc:{n["space"]}/{n["slug"]})'
+            rows.append(f'| [ADR-{int(a["adr"]):04d}](doc:{a["space"]}/{a["slug"]}) | {a["title"].split(": ", 1)[-1]} | {a["created"]} | {st} |')
+        p['body'] = ADR_MARK.sub(lambda m: '\n'.join(rows), p['body'])
+
 for p in pages.values():
     ctx = Ctx(p)
     toc = []
@@ -548,6 +576,15 @@ def page_html(p):
     by += f'<span>{max(1, round(p["words"] / 220))} min read</span>'
     if p.get('type'):
         by += f'<span class="type">{esc(p["type"])}</span>'
+    adr_panel = ''
+    if p.get('adr'):
+        by = f'<span class="adr-st {esc(p["status"])}">{esc(p["status"])}</span>' + by
+        if p['status'] == 'superseded':
+            n = pages[(p['space'], p['superseded_by'])]
+            adr_panel = f'<div class="panel panel-warning"><p>Superseded by <a href="{n["url"]}">{esc(n["title"])}</a>. Kept for the history.</p></div>'
+        olds = [pages[(p['space'], x.strip())] for x in p.get('supersedes', '').split(',') if x.strip()]
+        if olds:
+            adr_panel = '<div class="panel panel-info"><p>Supersedes ' + ', '.join(f'<a href="{o["url"]}">{esc(o["title"])}</a>' for o in olds) + '.</p></div>'
     review = ''
     if p.get('reviewed', '').lower() == 'no':
         review = (f'<div class="review"><b>Vault note, not reviewed against the source.</b> Written in the knowledge vault on {p["created"]} by models '
@@ -582,7 +619,7 @@ def page_html(p):
 <nav class="crumbs" aria-label="Breadcrumb">{crumbs}</nav>
 <h1>{h1}</h1>
 <div class="byline">{by}</div>
-{review}
+{review}{adr_panel}
 <article class="doc">
 {p["html"]}
 </article>

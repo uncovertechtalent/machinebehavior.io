@@ -78,16 +78,35 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (349 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (368 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
 - [Engineering](https://machinebehavior.io/inside/docs/eng/): How the three sites are built, gated and deployed, the map crawler, Inside and this docs tree.
 - [Access model](https://machinebehavior.io/inside/docs/eng/access-model/)
 - [Add a page to machinebehavior.io](https://machinebehavior.io/inside/docs/eng/add-a-page/)
+- [ADR-0001: Root-absolute links only](https://machinebehavior.io/inside/docs/eng/adr-0001-root-absolute-links/)
+- [ADR-0002: The deploy is gated](https://machinebehavior.io/inside/docs/eng/adr-0002-deploy-is-gated/)
+- [ADR-0003: The map loads d3 and its fonts from public CDNs](https://machinebehavior.io/inside/docs/eng/adr-0003-map-loads-from-public-cdns/)
+- [ADR-0004: The map refresh keeps the larger snapshot](https://machinebehavior.io/inside/docs/eng/adr-0004-map-refresh-keeps-larger-snapshot/)
+- [ADR-0005: Deploys feed Grafana without changing the workflows](https://machinebehavior.io/inside/docs/eng/adr-0005-deploys-feed-grafana/)
+- [ADR-0006: Inside reads the deploy feed from the GitHub API in the browser](https://machinebehavior.io/inside/docs/eng/adr-0006-inside-reads-github-api-in-browser/)
+- [ADR-0007: Docs search over its own index, Enter opens the first hit](https://machinebehavior.io/inside/docs/eng/adr-0007-docs-search-own-index/)
+- [ADR-0008: Docs pages are map nodes](https://machinebehavior.io/inside/docs/eng/adr-0008-docs-pages-are-map-nodes/)
+- [ADR-0009: Publish vault notes with a review label](https://machinebehavior.io/inside/docs/eng/adr-0009-vault-notes-with-review-label/)
+- [ADR-0010: No third-party requests on page load](https://machinebehavior.io/inside/docs/eng/adr-0010-no-third-party-requests/)
+- [ADR-0011: A public ticket board from GitHub Issues](https://machinebehavior.io/inside/docs/eng/adr-0011-ticket-board-from-github-issues/)
+- [ADR-0012: One top bar and one search index for Inside](https://machinebehavior.io/inside/docs/eng/adr-0012-one-top-bar-and-search/)
+- [ADR-0013: A service catalog from YAML in the repository](https://machinebehavior.io/inside/docs/eng/adr-0013-service-catalog-from-yaml/)
+- [ADR-0014: A status page from records the site already publishes](https://machinebehavior.io/inside/docs/eng/adr-0014-status-page-from-published-records/)
+- [ADR-0015: Owner and review dates on every docs page](https://machinebehavior.io/inside/docs/eng/adr-0015-owner-and-review-dates/)
+- [ADR-0016: A public-demo banner and a stated access model](https://machinebehavior.io/inside/docs/eng/adr-0016-demo-banner-and-access-model/)
+- [ADR-0017: State the on-call model and propose Alertmanager routing](https://machinebehavior.io/inside/docs/eng/adr-0017-on-call-model/)
+- [ADR-0018: Numbered decision records and a generated changelog](https://machinebehavior.io/inside/docs/eng/adr-0018-numbered-records-and-changelog/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
+- [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)
-- [Decision log](https://machinebehavior.io/inside/docs/eng/decision-log/)
+- [Decision records](https://machinebehavior.io/inside/docs/eng/decision-log/)
 - [Deploy pipeline](https://machinebehavior.io/inside/docs/eng/deploy-pipeline/)
 - [Docs tree](https://machinebehavior.io/inside/docs/eng/docs-tree/)
 - [Inside portal](https://machinebehavior.io/inside/docs/eng/inside-portal/)

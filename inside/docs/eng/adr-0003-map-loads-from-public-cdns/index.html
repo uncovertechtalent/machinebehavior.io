@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADR-0003: The map loads d3 and its fonts from public CDNs · Engineering · Inside docs</title>
+<meta name="description" content="The map page loaded d3 7.9.0 from cdnjs and Space Grotesk and JetBrains Mono from Google Fonts.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/adr-0003-map-loads-from-public-cdns/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/adr-0003-map-loads-from-public-cdns/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="ADR-0003: The map loads d3 and its fonts from public CDNs">
+<meta property="og:description" content="The map page loaded d3 7.9.0 from cdnjs and Space Grotesk and JetBrains Mono from Google Fonts.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-08">
+<meta property="article:modified_time" content="2026-10-08">
+<meta property="article:tag" content="adr">
+<meta property="article:tag" content="decision">
+<meta name="docs-owner" content="Stefan Coetzee">
+<meta name="docs-reviewed" content="2026-10-09">
+<meta name="docs-review-by" content="2027-01-07">
+<meta name="docs-type" content="explanation">
+<link rel="up" href="/inside/docs/eng/decision-log/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a></aside>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/board/">Ticket board</a></li><li class="leaf"><a href="/inside/docs/eng/top-bar-and-search/">Top bar and search</a></li><li class="leaf"><a href="/inside/docs/eng/service-catalog/">Service catalog</a></li><li class="leaf"><a href="/inside/docs/eng/status-page/">Status page</a></li><li class="leaf"><a href="/inside/docs/eng/access-model/">Access model</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li><details open><summary><a href="/inside/docs/eng/decision-log/">Decision records</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/adr-0001-root-absolute-links/">ADR-0001: Root-absolute links only</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0002-deploy-is-gated/">ADR-0002: The deploy is gated</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0003-map-loads-from-public-cdns/" aria-current="page">ADR-0003: The map loads d3 and its fonts from public CDNs</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0004-map-refresh-keeps-larger-snapshot/">ADR-0004: The map refresh keeps the larger snapshot</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0005-deploys-feed-grafana/">ADR-0005: Deploys feed Grafana without changing the workflows</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0006-inside-reads-github-api-in-browser/">ADR-0006: Inside reads the deploy feed from the GitHub API in the browser</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0007-docs-search-own-index/">ADR-0007: Docs search over its own index, Enter opens the first hit</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0008-docs-pages-are-map-nodes/">ADR-0008: Docs pages are map nodes</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0009-vault-notes-with-review-label/">ADR-0009: Publish vault notes with a review label</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0010-no-third-party-requests/">ADR-0010: No third-party requests on page load</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0011-ticket-board-from-github-issues/">ADR-0011: A public ticket board from GitHub Issues</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0012-one-top-bar-and-search/">ADR-0012: One top bar and one search index for Inside</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0013-service-catalog-from-yaml/">ADR-0013: A service catalog from YAML in the repository</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0014-status-page-from-published-records/">ADR-0014: A status page from records the site already publishes</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0015-owner-and-review-dates/">ADR-0015: Owner and review dates on every docs page</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0016-demo-banner-and-access-model/">ADR-0016: A public-demo banner and a stated access model</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0017-on-call-model/">ADR-0017: State the on-call model and propose Alertmanager routing</a></li><li class="leaf"><a href="/inside/docs/eng/adr-0018-numbered-records-and-changelog/">ADR-0018: Numbered decision records and a generated changelog</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/eng/changelog/">Changelog</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a><a href="/inside/docs/eng/decision-log/">Decision records</a></nav>
+<h1>ADR-0003: The map loads d3 and its fonts from public CDNs</h1>
+<div class="byline"><span class="adr-st superseded">superseded</span><span>owner Stefan Coetzee</span><span>created 2026-10-08</span><span>updated 2026-10-08</span><span>reviewed 2026-10-09</span><span>review by 2027-01-07</span><span>1 min read</span><span class="type">explanation</span></div>
+<div class="panel panel-warning"><p>Superseded by <a href="/inside/docs/eng/adr-0010-no-third-party-requests/">ADR-0010: No third-party requests on page load</a>. Kept for the history.</p></div>
+<article class="doc">
+<p>Recorded after the fact from commit <a href="https://github.com/uncovertechtalent/machinebehavior.io/commit/604f178">604f178</a>.</p>
+<h2 id="context">Context</h2>
+<p>The first version of the map needed a force-directed graph library and the two site fonts, and the fastest path was to link them.</p>
+<h2 id="decision">Decision</h2>
+<p>The map page loaded d3 7.9.0 from cdnjs and Space Grotesk and JetBrains Mono from Google Fonts.</p>
+<h2 id="consequences">Consequences</h2>
+<p>Each visit sent the reader's address to two third parties. Replaced the next day by <a href="/inside/docs/eng/adr-0010-no-third-party-requests/">ADR-0010</a>, which serves both from the site.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=adr">adr</a><a href="/inside/search/?q=decision">decision</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/decision-log/">Decision records</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#context">Context</a></li><li class="l2"><a href="#decision">Decision</a></li><li class="l2"><a href="#consequences">Consequences</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/adr-0003-map-loads-from-public-cdns.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/adr-0003-map-loads-from-public-cdns.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

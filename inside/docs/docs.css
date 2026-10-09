@@ -146,3 +146,7 @@ footer a { color: var(--dim); }
 /* review state in the byline */
 .byline .rv.no { color: var(--amber); }
 .byline .rv.late { color: var(--fold); }
+.byline .adr-st { border: 1px solid var(--line); border-radius: 5px; padding: 0 6px; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; }
+.byline .adr-st.accepted { color: var(--pass); border-color: rgba(61,220,151,0.4); }
+.byline .adr-st.proposed { color: var(--violet); border-color: rgba(183,156,255,0.4); }
+.byline .adr-st.superseded { color: var(--dim); text-decoration: line-through; }

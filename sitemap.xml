@@ -42,7 +42,26 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/access-model/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/add-a-page/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0001-root-absolute-links/</loc><lastmod>2026-10-07</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0002-deploy-is-gated/</loc><lastmod>2026-10-07</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0003-map-loads-from-public-cdns/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0004-map-refresh-keeps-larger-snapshot/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0005-deploys-feed-grafana/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0006-inside-reads-github-api-in-browser/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0007-docs-search-own-index/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0008-docs-pages-are-map-nodes/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0009-vault-notes-with-review-label/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0010-no-third-party-requests/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0011-ticket-board-from-github-issues/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0012-one-top-bar-and-search/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0013-service-catalog-from-yaml/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0014-status-page-from-published-records/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0015-owner-and-review-dates/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0016-demo-banner-and-access-model/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0017-on-call-model/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0018-numbered-records-and-changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/decision-log/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-09</lastmod></url>
