@@ -81,7 +81,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (392 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (393 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -114,6 +114,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (392 pages). S
 - [ADR-0024: SRE principles tied to the running platform](https://machinebehavior.io/inside/docs/eng/adr-0024-sre-principles-in-practice/)
 - [ADR-0025: One design system, two layouts, light and dark from the system setting](https://machinebehavior.io/inside/docs/eng/adr-0025-one-design-system/)
 - [ADR-0026: Mission Control, the live operations view inside the portal](https://machinebehavior.io/inside/docs/eng/adr-0026-mission-control/)
+- [ADR-0027: Structured data on every page from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)

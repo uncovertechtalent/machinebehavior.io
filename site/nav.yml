@@ -12,6 +12,8 @@
 #          services (inside/services/services.json, written by scripts/build_inside.py)
 #          and topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
 #   pages  the pages under an entry
+#   published    the date a page gives itself as its publication date (JSON-LD datePublished); left out when it gives none
+#   contributor  a model the page names as its writer or scorer (JSON-LD contributor)
 #
 # Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
 
@@ -21,6 +23,16 @@ site:
   base: https://machinebehavior.io
   repo: https://github.com/uncovertechtalent/machinebehavior.io
   search: /inside/search/
+  # The author of every page, in the JSON-LD of every page (scripts/site_chrome.py page_ld, ADR-0027)
+  person:
+    name: Stefan Coetzee
+    job_title: Site Reliability Engineer
+    same_as:
+      - https://www.linkedin.com/in/coetzeestefan/
+      - https://coetzeestefan.substack.com/
+      - https://github.com/uncovertechtalent
+      - https://machinebehavior.io/
+      - https://x.com/scoetzeede
 
 # Impressum and privacy links go here as entries with title and url. Both wait on the business address (issues #10 and #11).
 legal: []
@@ -41,22 +53,29 @@ sections:
         url: /experiments/
       - title: Objections register
         url: /objections/
+        published: 2026-05-16
       - title: Evidence index
         url: /evidence/
+        published: 2026-10-07
       - title: Slips
         url: /slips/
       - group: Case files
         pages:
           - title: "Case 12: a licence rule mid-task"
             url: /case-12-licence-rule-mid-task/
+            published: 2026-10-03
+            contributor: Claude (Opus 5.5)
           - title: Running conjobs for AI
             url: /running-conjobs-for-ai/
+            published: 2026-10-06
       - group: Articles
         pages:
           - title: The cheating moved
             url: /the-cheating-moved/
+            published: 2026-09-29
           - title: Chaos engineering for behaviour
             url: /chaos-engineering-for-behaviour/
+            published: 2026-10-03
       - group: Reference
         pages:
           - title: Man pages
@@ -65,8 +84,11 @@ sections:
             url: /terms/
           - title: Continuous conformity
             url: /continuous-conformity/
+            published: 2026-10-09
           - title: Self-assessment, run 1
             url: /continuous-conformity-self-assessment/
+            published: 2026-10-03
+            contributor: Claude (Opus 5.5)
 
   - key: inside
     title: Inside

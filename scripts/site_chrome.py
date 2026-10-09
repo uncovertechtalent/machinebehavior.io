@@ -110,6 +110,7 @@ class Tree:
                 self._pages(g, it.get('pages') or [], section)
                 continue
             node = parent.add(Node(it['title'], it['url'], section))
+            node.cfg_page = it
             self._index(node)
             self._pages(node, it.get('pages') or [], section)
             if it.get('auto'):
@@ -234,7 +235,7 @@ def crumbs(trail, meta=''):
 
 
 def crumbs_ld(t, trail):
-    data = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+    data = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', '@id': t.base + trail[-1].url + '#breadcrumb', 'itemListElement': [
         {'@type': 'ListItem', 'position': i + 1, 'name': n.title, 'item': t.base + n.url} for i, n in enumerate(trail)]}
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
@@ -332,10 +333,91 @@ def foot(t, url, src, title):
             '<script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script>')
 
 
-def head(t, trail, has_fonts):
+# ---------- structured data (ADR-0027) ----------
+META_RE = re.compile(r'<meta (?:property|name)="([^"]+)" content="([^"]*)"')
+
+
+def _metas(src):
+    out = {}
+    for k, v in META_RE.findall(src):
+        out.setdefault(k, []).append(html.unescape(v))
+    return out
+
+
+def _text(fragment):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragment))).strip()
+
+
+def defined_terms(url, src, set_id):
+    """The defined terms a page already shows, as DefinedTerm nodes with the page's own wording.
+    /terms/: each <dt> and its <dd> (the receipt line left out). /continuous-conformity/: the entries of clause 3."""
+    terms = []
+    if url == '/terms/':
+        for name, dd in re.findall(r'<dt>(.*?)</dt>\s*<dd>(.*?)</dd>', src, re.S):
+            dd = re.sub(r'<div class="receipt">.*?</div>', '', dd, flags=re.S)
+            terms.append((_text(name), _text(dd), re.sub(r'[^a-z0-9]+', '-', _text(name).lower()).strip('-')))
+    elif url == '/continuous-conformity/':
+        m = re.search(r'<h2 id="3-terms-and-definitions">.*?(?=<h2 )', src, re.S)
+        for code, name, rest in re.findall(r'<p class="thesis"><strong>(3\.\d+) ([^<]+)</strong>(.*?)</p>', m.group(0) if m else '', re.S):
+            terms.append((_text(name), _text(rest), code))
+    return [{'@type': 'DefinedTerm', '@id': f'{set_id}-{code}', 'name': name, 'description': desc, 'termCode': code,
+             'inDefinedTermSet': {'@id': set_id}} for name, desc, code in terms if name and desc]
+
+
+def page_ld(t, node, trail, url, src, layout):
+    """One JSON-LD graph per page: the author (Person), the site (WebSite with its search), and the page itself
+    (Article, TechArticle, CollectionPage or WebPage) with its dates, author and breadcrumb; DefinedTermSet where the
+    page holds definitions. Every value comes from site/nav.yml or from the page's own metadata and text."""
+    base, p = t.base, t.site['person']
+    person_id, site_id = base + '/#stefan', base + '/#website'
+    person = {'@type': 'Person', '@id': person_id, 'name': p['name'], 'url': base + '/', 'sameAs': p['same_as']}
+    if p.get('job_title'):
+        person['jobTitle'] = p['job_title']
+    website = {'@type': 'WebSite', '@id': site_id, 'name': t.site['name'], 'url': base + '/', 'inLanguage': 'en',
+               'author': {'@id': person_id}, 'publisher': {'@id': person_id},
+               'potentialAction': {'@type': 'SearchAction', 'target': {'@type': 'EntryPoint', 'urlTemplate': base + t.site['search'] + '?q={search_term_string}'},
+                                   'query-input': 'required name=search_term_string'}}
+    m = _metas(src)
+    cfg = getattr(node, 'cfg_page', None) or {}
+    title = (m.get('og:title') or [None])[0] or (TITLE_RE.search(src).group(1) if TITLE_RE.search(src) else trail[-1].title)
+    title = re.sub(r'\s*(:|·)\s*(Machine Behavior|Inside docs)$', '', html.unescape(title)).strip()
+    section = node.section if node else None
+    hub = url in ('/research/', '/topics/', '/inside/docs/') or url.startswith('/topics/')
+    kind = 'CollectionPage' if hub else 'TechArticle' if section == 'docs' else 'Article' if section == 'research' else 'WebPage'
+    page = {'@type': kind, '@id': base + url + '#page', 'url': base + url, 'name': title, 'inLanguage': 'en',
+            'isPartOf': {'@id': site_id}, 'breadcrumb': {'@id': base + url + '#breadcrumb'},
+            'author': {'@id': person_id}, 'publisher': {'@id': person_id}}
+    if kind in ('Article', 'TechArticle'):
+        page['headline'] = title[:110]
+    desc = (m.get('description') or m.get('og:description') or [''])[0]
+    if desc:
+        page['description'] = desc
+    published = str(cfg.get('published') or (m.get('article:published_time') or [''])[0])
+    modified = (m.get('article:modified_time') or [''])[0] or t.lastmod.get(url, '')
+    if published:
+        page['datePublished'] = published
+    if modified:
+        page['dateModified'] = modified
+    if m.get('article:tag'):
+        page['keywords'] = ', '.join(m['article:tag'])
+    if cfg.get('contributor'):
+        page['contributor'] = {'@type': 'SoftwareApplication', 'name': cfg['contributor']}
+    graph = [person, website, page]
+    set_id = base + url + '#terms'
+    terms = defined_terms(url, src, set_id)
+    if terms:
+        graph.append({'@type': 'DefinedTermSet', '@id': set_id, 'name': title, 'url': base + url, 'hasDefinedTerm': terms})
+        page['mainEntity'] = {'@id': set_id} if url == '/terms/' else page.get('mainEntity')
+        if page['mainEntity'] is None:
+            del page['mainEntity']
+    data = {'@context': 'https://schema.org', '@graph': graph}
+    return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+
+
+def head(t, trail, has_fonts, ld=''):
     css = '' if has_fonts else '<link rel="stylesheet" href="/fonts/fonts.css">'
     css += '<link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css">'
-    return css + crumbs_ld(t, trail)
+    return css + crumbs_ld(t, trail) + ld
 
 
 # ---------- apply ----------
@@ -396,7 +478,7 @@ def apply(src, rel):
     hand = ms is None and node is not None and node.url not in ('/', '/map/') and rel not in DEPLOY_ONLY and 'class="byline"' not in src
 
     blocks = {
-        'head': head(t, trail, has_fonts),
+        'head': head(t, trail, has_fonts, page_ld(t, node, trail, url, src, layout)),
         'bar': bar(t, node, layout),
         'crumbs': crumbs(trail, page_meta(t, url) if hand else ''),
         'side': side(t, node) if has_side else '',
@@ -463,6 +545,12 @@ def report(t, files):
     on_disk = {url_of(rel) for rel, _ in files if rel != NOT_FOUND}
     tree_pages = set(t.page_urls())
     errors, warnings = [], []
+    for rel, p in files:  # every JSON-LD block on every page must parse (ADR-0027)
+        for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.read_text(encoding='utf-8'), re.S):
+            try:
+                json.loads(block)
+            except ValueError as e:
+                errors.append(f'json-ld: {rel}: invalid JSON ({e})')
     for u in sorted(on_disk - tree_pages):
         errors.append(f'orphan: {u} is a page outside site/nav.yml')
     for u in sorted(tree_pages - on_disk):

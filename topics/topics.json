@@ -561,7 +561,6 @@
     }
    ],
    "tickets": [
-    42,
     41,
     38,
     37,
@@ -569,6 +568,7 @@
     29,
     25,
     22,
+    42,
     18,
     15,
     6,
@@ -764,7 +764,7 @@
   {
    "n": 42,
    "t": "Mission Control at /inside/mission-control/",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/42",
    "labels": [
     "type: feature",

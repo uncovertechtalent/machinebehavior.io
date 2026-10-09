@@ -54,7 +54,7 @@ sections:
 
 | Block | Where | What |
 |---|---|---|
-| `head` | before `</head>` | the design-system stylesheets and a JSON-LD `BreadcrumbList` |
+| `head` | before `</head>` | the design-system stylesheets, a JSON-LD `BreadcrumbList` and the page's JSON-LD graph |
 | `bar` | after `<body>` | skip link, top bar (brand, sections, search), and on Inside and Docs app pages the demo banner |
 | `crumbs` | top of `<div class="sheet">` (reading pages) or `<main>` (app pages) | the visible breadcrumbs |
 | `side` | before the sheet or `<main>` | the section sidebar |
@@ -94,6 +94,10 @@ Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site
 `site/topics.yml` holds the topics and the rules that select their members: hand-written and Inside pages, docs labels and spaces, tag pages on the map, words in Substack titles, and board labels or words. `scripts/build_hubs.py` builds the hubs at `/topics/<key>/`, the index at `/topics/` and `/topics/topics.json`, then writes the chrome of every page again so the Topics block in each sidebar marks the topics that list the page. The docs sidebar holds the block as `<!-- mb:topics --><!-- /mb:topics -->`. See [ADR-0023](doc:eng/adr-0023-topic-hubs).
 
 Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chrome.py --check`.
+
+## Structured data
+
+The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (from `site.person`), the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with headline, description and dates, and DefinedTermSet on `/terms/` and `/continuous-conformity/` with the wording on the page. A research page's publication date sits in `site/nav.yml` as `published`. `--check` fails on a JSON-LD block that does not parse. See [ADR-0027](doc:eng/adr-0027-structured-data).
 
 ## Layouts
 
