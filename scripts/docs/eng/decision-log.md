@@ -9,6 +9,12 @@ type: explanation
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: a public-demo banner and a stated access model
+
+- **Decision.** Every Inside page except the map carries a banner saying the intranet is a public demo and that in production it sits behind single sign-on, linking an [Access model](doc:eng/access-model) page: public, internal and restricted spaces, who grants each, and access per user and device without a network perimeter. No login and no credential form exist on the site.
+- **Why.** A visitor should know the intranet is public on purpose, and a founder reading it should see how access would work in a company.
+- **Consequence.** The model is a description; the one part of it that runs is the Grafana front door, which passes only the public paths. Hosting stays on GitHub Pages.
+
 ## 2026-10-09: owner and review dates on every docs page
 
 - **Decision.** Docs front matter gains `owner`, `reviewed`, `review_by` and `type` (Diátaxis). All 50 hand-written pages carry the four fields, with the date each was written from its source as the first review and the next review 90 days later. Vault pages start as not reviewed and take the space owner. The byline shows the state and [Docs health](/inside/docs/health/) lists what is missing or late.

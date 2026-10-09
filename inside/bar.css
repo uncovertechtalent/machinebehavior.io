@@ -55,3 +55,11 @@
   .ib-key { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .ib { backdrop-filter: none; } }
+
+/* public-demo banner under the bar (scripts/inside_chrome.py banner()) */
+.ib-demo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; padding: 8px 18px; background: rgba(255,181,71,0.07);
+  border-bottom: 1px solid rgba(255,181,71,0.25); font: 13px/1.45 'Space Grotesk', system-ui, sans-serif; color: #C9CDD2; }
+.ib-demo-tag { font: 500 11px 'JetBrains Mono', monospace; letter-spacing: 1.5px; text-transform: uppercase; color: #FFB547; white-space: nowrap; }
+.ib-demo a { color: #FFB547; text-underline-offset: 2px; white-space: nowrap; }
+.ib-demo a:focus-visible { outline: 2px solid #FFB547; outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 820px) { .ib-demo { padding: 8px 12px; font-size: 12.5px; } }

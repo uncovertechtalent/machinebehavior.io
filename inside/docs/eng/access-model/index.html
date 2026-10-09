@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Access model · Engineering · Inside docs</title>
+<meta name="description" content="Inside is a public demo of an intranet. In production it sits behind single sign-on with public, internal and restricted spaces, access granted per person and device, and no network perimeter.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/access-model/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/access-model/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Access model">
+<meta property="og:description" content="Inside is a public demo of an intranet. In production it sits behind single sign-on with public, internal and restricted spaces, access granted per person and device, and no network perimeter.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="inside">
+<meta property="article:tag" content="security">
+<meta property="article:tag" content="access">
+<meta property="article:tag" content="sso">
+<meta property="article:tag" content="zero-trust">
+<meta name="docs-owner" content="Stefan Coetzee">
+<meta name="docs-reviewed" content="2026-10-09">
+<meta name="docs-review-by" content="2027-01-07">
+<meta name="docs-type" content="explanation">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a></aside>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/board/">Ticket board</a></li><li class="leaf"><a href="/inside/docs/eng/top-bar-and-search/">Top bar and search</a></li><li class="leaf"><a href="/inside/docs/eng/service-catalog/">Service catalog</a></li><li class="leaf"><a href="/inside/docs/eng/status-page/">Status page</a></li><li class="leaf"><a href="/inside/docs/eng/access-model/" aria-current="page">Access model</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Access model</h1>
+<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>reviewed 2026-10-09</span><span>review by 2027-01-07</span><span>3 min read</span><span class="type">explanation</span></div>
+
+<article class="doc">
+<p>Inside, its docs, the service catalog, the status page and the board are open to read on purpose: they show how an intranet for a small company is built. Nothing on this site has a login, and nothing asks for credentials. This page states what is public today and how access works when the same build runs inside a company.</p>
+<div class="panel panel-info"><p>Public demo. Every page under <code>/inside/</code> is public. Private addresses, host names, e-mail addresses, personal details and employer names are removed before a page is published; the vault import lists each removal in <code>scripts/docs/IMPORT-REPORT.md</code>.</p></div>
+<h2 id="today">Today</h2>
+<div class="tbl"><table><thead><tr><th>Content</th><th>Who can read it</th><th>Why</th></tr></thead><tbody><tr><td>Research pages, claims, experiments, the map</td><td>Anyone</td><td>Published work</td></tr><tr><td>Inside, docs, services, status, board</td><td>Anyone</td><td>The demo</td></tr><tr><td>Grafana public dashboards</td><td>Anyone, through a reverse proxy that passes only the shared paths</td><td>Aggregates with identifying labels removed; see <a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></td></tr><tr><td>Internal Grafana dashboards, Prometheus, Loki</td><td>The home network only</td><td>Raw series and logs</td></tr><tr><td>Repository write access, the deploy</td><td>The owner and the agent sessions, through the <a href="/inside/docs/eng/conformity-gate/">gate</a></td><td>A push deploys only after the checks pass</td></tr></tbody></table></div>
+<p>The Grafana front door is the one place where the production pattern already runs: an allowlist of paths in front of a service, everything else answered with 404.</p>
+<h2 id="in-production">In production</h2>
+<p>The same static build deploys behind an identity-aware proxy. Every request carries a user identity from the company's identity provider and a device check; there is no VPN and no trusted network. This follows the BeyondCorp model: access depends on who the user is and on the state of the device; the network a request comes from grants nothing.</p>
+<h3 id="spaces">Spaces</h3>
+<div class="tbl"><table><thead><tr><th>Class</th><th>Examples</th><th>Who reads</th><th>Who grants</th></tr></thead><tbody><tr><td>Public</td><td>Research pages, published docs, the public status page</td><td>Anyone</td><td>Nobody; publishing goes through review and the gate</td></tr><tr><td>Internal</td><td>Inside, most docs spaces, the service catalog, the board, internal dashboards</td><td>Every employee and contractor, signed in on a managed device</td><td>Automatic from the identity provider: joining the company grants it, leaving revokes it</td></tr><tr><td>Restricted</td><td>FinOps with invoices and contracts, security runbooks, incident records that name customers, HR</td><td>Named groups</td><td>The space owner approves group membership; access is reviewed every quarter</td></tr></tbody></table></div>
+<p>A space's class sits in its configuration next to its owner, so the build can route each space to the right proxy policy.</p>
+<h3 id="per-user-and-per-device">Per user and per device</h3>
+<ul><li><strong>Identity.</strong> Single sign-on through the company's identity provider (SAML or OpenID Connect), with a second factor. Groups come from the identity provider; the intranet keeps no user list of its own.</li><li><strong>Device.</strong> A managed device with disk encryption, a supported operating system version and screen lock. A device that fails the check gets the public content only.</li><li><strong>Session.</strong> Short sessions; restricted spaces ask for a fresh sign-in.</li><li><strong>Lifecycle.</strong> Joiner, mover and leaver events from the HR system change group membership on the same day.</li><li><strong>Audit.</strong> The proxy logs every request with user, device and path; access to restricted spaces is reviewed with the space owner.</li></ul>
+<h3 id="what-changes-in-the-build">What changes in the build</h3>
+<ul><li>Each docs space and each Inside page carries a class: public, internal or restricted.</li><li>The search index splits by class, so a reader is never offered a page they cannot open.</li><li>The demo banner on every page goes away.</li><li>The deploy target changes. GitHub Pages serves public sites only; an identity-aware proxy needs a host it can sit in front of. This demo stays on GitHub Pages.</li></ul>
+<h2 id="related">Related</h2>
+<ul><li><a href="/inside/docs/eng/service-catalog/">Service catalog</a>: who owns each service.</li><li><a href="/inside/docs/eng/site-architecture/">Site architecture</a>: where each site is hosted.</li></ul>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=inside">inside</a><a href="/inside/search/?q=security">security</a><a href="/inside/search/?q=access">access</a><a href="/inside/search/?q=sso">sso</a><a href="/inside/search/?q=zero-trust">zero-trust</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/decision-log/">Decision log</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/top-bar-and-search/">Top bar and search</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#today">Today</a></li><li class="l2"><a href="#in-production">In production</a></li><li class="l3"><a href="#spaces">Spaces</a></li><li class="l3"><a href="#per-user-and-per-device">Per user and per device</a></li><li class="l3"><a href="#what-changes-in-the-build">What changes in the build</a></li><li class="l2"><a href="#related">Related</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/access-model.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/access-model.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

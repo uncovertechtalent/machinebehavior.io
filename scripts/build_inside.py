@@ -227,6 +227,7 @@ def service_page(s, all_s, status_live):
     return f'''{head(title, desc, s["page"], s["name"] + " (service)", s["updated"], extra)}
 <body>
 {inside_chrome.bar("services")}
+{inside_chrome.banner()}
 <main class="wrap svc" id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/services/">Services</a></nav>
 <h1>{esc(s["name"])}</h1>
@@ -268,6 +269,7 @@ def catalog_page(svcs, status_live):
     return f'''{head("Services · Inside · Machine Behavior", desc, "/inside/services/", "Inside services: the service catalog", newest)}
 <body>
 {inside_chrome.bar("services")}
+{inside_chrome.banner()}
 <main class="wrap" id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/services/">Services</a></nav>
 <h1>Services</h1>
@@ -434,6 +436,7 @@ def status_page(svcs, incidents):
     return f'''{head("Status · Inside · Machine Behavior", desc, "/inside/status/", "Inside status: services and incidents", newest)}
 <body>
 {inside_chrome.bar("status")}
+{inside_chrome.banner()}
 <main class="wrap" id="main">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/status/">Status</a></nav>
 <h1>Status</h1>

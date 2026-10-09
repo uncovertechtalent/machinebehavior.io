@@ -456,7 +456,7 @@ ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.or
 
 
 def topbar():
-    return inside_chrome.bar('docs')
+    return inside_chrome.bar('docs') + '\n' + inside_chrome.banner()
 
 
 def footer(p=None):

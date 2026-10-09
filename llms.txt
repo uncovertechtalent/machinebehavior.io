@@ -78,11 +78,12 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (347 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (348 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
 - [Engineering](https://machinebehavior.io/inside/docs/eng/): How the three sites are built, gated and deployed, the map crawler, Inside and this docs tree.
+- [Access model](https://machinebehavior.io/inside/docs/eng/access-model/)
 - [Add a page to machinebehavior.io](https://machinebehavior.io/inside/docs/eng/add-a-page/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)

@@ -28,6 +28,10 @@ python3 scripts/inside_chrome.py --check   # exit 1 if a page differs from the s
 
 The styles are in `/inside/bar.css` and the search script in `/inside/bar.js`. Class names start with `ib-`, so the bar does not collide with page styles. Below 820 px the sections move to a second row that scrolls sideways inside the bar; the page itself does not scroll sideways.
 
+## Public-demo banner
+
+`banner()` in the same module writes the strip under the bar that says Inside is a public demo and that in production it sits behind single sign-on, with a link to the [Access model](doc:eng/access-model). It is on every Inside page except the map; hand-written pages hold the block `<!-- inside-banner:begin --><!-- inside-banner:end -->`.
+
 ## One search index
 
 `scripts/build_search.py` writes `/inside/search.json` from three sources:
