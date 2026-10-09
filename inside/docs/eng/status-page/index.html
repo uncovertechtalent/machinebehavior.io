@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status page · Engineering · Inside docs</title>
+<meta name="description" content="How /inside/status/ decides the state of each service from records the site already publishes, and how to open, update and close an incident in incidents/*.yml.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/status-page/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/status-page/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Status page">
+<meta property="og:description" content="How /inside/status/ decides the state of each service from records the site already publishes, and how to open, update and close an incident in incidents/*.yml.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="inside">
+<meta property="article:tag" content="status">
+<meta property="article:tag" content="incidents">
+<meta property="article:tag" content="how-to">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/board/">Ticket board</a></li><li class="leaf"><a href="/inside/docs/eng/top-bar-and-search/">Top bar and search</a></li><li class="leaf"><a href="/inside/docs/eng/service-catalog/">Service catalog</a></li><li class="leaf"><a href="/inside/docs/eng/status-page/" aria-current="page">Status page</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Status page</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>The <a href="/inside/status/">status page</a> shows the current state of every service in the <a href="/inside/services/">catalog</a> and the incident history. It is built by <code>scripts/build_inside.py</code> from <code>services/*.yml</code> and <code>incidents/*.yml</code>; the service states are read in the visitor's browser.</p>
+<h2 id="where-the-state-comes-from">Where the state comes from</h2>
+<p>The page reads only records the site already publishes, so a visit sends no request to a third party.</p>
+<div class="tbl"><table><thead><tr><th>Record</th><th>Used for</th><th>Written by</th></tr></thead><tbody><tr><td><code>https://&lt;site&gt;/conformity/latest.json</code> of each site</td><td>Gate pass or fail, time of the last run</td><td>The conformity job of each site</td></tr><tr><td><code>/inside/deploys.json</code></td><td>Result and push-to-live time of the last workflow run per public repository</td><td>The deploy job of this site</td></tr><tr><td><code>map_generated</code> in <code>/inside/search.json</code></td><td>Age of the map snapshot</td><td>The deploy job, after the map refresh</td></tr><tr><td>An open incident with reader impact</td><td>Marks the services it names as degraded</td><td><code>incidents/*.yml</code></td></tr></tbody></table></div>
+<p>The <code>status</code> block of a service file names its records (<code>gate</code>, <code>deploys</code>). A service without one shows "No live check" and links its dashboard. The observability stack, SearXNG, the local LLM and the agent sessions have no record on this site; Grafana and the alert rules watch them. See <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+<div class="tbl"><table><thead><tr><th>State</th><th>Rule</th></tr></thead><tbody><tr><td>Operational</td><td>The gate record passes and the last run on the deploy feed succeeded</td></tr><tr><td>Degraded</td><td>The gate fails (new deploys blocked, the previous build stays live), the last run failed, the map snapshot is older than eight days, or an open incident with reader impact names the service</td></tr><tr><td>Outage</td><td>A site does not answer with its gate record</td></tr><tr><td>No live check</td><td>No record for the service on this site</td></tr></tbody></table></div>
+<h2 id="incidents">Incidents</h2>
+<p>One YAML file per incident in <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/incidents">incidents/</a>, named <code>YYYY-MM-DD-short-name.yml</code>.</p>
+<div class="tbl"><table><thead><tr><th>Field</th><th>Required</th><th>Values</th></tr></thead><tbody><tr><td><code>id</code></td><td>yes</td><td>Same as the file name</td></tr><tr><td><code>title</code>, <code>summary</code></td><td>yes</td><td>Plain text, blameless: what happened to the system, never who</td></tr><tr><td><code>services</code></td><td>yes</td><td>Service ids from the catalog</td></tr><tr><td><code>impact</code></td><td>yes</td><td><code>none</code>, <code>minor</code>, <code>major</code>, <code>critical</code>; <code>none</code> does not mark services as degraded</td></tr><tr><td><code>started</code></td><td>yes</td><td><code>YYYY-MM-DD</code> or <code>YYYY-MM-DDTHH:MMZ</code> (UTC)</td></tr><tr><td><code>resolved</code></td><td>when resolved</td><td>Same format; set exactly when the last update is <code>resolved</code></td></tr><tr><td><code>updates</code></td><td>yes</td><td>A list of <code>stage</code>, <code>at</code>, <code>text</code>; stages only go forward: investigating, identified, monitoring, resolved</td></tr><tr><td><code>follow_up</code></td><td>no</td><td>What changed so it does not happen again</td></tr><tr><td><code>postmortem</code></td><td>no</td><td><code>doc:space/slug</code> links to the write-up and runbooks</td></tr></tbody></table></div>
+<p>A time that was not recorded is written as a date alone and shown as "time not recorded". Only times with a record behind them (a commit, a run, a log line) carry a clock time.</p>
+<h2 id="open-update-close">Open, update, close</h2>
+<ol><li>Open: add the file with one <code>investigating</code> update, run <code>python3 scripts/build_inside.py</code>, run the gate dry run and push.</li><li>Update: append an update with the next stage, or another update in the same stage, and push.</li><li>Close: append a <code>resolved</code> update, set <code>resolved</code>, link the write-up in <code>postmortem</code>, and push.</li></ol>
+<p>The status page is as fresh as the last deploy. The incident text is in the page source, so the gate scans it like any other page.</p>
+<h2 id="rules-for-the-text">Rules for the text</h2>
+<ul><li>No private addresses, host names, personal details or employer names.</li><li>Name the mechanism and the fix; no person is the cause.</li><li>Numbers come from a record: a run, a commit, a query result.</li></ul>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=inside">inside</a><a href="/inside/search/?q=status">status</a><a href="/inside/search/?q=incidents">incidents</a><a href="/inside/search/?q=how-to">how-to</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/decision-log/">Decision log</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/inside-portal/">Inside portal</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#where-the-state-comes-from">Where the state comes from</a></li><li class="l2"><a href="#incidents">Incidents</a></li><li class="l2"><a href="#open-update-close">Open, update, close</a></li><li class="l2"><a href="#rules-for-the-text">Rules for the text</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/status-page.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/status-page.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

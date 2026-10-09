@@ -1,0 +1,28 @@
+id: 2026-10-09-searxng-engine-suspensions
+title: SearXNG searches degraded by engine rate limits and blocks
+services: [searxng]
+impact: minor
+started: 2026-10-09
+resolved:
+summary: >
+  Searches for the research agents returned fewer results and took about 6 seconds per upstream query. Pacing was per query instead
+  of per engine, so each engine saw about 20 calls a minute and two engines answered with rate limits. One engine waited out a
+  6-second timeout on every query, empty responses were cached for 24 hours, and the container did not restart on its own.
+updates:
+  - stage: investigating
+    at: 2026-10-09
+    text: Agent searches came back empty or degraded. Time of the first report not recorded.
+  - stage: identified
+    at: 2026-10-09
+    text: Per-query pacing let every engine see about 20 calls a minute. One engine resolved to an address that drops connections, two others answered with a proof-of-work page or a CAPTCHA, and an empty response stayed in the cache for 24 hours.
+  - stage: monitoring
+    at: 2026-10-09T09:20Z
+    text: Per-engine gaps between calls (10 to 30 seconds), rate-limit suspensions raised from 120 to 300 seconds, empty responses no longer cached, a restart policy, three broken engines disabled, two engines added, and a health check with an exporter, a dashboard and six alert rules. Latency per upstream query fell from about 6 seconds to under 1 second.
+  - stage: monitoring
+    at: 2026-10-09T09:24Z
+    text: Health check still degraded. Three engines answer; three stay blocked by long-lived blocks from the morning's bursts. Watching for recovery.
+  - stage: monitoring
+    at: 2026-10-09T12:06Z
+    text: Health check still degraded. Six engines answer, including two that were disabled in the morning; two stay blocked, one by a CAPTCHA and one by a rate limit.
+follow_up: If the blocked engines do not recover within a day, the options are a different egress for one engine or longer suspensions; the choice is open.
+postmortem: [doc:obs/alerts-and-slos, doc:obs/public-dashboards]

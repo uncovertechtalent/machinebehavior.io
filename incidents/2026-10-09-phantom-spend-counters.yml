@@ -1,0 +1,25 @@
+id: 2026-10-09-phantom-spend-counters
+title: Claude Code spend overstated about 1,960 times by counter resets
+services: [agent-sessions, observability-stack]
+impact: minor
+started: 2026-10-02T07:54Z
+resolved: 2026-10-09T07:29Z
+summary: >
+  Parallel Claude Code processes wrote one cost counter series, and every export from a process with a lower total read as a counter
+  reset. Prometheus reported USD 1,970,946.62 for a week whose per-request events sum to USD 1,003.45 at list price, and the spend
+  alert was in firing state 73% of the time. No money moved; the meter was wrong. Spend and tokens are now summed from the events.
+updates:
+  - stage: investigating
+    at: 2026-10-09
+    text: During work on the cost panels, the counter totals did not match the per-request events. Time of the first check not recorded.
+  - stage: identified
+    at: 2026-10-09
+    text: The cost counters carry no attribute that tells one process from another; resets() counted 230,328 resets in seven days.
+  - stage: monitoring
+    at: 2026-10-09T07:29Z
+    text: The dashboards and the spend alert moved to sums over the per-request events in Loki.
+  - stage: resolved
+    at: 2026-10-09T07:30Z
+    text: Over 24 hours the event sums matched the session transcripts within 0.16% for tokens; the public dashboard was restored on Inside.
+follow_up: The alert threshold was then set from a week of event data, at USD 40 in the trailing hour.
+postmortem: [doc:fin/anomaly-the-phantom-two-million, doc:obs/runbook-counter-resets-parallel-sessions, doc:fin/budgets-and-alerts]

@@ -17,6 +17,7 @@ labels: inside, portal, frontend
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
 | Board | [Board](/inside/board/), from `/inside/board/issues.json` written by the deploy job | Work items from GitHub Issues; see [Ticket board](doc:eng/board) |
 | Services | [Service catalog](/inside/services/), from `services/*.yml` | See [Service catalog](doc:eng/service-catalog) |
+| Status | [Status](/inside/status/), from the gate records, `/inside/deploys.json` and `incidents/*.yml` | See [Status page](doc:eng/status-page) |
 | Top bar and search | `scripts/inside_chrome.py`, `/inside/search.json` | The same bar on every Inside page; the search covers the docs, the services and the map. See [Top bar and search](doc:eng/top-bar-and-search) |
 
 ## Rules for the page

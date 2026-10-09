@@ -1,0 +1,177 @@
+{
+ "generated": "2026-10-09",
+ "source": "https://github.com/uncovertechtalent/machinebehavior.io/tree/main/incidents",
+ "stages": [
+  "investigating",
+  "identified",
+  "monitoring",
+  "resolved"
+ ],
+ "incidents": [
+  {
+   "id": "2026-10-09-searxng-engine-suspensions",
+   "title": "SearXNG searches degraded by engine rate limits and blocks",
+   "services": [
+    "searxng"
+   ],
+   "impact": "minor",
+   "stage": "monitoring",
+   "started": "2026-10-09",
+   "resolved": null,
+   "summary": "Searches for the research agents returned fewer results and took about 6 seconds per upstream query. Pacing was per query instead of per engine, so each engine saw about 20 calls a minute and two engines answered with rate limits. One engine waited out a 6-second timeout on every query, empty responses were cached for 24 hours, and the container did not restart on its own.",
+   "updates": [
+    {
+     "stage": "investigating",
+     "at": "2026-10-09",
+     "text": "Agent searches came back empty or degraded. Time of the first report not recorded."
+    },
+    {
+     "stage": "identified",
+     "at": "2026-10-09",
+     "text": "Per-query pacing let every engine see about 20 calls a minute. One engine resolved to an address that drops connections, two others answered with a proof-of-work page or a CAPTCHA, and an empty response stayed in the cache for 24 hours."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-09T09:20Z",
+     "text": "Per-engine gaps between calls (10 to 30 seconds), rate-limit suspensions raised from 120 to 300 seconds, empty responses no longer cached, a restart policy, three broken engines disabled, two engines added, and a health check with an exporter, a dashboard and six alert rules. Latency per upstream query fell from about 6 seconds to under 1 second."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-09T09:24Z",
+     "text": "Health check still degraded. Three engines answer; three stay blocked by long-lived blocks from the morning's bursts. Watching for recovery."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-09T12:06Z",
+     "text": "Health check still degraded. Six engines answer, including two that were disabled in the morning; two stay blocked, one by a CAPTCHA and one by a rate limit."
+    }
+   ],
+   "follow_up": "If the blocked engines do not recover within a day, the options are a different egress for one engine or longer suspensions; the choice is open.",
+   "postmortem": [
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/public-dashboards/"
+   ]
+  },
+  {
+   "id": "2026-10-08-gate-blocked-map-push",
+   "title": "A push to machinebehavior.io failed the gate; the deploy was blocked",
+   "services": [
+    "conformity-gate",
+    "deploy-job",
+    "machinebehavior-io"
+   ],
+   "impact": "none",
+   "stage": "resolved",
+   "started": "2026-10-08T14:05Z",
+   "resolved": "2026-10-08T14:07Z",
+   "summary": "A change to the map page built a link inside a JavaScript template string. The link check read it as a relative link, the gate failed and the deploy did not run, so readers kept the previous build. A follow-up push set the link in code and passed. The control worked as designed; the record is kept because a blocked deploy is the case the gate exists for.",
+   "updates": [
+    {
+     "stage": "investigating",
+     "at": "2026-10-08T14:05Z",
+     "text": "The gate run on the push failed. The deploy job did not start and the previous build stayed live."
+    },
+    {
+     "stage": "identified",
+     "at": "2026-10-08T14:05Z",
+     "text": "The site consistency check named a relative link in map/index.html, the value of an href attribute written inside a template string."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-08T14:06Z",
+     "text": "A fix that sets the link with a.href in code was pushed."
+    },
+    {
+     "stage": "resolved",
+     "at": "2026-10-08T14:07Z",
+     "text": "The gate passed on the fix and the deploy went out. Time from the failed run to the passing run, 81 seconds."
+    }
+   ],
+   "follow_up": "The runbook for this failure was written the same day; Inside, the map and the docs build every link this way.",
+   "postmortem": [
+    "/inside/docs/eng/runbook-template-href/",
+    "/inside/docs/eng/conformity-gate/"
+   ]
+  },
+  {
+   "id": "2026-10-08-utt-tag-pages-xml",
+   "title": "Tag pages on uncovertechtalent.com served RSS XML instead of HTML",
+   "services": [
+    "uncovertechtalent-com",
+    "map-crawler"
+   ],
+   "impact": "minor",
+   "stage": "resolved",
+   "started": "2026-10-08",
+   "resolved": "2026-10-08T14:13Z",
+   "summary": "The Hugo build of uncovertechtalent.com had no template for tag pages, so each of the 37 tag pages answered with the RSS feed. A reader who opened a tag, on the site or from the map, got raw XML. The map dropped the pages first; then the site gained the missing templates and the tag pages answer with HTML again.",
+   "updates": [
+    {
+     "stage": "investigating",
+     "at": "2026-10-08",
+     "text": "Clicking a tag node on the map opened raw XML. Time of the first report not recorded."
+    },
+    {
+     "stage": "identified",
+     "at": "2026-10-08T13:47Z",
+     "text": "The tag pages had no HTML template and served the RSS feed. The crawler now records each response's media type and drops pages that are not HTML, so the map stopped linking them."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-08T13:47Z",
+     "text": "The map no longer shows the tag pages; the fix on the site was in progress."
+    },
+    {
+     "stage": "resolved",
+     "at": "2026-10-08T14:13Z",
+     "text": "Term and taxonomy templates were added to the site. The 37 tag pages answer with HTML and are back on the map as hubs."
+    }
+   ],
+   "follow_up": "The crawler keeps the media-type guard, so a page that stops serving HTML leaves the map at the next crawl.",
+   "postmortem": [
+    "/inside/docs/eng/map-crawler/"
+   ]
+  },
+  {
+   "id": "2026-10-09-phantom-spend-counters",
+   "title": "Claude Code spend overstated about 1,960 times by counter resets",
+   "services": [
+    "agent-sessions",
+    "observability-stack"
+   ],
+   "impact": "minor",
+   "stage": "resolved",
+   "started": "2026-10-02T07:54Z",
+   "resolved": "2026-10-09T07:29Z",
+   "summary": "Parallel Claude Code processes wrote one cost counter series, and every export from a process with a lower total read as a counter reset. Prometheus reported USD 1,970,946.62 for a week whose per-request events sum to USD 1,003.45 at list price, and the spend alert was in firing state 73% of the time. No money moved; the meter was wrong. Spend and tokens are now summed from the events.",
+   "updates": [
+    {
+     "stage": "investigating",
+     "at": "2026-10-09",
+     "text": "During work on the cost panels, the counter totals did not match the per-request events. Time of the first check not recorded."
+    },
+    {
+     "stage": "identified",
+     "at": "2026-10-09",
+     "text": "The cost counters carry no attribute that tells one process from another; resets() counted 230,328 resets in seven days."
+    },
+    {
+     "stage": "monitoring",
+     "at": "2026-10-09T07:29Z",
+     "text": "The dashboards and the spend alert moved to sums over the per-request events in Loki."
+    },
+    {
+     "stage": "resolved",
+     "at": "2026-10-09T07:30Z",
+     "text": "Over 24 hours the event sums matched the session transcripts within 0.16% for tokens; the public dashboard was restored on Inside."
+    }
+   ],
+   "follow_up": "The alert threshold was then set from a week of event data, at USD 40 in the trailing hour.",
+   "postmortem": [
+    "/inside/docs/fin/anomaly-the-phantom-two-million/",
+    "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
+    "/inside/docs/fin/budgets-and-alerts/"
+   ]
+  }
+ ]
+}

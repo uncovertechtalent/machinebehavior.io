@@ -1,0 +1,25 @@
+id: 2026-10-08-utt-tag-pages-xml
+title: Tag pages on uncovertechtalent.com served RSS XML instead of HTML
+services: [uncovertechtalent-com, map-crawler]
+impact: minor
+started: 2026-10-08
+resolved: 2026-10-08T14:13Z
+summary: >
+  The Hugo build of uncovertechtalent.com had no template for tag pages, so each of the 37 tag pages answered with the RSS feed. A
+  reader who opened a tag, on the site or from the map, got raw XML. The map dropped the pages first; then the site gained the
+  missing templates and the tag pages answer with HTML again.
+updates:
+  - stage: investigating
+    at: 2026-10-08
+    text: Clicking a tag node on the map opened raw XML. Time of the first report not recorded.
+  - stage: identified
+    at: 2026-10-08T13:47Z
+    text: The tag pages had no HTML template and served the RSS feed. The crawler now records each response's media type and drops pages that are not HTML, so the map stopped linking them.
+  - stage: monitoring
+    at: 2026-10-08T13:47Z
+    text: The map no longer shows the tag pages; the fix on the site was in progress.
+  - stage: resolved
+    at: 2026-10-08T14:13Z
+    text: Term and taxonomy templates were added to the site. The 37 tag pages answer with HTML and are back on the map as hubs.
+follow_up: The crawler keeps the media-type guard, so a page that stops serving HTML leaves the map at the next crawl.
+postmortem: [doc:eng/map-crawler]

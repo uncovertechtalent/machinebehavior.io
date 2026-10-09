@@ -42,6 +42,11 @@ ul.links li:first-child { border-top: 0; }
 .doc td.mono { white-space: nowrap; }
 
 /* status */
+h2.sec { font: 400 12px 'JetBrains Mono', monospace; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim); margin: 26px 0 10px;
+  scroll-margin-top: calc(var(--ib-h) + 12px); }
+.how { margin-top: 26px; padding-top: 4px; border-top: 1px solid var(--line); font-size: 14px; color: var(--soft); line-height: 1.5; }
+.how ul.links li { border-top: 0; padding: 3px 0; }
+.how a { color: var(--amber); }
 .overall { display: flex; align-items: center; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 4px 0 8px; }
 .overall b { font-size: 18px; font-weight: 500; }
 .overall .asof { margin-left: auto; font: 12px 'JetBrains Mono', monospace; color: var(--dim); text-align: right; }

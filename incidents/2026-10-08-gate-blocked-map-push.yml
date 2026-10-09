@@ -1,0 +1,25 @@
+id: 2026-10-08-gate-blocked-map-push
+title: A push to machinebehavior.io failed the gate; the deploy was blocked
+services: [conformity-gate, deploy-job, machinebehavior-io]
+impact: none
+started: 2026-10-08T14:05Z
+resolved: 2026-10-08T14:07Z
+summary: >
+  A change to the map page built a link inside a JavaScript template string. The link check read it as a relative link, the gate
+  failed and the deploy did not run, so readers kept the previous build. A follow-up push set the link in code and passed. The control
+  worked as designed; the record is kept because a blocked deploy is the case the gate exists for.
+updates:
+  - stage: investigating
+    at: 2026-10-08T14:05Z
+    text: The gate run on the push failed. The deploy job did not start and the previous build stayed live.
+  - stage: identified
+    at: 2026-10-08T14:05Z
+    text: The site consistency check named a relative link in map/index.html, the value of an href attribute written inside a template string.
+  - stage: monitoring
+    at: 2026-10-08T14:06Z
+    text: A fix that sets the link with a.href in code was pushed.
+  - stage: resolved
+    at: 2026-10-08T14:07Z
+    text: The gate passed on the fix and the deploy went out. Time from the failed run to the passing run, 81 seconds.
+follow_up: The runbook for this failure was written the same day; Inside, the map and the docs build every link this way.
+postmortem: [doc:eng/runbook-template-href, doc:eng/conformity-gate]

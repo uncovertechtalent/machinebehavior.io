@@ -2,17 +2,18 @@
 """Build the Inside pages that are not docs, then the site-wide search index.
 
 Steps, in order:
-1. the service catalog: services/*.yml -> /inside/services/ and one page per service, plus inside/services/services.json;
-2. sync the top bar into the hand-written Inside pages (scripts/inside_chrome.py);
-3. managed blocks in sitemap.xml and llms.txt;
-4. the search index /inside/search.json (scripts/build_search.py).
+1. the status page: incidents/*.yml plus the catalog -> /inside/status/ and inside/status/incidents.json;
+2. the service catalog: services/*.yml -> /inside/services/ and one page per service, plus inside/services/services.json;
+3. sync the top bar into the hand-written Inside pages (scripts/inside_chrome.py);
+4. managed blocks in sitemap.xml and llms.txt;
+5. the search index /inside/search.json (scripts/build_search.py).
 
 Every YAML file is validated; an unknown field, a missing field, a value outside the allowed set, a docs link to a
 page that does not exist or a dependency on an unknown service stops the build.
 
 Run after scripts/build_docs.py, from the repo root:  python3 scripts/build_inside.py
 """
-import datetime, json, subprocess, sys
+import datetime, json, re, subprocess, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -281,9 +282,7 @@ def catalog_page(svcs, status_live):
 '''
 
 
-def build_services():
-    svcs = load_services()
-    status_live = (ROOT / 'inside' / 'status' / 'index.html').exists()
+def build_services(svcs, status_live):
     out = ROOT / 'inside' / 'services'
     for d in out.iterdir() if out.exists() else []:
         if d.is_dir() and d.name not in svcs:
@@ -308,8 +307,182 @@ def build_services():
     return svcs
 
 
+
+# ---------- incidents and status ----------
+STAGES = ['investigating', 'identified', 'monitoring', 'resolved']
+IMPACTS = {'none': 'No reader impact', 'minor': 'Minor', 'major': 'Major', 'critical': 'Critical'}
+INCIDENT_FIELDS = {
+    'id': (True, str), 'title': (True, str), 'services': (True, list), 'impact': (True, str), 'started': (True, str),
+    'resolved': (False, str), 'summary': (True, str), 'updates': (True, list), 'follow_up': (False, str), 'postmortem': (False, list),
+}
+WHEN = re.compile(r'^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}Z)?$')
+
+
+def load_incidents(svcs):
+    out = []
+    for f in sorted((ROOT / 'incidents').glob('*.yml')):
+        where = f.relative_to(ROOT).as_posix()
+        try:
+            i = mini_yaml.load_file(f)
+        except mini_yaml.YamlError as e:
+            fail(str(e))
+        for k in i:
+            if k not in INCIDENT_FIELDS:
+                fail(f'{where}: unknown field {k}')
+        for k, (req, typ) in INCIDENT_FIELDS.items():
+            if i.get(k) is None:
+                if req:
+                    fail(f'{where}: missing {k}')
+                continue
+            if not isinstance(i[k], typ):
+                fail(f'{where}: {k} must be {typ.__name__}')
+        if i['id'] != f.stem:
+            fail(f'{where}: id does not match the file name')
+        if i['impact'] not in IMPACTS:
+            fail(f'{where}: impact must be one of {list(IMPACTS)}')
+        for sid in i['services']:
+            if sid not in svcs:
+                fail(f'{where}: service {sid} is not in the catalog')
+        for k in ('started', 'resolved'):
+            if i.get(k) and not WHEN.match(i[k]):
+                fail(f'{where}: {k} must be YYYY-MM-DD or YYYY-MM-DDTHH:MMZ')
+        if not i['updates']:
+            fail(f'{where}: at least one update')
+        last = -1
+        for u in i['updates']:
+            if not isinstance(u, dict) or set(u) != {'stage', 'at', 'text'}:
+                fail(f'{where}: each update needs stage, at and text')
+            if u['stage'] not in STAGES:
+                fail(f'{where}: stage must be one of {STAGES}')
+            if not WHEN.match(str(u['at'])):
+                fail(f'{where}: update time must be YYYY-MM-DD or YYYY-MM-DDTHH:MMZ')
+            if STAGES.index(u['stage']) < last:
+                fail(f'{where}: stages go forward: investigating, identified, monitoring, resolved')
+            last = STAGES.index(u['stage'])
+        stage = i['updates'][-1]['stage']
+        if (stage == 'resolved') != bool(i.get('resolved')):
+            fail(f'{where}: "resolved" is set exactly when the last update is resolved')
+        i['stage'] = stage
+        i['postmortem_l'] = [doc_ref(r, where) for r in i.get('postmortem') or []]
+        i['src'] = where
+        out.append(i)
+    out.sort(key=lambda i: (i['started'], i['id']), reverse=True)
+    return out
+
+
+def when(t):
+    t = str(t)
+    return t.replace('T', ' ').replace('Z', ' UTC') if 'T' in t else t + ', time not recorded'
+
+
+def incident_html(i, svcs):
+    open_ = i['stage'] != 'resolved'
+    svc_links = ', '.join(f'<a href="{svcs[s]["page"]}">{esc(svcs[s]["name"])}</a>' for s in i['services'])
+    tl = ''.join(f'<li><span class="when">{esc(when(u["at"]))} · <span class="stage {u["stage"]}">{u["stage"].capitalize()}</span></span>{esc(" ".join(u["text"].split()))}</li>'
+                 for u in i['updates'])
+    pm = ''
+    if i['postmortem_l']:
+        pm = '<p class="services">Write-up and runbooks: ' + ', '.join(f'<a href="{u}">{esc(t)}</a>' for u, t in i['postmortem_l']) + '</p>'
+    fu = f'<p><b>Follow-up.</b> {esc(" ".join(i["follow_up"].split()))}</p>' if i.get('follow_up') else ''
+    span = f'{esc(when(i["started"]))} to {esc(when(i["resolved"]))}' if i.get('resolved') else f'since {esc(when(i["started"]))}'
+    return (f'<article class="inc" id="{esc(i["id"])}"><div class="inc-top"><h3>{esc(i["title"])}</h3>'
+            f'<span class="stage {i["stage"]}">{i["stage"].capitalize()}</span></div>'
+            f'<div class="meta"><span>{span}</span><span>impact: {esc(IMPACTS[i["impact"]].lower())}</span>'
+            f'<a href="{REPO}/blob/main/{esc(i["src"])}">record</a></div>'
+            f'<p>{esc(" ".join(i["summary"].split()))}</p><p class="services">Services: {svc_links}</p>{fu}{pm}'
+            f'<details{" open" if open_ else ""}><summary>Timeline, {len(i["updates"])} updates</summary><ol class="timeline">{tl}</ol></details></article>')
+
+
+def status_page(svcs, incidents):
+    open_inc = [i for i in incidents if i['stage'] != 'resolved']
+    by_svc = {}
+    for i in open_inc:
+        if i['impact'] == 'none':
+            continue
+        for sid in i['services']:
+            by_svc.setdefault(sid, i)
+    order = sorted(svcs.values(), key=lambda s: (SYSTEMS.index(s['system']), s['tier'], s['name'].lower()))
+    rows, cfg = '', []
+    for s in order:
+        st = s.get('status') or {}
+        src = []
+        if st.get('gate'):
+            host = st['gate'].split('/')[2]
+            src.append(f'<a href="{esc(st["gate"])}">gate record of {esc(host)}</a>')
+        if st.get('deploys'):
+            src.append('<a href="/inside/deploys.json">deploy feed</a>')
+        if s['id'] == 'map-crawler':
+            src.append('<a href="/inside/search.json">map snapshot time</a>')
+        if not src and s.get('dashboard'):
+            src.append(f'no live check from this page; watched on <a href="{esc(s["dashboard"]["url"])}">{esc(s["dashboard"]["name"])}</a>')
+        elif not src:
+            src.append('no live check from this page; checked by the gate on every push' if s['id'] == 'docs-build' else 'no live check from this page')
+        inc = by_svc.get(s['id'])
+        if inc:
+            src.append(f'open incident: <a href="#{esc(inc["id"])}">{esc(inc["title"])}</a>')
+        live = bool(st) or s['id'] == 'map-crawler'
+        state, light = ('Degraded', 'warn') if inc else (('reading', 'none') if live else ('No live check', 'none'))
+        rows += (f'<li id="{esc(s["id"])}"><span class="light {light}" data-light></span><a class="st-name" href="{s["page"]}">{esc(s["name"])}</a>'
+                 f'<span class="st-state" data-state>{state}</span><span class="st-why">{" · ".join(src)}</span></li>')
+        cfg.append({'id': s['id'], 'gate': st.get('gate'), 'deploys': st.get('deploys'), 'map': s['id'] == 'map-crawler',
+                    'incident': bool(inc), 'site': bool(st.get('gate')) and s.get('url') == 'https://' + st['gate'].split('/')[2] + '/'})
+    open_html = ''.join(incident_html(i, svcs) for i in open_inc) or '<p class="note">No open incident.</p>'
+    hist_html = ''.join(incident_html(i, svcs) for i in incidents if i['stage'] == 'resolved')
+    newest = max([str(u['at'])[:10] for i in incidents for u in i['updates']] + [s['updated'] for s in svcs.values()])
+    desc = (f'Status of the {len(svcs)} services behind machinebehavior.io, read from the gate records and the deploy feed, and the incident '
+            'history with the stages Investigating, Identified, Monitoring and Resolved.')
+    return f'''{head("Status · Inside · Machine Behavior", desc, "/inside/status/", "Inside status: services and incidents", newest)}
+<body>
+{inside_chrome.bar("status")}
+<main class="wrap" id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/status/">Status</a></nav>
+<h1>Status</h1>
+<p class="lede">The current state of each service in the <a href="/inside/services/">catalog</a>, read in your browser from the records this site already publishes: each site's gate record and the deploy feed written at the last deploy. Services without such a record say so, and an open incident marks the services it affects. Incidents are written blameless; updated {newest}.</p>
+<div class="overall" id="overall"><span class="light none" id="ov-light"></span><b id="ov-text">Reading the records</b><span class="asof" id="ov-asof"></span></div>
+<h2 class="sec">Services</h2>
+<ul class="st-list">{rows}</ul>
+<h2 class="sec" id="open">Open incidents</h2>
+{open_html}
+<h2 class="sec" id="history">Incident history</h2>
+{hist_html}
+<section class="how"><h2 class="sec">How the state is decided</h2>
+<ul class="links">
+<li><b>Operational</b>: the gate record passes and the last workflow run on the deploy feed succeeded.</li>
+<li><b>Degraded</b>: the gate fails (new deploys are blocked and the previous build stays live), the last run failed, the map snapshot is older than eight days, or an open incident with reader impact names the service.</li>
+<li><b>Outage</b>: a site does not answer with its gate record.</li>
+<li><b>No live check</b>: this page has no record for the service. Its dashboard and alert rules watch it; see <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</li>
+</ul>
+<p class="note">Stages: Investigating, Identified, Monitoring, Resolved. Records: <a href="{REPO}/tree/main/incidents">incidents/*.yml</a>, machine-readable at <a href="/inside/status/incidents.json">incidents.json</a>. How to open, update and close an incident: <a href="/inside/docs/eng/status-page/">Status page</a> in the Engineering docs.</p></section>
+</main>
+<script type="application/json" id="st-cfg">{json.dumps(cfg)}</script>
+<script src="/inside/status/status.js" defer></script>
+{foot(f'Inside status · built from <a href="{REPO}/tree/main/incidents">incidents/*.yml</a> and <a href="{REPO}/tree/main/services">services/*.yml</a> by <a href="{REPO}/blob/main/scripts/build_inside.py">build_inside.py</a>')}
+<noscript><p style="padding:0 18px">Without JavaScript the service states are not read; the incidents above are static.</p></noscript>
+</body>
+</html>
+'''
+
+
+def build_status(svcs):
+    incidents = load_incidents(svcs)
+    out = ROOT / 'inside' / 'status'
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'index.html').write_text(status_page(svcs, incidents), encoding='utf-8')
+    data = {'generated': TODAY, 'source': f'{REPO}/tree/main/incidents', 'stages': STAGES, 'incidents': [
+        {'id': i['id'], 'title': i['title'], 'services': i['services'], 'impact': i['impact'], 'stage': i['stage'],
+         'started': i['started'], 'resolved': i.get('resolved'), 'summary': ' '.join(i['summary'].split()),
+         'updates': [{'stage': u['stage'], 'at': str(u['at']), 'text': ' '.join(u['text'].split())} for u in i['updates']],
+         'follow_up': ' '.join((i.get('follow_up') or '').split()) or None, 'postmortem': [u for u, _ in i['postmortem_l']]}
+        for i in incidents]}
+    (out / 'incidents.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8')
+    print(f'status: {len(incidents)} incidents, {sum(1 for i in incidents if i["stage"] != "resolved")} open')
+    return incidents
+
+
 def main():
-    svcs = build_services()
+    svcs = load_services()
+    incidents = build_status(svcs)
+    build_services(svcs, status_live=True)
     stale, missing = inside_chrome.sync()
     print(f'bar synced in {len(stale)} page(s)')
     if missing:
@@ -324,6 +497,13 @@ def main():
     for s in sorted(svcs.values(), key=lambda s: (SYSTEMS.index(s['system']), s['tier'], s['name'].lower())):
         sec += f'- [{s["name"]}]({BASE}{s["page"]}): {s["system"]}, tier {s["tier"]}, {s["lifecycle"]}. {" ".join(s["description"].split())}\n'
     inside_chrome.llms_section('Inside services', sec)
+    newest_inc = max(str(u['at'])[:10] for i in incidents for u in i['updates'])
+    inside_chrome.sitemap_block('status', [('/inside/status/', newest_inc)])
+    sec = (f'The status page at {BASE}/inside/status/: the state of each service from the gate records and the deploy feed, and the incident '
+           f'history (stages Investigating, Identified, Monitoring, Resolved), written blameless. Machine-readable: {BASE}/inside/status/incidents.json.\n\n')
+    for i in incidents:
+        sec += f'- [{i["title"]}]({BASE}/inside/status/#{i["id"]}): {i["stage"]}, started {i["started"]}. {" ".join(i["summary"].split())}\n'
+    inside_chrome.llms_section('Inside status', sec)
     build_search.main()
 
 

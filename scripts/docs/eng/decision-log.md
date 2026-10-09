@@ -5,6 +5,12 @@ labels: adr, decisions, governance
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: a status page from records the site already publishes
+
+- **Decision.** `/inside/status/` reads each site's `conformity/latest.json`, `/inside/deploys.json` and the map snapshot time in the browser, and shows the incident history from `incidents/*.yml` with the stages Investigating, Identified, Monitoring and Resolved. Services the site has no record for say "No live check" and link their dashboard; the page does not call Grafana or Prometheus.
+- **Why.** A visitor could see metrics on the dashboards but not, at a glance, whether a service is healthy or what went wrong last week. Reading only published records keeps the rule of no third-party request on load.
+- **Consequence.** Six of twelve services have a live check on the page. The incident history starts with four real incidents from 2026-10-08 and 2026-10-09; times without a record behind them are shown as "time not recorded". See [Status page](doc:eng/status-page).
+
 ## 2026-10-09: a service catalog from YAML in the repository
 
 - **Decision.** Every service is one YAML file in `services/`; `scripts/build_inside.py` validates the files and builds `/inside/services/`, a page per service and `services.json`. The reader is a strict subset parser in the standard library (`scripts/mini_yaml.py`), so the build needs no package. Service pages are `service` nodes in the map, and the public dashboards they link become `dashboard` nodes.

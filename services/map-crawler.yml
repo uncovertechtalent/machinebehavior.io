@@ -13,5 +13,3 @@ docs: [doc:eng/map-crawler]
 runbooks: []
 depends_on: [machinebehavior-io, tychat-io, uncovertechtalent-com]
 external: [Substack]
-status:
-  deploys: uncovertechtalent/machinebehavior.io
