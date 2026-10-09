@@ -10,7 +10,7 @@ updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Cluster.md
 reviewed: no
 ---
-> Map of Regulation (EU) 2024/1689 — the EU AI Act. World's first comprehensive AI regulation. Risk-tier obligations (unacceptable / high-risk / limited-risk / minimal-risk) plus separate GPAI tier. Staged applicability from 2 February 2025 through 2 August 2027. Reference cluster for regulatory compliance work serving EU markets, EU-based AI providers, and AI deployers using EU-affecting systems.
+> Map of Regulation (EU) 2024/1689 — the EU AI Act. World's first comprehensive AI regulation. Risk-tier obligations (unacceptable / high-risk / limited-risk / minimal-risk) plus separate GPAI tier. Staged applicability from 2 February 2025 through 2 August 2028 (high-risk systems in Annex I products, as amended by Regulation (EU) 2026/1744), with public-authority legacy systems due by 2 August 2030. Reference cluster for regulatory compliance work serving EU markets, EU-based AI providers, and AI deployers using EU-affecting systems.
 
 ## Anchors
 
