@@ -1,5 +1,5 @@
 title: ADR-0028: The home page as the front page of the portal
-summary: The home page leads into the sections of the portal: a hero with the map, the receipts as tiles, cards for Research, Inside, Mission Control, Docs, Topics and Map, the latest research and the topics, written from site/nav.yml; the case-file list that repeated the claims is gone.
+summary: The home page leads into the sections of the portal: a hero with the map, cards for Research, Inside, Mission Control, Docs, Topics and Map, the latest research and the topics, written from site/nav.yml; the case-file list that repeated the claims is gone.
 parent: decision-log
 order: 28
 adr: 28
@@ -20,14 +20,13 @@ The home page was a single serif column: the thesis, a picture of the map, four 
 The home page keeps its text and changes its layout, in the reading brand and up to 1160 px wide:
 
 - a hero with the title, the subtitle, the thesis, the one-liner and three links (research, Inside, the tour), beside the picture of the map;
-- the four receipts as tiles; the P0 incident tile links the P0 dissection, which no other page linked;
 - one card per section (Research, Inside, Mission Control, Docs, Topics, Map) with the sentence `about` in `site/nav.yml` and the page count;
 - the four research pages published last, by the `published` dates in `site/nav.yml`, with the description each page gives itself;
 - the topics as links to their hubs;
 - the TYChat lessons, the other surfaces as a compact list, and the aim.
 
-The cards, the latest research and the topics sit between `<!-- static:home-... -->` markers and are written by `scripts/build_fallbacks.py`, so they follow the navigation source. The case-file list and the decorative network band above the title are gone; the map picture in the hero carries the same image.
+The cards, the latest research and the topics sit between `<!-- static:home-... -->` markers and are written by `scripts/build_fallbacks.py`, so they follow the navigation source. The case-file list, the four receipts from the production logs and the decorative network band above the title are gone, for a cleaner page (Stefan Coetzee, 2026-10-09); three of the receipts stay on [Claims](/claims/) and [Experiments](/experiments/), and the map picture in the hero carries the same image. The fourth, the P0 incident (37 minutes from detection to published root-cause analysis), and its write-up on Reddit, the P0 dissection, now appear on no page of the site.
 
 ## Consequences
 
-A new section or a new research page with a `published` date shows on the home page at the next build. The text in the hero, the tiles, the lessons, the surfaces and the aim stays hand-written. The section sentences in `site/nav.yml` are new text and open to a voice pass.
+A new section or a new research page with a `published` date shows on the home page at the next build. The text in the hero, the lessons, the surfaces and the aim stays hand-written. The section sentences in `site/nav.yml` are new text and open to a voice pass.

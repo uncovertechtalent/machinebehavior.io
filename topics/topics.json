@@ -752,7 +752,7 @@
   {
    "n": 44,
    "t": "Home page as the portal front page",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/44",
    "labels": [
     "type: feature",
@@ -760,8 +760,8 @@
     "status: in progress",
     "area: site"
    ],
-   "closed": "",
-   "reason": ""
+   "closed": "2026-10-09",
+   "reason": "completed"
   },
   {
    "n": 43,
