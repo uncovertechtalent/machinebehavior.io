@@ -23,3 +23,4 @@ updates:
     text: Over 24 hours the event sums matched the session transcripts within 0.16% for tokens; the public dashboard was restored on Inside.
 follow_up: The alert threshold was then set from a week of event data, at USD 40 in the trailing hour.
 postmortem: [doc:fin/anomaly-the-phantom-two-million, doc:obs/runbook-counter-resets-parallel-sessions, doc:fin/budgets-and-alerts]
+tickets: [29]

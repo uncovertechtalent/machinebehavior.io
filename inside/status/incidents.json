@@ -50,7 +50,8 @@
    "postmortem": [
     "/inside/docs/obs/alerts-and-slos/",
     "/inside/docs/obs/public-dashboards/"
-   ]
+   ],
+   "tickets": []
   },
   {
    "id": "2026-10-08-gate-blocked-map-push",
@@ -91,7 +92,8 @@
    "postmortem": [
     "/inside/docs/eng/runbook-template-href/",
     "/inside/docs/eng/conformity-gate/"
-   ]
+   ],
+   "tickets": []
   },
   {
    "id": "2026-10-08-utt-tag-pages-xml",
@@ -130,7 +132,8 @@
    "follow_up": "The crawler keeps the media-type guard, so a page that stops serving HTML leaves the map at the next crawl.",
    "postmortem": [
     "/inside/docs/eng/map-crawler/"
-   ]
+   ],
+   "tickets": []
   },
   {
    "id": "2026-10-09-phantom-spend-counters",
@@ -171,6 +174,9 @@
     "/inside/docs/fin/anomaly-the-phantom-two-million/",
     "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
     "/inside/docs/fin/budgets-and-alerts/"
+   ],
+   "tickets": [
+    "https://github.com/uncovertechtalent/machinebehavior.io/issues/29"
    ]
   }
  ]

@@ -44,6 +44,7 @@ One YAML file per incident in [incidents/](https://github.com/uncovertechtalent/
 | `updates` | yes | A list of `stage`, `at`, `text`; stages only go forward: investigating, identified, monitoring, resolved |
 | `follow_up` | no | What changed so it does not happen again |
 | `postmortem` | no | `doc:space/slug` links to the write-up and runbooks |
+| `tickets` | no | GitHub issue numbers for the owned follow-up work, for example `[29]`; each links to its card on the [board](/inside/board/) |
 
 A time that was not recorded is written as a date alone and shown as "time not recorded". Only times with a record behind them (a commit, a run, a log line) carry a clock time.
 

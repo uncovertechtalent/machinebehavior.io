@@ -316,6 +316,7 @@ IMPACTS = {'none': 'No reader impact', 'minor': 'Minor', 'major': 'Major', 'crit
 INCIDENT_FIELDS = {
     'id': (True, str), 'title': (True, str), 'services': (True, list), 'impact': (True, str), 'started': (True, str),
     'resolved': (False, str), 'summary': (True, str), 'updates': (True, list), 'follow_up': (False, str), 'postmortem': (False, list),
+    'tickets': (False, list),
 }
 WHEN = re.compile(r'^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}Z)?$')
 
@@ -366,6 +367,9 @@ def load_incidents(svcs):
             fail(f'{where}: "resolved" is set exactly when the last update is resolved')
         i['stage'] = stage
         i['postmortem_l'] = [doc_ref(r, where) for r in i.get('postmortem') or []]
+        for t in i.get('tickets') or []:
+            if not isinstance(t, int) or isinstance(t, bool) or t < 1:
+                fail(f'{where}: tickets are GitHub issue numbers')
         i['src'] = where
         out.append(i)
     out.sort(key=lambda i: (i['started'], i['id']), reverse=True)
@@ -385,6 +389,8 @@ def incident_html(i, svcs):
     pm = ''
     if i['postmortem_l']:
         pm = '<p class="services">Write-up and runbooks: ' + ', '.join(f'<a href="{u}">{esc(t)}</a>' for u, t in i['postmortem_l']) + '</p>'
+    if i.get('tickets'):
+        pm += '<p class="services">Tickets: ' + ', '.join(f'<a href="/inside/board/#issue-{t}">#{t} on the board</a>' for t in i['tickets']) + '</p>'
     fu = f'<p><b>Follow-up.</b> {esc(" ".join(i["follow_up"].split()))}</p>' if i.get('follow_up') else ''
     span = f'{esc(when(i["started"]))} to {esc(when(i["resolved"]))}' if i.get('resolved') else f'since {esc(when(i["started"]))}'
     return (f'<article class="inc" id="{esc(i["id"])}"><div class="inc-top"><h3>{esc(i["title"])}</h3>'
@@ -475,7 +481,8 @@ def build_status(svcs):
         {'id': i['id'], 'title': i['title'], 'services': i['services'], 'impact': i['impact'], 'stage': i['stage'],
          'started': i['started'], 'resolved': i.get('resolved'), 'summary': ' '.join(i['summary'].split()),
          'updates': [{'stage': u['stage'], 'at': str(u['at']), 'text': ' '.join(u['text'].split())} for u in i['updates']],
-         'follow_up': ' '.join((i.get('follow_up') or '').split()) or None, 'postmortem': [u for u, _ in i['postmortem_l']]}
+         'follow_up': ' '.join((i.get('follow_up') or '').split()) or None, 'postmortem': [u for u, _ in i['postmortem_l']],
+         'tickets': [f'{REPO}/issues/{t}' for t in i.get('tickets') or []]}
         for i in incidents]}
     (out / 'incidents.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8')
     print(f'status: {len(incidents)} incidents, {sum(1 for i in incidents if i["stage"] != "resolved")} open')
