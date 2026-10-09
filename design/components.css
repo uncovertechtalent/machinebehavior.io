@@ -1,0 +1,14 @@
+/* Components of machinebehavior.io shared by the reading and the app layout. Tokens in /design/tokens.css. */
+
+/* entry list: a page per row with its description and date (section and topic hubs) */
+.mb-entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.mb-entry { background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); padding: 12px 16px; }
+.mb-entry > a { font-weight: 700; font-size: 1.02rem; color: var(--mb-text); text-decoration: none; }
+.mb-entry > a:hover { color: var(--mb-accent); text-decoration: underline; }
+.mb-entry > a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 3px; }
+.mb-entry p { margin: 4px 0 6px; color: var(--mb-text-soft); font-size: 0.93rem; line-height: 1.5; }
+.mb-entry-meta { font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text-dim); }
+
+/* the build note at the end of a page */
+.page-note { font: var(--mb-text-xs)/1.7 var(--mb-font-mono); color: var(--mb-text-dim); }
+.page-note a { color: var(--mb-text-soft); }

@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Build slips/index.html from slips/log.csv. Run from the repo root: python3 scripts/slips_page.py"""
-import csv, collections, html, re
+import csv, collections, html, re, sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import site_chrome  # top bar, breadcrumbs, sidebar and footer from site/nav.yml
 
 rows = list(csv.DictReader(open('slips/log.csv')))
 by_rel = collections.Counter(r['relation'] for r in rows)
@@ -32,6 +36,7 @@ page = f'''<!doctype html>
 <meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
 <link rel="canonical" href="https://machinebehavior.io/slips/">
 <link rel="stylesheet" href="/style.css">
+<meta name="mb-source" content="scripts/slips_page.py">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://machinebehavior.io/slips/">
@@ -47,16 +52,6 @@ page = f'''<!doctype html>
 </head>
 <body>
 <div class="sheet">
-  <nav class="nav">
-    <a href="/">machine behavior</a>
-    <a href="/man/">man</a>
-    <a href="/claims/">claims</a>
-    <a href="/experiments/">experiments</a>
-    <a href="/objections/">objections</a>
-    <a href="/terms/">terms</a>
-    <a href="/inside/">inside</a>
-    <a href="/inside/#dashboards">infrastructure</a>
-  </nav>
 
   <header>
     <div class="eyebrow">Running log · generated from slips/log.csv</div>
@@ -96,11 +91,9 @@ page = f'''<!doctype html>
   </div>
 
   <p class="thesis">Data: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/slips/log.csv">slips/log.csv</a>. Page built by <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py">scripts/slips_page.py</a>.</p>
-  <p class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></p>
-  <script src="/conformity/footer.js" defer></script>
 </div>
 </body>
 </html>
 '''
-open('slips/index.html', 'w').write(page)
+open('slips/index.html', 'w').write(site_chrome.apply(page, 'slips/index.html'))
 print(f'slips/index.html: {len(rows)} rows, {dict(by_rel)}')

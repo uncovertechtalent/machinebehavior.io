@@ -1,5 +1,5 @@
 title: Top bar and search
-summary: One top bar on every Inside page from one Python source, and one search index over the docs, the services and the map, with a results page on Enter.
+summary: One top bar on every page from one navigation source, and one search index over the docs, the services and the map, with a results page on Enter.
 order: 65
 labels: inside, search, navigation, frontend
 owner: Stefan Coetzee
@@ -7,30 +7,22 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-Every Inside page carries the same top bar: Inside, Docs, Services, Status, Board, Map, Infrastructure, Gate and a link to the site. The bar and its search box come from one source, so a page cannot show a different menu.
+Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the sections Research, Inside, Docs and Map, and the search box. The current section is marked. The bar comes from one source, so a page cannot show a different menu.
 
 ## One source for the bar
 
-The HTML of the bar is the function `bar()` in `scripts/inside_chrome.py`. Nothing else writes it.
-
-| Page | How it gets the bar |
-|---|---|
-| Docs pages | `scripts/build_docs.py` calls `bar('docs')` for every page it writes |
-| Pages built from YAML (services, status) | `scripts/build_inside.py` calls `bar()` |
-| Hand-written pages: Inside, the board, the search page, the map | A marked block, `<!-- inside-bar:begin here=board --><!-- inside-bar:end -->`, that `scripts/inside_chrome.py` rewrites |
-
-`here` names the section shown as current. A section whose page does not exist yet stays out of the bar until the page ships.
+The sections come from `site/nav.yml`; the HTML is the function `bar()` in `scripts/site_chrome.py`, which writes it between `<!-- mb:bar -->` markers on every page, together with the breadcrumbs and the footer. See [Site navigation and chrome](doc:eng/site-navigation).
 
 ```bash
-python3 scripts/inside_chrome.py           # rewrite the marked blocks
-python3 scripts/inside_chrome.py --check   # exit 1 if a page differs from the source, or lacks the block or assets
+python3 scripts/site_chrome.py           # write the chrome on every page
+python3 scripts/site_chrome.py --check   # exit 1 if a page differs from the source
 ```
 
-The styles are in `/inside/bar.css` and the search script in `/inside/bar.js`. Class names start with `ib-`, so the bar does not collide with page styles. Below 820 px the sections move to a second row that scrolls sideways inside the bar; the page itself does not scroll sideways.
+The styles are in `/design/chrome.css` and the search script in `/inside/bar.js`. The bar is dark in both colour schemes. Below 820 px the brand and the search box share the first row and the sections move to a second row; the page itself does not scroll sideways.
 
 ## Public-demo banner
 
-`banner()` in the same module writes the strip under the bar that says Inside is a public demo and that in production it sits behind single sign-on, with a link to the [Access model](doc:eng/access-model). It is on every Inside page except the map; hand-written pages hold the block `<!-- inside-banner:begin --><!-- inside-banner:end -->`.
+`banner()` in the same module writes the strip under the bar that says Inside is a public demo and that in production it sits behind single sign-on, with a link to the [Access model](doc:eng/access-model). It is on the app pages of the Inside and Docs sections (`banner: true` in `site/nav.yml`), not on the map.
 
 ## One search index
 
@@ -53,4 +45,4 @@ The deploy job runs the script again after it refreshes the map, so the deployed
 
 ## Keyboard and focus
 
-A skip link is the first element of the bar. Links, the search box and the suggestions show a visible focus ring.
+A skip link is the first element of every page. Links, the search box and the suggestions show a visible focus ring.

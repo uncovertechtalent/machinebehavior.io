@@ -21,9 +21,10 @@ This space documents the systems behind machinebehavior.io, tychat.io and uncove
 | Inside | Front page with live status, deploys, experiments and dashboards | `inside/index.html` | [Inside portal](doc:eng/inside-portal) |
 | Docs tree | This documentation, from markdown and the knowledge vault | `scripts/build_docs.py` | [Docs tree](doc:eng/docs-tree) |
 | Service catalog | Every service with owner, tier, lifecycle, SLOs, dashboard and runbooks | `services/*.yml`, `scripts/build_inside.py` | [Service catalog](doc:eng/service-catalog) |
-| Access model | What is public in the demo, and how access works in production (single sign-on, spaces by class, per user and device) | `scripts/inside_chrome.py` (banner) | [Access model](doc:eng/access-model) |
+| Access model | What is public in the demo, and how access works in production (single sign-on, spaces by class, per user and device) | `scripts/site_chrome.py` (banner) | [Access model](doc:eng/access-model) |
 | Status page | State per service from the published records, and the incident history | `incidents/*.yml`, `scripts/build_inside.py`, `inside/status/status.js` | [Status page](doc:eng/status-page) |
-| Top bar and search | One bar on every Inside page and one search index | `scripts/inside_chrome.py`, `scripts/build_search.py` | [Top bar and search](doc:eng/top-bar-and-search) |
+| Site navigation | One navigation source for every page: top bar, breadcrumbs, sidebars, footer; orphan and sitemap checks | `site/nav.yml`, `scripts/site_chrome.py` | [Site navigation and chrome](doc:eng/site-navigation) |
+| Top bar and search | One bar on every page and one search index | `scripts/site_chrome.py`, `scripts/build_search.py` | [Top bar and search](doc:eng/top-bar-and-search) |
 | Ticket board | Work items from GitHub Issues in columns | `scripts/board_snapshot.py`, `inside/board/index.html` | [Ticket board](doc:eng/board) |
 | Founder tour | Six stops through the platform with screenshots of the live pages, for a founder with five minutes | `inside/tour/index.html`, `scripts/tour_shots.js` | [Five-minute tour](/inside/tour/), [ADR-0020](doc:eng/adr-0020-founder-tour) |
 | Observability | Prometheus, Loki and Grafana behind the public dashboards | [agent-observability](https://github.com/uncovertechtalent/agent-observability) | [Observability space](doc:obs/index) |

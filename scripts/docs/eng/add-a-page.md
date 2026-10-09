@@ -7,7 +7,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: how-to
 ---
-A new page passes the gate when it has a directory URL, a self canonical, a sitemap entry, an `llms.txt` line and root-absolute links. Docs pages get all five from the generator; see [Docs tree](doc:eng/docs-tree).
+A new page passes the gate when it has a directory URL, a self canonical, a sitemap entry, an `llms.txt` line and root-absolute links. It joins the navigation with one entry in `site/nav.yml`. Docs pages get all of this from the generator; see [Docs tree](doc:eng/docs-tree).
 
 ## Steps
 
@@ -17,16 +17,13 @@ A new page passes the gate when it has a directory URL, a self canonical, a site
 4. Add `<url><loc>https://machinebehavior.io/<name>/</loc><lastmod>YYYY-MM-DD</lastmod></url>` to `sitemap.xml`.
 5. Add a line with the title, URL and a one-line summary to `llms.txt`.
 6. Put at least one ISO date on the page; the freshness check reads the newest one.
-7. Run the dry run (see [Deploy pipeline](doc:eng/deploy-pipeline)), then pull, commit and push.
+7. Add the page to its section in `site/nav.yml` and run `python3 scripts/site_chrome.py`. It writes the top bar, the breadcrumbs, the sidebar and the footer, and reports the page as an orphan if the entry is missing.
+8. Run the dry run (see [Deploy pipeline](doc:eng/deploy-pipeline)), then pull, commit and push.
 
 ## Links built in script
 
 If a page builds links in JavaScript, set `a.href` in code. The gate reads `href="..."` in the page source, and a template string such as an interpolated `href` is read as a relative link. See [Link check flags a template string](doc:eng/runbook-template-href).
 
-## Inside pages
+## Chrome and layout
 
-A page under `/inside/` carries the Inside top bar instead of the site menu. Put the marked block `<!-- inside-bar:begin here=<section> --><!-- inside-bar:end -->` right after `<body>`, link `/inside/bar.css` and `/inside/bar.js`, add the page to `SYNCED` in `scripts/inside_chrome.py` and run it. See [Top bar and search](doc:eng/top-bar-and-search).
-
-## Menu
-
-Every page carries the same menu: machine behavior, man, claims, experiments, objections, terms, inside, infrastructure. Copy it from an existing page. The conformity page builds its menu from the `nav` list in `conformity/site-tier.json`.
+Do not write a menu, breadcrumbs or a footer into the page; `scripts/site_chrome.py` writes them between `<!-- mb:NAME -->` markers. A research page links `/style.css` and puts its content in `<div class="sheet">` (reading layout). An Inside page puts its content in `<main>` and keeps its own styles (app layout). A page that needs its breadcrumbs or footer somewhere else holds the empty markers there, for example `<!-- mb:crumbs --><!-- /mb:crumbs -->`. See [Site navigation and chrome](doc:eng/site-navigation).

@@ -80,7 +80,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (370 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (372 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -107,6 +107,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (370 pages). S
 - [ADR-0018: Numbered decision records and a generated changelog](https://machinebehavior.io/inside/docs/eng/adr-0018-numbered-records-and-changelog/)
 - [ADR-0019: Publish the definition draft before the committee route](https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/)
 - [ADR-0020: A five-minute founder tour on one page](https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/)
+- [ADR-0021: One navigation source for the whole site](https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)
@@ -121,6 +122,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (370 pages). S
 - [Runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
 - [Service catalog](https://machinebehavior.io/inside/docs/eng/service-catalog/)
 - [Site architecture](https://machinebehavior.io/inside/docs/eng/site-architecture/)
+- [Site navigation and chrome](https://machinebehavior.io/inside/docs/eng/site-navigation/)
 - [Status page](https://machinebehavior.io/inside/docs/eng/status-page/)
 - [Top bar and search](https://machinebehavior.io/inside/docs/eng/top-bar-and-search/)
 
@@ -495,3 +497,7 @@ The status page at https://machinebehavior.io/inside/status/: the state of each 
 - [A push to machinebehavior.io failed the gate; the deploy was blocked](https://machinebehavior.io/inside/status/#2026-10-08-gate-blocked-map-push): resolved, started 2026-10-08T14:05Z. A change to the map page built a link inside a JavaScript template string. The link check read it as a relative link, the gate failed and the deploy did not run, so readers kept the previous build. A follow-up push set the link in code and passed. The control worked as designed; the record is kept because a blocked deploy is the case the gate exists for.
 - [Tag pages on uncovertechtalent.com served RSS XML instead of HTML](https://machinebehavior.io/inside/status/#2026-10-08-utt-tag-pages-xml): resolved, started 2026-10-08. The Hugo build of uncovertechtalent.com had no template for tag pages, so each of the 37 tag pages answered with the RSS feed. A reader who opened a tag, on the site or from the map, got raw XML. The map dropped the pages first; then the site gained the missing templates and the tag pages answer with HTML again.
 - [Claude Code spend overstated about 1,960 times by counter resets](https://machinebehavior.io/inside/status/#2026-10-09-phantom-spend-counters): resolved, started 2026-10-02T07:54Z. Parallel Claude Code processes wrote one cost counter series, and every export from a process with a lower total read as a counter reset. Prometheus reported USD 1,970,946.62 for a week whose per-request events sum to USD 1,003.45 at list price, and the spend alert was in firing state 73% of the time. No money moved; the meter was wrong. Spend and tokens are now summed from the events.
+
+## Site sections
+
+- [Research](https://machinebehavior.io/research/): the Research section front page: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.

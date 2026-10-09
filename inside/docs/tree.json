@@ -1,0 +1,1874 @@
+{
+"source": "scripts/build_docs.py",
+"pages": [
+{
+"u": "/inside/docs/",
+"t": "Docs"
+},
+{
+"u": "/inside/docs/health/",
+"t": "Docs health",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/eng/",
+"t": "Engineering",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/eng/site-architecture/",
+"t": "Site architecture",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/deploy-pipeline/",
+"t": "Deploy pipeline",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/conformity-gate/",
+"t": "Conformity gate",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/add-a-page/",
+"t": "Add a page to machinebehavior.io",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/map-crawler/",
+"t": "Map crawler",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/inside-portal/",
+"t": "Inside portal",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/site-navigation/",
+"t": "Site navigation and chrome",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/board/",
+"t": "Ticket board",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/top-bar-and-search/",
+"t": "Top bar and search",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/service-catalog/",
+"t": "Service catalog",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/status-page/",
+"t": "Status page",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/access-model/",
+"t": "Access model",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/docs-tree/",
+"t": "Docs tree",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/decision-log/",
+"t": "Decision records",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/adr-0001-root-absolute-links/",
+"t": "ADR-0001: Root-absolute links only",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0002-deploy-is-gated/",
+"t": "ADR-0002: The deploy is gated",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0003-map-loads-from-public-cdns/",
+"t": "ADR-0003: The map loads d3 and its fonts from public CDNs",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0004-map-refresh-keeps-larger-snapshot/",
+"t": "ADR-0004: The map refresh keeps the larger snapshot",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0005-deploys-feed-grafana/",
+"t": "ADR-0005: Deploys feed Grafana without changing the workflows",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0006-inside-reads-github-api-in-browser/",
+"t": "ADR-0006: Inside reads the deploy feed from the GitHub API in the browser",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0007-docs-search-own-index/",
+"t": "ADR-0007: Docs search over its own index, Enter opens the first hit",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0008-docs-pages-are-map-nodes/",
+"t": "ADR-0008: Docs pages are map nodes",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0009-vault-notes-with-review-label/",
+"t": "ADR-0009: Publish vault notes with a review label",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0010-no-third-party-requests/",
+"t": "ADR-0010: No third-party requests on page load",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0011-ticket-board-from-github-issues/",
+"t": "ADR-0011: A public ticket board from GitHub Issues",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0012-one-top-bar-and-search/",
+"t": "ADR-0012: One top bar and one search index for Inside",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0013-service-catalog-from-yaml/",
+"t": "ADR-0013: A service catalog from YAML in the repository",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0014-status-page-from-published-records/",
+"t": "ADR-0014: A status page from records the site already publishes",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0015-owner-and-review-dates/",
+"t": "ADR-0015: Owner and review dates on every docs page",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0016-demo-banner-and-access-model/",
+"t": "ADR-0016: A public-demo banner and a stated access model",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0017-on-call-model/",
+"t": "ADR-0017: State the on-call model and propose Alertmanager routing",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0018-numbered-records-and-changelog/",
+"t": "ADR-0018: Numbered decision records and a generated changelog",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0019-definition-published-before-committee/",
+"t": "ADR-0019: Publish the definition draft before the committee route",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0020-founder-tour/",
+"t": "ADR-0020: A five-minute founder tour on one page",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0021-one-navigation-source/",
+"t": "ADR-0021: One navigation source for the whole site",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/changelog/",
+"t": "Changelog",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/runbooks/",
+"t": "Runbooks",
+"p": "/inside/docs/eng/"
+},
+{
+"u": "/inside/docs/eng/runbook-gate-blocked/",
+"t": "Gate blocked a deploy",
+"p": "/inside/docs/eng/runbooks/"
+},
+{
+"u": "/inside/docs/eng/runbook-push-rejected/",
+"t": "Push rejected after a deploy",
+"p": "/inside/docs/eng/runbooks/"
+},
+{
+"u": "/inside/docs/eng/runbook-template-href/",
+"t": "Link check flags a template string",
+"p": "/inside/docs/eng/runbooks/"
+},
+{
+"u": "/inside/docs/obs/",
+"t": "Observability",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/obs/architecture/",
+"t": "Architecture",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/deploy-exporter/",
+"t": "Deploy exporter",
+"p": "/inside/docs/obs/architecture/"
+},
+{
+"u": "/inside/docs/obs/on-call/",
+"t": "On-call and escalation",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/metrics-reference/",
+"t": "Metrics reference",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/alerts-and-slos/",
+"t": "Alerts and SLOs",
+"p": "/inside/docs/obs/metrics-reference/"
+},
+{
+"u": "/inside/docs/obs/loki-streams/",
+"t": "Loki streams",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/public-dashboards/",
+"t": "Public dashboards",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/dashboards-as-code/",
+"t": "Dashboards as code",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/runbooks/",
+"t": "Runbooks",
+"p": "/inside/docs/obs/"
+},
+{
+"u": "/inside/docs/obs/runbook-loki-backfill-missing/",
+"t": "Backfilled runs missing in Loki",
+"p": "/inside/docs/obs/runbooks/"
+},
+{
+"u": "/inside/docs/obs/runbook-stat-panel-no-data/",
+"t": "Stat panel shows No data",
+"p": "/inside/docs/obs/runbooks/"
+},
+{
+"u": "/inside/docs/obs/runbook-counter-resets-parallel-sessions/",
+"t": "Counter resets from parallel sessions",
+"p": "/inside/docs/obs/runbooks/"
+},
+{
+"u": "/inside/docs/obs/runbook-share-a-dashboard/",
+"t": "Share a dashboard publicly",
+"p": "/inside/docs/obs/runbooks/"
+},
+{
+"u": "/inside/docs/res/",
+"t": "Research",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/res/experiments/",
+"t": "Experiments",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/half-life-study/",
+"t": "01: The half-life study",
+"p": "/inside/docs/res/experiments/"
+},
+{
+"u": "/inside/docs/res/exemplar-seeding/",
+"t": "02: Exemplar seeding",
+"p": "/inside/docs/res/experiments/"
+},
+{
+"u": "/inside/docs/res/fawn-opener-benchmark/",
+"t": "03: Cross-model fawn-opener benchmark",
+"p": "/inside/docs/res/experiments/"
+},
+{
+"u": "/inside/docs/res/experiment-04-folding-under-pressure/",
+"t": "Experiment 04: folding under pressure",
+"p": "/inside/docs/res/experiments/"
+},
+{
+"u": "/inside/docs/res/decision-layer-probe/",
+"t": "Weekly decision-layer probe",
+"p": "/inside/docs/res/experiments/"
+},
+{
+"u": "/inside/docs/res/claims-ledger/",
+"t": "Claims ledger",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/objections-register/",
+"t": "Objections register and OBJ-4 incident log",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/slips-log/",
+"t": "Slips log",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/case-files/",
+"t": "Case files: case 12 and Running Conjobs for AI",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/predictions-and-hashes/",
+"t": "Predictions and hashes",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/res/conformity-self-assessment/",
+"t": "Conformity self-assessment, run 1",
+"p": "/inside/docs/res/"
+},
+{
+"u": "/inside/docs/fin/",
+"t": "FinOps",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/fin/cost-model/",
+"t": "Cost model",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/fin/unit-economics/",
+"t": "Unit economics",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/fin/showback/",
+"t": "Showback",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/fin/anomaly-the-phantom-two-million/",
+"t": "The phantom two million",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/fin/budgets-and-alerts/",
+"t": "Budgets and alerts",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/fin/focus-export/",
+"t": "FOCUS export",
+"p": "/inside/docs/fin/"
+},
+{
+"u": "/inside/docs/sre/",
+"t": "SRE Handbook",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/sre/manifesto/",
+"t": "Manifesto",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/ai-agents-are-ops-work/",
+"t": "AI Agents are Ops Work",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/compaction-is-the-new-oom/",
+"t": "Compaction is the New OOM",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/generate-and-test-over-reason-from-model/",
+"t": "Generate-and-Test Over Reason-From-Model",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/graph-rag-over-flat-rag-for-operational-knowledge/",
+"t": "Graph-RAG over Flat RAG for Operational Knowledge",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/legacy-restoration-as-sre-craft/",
+"t": "legacy-restoration-as-sre-craft",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/sre-as-truth-verified-working/",
+"t": "SRE as Truth Verified Working",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/the-disappearing-full-stack-ops-engineer/",
+"t": "The Disappearing Full-Stack Ops Engineer",
+"p": "/inside/docs/sre/manifesto/"
+},
+{
+"u": "/inside/docs/sre/pillars/",
+"t": "The ten pillars",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/reliability/",
+"t": "1. Reliability",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/error-budgets-as-reliability-currency/",
+"t": "Error Budgets as Reliability Currency",
+"p": "/inside/docs/sre/reliability/"
+},
+{
+"u": "/inside/docs/sre/scalability/",
+"t": "2. Scalability",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/horizontal-vs-vertical-scaling/",
+"t": "Horizontal vs Vertical Scaling",
+"p": "/inside/docs/sre/scalability/"
+},
+{
+"u": "/inside/docs/sre/observability/",
+"t": "3. Observability",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/cpu-cache-hierarchy-and-speculative-execution/",
+"t": "CPU Cache Hierarchy and Speculative Execution",
+"p": "/inside/docs/sre/observability/"
+},
+{
+"u": "/inside/docs/sre/symptoms-over-causes-for-alerting/",
+"t": "Symptoms over Causes for Alerting",
+"p": "/inside/docs/sre/observability/"
+},
+{
+"u": "/inside/docs/sre/incident-management/",
+"t": "4. Incident Management",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/blameless-postmortem-discipline/",
+"t": "Blameless Postmortem Discipline",
+"p": "/inside/docs/sre/incident-management/"
+},
+{
+"u": "/inside/docs/sre/infrastructure-as-code/",
+"t": "5. Infrastructure as Code",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/idempotence-as-the-iac-invariant/",
+"t": "Idempotence as the IaC Invariant",
+"p": "/inside/docs/sre/infrastructure-as-code/"
+},
+{
+"u": "/inside/docs/sre/cicd-deployment/",
+"t": "6. CI/CD & Deployment",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/progressive-delivery-patterns/",
+"t": "Progressive Delivery Patterns",
+"p": "/inside/docs/sre/cicd-deployment/"
+},
+{
+"u": "/inside/docs/sre/performance/",
+"t": "7. Performance",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/use-method-for-resource-saturation/",
+"t": "USE Method for Resource Saturation",
+"p": "/inside/docs/sre/performance/"
+},
+{
+"u": "/inside/docs/sre/security/",
+"t": "8. Security",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/defense-in-depth-and-trust-boundaries/",
+"t": "Defense in Depth and Trust Boundaries",
+"p": "/inside/docs/sre/security/"
+},
+{
+"u": "/inside/docs/sre/probing-microarchitecture-for-vulnerability-discovery/",
+"t": "Probing Microarchitecture for Vulnerability Discovery",
+"p": "/inside/docs/sre/security/"
+},
+{
+"u": "/inside/docs/sre/cost-optimization/",
+"t": "9. Cost Optimization",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/unit-economics-of-infrastructure/",
+"t": "Unit Economics of Infrastructure",
+"p": "/inside/docs/sre/cost-optimization/"
+},
+{
+"u": "/inside/docs/sre/toil-reduction/",
+"t": "10. Toil Reduction",
+"p": "/inside/docs/sre/pillars/"
+},
+{
+"u": "/inside/docs/sre/toil-vs-engineering-and-the-50-percent-rule/",
+"t": "Toil vs Engineering and the 50 Percent Rule",
+"p": "/inside/docs/sre/toil-reduction/"
+},
+{
+"u": "/inside/docs/sre/patterns/",
+"t": "Patterns",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/apple-silicon-vs-desktop-gpu-for-inference/",
+"t": "Apple Silicon vs Desktop GPU for Inference",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/blind-search-ratchet-minecraft-beats-itself/",
+"t": "blind-search-ratchet-minecraft-beats-itself",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/bm25-hybrid-retrieval-for-graph-rag/",
+"t": "BM25 Hybrid Retrieval for Graph-RAG",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/claude-data-export-for-graph-ingestion/",
+"t": "Claude Data Export for Graph Ingestion",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/context-window-sizes-and-effective-range/",
+"t": "Context Window Sizes and Effective Range",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/llm-as-software-defined-cpu/",
+"t": "LLM as Software-Defined CPU",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/memory-architecture-l0-l4/",
+"t": "Memory Architecture L0-L4",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/personal-digital-twin-architecture/",
+"t": "Personal Digital Twin Architecture",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/tencent-agent-memory-four-tier/",
+"t": "tencent-agent-memory-four-tier",
+"p": "/inside/docs/sre/patterns/"
+},
+{
+"u": "/inside/docs/sre/runbooks/",
+"t": "Runbooks",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/certificate-rotation/",
+"t": "Certificate Rotation",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/credential-rotation/",
+"t": "Credential Rotation",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/database-failover/",
+"t": "Database Failover",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/rollback-deployment/",
+"t": "Rollback Deployment",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/service-outage-response/",
+"t": "Service Outage Response",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/vault-search-fastembed-migration/",
+"t": "vault-search-fastembed-migration",
+"p": "/inside/docs/sre/runbooks/"
+},
+{
+"u": "/inside/docs/sre/tools/",
+"t": "Tools",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/dolt-versioned-database-for-task-state/",
+"t": "Dolt Versioned Database for Task State",
+"p": "/inside/docs/sre/tools/"
+},
+{
+"u": "/inside/docs/sre/headscale-mesh-vpn-for-data-sovereignty/",
+"t": "Headscale Mesh VPN for Data Sovereignty",
+"p": "/inside/docs/sre/tools/"
+},
+{
+"u": "/inside/docs/sre/opencode-self-hosted-llm-configuration/",
+"t": "OpenCode Self-Hosted LLM Configuration",
+"p": "/inside/docs/sre/tools/"
+},
+{
+"u": "/inside/docs/sre/incidents/",
+"t": "Incidents",
+"p": "/inside/docs/sre/"
+},
+{
+"u": "/inside/docs/sre/authenticated-cookie-jar-for-gated-posts/",
+"t": "Authenticated Cookie Jar for Gated Posts",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/back-up-sqlite-with-the-backup-command/",
+"t": "Back Up SQLite With the Backup Command",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/bracket-pattern-process-check/",
+"t": "Bracket Pattern Process Check",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/compare-videos-found-against-the-in-app-count/",
+"t": "Compare Videos Found Against the In-App Count",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/compare-videos-found-run-to-run/",
+"t": "Compare Videos Found Run to Run",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/differential-test-in-the-same-minutes/",
+"t": "Differential Test in the Same Minutes",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/eliminate-concurrent-saves-before-blaming-the-scraper/",
+"t": "Eliminate Concurrent Saves Before Blaming the Scraper",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/enumeration-retry-with-unauthenticated-fallback/",
+"t": "Enumeration Retry With Unauthenticated Fallback",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/expired-bot-manager-cookie-returns-empty-body/",
+"t": "Expired Bot-Manager Cookie Returns Empty Body",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/file-copy-of-a-wal-mode-database-misses-recent-writes/",
+"t": "File Copy of a WAL-Mode Database Misses Recent Writes",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/filter-expired-cookies-before-each-run/",
+"t": "Filter Expired Cookies Before Each Run",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/hand-check-output-against-the-primary-source/",
+"t": "Hand-Check Output Against the Primary Source",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/handle-based-ad-filter-matches-artist-accounts/",
+"t": "Handle-Based Ad Filter Matches Artist Accounts",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-02-27-dead-collection-short-links/",
+"t": "Incident 2026-02-27 Dead Collection Short Links",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-07-summaries-inverted-irony/",
+"t": "Incident 2026-07 Summaries Inverted Irony",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-07-14-backup-missed-wal-writes/",
+"t": "Incident 2026-07-14 Backup Missed WAL Writes",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-07-14-short-scrape-looked-like-a-quiet-feed/",
+"t": "Incident 2026-07-14 Short Scrape Looked Like a Quiet Feed",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-07-19-pending-status-on-finished-videos/",
+"t": "Incident 2026-07-19 Pending Status on Finished Videos",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-07-21-ad-filter-removed-artist-videos/",
+"t": "Incident 2026-07-21 Ad Filter Removed Artist Videos",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-08-08-empty-transcript-videos-invisible-to-review/",
+"t": "Incident 2026-08-08 Empty-Transcript Videos Invisible to Review",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-08-08-false-enumeration-bug-finding/",
+"t": "Incident 2026-08-08 False Enumeration Bug Finding",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-09-11-three-morning-cron-crash/",
+"t": "Incident 2026-09-11 Three-Morning Cron Crash",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-09-13-ghost-still-running-job/",
+"t": "Incident 2026-09-13 Ghost Still-Running Job",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/incident-2026-09-16-server-cannot-list-the-collection/",
+"t": "Incident 2026-09-16 Server Cannot List the Collection",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/no-transcript-bucket-in-the-review-tool/",
+"t": "No-Transcript Bucket in the Review Tool",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/probe-pending-rows-before-calling-them-backlog/",
+"t": "Probe Pending Rows Before Calling Them Backlog",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/probe-the-artifact-before-reasoning-from-counts/",
+"t": "Probe the Artifact Before Reasoning From Counts",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/process-check-matches-its-own-shell/",
+"t": "Process Check Matches Its Own Shell",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/publish-date-treated-as-time-in-collection/",
+"t": "Publish Date Treated As Time In Collection",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/pull-the-full-row-list-after-any-scrape/",
+"t": "Pull the Full Row List After Any Scrape",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/re-scrape-relinks-processed-rows-as-pending/",
+"t": "Re-Scrape Relinks Processed Rows As Pending",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/review-tool-lists-only-rows-with-a-transcript/",
+"t": "Review Tool Lists Only Rows With a Transcript",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/sensitivity-gated-posts-vanish-from-unauthenticated-listing/",
+"t": "Sensitivity-Gated Posts Vanish From Unauthenticated Listing",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/short-link-redirects-to-the-homepage/",
+"t": "Short Link Redirects to the Homepage",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/single-video-url-as-the-collection-argument/",
+"t": "Single Video URL As the Collection Argument",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/small-local-model-misreads-ironic-register/",
+"t": "Small Local Model Misreads Ironic Register",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/summaries-are-a-triage-index/",
+"t": "Summaries Are a Triage Index",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/swallowed-stderr-hides-the-cause/",
+"t": "Swallowed Stderr Hides the Cause",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/transcriber-incident-register/",
+"t": "Transcriber Incident Register",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/sre/verify-transcript-length-never-status/",
+"t": "Verify Transcript Length Never Status",
+"p": "/inside/docs/sre/incidents/"
+},
+{
+"u": "/inside/docs/std/",
+"t": "Standards and Compliance",
+"p": "/inside/docs/"
+},
+{
+"u": "/inside/docs/std/iso-27001/",
+"t": "ISO 27001",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/iso-27001-position/",
+"t": "ISO 27001 position",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-anchors/",
+"t": "ISO 27001 anchors",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-annex-a-5-organizational-controls/",
+"t": "ISO 27001 Annex A.5 Organizational Controls",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-annex-a-6-people-controls/",
+"t": "ISO 27001 Annex A.6 People Controls",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-annex-a-7-physical-controls/",
+"t": "ISO 27001 Annex A.7 Physical Controls",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-annex-a-8-technological-controls/",
+"t": "ISO 27001 Annex A.8 Technological Controls",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-certification-process/",
+"t": "ISO 27001 Certification Process",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-10-improvement/",
+"t": "ISO 27001 Clause 10 Improvement",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-4-context/",
+"t": "ISO 27001 Clause 4 Context",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-5-leadership/",
+"t": "ISO 27001 Clause 5 Leadership",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-6-planning/",
+"t": "ISO 27001 Clause 6 Planning",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-7-support/",
+"t": "ISO 27001 Clause 7 Support",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-8-operation/",
+"t": "ISO 27001 Clause 8 Operation",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-clause-9-performance-evaluation/",
+"t": "ISO 27001 Clause 9 Performance Evaluation",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-controversies/",
+"t": "ISO 27001 Controversies",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-family-and-sector-variants/",
+"t": "ISO 27001 Family and Sector Variants",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-27001-version-history/",
+"t": "ISO 27001 Version History",
+"p": "/inside/docs/std/iso-27001/"
+},
+{
+"u": "/inside/docs/std/iso-42001/",
+"t": "ISO 42001",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/iso-42001-position/",
+"t": "ISO 42001 position",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-anchors/",
+"t": "ISO 42001 anchors",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-ai-system-lifecycle/",
+"t": "ISO 42001 AI System Lifecycle",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-annex-a-controls/",
+"t": "ISO 42001 Annex A Controls",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-certification-process/",
+"t": "ISO 42001 Certification Process",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-clause-structure/",
+"t": "ISO 42001 Clause Structure",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-controversies/",
+"t": "ISO 42001 Controversies",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-42001-vs-iso-27001-integration/",
+"t": "ISO 42001 vs ISO 27001 Integration",
+"p": "/inside/docs/std/iso-42001/"
+},
+{
+"u": "/inside/docs/std/iso-21434/",
+"t": "ISO 21434",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/iso-21434-position/",
+"t": "ISO 21434 position",
+"p": "/inside/docs/std/iso-21434/"
+},
+{
+"u": "/inside/docs/std/iso-21434-anchors/",
+"t": "ISO 21434 anchors",
+"p": "/inside/docs/std/iso-21434/"
+},
+{
+"u": "/inside/docs/std/iso-21434-controversies/",
+"t": "ISO 21434 Controversies",
+"p": "/inside/docs/std/iso-21434/"
+},
+{
+"u": "/inside/docs/std/iso-21434-lifecycle-and-tara/",
+"t": "ISO 21434 Lifecycle and TARA",
+"p": "/inside/docs/std/iso-21434/"
+},
+{
+"u": "/inside/docs/std/iso-22301/",
+"t": "ISO 22301",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/iso-22301-position/",
+"t": "ISO 22301 position",
+"p": "/inside/docs/std/iso-22301/"
+},
+{
+"u": "/inside/docs/std/iso-22301-anchors/",
+"t": "ISO 22301 anchors",
+"p": "/inside/docs/std/iso-22301/"
+},
+{
+"u": "/inside/docs/std/iso-22301-clause-structure-and-key-concepts/",
+"t": "ISO 22301 Clause Structure and Key Concepts",
+"p": "/inside/docs/std/iso-22301/"
+},
+{
+"u": "/inside/docs/std/iso-22301-controversies/",
+"t": "ISO 22301 Controversies",
+"p": "/inside/docs/std/iso-22301/"
+},
+{
+"u": "/inside/docs/std/nis2/",
+"t": "NIS2",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/nis2-position/",
+"t": "NIS2 position",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-anchors/",
+"t": "NIS2 anchors",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-controversies/",
+"t": "NIS2 Controversies",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-governance-and-penalties/",
+"t": "NIS2 Governance and Penalties",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-incident-reporting/",
+"t": "NIS2 Incident Reporting",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-scope-and-entities/",
+"t": "NIS2 Scope and Entities",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-security-measures/",
+"t": "NIS2 Security Measures",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/nis2-vs-iso-27001/",
+"t": "NIS2 vs ISO 27001",
+"p": "/inside/docs/std/nis2/"
+},
+{
+"u": "/inside/docs/std/dora/",
+"t": "DORA",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/dora-position/",
+"t": "DORA position",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-anchors/",
+"t": "DORA anchors",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-controversies/",
+"t": "DORA Controversies",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-governance-and-penalties/",
+"t": "DORA Governance and Penalties",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-ict-risk-management/",
+"t": "DORA ICT Risk Management",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-ict-third-party-risk/",
+"t": "DORA ICT Third-Party Risk",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-incident-reporting/",
+"t": "DORA Incident Reporting",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/dora-resilience-testing/",
+"t": "DORA Resilience Testing",
+"p": "/inside/docs/std/dora/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act/",
+"t": "EU AI Act",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-position/",
+"t": "EU AI Act position",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-anchors/",
+"t": "EU AI Act anchors",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-controversies/",
+"t": "EU AI Act Controversies",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-governance/",
+"t": "EU AI Act Governance",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-gpai-obligations/",
+"t": "EU AI Act GPAI Obligations",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-high-risk-obligations/",
+"t": "EU AI Act High-Risk Obligations",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-risk-tiers/",
+"t": "EU AI Act Risk Tiers",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/eu-ai-act-timeline/",
+"t": "EU AI Act Timeline",
+"p": "/inside/docs/std/eu-ai-act/"
+},
+{
+"u": "/inside/docs/std/cyber-resilience-act/",
+"t": "Cyber Resilience Act",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/cyber-resilience-act-position/",
+"t": "Cyber Resilience Act position",
+"p": "/inside/docs/std/cyber-resilience-act/"
+},
+{
+"u": "/inside/docs/std/cyber-resilience-act-anchors/",
+"t": "Cyber Resilience Act anchors",
+"p": "/inside/docs/std/cyber-resilience-act/"
+},
+{
+"u": "/inside/docs/std/cra-controversies/",
+"t": "CRA Controversies",
+"p": "/inside/docs/std/cyber-resilience-act/"
+},
+{
+"u": "/inside/docs/std/cra-essential-requirements/",
+"t": "CRA Essential Requirements",
+"p": "/inside/docs/std/cyber-resilience-act/"
+},
+{
+"u": "/inside/docs/std/cyber-resilience-act-controversies/",
+"t": "Cyber Resilience Act Controversies",
+"p": "/inside/docs/std/cyber-resilience-act/"
+},
+{
+"u": "/inside/docs/std/gdpr/",
+"t": "GDPR",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/gdpr-position/",
+"t": "GDPR position",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-anchors/",
+"t": "GDPR anchors",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-controller-and-processor/",
+"t": "GDPR Controller and Processor",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-controversies/",
+"t": "GDPR Controversies",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-cross-border-transfers/",
+"t": "GDPR Cross-Border Transfers",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-data-subject-rights/",
+"t": "GDPR Data Subject Rights",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-enforcement-and-dpas/",
+"t": "GDPR Enforcement and DPAs",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-lawful-bases/",
+"t": "GDPR Lawful Bases",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/gdpr-principles/",
+"t": "GDPR Principles",
+"p": "/inside/docs/std/gdpr/"
+},
+{
+"u": "/inside/docs/std/soc2/",
+"t": "SOC 2",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/soc2-position/",
+"t": "SOC 2 position",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc2-anchors/",
+"t": "SOC 2 anchors",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc-2-assessment-process/",
+"t": "SOC 2 Assessment Process",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc-2-controversies/",
+"t": "SOC 2 Controversies",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc-2-trust-services-criteria/",
+"t": "SOC 2 Trust Services Criteria",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc-2-type-1-vs-type-2/",
+"t": "SOC 2 Type 1 vs Type 2",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/soc-2-vs-iso-27001/",
+"t": "SOC 2 vs ISO 27001",
+"p": "/inside/docs/std/soc2/"
+},
+{
+"u": "/inside/docs/std/tisax/",
+"t": "TISAX",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/tisax-position/",
+"t": "TISAX position",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-anchors/",
+"t": "TISAX anchors",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-assessment-levels/",
+"t": "TISAX Assessment Levels",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-assessment-process/",
+"t": "TISAX Assessment Process",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-controversies/",
+"t": "TISAX Controversies",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-labels-and-scopes/",
+"t": "TISAX Labels and Scopes",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-vda-isa-catalogue/",
+"t": "TISAX VDA-ISA Catalogue",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/tisax-vs-iso-27001/",
+"t": "TISAX vs ISO 27001",
+"p": "/inside/docs/std/tisax/"
+},
+{
+"u": "/inside/docs/std/bsi-grundschutz/",
+"t": "BSI IT-Grundschutz",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/bsi-grundschutz-position/",
+"t": "BSI IT-Grundschutz position",
+"p": "/inside/docs/std/bsi-grundschutz/"
+},
+{
+"u": "/inside/docs/std/bsi-grundschutz-anchors/",
+"t": "BSI IT-Grundschutz anchors",
+"p": "/inside/docs/std/bsi-grundschutz/"
+},
+{
+"u": "/inside/docs/std/it-grundschutz-certification/",
+"t": "IT-Grundschutz Certification",
+"p": "/inside/docs/std/bsi-grundschutz/"
+},
+{
+"u": "/inside/docs/std/it-grundschutz-controversies/",
+"t": "IT-Grundschutz Controversies",
+"p": "/inside/docs/std/bsi-grundschutz/"
+},
+{
+"u": "/inside/docs/std/it-grundschutz-methodology-and-bausteine/",
+"t": "IT-Grundschutz Methodology and Bausteine",
+"p": "/inside/docs/std/bsi-grundschutz/"
+},
+{
+"u": "/inside/docs/std/nist-csf/",
+"t": "NIST CSF",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/nist-csf-position/",
+"t": "NIST CSF position",
+"p": "/inside/docs/std/nist-csf/"
+},
+{
+"u": "/inside/docs/std/nist-csf-anchors/",
+"t": "NIST CSF anchors",
+"p": "/inside/docs/std/nist-csf/"
+},
+{
+"u": "/inside/docs/std/nist-csf-controversies/",
+"t": "NIST CSF Controversies",
+"p": "/inside/docs/std/nist-csf/"
+},
+{
+"u": "/inside/docs/std/nist-csf-core-functions/",
+"t": "NIST CSF Core Functions",
+"p": "/inside/docs/std/nist-csf/"
+},
+{
+"u": "/inside/docs/std/nist-csf-vs-iso-27001-and-nist-ai-rmf/",
+"t": "NIST CSF vs ISO 27001 and NIST AI RMF",
+"p": "/inside/docs/std/nist-csf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf/",
+"t": "NIST AI RMF",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-position/",
+"t": "NIST AI RMF position",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-anchors/",
+"t": "NIST AI RMF anchors",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-controversies/",
+"t": "NIST AI RMF Controversies",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-core-functions/",
+"t": "NIST AI RMF Core Functions",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-genai-profile/",
+"t": "NIST AI RMF GenAI Profile",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/nist-ai-rmf-vs-iso-42001/",
+"t": "NIST AI RMF vs ISO 42001",
+"p": "/inside/docs/std/nist-ai-rmf/"
+},
+{
+"u": "/inside/docs/std/oecd-ai/",
+"t": "OECD AI",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/oecd-ai-position/",
+"t": "OECD AI position",
+"p": "/inside/docs/std/oecd-ai/"
+},
+{
+"u": "/inside/docs/std/oecd-ai-anchors/",
+"t": "OECD AI anchors",
+"p": "/inside/docs/std/oecd-ai/"
+},
+{
+"u": "/inside/docs/std/oecd-ai-controversies/",
+"t": "OECD AI Controversies",
+"p": "/inside/docs/std/oecd-ai/"
+},
+{
+"u": "/inside/docs/std/oecd-ai-values-based-principles/",
+"t": "OECD AI Values-Based Principles",
+"p": "/inside/docs/std/oecd-ai/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-top-10/",
+"t": "OWASP LLM Top 10",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-top-10-position/",
+"t": "OWASP LLM Top 10 position",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-top-10-anchors/",
+"t": "OWASP LLM Top 10 anchors",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-mitigations/",
+"t": "OWASP LLM Mitigations",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-top-10-2025/",
+"t": "OWASP LLM Top 10 2025",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-top-10-controversies/",
+"t": "OWASP LLM Top 10 Controversies",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/owasp-llm-vs-top-10-web/",
+"t": "OWASP LLM vs Top 10 Web",
+"p": "/inside/docs/std/owasp-llm-top-10/"
+},
+{
+"u": "/inside/docs/std/mitre/",
+"t": "MITRE",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/mitre-position/",
+"t": "MITRE position",
+"p": "/inside/docs/std/mitre/"
+},
+{
+"u": "/inside/docs/std/mitre-anchors/",
+"t": "MITRE anchors",
+"p": "/inside/docs/std/mitre/"
+},
+{
+"u": "/inside/docs/std/mitre-atlas/",
+"t": "MITRE ATLAS",
+"p": "/inside/docs/std/mitre/"
+},
+{
+"u": "/inside/docs/std/mitre-att-ck/",
+"t": "MITRE ATT&CK",
+"p": "/inside/docs/std/mitre/"
+},
+{
+"u": "/inside/docs/std/mitre-d3fend/",
+"t": "MITRE D3FEND",
+"p": "/inside/docs/std/mitre/"
+},
+{
+"u": "/inside/docs/std/pci-dss/",
+"t": "PCI DSS",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/pci-dss-position/",
+"t": "PCI DSS position",
+"p": "/inside/docs/std/pci-dss/"
+},
+{
+"u": "/inside/docs/std/pci-dss-anchors/",
+"t": "PCI DSS anchors",
+"p": "/inside/docs/std/pci-dss/"
+},
+{
+"u": "/inside/docs/std/pci-dss-controversies/",
+"t": "PCI DSS Controversies",
+"p": "/inside/docs/std/pci-dss/"
+},
+{
+"u": "/inside/docs/std/pci-dss-twelve-requirements-and-compliance/",
+"t": "PCI DSS Twelve Requirements and Compliance",
+"p": "/inside/docs/std/pci-dss/"
+},
+{
+"u": "/inside/docs/std/hitrust/",
+"t": "HITRUST",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/hitrust-position/",
+"t": "HITRUST position",
+"p": "/inside/docs/std/hitrust/"
+},
+{
+"u": "/inside/docs/std/hitrust-anchors/",
+"t": "HITRUST anchors",
+"p": "/inside/docs/std/hitrust/"
+},
+{
+"u": "/inside/docs/std/hitrust-assessment-levels/",
+"t": "HITRUST Assessment Levels",
+"p": "/inside/docs/std/hitrust/"
+},
+{
+"u": "/inside/docs/std/hitrust-controversies/",
+"t": "HITRUST Controversies",
+"p": "/inside/docs/std/hitrust/"
+},
+{
+"u": "/inside/docs/std/fedramp-cmmc/",
+"t": "FedRAMP CMMC",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/fedramp-cmmc-position/",
+"t": "FedRAMP CMMC position",
+"p": "/inside/docs/std/fedramp-cmmc/"
+},
+{
+"u": "/inside/docs/std/fedramp-cmmc-anchors/",
+"t": "FedRAMP CMMC anchors",
+"p": "/inside/docs/std/fedramp-cmmc/"
+},
+{
+"u": "/inside/docs/std/fedramp-and-cmmc-controversies/",
+"t": "FedRAMP and CMMC Controversies",
+"p": "/inside/docs/std/fedramp-cmmc/"
+},
+{
+"u": "/inside/docs/std/fedramp-and-cmmc-mechanics/",
+"t": "FedRAMP and CMMC Mechanics",
+"p": "/inside/docs/std/fedramp-cmmc/"
+},
+{
+"u": "/inside/docs/std/csa-ccm/",
+"t": "CSA CCM",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/csa-ccm-position/",
+"t": "CSA CCM position",
+"p": "/inside/docs/std/csa-ccm/"
+},
+{
+"u": "/inside/docs/std/csa-ccm-anchors/",
+"t": "CSA CCM anchors",
+"p": "/inside/docs/std/csa-ccm/"
+},
+{
+"u": "/inside/docs/std/csa-ccm-control-domains/",
+"t": "CSA CCM Control Domains",
+"p": "/inside/docs/std/csa-ccm/"
+},
+{
+"u": "/inside/docs/std/csa-ccm-controversies/",
+"t": "CSA CCM Controversies",
+"p": "/inside/docs/std/csa-ccm/"
+},
+{
+"u": "/inside/docs/std/slsa-sbom/",
+"t": "SLSA SBOM",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/slsa-sbom-position/",
+"t": "SLSA SBOM position",
+"p": "/inside/docs/std/slsa-sbom/"
+},
+{
+"u": "/inside/docs/std/slsa-sbom-anchors/",
+"t": "SLSA SBOM anchors",
+"p": "/inside/docs/std/slsa-sbom/"
+},
+{
+"u": "/inside/docs/std/slsa-levels-and-sbom-formats/",
+"t": "SLSA Levels and SBOM Formats",
+"p": "/inside/docs/std/slsa-sbom/"
+},
+{
+"u": "/inside/docs/std/slsa-sbom-controversies/",
+"t": "SLSA SBOM Controversies",
+"p": "/inside/docs/std/slsa-sbom/"
+},
+{
+"u": "/inside/docs/std/un-r155-r156/",
+"t": "UN R155 R156",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/un-r155-r156-position/",
+"t": "UN R155 R156 position",
+"p": "/inside/docs/std/un-r155-r156/"
+},
+{
+"u": "/inside/docs/std/un-r155-r156-anchors/",
+"t": "UN R155 R156 anchors",
+"p": "/inside/docs/std/un-r155-r156/"
+},
+{
+"u": "/inside/docs/std/un-r155-csms-and-r156-sums/",
+"t": "UN R155 CSMS and R156 SUMS",
+"p": "/inside/docs/std/un-r155-r156/"
+},
+{
+"u": "/inside/docs/std/un-r155-r156-controversies/",
+"t": "UN R155 R156 Controversies",
+"p": "/inside/docs/std/un-r155-r156/"
+},
+{
+"u": "/inside/docs/std/itil/",
+"t": "ITIL",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/itil-position/",
+"t": "ITIL position",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-anchors/",
+"t": "ITIL anchors",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-certification-scheme/",
+"t": "ITIL 4 Certification Scheme",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-four-dimensions/",
+"t": "ITIL 4 Four Dimensions",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-guiding-principles/",
+"t": "ITIL 4 Guiding Principles",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-practices/",
+"t": "ITIL 4 Practices",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-service-value-chain/",
+"t": "ITIL 4 Service Value Chain",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-4-service-value-system/",
+"t": "ITIL 4 Service Value System",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-controversies/",
+"t": "ITIL Controversies",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-version-history/",
+"t": "ITIL Version History",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/itil-vs-iso-20000/",
+"t": "ITIL vs ISO 20000",
+"p": "/inside/docs/std/itil/"
+},
+{
+"u": "/inside/docs/std/togaf/",
+"t": "TOGAF",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/togaf-position/",
+"t": "TOGAF position",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-anchors/",
+"t": "TOGAF anchors",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-adm/",
+"t": "TOGAF ADM",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-architecture-capability/",
+"t": "TOGAF Architecture Capability",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-certification-scheme/",
+"t": "TOGAF Certification Scheme",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-content-framework/",
+"t": "TOGAF Content Framework",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-controversies/",
+"t": "TOGAF Controversies",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-enterprise-continuum/",
+"t": "TOGAF Enterprise Continuum",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-version-history/",
+"t": "TOGAF Version History",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/togaf-vs-other-ea-frameworks/",
+"t": "TOGAF vs Other EA Frameworks",
+"p": "/inside/docs/std/togaf/"
+},
+{
+"u": "/inside/docs/std/cobit/",
+"t": "COBIT",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/cobit-position/",
+"t": "COBIT position",
+"p": "/inside/docs/std/cobit/"
+},
+{
+"u": "/inside/docs/std/cobit-anchors/",
+"t": "COBIT anchors",
+"p": "/inside/docs/std/cobit/"
+},
+{
+"u": "/inside/docs/std/cobit-controversies/",
+"t": "COBIT Controversies",
+"p": "/inside/docs/std/cobit/"
+},
+{
+"u": "/inside/docs/std/cobit-governance-and-management-objectives/",
+"t": "COBIT Governance and Management Objectives",
+"p": "/inside/docs/std/cobit/"
+},
+{
+"u": "/inside/docs/std/cmmi/",
+"t": "CMMI",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/cmmi-position/",
+"t": "CMMI position",
+"p": "/inside/docs/std/cmmi/"
+},
+{
+"u": "/inside/docs/std/cmmi-anchors/",
+"t": "CMMI anchors",
+"p": "/inside/docs/std/cmmi/"
+},
+{
+"u": "/inside/docs/std/cmmi-controversies/",
+"t": "CMMI Controversies",
+"p": "/inside/docs/std/cmmi/"
+},
+{
+"u": "/inside/docs/std/cmmi-maturity-and-capability-levels/",
+"t": "CMMI Maturity and Capability Levels",
+"p": "/inside/docs/std/cmmi/"
+},
+{
+"u": "/inside/docs/std/prince2/",
+"t": "PRINCE2",
+"p": "/inside/docs/std/"
+},
+{
+"u": "/inside/docs/std/prince2-position/",
+"t": "PRINCE2 position",
+"p": "/inside/docs/std/prince2/"
+},
+{
+"u": "/inside/docs/std/prince2-anchors/",
+"t": "PRINCE2 anchors",
+"p": "/inside/docs/std/prince2/"
+},
+{
+"u": "/inside/docs/std/prince2-controversies/",
+"t": "PRINCE2 Controversies",
+"p": "/inside/docs/std/prince2/"
+},
+{
+"u": "/inside/docs/std/prince2-principles-aspects-processes/",
+"t": "PRINCE2 Principles Aspects Processes",
+"p": "/inside/docs/std/prince2/"
+}
+]
+}

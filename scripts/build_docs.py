@@ -16,7 +16,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import inside_chrome  # the one top bar of Inside
+import inside_chrome, site_chrome  # sitemap and llms.txt helpers; the chrome of every page
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / 'scripts' / 'docs'
@@ -483,24 +483,24 @@ FONTS = '<link rel="stylesheet" href="/fonts/fonts.css">'
 ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">'
 
 
-def topbar():
-    return inside_chrome.bar('docs') + '\n' + inside_chrome.banner()
+CRUMBS = '<!-- mb:crumbs --><!-- /mb:crumbs -->'  # breadcrumbs, top bar and footer come from scripts/site_chrome.py (site/nav.yml)
 
 
-def footer(p=None):
-    src = ''
-    if p:
-        src = f'<a href="{REPO}/blob/main/{esc(p["src"])}">page source</a> · <a href="{REPO}/commits/main/{esc(p["src"])}">history</a>'
-        if p.get('origin'):
-            src += f' · from the knowledge vault, <span class="mono">{esc(p["origin"])}</span>'
-        src += '<br>'
-    return (f'<footer>{src}Inside docs · Stefan Coetzee · built from <a href="{REPO}/tree/main/scripts/docs">scripts/docs</a> by '
-            f'<a href="{REPO}/blob/main/scripts/build_docs.py">build_docs.py</a><br>'
-            '<span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> '
-            '(self-assessment, not a certification)</footer>')
+def note(p=None):
+    """The build note at the end of the page; page source, history and the report link are in the site footer."""
+    origin = f'From the knowledge vault, <span class="mono">{esc(p["origin"])}</span>. ' if p and p.get('origin') else ''
+    return (f'<p class="page-note">{origin}Built from <a href="{REPO}/tree/main/scripts/docs">scripts/docs</a> by '
+            f'<a href="{REPO}/blob/main/scripts/build_docs.py">build_docs.py</a>.</p>')
 
 
-def head(title, desc, url, extra='', og_title=None):
+def write(url, page):
+    rel = url.lstrip('/') + 'index.html'
+    target = ROOT / rel
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(site_chrome.apply(page, rel), encoding='utf-8')
+
+
+def head(title, desc, url, extra='', og_title=None, src='scripts/build_docs.py'):
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -516,15 +516,15 @@ def head(title, desc, url, extra='', og_title=None):
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{BASE}/inside/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="mb-source" content="{esc(src)}">
 {extra}{ICON}
 {FONTS}
 <link rel="stylesheet" href="/inside/docs/docs.css">
-<link rel="stylesheet" href="/inside/bar.css">
 </head>'''
 
 
 def scripts():
-    return '<script src="/inside/bar.js" defer></script>\n<script src="/inside/docs/docs.js" defer></script>\n<script src="/conformity/footer.js" defer></script>'
+    return '<script src="/inside/docs/docs.js" defer></script>'
 
 
 def child_list(key):
@@ -561,9 +561,6 @@ def page_html(p):
     if not is_home:
         par = pages[(p['space'], p['parent'])]
         extra += f'<link rel="up" href="{par["url"]}">\n'
-    crumbs = '<a href="/inside/docs/">Docs</a>' + ''.join(f'<a href="{a["url"]}">{esc(SPACE[a["space"]]["name"] if a["slug"] == "index" else a["title"])}</a>' for a in anc)
-    if is_home:
-        crumbs = '<a href="/inside/docs/">Docs</a>'
     by = f'<span>owner {esc(p["owner"])}</span>' if p.get('owner') else '<span class="rv late">no owner</span>'
     by += f'<span>created {p["created"]}</span><span>updated {p["updated"]}</span>'
     rv, rb = p.get('reviewed', ''), p.get('review_by', '')
@@ -610,13 +607,12 @@ def page_html(p):
             f'<a class="space-head" href="/inside/docs/{sp["key"]}/"><span class="sp-icon" style="background:{sp["color"]}">{sp["key"].upper()}</span>'
             f'<span>{esc(sp["name"])}</span></a>{tree_html(p["space"], p)}</details></nav>')
     h1 = esc(sp['name']) if is_home else esc(p['title'])
-    return f'''{head(title, p["summary"], p["url"], extra, og_title=sp["name"] if is_home else p["title"])}
+    return f'''{head(title, p["summary"], p["url"], extra, og_title=sp["name"] if is_home else p["title"], src=p["src"])}
 <body>
-{topbar()}
 <div class="layout">
 {side}
 <main id="main">
-<nav class="crumbs" aria-label="Breadcrumb">{crumbs}</nav>
+{CRUMBS}
 <h1>{h1}</h1>
 <div class="byline">{by}</div>
 {review}{adr_panel}
@@ -627,10 +623,10 @@ def page_html(p):
 {child_list((p["space"], p["slug"]))}
 {labels}
 {back}
+{note(p)}
 </main>
 {toc}
 </div>
-{footer(p)}
 {scripts()}
 </body>
 </html>
@@ -651,17 +647,16 @@ def docs_home():
     newest = max(p['updated'] for p in pages.values())
     return f'''{head('Inside docs · Machine Behavior', desc, url, f'<meta property="article:modified_time" content="{newest}">' + chr(10))}
 <body>
-{topbar()}
 <div class="layout wide">
 <main id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a></nav>
+{CRUMBS}
 <h1>Docs</h1>
 <p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">map of the work</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label. Owners and review dates: <a href="/inside/docs/health/">Docs health</a>.</p>
 <section class="spaces">{cards}</section>
 <section class="home-recent"><h2>Recently updated</h2>{recent(pages.values(), 12)}</section>
+{note()}
 </main>
 </div>
-{footer()}
 {scripts()}
 </body>
 </html>
@@ -703,10 +698,9 @@ def health_page():
     desc = f'Docs health: which of the {len(allp)} docs pages have an owner, a type and a review date, which are past review and which have never been reviewed.'
     return f'''{head('Docs health · Inside docs', desc, url, f'<meta property="article:modified_time" content="{TODAY}">' + chr(10), og_title='Docs health')}
 <body>
-{topbar()}
 <div class="layout wide">
 <main id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="{url}">Health</a></nav>
+{CRUMBS}
 <h1>Docs health</h1>
 <div class="byline"><span>built {TODAY}</span><span>{len(allp)} pages</span></div>
 <p class="lede">Each page should name an owner, the date it was last reviewed, the date of its next review and a type (tutorial, how-to, reference or explanation, after Diátaxis). This page lists what is missing or late. {len(reviewed)} pages have a review date, {len(overdue)} are past it, {len(not_rev)} have never been reviewed, and {len(no_owner)} have no owner. Pages from the knowledge vault start as not reviewed and take the space owner until a page names its own. A missing field or a late review does not block a deploy; whether it should is an open decision.</p>
@@ -724,9 +718,9 @@ def health_page():
 <h2 id="fields">The fields</h2>
 <p>In the front matter of each source file: <code>owner</code> (who keeps the page true), <code>reviewed</code> (the date the page was last checked against the system or source it describes, or <code>no</code>), <code>review_by</code> (the date of the next check; 90 days after the review by default) and <code>type</code>. For a hand-written page, the date it was written from the source counts as its first review. How to set them: <a href="/inside/docs/eng/docs-tree/">Docs tree</a>.</p>
 </article>
+{note()}
 </main>
 </div>
-{footer()}
 {scripts()}
 </body>
 </html>
@@ -739,13 +733,22 @@ if OUT.exists():
         if d.is_dir() and d.name in SPACE:
             shutil.rmtree(d)
 OUT.mkdir(parents=True, exist_ok=True)
+# the tree for site/nav.yml (scripts/site_chrome.py): every page with its parent, parents before children
+_tree = [{'u': '/inside/docs/', 't': 'Docs'}, {'u': '/inside/docs/health/', 't': 'Docs health', 'p': '/inside/docs/'}]
+def _walk(key):
+    for c in children.get(key, []):
+        _tree.append({'u': c['url'], 't': c['title'], 'p': pages[(c['space'], c['parent'])]['url']})
+        _walk((c['space'], c['slug']))
+for s in spaces_present:
+    _tree.append({'u': pages[(s['key'], 'index')]['url'], 't': s['name'], 'p': '/inside/docs/'})
+    _walk((s['key'], 'index'))
+assert len(_tree) == len(pages) + 2, 'docs tree.json misses pages'
+(OUT / 'tree.json').write_text(json.dumps({'source': 'scripts/build_docs.py', 'pages': _tree}, ensure_ascii=False, indent=0), encoding='utf-8')
+site_chrome.tree(reload=True)
 for p in pages.values():
-    target = ROOT / p['url'].lstrip('/') / 'index.html'
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(page_html(p), encoding='utf-8')
-(OUT / 'index.html').write_text(docs_home(), encoding='utf-8')
-(OUT / 'health').mkdir(exist_ok=True)
-(OUT / 'health' / 'index.html').write_text(health_page(), encoding='utf-8')
+    write(p['url'], page_html(p))
+write('/inside/docs/', docs_home())
+write('/inside/docs/health/', health_page())
 _missing = [p['src'] for p in pages.values() if p['space'] in HAND and not all(p.get(k) for k in ('owner', 'reviewed', 'review_by', 'type'))]
 for m in _missing:
     print(f'warning: {m}: missing owner, reviewed, review_by or type', file=sys.stderr)

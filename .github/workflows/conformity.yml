@@ -109,6 +109,13 @@ jobs:
         timeout-minutes: 1
         run: python3 scripts/build_search.py
 
+      - name: Apply the site chrome to pages written outside the build (artifact only, never committed)
+        # The gate renders /conformity/ on every run without the shared chrome; scripts/site_chrome.py writes the top bar,
+        # breadcrumbs and footer from site/nav.yml on every page, so a page a foreign generator rewrote still matches.
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python3 scripts/site_chrome.py --deploy
+
       - name: Snapshot the deploy feed for Inside (artifact only, never committed)
         # Inside reads /inside/deploys.json instead of calling the GitHub API from each visitor's browser.
         continue-on-error: true

@@ -19,7 +19,6 @@
 <meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
-<link rel="stylesheet" href="/inside/bar.css">
 <style>
   :root {
     --bg: #0A0C0F; --card: #11151A; --card2: #0E1216; --line: #1E252D; --ink: #F2F1EC; --soft: #C9CDD2; --dim: #7D8792;
@@ -97,17 +96,16 @@
   .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .frame .wait { position: absolute; inset: 0; display: grid; place-items: center; }
   @media (max-width: 900px) { .frame { height: 720px; } }
-  footer { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
-  footer a { color: var(--dim); }
+  .page-note { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
+  .page-note a { color: var(--dim); }
   .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
   @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 34px; } }
   @media (max-width: 480px) { .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 </style>
-</head>
-<body>
-<!-- inside-bar:begin here=inside --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/" aria-current="page"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
-<!-- inside-banner:begin --><aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- inside-banner:end -->
-<main class="wrap" id="main">
+<!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Inside", "item": "https://machinebehavior.io/inside/"}]}</script><!-- /mb:head --></head>
+<body class="mb-app mb-s-inside"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/" aria-current="page">Inside</a><a href="/inside/docs/">Docs</a><a href="/map/">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><aside class="mb-demo" aria-label="About this intranet"><span class="mb-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- /mb:bar -->
+
+<main class="wrap" id="main"><!-- mb:crumbs --><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/" aria-current="page">Inside</a></li></ol></nav><!-- /mb:crumbs -->
   <header class="top">
     <div>
       <div class="eyebrow"><a href="/">machinebehavior.io</a> / inside</div>
@@ -173,14 +171,9 @@
     <div class="frame" id="dash-frame"><span class="wait">loads when in view</span></div>
   </section>
 
-  <footer>
-    <span id="snap"></span> · data: <a href="/map/graph.json">graph.json</a>, each site's <a href="/conformity/latest.json">conformity record</a>, GitHub Actions, the <a href="/conformity/probes/latest.json">probe record</a><br>
-    <span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span>
-  </footer>
+  <p class="page-note"><span id="snap"></span> · data: <a href="/map/graph.json">graph.json</a>, each site's <a href="/conformity/latest.json">conformity record</a>, GitHub Actions, the <a href="/conformity/probes/latest.json">probe record</a></p>
   <noscript><p>Inside reads live data in the browser. Without JavaScript: the work is listed at <a href="/llms.txt">/llms.txt</a>, the graph at <a href="/map/graph.json">/map/graph.json</a> and the gate at <a href="/conformity/">/conformity/</a>.</p></noscript>
 </main>
-<script src="/inside/bar.js" defer></script>
-<script src="/conformity/footer.js" defer></script>
 <script>
 const SITES = [
   {key: 'mb', host: 'machinebehavior.io', repo: 'uncovertechtalent/machinebehavior.io', color: '#FFB547'},
@@ -418,5 +411,6 @@ document.addEventListener('click', e => {
 const hm = location.hash.match(/^#dashboards(?:\/(\w+))?/);
 if (hm) { showDash(hm[1] || 'deploys', true); setTimeout(() => $('dashboards').scrollIntoView(), 300); }
 </script>
+<!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/inside/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/inside/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Finside%2F%3A%20">Report an issue</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
 </body>
 </html>

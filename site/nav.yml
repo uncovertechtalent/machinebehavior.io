@@ -1,0 +1,99 @@
+# One navigation source for machinebehavior.io.
+#
+# Sections and pages are defined here once. scripts/site_chrome.py reads this file and writes, on every page:
+# the top bar, the breadcrumbs (visible, plus a JSON-LD BreadcrumbList), the section sidebar and the footer.
+# It also checks sitemap.xml and llms.txt against this tree and reports pages outside it as orphans.
+#
+# Entries:
+#   title  the name in the breadcrumbs and the sidebar
+#   url    a root-absolute page path ending in /, or an anchor on a page (/inside/#dashboards)
+#   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb
+#   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py)
+#          and services (inside/services/services.json, written by scripts/build_inside.py)
+#   pages  the pages under an entry
+#
+# Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
+
+site:
+  name: Machine Behavior
+  owner: Stefan Coetzee
+  base: https://machinebehavior.io
+  repo: https://github.com/uncovertechtalent/machinebehavior.io
+  search: /inside/search/
+
+# Impressum and privacy links go here as entries with title and url. Both wait on the business address (issues #10 and #11).
+legal: []
+
+sections:
+  - key: home
+    title: Home
+    url: /
+
+  - key: research
+    title: Research
+    url: /research/
+    about: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
+    pages:
+      - title: Claims ledger
+        url: /claims/
+      - title: Experiments
+        url: /experiments/
+      - title: Objections register
+        url: /objections/
+      - title: Evidence index
+        url: /evidence/
+      - title: Slips
+        url: /slips/
+      - group: Case files
+        pages:
+          - title: "Case 12: a licence rule mid-task"
+            url: /case-12-licence-rule-mid-task/
+          - title: Running conjobs for AI
+            url: /running-conjobs-for-ai/
+      - group: Articles
+        pages:
+          - title: The cheating moved
+            url: /the-cheating-moved/
+          - title: Chaos engineering for behaviour
+            url: /chaos-engineering-for-behaviour/
+      - group: Reference
+        pages:
+          - title: Man pages
+            url: /man/
+          - title: Terms
+            url: /terms/
+          - title: Continuous conformity
+            url: /continuous-conformity/
+          - title: Self-assessment, run 1
+            url: /continuous-conformity-self-assessment/
+
+  - key: inside
+    title: Inside
+    url: /inside/
+    banner: true
+    pages:
+      - title: Services
+        url: /inside/services/
+        auto: services
+      - title: Status
+        url: /inside/status/
+      - title: Board
+        url: /inside/board/
+      - title: Dashboards
+        url: /inside/#dashboards
+      - title: Gate runs
+        url: /conformity/
+      - title: Tour
+        url: /inside/tour/
+      - title: Search
+        url: /inside/search/
+
+  - key: docs
+    title: Docs
+    url: /inside/docs/
+    banner: true
+    auto: docs
+
+  - key: map
+    title: Map
+    url: /map/

@@ -4,7 +4,7 @@
 Steps, in order:
 1. the status page: incidents/*.yml plus the catalog -> /inside/status/ and inside/status/incidents.json;
 2. the service catalog: services/*.yml -> /inside/services/ and one page per service, plus inside/services/services.json;
-3. sync the top bar into the hand-written Inside pages (scripts/inside_chrome.py);
+3. the chrome of every page from site/nav.yml (scripts/site_chrome.py): top bar, breadcrumbs, sidebar, footer;
 4. managed blocks in sitemap.xml and llms.txt;
 5. the search index /inside/search.json (scripts/build_search.py).
 
@@ -17,7 +17,7 @@ import datetime, json, re, subprocess, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import inside_chrome
+import inside_chrome, site_chrome
 import build_search
 import mini_yaml
 from inside_chrome import esc
@@ -135,7 +135,7 @@ def load_services():
     return out
 
 
-def head(title, desc, url, og_title, modified, extra=''):
+def head(title, desc, url, og_title, modified, extra='', src='scripts/build_inside.py'):
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -156,18 +156,24 @@ def head(title, desc, url, og_title, modified, extra=''):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="{BASE}/inside/og.png">
 <meta property="article:modified_time" content="{modified}">
+<meta name="mb-source" content="{esc(src)}">
 {extra}<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/inside/docs/docs.css">
-<link rel="stylesheet" href="/inside/bar.css">
 <link rel="stylesheet" href="/inside/inside.css">
 </head>'''
 
 
 def foot(src_links):
-    return (f'<footer>{src_links}<br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> '
-            '(self-assessment, not a certification)</footer>\n'
-            '<script src="/inside/bar.js" defer></script>\n<script src="/conformity/footer.js" defer></script>')
+    """The build note at the end of main; the site footer (scripts/site_chrome.py) carries source, history and the report link."""
+    return f'<p class="page-note">{src_links}</p>'
+
+
+def write(rel, page):
+    """Write a page with the chrome from site/nav.yml."""
+    path = ROOT / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(site_chrome.apply(page, rel), encoding='utf-8')
 
 
 def chip_tier(t):
@@ -224,12 +230,10 @@ def service_page(s, all_s, status_live):
     title = f'{s["name"]} · Services · Inside · Machine Behavior'
     extra = (f'<meta name="service-tier" content="{s["tier"]}">\n<meta name="service-lifecycle" content="{s["lifecycle"]}">\n'
              f'<meta property="article:tag" content="{esc(s["system"])}">\n<link rel="up" href="/inside/services/">\n')
-    return f'''{head(title, desc, s["page"], s["name"] + " (service)", s["updated"], extra)}
+    return f'''{head(title, desc, s["page"], s["name"] + " (service)", s["updated"], extra, src=s["src"])}
 <body>
-{inside_chrome.bar("services")}
-{inside_chrome.banner()}
 <main class="wrap svc" id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/services/">Services</a></nav>
+<!-- mb:crumbs --><!-- /mb:crumbs -->
 <h1>{esc(s["name"])}</h1>
 <div class="byline"><span>service</span><span>updated {s["updated"]}</span><a class="report" href="{REPO}/blob/main/{esc(s["src"])}">edit the YAML</a></div>
 <p class="lede">{esc(desc)}</p>
@@ -237,8 +241,8 @@ def service_page(s, all_s, status_live):
 <article class="doc">
 {body}
 </article>
-</main>
 {foot(f'Service catalog · built from <a href="{REPO}/blob/main/{esc(s["src"])}">{esc(s["src"])}</a> by <a href="{REPO}/blob/main/scripts/build_inside.py">build_inside.py</a> · <a href="/inside/services/services.json">services.json</a>')}
+</main>
 </body>
 </html>
 '''
@@ -268,17 +272,15 @@ def catalog_page(svcs, status_live):
     desc = f'The service catalog of the platform behind machinebehavior.io: {n} services with owner, tier, lifecycle, SLO, dashboard, runbooks, docs, repository and dependencies, built from YAML in the repository.'
     return f'''{head("Services · Inside · Machine Behavior", desc, "/inside/services/", "Inside services: the service catalog", newest)}
 <body>
-{inside_chrome.bar("services")}
-{inside_chrome.banner()}
 <main class="wrap" id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/services/">Services</a></nav>
+<!-- mb:crumbs --><!-- /mb:crumbs -->
 <h1>Services</h1>
 <p class="lede">{n} services run the platform: the three sites, the gate and the deploy job, the build tools, the observability stack, the research tools and the agent sessions. Each one has an owner, a tier, a lifecycle and the links an on-call responder needs. The catalog is built from <a href="{REPO}/tree/main/services">one YAML file per service</a>, validated at build; updated {newest}.</p>
 <ul class="tiers">{tiers}</ul>
 {groups}
 <p class="note">Machine-readable: <a href="/inside/services/services.json">services.json</a>. How to add or change a service: <a href="/inside/docs/eng/service-catalog/">Service catalog</a> in the Engineering docs.</p>
-</main>
 {foot(f'Service catalog · built from <a href="{REPO}/tree/main/services">services/*.yml</a> by <a href="{REPO}/blob/main/scripts/build_inside.py">build_inside.py</a>')}
+</main>
 </body>
 </html>
 '''
@@ -292,11 +294,6 @@ def build_services(svcs, status_live):
                 f.unlink()
             d.rmdir()
     out.mkdir(parents=True, exist_ok=True)
-    for s in svcs.values():
-        p = out / s['id'] / 'index.html'
-        p.parent.mkdir(exist_ok=True)
-        p.write_text(service_page(s, svcs, status_live), encoding='utf-8')
-    (out / 'index.html').write_text(catalog_page(svcs, status_live), encoding='utf-8')
     data = {'generated': TODAY, 'source': f'{REPO}/tree/main/services', 'services': [
         {'id': s['id'], 'name': s['name'], 'url': s['page'], 'description': ' '.join(s['description'].split()), 'owner': s['owner'],
          'operator': s.get('operator'), 'tier': s['tier'], 'lifecycle': s['lifecycle'], 'system': s['system'], 'address': s.get('url'),
@@ -305,6 +302,10 @@ def build_services(svcs, status_live):
          'external': s.get('external') or [], 'status': s.get('status') or {}, 'updated': s['updated']}
         for s in sorted(svcs.values(), key=lambda s: (SYSTEMS.index(s['system']), s['tier'], s['name'].lower()))]}
     (out / 'services.json').write_text(json.dumps(data, indent=1, ensure_ascii=False), encoding='utf-8')
+    site_chrome.tree(reload=True)  # the catalog is part of the navigation tree
+    for s in svcs.values():
+        write(f'inside/services/{s["id"]}/index.html', service_page(s, svcs, status_live))
+    write('inside/services/index.html', catalog_page(svcs, status_live))
     print(f'services: {len(svcs)} pages')
     return svcs
 
@@ -441,10 +442,8 @@ def status_page(svcs, incidents):
             'history with the stages Investigating, Identified, Monitoring and Resolved.')
     return f'''{head("Status · Inside · Machine Behavior", desc, "/inside/status/", "Inside status: services and incidents", newest)}
 <body>
-{inside_chrome.bar("status")}
-{inside_chrome.banner()}
 <main class="wrap" id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/status/">Status</a></nav>
+<!-- mb:crumbs --><!-- /mb:crumbs -->
 <h1>Status</h1>
 <p class="lede">The current state of each service in the <a href="/inside/services/">catalog</a>, read in your browser from the records this site already publishes: each site's gate record and the deploy feed written at the last deploy. Services without such a record say so, and an open incident marks the services it affects. Incidents are written blameless; updated {newest}.</p>
 <div class="overall" id="overall"><span class="light none" id="ov-light"></span><b id="ov-text">Reading the records</b><span class="asof" id="ov-asof"></span></div>
@@ -462,10 +461,10 @@ def status_page(svcs, incidents):
 <li><b>No live check</b>: this page has no record for the service. Its dashboard and alert rules watch it; see <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</li>
 </ul>
 <p class="note">Stages: Investigating, Identified, Monitoring, Resolved. Records: <a href="{REPO}/tree/main/incidents">incidents/*.yml</a>, machine-readable at <a href="/inside/status/incidents.json">incidents.json</a>. How to open, update and close an incident: <a href="/inside/docs/eng/status-page/">Status page</a> in the Engineering docs.</p></section>
+{foot(f'Inside status · built from <a href="{REPO}/tree/main/incidents">incidents/*.yml</a> and <a href="{REPO}/tree/main/services">services/*.yml</a> by <a href="{REPO}/blob/main/scripts/build_inside.py">build_inside.py</a>')}
 </main>
 <script type="application/json" id="st-cfg">{json.dumps(cfg)}</script>
 <script src="/inside/status/status.js" defer></script>
-{foot(f'Inside status · built from <a href="{REPO}/tree/main/incidents">incidents/*.yml</a> and <a href="{REPO}/tree/main/services">services/*.yml</a> by <a href="{REPO}/blob/main/scripts/build_inside.py">build_inside.py</a>')}
 <noscript><p style="padding:0 18px">Without JavaScript the service states are not read; the incidents above are static.</p></noscript>
 </body>
 </html>
@@ -476,7 +475,7 @@ def build_status(svcs):
     incidents = load_incidents(svcs)
     out = ROOT / 'inside' / 'status'
     out.mkdir(parents=True, exist_ok=True)
-    (out / 'index.html').write_text(status_page(svcs, incidents), encoding='utf-8')
+    write('inside/status/index.html', status_page(svcs, incidents))
     data = {'generated': TODAY, 'source': f'{REPO}/tree/main/incidents', 'stages': STAGES, 'incidents': [
         {'id': i['id'], 'title': i['title'], 'services': i['services'], 'impact': i['impact'], 'stage': i['stage'],
          'started': i['started'], 'resolved': i.get('resolved'), 'summary': ' '.join(i['summary'].split()),
@@ -493,12 +492,6 @@ def main():
     svcs = load_services()
     incidents = build_status(svcs)
     build_services(svcs, status_live=True)
-    stale, missing = inside_chrome.sync()
-    print(f'bar synced in {len(stale)} page(s)')
-    if missing:
-        for m in missing:
-            print('no bar block or asset:', m)
-        sys.exit(1)
     newest = max(s['updated'] for s in svcs.values())
     urls = [('/inside/services/', newest)] + [(s['page'], s['updated']) for s in sorted(svcs.values(), key=lambda s: s['page'])]
     inside_chrome.sitemap_block('services', urls)
@@ -514,6 +507,8 @@ def main():
     for i in incidents:
         sec += f'- [{i["title"]}]({BASE}/inside/status/#{i["id"]}): {i["stage"]}, started {i["started"]}. {" ".join(i["summary"].split())}\n'
     inside_chrome.llms_section('Inside status', sec)
+    if site_chrome.main([]):  # chrome on every page, then the orphan, sitemap and llms.txt report
+        sys.exit(1)
     build_search.main()
 
 

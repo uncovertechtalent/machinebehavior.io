@@ -1,0 +1,107 @@
+/* Design tokens of machinebehavior.io: colour, type, spacing. One file; every page loads it.
+   Light and dark follow the visitor's system setting (prefers-color-scheme). Nothing is stored on the device.
+   Every token starts with --mb- so it never collides with the older page variables (--ink, --line, --card ...). */
+:root {
+  color-scheme: light dark;
+
+  /* type */
+  --mb-font-serif: "Iowan Old Style", Palatino, Georgia, serif;
+  --mb-font-sans: 'Space Grotesk', system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mb-font-mono: 'JetBrains Mono', ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --mb-text-2xs: 11px;
+  --mb-text-xs: 12px;
+  --mb-text-sm: 13.5px;
+  --mb-text-md: 15px;
+  --mb-text-body: 16px;
+  --mb-text-lg: 19px;
+  --mb-text-xl: 24px;
+  --mb-text-2xl: 36px;
+  --mb-leading: 1.55;
+
+  /* spacing and shape */
+  --mb-space-1: 4px;
+  --mb-space-2: 8px;
+  --mb-space-3: 12px;
+  --mb-space-4: 16px;
+  --mb-space-5: 24px;
+  --mb-space-6: 32px;
+  --mb-space-7: 48px;
+  --mb-radius-s: 6px;
+  --mb-radius-m: 10px;
+  --mb-radius-l: 12px;
+  --mb-gutter: 16px;
+  --mb-bar-h: 54px;
+  --mb-side-w: 264px;
+
+  /* page surfaces, light */
+  --mb-surface: #F6F7F4;
+  --mb-surface-raised: #FFFFFF;
+  --mb-surface-sunken: #ECEEE9;
+  --mb-text: #1D2422;
+  --mb-text-soft: #4A5450;
+  --mb-text-dim: #5B6560;
+  --mb-line: #D8DCD6;
+  --mb-accent: #2F6D62;
+  --mb-accent-2: #A84C27;
+  --mb-accent-tint: rgba(47, 109, 98, 0.10);
+  --mb-focus: #2F6D62;
+
+  /* status colours, light */
+  --mb-ok: #1F7A50;
+  --mb-warn: #8A5A00;
+  --mb-bad: #B3261E;
+  --mb-info: #2F5FA8;
+
+  /* the top bar is dark in both schemes */
+  --mb-bar-bg: #0E1216;
+  --mb-bar-line: #1E252D;
+  --mb-bar-text: #F2F1EC;
+  --mb-bar-soft: #C9CDD2;
+  --mb-bar-dim: #8C96A1;
+  --mb-bar-accent: #FFB547;
+  --mb-bar-field: #161B21;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mb-surface: #131816;
+    --mb-surface-raised: #1B211E;
+    --mb-surface-sunken: #0F1311;
+    --mb-text: #E8E6DF;
+    --mb-text-soft: #B4BDB8;
+    --mb-text-dim: #95A09A;
+    --mb-line: #2B332F;
+    --mb-accent: #64AC9B;
+    --mb-accent-2: #D9875E;
+    --mb-accent-tint: rgba(100, 172, 155, 0.14);
+    --mb-focus: #FFB547;
+    --mb-ok: #3DDC97;
+    --mb-warn: #FFB547;
+    --mb-bad: #FF7A6B;
+    --mb-info: #6FA8FF;
+  }
+}
+
+/* App pages (Inside, Docs, Map) keep the dark portal look until their own styles move onto these tokens. */
+body.mb-app {
+  color-scheme: dark;
+  --mb-surface: #0A0C0F;
+  --mb-surface-raised: #11151A;
+  --mb-surface-sunken: #0E1216;
+  --mb-text: #F2F1EC;
+  --mb-text-soft: #C9CDD2;
+  --mb-text-dim: #8C96A1;
+  --mb-line: #1E252D;
+  --mb-accent: #FFB547;
+  --mb-accent-2: #FF8FD8;
+  --mb-accent-tint: rgba(255, 181, 71, 0.12);
+  --mb-focus: #FFB547;
+  --mb-ok: #3DDC97;
+  --mb-warn: #FFB547;
+  --mb-bad: #FF7A6B;
+  --mb-info: #6FA8FF;
+}
+
+@media (max-width: 819px) {
+  :root { --mb-bar-h: 92px; }
+}

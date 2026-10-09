@@ -19,7 +19,6 @@
 <meta name="twitter:image" content="https://machinebehavior.io/map/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <link rel="stylesheet" href="/fonts/fonts.css">
-<link rel="stylesheet" href="/inside/bar.css">
 <script src="/vendor/d3-7.9.0.min.js"></script>
 <style>
   :root {
@@ -31,7 +30,7 @@
     font-family: 'Space Grotesk', system-ui, sans-serif; }
   canvas { display: block; cursor: grab; }
   canvas.dragging { cursor: grabbing; }
-  .ib { position: fixed; left: 0; right: 0; }
+  .mb-bar { position: fixed; left: 0; right: 0; top: 0; }
   .panel { position: fixed; left: 16px; top: calc(var(--ib-h) + 14px); max-height: calc(100vh - var(--ib-h) - 28px); overflow: auto; width: 300px; max-width: calc(100vw - 32px); background: var(--panel);
     border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; backdrop-filter: blur(6px); }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
@@ -98,14 +97,14 @@
   @media (prefers-reduced-motion: reduce) { .sheet, .sheet.open { transition: none; } .s-load::before { animation: none; } }
   @media (max-width: 600px) { .panel { width: auto; right: 16px; } .filters { grid-template-columns: 1fr 1fr; } }
 </style>
-</head>
-<body>
-<!-- inside-bar:begin here=map --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/" aria-current="page">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Map", "item": "https://machinebehavior.io/map/"}]}</script><!-- /mb:head --></head>
+<body class="mb-app mb-s-map"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/inside/">Inside</a><a href="/inside/docs/">Docs</a><a href="/map/" aria-current="page">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- /mb:bar -->
+
 <main id="main">
 <canvas id="c" aria-label="Graph of the published work"></canvas>
 <div class="panel" id="panel">
   <button class="collapse" id="collapse" aria-label="Collapse panel">–</button>
-  <div class="eyebrow"><a href="/" style="color:inherit;text-decoration:none">machinebehavior.io</a> / map</div>
+  <!-- mb:crumbs --><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/map/" aria-current="page">Map</a></li></ol></nav><!-- /mb:crumbs -->
   <h1>Map of the Work</h1>
   <div class="eyebrow" style="margin-bottom:8px">Stefan Coetzee</div>
   <div class="body">
@@ -114,6 +113,7 @@
     <input type="search" id="q" placeholder="Filter the map by title" aria-label="Filter the map by title" autocomplete="off">
     <div class="filters" id="filters"></div>
     <label class="toggle"><input type="checkbox" id="nav"> Show navigation links</label>
+    <!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/map/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/map/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Fmap%2F%3A%20">Report an issue</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
   </div>
 </div>
 <div class="tip" id="tip"></div>
@@ -129,11 +129,9 @@
     <div class="s-card" id="s-card"></div>
   </div>
 </section>
-<div class="foot"><span id="foot"></span><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/" style="color:inherit">latest run</a></span> · <a href="/map/graph.json" style="color:inherit">graph.json</a></div>
+<div class="foot"><span id="foot"></span> · <a href="/map/graph.json" style="color:inherit">graph.json</a></div>
 <noscript><p style="padding:24px;max-width:640px">Map of the Work is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
 </main>
-<script src="/inside/bar.js" defer></script>
-<script src="/conformity/footer.js" defer></script>
 <script>
 const KINDS = [
   {key: 'mb', label: 'machinebehavior.io', color: '#FFB547'},
@@ -205,7 +203,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     const q = (arr, p) => arr.slice().sort((a, b) => a - b)[Math.floor(p * (arr.length - 1))];
     const xs = core.map(n => n.x), ys = core.map(n => n.y);
     const x0 = q(xs, 0.02), x1 = q(xs, 0.98), y0 = q(ys, 0.02), y1 = q(ys, 0.98);
-    const ibh = (document.querySelector('.ib') || {}).offsetHeight || 0;
+    const ibh = (document.querySelector('.mb-bar') || {}).offsetHeight || 0;
     const left = W > 900 ? 340 : 0, top = ibh + (W > 900 ? 0 : 120);
     const k = Math.min(3, 0.92 * Math.min((W - left - 40) / (x1 - x0 + 1), (H - top - 60) / (y1 - y0 + 1)));
     const tx = left + (W - left) / 2 - k * (x0 + x1) / 2, ty = top + (H - top) / 2 - k * (y0 + y1) / 2;

@@ -75,8 +75,8 @@
     else if (e.key === 'Escape') { e.preventDefault(); close(); q.focus(); }
   });
   form.addEventListener('submit', function (e) { if (!q.value.trim()) e.preventDefault(); });
-  document.addEventListener('click', function (e) { if (!e.target.closest('.ib-search')) close(); });
-  document.addEventListener('focusin', function (e) { if (!e.target.closest || !e.target.closest('.ib-search')) close(); });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.mb-search')) close(); });
+  document.addEventListener('focusin', function (e) { if (!e.target.closest || !e.target.closest('.mb-search')) close(); });
   document.addEventListener('keydown', function (e) {
     var a = document.activeElement;
     if (e.key === '/' && a !== q && !/^(input|textarea|select)$/i.test(a.tagName) && !a.isContentEditable) { e.preventDefault(); q.focus(); q.select(); }
