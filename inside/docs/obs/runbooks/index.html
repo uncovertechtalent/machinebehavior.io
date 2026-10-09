@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runbooks · Observability · Inside docs</title>
+<meta name="description" content="Step-by-step fixes for the known traps in the observability stack: missing backfill in Loki, empty stat panels, Claude Code counter resets and sharing a dashboard.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/runbooks/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/runbooks/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Runbooks · Observability · Inside docs">
+<meta property="og:description" content="Step-by-step fixes for the known traps in the observability stack: missing backfill in Loki, empty stat panels, Claude Code counter resets and sharing a dashboard.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="runbook">
+<meta property="article:tag" content="operations">
+<link rel="up" href="/inside/docs/obs/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details open><summary><a href="/inside/docs/obs/runbooks/" aria-current="page">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a></nav>
+<h1>Runbooks</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>1 min read</span></div>
+
+<article class="doc">
+<p>These runbooks cover the traps found while running the stack. Each one gives the symptom, the cause, a check and the fix. Commands run on the home server from the repository directory unless a step says otherwise.</p>
+<div class="tbl"><table><thead><tr><th>Runbook</th><th>Symptom</th></tr></thead><tbody><tr><td><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></td><td>The Website deploys dashboard shows no history after the deploy-exporter starts with an empty state</td></tr><tr><td><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></td><td>A stat panel is empty over a long range while the metric exists</td></tr><tr><td><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></td><td>Claude Code spend computed from Prometheus counters reads in the millions of USD</td></tr><tr><td><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></td><td>Task: publish a dashboard at grafana.scoetzee.de</td></tr></tbody></table></div>
+<h2 id="first-checks">First checks</h2>
+<p>These commands show whether each service runs and whether the exporters serve metrics:</p>
+<pre><code class="lang-bash">docker compose ps
+docker compose logs --tail 50 deploy-exporter
+curl -s http://localhost:9201/metrics | grep site_deploy_exporter
+curl -s http://localhost:11435/metrics | grep ollama_up</code></pre>
+<h2 id="health-signals">Health signals</h2>
+<div class="tbl"><table><thead><tr><th>Signal</th><th>Query</th><th>Healthy value</th></tr></thead><tbody><tr><td>Deploy-exporter poll age</td><td><code>time() - site_deploy_exporter_last_poll_timestamp_seconds</code></td><td>Close to the 60 s poll interval</td></tr><tr><td>Deploy-exporter poll errors</td><td><code>site_deploy_exporter_errors_total</code></td><td>Flat; it counts failed repository polls since the exporter started</td></tr><tr><td>Ollama reachable</td><td><code>ollama_up</code></td><td>1; the <code>OllamaDown</code> alert fires after 2 minutes at 0</td></tr><tr><td>Proxy scraped</td><td><code>up{job=&quot;ollama-exporter&quot;}</code></td><td>1; the <code>OllamaExporterDown</code> alert fires after 2 minutes at 0</td></tr><tr><td>Claude Code spend</td><td><code>sum(model:claude_code_cost_usd:sum1h)</code></td><td>Under USD 20 per hour, the <code>ClaudeCodeSpendSpike</code> threshold</td></tr></tbody></table></div>
+<p>The deploy-exporter writes one log line per run it reads, with site, run number, outcome, duration and gate result. Failure lines carry <code>poll failed</code>, <code>log fetch failed</code>, <code>loki flush failed</code>, <code>probe fetch failed</code> or <code>state save failed</code>, followed by the site where one applies and the error.</p>
+<p>Alert rules and thresholds: <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+</article>
+
+<nav class="children" aria-label="Child pages"><h2>Child pages</h2><ul><li><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a><span>What to do when the Website deploys dashboard shows no older runs after the deploy-exporter backfills from GitHub Actions.</span></li><li><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a><span>Why Grafana stat panels on young series show No data over long time ranges, and how build.py switches them to instant queries.</span></li><li><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a><span>Why Claude Code&#x27;s cost counters in Prometheus report spend in the millions of USD, and how the stack reads spend and tokens from per-request events in Loki.</span></li><li><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a><span>How to build a variable-free public cut of a dashboard, provision it, and turn on Grafana public sharing so it loads at grafana.scoetzee.de.</span></li></ul></nav>
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=runbook">runbook</a><a href="/inside/docs/#q=operations">operations</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/">Observability</a><span class="mono">Observability</span></li><li><a href="/inside/docs/eng/runbooks/">Runbooks</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#first-checks">First checks</a></li><li class="l2"><a href="#health-signals">Health signals</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/runbooks.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/runbooks.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Crawl Stefan Coetzee's public sites and write the graph for https://machinebehavior.io/map/.
 Usage: python3 scripts/crawl_map.py map/graph.json
-Body links and navigation links are kept apart (kind 'body' vs 'nav')."""
+Body links and navigation links are kept apart (kind 'body' vs 'nav'); a docs page's parent link is kind 'tree'."""
 import json, os, re, sys, urllib.request, html, datetime
 from urllib.parse import urljoin, urlparse
 
@@ -45,6 +45,7 @@ def kind_of(u):
         path = urlparse(u).path
         if re.search(r'\.(txt|xml|json|csv|css|js|png|jpg|svg|ico|pdf)/?$', path): return None
         if '/tags/' in path or '/categories/' in path: return 'tag'
+        if host == 'machinebehavior.io' and path.startswith('/inside/docs/'): return 'doc'
         return 'page'
     if host == SUBSTACK and '/p/' in u: return 'substack'
     if host == 'github.com' and len([x for x in urlparse(u).path.split('/') if x]) >= 2: return 'github'
@@ -158,6 +159,15 @@ for u in sorted(set(pages)) + subs:
         (k == 'page' and re.search(r'<time[^>]*datetime=["\']?(\d{4}-\d{2}-\d{2})', doc)) or \
         (k == 'page' and re.search(r'class="[^"]*(?:eyebrow|kicker|dateline)[^"]*"[^>]*>[^<]{0,120}?(\d{4}-\d{2}-\d{2})', doc))  # machinebehavior.io headers
     if own: DATES[u] = own.group(1)
+    if k == 'doc':  # docs pages: front matter arrives as metas; the parent link is a tree edge
+        sp = re.search(r'<meta name="docs-space" content="([^"]+)"', doc)
+        if sp: nodes[u]['space'] = sp.group(1)
+        tags = re.findall(r'<meta property="article:tag" content="([^"]+)"', doc)
+        if tags: nodes[u]['tags'] = [html.unescape(t) for t in tags]
+        up = re.search(r'<link rel="up" href="([^"]+)">', doc)
+        if up:
+            add_node(norm(urljoin(u, up.group(1))), 'doc'); add_edge(u, norm(urljoin(u, up.group(1))), 'tree')
+        doc = re.sub(r'<link rel="up"[^>]*>', '', doc)
     body = strip_chrome(doc)
     if k == 'substack':  # only the post body counts on Substack
         m = re.search(r'<div class="available-content".*', doc, re.S)
@@ -171,7 +181,7 @@ for u in sorted(set(pages)) + subs:
         if k == 'tag' and urlparse(tgt).path == '/blog/': lk = 'nav'      # so is "all posts" on a tag page
         if tk in ('github', 'reddit'):
             add_node(tgt, tk, None, tk)
-        elif tk in ('page', 'tag') and tgt not in nodes:
+        elif tk in ('page', 'tag', 'doc') and tgt not in nodes:
             add_node(tgt, tk)
         elif tk == 'substack':
             add_node(tgt, 'substack', None, 'substack')

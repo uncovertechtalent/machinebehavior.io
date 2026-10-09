@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conformity gate · Engineering · Inside docs</title>
+<meta name="description" content="The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes and site consistency, with warnings logged.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/conformity-gate/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/conformity-gate/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Conformity gate · Engineering · Inside docs">
+<meta property="og:description" content="The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes and site consistency, with warnings logged.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="conformity">
+<meta property="article:tag" content="gate">
+<meta property="article:tag" content="quality">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/" aria-current="page">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Conformity gate</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>1 min read</span></div>
+
+<article class="doc">
+<p>The conformity gate is a set of mechanical checks run by <code>.github/actions/conformity/run.py</code> against every published page. A blocking failure stops the deploy; the previous build stays live. Results are rendered at <a href="/conformity/">/conformity/</a> (self-assessment, not a certification) and stored in <code>conformity/latest.json</code>.</p>
+<h2 id="blocking-checks">Blocking checks</h2>
+<div class="tbl"><table><thead><tr><th>Check</th><th>Fails when</th></tr></thead><tbody><tr><td><code>rules.blocking</code></td><td>A page hits a rule in the blocking tier of the vendored rule table (<code>service-closer</code>, <code>filler-idiom</code>, <code>hook-opener</code>)</td></tr><tr><td><code>placeholders</code></td><td>A page carries placeholder text; the patterns are in <code>site-tier.json</code> under <code>placeholder_pattern</code></td></tr><tr><td><code>predictions.hashes</code></td><td>A file in <code>predictions/</code> differs from the sha256 in <code>predictions/HASHES.txt</code></td></tr><tr><td><code>site.consistency</code></td><td>A page is missing from <code>sitemap.xml</code>, has no canonical link, or links internally with a relative or <code>.html</code> path</td></tr><tr><td><code>page.label</code></td><td>A page says self-assessment near the top without the words "not a certification"</td></tr><tr><td><code>components</code></td><td>The vendored rule table differs from the sha256 recorded in the site configuration</td></tr></tbody></table></div>
+<h2 id="warnings-never-block">Warnings (never block)</h2>
+<ul><li><code>praise-opener</code> rule hits.</li><li>A page missing from <code>llms.txt</code>.</li><li>Freshness: pages whose newest date is older than 90 days, or with no date.</li></ul>
+<h2 id="exemptions-from-the-rule-scan">Exemptions from the rule scan</h2>
+<p>Code, blockquotes, <code>&lt;q&gt;</code>, spans with class <code>mono</code> and text inside double quotes. Quote a phrase to discuss it; the scan skips it.</p>
+<h2 id="records">Records</h2>
+<ul><li>Run records: workflow artifacts, kept 90 days.</li><li>History and open findings: <code>conformity/latest.json</code> in git, kept indefinitely. A finding closes only when a later run passes.</li></ul>
+<h2 id="ownership-and-false-positives">Ownership and false positives</h2>
+<p>The legislation-track session owns the gate; Stefan Coetzee decides tier changes. A false positive is never fixed by editing the rule table in the site repository. Record the page, line and rule with the owner; rewriting the sentence unblocks the deploy in the meantime. See <a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=conformity">conformity</a><a href="/inside/docs/#q=gate">gate</a><a href="/inside/docs/#q=quality">quality</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/decision-log/">Decision log</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/res/predictions-and-hashes/">Predictions and hashes</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/">Research</a><span class="mono">Research</span></li><li><a href="/inside/docs/eng/site-architecture/">Site architecture</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a><span class="mono">Research</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#blocking-checks">Blocking checks</a></li><li class="l2"><a href="#warnings-never-block">Warnings (never block)</a></li><li class="l2"><a href="#exemptions-from-the-rule-scan">Exemptions from the rule scan</a></li><li class="l2"><a href="#records">Records</a></li><li class="l2"><a href="#ownership-and-false-positives">Ownership and false positives</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/conformity-gate.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/conformity-gate.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

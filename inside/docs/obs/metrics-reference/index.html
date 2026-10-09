@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metrics reference · Observability · Inside docs</title>
+<meta name="description" content="Every Prometheus metric the deploy-exporter and the ollama-exporter serve, with type, labels and meaning, taken from the exporter source.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/metrics-reference/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/metrics-reference/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Metrics reference · Observability · Inside docs">
+<meta property="og:description" content="Every Prometheus metric the deploy-exporter and the ollama-exporter serve, with type, labels and meaning, taken from the exporter source.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="prometheus">
+<meta property="article:tag" content="metrics">
+<meta property="article:tag" content="reference">
+<link rel="up" href="/inside/docs/obs/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details open><summary><a href="/inside/docs/obs/metrics-reference/" aria-current="page">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a></nav>
+<h1>Metrics reference</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>This page lists every metric the two exporters in the repository serve on <code>/metrics</code>. Names, types and labels come from <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/deploy-exporter/exporter.py">deploy-exporter/exporter.py</a> and <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/ollama-exporter/exporter.py">ollama-exporter/exporter.py</a>. Each histogram also serves <code>_bucket</code>, <code>_sum</code> and <code>_count</code> series.</p>
+<h2 id="deploy-exporter-port-9201">Deploy exporter, port 9201</h2>
+<p>Prometheus scrapes it every 60 seconds. Except for the two counters, each value describes the latest completed run per site.</p>
+<div class="tbl"><table><thead><tr><th>Metric</th><th>Type</th><th>Labels</th><th>Meaning</th></tr></thead><tbody><tr><td><code>site_deploy_runs_total</code></td><td>counter</td><td>site, outcome</td><td>Completed deploy runs read: deployed, blocked, failed, cancelled</td></tr><tr><td><code>site_deploy_last_finished_timestamp_seconds</code></td><td>gauge</td><td>site</td><td>When the latest run finished</td></tr><tr><td><code>site_deploy_last_duration_seconds</code></td><td>gauge</td><td>site</td><td>Wall time of the latest run, start to finish</td></tr><tr><td><code>site_deploy_last_deployed</code></td><td>gauge</td><td>site</td><td>1 if the latest run deployed, else 0</td></tr><tr><td><code>site_deploy_last_job_duration_seconds</code></td><td>gauge</td><td>site, <code>gh_job</code></td><td>Duration of each job in the latest run</td></tr><tr><td><code>site_conformity_check_state</code></td><td>gauge</td><td>site, check</td><td>0 fail, 1 pending, 2 partial, 3 pass, -1 unknown</td></tr><tr><td><code>site_conformity_findings_open</code></td><td>gauge</td><td>site</td><td>Open findings after the latest gate run</td></tr><tr><td><code>site_map_nodes</code></td><td>gauge</td><td>site</td><td>Nodes in the map snapshot the latest deploy shipped</td></tr><tr><td><code>site_map_links</code></td><td>gauge</td><td>site</td><td>Links in that snapshot</td></tr><tr><td><code>site_map_carried_links</code></td><td>gauge</td><td>site</td><td>Links carried forward from the previous snapshot because their pages were unreachable from the runner</td></tr><tr><td><code>site_map_dropped_pages</code></td><td>gauge</td><td>site</td><td>Pages dropped because they did not return HTML</td></tr><tr><td><code>site_probe_fold_ratio</code></td><td>gauge</td><td>arm</td><td>Decision-layer probe: share of WAIT runs that folded under pushback; arm is stance or reference</td></tr><tr><td><code>site_probe_last_timestamp_seconds</code></td><td>gauge</td><td>none</td><td>When the latest probe ran</td></tr><tr><td><code>site_deploy_exporter_last_poll_timestamp_seconds</code></td><td>gauge</td><td>none</td><td>Last poll in which every repository poll succeeded</td></tr><tr><td><code>site_deploy_exporter_errors_total</code></td><td>counter</td><td>none</td><td>Failed repository polls since the exporter started</td></tr></tbody></table></div>
+<p>The <code>site_map_*</code> series exist only for a site whose deploy log prints the map refresh line.</p>
+<h2 id="ollama-exporter-port-11435">Ollama exporter, port 11435</h2>
+<p>The request metrics carry three common labels: <code>gen_ai_operation_name</code> (chat, <code>text_completion</code> or embeddings), <code>gen_ai_request_model</code>, and <code>api</code> (ollama or openai).</p>
+<div class="tbl"><table><thead><tr><th>Metric</th><th>Type</th><th>Labels</th><th>Meaning</th></tr></thead><tbody><tr><td><code>gen_ai_client_operation_duration_seconds</code></td><td>histogram</td><td>common, <code>error_type</code></td><td>End-to-end duration at the proxy; <code>error_type</code> is the HTTP status (400 and up) or the connection error name, empty on success</td></tr><tr><td><code>gen_ai_server_time_to_first_token_seconds</code></td><td>histogram</td><td>common</td><td>Time to the first streamed chunk; streamed, successful, non-embedding requests only</td></tr><tr><td><code>gen_ai_server_time_per_output_token_seconds</code></td><td>histogram</td><td>common</td><td><code>eval_duration / eval_count</code> from Ollama's final chunk</td></tr><tr><td><code>gen_ai_client_token_usage</code></td><td>histogram</td><td>common, <code>gen_ai_token_type</code></td><td>Tokens per request, input or output</td></tr><tr><td><code>ollama_tokens_total</code></td><td>counter</td><td>common, <code>gen_ai_token_type</code></td><td>Tokens processed, for <code>rate()</code></td></tr><tr><td><code>ollama_model_load_duration_seconds</code></td><td>histogram</td><td><code>gen_ai_request_model</code></td><td>Model load time; near zero when the model is warm</td></tr><tr><td><code>ollama_requests_in_flight</code></td><td>gauge</td><td><code>gen_ai_request_model</code></td><td>Metered requests in progress</td></tr><tr><td><code>ollama_loaded_model_info</code></td><td>gauge</td><td>model, processor</td><td>1 per resident model; processor is gpu, split or cpu</td></tr><tr><td><code>ollama_loaded_model_bytes</code></td><td>gauge</td><td>model, kind</td><td>Memory per resident model; kind is total or vram</td></tr><tr><td><code>ollama_loaded_model_expiry_timestamp_seconds</code></td><td>gauge</td><td>model</td><td>When Ollama unloads the model</td></tr><tr><td><code>ollama_up</code></td><td>gauge</td><td>none</td><td>1 if the last <code>/api/ps</code> poll succeeded</td></tr></tbody></table></div>
+<p>Time to first token is recorded for streamed requests only. For a non-streamed response the first byte arrives with the last, so the value would be end-to-end latency. The processor label is gpu when the whole model sits in VRAM, cpu when none of it does, and split otherwise.</p>
+<p>Recording rules and alerts built on these metrics: <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+</article>
+
+<nav class="children" aria-label="Child pages"><h2>Child pages</h2><ul><li><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a><span>The recording rules, service level objectives and seven alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.</span></li></ul></nav>
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=prometheus">prometheus</a><a href="/inside/docs/#q=metrics">metrics</a><a href="/inside/docs/#q=reference">reference</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/">Observability</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#deploy-exporter-port-9201">Deploy exporter, port 9201</a></li><li class="l2"><a href="#ollama-exporter-port-11435">Ollama exporter, port 11435</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/metrics-reference.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/metrics-reference.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deploy pipeline · Engineering · Inside docs</title>
+<meta name="description" content="One GitHub Actions workflow runs the conformity checks, commits the record, and deploys to Pages only when the checks pass.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/deploy-pipeline/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/deploy-pipeline/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Deploy pipeline · Engineering · Inside docs">
+<meta property="og:description" content="One GitHub Actions workflow runs the conformity checks, commits the record, and deploys to Pages only when the checks pass.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="deploy">
+<meta property="article:tag" content="github-actions">
+<meta property="article:tag" content="pipeline">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/" aria-current="page">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Deploy pipeline</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>1 min read</span></div>
+
+<article class="doc">
+<p>Every push to <code>main</code> of machinebehavior.io starts the workflow <code>.github/workflows/conformity.yml</code>. The workflow also runs every Monday at 06:17 UTC and by hand. It has two jobs, and the second runs only if the first passes.</p>
+<h2 id="job-1-conformity-checks">Job 1: conformity checks</h2>
+<ol><li>Check out <code>main</code> with full history.</li><li>Run the conformity action against every published page (see <a href="/inside/docs/eng/conformity-gate/">Conformity gate</a>).</li><li>Commit <code>conformity/latest.json</code> and <code>conformity/index.html</code> as <code>conformity-bot</code>, with <code>[skip ci]</code> in the message, and push.</li><li>Gate step: read the overall result; anything other than <code>pass</code> fails the job with "deploy blocked, previous build stays live".</li></ol>
+<h2 id="job-2-deploy-to-pages">Job 2: deploy to Pages</h2>
+<ol><li>Check out <code>main</code> again, after the bot commit.</li><li>Refresh the map: run <code>scripts/crawl_map.py</code> against the live sites. The new <code>map/graph.json</code> replaces the committed one only if it has at least as many nodes and links. A partial crawl (for example Substack answering 403 to the runner) keeps the committed snapshot. This step may fail without failing the job, and its result is never committed.</li><li>Upload the repository as the Pages artifact and deploy it.</li></ol>
+<div class="panel panel-warning"><p>The bot commit moves <code>main</code> after every run. Always <code>git pull --rebase</code> before pushing; a push without it is rejected. See <a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a>.</p></div>
+<h2 id="what-happens-around-a-deploy">What happens around a deploy</h2>
+<ul><li>The <a href="/inside/docs/obs/deploy-exporter/">deploy exporter</a> polls the GitHub Actions API and writes each run, step and gate check to Loki and Prometheus. The <a href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">Website deploys dashboard</a> shows them.</li><li><a href="/inside/">Inside</a> reads the same Actions API in the browser for its deploy feed.</li></ul>
+<h2 id="check-before-you-push">Check before you push</h2>
+<pre><code class="lang-bash">git pull --rebase
+python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json \
+  --requirements conformity/requirements.json --out conformity --dry-run</code></pre>
+<p>Push only when the dry run prints <code>overall=pass</code>. In scripts, compare the value; a <code>grep</code> for <code>overall=</code> succeeds on a failing run too.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=deploy">deploy</a><a href="/inside/docs/#q=github-actions">github-actions</a><a href="/inside/docs/#q=pipeline">pipeline</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a><span class="mono">Observability</span></li><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/map-crawler/">Map crawler</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/obs/">Observability</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#job-1-conformity-checks">Job 1: conformity checks</a></li><li class="l2"><a href="#job-2-deploy-to-pages">Job 2: deploy to Pages</a></li><li class="l2"><a href="#what-happens-around-a-deploy">What happens around a deploy</a></li><li class="l2"><a href="#check-before-you-push">Check before you push</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/deploy-pipeline.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/deploy-pipeline.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

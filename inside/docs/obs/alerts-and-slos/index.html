@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alerts and SLOs · Observability · Inside docs</title>
+<meta name="description" content="The recording rules, service level objectives and seven alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/alerts-and-slos/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/alerts-and-slos/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Alerts and SLOs · Observability · Inside docs">
+<meta property="og:description" content="The recording rules, service level objectives and seven alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="prometheus">
+<meta property="article:tag" content="alerts">
+<meta property="article:tag" content="slo">
+<meta property="article:tag" content="loki">
+<link rel="up" href="/inside/docs/obs/metrics-reference/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details open><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/" aria-current="page">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></nav>
+<h1>Alerts and SLOs</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>Prometheus evaluates recording rules and seven alerts from <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml">recording.yml</a> and <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml">alerts.yml</a>. The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager.</p>
+<h2 id="service-level-objectives">Service level objectives</h2>
+<p>Both SLOs cover the local LLM behind the ollama-exporter.</p>
+<div class="tbl"><table><thead><tr><th>SLO</th><th>Target</th><th>Good event</th></tr></thead><tbody><tr><td>Availability</td><td>99%</td><td>A request without an upstream error (<code>error_type</code> empty)</td></tr><tr><td>Latency</td><td>95%</td><td>A streamed chat request with a first token within 4 s</td></tr></tbody></table></div>
+<p>SLI rules record the error ratio and the slow-first-token ratio over 5m, 30m, 1h and 6h windows (<code>sli:gen_ai_availability_errors:ratio_rate*</code> and <code>sli:gen_ai_ttft_slow:ratio_rate*</code>). Per-model rules record request rate, error rate, time to first token p50 and p95, decode tokens per second and token rate (<code>model:gen_ai_*</code>). Both groups run every 30 seconds.</p>
+<h2 id="alerts">Alerts</h2>
+<div class="tbl"><table><thead><tr><th>Alert</th><th>Condition</th><th>Severity</th></tr></thead><tbody><tr><td>LocalLLMAvailabilityBudgetBurnFast</td><td>Error ratio above 14.4 times 1% over 1h and 5m, and over 1h more than one request per 10 minutes</td><td>page</td></tr><tr><td>LocalLLMAvailabilityBudgetBurnSlow</td><td>Error ratio above 6 times 1% over 6h and 30m, and over 6h more than one request per 30 minutes</td><td>ticket</td></tr><tr><td>LocalLLMLatencyBudgetBurnFast</td><td>Slow-first-token ratio above 14.4 times 5% over 1h and 5m</td><td>page</td></tr><tr><td>OllamaDown</td><td><code>ollama_up == 0</code> for 2 minutes</td><td>page</td></tr><tr><td>OllamaExporterDown</td><td><code>up{job=&quot;ollama-exporter&quot;} == 0</code> for 2 minutes</td><td>page</td></tr><tr><td>ModelSpilledToCPU</td><td>A resident model on split or cpu while requests are in flight, for 5 minutes</td><td>info</td></tr><tr><td>ClaudeCodeSpendSpike</td><td><code>sum(model:claude_code_cost_usd:sum1h) &gt; 20</code> for 10 minutes</td><td>ticket</td></tr></tbody></table></div>
+<p>The burn-rate alerts follow the multi-window, multi-burn-rate pattern from chapter 5 of the Google SRE Workbook. A homelab LLM serves a handful of requests per hour, and one failed request in a quiet hour is a 100% error ratio. The traffic floor on the two availability alerts holds the page in that case.</p>
+<h2 id="spend-rule-from-loki">Spend rule from Loki</h2>
+<p><code>model:claude_code_cost_usd:sum1h</code> comes from the Loki ruler, file <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/loki/rules/fake/claude-code.yml">loki/rules/fake/claude-code.yml</a>. Every minute it sums <code>cost_usd</code> over the <code>api_request</code> events of the trailing hour, by model, and remote-writes the result to Prometheus. "fake" is the tenant name when Loki runs without auth. The reason the alert does not read Claude Code's counters is in <a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a>.</p>
+<h2 id="tests">Tests</h2>
+<p><a href="https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml">prometheus/tests/alerts_test.yml</a> checks four cases with promtool. The fast availability alert fires at 20% errors and one request per second, and the traffic floor holds it at one request per hour. The spend alert fires at USD 25 per hour and does not fire at USD 15.</p>
+<pre><code class="lang-bash">docker run --rm -v &quot;$PWD/prometheus:/p:ro&quot; -w /p/tests --entrypoint promtool \
+  prom/prometheus:v3.5.0 test rules alerts_test.yml</code></pre>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=prometheus">prometheus</a><a href="/inside/docs/#q=alerts">alerts</a><a href="/inside/docs/#q=slo">slo</a><a href="/inside/docs/#q=loki">loki</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/architecture/">Architecture</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbooks/">Runbooks</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#service-level-objectives">Service level objectives</a></li><li class="l2"><a href="#alerts">Alerts</a></li><li class="l2"><a href="#spend-rule-from-loki">Spend rule from Loki</a></li><li class="l2"><a href="#tests">Tests</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/alerts-and-slos.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/alerts-and-slos.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

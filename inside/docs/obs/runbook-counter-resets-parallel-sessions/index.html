@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counter resets from parallel sessions · Observability · Inside docs</title>
+<meta name="description" content="Why Claude Code&#x27;s cost counters in Prometheus report spend in the millions of USD, and how the stack reads spend and tokens from per-request events in Loki.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/runbook-counter-resets-parallel-sessions/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/runbook-counter-resets-parallel-sessions/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Counter resets from parallel sessions · Observability · Inside docs">
+<meta property="og:description" content="Why Claude Code&#x27;s cost counters in Prometheus report spend in the millions of USD, and how the stack reads spend and tokens from per-request events in Loki.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="runbook">
+<meta property="article:tag" content="prometheus">
+<meta property="article:tag" content="loki">
+<meta property="article:tag" content="claude-code">
+<link rel="up" href="/inside/docs/obs/runbooks/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details open><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/" aria-current="page">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a><a href="/inside/docs/obs/runbooks/">Runbooks</a></nav>
+<h1>Counter resets from parallel sessions</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>Claude Code spend computed with <code>increase()</code> over its Prometheus cost counter reports millions of USD. In the week to 2026-10-09, <code>increase()</code> reported USD 1.97M, while the API calls cost USD 76 in the last 24 hours of that week.</p>
+<h2 id="cause">Cause</h2>
+<p>Claude Code exports cumulative counters with no per-process attribute. It sets no <code>service.instance.id</code>, and <code>OTEL_METRICS_INCLUDE_SESSION_ID=false</code> in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/client/claude-code.env">client/claude-code.env</a> removes the session ID. The desktop app runs several Claude Code processes at once (up to about 12 in that week), and all of them write the same Prometheus series. Each interleaved export reads as a counter reset: <code>resets()</code> counted 230,328 in the week. Prometheus also dropped 235 batches that carried two values for one timestamp.</p>
+<h2 id="check">Check</h2>
+<p>Count the resets of the cost counter over a week:</p>
+<pre><code class="lang-promql">sum(resets({__name__=~&quot;claude_code_cost.*&quot;}[7d]))</code></pre>
+<p>Then compare with the Loki sum of the same week, which matches the real spend:</p>
+<pre><code class="lang-logql">sum(sum_over_time({service_name=~&quot;claude-code.*&quot;} | event_name=&quot;api_request&quot; | keep cost_usd | unwrap cost_usd [7d]))</code></pre>
+<h2 id="fix-in-place">Fix in place</h2>
+<p>Spend and tokens come from the <code>api_request</code> events in Loki. Claude Code writes one per API call with its cost and four token counts, so the sum is exact. Over a week the event sums matched the local session transcripts within 0.1% for the main model, and they include side calls the transcripts leave out: prompt suggestions, compaction and web fetch.</p>
+<ul><li><code>request_sum()</code> in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py">grafana/build.py</a> builds every spend and token query. A <code>keep</code> stage before <code>unwrap</code> drops <code>request_id</code> and <code>trace_id</code>, so the sum does not split into one series per request.</li><li>The Loki ruler records <code>model:claude_code_cost_usd:sum1h</code> and remote-writes it to Prometheus for the <code>ClaudeCodeSpendSpike</code> alert.</li><li>The counters still arrive in Prometheus. No dashboard or rule sums them.</li></ul>
+<h2 id="why-not-a-per-process-label">Why not a per-process label</h2>
+<p>A per-process label would stop the resets at a cost of about 600 extra series a day, some 54,000 at 90-day retention. The counters would still be inexact. Each process's series starts at its first non-zero value, and Prometheus 3.5 does not turn the OTLP start time into a zero sample (tested with <code>created-timestamp-zero-ingestion</code>). So <code>increase()</code> would lose each process's first export and count a process that exports once as zero.</p>
+<h2 id="apply-the-same-fix-elsewhere">Apply the same fix elsewhere</h2>
+<p>For any counter that parallel processes write without a per-process label, sum a per-event log field in Loki for the dashboard. For an alert, record the sum with the Loki ruler and remote-write it to Prometheus. The events and their fields: <a href="/inside/docs/obs/loki-streams/">Loki streams</a>. The alert: <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=runbook">runbook</a><a href="/inside/docs/#q=prometheus">prometheus</a><a href="/inside/docs/#q=loki">loki</a><a href="/inside/docs/#q=claude-code">claude-code</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/loki-streams/">Loki streams</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbooks/">Runbooks</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#cause">Cause</a></li><li class="l2"><a href="#check">Check</a></li><li class="l2"><a href="#fix-in-place">Fix in place</a></li><li class="l2"><a href="#why-not-a-per-process-label">Why not a per-process label</a></li><li class="l2"><a href="#apply-the-same-fix-elsewhere">Apply the same fix elsewhere</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/runbook-counter-resets-parallel-sessions.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/runbook-counter-resets-parallel-sessions.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

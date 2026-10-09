@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backfilled runs missing in Loki · Observability · Inside docs</title>
+<meta name="description" content="What to do when the Website deploys dashboard shows no older runs after the deploy-exporter backfills from GitHub Actions.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/runbook-loki-backfill-missing/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/runbook-loki-backfill-missing/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Backfilled runs missing in Loki · Observability · Inside docs">
+<meta property="og:description" content="What to do when the Website deploys dashboard shows no older runs after the deploy-exporter backfills from GitHub Actions.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="runbook">
+<meta property="article:tag" content="loki">
+<meta property="article:tag" content="deploy-exporter">
+<link rel="up" href="/inside/docs/obs/runbooks/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details open><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/" aria-current="page">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a><a href="/inside/docs/obs/runbooks/">Runbooks</a></nav>
+<h1>Backfilled runs missing in Loki</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>The Website deploys dashboard shows only recent runs, or none, right after the deploy-exporter starts with an empty state file, while the exporter log lists the runs it read.</p>
+<h2 id="cause">Cause</h2>
+<p>The exporter pushes each run with the time it finished, so a backfill writes lines that are hours or days old. Loki holds lines older than its ingester window until their chunk flushes, which takes up to 30 minutes. Until then, queries over those older time ranges return nothing.</p>
+<p>A second limit applies: Loki takes samples up to one week old. The exporter does not push runs older than one week minus one hour; it counts them in <code>site_deploy_runs_total</code> only.</p>
+<h2 id="check">Check</h2>
+<ol><li>Read the exporter log: <code>docker compose logs --tail 100 deploy-exporter</code>. Each pushed run prints site, run number, outcome, duration and gate result.</li><li>Look for <code>loki flush failed</code> in the same log. It means the automatic flush did not reach Loki.</li><li>In Grafana Explore, query <code>{job=&quot;site-deploys&quot;}</code> over the last 7 days and compare with the runs in the log.</li></ol>
+<h2 id="fix">Fix</h2>
+<ol><li>The exporter POSTs <code>/flush</code> to Loki at the end of every poll that pushed a run that finished more than three hours ago. After a successful flush, no action is needed.</li><li>If the log shows <code>loki flush failed</code>, run the flush below on the home server.</li><li>Reload the dashboard. The lines appear once the chunk is flushed.</li><li>Runs older than one week stay out of Loki. <code>site_deploy_runs_total</code> still counts them.</li></ol>
+<pre><code class="lang-bash">curl -X POST http://localhost:3100/flush</code></pre>
+<h2 id="re-run-a-backfill">Re-run a backfill</h2>
+<p>To read the history again, remove the state file and restart the exporter:</p>
+<pre><code class="lang-bash">docker compose exec deploy-exporter rm /data/state.json &amp;&amp; docker compose restart deploy-exporter</code></pre>
+<p>The first poll reads the newest 100 runs per repository again and pushes every run younger than a week. Replayed lines are exact duplicates, and Loki drops them. Two side effects follow: the run counts restart from what the backfill finds, and runs whose job logs GitHub has expired come back without per-check results.</p>
+<p>Source of the flush logic: <code>flush_loki()</code> and <code>poll_site()</code> in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/deploy-exporter/exporter.py">deploy-exporter/exporter.py</a>. Background: <a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=runbook">runbook</a><a href="/inside/docs/#q=loki">loki</a><a href="/inside/docs/#q=deploy-exporter">deploy-exporter</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbooks/">Runbooks</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#cause">Cause</a></li><li class="l2"><a href="#check">Check</a></li><li class="l2"><a href="#fix">Fix</a></li><li class="l2"><a href="#re-run-a-backfill">Re-run a backfill</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/runbook-loki-backfill-missing.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/runbook-loki-backfill-missing.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

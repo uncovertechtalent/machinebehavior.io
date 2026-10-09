@@ -137,10 +137,11 @@ const KINDS = [
   {key: 'substack', label: 'Substack', color: '#FF8FD8'},
   {key: 'github', label: 'GitHub', color: '#EFE6D2'},
   {key: 'reddit', label: 'Reddit', color: '#FF4D5E'},
+  {key: 'docs', label: 'Inside docs', color: '#B79CFF'},
   {key: 'tag', label: 'Tags', color: '#7D8792'},
 ];
 const COLOR = Object.fromEntries(KINDS.map(k => [k.key, k.color]));
-const groupOf = n => n.kind === 'tag' ? 'tag' : n.site;
+const groupOf = n => n.kind === 'tag' ? 'tag' : n.kind === 'doc' ? 'docs' : n.site;
 const on = Object.fromEntries(KINDS.map(k => [k.key, true]));
 let showNav = false, query = '', hover = null, selected = null;
 
@@ -159,7 +160,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
   const allLinks = g.links.filter(l => byId.has(l.source) && byId.has(l.target)).map(l => ({...l}));
   // degree on body links drives size
   for (const n of nodes) n.deg = 0;
-  for (const l of allLinks) if (l.kind === 'body') { byId.get(l.source).deg++; byId.get(l.target).deg++; }
+  for (const l of allLinks) if (l.kind !== 'nav') { byId.get(l.source).deg++; byId.get(l.target).deg++; }
   for (const n of nodes) n.r = 2.5 + Math.sqrt(n.deg) * 1.6;
   document.getElementById('foot').textContent = `crawled ${g.generated} · ${nodes.length} nodes · drag, scroll to zoom`;
 
@@ -206,7 +207,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
   function restart() {
     vis = nodes.filter(n => on[groupOf(n)]);
     const vset = new Set(vis.map(n => n.id));
-    links = allLinks.filter(l => (showNav || l.kind === 'body') &&
+    links = allLinks.filter(l => (showNav || l.kind !== 'nav') &&
       vset.has(typeof l.source === 'object' ? l.source.id : l.source) &&
       vset.has(typeof l.target === 'object' ? l.target.id : l.target));
     neigh = new Map(vis.map(n => [n.id, new Set()]));
@@ -216,7 +217,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     }
     sim.nodes(vis); sim.force('link').links(links);
     sim.alpha(0.6).restart();
-    const body = links.filter(l => l.kind === 'body').length;
+    const body = links.filter(l => l.kind !== 'nav').length;
     document.getElementById('stats').innerHTML = `<b>${vis.length}</b> nodes · <b>${body}</b> links${showNav ? ` · ${links.length - body} navigation` : ''}`;
   }
 

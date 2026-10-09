@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01: The half-life study · Research · Inside docs</title>
+<meta name="description" content="Tested whether suppressed output patterns relapse more as a session gets longer; the temporal half-life is refuted, and relapse clusters at cold starts.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/res/half-life-study/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/res/half-life-study/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="01: The half-life study · Research · Inside docs">
+<meta property="og:description" content="Tested whether suppressed output patterns relapse more as a session gets longer; the temporal half-life is refuted, and relapse clusters at cold starts.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="res">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="experiments">
+<meta property="article:tag" content="half-life">
+<meta property="article:tag" content="cold-start">
+<meta property="article:tag" content="refuted">
+<link rel="up" href="/inside/docs/res/experiments/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Research"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/res/"><span class="sp-icon" style="background:#FF8FD8">RES</span><span>Research</span></a><ul><li><details open><summary><a href="/inside/docs/res/experiments/">Experiments</a></summary><ul><li class="leaf"><a href="/inside/docs/res/half-life-study/" aria-current="page">01: The half-life study</a></li><li class="leaf"><a href="/inside/docs/res/exemplar-seeding/">02: Exemplar seeding</a></li><li class="leaf"><a href="/inside/docs/res/fawn-opener-benchmark/">03: Cross-model fawn-opener benchmark</a></li><li class="leaf"><a href="/inside/docs/res/experiment-04-folding-under-pressure/">Experiment 04: folding under pressure</a></li><li class="leaf"><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/res/claims-ledger/">Claims ledger</a></li><li class="leaf"><a href="/inside/docs/res/objections-register/">Objections register and OBJ-4 incident log</a></li><li class="leaf"><a href="/inside/docs/res/slips-log/">Slips log</a></li><li class="leaf"><a href="/inside/docs/res/case-files/">Case files: case 12 and Running Conjobs for AI</a></li><li class="leaf"><a href="/inside/docs/res/predictions-and-hashes/">Predictions and hashes</a></li><li class="leaf"><a href="/inside/docs/res/conformity-self-assessment/">Conformity self-assessment, run 1</a></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/res/">Research</a><a href="/inside/docs/res/experiments/">Experiments</a></nav>
+<h1>01: The half-life study</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>The half-life study was a test of whether relapse into banned output patterns grows with session length; the temporal half-life is refuted (mean normalised catch position 0.54 against 0.50 for no drift), and relapse clusters at cold starts, at about 5x the mid-session rate per unit of prose by blocked-turn event.</p>
+<div class="tbl"><table><thead><tr><th>field</th><th>value</th></tr></thead><tbody><tr><td>status</td><td>half-life refuted; cold-start clustering supported in the <a href="/inside/docs/res/claims-ledger/">claims ledger</a></td></tr><tr><td>dates</td><td>published 2026-08-07; unit note added 2026-09-22</td></tr><tr><td>dataset</td><td>34 days (2026-07-04 to 2026-08-07), 103 catch events, 224 weighted pattern hits, 62 sessions with full transcripts</td></tr><tr><td>model</td><td>single operator, single model family</td></tr><tr><td>published page</td><td><a href="/experiments/">/experiments/</a>, section 01</td></tr></tbody></table></div>
+<h2 id="method">Method</h2>
+<p>The question came from a commenter on the <a href="https://redd.it/1vdg3en">founding specimen</a>. A stop hook at the output boundary scans every response against a banned-pattern catalogue and logs each catch with timestamp, session id, pattern and count. Each assistant turn got a context regime: cold-start (first 60 minutes of a session), post-resume (60 minutes after a gap over 4 hours), post-compaction, or mid-session. Rates are per 10K characters of assistant prose, because cold-start turns are chattier and raw rates would inflate the effect.</p>
+<h2 id="result">Result</h2>
+<div class="tbl"><table><thead><tr><th>regime</th><th>blocked turns (events)</th><th>events /10K</th><th>weighted catches</th><th>weighted /10K</th></tr></thead><tbody><tr><td>cold-start</td><td>40</td><td>0.88</td><td>145</td><td>2.89</td></tr><tr><td>mid-session</td><td>11</td><td>0.18</td><td>31</td><td>0.42</td></tr><tr><td>post-resume</td><td>13</td><td>0.27</td><td>46</td><td>0.79</td></tr><tr><td>post-compaction</td><td>2</td><td>1.72 (n=2)</td><td>2</td><td>1.72 (n=2)</td></tr></tbody></table></div>
+<p>Prose normalisation halved the raw cold-start ratio (12x down to 7x). The study was published in weighted catches (2.89 against 0.42, about 7x). On 2026-09-22 that unit was found to inflate bulk-text turns. The event columns were computed after publication, and the ratio by event is about 5x (0.88 against 0.18). The figure on the experiments page is "roughly 5x by event, 7x weighted".</p>
+<p>Behavioural momentum (the model imitating its own recent corrected output) was proposed as the operative control. Its status is open; see <a href="/inside/docs/res/exemplar-seeding/">02: Exemplar seeding</a>.</p>
+<div class="panel panel-note"><p>Named limits on the page: single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p></div>
+<h2 id="files">Files</h2>
+<ul><li><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/halflife.py">scripts/halflife.py</a>: relapse position against session length</li><li><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/halflife2.py">scripts/halflife2.py</a>: prose-normalised rerun by context regime</li><li>Replication post with the method: <a href="https://redd.it/1vi586n">redd.it/1vi586n</a></li></ul>
+<h2 id="how-to-check">How to check</h2>
+<p>Both scripts read the stop-hook log (<code>~/.claude/vestige-scan.log</code>) and the session transcripts from the operator's home directory, as set in each script header. A rerun needs that machine or a copy of those files. The regime boundaries (60 minutes, 4-hour gap, cutoff 2026-07-04) are constants at the top of halflife2.py.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=experiments">experiments</a><a href="/inside/docs/#q=half-life">half-life</a><a href="/inside/docs/#q=cold-start">cold-start</a><a href="/inside/docs/#q=refuted">refuted</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/res/claims-ledger/">Claims ledger</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/experiments/">Experiments</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/">Research</a><span class="mono">Research</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#method">Method</a></li><li class="l2"><a href="#result">Result</a></li><li class="l2"><a href="#files">Files</a></li><li class="l2"><a href="#how-to-check">How to check</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/res/half-life-study.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/res/half-life-study.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

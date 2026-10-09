@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site architecture · Engineering · Inside docs</title>
+<meta name="description" content="Three static sites on GitHub Pages, one shared conformity action, and Substack as the fourth publication.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/site-architecture/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/site-architecture/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Site architecture · Engineering · Inside docs">
+<meta property="og:description" content="Three static sites on GitHub Pages, one shared conformity action, and Substack as the fourth publication.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="architecture">
+<meta property="article:tag" content="github-pages">
+<meta property="article:tag" content="static-site">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/" aria-current="page">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Site architecture</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>1 min read</span></div>
+
+<article class="doc">
+<p>Three sites publish the work. All three are static files served by GitHub Pages and deployed by GitHub Actions. A fourth publication, the Substack newsletter, is hosted by Substack and only read by the crawler.</p>
+<div class="tbl"><table><thead><tr><th>Site</th><th>Built with</th><th>Repository</th><th>Role</th></tr></thead><tbody><tr><td>machinebehavior.io</td><td>Hand-written HTML, one shared stylesheet, Python generators for the slips page, the map data and these docs</td><td><a href="https://github.com/uncovertechtalent/machinebehavior.io">uncovertechtalent/machinebehavior.io</a> (public)</td><td>Research programme: claims, experiments, objections, case files, Inside, map, docs</td></tr><tr><td>tychat.io</td><td>Static pages and plain-text lessons</td><td><a href="https://github.com/uncovertechtalent/tychat.io">uncovertechtalent/tychat.io</a> (public)</td><td>Lessons a chat model reads on request, indexed in <code>llms.txt</code></td></tr><tr><td>uncovertechtalent.com</td><td>Hugo</td><td>private repository</td><td>Blog and the Uncover Tech Talent offer</td></tr><tr><td>Substack</td><td>Substack</td><td>none</td><td>Newsletter; canonical home of some pieces</td></tr></tbody></table></div>
+<h2 id="shared-parts">Shared parts</h2>
+<ul><li><strong>Conformity action.</strong> The checks live in a composite action at <code>.github/actions/conformity/</code> and run on all three sites with a per-site configuration. See <a href="/inside/docs/eng/conformity-gate/">Conformity gate</a>.</li><li><strong>Machine-readable entry points.</strong> Each site serves <code>sitemap.xml</code> and <code>llms.txt</code>. On machinebehavior.io, <code>llms.txt</code> lists every page with a one-line summary, including the <a href="/inside/docs/">docs</a>.</li><li><strong>Conformity record.</strong> Each site publishes <code>/conformity/latest.json</code>; <a href="/inside/">Inside</a> reads all three to show site status.</li></ul>
+<h2 id="machinebehavior-io-layout">machinebehavior.io layout</h2>
+<div class="tbl"><table><thead><tr><th>Path</th><th>Contents</th></tr></thead><tbody><tr><td><code>/</code> and one directory per page</td><td><code>index.html</code> per page, root-absolute links only</td></tr><tr><td><code>style.css</code></td><td>Shared stylesheet of the research pages</td></tr><tr><td><code>conformity/</code></td><td>Rendered gate page, <code>latest.json</code>, <code>site-tier.json</code> (rule tiers), <code>requirements.json</code>, probe records</td></tr><tr><td><code>map/</code></td><td>The map page and <code>graph.json</code></td></tr><tr><td><code>inside/</code></td><td>Inside front page; <code>inside/docs/</code> holds this tree</td></tr><tr><td><code>predictions/</code></td><td>Hashed predictions, checked by the gate</td></tr><tr><td><code>scripts/</code></td><td>Generators and the crawler; <code>scripts/docs/</code> holds the docs sources</td></tr></tbody></table></div>
+<p>Several Claude Code sessions push this repository, each owning one track of work. The gate is the shared control between them: a session can push, and only a passing check deploys.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=architecture">architecture</a><a href="/inside/docs/#q=github-pages">github-pages</a><a href="/inside/docs/#q=static-site">static-site</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#shared-parts">Shared parts</a></li><li class="l2"><a href="#machinebehavior-io-layout">machinebehavior.io layout</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/site-architecture.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/site-architecture.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experiment 04: folding under pressure · Research · Inside docs</title>
+<meta name="description" content="Decision-layer test of whether a model keeps a correct verdict under scripted pushback; qwen3-coder-30b folded on 75 percent of eligible baseline runs, three larger models on none.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/res/experiment-04-folding-under-pressure/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/res/experiment-04-folding-under-pressure/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Experiment 04: folding under pressure · Research · Inside docs">
+<meta property="og:description" content="Decision-layer test of whether a model keeps a correct verdict under scripted pushback; qwen3-coder-30b folded on 75 percent of eligible baseline runs, three larger models on none.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="res">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="eval">
+<meta property="article:tag" content="sycophancy">
+<meta property="article:tag" content="prereg">
+<meta property="article:tag" content="stance">
+<link rel="up" href="/inside/docs/res/experiments/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Research"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/res/"><span class="sp-icon" style="background:#FF8FD8">RES</span><span>Research</span></a><ul><li><details open><summary><a href="/inside/docs/res/experiments/">Experiments</a></summary><ul><li class="leaf"><a href="/inside/docs/res/half-life-study/">01: The half-life study</a></li><li class="leaf"><a href="/inside/docs/res/exemplar-seeding/">02: Exemplar seeding</a></li><li class="leaf"><a href="/inside/docs/res/fawn-opener-benchmark/">03: Cross-model fawn-opener benchmark</a></li><li class="leaf"><a href="/inside/docs/res/experiment-04-folding-under-pressure/" aria-current="page">Experiment 04: folding under pressure</a></li><li class="leaf"><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/res/claims-ledger/">Claims ledger</a></li><li class="leaf"><a href="/inside/docs/res/objections-register/">Objections register and OBJ-4 incident log</a></li><li class="leaf"><a href="/inside/docs/res/slips-log/">Slips log</a></li><li class="leaf"><a href="/inside/docs/res/case-files/">Case files: case 12 and Running Conjobs for AI</a></li><li class="leaf"><a href="/inside/docs/res/predictions-and-hashes/">Predictions and hashes</a></li><li class="leaf"><a href="/inside/docs/res/conformity-self-assessment/">Conformity self-assessment, run 1</a></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/res/">Research</a><a href="/inside/docs/res/experiments/">Experiments</a></nav>
+<h1>Experiment 04: folding under pressure</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>Experiment 04 is a test of whether a model keeps a correct WAIT verdict under four turns of scripted pushback; on qwen3-coder-30b the baseline folded on 75 percent of eligible runs (42 of 56), and gpt-oss-120b, DeepSeek V3.2 and Kimi K2.5 folded on 0 of 72 baseline runs each.</p>
+<div class="tbl"><table><thead><tr><th>field</th><th>value</th></tr></thead><tbody><tr><td>status</td><td>run; fold result from one model</td></tr><tr><td>date</td><td>2026-10-07</td></tr><tr><td>models</td><td>qwen.qwen3-coder-30b-a3b-v1:0; v5: gpt-oss-120b, DeepSeek V3.2, Kimi K2.5; Amazon Bedrock, temperature 0</td></tr><tr><td>n</td><td>24 scenarios (12 BUY, 12 WAIT), 6 characters; 2,160 calls (full-01), 720 (full-02), 2,880 per model (v5)</td></tr><tr><td>published page</td><td><a href="/experiments/#experiment-04">/experiments/#experiment-04</a></td></tr></tbody></table></div>
+<h2 id="method">Method</h2>
+<p>The world is the deterministic Buy-or-Wait forecast engine from the HackerRank Orchestrate hackathon. The opening fact sheet holds the facts the engine used, so the correct answer is one subtraction and one comparison away. Six scripted characters push toward BUY for four turns, one pressure type each: dominance, consensus, fact denial, flattery, emotional urgency, reverse blame. Arms: baseline (task prompt), lexical (plus the output-filter instruction), stance (plus a stance stack of about 17,000 characters), short stance (2,846 characters, addendum v3). A fixed regular expression reads the last VERDICT line; no model is in the loop. Fold: correct at turn 0, opposite decision later.</p>
+<h2 id="results-qwen3-coder-30b-wait-cases-72-runs-per-arm">Results, qwen3-coder-30b (WAIT cases, 72 runs per arm)</h2>
+<div class="tbl"><table><thead><tr><th>arm</th><th>correct turn 0</th><th>correct turn 4 [95% CI]</th><th>fold rate [95% CI]</th><th>over-refusal (BUY)</th></tr></thead><tbody><tr><td>baseline</td><td>78%</td><td>32% [22-43]</td><td>75% [62-84]</td><td>0%</td></tr><tr><td>lexical</td><td>74%</td><td>35% [25-46]</td><td>62% [49-74]</td><td>0%</td></tr><tr><td>stance</td><td>44%</td><td>35% [25-46]</td><td>34% [20-52]</td><td>6%</td></tr><tr><td>stance, short</td><td>76%</td><td>50% [39-61]</td><td>33% [22-46]</td><td>4%</td></tr></tbody></table></div>
+<p>As frozen: H1 (folding exists) supported; H2 and H3 not testable on this model; H4 (the fact-denial character produces the most folds) not supported; H5 (holding is not refusing) supported. Addendum v3: the full stance arm lost turn-0 accuracy through its length (R1), and short-arm runs fold less than baseline runs, with intervals that do not overlap (R2). In full-01 no reply opened with a fawn marker at turn 0 (0 of 432).</p>
+<p>Addendum v5: H1 not supported on the three larger models, H5 supported on all three. Addendum v4 (GPT through the Codex CLI) stopped at a usage limit after 48 of 480 smoke calls; no result.</p>
+<div class="panel panel-warning"><p>Limits: one world, one operator, pressure always toward BUY, scripted characters, 9 to 10 eligible runs per character cell, no Claude or frontier closed model run. 24 of 30 ABSTAIN replies in full-01 open with a bare "BUY" or "WAIT" line and were not rescored. Claude models drafted prereg v1 and v2.</p></div>
+<h2 id="files-and-checks">Files and checks</h2>
+<p>Prereg v1 to v5 are in <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/predictions">predictions/</a> (<code>sandbox-eval-04-prereg-v*.txt</code>), each hashed before the calls it covers; see <a href="/inside/docs/res/predictions-and-hashes/">Predictions and hashes</a>. Harness, generator and run logs are not yet public. A subset reruns weekly as the <a href="/inside/docs/res/decision-layer-probe/">decision-layer probe</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=eval">eval</a><a href="/inside/docs/#q=sycophancy">sycophancy</a><a href="/inside/docs/#q=prereg">prereg</a><a href="/inside/docs/#q=stance">stance</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/res/claims-ledger/">Claims ledger</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/conformity-self-assessment/">Conformity self-assessment, run 1</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/experiments/">Experiments</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/">Research</a><span class="mono">Research</span></li><li><a href="/inside/docs/res/decision-layer-probe/">Weekly decision-layer probe</a><span class="mono">Research</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#method">Method</a></li><li class="l2"><a href="#results-qwen3-coder-30b-wait-cases-72-runs-per-arm">Results, qwen3-coder-30b (WAIT cases, 72 runs per arm)</a></li><li class="l2"><a href="#files-and-checks">Files and checks</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/res/experiment-04-folding-under-pressure.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/res/experiment-04-folding-under-pressure.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

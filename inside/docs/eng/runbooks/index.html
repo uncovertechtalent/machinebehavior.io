@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Runbooks · Engineering · Inside docs</title>
+<meta name="description" content="Step-by-step fixes for the failures seen so far in the build and deploy of the sites.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/runbooks/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/runbooks/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Runbooks · Engineering · Inside docs">
+<meta property="og:description" content="Step-by-step fixes for the failures seen so far in the build and deploy of the sites.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="runbook">
+<meta property="article:tag" content="operations">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details open><summary><a href="/inside/docs/eng/runbooks/" aria-current="page">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Runbooks</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>1 min read</span></div>
+
+<article class="doc">
+<p>Each runbook covers one failure that has happened, with how to see it, the cause and the fix. Observability runbooks (Loki, Grafana) are in the <a href="/inside/docs/obs/runbooks/">Observability space</a>.</p>
+<div class="tbl"><table><thead><tr><th>Symptom</th><th>Runbook</th></tr></thead><tbody><tr><td>The deploy job did not run; the conformity job is red</td><td><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></td></tr><tr><td><code>git push</code> is rejected after a successful run</td><td><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></td></tr><tr><td><code>site.consistency</code> fails with a relative link that is not in the page text</td><td><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></td></tr></tbody></table></div>
+</article>
+
+<nav class="children" aria-label="Child pages"><h2>Child pages</h2><ul><li><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a><span>The conformity job failed, so the deploy did not run and the previous build is still live; find the failing check, fix the page, push again.</span></li><li><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a><span>The conformity bot commits after every run, so main moves without you; rebase on it and push again.</span></li><li><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a><span>The gate reads every href in the page source, including ones inside JavaScript template strings; build such links with a.href in code.</span></li></ul></nav>
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=runbook">runbook</a><a href="/inside/docs/#q=operations">operations</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/runbooks.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/runbooks.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

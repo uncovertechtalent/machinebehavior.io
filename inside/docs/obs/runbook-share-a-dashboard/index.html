@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Share a dashboard publicly · Observability · Inside docs</title>
+<meta name="description" content="How to build a variable-free public cut of a dashboard, provision it, and turn on Grafana public sharing so it loads at grafana.scoetzee.de.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/obs/runbook-share-a-dashboard/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/obs/runbook-share-a-dashboard/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Share a dashboard publicly · Observability · Inside docs">
+<meta property="og:description" content="How to build a variable-free public cut of a dashboard, provision it, and turn on Grafana public sharing so it loads at grafana.scoetzee.de.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="obs">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="runbook">
+<meta property="article:tag" content="grafana">
+<meta property="article:tag" content="public-dashboards">
+<link rel="up" href="/inside/docs/obs/runbooks/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+</head>
+<body>
+<header class="bar"><nav class="bar-nav" aria-label="Inside"><a class="brand" href="/inside/"><span class="logo">i</span>Inside</a><a href="/inside/docs/" class="here">Docs</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a href="/" class="ext">machinebehavior.io</a></nav><div class="search" role="search"><input type="search" id="q" placeholder="Search docs" aria-label="Search docs" autocomplete="off"><ul id="hits" class="hits"></ul></div></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Observability"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/obs/"><span class="sp-icon" style="background:#3DDC97">OBS</span><span>Observability</span></a><ul><li><details><summary><a href="/inside/docs/obs/architecture/">Architecture</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/deploy-exporter/">Deploy exporter</a></li></ul></details></li><li><details><summary><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li></ul></details></li><li class="leaf"><a href="/inside/docs/obs/loki-streams/">Loki streams</a></li><li class="leaf"><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a></li><li class="leaf"><a href="/inside/docs/obs/dashboards-as-code/">Dashboards as code</a></li><li><details open><summary><a href="/inside/docs/obs/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/obs/runbook-loki-backfill-missing/">Backfilled runs missing in Loki</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-stat-panel-no-data/">Stat panel shows No data</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Counter resets from parallel sessions</a></li><li class="leaf"><a href="/inside/docs/obs/runbook-share-a-dashboard/" aria-current="page">Share a dashboard publicly</a></li></ul></details></li></ul></details></nav>
+<main>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/obs/">Observability</a><a href="/inside/docs/obs/runbooks/">Runbooks</a></nav>
+<h1>Share a dashboard publicly</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>A dashboard goes public in two parts: a public cut in build.py, and a public-dashboard record created through the Grafana API on the home server.</p>
+<h2 id="before-you-start">Before you start</h2>
+<ul><li>Grafana public dashboards do not resolve template variables. A dashboard with variables gets a cut without them.</li><li>Panels that show log lines, traces, names of private work or private repository details stay out of the cut. <code>claude_code_public</code> and <code>host_public</code> in <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/grafana/build.py">grafana/build.py</a> show both techniques: dropping panels and aggregating labels away.</li><li>The front door at <a href="https://grafana.scoetzee.de">https://grafana.scoetzee.de</a> passes only <code>/public-dashboards/*</code>, <code>/api/public/*</code> and <code>/public/*</code>, so the API call below runs on the home server.</li></ul>
+<h2 id="steps">Steps</h2>
+<ol><li>In <code>grafana/build.py</code>, add a function that returns a copy of the dashboard with an empty variable list, every variable filter replaced (for example <code>$model</code> with <code>.*</code>) and identifying labels aggregated away. Give it a uid that ends in <code>-public</code>.</li><li>Add the function to the list at the bottom of build.py, run <code>python3 grafana/build.py</code> and commit the JSON.</li><li>Copy the repository to the home server and run <code>docker compose up -d --build</code>. Grafana provisions the new dashboard in the folder "Agent Observability".</li><li>On the home server, create the public record with the command below. curl prompts for the admin password, which is <code>GRAFANA_ADMIN_PASSWORD</code> in <code>.env</code>.</li><li>Read <code>accessToken</code> in the JSON response. The public URL is <a href="https://grafana.scoetzee.de/public-dashboards/">https://grafana.scoetzee.de/public-dashboards/</a> followed by that token.</li><li>From outside the home network, open the URL and confirm the panels load.</li><li>Add the dashboard to <a href="/inside/docs/obs/public-dashboards/">Public dashboards</a>. To frame it on Inside, see <a href="/inside/docs/eng/inside-portal/">Inside portal</a>.</li></ol>
+<pre><code class="lang-bash">DASH=local-llm-public   # uid of the dashboard to share
+curl -u admin -X POST -H &#x27;Content-Type: application/json&#x27; \
+  -d &#x27;{&quot;isEnabled&quot;: true, &quot;share&quot;: &quot;public&quot;}&#x27; \
+  &quot;http://localhost:3000/api/dashboards/uid/$DASH/public-dashboards&quot;</code></pre>
+<h2 id="check-the-result">Check the result</h2>
+<div class="tbl"><table><thead><tr><th>Check</th><th>Expected</th></tr></thead><tbody><tr><td>Public URL from outside</td><td>Dashboard loads, no login</td></tr><tr><td><a href="https://grafana.scoetzee.de/login">https://grafana.scoetzee.de/login</a> from outside</td><td>404</td></tr><tr><td>Any panel with a template variable</td><td>None; the cut has an empty variable list</td></tr><tr><td>Panel queries</td><td>Hidden: on 2026-10-09 the public API served panel targets without query expressions; the annotation query of Website deploys was served</td></tr></tbody></table></div>
+<p>Which dashboards are public today, and what each one shows: <a href="/inside/docs/obs/public-dashboards/">Public dashboards</a>.</p>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/docs/#q=runbook">runbook</a><a href="/inside/docs/#q=grafana">grafana</a><a href="/inside/docs/#q=public-dashboards">public-dashboards</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/obs/public-dashboards/">Public dashboards</a><span class="mono">Observability</span></li><li><a href="/inside/docs/obs/runbooks/">Runbooks</a><span class="mono">Observability</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#before-you-start">Before you start</a></li><li class="l2"><a href="#steps">Steps</a></li><li class="l2"><a href="#check-the-result">Check the result</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/obs/runbook-share-a-dashboard.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/obs/runbook-share-a-dashboard.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>
