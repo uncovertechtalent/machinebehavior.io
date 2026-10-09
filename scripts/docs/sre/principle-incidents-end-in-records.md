@@ -26,7 +26,7 @@ Source: [Incident Management](doc:sre/incident-management) and [Blameless Postmo
 
 ## State
 
-**Partial.** Every incident on the platform has a record, a write-up and a fix. Three parts are missing. The records do not say when and how each incident was detected; three of four say the time was not recorded ([#41](https://github.com/uncovertechtalent/machinebehavior.io/issues/41)). There is no postmortem index across the records ([#22](https://github.com/uncovertechtalent/machinebehavior.io/issues/22)) and no template for a write-up ([#20](https://github.com/uncovertechtalent/machinebehavior.io/issues/20)). Follow-up work has a ticket for one of the four incidents.
+**Partial.** Every incident on the platform has a record and a write-up; three are resolved, and the SearXNG record is still open at monitoring. Three parts are missing. The records do not say when and how each incident was detected; three of four do not record the time of the first report or check ([#41](https://github.com/uncovertechtalent/machinebehavior.io/issues/41)). The incident records in the handbook have no index and no criteria for when a postmortem is written ([#22](https://github.com/uncovertechtalent/machinebehavior.io/issues/22)), and there is no template for a write-up ([#20](https://github.com/uncovertechtalent/machinebehavior.io/issues/20)). Follow-up work has a ticket for one of the four incidents.
 
 ## Services that name it
 

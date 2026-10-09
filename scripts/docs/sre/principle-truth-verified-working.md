@@ -14,7 +14,7 @@ source: [Manifesto](doc:sre/sre-as-truth-verified-working), the substrate princi
 
 Every operational claim has three properties to meet. It is true: it matches the real state of the system, which is often different from the documented or assumed state. It is verified: a probe run by the person making the claim, in the time window of the claim, backs it. It is working: the system does what it is for, as its users meet it. The ten pillars are mechanisms that deliver these three properties, one dimension each.
 
-Source: [SRE as Truth Verified Working](doc:sre/sre-as-truth-verified-working), the substrate principle of the [manifesto](doc:sre/manifesto). The same idea as a method: [Generate-and-Test Over Reason-From-Model](doc:sre/generate-and-test-over-reason-from-model), which probes the artifact before reasoning about it. Google's book has no chapter of its own for it; its [introduction](https://sre.google/sre-book/introduction/) describes SRE as engineering applied to operations, and every chapter of Part II depends on measured state.
+Source: [SRE as Truth Verified Working](doc:sre/sre-as-truth-verified-working), the substrate principle of the [manifesto](doc:sre/manifesto). The same idea as a method: [Generate-and-Test Over Reason-From-Model](doc:sre/generate-and-test-over-reason-from-model), where the operator probes the artifact before reasoning about it. Google's book has no chapter of its own for it; its [introduction](https://sre.google/sre-book/introduction/) describes SRE as engineering applied to operations, and every chapter of Part II depends on measured state.
 
 ## On this platform
 

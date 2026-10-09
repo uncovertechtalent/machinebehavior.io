@@ -27,7 +27,7 @@ Source: [Symptoms over Causes for Alerting](doc:sre/symptoms-over-causes-for-ale
 
 ## State
 
-**Partial.** Two services have symptom alerts and the telemetry is wide. Three parts are missing. No alert is delivered to anyone ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)). No black-box probe checks the three sites from outside, so the most visible services have no symptom signal of their own ([#37](https://github.com/uncovertechtalent/machinebehavior.io/issues/37)). And the incident records do not say how each incident was detected; all four were found by someone working at the time ([#41](https://github.com/uncovertechtalent/machinebehavior.io/issues/41)).
+**Partial.** Two services have symptom alerts and the telemetry is wide. Three parts are missing. No alert is delivered to anyone ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)). No black-box probe checks the three sites from outside, so the most visible services have no symptom signal of their own ([#37](https://github.com/uncovertechtalent/machinebehavior.io/issues/37)). And the incident records do not say how each incident was detected; apart from the deploy the gate blocked, all were found by someone working at the time ([#41](https://github.com/uncovertechtalent/machinebehavior.io/issues/41)).
 
 ## Services that name it
 

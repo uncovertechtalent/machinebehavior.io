@@ -27,7 +27,7 @@ A responder session works only while the operator has it running. There is no ro
 3. **A session or the operator sees it** while working: a dashboard, a failed search, a wrong number.
 4. **A reader reports it** as a [GitHub issue](https://github.com/uncovertechtalent/machinebehavior.io/issues); it reaches the [board](/inside/board/) after triage.
 
-The four incidents on the status page were all found by the third route.
+Of the four incidents on the status page, the first route found one (the blocked deploy of 2026-10-08) and the third route found the other three.
 
 ## The alert rules
 

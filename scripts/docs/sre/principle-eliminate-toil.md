@@ -22,9 +22,9 @@ Removed:
 
 - **Pages nobody edits by hand.** The catalog, the status page, the docs tree, the board, the changelog and the page chrome are generated from sources in git ([Operations work done as software](doc:sre/principle-ops-as-software)).
 - **Refreshes in the deploy job.** Every deploy re-crawls the map, rebuilds the search index and snapshots the deploy feed and the issues, without a commit ([Deploy pipeline](doc:eng/deploy-pipeline)).
-- **Checks nobody runs by hand.** The gate checks every internal link, canonical tag and sitemap entry on every push ([Conformity gate](doc:eng/conformity-gate)).
+- **Checks nobody runs by hand.** On every push the gate checks the form of every internal link, the canonical tag of every page and each page's sitemap entry ([Conformity gate](doc:eng/conformity-gate)).
 - **Redaction as code.** The vault import replaces private addresses, e-mail addresses and an employer name, and lists every change in a report ([Docs tree](doc:eng/docs-tree)).
-- **A rule at the output boundary.** A stop hook in the agent harness blocks banned phrasing before anyone reads the text; the [slips log](doc:res/slips-log) records three such blocks.
+- **Rules at the output boundary.** Hooks in the agent harness block banned phrasing before anyone reads the text; the [slips log](doc:res/slips-log) records three such blocks, from three different hooks.
 
 Left, by the definition above:
 

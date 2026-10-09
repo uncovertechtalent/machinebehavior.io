@@ -1,5 +1,5 @@
 title: Someone carries the pager
-summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here 17 alert rules reach nobody, the gate is the one control that acts at any hour, and all four incidents were found by someone working at the time.
+summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here 17 alert rules reach nobody, the gate is the one control that acts at any hour, and three of four incidents were found by someone working at the time.
 parent: principles-in-practice
 order: 30
 labels: principle, sre, on-call, alerting, standby
@@ -21,7 +21,7 @@ Source: the standby section of the [manifesto](doc:sre/manifesto); Google's [Bei
 - **Rules exist, delivery does not.** Prometheus evaluates 17 alert rules: 5 with severity page, 11 ticket and 1 info ([Alerts and SLOs](doc:obs/alerts-and-slos)). The stack runs no Alertmanager, so a firing alert stays in Prometheus and Grafana until someone looks ([On-call and escalation](doc:obs/on-call)).
 - **One path reaches a person.** The AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend. It sits outside the stack ([Budgets and alerts](doc:fin/budgets-and-alerts)).
 - **One control acts at any hour.** The [conformity gate](/inside/services/conformity-gate/) stops a failing deploy and keeps the previous build live without anyone on call. On 2026-10-08 it blocked a deploy, and the fix passed 81 seconds later ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
-- **How incidents were found.** All four records on the [status page](/inside/status/) were found by someone who was working at the time. Three of them say "Time of the first report not recorded".
+- **How incidents were found.** Of the four records on the [status page](/inside/status/), the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
 - **A routing proposal.** The [on-call page](doc:obs/on-call) holds a routing: pages to the operator's phone in waking hours, tickets onto the [board](/inside/board/), an always-firing Watchdog with an outside heartbeat, and inhibition so one cause raises one alert.
 
 ## State

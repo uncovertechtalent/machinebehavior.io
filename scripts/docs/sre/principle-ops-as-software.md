@@ -12,7 +12,7 @@ source: [Manifesto](doc:sre/manifesto), SRE = Ops + software engineering; [Googl
 ---
 ## The principle
 
-SRE = operational knowledge + software engineering practices. The ops knowledge comes first, because nobody can automate work they do not understand. On top of it go automation in place of manual runbooks, tools in place of one-off scripts, SLOs in place of gut feel, and blameless postmortems. Google's chapter on automation ranks what automation gives: consistency first, then a platform others can extend, then faster repair and faster action, and time saved last.
+SRE = operational knowledge + software engineering practices. The ops knowledge comes first, because nobody can automate work they do not understand. On top of it go automation in place of manual runbooks, tools in place of one-off scripts, SLOs in place of gut feel, and blameless postmortems. In Google's chapter on automation, the gains come in this order: consistency first, then a platform others can extend, then faster repair and faster action, and time saved last.
 
 Source: the formula in the [manifesto](doc:sre/manifesto); Google's [The Evolution of Automation at Google](https://sre.google/sre-book/automation-at-google/).
 

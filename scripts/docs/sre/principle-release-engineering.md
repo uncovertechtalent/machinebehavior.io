@@ -22,7 +22,7 @@ Source: [CI/CD & Deployment](doc:sre/cicd-deployment) and [Progressive Delivery 
 - **One gate for three sites.** machinebehavior.io, tychat.io and uncovertechtalent.com run the same composite action, so a rule change reaches all three ([Conformity gate](doc:eng/conformity-gate)).
 - **A failed check is a safe state.** When a check fails, the deploy does not run and readers keep the previous build. On 2026-10-08 a link in a template string failed the check; the fix passed 81 seconds later and nobody outside saw the broken page ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push), [runbook](doc:eng/runbook-template-href)).
 - **Every run is recorded.** The gate commits its result to `conformity/latest.json`; run artifacts are kept 90 days; the [deploy exporter](/inside/services/deploy-exporter/) writes each run, step and check to Loki and Prometheus, and the [Website deploys](https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4) dashboard shows them.
-- **High change rate.** Several agent sessions push the same repository through the gate many times a day: 69 recorded runs between 2026-10-07 and 2026-10-09.
+- **High change rate.** Several agent sessions push the same repository through the gate many times a day: 69 recorded runs between 2026-10-07 12:36 and 2026-10-09 13:36 UTC.
 - **Rollback.** Undoing a live change is a revert pushed through the same gate. The handbook's [rollback runbook](doc:sre/rollback-deployment) is generic; the sites have no runbook of their own for it.
 
 ## State

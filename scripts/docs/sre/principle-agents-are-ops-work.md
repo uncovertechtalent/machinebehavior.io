@@ -18,11 +18,11 @@ Source: [AI Agents are Ops Work](doc:sre/ai-agents-are-ops-work) and [Compaction
 
 ## On this platform
 
-- **A service in the catalog.** The [agent sessions](/inside/services/agent-sessions/) are a tier-2 service with an owner, docs, a runbook and their dependencies: the gate, the [search instance](/inside/services/searxng/) and the [local LLM](/inside/services/local-llm/).
+- **A service in the catalog.** The [agent sessions](/inside/services/agent-sessions/) are a tier-2 service with an owner, docs, a runbook and their dependencies: the gate, the [observability stack](/inside/services/observability-stack/), the [search instance](/inside/services/searxng/) and the [local LLM](/inside/services/local-llm/).
 - **The same gate as everyone.** Each session owns one track of work and pushes through the [conformity gate](/inside/services/conformity-gate/), which checks the text the agents write before any reader sees it. The gate owner is itself an agent session; tier changes stay with the operator ([On-call and escalation](doc:obs/on-call)).
 - **Cost metered per request.** Spend and tokens are summed from per-request events, and an alert fires above USD 40 in the trailing hour ([Cost per unit of work](doc:sre/principle-cost-per-unit-of-work)).
 - **Agent-layer incidents.** The [phantom spend](/inside/status/#2026-10-09-phantom-spend-counters) incident came from parallel sessions writing one counter series. The [SearXNG](/inside/status/#2026-10-09-searxng-engine-suspensions) incident is a tool dependency outage, one of the paging cases in the manifesto note, and now has six alert rules.
-- **Behaviour measured as research.** The research programme measures the assembly of model, harness, tools and memory: the [slips log](doc:res/slips-log) records each register slip and who caught it, and the [fawn-opener benchmark](doc:res/fawn-opener-benchmark) is a pre-registered measure of one behaviour across models.
+- **Behaviour measured as research.** In the research programme, Stefan Coetzee measures the assembly of model, harness, tools and memory: the [slips log](doc:res/slips-log) records each register slip and who caught it, and the [fawn-opener benchmark](doc:res/fawn-opener-benchmark) is a pre-registered measure of one behaviour across models.
 
 ## State
 

@@ -325,7 +325,7 @@
    "id": "observability-stack",
    "name": "Observability stack",
    "url": "/inside/services/observability-stack/",
-   "description": "One Docker Compose project on a home server: Alloy, Prometheus, Loki, Tempo and Grafana, with 13 alert rules and the public dashboards behind a reverse proxy that passes only the shared paths. No Alertmanager runs, so no alert pages anyone.",
+   "description": "One Docker Compose project on a home server: Alloy, Prometheus, Loki, Tempo and Grafana, with 17 alert rules and the public dashboards behind a reverse proxy that passes only the shared paths. No Alertmanager runs, so no alert pages anyone.",
    "owner": "Stefan Coetzee",
    "operator": null,
    "tier": 2,

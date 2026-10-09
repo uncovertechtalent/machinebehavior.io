@@ -1,5 +1,5 @@
 title: Service level objectives
-summary: An SLO is a target for a measured indicator of what users get, and the basis for alerts and error budgets. Here one of twelve services has SLOs, the Local LLM; the five tier-1 services, which readers meet directly, have none.
+summary: An SLO is a target for a measured indicator of what users get, and the basis for alerts and error budgets. Here one of twelve services has SLOs, the Local LLM; the five tier-1 services, which readers meet or which decide whether a deploy goes out, have none.
 parent: principles-in-practice
 order: 60
 labels: principle, sre, slo, sli, reliability
@@ -19,7 +19,7 @@ Source: [Reliability](doc:sre/reliability), the first of the [ten pillars](doc:s
 ## On this platform
 
 - **The worked example.** The [Local LLM](/inside/services/local-llm/) has two SLOs with their good events written out: availability 99% (a request without an upstream error) and latency 95% (a streamed chat request with a first token within 4 s). Recording rules compute both ratios over 5 minutes, 30 minutes, 1 hour and 6 hours, and burn-rate alerts read them ([Alerts and SLOs](doc:obs/alerts-and-slos)). The [public dashboard](https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f) shows the requests, errors and time to first token behind them.
-- **The rest of the catalog.** The other eleven service pages say "None defined" under Service level objectives, and their health comes from the records on the [status page](/inside/status/): the gate record for the sites, the deploy feed for the deploy job, incident files for the rest.
+- **The rest of the catalog.** The other eleven service pages say "None defined" under Service level objectives, and the [status page](/inside/status/) reads their state from published records: the gate record and the deploy feed for the sites, the gate and the deploy job, the snapshot time for the map crawler. The other six show "no live check from this page", and only an open incident changes their state.
 - **Data that exists for SLIs.** The [deploy exporter](/inside/services/deploy-exporter/) records every Actions run with its steps and gate checks, enough for a deploy SLO. Per-request Claude Code events in Loki carry model, tokens and cost, enough for an agent spend SLO ([Cost model](doc:fin/cost-model)). The SearXNG exporter records search latency and degraded results ([incident record](/inside/status/#2026-10-09-searxng-engine-suspensions)).
 
 ## State

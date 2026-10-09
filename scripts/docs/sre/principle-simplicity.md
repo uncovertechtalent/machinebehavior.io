@@ -12,7 +12,7 @@ source: [Google SRE book ch. 9](https://sre.google/sre-book/simplicity/); [Idemp
 ---
 ## The principle
 
-Software is easier to run when there is less of it. Prefer boring, well-known technology, keep interfaces small, delete dead code and unused features, and release in small steps so each change is easy to reason about. Complexity that the problem does not need becomes load on whoever is on call.
+Software is easier to run when there is less of it. Prefer boring, well-known technology, keep interfaces small, delete dead code and unused features, and release in small steps so each change is easy to reason about. Every part the problem can do without adds load for whoever is on call.
 
 Source: Google's [Simplicity](https://sre.google/sre-book/simplicity/). Stefan Coetzee's framework has no simplicity pillar of its own; the nearest is [Idempotence as the IaC Invariant](doc:sre/idempotence-as-the-iac-invariant) under [Infrastructure as Code](doc:sre/infrastructure-as-code): the same input gives the same end state, which keeps a system easy to reason about.
 

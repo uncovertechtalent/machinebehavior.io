@@ -14,7 +14,7 @@ source: [Manifesto](doc:sre/manifesto), the concentric model
 
 SRE is a specialisation within Ops, the outer ring of a concentric model: system and network admins at the core, then cloud engineers, platform engineers and SRE, each ring holding the skills of the rings inside it. DevOps, FinOps, SecOps and DataOps are overlaps between Ops and another domain. An SRE team cut off from Ops ends up as a second platform team or as developers who no longer run anything.
 
-Source: the [manifesto](doc:sre/manifesto), with the team-design side in [The Disappearing Full-Stack Ops Engineer](doc:sre/the-disappearing-full-stack-ops-engineer). Google's [introduction](https://sre.google/sre-book/introduction/) starts from the other side, with software engineers asked to design an operations function; the manifesto starts from Ops and adds the engineering.
+Source: the [manifesto](doc:sre/manifesto), with the team-design side in [The Disappearing Full-Stack Ops Engineer](doc:sre/the-disappearing-full-stack-ops-engineer). Google's [introduction](https://sre.google/sre-book/introduction/) starts from the other side, with software engineers asked to design an operations function. In the manifesto, Ops comes first and the engineering is added to it.
 
 ## On this platform
 
@@ -25,7 +25,7 @@ Source: the [manifesto](doc:sre/manifesto), with the team-design side in [The Di
 
 ## State
 
-**Partial.** The roles are named and every ring is covered, by one person. No second person can take a ring, a page or a review, so the model is visible in the work and a team does not exist yet. Two security items are blocked on decisions: security headers ([#26](https://github.com/uncovertechtalent/machinebehavior.io/issues/26)) and security.txt ([#12](https://github.com/uncovertechtalent/machinebehavior.io/issues/12)).
+**Partial.** The roles are named and every ring is covered, by one person. No second person can take a ring, a page or a review, so the model is visible in the work and a team does not exist yet. Two security items are blocked: security headers on the hosting decision ([#26](https://github.com/uncovertechtalent/machinebehavior.io/issues/26)) and security.txt on a contact route for vulnerability reports ([#12](https://github.com/uncovertechtalent/machinebehavior.io/issues/12)).
 
 ## Services that name it
 
