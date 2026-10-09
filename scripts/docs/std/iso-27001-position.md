@@ -54,7 +54,7 @@ reviewed: no
 - **Field-trial reliability data on certification audits.** If credible kappa-style data emerged on auditor agreement across the same evidence, the certification signal would either get sharper or visibly collapse.
 - **ISO 42001 + ISO 27001 integration guidance.** When the bridge document arrives, AI-system buyers will start asking specifically for both; the time-to-implementation will compress.
 - **A widely-publicized breach of an ISO 27001 certified AI-system vendor.** This will move the buyer signal from "has cert" to "has cert plus specific agent-security evidence" within 12-18 months of the event.
-- **EU AI Act enforcement** (full applicability 2 August 2026 for general-purpose AI, 2 August 2027 for most high-risk systems). High-risk classification will force documented AI risk management; ISO 27001 + 42001 will be the path of least resistance.
+- **EU AI Act enforcement** (general-purpose AI obligations since 2 August 2025; high-risk systems from 2 December 2027 for Annex III and 2 August 2028 for Annex I, after Reg. (EU) 2026/1744). High-risk classification will force documented AI risk management; ISO 27001 + 42001 will be the path of least resistance.
 
 ## See also
 

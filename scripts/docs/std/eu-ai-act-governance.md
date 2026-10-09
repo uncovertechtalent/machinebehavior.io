@@ -6,7 +6,7 @@ labels: eu-ai-act, regulation-concept
 aliases: EU AI Act Governance | AI Act Governance | AI Office | AI Act Penalties | AI Act Enforcement
 type: regulation-concept
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Governance.md
 reviewed: no
 ---
@@ -218,8 +218,9 @@ Whistleblower-style protection for reporting AI Act violations (via Directive 20
 
 ### Approaching milestones
 
-- 2 August 2026: high-risk system obligations operational. Major enforcement-capacity stress test.
-- 2 August 2027: Annex I product-embedded high-risk + pre-existing GPAI compliance.
+- 2 August 2026: general date of application (Art 50 transparency and the remaining provisions). High-risk obligations moved by Reg. 2026/1744: 2 December 2027 (Annex III).
+- 2 August 2027: pre-existing GPAI compliance (Art 111(3)).
+- 2 December 2027 and 2 August 2028: Annex III and Annex I high-risk obligations operational. Major enforcement-capacity stress test.
 
 ### Pattern likely to mirror GDPR
 

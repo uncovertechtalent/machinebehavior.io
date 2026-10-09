@@ -6,7 +6,7 @@ labels: eu-ai-act, regulation-concept
 aliases: EU AI Act Timeline | AI Act Timeline | AI Act Dates | AI Act Applicability Schedule
 type: regulation-concept
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Timeline.md
 reviewed: no
 ---
@@ -20,8 +20,12 @@ reviewed: no
 | 2024-08-01 | Regulation in force | Foundational legal status; provisions not yet applicable |
 | 2025-02-02 | First applicability | Chapter II (prohibited practices, Art 5); Art 4 AI literacy |
 | 2025-08-02 | Second applicability | Chapter V (GPAI, Art 51-56); Chapter VII (governance bodies); Chapter XII (penalties) |
-| 2026-08-02 | Third applicability | Most remaining provisions, including Annex III high-risk system obligations |
-| 2027-08-02 | Final applicability | Annex I product-embedded high-risk systems (Art 6(1)) |
+| 2026-07-27 | Omnibus in force | Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026; Art 102 to 110 apply from this date (Art 113(d)) |
+| 2026-08-02 | Third applicability | General date of application, incl. Chapter IV transparency (Art 50) |
+| 2026-12-02 | Added prohibitions | Art 5(1)(ba), (bb), Art 5(1a), (1b) (Art 113(a) as amended); Art 50(2) marking deadline for pre-existing generative systems (Art 111(4)) |
+| 2027-08-02 | Legacy GPAI | GPAI models placed on the market before 2 August 2025 (Art 111(3)) |
+| 2027-12-02 | Annex III high-risk | Chapter III Sections 1 to 3 for Art 6(2) and Annex III systems (Art 113(c)(i) as amended) |
+| 2028-08-02 | Annex I high-risk | Chapter III Sections 1 to 3 for Art 6(1) and Annex I systems (Art 113(c)(ii) as amended) |
 
 ## What applies as of 2 February 2025
 
@@ -53,8 +57,8 @@ Enforcement note: governance bodies and penalty mechanisms become operational at
 
 ## What applies as of 2 August 2026
 
-- **Most remaining provisions.** This is the main applicability date for the bulk of the regulation.
-- **Chapter III — High-risk AI systems (Articles 6-49):**
+- **General date of application.** The bulk of the regulation applies from this date, except the high-risk chapter, which the omnibus (Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026) moved.
+- **Not yet: Chapter III, Sections 1 to 3 (high-risk AI systems).** Moved to 2 December 2027 (Annex III) and 2 August 2028 (Annex I) by Art 113(c) as amended; Art 6(5) is excepted. The list below is what applies at those dates:
   - Classification rules (Article 6)
   - Requirements for high-risk AI (risk management, data and data governance, technical documentation, record-keeping, transparency, human oversight, accuracy / robustness / cybersecurity, quality management)
   - Provider obligations
@@ -74,9 +78,13 @@ Enforcement note: governance bodies and penalty mechanisms become operational at
 
 ## What applies as of 2 August 2027
 
-- **High-risk AI systems embedded in Annex I products** (Article 6(1)). These follow the longer transition because the underlying product-specific regulations (medical devices, machinery, automotive, etc.) have their own compliance frameworks and the AI Act extensions integrate over a longer timeline.
-- **Pre-existing GPAI models** must achieve compliance by this date.
-- **Some legacy high-risk AI systems** placed on market before 2 August 2026 may have transition provisions (check Article 111).
+- **Pre-existing GPAI models** (placed on the market before 2 August 2025) must achieve compliance by this date (Art 111(3)).
+
+## What applies as of 2 December 2027 and 2 August 2028
+
+- **2 December 2027: Annex III high-risk systems** (Art 6(2)), Chapter III Sections 1 to 3 (Art 113(c)(i) as amended by Reg. 2026/1744).
+- **2 August 2028: high-risk AI systems embedded in Annex I products** (Art 6(1)), Art 113(c)(ii) as amended. These follow the longer transition because the underlying product-specific regulations have their own compliance frameworks.
+- **Legacy high-risk systems:** systems placed on the market before these dates fall under the Regulation only after significant design changes (Art 111(2) as replaced).
 
 ## Specific provisions outside the main schedule
 
@@ -88,14 +96,14 @@ Enforcement note: governance bodies and penalty mechanisms become operational at
 
 ### For providers of AI systems
 
-- **Now (2026-05-12)**: review classifications, especially Article 6(3) exemption applicability. Plan compliance work for high-risk systems against 2 August 2026 deadline.
-- **By 2 August 2026**: high-risk system obligations operational. Conformity assessment completed, technical documentation in place, CE marking applied where required, post-market monitoring active.
+- **Now (2026-05-12)**: review classifications, especially Article 6(3) exemption applicability. Plan compliance work for high-risk systems against the 2 December 2027 (Annex III) and 2 August 2028 (Annex I) dates (Art 113(c) as amended by Reg. 2026/1744).
+- **By 2 December 2027 (Annex III) or 2 August 2028 (Annex I)**: high-risk system obligations operational. Conformity assessment completed, technical documentation in place, CE marking applied where required, post-market monitoring active.
 - **Ongoing**: transparency obligations for limited-risk systems where applicable. AI literacy provisions in place.
 
 ### For deployers of AI systems
 
 - **Now**: identify high-risk AI systems in use; understand deployer obligations (use according to instructions, ensure human oversight, monitor operation, log if applicable, inform workers if used in workplace).
-- **By 2 August 2026**: deployer obligations for Annex III systems fully applicable.
+- **By 2 December 2027**: deployer obligations for Annex III systems fully applicable.
 
 ### For GPAI providers
 
@@ -118,8 +126,8 @@ Enforcement note: governance bodies and penalty mechanisms become operational at
 
 Article 111 transitional provisions:
 
-- **Article 111(1)**: high-risk AI systems placed on market or put into service before 2 August 2026 are subject to compliance only if they undergo significant changes after that date.
-- **Article 111(2)**: high-risk AI systems intended for use by public authorities, placed on market or put into service before 2 August 2026, must be compliant by 2 August 2030.
+- **Article 111(2)**, as replaced by Reg. 2026/1744: high-risk AI systems placed on the market or put into service before the date of application of Chapter III (2 December 2027 for Annex III, 2 August 2028 for Annex I) fall under the Regulation only if their designs change significantly after that date. High-risk systems intended for use by public authorities must comply by 2 August 2030 in any case.
+- **Article 111(4)**, added by Reg. 2026/1744: generative AI systems placed on the market before 2 August 2026 must comply with Art 50(2) (marking of synthetic content) by 2 December 2026.
 - **Article 111(3)**: pre-existing GPAI models must be compliant by 2 August 2027.
 
 The transitional provisions create complexity — knowing whether a system is "placed on market" before the cutoff (and what counts as "significant change") matters.
@@ -140,9 +148,10 @@ The transitional provisions create complexity — knowing whether a system is "p
 | AI literacy provisions | 2 February 2025 (ongoing) |
 | GPAI baseline obligations | 2 August 2025 (already past) |
 | GPAI systemic-risk obligations | 2 August 2025 (already past) |
-| Annex III high-risk system compliance | 2 August 2026 |
-| Limited-risk transparency obligations | 2 August 2026 |
-| Annex I product-embedded high-risk | 2 August 2027 |
+| Annex III high-risk system compliance | 2 December 2027 (Reg. 2026/1744) |
+| Limited-risk transparency obligations | 2 August 2026 (Art 50(2) marking for pre-existing generative systems: 2 December 2026, Art 111(4)) |
+| Added prohibitions, Art 5(1)(ba), (bb) | 2 December 2026 |
+| Annex I product-embedded high-risk | 2 August 2028 (Reg. 2026/1744) |
 | Pre-existing GPAI compliance | 2 August 2027 |
 | Pre-existing high-risk in public authorities | 2 August 2030 |
 

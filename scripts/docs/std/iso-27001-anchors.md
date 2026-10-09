@@ -60,7 +60,7 @@ reviewed: no
 
 - **EU GDPR (Reg 2016/679)** — privacy regulation. ISO 27001 + 27701 widely used as defensible technical-and-organisational-measures evidence.
 - **EU NIS2 Directive (Dir 2022/2555)** — cybersecurity for essential and important entities. Member-state transposition deadlines 17 October 2024; enforcement ramping through 2025-2026. ISO 27001 alignment is a common path.
-- **EU AI Act (Reg 2024/1689)** — general provisions in force August 2024; high-risk system obligations from 2 August 2026 (general-purpose AI) and 2 August 2027 (most high-risk). ISO 42001 + ISO 27001 will be the implementation default.
+- **EU AI Act (Reg 2024/1689)** — general provisions in force August 2024; general-purpose AI obligations from 2 August 2025; high-risk system obligations from 2 December 2027 (Annex III) and 2 August 2028 (Annex I) after Reg. (EU) 2026/1744. ISO 42001 + ISO 27001 will be the implementation default.
 - **EU DORA (Reg 2022/2554)** — Digital Operational Resilience Act for financial services. In force 17 January 2025. ICT third-party risk management overlaps with ISO 27001 A.5.19-23 / A.8.
 - **EU Cyber Resilience Act (Reg 2024/2847)** — product cybersecurity for digital products. Adopted October 2024, applicable late 2027.
 - **UK Data Protection Act 2018** + GDPR-equivalent post-Brexit framework.

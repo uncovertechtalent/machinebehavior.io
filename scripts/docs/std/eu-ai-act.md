@@ -6,7 +6,7 @@ labels: ai-governance, ai-regulation, eu-ai-act, eu-regulation, moc
 aliases: EU AI Act Cluster | EU AI Act | AI Act | Regulation 2024/1689 | EU 2024/1689
 type: MOC
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Cluster.md
 reviewed: no
 ---
@@ -26,7 +26,7 @@ reviewed: no
 - **Council of EU adoption** — 21 May 2024.
 - **Publication in OJEU** — 12 July 2024.
 - **In force** — 1 August 2024 (20 days after OJEU publication).
-- **Staged applicability** — 2 February 2025 (prohibited practices), 2 August 2025 (GPAI obligations + governance + penalties), 2 August 2026 (most high-risk system obligations), 2 August 2027 (Annex I product-embedded high-risk systems).
+- **Staged applicability** — 2 February 2025 (prohibited practices), 2 August 2025 (GPAI obligations + governance + penalties), 2 August 2026 (general date of application, incl. Art 50 transparency), 2 December 2027 (Annex III high-risk systems) and 2 August 2028 (Annex I product-embedded high-risk systems), as amended by Regulation (EU) 2026/1744 (Digital Omnibus on AI), OJ L 24.7.2026, in force 27 July 2026.
 
 ## What the EU AI Act is, in one paragraph
 
@@ -55,8 +55,11 @@ Detail in [[EU AI Act Risk Tiers]].
 | 2024-08-01 | Regulation in force |
 | 2025-02-02 | Prohibited practices ban; AI literacy obligation (Art 4) |
 | 2025-08-02 | GPAI obligations; governance bodies and notifying authorities operational; penalties applicable |
-| 2026-08-02 | Most high-risk system obligations (Annex III high-risk systems) |
-| 2027-08-02 | High-risk systems embedded in regulated products (Annex I) |
+| 2026-08-02 | General date of application (incl. Art 50 transparency); Art 102 to 110 from 27 July 2026 |
+| 2026-12-02 | Added Art 5 prohibitions (Art 5(1)(ba), (bb), (1a), (1b)); Art 111(4) marking grace ends |
+| 2027-12-02 | High-risk obligations for Annex III systems (Art 113(c)(i) as amended by Reg. 2026/1744) |
+| 2027-08-02 | Pre-existing GPAI models compliant (Art 111(3)) |
+| 2028-08-02 | High-risk systems embedded in regulated products (Annex I; Art 113(c)(ii) as amended) |
 
 Pre-existing GPAI models placed on market before 2 August 2025 have until 2 August 2027 to comply.
 

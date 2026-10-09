@@ -6,7 +6,7 @@ labels: cross-cutting, eu-ai-act
 aliases: EU AI Act Controversies | AI Act Critique | AI Act Limitations | AI Act Compliance Concerns
 type: cross-cutting
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Controversies.md
 reviewed: no
 ---
@@ -174,7 +174,7 @@ Notified Bodies for third-party conformity assessment:
 
 Concerns:
 
-- High-risk AI Act obligations applicable 2 August 2026; insufficient Notified Body capacity creates compliance bottleneck.
+- High-risk AI Act obligations originally applicable 2 August 2026, moved by Reg. 2026/1744 to 2 December 2027 (Annex III) and 2 August 2028 (Annex I); insufficient Notified Body capacity was one stated reason for the delay debate and remains a bottleneck risk.
 - Providers may face delays in conformity assessment.
 - Self-assessment path (where permitted) absorbs some load but not all.
 

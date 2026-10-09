@@ -6,7 +6,7 @@ labels: cross-cutting, iso-27001
 aliases: ISO 27001 Family | ISO 27000 Family | ISO 27001 Sector Variants | ISO 27001 Adjacent Standards
 type: cross-cutting
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Family and Sector Variants.md
 reviewed: no
 ---
@@ -100,7 +100,7 @@ reviewed: no
 - **UK NIS Regulations** (2018) / EU NIS2 Directive (2022/2555) — operators of essential services. Member-state transposition completed late 2024 / early 2025. Enforcement ramping.
 - **EU GDPR** (2016/679) — privacy. ISO 27001 + 27701 are common technical-and-organisational measures evidence.
 - **EU DORA** (2022/2554) — Digital Operational Resilience Act for financial services. Applicable since 17 January 2025.
-- **EU AI Act** (2024/1689) — risk-tiered AI regulation. General-purpose AI obligations from 2 August 2026; high-risk system obligations from 2 August 2027. ISO 42001 alignment likely.
+- **EU AI Act** (2024/1689) — risk-tiered AI regulation. General-purpose AI obligations from 2 August 2025; high-risk system obligations from 2 December 2027 (Annex III) and 2 August 2028 (Annex I) after Reg. (EU) 2026/1744. ISO 42001 alignment likely.
 - **EU Cyber Resilience Act** (2024/2847) — digital products cybersecurity, mandatory from late 2027.
 - **TISAX** — Trusted Information Security Assessment Exchange. Automotive-sector adaptation of ISO 27001, German-origin (VDA). Required by major German automakers.
 

@@ -6,11 +6,11 @@ labels: eu-ai-act, regulation-concept
 aliases: EU AI Act High-Risk Obligations | AI Act High-Risk | AI Act Annex III | High-Risk AI Compliance
 type: regulation-concept
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act High-Risk Obligations.md
 reviewed: no
 ---
-> Obligations applying to high-risk AI systems under the EU AI Act. High-risk classification triggers extensive compliance work: risk management, data governance, technical documentation, record-keeping, transparency, human oversight, accuracy/robustness/cybersecurity, conformity assessment, CE marking, post-market monitoring, serious incident reporting. Applicable from 2 August 2026 (Annex III) and 2 August 2027 (Annex I products).
+> Obligations applying to high-risk AI systems under the EU AI Act. High-risk classification triggers extensive compliance work: risk management, data governance, technical documentation, record-keeping, transparency, human oversight, accuracy/robustness/cybersecurity, conformity assessment, CE marking, post-market monitoring, serious incident reporting. Applicable from 2 December 2027 (Annex III) and 2 August 2028 (Annex I products), as amended by Regulation (EU) 2026/1744 (originally 2 August 2026 and 2 August 2027).
 
 ## Who must comply
 

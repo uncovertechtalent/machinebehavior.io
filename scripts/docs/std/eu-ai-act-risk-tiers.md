@@ -6,7 +6,7 @@ labels: eu-ai-act, regulation-concept
 aliases: EU AI Act Risk Tiers | AI Act Risk Tiers | AI Act Categories | EU AI Act Unacceptable High Limited Minimal
 type: regulation-concept
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/eu-ai-act/EU AI Act Risk Tiers.md
 reviewed: no
 ---
@@ -63,7 +63,7 @@ Annex I includes:
 - Rail systems (interoperability)
 - Motor vehicles (UN R155 / R156 territory)
 
-Applicability: 2 August 2027 for high-risk AI systems in Annex I products.
+Applicability: 2 August 2028 for high-risk AI systems in Annex I products (Art 113(c)(ii) as amended by Reg. 2026/1744; originally 2 August 2027).
 
 ### Path 2: Annex III areas (Article 6(2))
 
@@ -80,7 +80,7 @@ Annex III areas:
 7. **Migration, asylum, border control** — polygraph-equivalent, security/health/migration risk assessment, processing applications, detection of irregularities.
 8. **Administration of justice and democratic processes** — assisting judicial authorities in fact research, application of law to facts, alternative dispute resolution. Influencing election outcomes / voting behavior.
 
-Applicability: 2 August 2026 for Annex III high-risk systems.
+Applicability: 2 December 2027 for Annex III high-risk systems (Art 113(c)(i) as amended by Reg. 2026/1744; originally 2 August 2026).
 
 ### Exemption: Article 6(3)
 
@@ -107,7 +107,7 @@ Limited-risk AI systems are not heavily regulated but have transparency obligati
 
 Transparency obligations apply broadly; many systems have one or more applicable.
 
-Applicability: 2 August 2026.
+Applicability: 2 August 2026. Generative systems placed on the market before that date must meet the Art 50(2) marking duty by 2 December 2026 (Art 111(4), added by Reg. 2026/1744).
 
 ## Tier 4: Minimal/no risk
 
