@@ -85,7 +85,7 @@ This programme is the evidence for why instructions to a model drift. TYChat is 
 
 ## Author
 
-Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft (2011) and the Model Behavior program (2026). The receipts are the argument.
+Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft (2011) and the Model Behavior program (2026). The receipts are the argument.
 
 ## Inside docs
 
