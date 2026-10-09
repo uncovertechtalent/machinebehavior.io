@@ -56,7 +56,7 @@ Since the 2026 framework, a technology category says what is being managed (Publ
 
 ### Maturity
 
-The framework rates each capability Crawl, Walk or Run ([Maturity model](https://www.finops.org/framework/maturity-model/)). The owner's own reading, without an outside assessment: Reporting & Analytics and Anomaly Management are at Walk for Claude Code spend, with one exact meter, automated sums and a tested alert rule. Allocation stops at model and subsystem, because the events carry no project label. Budgeting and Forecasting are at Crawl: no budget is set and no alert reaches a person.
+The framework rates each capability Crawl, Walk or Run ([Maturity model](https://www.finops.org/framework/maturity-model/)). The owner's own reading, without an outside assessment: Reporting & Analytics and Anomaly Management are at Walk for Claude Code spend, with one exact meter, automated sums and a tested alert rule. Allocation stops at model and subsystem, because the events carry no project label. Budgeting and Forecasting are at Crawl for Claude Code, which has no budget. The AWS account has a monthly budget in AWS Budgets, which e-mails at 80% of actual spend, and since 2026-10-09 an internal dashboard and four alert rules compare spend and forecast with it. The Prometheus alerts still reach nobody.
 
 ## FOCUS
 

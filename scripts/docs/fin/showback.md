@@ -38,4 +38,4 @@ GitHub's billing page lists standard runners in public repositories as free, and
 
 ## Not in the showback
 
-The subscription fee, the AWS invoice lines for Bedrock and the reverse proxy, the domain fees and the electricity tariff. They are kept private, so this page shows list-price value and usage only. The components and their meters: [Cost model](doc:fin/cost-model).
+The subscription fee, the AWS invoice, the hosting of the reverse proxy, the domain fees and the electricity tariff. They are kept private, so this page shows list-price value and usage only. The AWS account's billed amounts are on an internal dashboard since 2026-10-09 ([Budgets and alerts](doc:fin/budgets-and-alerts)). The components and their meters: [Cost model](doc:fin/cost-model).

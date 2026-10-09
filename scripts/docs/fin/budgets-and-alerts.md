@@ -1,5 +1,5 @@
 title: Budgets and alerts
-summary: The one cost alert that exists, why nothing pages, how it behaved on real spend on 2026-10-09, the budget caps in the eval harness, and what a budget alert for Claude Code would look like.
+summary: The cost controls that exist (the Claude Code spend alert, the AWS monthly budget with its internal dashboard and four alert rules, the eval harness caps), why only the AWS Budgets e-mail reaches a person, and what a budget alert for Claude Code would look like.
 order: 50
 labels: finops, budgets, alerts, prometheus, loki
 owner: Stefan Coetzee
@@ -7,7 +7,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price value of Claude Code calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. The stack runs no Alertmanager, so a firing alert is visible in Prometheus and Grafana and reaches nobody. No budget is set for any component; the eval harness caps each run.
+Two kinds of cost control exist. For Claude Code, `ClaudeCodeSpendSpike` fires when the list-price value of calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. For the AWS account, a monthly cost budget in AWS Budgets e-mails at 80% of actual spend, and since 2026-10-09 an internal dashboard and four Prometheus rules compare spend and forecast with that budget. The stack runs no Alertmanager, so the Prometheus alerts are visible in Prometheus and Grafana and reach nobody; the AWS Budgets e-mail is the one cost notification that reaches a person. Claude Code has no budget, and the eval harness caps each run.
 
 ## What exists
 
@@ -15,11 +15,29 @@ One alert watches cost: `ClaudeCodeSpendSpike`. It fires when the list-price val
 |---|---|---|---|
 | `ClaudeCodeSpendSpike` | [prometheus/rules/alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml) | `sum(model:claude_code_cost_usd:sum1h) > 40` for 10 minutes, severity ticket | Evaluated; no notification route |
 | `model:claude_code_cost_usd:sum1h` | [loki/rules/fake/claude-code.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/loki/rules/fake/claude-code.yml) | Trailing-hour sum of `cost_usd` by model, every minute, written to Prometheus by the Loki ruler | Recording |
-| Alert tests | [prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) | The spend alert fires at USD 45 per hour, holds at USD 35 and holds on 8 minutes above the threshold | In the repository; run with promtool |
+| Alert tests | [prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) | The spend alert fires at USD 45 per hour, holds at USD 35 and holds on 8 minutes above the threshold; each AWS rule has a case above and a case below its threshold | In the repository; pass with promtool on 2026-10-09 |
 | Eval run cap | Experiment 04 harness, `--budget-usd` | Starts no new conversation once the projected spend would cross the cap | v5 cap USD 20, spent USD 12.87 |
 | Probe cap | [Weekly decision-layer probe](doc:res/decision-layer-probe) | Same guard, cap USD 1.0 | First run USD 0.269 |
+| AWS monthly budget | AWS Budgets, in the account | Monthly cost budget on unblended cost, tax, credits and refunds included; e-mail when actual spend passes 80% | Active; the amount is not published |
+| AWS spend dashboard | Grafana, uid `aws-spend`, internal | Month to date and forecast against the budget, daily cost by service, top services, the last three months, the budget table and the exporter's own API cost | Live since 2026-10-09; never shared |
+| `AWSCostForecastOverBudget` | [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml), group `aws_cost` | `max(aws_cost_month_forecast_usd) > max(aws_budget_limit_usd{period="MONTHLY"})` for 1 hour, severity ticket | Evaluated; no notification route |
+| `AWSCostMonthToDateOver80` | same | `max(aws_cost_mtd_usd) > 0.8 * max(aws_budget_limit_usd{period="MONTHLY"})` for 1 hour, severity ticket | Evaluated; no notification route |
+| `AWSCostDailySpike` | same | The latest day before today above twice the median of the 28 days before it and above USD 1, domain renewals and tax left out of both, for 1 hour | Evaluated; no notification route |
+| `AWSCostExporterStale` | same | No error-free poll for 13 hours, or a running exporter that has never fetched | Evaluated; no notification route |
 
-`alerts.yml` holds 13 alert rules; the other 12 watch the local LLM, Ollama and SearXNG ([Alerts and SLOs](doc:obs/alerts-and-slos)). Account-level budgets at the cloud provider are outside this documentation.
+`alerts.yml` holds 17 alert rules: the Claude Code spend alert, the four AWS rules and 12 for the local LLM, Ollama and SearXNG ([Alerts and SLOs](doc:obs/alerts-and-slos)).
+
+## AWS spend, internal
+
+`aws-cost-exporter` in the [agent-observability](https://github.com/uncovertechtalent/agent-observability) stack reads the AWS account's daily `UnblendedCost` by service from Cost Explorer (this month and the three before), Cost Explorer's forecast to the end of the month and every budget in AWS Budgets. The budget rules take the amount from AWS Budgets, so a change to the budget there moves the thresholds without a rule change.
+
+- Cost of the meter. Cost Explorer bills USD 0.01 per request. The exporter caches every answer and asks for this month every 12 hours, the forecast daily and older months weekly, about USD 1 a month. The dashboard shows the exporter's own requests and their cost.
+- Lag. Cost Explorer data trails by up to a day and marks the current month as estimated, so the daily spike rule reads the latest day before today, which can still be partial.
+- One-day charges. Domain renewals and the monthly tax post as single-day spikes. The spike rule leaves both out of the latest day and of the median; the budget rules include them, as AWS Budgets does.
+- Two forecasts. The dashboard shows Cost Explorer's forecast and AWS Budgets' own forecast side by side; the two models can differ by a wide margin early in a month.
+- Credentials. The exporter reads the AWS shared config on the home server through a read-only mount and publishes no port; only Prometheus scrapes it.
+
+Amounts on the dashboard stay unpublished unless the owner releases them.
 
 ## The spend alert on real spend
 

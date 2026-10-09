@@ -1,5 +1,5 @@
 title: Alerts and SLOs
-summary: The recording rules, service level objectives and 13 alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.
+summary: The recording rules, service level objectives and 17 alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.
 parent: metrics-reference
 order: 10
 labels: prometheus, alerts, slo, loki
@@ -8,7 +8,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-Prometheus evaluates recording rules and 13 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager, so no alert reaches a person; who responds and a proposed routing are on [On-call and escalation](doc:obs/on-call).
+Prometheus evaluates recording rules and 17 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager, so no alert reaches a person; who responds and a proposed routing are on [On-call and escalation](doc:obs/on-call).
 
 ## Service level objectives
 
@@ -38,6 +38,10 @@ SLI rules record the error ratio and the slow-first-token ratio over 5m, 30m, 1h
 | SearXNGEngineFailing | One engine failed over 80% of its calls in 30 minutes (rate limit, block, timeout or error), with at least 5 calls, for 10 minutes | ticket |
 | SearXNGDegradedSearches | `search.sh` returned `SEARXNG_DEGRADED` 3 or more times in 15 minutes | ticket |
 | SearXNGSlowSearches | Search latency p95 above 8 s over 30 minutes, with more than one search per 5 minutes, for 10 minutes | ticket |
+| AWSCostForecastOverBudget | AWS month-end forecast above the MONTHLY budget in AWS Budgets, for 1 hour | ticket |
+| AWSCostMonthToDateOver80 | AWS month to date above 80% of that budget, for 1 hour | ticket |
+| AWSCostDailySpike | The latest day before today above twice the 28-day median and above USD 1, domain renewals and tax left out, for 1 hour | ticket |
+| AWSCostExporterStale | No error-free poll of the AWS cost exporter for 13 hours, or none since it started, for 30 minutes | ticket |
 
 The burn-rate alerts follow the multi-window, multi-burn-rate pattern from chapter 5 of the Google SRE Workbook. A homelab LLM serves a handful of requests per hour, and one failed request in a quiet hour is a 100% error ratio. The traffic floor on the two availability alerts holds the page in that case.
 
@@ -51,7 +55,7 @@ The spend threshold comes from the week of 2026-10-02 to 2026-10-08 in Loki: the
 
 ## Tests
 
-[prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) checks 11 cases with promtool. The fast availability alert fires at 20% errors and one request per second, and the traffic floor holds it at one request per hour. The spend alert fires at USD 45 per hour summed over two models, does not fire at USD 35, and does not fire on 8 minutes above the threshold, inside the 10-minute hold. The SearXNG cases cover a down instance, a sleeping laptop, a rate-limited engine above and below the call floor, and degraded searches above and below the count.
+[prometheus/tests/alerts_test.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/tests/alerts_test.yml) checks 21 cases with promtool. The fast availability alert fires at 20% errors and one request per second, and the traffic floor holds it at one request per hour. The spend alert fires at USD 45 per hour summed over two models, does not fire at USD 35, and does not fire on 8 minutes above the threshold, inside the 10-minute hold. The SearXNG cases cover a down instance, a sleeping laptop, a rate-limited engine above and below the call floor, and degraded searches above and below the count. Each AWS cost rule has a case above and below its threshold; the spike rule also holds under its USD 1 floor, and the stale rule fires for an exporter that never fetched.
 
 ```bash
 docker run --rm -v "$PWD/prometheus:/p:ro" -w /p/tests --entrypoint promtool \
