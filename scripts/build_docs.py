@@ -417,7 +417,7 @@ def tree_html(space, current):
     return walk((space, 'index'), 0)
 
 
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com">\n<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">'
+FONTS = '<link rel="stylesheet" href="/fonts/fonts.css">'
 ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">'
 
 

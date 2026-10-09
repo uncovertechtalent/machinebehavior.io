@@ -5,6 +5,12 @@ labels: adr, decisions, governance
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: no third-party requests on page load
+
+- **Decision.** Fonts (Space Grotesk, JetBrains Mono) and d3 are served from the site itself, and the Inside deploy feed is a JSON written by the deploy job. Opening a page sends no request to Google, a CDN or the GitHub API.
+- **Why.** A request to a font or script server passes the visitor's IP address to that company; the LG München I judgment of 2022-01-20 (3 O 17493/20) found this unlawful for Google Fonts loaded without consent. It also removes the GitHub API rate limit of 60 requests per hour per visitor.
+- **Consequence.** The deploy feed on Inside is as fresh as the last deploy of this site; the live view is the Website deploys dashboard. Font and d3 updates are manual (`fonts/`, `vendor/`).
+
 ## 2026-10-09: publish vault notes with a review label
 
 - **Decision.** The SRE folder and 28 standards clusters of the knowledge vault are published as docs spaces, with private addresses, e-mail addresses and the former employer's name redacted, and a label on every page saying it has not been reviewed against its source.

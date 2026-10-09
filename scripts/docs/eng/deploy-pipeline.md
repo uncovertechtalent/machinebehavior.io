@@ -16,7 +16,8 @@ Every push to `main` of machinebehavior.io starts the workflow `.github/workflow
 
 1. Check out `main` again, after the bot commit.
 2. Refresh the map: run `scripts/crawl_map.py` against the live sites. The new `map/graph.json` replaces the committed one only if it has at least as many nodes and links. A partial crawl (for example Substack answering 403 to the runner) keeps the committed snapshot. This step may fail without failing the job, and its result is never committed.
-3. Upload the repository as the Pages artifact and deploy it.
+3. Snapshot the deploy feed: read the last 15 Actions runs of machinebehavior.io and tychat.io and write `inside/deploys.json` for [Inside](/inside/). Like the map refresh, it may fail without failing the job and is never committed.
+4. Upload the repository as the Pages artifact and deploy it.
 
 > [!warning] The bot commit moves `main` after every run. Always `git pull --rebase` before pushing; a push without it is rejected. See [Push rejected after a deploy](doc:eng/runbook-push-rejected).
 

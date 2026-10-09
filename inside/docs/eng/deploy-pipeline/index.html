@@ -21,8 +21,7 @@
 <meta property="article:tag" content="pipeline">
 <link rel="up" href="/inside/docs/eng/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="/inside/docs/docs.css">
 </head>
 <body>
@@ -39,7 +38,7 @@
 <h2 id="job-1-conformity-checks">Job 1: conformity checks</h2>
 <ol><li>Check out <code>main</code> with full history.</li><li>Run the conformity action against every published page (see <a href="/inside/docs/eng/conformity-gate/">Conformity gate</a>).</li><li>Commit <code>conformity/latest.json</code> and <code>conformity/index.html</code> as <code>conformity-bot</code>, with <code>[skip ci]</code> in the message, and push.</li><li>Gate step: read the overall result; anything other than <code>pass</code> fails the job with "deploy blocked, previous build stays live".</li></ol>
 <h2 id="job-2-deploy-to-pages">Job 2: deploy to Pages</h2>
-<ol><li>Check out <code>main</code> again, after the bot commit.</li><li>Refresh the map: run <code>scripts/crawl_map.py</code> against the live sites. The new <code>map/graph.json</code> replaces the committed one only if it has at least as many nodes and links. A partial crawl (for example Substack answering 403 to the runner) keeps the committed snapshot. This step may fail without failing the job, and its result is never committed.</li><li>Upload the repository as the Pages artifact and deploy it.</li></ol>
+<ol><li>Check out <code>main</code> again, after the bot commit.</li><li>Refresh the map: run <code>scripts/crawl_map.py</code> against the live sites. The new <code>map/graph.json</code> replaces the committed one only if it has at least as many nodes and links. A partial crawl (for example Substack answering 403 to the runner) keeps the committed snapshot. This step may fail without failing the job, and its result is never committed.</li><li>Snapshot the deploy feed: read the last 15 Actions runs of machinebehavior.io and tychat.io and write <code>inside/deploys.json</code> for <a href="/inside/">Inside</a>. Like the map refresh, it may fail without failing the job and is never committed.</li><li>Upload the repository as the Pages artifact and deploy it.</li></ol>
 <div class="panel panel-warning"><p>The bot commit moves <code>main</code> after every run. Always <code>git pull --rebase</code> before pushing; a push without it is rejected. See <a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a>.</p></div>
 <h2 id="what-happens-around-a-deploy">What happens around a deploy</h2>
 <ul><li>The <a href="/inside/docs/obs/deploy-exporter/">deploy exporter</a> polls the GitHub Actions API and writes each run, step and gate check to Loki and Prometheus. The <a href="https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4">Website deploys dashboard</a> shows them.</li><li><a href="/inside/">Inside</a> reads the same Actions API in the browser for its deploy feed.</li></ul>

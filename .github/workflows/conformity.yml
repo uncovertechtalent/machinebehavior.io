@@ -16,6 +16,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  actions: read
 
 concurrency:
   group: conformity-${{ github.ref }}
@@ -100,6 +101,32 @@ jobs:
             echo "::warning::map crawl failed; the committed snapshot is deployed"
             cp /tmp/graph.committed.json map/graph.json
           fi
+
+      - name: Snapshot the deploy feed for Inside (artifact only, never committed)
+        # Inside reads /inside/deploys.json instead of calling the GitHub API from each visitor's browser.
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import datetime, json, os, urllib.error, urllib.request
+          keep = ('name', 'status', 'conclusion', 'event', 'run_number', 'display_title', 'html_url', 'run_started_at', 'updated_at')
+          out = {'generated': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'repos': {}}
+          for repo in ('uncovertechtalent/machinebehavior.io', 'uncovertechtalent/tychat.io'):
+              url = f'https://api.github.com/repos/{repo}/actions/runs?per_page=15'
+              for auth in (True, False):
+                  h = {'Accept': 'application/vnd.github+json'}
+                  if auth: h['Authorization'] = 'Bearer ' + os.environ['GH_TOKEN']
+                  try:
+                      runs = json.load(urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=20))['workflow_runs']
+                      out['repos'][repo] = [{k: r.get(k) for k in keep} for r in runs]
+                      break
+                  except (urllib.error.URLError, KeyError, ValueError) as e:
+                      print(f'::warning::deploy feed for {repo} (auth={auth}) failed: {e}')
+          json.dump(out, open('inside/deploys.json', 'w'), indent=1)
+          print('deploy feed', {k: len(v) for k, v in out['repos'].items()})
+          PY
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

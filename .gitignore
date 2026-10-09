@@ -2,3 +2,4 @@ bench/pilot/out/*.raw
 bench/pilot/out/*.rerun.raw
 conformity/runs/
 conformity/.result
+inside/deploys.json

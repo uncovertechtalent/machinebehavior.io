@@ -33,6 +33,17 @@ page = f'''<!doctype html>
 <link rel="canonical" href="https://machinebehavior.io/slips/">
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/slips/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Slips">
+<meta property="og:description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
+<meta property="og:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta property="og:image:width" content="1640">
+<meta property="og:image:height" content="820">
+<meta property="og:image:alt" content="Map of the Work: a graph of Stefan Coetzee&#x27;s published pages, posts, repos and threads, coloured by site, with the links between them.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/map/home-graph.png">
 </head>
 <body>
 <div class="sheet">

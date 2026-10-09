@@ -18,8 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <style>
   :root {
     --bg: #0A0C0F; --card: #11151A; --card2: #0E1216; --line: #1E252D; --ink: #F2F1EC; --soft: #C9CDD2; --dim: #7D8792;
@@ -149,7 +148,8 @@
       </section>
       <section class="card" aria-labelledby="df">
         <h2 id="df">Deploy feed <a class="more" href="#dashboards/deploys" data-dash="deploys">full history in Grafana</a></h2>
-        <table class="feed"><colgroup><col class="c1"><col><col class="c3"><col class="c4"></colgroup><tbody id="feed"><tr><td class="wait">reading GitHub Actions</td></tr></tbody></table>
+        <table class="feed"><colgroup><col class="c1"><col><col class="c3"><col class="c4"></colgroup><tbody id="feed"><tr><td class="wait">reading the deploy record</td></tr></tbody></table>
+        <p class="note" id="feed-at"></p>
         <p class="note">Each push to a site runs the conformity checks first. A failed check blocks the deploy and the previous build stays live. <a href="/conformity/">How the gate works</a>.</p>
       </section>
     </div>
@@ -336,11 +336,13 @@ getJSON('/map/graph.json').then(g => {
   };
 }).catch(() => { $('items').replaceChildren(el('li', {}, el('span'), el('span', {class: 'wait', textContent: 'the snapshot did not load; the list is at /llms.txt'}))); });
 
-// ---- site status and deploy feed: each site's gate record, plus GitHub Actions for the public repos
-const runs = Promise.all(SITES.filter(s => s.repo).map(s =>
-  getJSON(`https://api.github.com/repos/${s.repo}/actions/runs?per_page=15`)
-    .then(d => d.workflow_runs.filter(r => r.name === 'Conformity' && r.status === 'completed').map(r => ({...r, site: s})))
-    .catch(() => []))).then(x => x.flat());
+// ---- site status and deploy feed: each site's gate record, plus the Actions runs of the public repos.
+// The runs come from /inside/deploys.json, written by the deploy job of this site, so a visit sends no request to a third party.
+const runs = getJSON('/inside/deploys.json').then(d => {
+  const at = $('feed-at'); if (at && d.generated) at.textContent = 'as of the last deploy of this site, ' + ago(d.generated);
+  return SITES.filter(s => s.repo).flatMap(s => (d.repos[s.repo] || [])
+    .filter(r => r.name === 'Conformity' && r.status === 'completed').map(r => ({...r, site: s})));
+}).catch(() => []);
 const gates = Promise.all(SITES.map(s => getJSON(`https://${s.host}/conformity/latest.json`).then(d => ({s, d})).catch(() => ({s, d: null}))));
 
 Promise.all([gates, runs]).then(([gs, rs]) => {
