@@ -819,7 +819,7 @@
   {
    "n": 35,
    "t": "SRE principles in practice: one page per principle, linked to the services that apply it",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/35",
    "labels": [
     "type: docs",
