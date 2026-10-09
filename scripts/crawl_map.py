@@ -57,6 +57,7 @@ def title_of(doc, u):
     t = html.unescape(m.group(1)).strip() if m else ''
     t = re.sub(r'\s*(\||:|·|–|—|-)\s*(Machine Behavior|machinebehavior\.io|UncoverTechTalent|Uncover Tech Talent|TYChat|Stefan Coetzee)\s*$', '', t)
     t = re.sub(r'\s+on UncoverTechTalent$', '', t).strip()
+    t = re.sub(r'(\s*·\s*[^·]+)?\s*·\s*Inside docs$', '', t).strip()  # docs <title>: page · space · Inside docs
     if not t:
         slug = [x for x in urlparse(u).path.split('/') if x]
         t = slug[-1].replace('-', ' ') if slug else urlparse(u).netloc
@@ -84,7 +85,7 @@ def strip_chrome(doc):
 def links(doc, base):
     out = []
     for a in re.findall(r'href=["\']?([^"\' >]+)', doc):
-        if a.startswith(('#', 'mailto:', 'javascript:')): continue
+        if a.startswith(('#', 'mailto:', 'javascript:', '&')): continue  # '&quot;' starts an href written as text in a code sample
         n = norm(urljoin(base, html.unescape(a)))
         if n: out.append(n)
     return out
@@ -174,6 +175,7 @@ for u in sorted(set(pages)) + subs:
         body = m.group(0) if m else ''
     body_links = set(links(body, u))
     nav_links = set(links(doc, u)) - body_links
+    if k == 'doc': nav_links = set()  # the docs sidebar lists the whole space; the structure is in the 'tree' edges
     for tgt, lk in [(t, 'body') for t in body_links] + [(t, 'nav') for t in nav_links]:
         tk = kind_of(tgt)
         if not tk: continue

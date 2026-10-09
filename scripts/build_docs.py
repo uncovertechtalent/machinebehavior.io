@@ -443,7 +443,7 @@ def footer(p=None):
             '(self-assessment, not a certification)</footer>')
 
 
-def head(title, desc, url, extra=''):
+def head(title, desc, url, extra='', og_title=None):
     return f'''<!doctype html>
 <html lang="en">
 <head>
@@ -455,7 +455,7 @@ def head(title, desc, url, extra=''):
 <meta property="og:type" content="article">
 <meta property="og:url" content="{BASE}{url}">
 <meta property="og:site_name" content="Machine Behavior">
-<meta property="og:title" content="{esc(title)}">
+<meta property="og:title" content="{esc(og_title or title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{BASE}/inside/og.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -531,7 +531,7 @@ def page_html(p):
             f'<a class="space-head" href="/inside/docs/{sp["key"]}/"><span class="sp-icon" style="background:{sp["color"]}">{sp["key"].upper()}</span>'
             f'<span>{esc(sp["name"])}</span></a>{tree_html(p["space"], p)}</details></nav>')
     h1 = esc(sp['name']) if is_home else esc(p['title'])
-    return f'''{head(title, p["summary"], p["url"], extra)}
+    return f'''{head(title, p["summary"], p["url"], extra, og_title=sp["name"] if is_home else p["title"])}
 <body>
 {topbar()}
 <div class="layout">
