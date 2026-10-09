@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 7 Support
-summary: ISO 27001 Clause 7 Support, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 7, Support; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-7, iso-27001, iso-clause
 aliases: ISO 27001 Clause 7 | ISO 27001 Support | ISO 27001 Resources | ISO 27001 Competence | ISO 27001 Awareness | ISO 27001 Communication | ISO 27001 Documented Information
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 7 Support.md
 reviewed: no
 ---
@@ -20,6 +20,10 @@ reviewed: no
   - **7.5.1** General — required documented information per the standard plus what the org determines.
   - **7.5.2** Creating and updating — identification, format, review and approval.
   - **7.5.3** Control of documented information — access, distribution, storage and preservation, version control, retention and disposition. Controls external documents and obsolete documents.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 7, Support; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

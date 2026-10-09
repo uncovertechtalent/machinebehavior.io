@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 8 Operation
-summary: ISO 27001 Clause 8 Operation, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 8, Operation; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-8, iso-27001, iso-clause
 aliases: ISO 27001 Clause 8 | ISO 27001 Operation | ISO 27001 Operational Planning
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 8 Operation.md
 reviewed: no
 ---
@@ -15,6 +15,10 @@ reviewed: no
 - **8.1** Operational planning and control — plan, implement and control the processes needed to meet ISMS requirements and to implement actions determined in Cl 6.
 - **8.2** Information security risk assessment — perform risk assessments at planned intervals or when significant changes are proposed or occur.
 - **8.3** Information security risk treatment — implement the risk treatment plan; retain documented information of the results.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 8, Operation; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 6 Planning
-summary: The SoA is the most-cited single artefact in an ISO 27001 audit.
+summary: Requirements: ISO/IEC 27001:2022 clause 6, Planning; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-6, iso-27001, iso-clause
 aliases: ISO 27001 Clause 6 | ISO 27001 Planning | ISO 27001 Risk Assessment | ISO 27001 Risk Treatment | ISO 27001 SoA | Statement of Applicability
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 6 Planning.md
 reviewed: no
 ---
@@ -18,6 +18,10 @@ reviewed: no
   - **6.1.3** Information security risk treatment — define and apply a process, produce a Statement of Applicability, get risk-owner approval of the treatment plan and acceptance of residual risk.
 - **6.2** Information security objectives and planning to achieve them.
 - **6.3** Planning of changes — **new in :2022.**
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 6, Planning; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

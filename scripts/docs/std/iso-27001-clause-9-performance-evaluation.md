@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 9 Performance Evaluation
-summary: ISO 27001 Clause 9 Performance Evaluation, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 9, Performance evaluation; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-9, iso-27001, iso-clause
 aliases: ISO 27001 Clause 9 | ISO 27001 Performance Evaluation | ISO 27001 Monitoring | ISO 27001 Internal Audit | ISO 27001 Management Review
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 9 Performance Evaluation.md
 reviewed: no
 ---
@@ -20,6 +20,10 @@ reviewed: no
   - **9.3.1** General — top management shall review the ISMS at planned intervals.
   - **9.3.2** Management review inputs — eight required input categories.
   - **9.3.3** Management review results — decisions related to continual improvement and any need for changes to the ISMS; retain documented information.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 9, Performance evaluation; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

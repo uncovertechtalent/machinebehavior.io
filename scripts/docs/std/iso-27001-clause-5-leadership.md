@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 5 Leadership
-summary: ISO 27001 Clause 5 Leadership, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 5, Leadership; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-5, iso-27001, iso-clause
 aliases: ISO 27001 Clause 5 | ISO 27001 Leadership | ISO 27001 Policy | ISO 27001 Roles
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 5 Leadership.md
 reviewed: no
 ---
@@ -15,6 +15,10 @@ reviewed: no
 - **5.1** Leadership and commitment — top management shall demonstrate leadership and commitment through nine listed actions (a-i).
 - **5.2** Policy — top management shall establish an information security policy with seven listed properties (a-g).
 - **5.3** Organizational roles, responsibilities and authorities — top management assigns roles for ISMS conformance and ISMS performance reporting.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 5, Leadership; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

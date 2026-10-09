@@ -6,7 +6,7 @@ labels: iso-42001, iso-clause
 aliases: ISO 42001 Clause Structure | ISO 42001 Clauses | ISO 42001 Cl 4-10 | ISO 42001 Mandatory Clauses
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-42001/ISO 42001 Clause Structure.md
 reviewed: no
 ---
@@ -62,6 +62,10 @@ Most clause-level wording mirrors ISO 27001 / ISO 9001 with "AI" substituted for
 - **6.2 AI objectives** — objectives explicitly tied to AI commitments; "be measurable (if practicable)" softer than typical Annex SL wording recognizing AI metrics maturity gap.
 
 The other sub-clause text mirrors Annex SL conventions. Mature ISO 27001 implementations carry most of the structural work; AI-specific content overlays at risk assessment, treatment, impact assessment, and Annex A controls.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 42001:2023 clauses 4 to 10 (context of the organization, leadership, planning, support, operation, performance evaluation, improvement); text at https://www.iso.org/standard/42001 (licensed, not reproduced here).
 
 ## Evidence artefacts an auditor expects
 

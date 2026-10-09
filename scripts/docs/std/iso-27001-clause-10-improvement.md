@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 10 Improvement
-summary: ISO 27001 Clause 10 Improvement, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 10, Improvement; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-10, iso-27001, iso-clause
 aliases: ISO 27001 Clause 10 | ISO 27001 Improvement | ISO 27001 Nonconformity | ISO 27001 Corrective Action | ISO 27001 Continual Improvement
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 10 Improvement.md
 reviewed: no
 ---
@@ -15,6 +15,10 @@ reviewed: no
 - **10.1** Continual improvement — the org shall continually improve the suitability, adequacy and effectiveness of the ISMS.
 - **10.2** Nonconformity and corrective action.
 
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 10, Improvement; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 

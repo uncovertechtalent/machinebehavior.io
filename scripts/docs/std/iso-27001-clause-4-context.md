@@ -1,12 +1,12 @@
 title: ISO 27001 Clause 4 Context
-summary: ISO 27001 Clause 4 Context, from the knowledge vault.
+summary: Requirements: ISO/IEC 27001:2022 clause 4, Context of the organization; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 parent: iso-27001
 order: 100
 labels: clause-4, iso-27001, iso-clause
 aliases: ISO 27001 Clause 4 | ISO 27001 Context of the Organization | ISMS Scope
 type: iso-clause
 created: 2026-05-12
-updated: 2026-06-08
+updated: 2026-10-09
 origin: pillars/iso-27001/ISO 27001 Clause 4 Context.md
 reviewed: no
 ---
@@ -19,6 +19,10 @@ reviewed: no
 - **4.2** Understanding the needs and expectations of interested parties — interested parties (a), their relevant requirements (b), which of those requirements will be addressed through the ISMS (c, new in :2022; explicitly includes "legal, statutory, regulatory and contractual requirements").
 - **4.3** Determining the scope of the ISMS — boundaries and applicability; takes 4.1, 4.2, and interfaces / dependencies as input; the scope statement is documented information.
 - **4.4** Information security management system — the org "shall establish, implement, maintain and continually improve" an ISMS, including the processes needed and their interactions.
+
+## Requirements (reference)
+
+Requirements: ISO/IEC 27001:2022 clause 4, Context of the organization; text at https://www.iso.org/standard/27001 (licensed, not reproduced here).
 
 ## Changes from :2013
 
