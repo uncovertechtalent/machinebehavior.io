@@ -35,7 +35,7 @@ import mini_yaml  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 NAV_FILE = ROOT / 'site' / 'nav.yml'
 
-SIDEBARS = {'research', 'inside', 'topics'}  # sections whose pages carry the section sidebar
+SIDEBARS = {'research', 'red-team', 'inside', 'topics'}  # sections whose pages carry the section sidebar
 TOPICS_FILE = ROOT / 'site' / 'topics.yml'
 TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
@@ -382,7 +382,7 @@ def page_ld(t, node, trail, url, src, layout):
     title = (m.get('og:title') or [None])[0] or (TITLE_RE.search(src).group(1) if TITLE_RE.search(src) else trail[-1].title)
     title = re.sub(r'\s*(:|·)\s*(Machine Behavior|Inside docs)$', '', html.unescape(title)).strip()
     section = node.section if node else None
-    hub = url in ('/research/', '/topics/', '/inside/docs/') or url.startswith('/topics/')
+    hub = url in ('/research/', '/red-team/', '/topics/', '/inside/docs/') or url.startswith('/topics/')
     kind = 'CollectionPage' if hub else 'TechArticle' if section == 'docs' else 'Article' if section == 'research' else 'WebPage'
     page = {'@type': kind, '@id': base + url + '#page', 'url': base + url, 'name': title, 'inLanguage': 'en',
             'isPartOf': {'@id': site_id}, 'breadcrumb': {'@id': base + url + '#breadcrumb'},

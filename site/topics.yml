@@ -14,7 +14,7 @@ topics:
   - key: sycophancy-and-stance
     title: Sycophancy and stance
     about: The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
-    pages: [/claims/, /objections/, /experiments/, /slips/, /terms/, /the-cheating-moved/, /running-conjobs-for-ai/]
+    pages: [/claims/, /objections/, /experiments/, /slips/, /terms/, /the-cheating-moved/, /running-conjobs-for-ai/, /red-team/, /red-team/tactics/, /red-team/method/]
     docs_labels: [sycophancy, stance, cold-start, second-rater]
     map_tags: [Sycophancy, Alignment]
     post_words: [sycophan, fawn, stance]
@@ -70,7 +70,7 @@ topics:
   - key: evaluation
     title: Evaluation
     about: Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.
-    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /continuous-conformity-self-assessment/]
+    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /continuous-conformity-self-assessment/, /red-team/, /red-team/tactics/, /red-team/method/]
     docs_labels: [eval, experiments, prereg, falsification, second-rater]
     map_tags: [Evaluations, Red Teaming, Goodhart Labs]
     post_words: [cheating, chaos engineering, benchmark]

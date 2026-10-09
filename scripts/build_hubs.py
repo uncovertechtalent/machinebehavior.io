@@ -3,7 +3,7 @@
 
 - /research/: the Research section front page, every research page in the order and groups of site/nav.yml,
   with the description each page gives itself (<meta name="description">).
-- /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research and Inside pages
+- /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research, red team and Inside pages
   (the tag map in site/topics.yml), docs pages by label or space (inside/docs/search.json), posts (uncovertechtalent.com
   tag pages on the map and Substack titles, map/graph.json) and board issues (GitHub API; on failure the last list
   in topics/topics.json stays). /topics/ lists the hubs; /topics/topics.json holds the membership, which the
@@ -170,12 +170,12 @@ def norm_title(t):
 
 
 def members(topic, t, docs, tag_posts, substack, issues):
-    m = {'research': [], 'inside': [], 'docs': [], 'posts': [], 'tickets': []}
+    m = {'research': [], 'red-team': [], 'inside': [], 'docs': [], 'posts': [], 'tickets': []}
     for u in topic.get('pages') or []:
         node = t.by_url.get(u)
         if node is None:
             raise SystemExit(f'site/topics.yml: {topic["key"]}: {u} is not a page in site/nav.yml')
-        m['research' if node.section == 'research' else 'inside'].append(node)
+        m[node.section if node.section in ('research', 'red-team') else 'inside'].append(node)
     labels, spaces = set(topic.get('docs_labels') or []), set(topic.get('docs_spaces') or [])
     for p in docs['pages']:
         if p['s'] in spaces or labels & set(p['l']):
@@ -219,6 +219,8 @@ def topic_page(topic, m, all_topics, spaces):
     parts = []
     if m['research']:
         parts.append(f'<section><h2 class="label">Research <span class="mb-n">{len(m["research"])}</span></h2><ul class="mb-entries">{cards(m["research"])}</ul></section>')
+    if m['red-team']:
+        parts.append(f'<section><h2 class="label">Red team <span class="mb-n">{len(m["red-team"])}</span></h2><ul class="mb-entries">{cards(m["red-team"])}</ul></section>')
     if m['inside']:
         parts.append(f'<section><h2 class="label">Inside <span class="mb-n">{len(m["inside"])}</span></h2><ul class="mb-entries">{cards(m["inside"])}</ul></section>')
     if m['docs']:
@@ -249,10 +251,10 @@ def topic_page(topic, m, all_topics, spaces):
                      f'<p class="thesis">Issues on the <a class="mono" href="/inside/board/">board</a>, open first, as of the last build.</p><ul class="mb-links">{li}</ul></section>')
     others = ''.join(f'<li><a href="/topics/{o["key"]}/">{esc(o["title"])}</a></li>' for o in all_topics if o['key'] != topic['key'])
     parts.append(f'<section><h2 class="label">Other topics</h2><ul class="mb-links mb-links-inline">{others}</ul></section>')
-    dates = [lastmod(n.url) for n in m['research'] + m['inside']] + [lastmod(p['u']) for p in m['docs']] + [p['date'] for p in m['posts']]
+    dates = [lastmod(n.url) for n in m['research'] + m['red-team'] + m['inside']] + [lastmod(p['u']) for p in m['docs']] + [p['date'] for p in m['posts']]
     newest = max(d for d in dates if d) if any(dates) else datetime.date.today().isoformat()
     total = sum(len(v) for v in m.values())
-    names = (('research', 'research page'), ('inside', 'Inside page'), ('docs', 'docs page'), ('posts', 'post'), ('tickets', 'ticket'))
+    names = (('research', 'research page'), ('red-team', 'red team page'), ('inside', 'Inside page'), ('docs', 'docs page'), ('posts', 'post'), ('tickets', 'ticket'))
     counts = ', '.join(f'{len(m[k])} {name}{"" if len(m[k]) == 1 else "s"}' for k, name in names if m[k])
     desc = f'Topic hub: {topic["title"]}. {topic["about"]} {counts}.'
     page = f'''{head(f'{topic["title"]}: Machine Behavior', desc, url, newest, 'site/topics.yml')}
@@ -285,7 +287,7 @@ def topics():
     for topic in cfg:
         m = members(topic, t, docs, tag_posts, substack, issues)
         data.append({'key': topic['key'], 'title': topic['title'], 'url': f'/topics/{topic["key"]}/', 'about': topic['about'],
-                     'pages': [n.url for n in m['research'] + m['inside']] + [p['u'] for p in m['docs']],
+                     'pages': [n.url for n in m['research'] + m['red-team'] + m['inside']] + [p['u'] for p in m['docs']],
                      'posts': [{'t': p['t'], 'u': p['u'], 'also': p.get('also'), 'date': p['date']} for p in m['posts']],
                      'tickets': [i['n'] for i in m['tickets']]})
     TOPICS_JSON.parent.mkdir(exist_ok=True)

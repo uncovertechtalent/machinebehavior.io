@@ -91,6 +91,18 @@ sections:
             published: 2026-10-03
             contributor: Claude (Opus 5.5)
 
+  - key: red-team
+    title: Red team
+    url: /red-team/
+    about: Psychological red-teaming of language models. Tests of whether a model drops a correct answer, a rule or a task boundary under social pressure alone, with a catalogue of tactics, the method of a run and the results so far.
+    pages:
+      - title: Tactics catalogue
+        url: /red-team/tactics/
+        published: 2026-10-09
+      - title: How a run works
+        url: /red-team/method/
+        published: 2026-10-09
+
   - key: inside
     title: Inside
     url: /inside/
