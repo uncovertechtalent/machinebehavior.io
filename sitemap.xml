@@ -19,6 +19,7 @@
   <url><loc>https://machinebehavior.io/inside/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/search/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/tour/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- services:begin (scripts/build_inside.py) -->
   <url><loc>https://machinebehavior.io/inside/services/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/agent-sessions/</loc><lastmod>2026-10-09</lastmod></url>
@@ -62,6 +63,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0017-on-call-model/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0018-numbered-records-and-changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>

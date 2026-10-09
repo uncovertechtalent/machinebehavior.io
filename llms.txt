@@ -31,6 +31,7 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - [Inside](https://machinebehavior.io/inside/): one front page for Stefan Coetzee's published work: the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack ranked by date or by links in, the live deploy and conformity-gate status of the three sites, the eval 04 results and the weekly decision-layer probe, the live Grafana dashboards (website deploys, Claude Code agents, local LLM, host) framed on the page, and links to the map and the reference pages
 - [Inside board](https://machinebehavior.io/inside/board/): the work on machinebehavior.io and the platform behind it as a board (backlog, ready, in progress, blocked, done) with filters by area, type and priority. GitHub Issues on the public repository is the system of record; the snapshot at https://machinebehavior.io/inside/board/issues.json is written at each deploy
 - [Inside search](https://machinebehavior.io/inside/search/): one search over the Inside docs, the service catalog and every page, post, repository and thread on the map; the index is https://machinebehavior.io/inside/search.json, rebuilt at each deploy
+- [Inside tour](https://machinebehavior.io/inside/tour/): a five-minute walk through Inside for a startup founder, in six stops with screenshots of the live pages: the front page, one service with owner, tier and SLOs, owned and dated docs with a decision record, one incident from the status page to the write-up, runbook, fix commit and ticket, a deploy that a failed check blocked on 2026-10-08, and cost and the map. Built by Stefan Coetzee; contact on LinkedIn at https://www.linkedin.com/in/coetzeestefan
 - [Evidence index](https://machinebehavior.io/evidence/): Stefan Coetzee's public record of red-teaming, adversarial testing, attacker simulation and harm evaluation against frontier language models, the evaluation infrastructure shipped (frozen prompts, mechanical grader, hashed predictions, conformity gate) and the published findings, mapped per capability to one URL, one verbatim line and one date. Self-maintained, not a third-party assessment; what is not on the page is listed too
 - [Slips caught while drafting](https://machinebehavior.io/slips/): running log of register and stance slips caught before publication in each piece, with who caught them (same model session, another session, a human, a reader); data in slips/log.csv
 
@@ -79,7 +80,7 @@ Stefan Coetzee: site reliability engineer (25+ years), founder of r/Leathercraft
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (369 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (370 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -105,6 +106,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (369 pages). S
 - [ADR-0017: State the on-call model and propose Alertmanager routing](https://machinebehavior.io/inside/docs/eng/adr-0017-on-call-model/)
 - [ADR-0018: Numbered decision records and a generated changelog](https://machinebehavior.io/inside/docs/eng/adr-0018-numbered-records-and-changelog/)
 - [ADR-0019: Publish the definition draft before the committee route](https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/)
+- [ADR-0020: A five-minute founder tour on one page](https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)

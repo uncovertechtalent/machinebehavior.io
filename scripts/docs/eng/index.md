@@ -25,10 +25,12 @@ This space documents the systems behind machinebehavior.io, tychat.io and uncove
 | Status page | State per service from the published records, and the incident history | `incidents/*.yml`, `scripts/build_inside.py`, `inside/status/status.js` | [Status page](doc:eng/status-page) |
 | Top bar and search | One bar on every Inside page and one search index | `scripts/inside_chrome.py`, `scripts/build_search.py` | [Top bar and search](doc:eng/top-bar-and-search) |
 | Ticket board | Work items from GitHub Issues in columns | `scripts/board_snapshot.py`, `inside/board/index.html` | [Ticket board](doc:eng/board) |
+| Founder tour | Six stops through the platform with screenshots of the live pages, for a founder with five minutes | `inside/tour/index.html`, `scripts/tour_shots.js` | [Five-minute tour](/inside/tour/), [ADR-0020](doc:eng/adr-0020-founder-tour) |
 | Observability | Prometheus, Loki and Grafana behind the public dashboards | [agent-observability](https://github.com/uncovertechtalent/agent-observability) | [Observability space](doc:obs/index) |
 
 ## Where to start
 
+- Five minutes to see the whole platform: the [founder tour](/inside/tour/).
 - New to the setup: read [Site architecture](doc:eng/site-architecture), then [Deploy pipeline](doc:eng/deploy-pipeline).
 - Adding a page: follow [Add a page to machinebehavior.io](doc:eng/add-a-page).
 - A deploy did not go out: start at [Runbooks](doc:eng/runbooks).

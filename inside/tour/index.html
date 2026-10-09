@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Five-minute tour · Inside · Machine Behavior</title>
+<meta name="description" content="A five-minute tour of Inside, the platform behind machinebehavior.io: the front page, a service with owner and SLOs, owned and dated docs, one incident from status page to fix, and a deploy that a failed check blocked. Screenshots of the live pages, each with a link.">
+<link rel="canonical" href="https://machinebehavior.io/inside/tour/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/inside/tour/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="A five-minute tour of Inside">
+<meta property="og:description" content="Six stops through a working internal platform: front page, service catalog, docs, an incident from status page to fix, and the deploy gate.">
+<meta property="og:image" content="https://machinebehavior.io/inside/tour/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Six screenshots from Inside: the front page, a service page, a decision record, an incident, a blocked deploy and the map of the work.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/inside/tour/og.png">
+<meta property="article:modified_time" content="2026-10-09">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+<style>
+  main.wrap { max-width: 980px; margin: 0 auto; padding: 22px 16px 40px; }
+  .lede { color: var(--soft); font-size: 17px; line-height: 1.55; margin: 0 0 18px; max-width: 760px; }
+  .eyebrow { font: 11px 'JetBrains Mono', monospace; letter-spacing: 3px; text-transform: uppercase; color: var(--dim); margin: 0 0 6px; }
+  ol.stops { list-style: none; margin: 0 0 8px; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; counter-reset: s; }
+  ol.stops a { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; padding: 10px 12px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 10px; text-decoration: none; font-size: 14.5px; min-width: 0; }
+  ol.stops a:hover { border-color: var(--amber); }
+  ol.stops .n, .stop-h .n { font: 500 12px 'JetBrains Mono', monospace; color: var(--amber); }
+  ol.stops .t { font: 11.5px 'JetBrains Mono', monospace; color: var(--dim); white-space: nowrap; }
+  .stop { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); scroll-margin-top: calc(var(--ib-h, 54px) + 10px); }
+  .stop-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 0 0 12px; }
+  .stop-h h2 { margin: 0; font-size: 26px; line-height: 1.15; letter-spacing: -0.4px; }
+  .stop-h .t { font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
+  figure { margin: 0 0 14px; }
+  figure a { display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--card2); }
+  figure a:hover { border-color: var(--amber); }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { font: 11.5px 'JetBrains Mono', monospace; color: var(--dim); margin-top: 6px; line-height: 1.5; }
+  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .label { font: 11px 'JetBrains Mono', monospace; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin: 14px 0 6px; }
+  ul.notice { margin: 0; padding: 0 0 0 18px; color: var(--ink); font-size: 15.5px; line-height: 1.55; }
+  ul.notice li { margin: 0 0 6px; }
+  ul.notice li::marker { color: var(--dim); }
+  .yours { margin: 12px 0 0; padding: 10px 14px; background: rgba(255,181,71,0.06); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0;
+    font-size: 15px; line-height: 1.5; color: var(--soft); }
+  .yours b { color: var(--amber); font-weight: 500; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+  .links a { font: 12.5px 'JetBrains Mono', monospace; text-decoration: none; padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--soft);
+    background: var(--card); overflow-wrap: anywhere; }
+  .links a:hover { border-color: var(--amber); color: var(--amber); }
+  .links a.go { color: #0A0C0F; background: var(--amber); border-color: var(--amber); font-weight: 500; }
+  .links a.go:hover { color: #0A0C0F; }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: 6px; }
+  .who { margin-top: 48px; padding: 20px 20px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+  .who h2 { margin: 0 0 10px; font-size: 24px; }
+  .who p { font-size: 15.5px; line-height: 1.6; color: var(--soft); margin: 0 0 10px; }
+  .who p b { color: var(--ink); font-weight: 500; }
+  .who a { color: var(--amber); }
+  .who .contact { color: var(--ink); font-size: 16px; margin: 14px 0 0; }
+  p.inline a, ul.notice a { color: var(--amber); }
+  @media (max-width: 820px) { ol.stops { grid-template-columns: minmax(0, 1fr); } .pair { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 480px) { .stop-h h2 { font-size: 22px; } ul.notice { font-size: 15px; } .lede { font-size: 16px; } h1 { font-size: 30px; } }
+</style>
+</head>
+<body>
+<!-- inside-bar:begin here=tour --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/">Services</a><a href="/inside/status/">Status</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<!-- inside-banner:begin --><aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- inside-banner:end -->
+<main class="wrap" id="main">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/tour/">Tour</a></nav>
+  <p class="eyebrow">For founders · about five minutes</p>
+  <h1>A five-minute tour of Inside</h1>
+  <p class="lede">Inside is the internal platform behind machinebehavior.io, run in public as a demo: a front page, a service catalog, docs with owners and review dates, a status page with incidents, a ticket board and a deploy gate. The tour has six stops. Each stop has a screenshot of the live page, taken on 2026-10-09, what to look at, what the same part does for a team of 10 to 200 people, and the link.</p>
+
+  <ol class="stops" aria-label="Stops">
+    <li><a href="#stop-1"><span class="n">1</span><span>The front page</span><span class="t">30 s</span></a></li>
+    <li><a href="#stop-2"><span class="n">2</span><span>One service</span><span class="t">60 s</span></a></li>
+    <li><a href="#stop-3"><span class="n">3</span><span>Owned, dated docs</span><span class="t">60 s</span></a></li>
+    <li><a href="#stop-4"><span class="n">4</span><span>An incident, end to end</span><span class="t">60 s</span></a></li>
+    <li><a href="#stop-5"><span class="n">5</span><span>A blocked deploy</span><span class="t">60 s</span></a></li>
+    <li><a href="#stop-6"><span class="n">6</span><span>Cost and the map</span><span class="t">optional</span></a></li>
+  </ol>
+
+  <section class="stop" id="stop-1" aria-labelledby="h1s">
+    <div class="stop-h"><span class="n">Stop 1</span><h2 id="h1s">The front page</h2><span class="t">30 s</span></div>
+    <figure>
+      <a href="/inside/"><img src="/inside/tour/1-inside.webp" width="1600" height="1025" alt="The Inside front page: three site cards for machinebehavior.io, tychat.io and uncovertechtalent.com, each marked gate pass with the time of the last gate run and push to live; below, the front page list of the latest pieces and a grid of apps."></a>
+      <figcaption>/inside/ on 2026-10-09</figcaption>
+    </figure>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>The top row has the three sites, each with its gate result, the time from push to live and its open findings. The values are read from the records each site publishes, when the page loads.</li>
+      <li>Further down: the latest published pieces, a deploy feed of the last 12 runs, the apps, and five Grafana dashboards (deploys, Claude Code, local LLM, search engines, host).</li>
+      <li>One search box in the top bar covers the docs, the services and every page on the map. The / key moves the cursor there.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> the one page a new hire opens first, with what is live, what shipped today, where the docs are, and one search over all of it.</p>
+    <ul class="links"><li><a class="go" href="/inside/">Open Inside</a></li><li><a href="/inside/#dashboards">Dashboards</a></li><li><a href="/inside/search/">Search</a></li></ul>
+  </section>
+
+  <section class="stop" id="stop-2" aria-labelledby="h2s">
+    <div class="stop-h"><span class="n">Stop 2</span><h2 id="h2s">One service in the catalog</h2><span class="t">60 s</span></div>
+    <figure>
+      <a href="/inside/services/local-llm/"><img src="/inside/tour/2-service.webp" width="1400" height="1454" loading="lazy" decoding="async" alt="The Local LLM service page: owner Stefan Coetzee, tier 3, lifecycle production, system, repository, Grafana dashboard and a link to its state on the status page; below, three docs, an empty runbook list and a table of two service level objectives."></a>
+      <figcaption>/inside/services/local-llm/ on 2026-10-09</figcaption>
+    </figure>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>The catalog has 12 services, one YAML file each. The build stops when a file has no owner, tier, lifecycle, or list of docs and runbooks.</li>
+      <li>Local LLM has an owner, tier 3, lifecycle production, its Grafana dashboard, three docs and two SLOs with targets: 99% of requests without an upstream error, and 95% of streamed requests with a first token within 4 s.</li>
+      <li>Its runbook list is empty, and the page shows "No runbook yet". The Conformity gate, a tier 1 service, links two runbooks.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> every service has a named owner, a tier that sets what gets fixed first, and its dashboard, runbooks and SLOs one click away, so the person on call starts from one page.</p>
+    <ul class="links"><li><a class="go" href="/inside/services/local-llm/">Open the service page</a></li><li><a href="/inside/services/">All 12 services</a></li><li><a href="/inside/services/conformity-gate/">Conformity gate</a></li></ul>
+  </section>
+
+  <section class="stop" id="stop-3" aria-labelledby="h3s">
+    <div class="stop-h"><span class="n">Stop 3</span><h2 id="h3s">Owned, dated docs and a decision record</h2><span class="t">60 s</span></div>
+    <figure>
+      <a href="/inside/docs/eng/adr-0002-deploy-is-gated/"><img src="/inside/tour/3-adr.webp" width="1600" height="975" loading="lazy" decoding="async" alt="Decision record ADR-0002, The deploy is gated, in the Engineering space: status accepted, owner, created, updated, reviewed and review-by dates, type explanation and a report an issue link, then the sections Context, Decision and Consequences."></a>
+      <figcaption>/inside/docs/eng/adr-0002-deploy-is-gated/ on 2026-10-09</figcaption>
+    </figure>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>Six spaces: Engineering, Observability, FinOps, Research, SRE Handbook, Standards and Compliance. Each hand-written page names an owner, the date of its last review, the date of its next review and its type (tutorial, how-to, reference or explanation, after Diátaxis), with a link to report an issue.</li>
+      <li>ADR-0002 records why a deploy waits for the checks: context, decision, consequences, status accepted. The decision records are numbered from ADR-0001; three are superseded and stay, each with a link to the record that replaced it.</li>
+      <li>The docs health page lists pages past their review date, due within 30 days, without an owner or without a type. On 2026-10-09 none was late and none lacked an owner; the pages imported from the knowledge vault are marked as never reviewed.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> docs that name who keeps them correct and when they were last checked, and one page that lists the ones going stale.</p>
+    <ul class="links"><li><a class="go" href="/inside/docs/eng/adr-0002-deploy-is-gated/">Open ADR-0002</a></li><li><a href="/inside/docs/">All six spaces</a></li><li><a href="/inside/docs/eng/decision-log/">Decision records</a></li><li><a href="/inside/docs/health/">Docs health</a></li></ul>
+  </section>
+
+  <section class="stop" id="stop-4" aria-labelledby="h4s">
+    <div class="stop-h"><span class="n">Stop 4</span><h2 id="h4s">An incident, from status page to fix</h2><span class="t">60 s</span></div>
+    <figure>
+      <a href="/inside/status/#2026-10-09-phantom-spend-counters"><img src="/inside/tour/4-incident.webp" width="1600" height="692" loading="lazy" decoding="async" alt="The status page entry Claude Code spend overstated about 1,960 times by counter resets, marked resolved: summary, services, follow-up, links to the write-up and two runbooks, a link to ticket 29 on the board, and a timeline of four updates from investigating to resolved."></a>
+      <figcaption>/inside/status/ on 2026-10-09, one entry of the incident history</figcaption>
+    </figure>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>The entry: Prometheus reported USD 1,970,946.62 of Claude Code spend for a week whose per-request events sum to USD 1,003.45 at list price. No money moved; the meter was wrong, and the spend alert had been in firing state 73% of the time.</li>
+      <li>The cause, from the write-up: up to about 12 parallel Claude Code processes wrote one counter series, so each export from a process with a lower total counted as a reset, 230,328 times in a week.</li>
+      <li>The trail: the write-up with timeline and lessons, a runbook with the check queries, the fix in <a href="https://github.com/uncovertechtalent/agent-observability/commit/c163b429a63c69cff49dcde533da45f4a2c2f206">agent-observability c163b42</a> (spend and the alert now summed from per-request events), and ticket #29 on the board for the follow-up that is still open.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> each incident leaves the same trail, with a status entry, a blameless write-up, a runbook for the next time, the fix commit and a ticket for the open work.</p>
+    <ul class="links"><li><a class="go" href="/inside/status/#2026-10-09-phantom-spend-counters">Open the status entry</a></li><li><a href="/inside/docs/fin/anomaly-the-phantom-two-million/">Write-up</a></li><li><a href="/inside/docs/obs/runbook-counter-resets-parallel-sessions/">Runbook</a></li><li><a href="/inside/board/#issue-29">Ticket #29</a></li><li><a href="https://github.com/uncovertechtalent/agent-observability/commit/c163b429a63c69cff49dcde533da45f4a2c2f206">Fix commit</a></li></ul>
+  </section>
+
+  <section class="stop" id="stop-5" aria-labelledby="h5s">
+    <div class="stop-h"><span class="n">Stop 5</span><h2 id="h5s">A deploy that a failed check blocked</h2><span class="t">60 s</span></div>
+    <figure>
+      <a href="https://github.com/uncovertechtalent/machinebehavior.io/actions/runs/37789638737"><img src="/inside/tour/5-gate.webp" width="1600" height="554" loading="lazy" decoding="async" alt="GitHub Actions run 32 of the Conformity workflow for the push Map: clicking a node opens a preview sheet instead of a new tab, commit 9168b4d on main: status failure; in the job graph, Conformity checks failed after 7 seconds and Deploy to Pages was skipped."></a>
+      <figcaption>The GitHub Actions run of 2026-10-08, 14:05 UTC (public repository)</figcaption>
+    </figure>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>On 2026-10-08 at 14:05 UTC a push to the map page failed the link check, because a link was written inside a JavaScript template string. The conformity job failed, the deploy job was skipped, and readers kept the previous build.</li>
+      <li>Finding F-1753a6d2d038 was opened on that commit and closed at 14:06:59 UTC, when the fix passed. Closed findings stay on the conformity page; the history of every run is kept in git. The status page records the same event as an incident with no reader impact.</li>
+      <li>Every push to the three sites runs the same checks before the deploy. They test the mechanical requirements of a working draft, Continuous Conformity for Deployed AI Systems (draft 0.3, 36 requirements), published as a reference text.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> a release that fails a check stops before customers see it, and the record shows which check failed, on which commit, and when the fix passed.</p>
+    <ul class="links"><li><a class="go" href="https://github.com/uncovertechtalent/machinebehavior.io/actions/runs/37789638737">Open the blocked run</a></li><li><a href="/conformity/">Conformity record</a></li><li><a href="/inside/status/#2026-10-08-gate-blocked-map-push">Status entry</a></li><li><a href="/continuous-conformity/">The definition draft</a></li></ul>
+  </section>
+
+  <section class="stop" id="stop-6" aria-labelledby="h6s">
+    <div class="stop-h"><span class="n">Stop 6</span><h2 id="h6s">Cost and the map</h2><span class="t">optional, 30 s</span></div>
+    <div class="pair">
+      <figure>
+        <a href="/inside/docs/fin/showback/"><img src="/inside/tour/6-finops.webp" width="1600" height="925" loading="lazy" decoding="async" alt="The Showback page in the FinOps space: owner, review dates and type, then a table comparing list-price value and billed amount per component: Claude Code, GitHub Actions and Bedrock evals."></a>
+        <figcaption>/inside/docs/fin/showback/ on 2026-10-09</figcaption>
+      </figure>
+      <figure>
+        <a href="/map/"><img src="/inside/tour/6-map.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="The Map of the Work: a force-directed graph of every page, post, repository and thread, coloured by site, with a large cluster of Inside docs and a smaller cluster of blog posts and Substack posts."></a>
+        <figcaption>/map/ on 2026-10-09</figcaption>
+      </figure>
+    </div>
+    <div class="label">What to notice</div>
+    <ul class="notice">
+      <li>The FinOps space has six pages under one index: cost model, unit economics, showback, the anomaly from stop 4, budgets and alerts, and a FOCUS-format CSV export.</li>
+      <li>Showback: Claude Code usage from 2026-10-01 15:21 UTC to 2026-10-09 00:00 UTC came to USD 1,021.01 at list price over 5,505 API calls. The billed amount is a flat subscription.</li>
+      <li>The map shows every page, post, repository and thread across four sites, plus the docs, services and dashboards, with the links between them<span id="map-n"></span>.</li>
+    </ul>
+    <p class="yours"><b>In your company:</b> spend per team and per service from the usage data you already have, and one view of what exists and what links to what.</p>
+    <ul class="links"><li><a class="go" href="/inside/docs/fin/">Open the FinOps space</a></li><li><a href="/inside/finops/focus-2026-10-01-to-2026-10-08.csv">FOCUS export (CSV)</a></li><li><a class="go" href="/map/">Open the map</a></li></ul>
+  </section>
+
+  <section class="who" aria-labelledby="who">
+    <h2 id="who">Who built it, and how</h2>
+    <p><b>Stefan Coetzee</b> built Inside on 2026-10-09, on top of machinebehavior.io and its deploy gate, which has gated every deploy since 2026-10-07.</p>
+    <p><b>How:</b> one operator. Stefan Coetzee sets the scope and makes the decisions; parallel Claude Code sessions, one per track of work, write the code and the pages; every push goes through the deploy gate. The stack is static pages on GitHub Pages, build scripts in Python with the standard library only, GitHub Issues for the board, and Prometheus, Loki and Grafana on one home server. The code, the <a href="/inside/docs/eng/decision-log/">decision records</a> and the <a href="/inside/docs/eng/changelog/">changelog</a> are public in the <a href="https://github.com/uncovertechtalent/machinebehavior.io">repository</a>.</p>
+    <p>Stefan Coetzee offers this layer to teams of 10 to 200 people as CTO or fractional CTO: a service catalog, owned docs, a status page, a board and a deploy gate, as a bespoke build on the tools the team already uses.</p>
+    <p class="contact">Contact: <a href="https://www.linkedin.com/in/coetzeestefan">Stefan Coetzee on LinkedIn</a></p>
+  </section>
+</main>
+<footer>Inside tour · screenshots of the live pages taken on 2026-10-09 with <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/tour_shots.js">tour_shots.js</a> · decision record <a href="/inside/docs/eng/adr-0020-founder-tour/">ADR-0020</a><br>
+<span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span></footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+<script>
+// the item count of the map comes from the snapshot the map itself loads, so the line stays true after each re-crawl
+fetch('/map/graph.json', {cache: 'no-cache'}).then(r => r.ok ? r.json() : null).then(g => {
+  if (!g || !g.nodes) return;
+  document.getElementById('map-n').textContent = `: ${g.nodes.length} items in the snapshot of ${String(g.generated || '').slice(0, 10)}`;
+}).catch(() => {});
+</script>
+</body>
+</html>

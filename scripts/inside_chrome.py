@@ -32,11 +32,11 @@ NAV = [
 ]
 
 # Hand-written pages with a marked bar block.
-SYNCED = ['inside/index.html', 'inside/board/index.html', 'inside/search/index.html', 'map/index.html']
+SYNCED = ['inside/index.html', 'inside/board/index.html', 'inside/search/index.html', 'inside/tour/index.html', 'map/index.html']
 
 BAR_RE = re.compile(r'<!-- inside-bar:begin here=(\w*) -->.*?<!-- inside-bar:end -->', re.S)
 BANNER_RE = re.compile(r'<!-- inside-banner:begin -->.*?<!-- inside-banner:end -->', re.S)
-BANNER_PAGES = ['inside/index.html', 'inside/board/index.html', 'inside/search/index.html']
+BANNER_PAGES = ['inside/index.html', 'inside/board/index.html', 'inside/search/index.html', 'inside/tour/index.html']
 
 
 def _live(href):
@@ -67,10 +67,12 @@ def bar(here=''):
 
 
 def banner():
-    """The public-demo marker: this intranet is open to read; in production it sits behind single sign-on."""
+    """The public-demo marker: this intranet is open to read; in production it sits behind single sign-on.
+    It also links the founder tour, the five-minute walk through the platform."""
     return ('<aside class="ib-demo" aria-label="About this intranet"><span class="ib-demo-tag">Public demo</span>'
             '<span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces '
-            'granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a></aside>')
+            'granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a>'
+            '<a href="/inside/tour/">Five-minute tour</a></aside>')
 
 
 ASSETS = ('<link rel="stylesheet" href="/inside/bar.css">', '<script src="/inside/bar.js" defer></script>')
