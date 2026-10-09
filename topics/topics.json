@@ -752,7 +752,7 @@
   {
    "n": 43,
    "t": "Structured data for answer engines: Person, WebSite, Article, DefinedTermSet",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/43",
    "labels": [
     "type: feature",
