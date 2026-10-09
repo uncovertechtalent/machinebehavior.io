@@ -75,6 +75,14 @@
   --mb-data-yellow: #9A8C00;
   --mb-data-grey: #6C7680;
 
+  /* docs space colours: fills under dark text, the same in both schemes (scripts/build_docs.py SPACES) */
+  --mb-space-eng: #FFB547;
+  --mb-space-obs: #3DDC97;
+  --mb-space-res: #FF8FD8;
+  --mb-space-fin: #FF7A6B;
+  --mb-space-sre: #6FA8FF;
+  --mb-space-std: #B79CFF;
+
   /* the top bar is dark in both schemes */
   --mb-bar-bg: #0E1216;
   --mb-bar-line: #1E252D;
