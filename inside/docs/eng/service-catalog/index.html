@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Service catalog · Engineering · Inside docs</title>
+<meta name="description" content="The catalog at /inside/services/ is built from one YAML file per service in services/, validated at build; each service is a page and a node in the map.">
+<link rel="canonical" href="https://machinebehavior.io/inside/docs/eng/service-catalog/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/inside/docs/eng/service-catalog/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Service catalog">
+<meta property="og:description" content="The catalog at /inside/services/ is built from one YAML file per service in services/, validated at build; each service is a page and a node in the map.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="docs-space" content="eng">
+<meta property="article:published_time" content="2026-10-09">
+<meta property="article:modified_time" content="2026-10-09">
+<meta property="article:tag" content="inside">
+<meta property="article:tag" content="services">
+<meta property="article:tag" content="catalog">
+<meta property="article:tag" content="ownership">
+<link rel="up" href="/inside/docs/eng/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/" aria-current="page">Docs</a><a href="/inside/services/">Services</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<div class="layout">
+<nav class="side" aria-label="Pages in Engineering"><details class="side-wrap" open><summary>Pages in this space</summary><a class="space-head" href="/inside/docs/eng/"><span class="sp-icon" style="background:#FFB547">ENG</span><span>Engineering</span></a><ul><li class="leaf"><a href="/inside/docs/eng/site-architecture/">Site architecture</a></li><li class="leaf"><a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a></li><li class="leaf"><a href="/inside/docs/eng/conformity-gate/">Conformity gate</a></li><li class="leaf"><a href="/inside/docs/eng/add-a-page/">Add a page to machinebehavior.io</a></li><li class="leaf"><a href="/inside/docs/eng/map-crawler/">Map crawler</a></li><li class="leaf"><a href="/inside/docs/eng/inside-portal/">Inside portal</a></li><li class="leaf"><a href="/inside/docs/eng/board/">Ticket board</a></li><li class="leaf"><a href="/inside/docs/eng/top-bar-and-search/">Top bar and search</a></li><li class="leaf"><a href="/inside/docs/eng/service-catalog/" aria-current="page">Service catalog</a></li><li class="leaf"><a href="/inside/docs/eng/docs-tree/">Docs tree</a></li><li class="leaf"><a href="/inside/docs/eng/decision-log/">Decision log</a></li><li><details><summary><a href="/inside/docs/eng/runbooks/">Runbooks</a></summary><ul><li class="leaf"><a href="/inside/docs/eng/runbook-gate-blocked/">Gate blocked a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-push-rejected/">Push rejected after a deploy</a></li><li class="leaf"><a href="/inside/docs/eng/runbook-template-href/">Link check flags a template string</a></li></ul></details></li></ul></details></nav>
+<main id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/docs/">Docs</a><a href="/inside/docs/eng/">Engineering</a></nav>
+<h1>Service catalog</h1>
+<div class="byline"><span>Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-09</span><span>2 min read</span></div>
+
+<article class="doc">
+<p>The <a href="/inside/services/">service catalog</a> lists every service that runs the platform, with the owner, tier, lifecycle, SLOs, dashboard, runbooks, docs, repository and dependencies. Each service has its own page, and each page is a node in the <a href="/map/">map</a> linked to its docs and dashboards.</p>
+<h2 id="source">Source</h2>
+<p>One file per service in <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/services">services/</a>. <code>scripts/build_inside.py</code> reads them with a strict YAML reader (<code>scripts/mini_yaml.py</code>, standard library only) and writes:</p>
+<ul><li><code>/inside/services/</code> and <code>/inside/services/&lt;id&gt;/</code>;</li><li><code>inside/services/services.json</code>, the machine-readable catalog, also read by the search index;</li><li>a managed block in <code>sitemap.xml</code> and a section "Inside services" in <code>llms.txt</code>.</li></ul>
+<pre><code class="lang-bash">python3 scripts/build_docs.py     # first: the catalog checks its docs links against the docs build
+python3 scripts/build_inside.py</code></pre>
+<h2 id="fields">Fields</h2>
+<div class="tbl"><table><thead><tr><th>Field</th><th>Required</th><th>Values</th></tr></thead><tbody><tr><td><code>id</code></td><td>yes</td><td>Same as the file name</td></tr><tr><td><code>name</code>, <code>description</code></td><td>yes</td><td>Plain text; the description is the meta description and the search snippet</td></tr><tr><td><code>owner</code></td><td>yes</td><td>The person who answers for the service</td></tr><tr><td><code>operator</code></td><td>no</td><td>Who runs it day to day, when that is not the owner (for example an agent session)</td></tr><tr><td><code>tier</code></td><td>yes</td><td>1, 2 or 3, see below</td></tr><tr><td><code>lifecycle</code></td><td>yes</td><td><code>experimental</code>, <code>production</code>, <code>deprecated</code></td></tr><tr><td><code>system</code></td><td>yes</td><td><code>Publishing</code>, <code>Observability</code>, <code>Research tooling</code>, <code>Agents</code></td></tr><tr><td><code>url</code>, <code>repository</code></td><td>no</td><td>https URLs; <code>repository: private</code> for a private repository</td></tr><tr><td><code>dashboard</code></td><td>no</td><td><code>name</code> and <code>url</code>; the URL must be a public Grafana dashboard</td></tr><tr><td><code>slo</code></td><td>no</td><td>A list of <code>name</code>, <code>target</code>, <code>good</code></td></tr><tr><td><code>docs</code>, <code>runbooks</code></td><td>yes</td><td>Lists of <code>doc:space/slug</code>; may be empty</td></tr><tr><td><code>depends_on</code></td><td>yes</td><td>Service ids; may be empty</td></tr><tr><td><code>external</code></td><td>no</td><td>Dependencies outside the catalog, as plain names</td></tr><tr><td><code>status</code></td><td>no</td><td>Where the <a href="/inside/status/">status page</a> reads the current state: <code>gate</code> (a <code>conformity/latest.json</code> URL) and <code>deploys</code> (a repository in the deploy feed)</td></tr></tbody></table></div>
+<p>The build stops on an unknown field, a missing required field, a value outside the allowed set, an id that differs from the file name, a docs link to a page that does not exist, or a dependency on an unknown service.</p>
+<h2 id="tiers">Tiers</h2>
+<div class="tbl"><table><thead><tr><th>Tier</th><th>Meaning</th></tr></thead><tbody><tr><td>1</td><td>Readers meet it directly, or it decides whether a deploy goes out. First in line when something breaks</td></tr><tr><td>2</td><td>Keeps the platform observable and the research running. Fixed the same day</td></tr><tr><td>3</td><td>Tooling a reader does not meet directly. Waits for the next working session</td></tr></tbody></table></div>
+<h2 id="in-the-map">In the map</h2>
+<p>The crawler gives <code>/inside/services/&lt;id&gt;/</code> pages the kind <code>service</code> and adds the public Grafana dashboards they link as <code>dashboard</code> nodes, titled by the link text used most often. A service page's <code>&lt;link rel=&quot;up&quot;&gt;</code> to the catalog is a <code>tree</code> link. See <a href="/inside/docs/eng/map-crawler/">Map crawler</a>.</p>
+<h2 id="add-or-change-a-service">Add or change a service</h2>
+<ol><li>Copy a file in <code>services/</code> that is close to the new service and edit it.</li><li>Run both builds; fix what the build reports.</li><li>Run the gate dry run, then pull, commit and push. See <a href="/inside/docs/eng/deploy-pipeline/">Deploy pipeline</a>.</li></ol>
+</article>
+
+
+<nav class="labels" aria-label="Labels"><a href="/inside/search/?q=inside">inside</a><a href="/inside/search/?q=services">services</a><a href="/inside/search/?q=catalog">catalog</a><a href="/inside/search/?q=ownership">ownership</a></nav>
+<nav class="backlinks" aria-label="Linked from"><h2>Linked from</h2><ul><li><a href="/inside/docs/eng/decision-log/">Decision log</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/">Engineering</a><span class="mono">Engineering</span></li><li><a href="/inside/docs/eng/inside-portal/">Inside portal</a><span class="mono">Engineering</span></li></ul></nav>
+</main>
+<nav class="toc" aria-label="On this page"><div class="toc-h">On this page</div><ul><li class="l2"><a href="#source">Source</a></li><li class="l2"><a href="#fields">Fields</a></li><li class="l2"><a href="#tiers">Tiers</a></li><li class="l2"><a href="#in-the-map">In the map</a></li><li class="l2"><a href="#add-or-change-a-service">Add or change a service</a></li></ul></nav>
+</div>
+<footer><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/docs/eng/service-catalog.md">page source</a> · <a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/scripts/docs/eng/service-catalog.md">history</a><br>Inside docs · Stefan Coetzee · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts/docs">scripts/docs</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py">build_docs.py</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/inside/docs/docs.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

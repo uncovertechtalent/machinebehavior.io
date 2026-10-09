@@ -1,0 +1,24 @@
+id: local-llm
+name: Local LLM
+description: >
+  The self-hosted model server on the home server, metered by a pass-through proxy (the ollama-exporter) for time to first
+  token, decode speed, token counts and resident models. The only service with defined SLOs and burn-rate alerts.
+owner: Stefan Coetzee
+tier: 3
+lifecycle: production
+system: Research tooling
+repository: https://github.com/uncovertechtalent/agent-observability
+dashboard:
+  name: Local LLM
+  url: https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f
+slo:
+  - name: Availability
+    target: 99%
+    good: A request without an upstream error
+  - name: Latency
+    target: 95%
+    good: A streamed chat request with a first token within 4 s
+docs: [doc:obs/alerts-and-slos, doc:obs/metrics-reference, doc:obs/architecture]
+runbooks: []
+depends_on: [observability-stack]
+external: [Ollama]

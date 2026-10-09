@@ -20,7 +20,7 @@ python3 scripts/crawl_map.py map/graph.json
 | Field | Source, in order of preference |
 |---|---|
 | `title` | `og:title`, else `<title>`, with the site name stripped |
-| `kind` | `page`, `doc` (pages under `/inside/docs/`), `tag`, `substack`, `github`, `reddit` |
+| `kind` | `page`, `doc` (pages under `/inside/docs/`), `service` (pages under `/inside/services/<id>/`), `tag`, `substack`, `github`, `reddit`, `dashboard` (public Grafana dashboards linked from a crawled page) |
 | `desc` | `og:description` or meta description; "Originally published at" boilerplate stripped; 300 characters at most; a description shared by three or more nodes counts as a site default and is dropped |
 | `date` | `article:published_time`, a `<time datetime>`, the date in a machinebehavior.io header, the sitemap `lastmod`, the Substack post date, the previous snapshot |
 | `space`, `tags` | Docs pages only: the `docs-space` meta and the `article:tag` metas written from front matter |
@@ -29,7 +29,9 @@ python3 scripts/crawl_map.py map/graph.json
 
 - **body**: links inside the page content.
 - **nav**: links inside `<nav>`, `<footer>` and site headers. A tag index link and a tag page's "all posts" link count as navigation.
-- **tree**: a docs page's `<link rel="up">` to its parent page, so the documentation tree appears in the graph.
+- **tree**: a docs or service page's `<link rel="up">` to its parent page, so the documentation tree and the catalog appear in the graph.
+
+A dashboard node is not fetched: a Grafana page needs JavaScript to show its title. Its title is the link text used most often on the crawled pages, with generic texts such as "open" skipped.
 
 ## Guards
 

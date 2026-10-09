@@ -1,0 +1,21 @@
+id: machinebehavior-io
+name: machinebehavior.io
+description: >
+  The research site and the home of Inside: claims, experiments, objections, case files, the map, the docs, the board and this catalog.
+  Hand-written HTML and Python generators, served by GitHub Pages.
+owner: Stefan Coetzee
+tier: 1
+lifecycle: production
+system: Publishing
+url: https://machinebehavior.io/
+repository: https://github.com/uncovertechtalent/machinebehavior.io
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:eng/site-architecture, doc:eng/add-a-page, doc:eng/inside-portal]
+runbooks: [doc:eng/runbook-gate-blocked, doc:eng/runbook-push-rejected, doc:eng/runbook-template-href]
+depends_on: [conformity-gate, deploy-job, docs-build, map-crawler]
+external: [GitHub Pages, GitHub Actions]
+status:
+  gate: https://machinebehavior.io/conformity/latest.json
+  deploys: uncovertechtalent/machinebehavior.io

@@ -1,0 +1,20 @@
+id: tychat-io
+name: tychat.io
+description: >
+  Lessons a chat model reads on request, as static pages and plain-text files indexed in llms.txt. Served by GitHub Pages.
+owner: Stefan Coetzee
+tier: 1
+lifecycle: production
+system: Publishing
+url: https://tychat.io/
+repository: https://github.com/uncovertechtalent/tychat.io
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:eng/site-architecture]
+runbooks: [doc:eng/runbook-gate-blocked, doc:eng/runbook-push-rejected]
+depends_on: [conformity-gate]
+external: [GitHub Pages, GitHub Actions]
+status:
+  gate: https://tychat.io/conformity/latest.json
+  deploys: uncovertechtalent/tychat.io

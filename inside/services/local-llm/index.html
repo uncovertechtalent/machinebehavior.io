@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local LLM · Services · Inside · Machine Behavior</title>
+<meta name="description" content="The self-hosted model server on the home server, metered by a pass-through proxy (the ollama-exporter) for time to first token, decode speed, token counts and resident models. The only service with defined SLOs and burn-rate alerts.">
+<link rel="canonical" href="https://machinebehavior.io/inside/services/local-llm/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://machinebehavior.io/inside/services/local-llm/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Local LLM (service)">
+<meta property="og:description" content="The self-hosted model server on the home server, metered by a pass-through proxy (the ollama-exporter) for time to first token, decode speed, token counts and resident models. The only service with defined SLOs and burn-rate alerts.">
+<meta property="og:image" content="https://machinebehavior.io/inside/og.png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1254">
+<meta property="og:image:alt" content="The Inside front page of machinebehavior.io.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/inside/og.png">
+<meta property="article:modified_time" content="2026-10-09">
+<meta name="service-tier" content="3">
+<meta name="service-lifecycle" content="production">
+<meta property="article:tag" content="Research tooling">
+<link rel="up" href="/inside/services/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="stylesheet" href="/inside/docs/docs.css">
+<link rel="stylesheet" href="/inside/bar.css">
+<link rel="stylesheet" href="/inside/inside.css">
+</head>
+<body>
+<header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/" aria-current="page">Services</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header>
+<main class="wrap svc" id="main">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/inside/">Inside</a><a href="/inside/services/">Services</a></nav>
+<h1>Local LLM</h1>
+<div class="byline"><span>service</span><span>updated 2026-10-09</span><a class="report" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/services/local-llm.yml">edit the YAML</a></div>
+<p class="lede">The self-hosted model server on the home server, metered by a pass-through proxy (the ollama-exporter) for time to first token, decode speed, token counts and resident models. The only service with defined SLOs and burn-rate alerts.</p>
+<dl class="facts"><dt>Owner</dt><dd>Stefan Coetzee</dd><dt>Tier</dt><dd><span class="chip tier-3" title="Tooling a reader does not meet directly. Waits for the next working session.">Tier 3</span> Tooling a reader does not meet directly. Waits for the next working session.</dd><dt>Lifecycle</dt><dd><span class="chip life-production">Production</span></dd><dt>System</dt><dd><a href="/inside/services/#research-tooling">Research tooling</a></dd><dt>Repository</dt><dd><a href="https://github.com/uncovertechtalent/agent-observability">uncovertechtalent/agent-observability</a></dd><dt>Dashboard</dt><dd><a href="https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f">Local LLM (Grafana)</a></dd></dl>
+<article class="doc">
+<h2 id="docs">Docs</h2><ul class="links"><li><a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a></li><li><a href="/inside/docs/obs/metrics-reference/">Metrics reference</a></li><li><a href="/inside/docs/obs/architecture/">Architecture</a></li></ul>
+<h2 id="runbooks">Runbooks</h2><p class="note">No runbook yet.</p>
+<h2 id="slo">Service level objectives</h2><div class="tbl"><table><thead><tr><th>SLO</th><th>Target</th><th>Good event</th></tr></thead><tbody><tr><td>Availability</td><td class="mono">99%</td><td>A request without an upstream error</td></tr><tr><td>Latency</td><td class="mono">95%</td><td>A streamed chat request with a first token within 4 s</td></tr></tbody></table></div><p class="note">Defined and measured in Prometheus; see <a href="/inside/docs/obs/alerts-and-slos/">Alerts and SLOs</a>.</p>
+<h2 id="dependencies">Dependencies</h2>
+<div class="cols"><div><h3>Depends on</h3><ul class="links"><li><a href="/inside/services/observability-stack/">Observability stack</a></li></ul><p class="note">Outside the catalog: Ollama.</p></div><div><h3>Used by</h3><ul class="links"><li><a href="/inside/services/agent-sessions/">Agent sessions</a></li></ul></div></div>
+</article>
+</main>
+<footer>Service catalog · built from <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/services/local-llm.yml">services/local-llm.yml</a> by <a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_inside.py">build_inside.py</a> · <a href="/inside/services/services.json">services.json</a><br><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> (self-assessment, not a certification)</footer>
+<script src="/inside/bar.js" defer></script>
+<script src="/conformity/footer.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+id: docs-build
+name: Docs build
+description: >
+  Builds the Inside docs from markdown sources and the knowledge vault: one page per file, the tree, labels, dates,
+  backlinks, the docs search index, and managed blocks in sitemap.xml and llms.txt.
+owner: Stefan Coetzee
+tier: 2
+lifecycle: production
+system: Publishing
+url: https://machinebehavior.io/inside/docs/
+repository: https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py
+docs: [doc:eng/docs-tree, doc:eng/top-bar-and-search]
+runbooks: []
+depends_on: [conformity-gate]
+external: []

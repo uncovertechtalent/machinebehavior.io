@@ -1,0 +1,19 @@
+id: uncovertechtalent-com
+name: uncovertechtalent.com
+description: >
+  The blog and the Uncover Tech Talent offer, built with Hugo from a private repository and served by GitHub Pages.
+owner: Stefan Coetzee
+tier: 1
+lifecycle: production
+system: Publishing
+url: https://uncovertechtalent.com/
+repository: private
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:eng/site-architecture]
+runbooks: [doc:eng/runbook-gate-blocked]
+depends_on: [conformity-gate]
+external: [GitHub Pages, GitHub Actions, Hugo]
+status:
+  gate: https://uncovertechtalent.com/conformity/latest.json

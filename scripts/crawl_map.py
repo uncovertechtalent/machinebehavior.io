@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Crawl Stefan Coetzee's public sites and write the graph for https://machinebehavior.io/map/.
 Usage: python3 scripts/crawl_map.py map/graph.json
-Body links and navigation links are kept apart (kind 'body' vs 'nav'); a docs page's parent link is kind 'tree'."""
+Body links and navigation links are kept apart (kind 'body' vs 'nav'); a docs or service page's parent link is kind 'tree'.
+Service pages (/inside/services/<id>/) are kind 'service'; public Grafana dashboards they link become 'dashboard' nodes."""
 import json, os, re, sys, urllib.request, html, datetime
 from urllib.parse import urljoin, urlparse
 
 SITES = {'machinebehavior.io': 'mb', 'tychat.io': 'tychat', 'uncovertechtalent.com': 'utt'}
 SUBSTACK = 'coetzeestefan.substack.com'
+GRAFANA = 'grafana.scoetzee.de'  # public dashboards only: /public-dashboards/<token>
 UA = {'User-Agent': 'Mozilla/5.0 (site-map crawler; uncovertechtalent)'}
 
 FAILED = set()
@@ -33,6 +35,8 @@ def norm(u):
     parts = [x for x in p.path.split('/') if x]
     if host == 'github.com' and len(parts) >= 2:
         return f'https://github.com/{parts[0]}/{parts[1]}/'
+    if host == GRAFANA and len(parts) >= 2 and parts[0] == 'public-dashboards':
+        return f'https://{GRAFANA}/public-dashboards/{parts[1]}'
     if host == 'reddit.com' and len(parts) >= 4 and parts[2] == 'comments':
         return f'https://reddit.com/r/{parts[1]}/comments/{parts[3]}/' + (parts[4] + '/' if len(parts) > 4 else '')
     path = re.sub(r'/index\.html$', '/', p.path or '/')
@@ -46,9 +50,11 @@ def kind_of(u):
         if re.search(r'\.(txt|xml|json|csv|css|js|png|jpg|svg|ico|pdf)/?$', path): return None
         if '/tags/' in path or '/categories/' in path: return 'tag'
         if host == 'machinebehavior.io' and path.startswith('/inside/docs/'): return 'doc'
+        if host == 'machinebehavior.io' and re.match(r'^/inside/services/[^/]+/$', path): return 'service'
         return 'page'
     if host == SUBSTACK and '/p/' in u: return 'substack'
     if host == 'github.com' and len([x for x in urlparse(u).path.split('/') if x]) >= 2: return 'github'
+    if host == GRAFANA and urlparse(u).path.startswith('/public-dashboards/'): return 'dashboard'
     if host in ('reddit.com', 'redd.it', 'old.reddit.com'): return 'reddit'
     return None
 
@@ -81,6 +87,15 @@ def strip_chrome(doc):
     def hdr(m):
         return ' ' if re.search(r'class=["\']?site-header|<nav', m.group(0), re.I) or len(re.sub(r'<[^>]+>', '', m.group(0)).split()) < 12 else m.group(0)
     return re.sub(r'<header\b.*?</header>', hdr, body, flags=re.S | re.I)
+
+DASH_TITLES = {}  # dashboard url -> link texts seen on the crawled pages (a Grafana page needs JavaScript to show its title)
+GENERIC = {'open', 'open in grafana', 'full history in grafana', 'dashboard', 'here', 'public dashboard'}
+
+def dash_titles(doc, base):
+    for href, text in re.findall(r'<a\b[^>]*href="([^"]*public-dashboards/[^"]+)"[^>]*>(.*?)</a>', doc, re.S):
+        n = norm(urljoin(base, html.unescape(href)))
+        t = re.sub(r'\s*\(Grafana\)$', '', html.unescape(re.sub(r'<[^>]+>', '', text)).strip())
+        if n and t and t.lower() not in GENERIC: DASH_TITLES.setdefault(n, []).append(t)
 
 def links(doc, base):
     out = []
@@ -160,14 +175,16 @@ for u in sorted(set(pages)) + subs:
         (k == 'page' and re.search(r'<time[^>]*datetime=["\']?(\d{4}-\d{2}-\d{2})', doc)) or \
         (k == 'page' and re.search(r'class="[^"]*(?:eyebrow|kicker|dateline)[^"]*"[^>]*>[^<]{0,120}?(\d{4}-\d{2}-\d{2})', doc))  # machinebehavior.io headers
     if own: DATES[u] = own.group(1)
-    if k == 'doc':  # docs pages: front matter arrives as metas; the parent link is a tree edge
+    dash_titles(doc, u)
+    if k in ('doc', 'service'):  # docs and service pages: front matter arrives as metas; the parent link is a tree edge
         sp = re.search(r'<meta name="docs-space" content="([^"]+)"', doc)
         if sp: nodes[u]['space'] = sp.group(1)
         tags = re.findall(r'<meta property="article:tag" content="([^"]+)"', doc)
         if tags: nodes[u]['tags'] = [html.unescape(t) for t in tags]
         up = re.search(r'<link rel="up" href="([^"]+)">', doc)
         if up:
-            add_node(norm(urljoin(u, up.group(1))), 'doc'); add_edge(u, norm(urljoin(u, up.group(1))), 'tree')
+            pu = norm(urljoin(u, up.group(1)))
+            add_node(pu, 'doc' if k == 'doc' else 'page'); add_edge(u, pu, 'tree')
         doc = re.sub(r'<link rel="up"[^>]*>', '', doc)
     body = strip_chrome(doc)
     if k == 'substack':  # only the post body counts on Substack
@@ -175,15 +192,15 @@ for u in sorted(set(pages)) + subs:
         body = m.group(0) if m else ''
     body_links = set(links(body, u))
     nav_links = set(links(doc, u)) - body_links
-    if k == 'doc': nav_links = set()  # the docs sidebar lists the whole space; the structure is in the 'tree' edges
+    if k in ('doc', 'service'): nav_links = set()  # the docs sidebar lists the whole space; the structure is in the 'tree' edges
     for tgt, lk in [(t, 'body') for t in body_links] + [(t, 'nav') for t in nav_links]:
         tk = kind_of(tgt)
         if not tk: continue
         if urlparse(tgt).path in ('/tags/', '/categories/'): lk = 'nav'  # "all tags" back-links are navigation
         if k == 'tag' and urlparse(tgt).path == '/blog/': lk = 'nav'      # so is "all posts" on a tag page
-        if tk in ('github', 'reddit'):
+        if tk in ('github', 'reddit', 'dashboard'):
             add_node(tgt, tk, None, tk)
-        elif tk in ('page', 'tag', 'doc') and tgt not in nodes:
+        elif tk in ('page', 'tag', 'doc', 'service') and tgt not in nodes:
             add_node(tgt, tk)
         elif tk == 'substack':
             add_node(tgt, 'substack', None, 'substack')
@@ -236,6 +253,12 @@ _shared = {d for d, c in _C(n.get('desc') for n in nodes.values() if n.get('desc
 for n in nodes.values():
     if n.get('desc') in _shared: del n['desc']
 
+# dashboards: the link text used most often across the crawled pages
+from collections import Counter as _DC
+for n in nodes.values():
+    if n['kind'] == 'dashboard' and DASH_TITLES.get(n['id']):
+        n['title'] = _DC(DASH_TITLES[n['id']]).most_common(1)[0][0] + ' (Grafana)'
+
 # titles for satellites without one
 for n in nodes.values():
     if not n['title']:
@@ -246,6 +269,7 @@ for n in nodes.values():
             elif len(parts) >= 2 and parts[0] == 'r': n['title'] = 'r/' + parts[1]
             else: n['title'] = 'Reddit post'
         elif n['kind'] == 'tag': n['title'] = '#' + parts[-1]
+        elif n['kind'] == 'dashboard': n['title'] = 'Grafana dashboard'
         else: n['title'] = (parts[-1] if parts else urlparse(n['id']).netloc).replace('-', ' ')
 
 # drop listing pages with no content links (empty tag pages)

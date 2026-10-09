@@ -1,0 +1,17 @@
+id: searxng
+name: SearXNG
+description: >
+  The self-hosted metasearch instance every research agent searches through, with per-engine pacing and suspensions
+  after rate limits. An exporter pushes engine health to the observability stack; six alert rules watch it.
+owner: Stefan Coetzee
+tier: 2
+lifecycle: production
+system: Research tooling
+repository: https://github.com/uncovertechtalent/agent-observability
+dashboard:
+  name: SearXNG search engines
+  url: https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346
+docs: [doc:obs/alerts-and-slos, doc:obs/public-dashboards]
+runbooks: []
+depends_on: [observability-stack]
+external: [Upstream search engines]

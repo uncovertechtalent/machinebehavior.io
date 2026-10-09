@@ -16,6 +16,7 @@ labels: inside, portal, frontend
 | Dashboards | Grafana public dashboards in an iframe | Loaded when the section scrolls into view; `#dashboards/<key>` opens a tab (deploys, agents, llm, host, search) |
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
 | Board | [Board](/inside/board/), from `/inside/board/issues.json` written by the deploy job | Work items from GitHub Issues; see [Ticket board](doc:eng/board) |
+| Services | [Service catalog](/inside/services/), from `services/*.yml` | See [Service catalog](doc:eng/service-catalog) |
 | Top bar and search | `scripts/inside_chrome.py`, `/inside/search.json` | The same bar on every Inside page; the search covers the docs, the services and the map. See [Top bar and search](doc:eng/top-bar-and-search) |
 
 ## Rules for the page
@@ -23,6 +24,7 @@ labels: inside, portal, frontend
 - No request to a third party when the page loads: fonts are served from `/fonts/`, the deploy feed from `/inside/deploys.json`. The Grafana frames load from grafana.scoetzee.de only when the dashboards section scrolls into view.
 
 - Build links in script with `a.href = ...`, never with an interpolated `href` attribute in a template string; the gate reads those as relative links.
+- Pages under `/inside/` are the platform, not pieces: the front page list skips them.
 - The page has no search box of its own; the one in the top bar covers everything the old box did, plus the docs and services.
 - Without JavaScript the page points to `/llms.txt`, `/map/graph.json` and `/conformity/`.
 - Grafana frames only because Grafana runs with embedding allowed; see [Public dashboards](doc:obs/public-dashboards).

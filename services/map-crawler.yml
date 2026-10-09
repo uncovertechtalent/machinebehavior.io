@@ -1,0 +1,17 @@
+id: map-crawler
+name: Map crawler
+description: >
+  Crawls the three sites and the Substack archive into one graph of pages, posts, repositories, threads and tags,
+  with body links kept apart from navigation. Runs locally and in every deploy.
+owner: Stefan Coetzee
+tier: 3
+lifecycle: production
+system: Publishing
+url: https://machinebehavior.io/map/
+repository: https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/crawl_map.py
+docs: [doc:eng/map-crawler]
+runbooks: []
+depends_on: [machinebehavior-io, tychat-io, uncovertechtalent-com]
+external: [Substack]
+status:
+  deploys: uncovertechtalent/machinebehavior.io

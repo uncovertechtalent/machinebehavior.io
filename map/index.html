@@ -100,7 +100,7 @@
 </style>
 </head>
 <body>
-<!-- inside-bar:begin here=map --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/board/">Board</a><a href="/map/" aria-current="page">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<!-- inside-bar:begin here=map --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/">Services</a><a href="/inside/board/">Board</a><a href="/map/" aria-current="page">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
 <main id="main">
 <canvas id="c" aria-label="Graph of the published work"></canvas>
 <div class="panel" id="panel">
@@ -143,10 +143,12 @@ const KINDS = [
   {key: 'github', label: 'GitHub', color: '#EFE6D2'},
   {key: 'reddit', label: 'Reddit', color: '#FF4D5E'},
   {key: 'docs', label: 'Inside docs', color: '#B79CFF'},
+  {key: 'services', label: 'Services', color: '#E8E26A'},
+  {key: 'dashboard', label: 'Dashboards', color: '#5EEAD4'},
   {key: 'tag', label: 'Tags', color: '#7D8792'},
 ];
 const COLOR = Object.fromEntries(KINDS.map(k => [k.key, k.color]));
-const groupOf = n => n.kind === 'tag' ? 'tag' : n.kind === 'doc' ? 'docs' : n.site;
+const groupOf = n => n.kind === 'tag' ? 'tag' : n.kind === 'doc' ? 'docs' : n.kind === 'service' ? 'services' : n.site;
 const on = Object.fromEntries(KINDS.map(k => [k.key, true]));
 let showNav = false, query = '', hover = null, selected = null;
 
@@ -321,9 +323,9 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
       if (!moved) openSheet(n); dragging = null; }));
   canvas.addEventListener('click', e => { if (selected && !nodeAt(e.offsetX, e.offsetY)) closeSheet(); });
 
-  // preview sheet: our own sites load in a frame; Substack, GitHub and Reddit refuse framing, so they get a card
-  const FRAMEABLE = new Set(['machinebehavior.io', 'tychat.io', 'uncovertechtalent.com']);
-  const SITE_NAME = {mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
+  // preview sheet: our own sites and the public Grafana dashboards load in a frame; Substack, GitHub and Reddit refuse framing, so they get a card
+  const FRAMEABLE = new Set(['machinebehavior.io', 'tychat.io', 'uncovertechtalent.com', 'grafana.scoetzee.de']);  // Grafana allows embedding
+  const SITE_NAME = {dashboard: 'Grafana', mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
   const sheet = document.getElementById('sheet'), sBody = document.getElementById('s-body'), sLoad = document.getElementById('s-load'),
     sCard = document.getElementById('s-card'), sOpen = document.getElementById('s-open');
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));

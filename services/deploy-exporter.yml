@@ -1,0 +1,17 @@
+id: deploy-exporter
+name: Deploy exporter
+description: >
+  A standard-library Python service that reads the GitHub Actions runs of the three sites, writes each run, step and gate
+  check to Loki and serves the latest state as Prometheus metrics. Feeds the Website deploys dashboard.
+owner: Stefan Coetzee
+tier: 2
+lifecycle: production
+system: Observability
+repository: https://github.com/uncovertechtalent/agent-observability
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:obs/deploy-exporter, doc:obs/metrics-reference, doc:obs/loki-streams]
+runbooks: [doc:obs/runbook-loki-backfill-missing, doc:obs/runbook-stat-panel-no-data]
+depends_on: [observability-stack]
+external: [GitHub API]

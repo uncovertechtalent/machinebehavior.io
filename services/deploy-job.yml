@@ -1,0 +1,19 @@
+id: deploy-job
+name: Deploy job
+description: >
+  The second job of the Conformity workflow. It runs only after the checks pass, refreshes the map and the search index,
+  writes the deploy feed and the board snapshot, and deploys the site to GitHub Pages.
+owner: Stefan Coetzee
+tier: 1
+lifecycle: production
+system: Publishing
+repository: https://github.com/uncovertechtalent/machinebehavior.io/blob/main/.github/workflows/conformity.yml
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:eng/deploy-pipeline]
+runbooks: [doc:eng/runbook-push-rejected, doc:eng/runbook-gate-blocked]
+depends_on: [conformity-gate, map-crawler]
+external: [GitHub Actions, GitHub Pages, GitHub API]
+status:
+  deploys: uncovertechtalent/machinebehavior.io

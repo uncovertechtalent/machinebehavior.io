@@ -5,6 +5,12 @@ labels: adr, decisions, governance
 ---
 Each entry records one decision: the date, what was decided, why, and what it costs. Newest first. Decisions are made by Stefan Coetzee unless the entry says otherwise.
 
+## 2026-10-09: a service catalog from YAML in the repository
+
+- **Decision.** Every service is one YAML file in `services/`; `scripts/build_inside.py` validates the files and builds `/inside/services/`, a page per service and `services.json`. The reader is a strict subset parser in the standard library (`scripts/mini_yaml.py`), so the build needs no package. Service pages are `service` nodes in the map, and the public dashboards they link become `dashboard` nodes.
+- **Why.** The systems were documented page by page, but nothing listed them in one place with who answers for each, how much it matters and where its runbooks are.
+- **Consequence.** A service without docs or runbooks shows the gap on its page. Twelve services at the start, all owned by one person: the owner field names who is accountable, and no team structure sits behind it. See [Service catalog](doc:eng/service-catalog).
+
 ## 2026-10-09: one top bar and one search index for Inside
 
 - **Decision.** Every Inside page carries one top bar, written by `bar()` in `scripts/inside_chrome.py`: generators call it, hand-written pages hold a marked block the script rewrites. One index, `/inside/search.json`, merges the docs, the services and the map; the search box is a form that submits to `/inside/search/`, so Enter opens a results page. The deploy job rebuilds the index after the map refresh, artifact only.

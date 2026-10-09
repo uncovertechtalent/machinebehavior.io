@@ -1,0 +1,21 @@
+id: conformity-gate
+name: Conformity gate
+description: >
+  The checks every push runs before a site serves readers: blocking rule hits, placeholder text, prediction hashes and site
+  consistency. A failed check stops the deploy and the previous build stays live. One composite action, shared by the three sites.
+owner: Stefan Coetzee
+operator: the legislation-track agent session
+tier: 1
+lifecycle: production
+system: Publishing
+url: https://machinebehavior.io/conformity/
+repository: https://github.com/uncovertechtalent/machinebehavior.io/tree/main/.github/actions/conformity
+dashboard:
+  name: Website deploys
+  url: https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4
+docs: [doc:eng/conformity-gate, doc:res/conformity-self-assessment]
+runbooks: [doc:eng/runbook-gate-blocked, doc:eng/runbook-template-href]
+depends_on: []
+external: [GitHub Actions]
+status:
+  gate: https://machinebehavior.io/conformity/latest.json

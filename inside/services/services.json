@@ -1,0 +1,432 @@
+{
+ "generated": "2026-10-09",
+ "source": "https://github.com/uncovertechtalent/machinebehavior.io/tree/main/services",
+ "services": [
+  {
+   "id": "conformity-gate",
+   "name": "Conformity gate",
+   "url": "/inside/services/conformity-gate/",
+   "description": "The checks every push runs before a site serves readers: blocking rule hits, placeholder text, prediction hashes and site consistency. A failed check stops the deploy and the previous build stays live. One composite action, shared by the three sites.",
+   "owner": "Stefan Coetzee",
+   "operator": "the legislation-track agent session",
+   "tier": 1,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://machinebehavior.io/conformity/",
+   "repository": "https://github.com/uncovertechtalent/machinebehavior.io/tree/main/.github/actions/conformity",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/conformity-gate/",
+    "/inside/docs/res/conformity-self-assessment/"
+   ],
+   "runbooks": [
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-template-href/"
+   ],
+   "depends_on": [],
+   "external": [
+    "GitHub Actions"
+   ],
+   "status": {
+    "gate": "https://machinebehavior.io/conformity/latest.json"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "deploy-job",
+   "name": "Deploy job",
+   "url": "/inside/services/deploy-job/",
+   "description": "The second job of the Conformity workflow. It runs only after the checks pass, refreshes the map and the search index, writes the deploy feed and the board snapshot, and deploys the site to GitHub Pages.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 1,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": null,
+   "repository": "https://github.com/uncovertechtalent/machinebehavior.io/blob/main/.github/workflows/conformity.yml",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/deploy-pipeline/"
+   ],
+   "runbooks": [
+    "/inside/docs/eng/runbook-push-rejected/",
+    "/inside/docs/eng/runbook-gate-blocked/"
+   ],
+   "depends_on": [
+    "conformity-gate",
+    "map-crawler"
+   ],
+   "external": [
+    "GitHub Actions",
+    "GitHub Pages",
+    "GitHub API"
+   ],
+   "status": {
+    "deploys": "uncovertechtalent/machinebehavior.io"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "machinebehavior-io",
+   "name": "machinebehavior.io",
+   "url": "/inside/services/machinebehavior-io/",
+   "description": "The research site and the home of Inside: claims, experiments, objections, case files, the map, the docs, the board and this catalog. Hand-written HTML and Python generators, served by GitHub Pages.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 1,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://machinebehavior.io/",
+   "repository": "https://github.com/uncovertechtalent/machinebehavior.io",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/site-architecture/",
+    "/inside/docs/eng/add-a-page/",
+    "/inside/docs/eng/inside-portal/"
+   ],
+   "runbooks": [
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-push-rejected/",
+    "/inside/docs/eng/runbook-template-href/"
+   ],
+   "depends_on": [
+    "conformity-gate",
+    "deploy-job",
+    "docs-build",
+    "map-crawler"
+   ],
+   "external": [
+    "GitHub Pages",
+    "GitHub Actions"
+   ],
+   "status": {
+    "gate": "https://machinebehavior.io/conformity/latest.json",
+    "deploys": "uncovertechtalent/machinebehavior.io"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "tychat-io",
+   "name": "tychat.io",
+   "url": "/inside/services/tychat-io/",
+   "description": "Lessons a chat model reads on request, as static pages and plain-text files indexed in llms.txt. Served by GitHub Pages.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 1,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://tychat.io/",
+   "repository": "https://github.com/uncovertechtalent/tychat.io",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/site-architecture/"
+   ],
+   "runbooks": [
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-push-rejected/"
+   ],
+   "depends_on": [
+    "conformity-gate"
+   ],
+   "external": [
+    "GitHub Pages",
+    "GitHub Actions"
+   ],
+   "status": {
+    "gate": "https://tychat.io/conformity/latest.json",
+    "deploys": "uncovertechtalent/tychat.io"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "uncovertechtalent-com",
+   "name": "uncovertechtalent.com",
+   "url": "/inside/services/uncovertechtalent-com/",
+   "description": "The blog and the Uncover Tech Talent offer, built with Hugo from a private repository and served by GitHub Pages.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 1,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://uncovertechtalent.com/",
+   "repository": "private",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/site-architecture/"
+   ],
+   "runbooks": [
+    "/inside/docs/eng/runbook-gate-blocked/"
+   ],
+   "depends_on": [
+    "conformity-gate"
+   ],
+   "external": [
+    "GitHub Pages",
+    "GitHub Actions",
+    "Hugo"
+   ],
+   "status": {
+    "gate": "https://uncovertechtalent.com/conformity/latest.json"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "docs-build",
+   "name": "Docs build",
+   "url": "/inside/services/docs-build/",
+   "description": "Builds the Inside docs from markdown sources and the knowledge vault: one page per file, the tree, labels, dates, backlinks, the docs search index, and managed blocks in sitemap.xml and llms.txt.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 2,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://machinebehavior.io/inside/docs/",
+   "repository": "https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/build_docs.py",
+   "dashboard": null,
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/docs-tree/",
+    "/inside/docs/eng/top-bar-and-search/"
+   ],
+   "runbooks": [],
+   "depends_on": [
+    "conformity-gate"
+   ],
+   "external": [],
+   "status": {},
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "map-crawler",
+   "name": "Map crawler",
+   "url": "/inside/services/map-crawler/",
+   "description": "Crawls the three sites and the Substack archive into one graph of pages, posts, repositories, threads and tags, with body links kept apart from navigation. Runs locally and in every deploy.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 3,
+   "lifecycle": "production",
+   "system": "Publishing",
+   "address": "https://machinebehavior.io/map/",
+   "repository": "https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/crawl_map.py",
+   "dashboard": null,
+   "slo": [],
+   "docs": [
+    "/inside/docs/eng/map-crawler/"
+   ],
+   "runbooks": [],
+   "depends_on": [
+    "machinebehavior-io",
+    "tychat-io",
+    "uncovertechtalent-com"
+   ],
+   "external": [
+    "Substack"
+   ],
+   "status": {
+    "deploys": "uncovertechtalent/machinebehavior.io"
+   },
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "deploy-exporter",
+   "name": "Deploy exporter",
+   "url": "/inside/services/deploy-exporter/",
+   "description": "A standard-library Python service that reads the GitHub Actions runs of the three sites, writes each run, step and gate check to Loki and serves the latest state as Prometheus metrics. Feeds the Website deploys dashboard.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 2,
+   "lifecycle": "production",
+   "system": "Observability",
+   "address": null,
+   "repository": "https://github.com/uncovertechtalent/agent-observability",
+   "dashboard": {
+    "name": "Website deploys",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/obs/deploy-exporter/",
+    "/inside/docs/obs/metrics-reference/",
+    "/inside/docs/obs/loki-streams/"
+   ],
+   "runbooks": [
+    "/inside/docs/obs/runbook-loki-backfill-missing/",
+    "/inside/docs/obs/runbook-stat-panel-no-data/"
+   ],
+   "depends_on": [
+    "observability-stack"
+   ],
+   "external": [
+    "GitHub API"
+   ],
+   "status": {},
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "observability-stack",
+   "name": "Observability stack",
+   "url": "/inside/services/observability-stack/",
+   "description": "One Docker Compose project on a home server: Alloy, Prometheus, Loki, Tempo and Grafana, with 13 alert rules and the public dashboards behind a reverse proxy that passes only the shared paths. No Alertmanager runs, so no alert pages anyone.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 2,
+   "lifecycle": "production",
+   "system": "Observability",
+   "address": "https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6",
+   "repository": "https://github.com/uncovertechtalent/agent-observability",
+   "dashboard": {
+    "name": "Host",
+    "url": "https://grafana.scoetzee.de/public-dashboards/81c9dfd269cc430abaf6a6ce7b64c4d6"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/obs/architecture/",
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/public-dashboards/",
+    "/inside/docs/obs/dashboards-as-code/"
+   ],
+   "runbooks": [
+    "/inside/docs/obs/runbook-share-a-dashboard/",
+    "/inside/docs/obs/runbook-stat-panel-no-data/",
+    "/inside/docs/obs/runbook-loki-backfill-missing/"
+   ],
+   "depends_on": [],
+   "external": [
+    "Docker Compose"
+   ],
+   "status": {},
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "searxng",
+   "name": "SearXNG",
+   "url": "/inside/services/searxng/",
+   "description": "The self-hosted metasearch instance every research agent searches through, with per-engine pacing and suspensions after rate limits. An exporter pushes engine health to the observability stack; six alert rules watch it.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 2,
+   "lifecycle": "production",
+   "system": "Research tooling",
+   "address": null,
+   "repository": "https://github.com/uncovertechtalent/agent-observability",
+   "dashboard": {
+    "name": "SearXNG search engines",
+    "url": "https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/public-dashboards/"
+   ],
+   "runbooks": [],
+   "depends_on": [
+    "observability-stack"
+   ],
+   "external": [
+    "Upstream search engines"
+   ],
+   "status": {},
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "local-llm",
+   "name": "Local LLM",
+   "url": "/inside/services/local-llm/",
+   "description": "The self-hosted model server on the home server, metered by a pass-through proxy (the ollama-exporter) for time to first token, decode speed, token counts and resident models. The only service with defined SLOs and burn-rate alerts.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 3,
+   "lifecycle": "production",
+   "system": "Research tooling",
+   "address": null,
+   "repository": "https://github.com/uncovertechtalent/agent-observability",
+   "dashboard": {
+    "name": "Local LLM",
+    "url": "https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f"
+   },
+   "slo": [
+    {
+     "name": "Availability",
+     "target": "99%",
+     "good": "A request without an upstream error"
+    },
+    {
+     "name": "Latency",
+     "target": "95%",
+     "good": "A streamed chat request with a first token within 4 s"
+    }
+   ],
+   "docs": [
+    "/inside/docs/obs/alerts-and-slos/",
+    "/inside/docs/obs/metrics-reference/",
+    "/inside/docs/obs/architecture/"
+   ],
+   "runbooks": [],
+   "depends_on": [
+    "observability-stack"
+   ],
+   "external": [
+    "Ollama"
+   ],
+   "status": {},
+   "updated": "2026-10-09"
+  },
+  {
+   "id": "agent-sessions",
+   "name": "Agent sessions",
+   "url": "/inside/services/agent-sessions/",
+   "description": "The Claude Code sessions that build and run this platform, each owning one track of work and pushing through the gate. Spend and tokens are summed from per-request events; a spend alert fires above USD 40 in the trailing hour.",
+   "owner": "Stefan Coetzee",
+   "operator": null,
+   "tier": 2,
+   "lifecycle": "production",
+   "system": "Agents",
+   "address": null,
+   "repository": null,
+   "dashboard": {
+    "name": "Claude Code agents",
+    "url": "https://grafana.scoetzee.de/public-dashboards/3a4ba6b21e6f4924ab2845b47a300af0"
+   },
+   "slo": [],
+   "docs": [
+    "/inside/docs/fin/cost-model/",
+    "/inside/docs/fin/budgets-and-alerts/",
+    "/inside/docs/fin/anomaly-the-phantom-two-million/"
+   ],
+   "runbooks": [
+    "/inside/docs/obs/runbook-counter-resets-parallel-sessions/"
+   ],
+   "depends_on": [
+    "observability-stack",
+    "conformity-gate",
+    "searxng",
+    "local-llm"
+   ],
+   "external": [
+    "Anthropic API"
+   ],
+   "status": {},
+   "updated": "2026-10-09"
+  }
+ ]
+}

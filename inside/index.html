@@ -105,7 +105,7 @@
 </style>
 </head>
 <body>
-<!-- inside-bar:begin here=inside --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/" aria-current="page"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
+<!-- inside-bar:begin here=inside --><header class="ib"><a class="ib-skip" href="#main">Skip to content</a><a class="ib-brand" href="/inside/" aria-current="page"><span class="ib-logo" aria-hidden="true">i</span>Inside</a><nav class="ib-nav" aria-label="Inside"><a href="/inside/docs/">Docs</a><a href="/inside/services/">Services</a><a href="/inside/board/">Board</a><a href="/map/">Map</a><a href="/inside/#dashboards">Infrastructure</a><a href="/conformity/">Gate</a><a class="ib-ext" href="/">machinebehavior.io</a></nav><form class="ib-search" role="search" action="/inside/search/" method="get"><label class="ib-sr" for="ib-q">Search Inside</label><input type="search" id="ib-q" name="q" placeholder="Search docs, services, pages" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="ib-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="ib-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- inside-bar:end -->
 <main class="wrap" id="main">
   <header class="top">
     <div>
@@ -190,10 +190,11 @@ const COLOR = {mb: '#FFB547', tychat: '#3DDC97', utt: '#6FA8FF', substack: '#FF8
 const SITE_LABEL = {mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
 // pages that are kept up to date rather than published once
 const LIVING = new Set(['/claims/', '/experiments/', '/terms/', '/slips/', '/objections/', '/man/', '/evidence/', '/conformity/',
-  '/continuous-conformity-self-assessment/', '/map/', '/inside/', '/inside/board/']);
+  '/continuous-conformity-self-assessment/', '/map/', '/inside/', '/inside/board/', '/inside/services/']);
 const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
 const APPS = [
   ['Docs', 'six spaces, every system', '/inside/docs/'],
+  ['Services', 'the service catalog', '/inside/services/'],
   ['Board', 'work items, from GitHub Issues', '/inside/board/'],
   ['Map of the Work', 'every page and link', '/map/'],
   ['Website deploys', 'Grafana', '#dashboards/deploys'],
@@ -269,7 +270,7 @@ getJSON('/map/graph.json').then(g => {
   }
   const path = id => { try { return new URL(id).pathname; } catch { return ''; } };
   const isPiece = n => (n.kind === 'page' || n.kind === 'substack') && path(n.id) !== '/' && path(n.id) !== '/blog/' &&
-    !(n.site === 'mb' && LIVING.has(path(n.id))) && path(n.id) !== '/conformity/';
+    !(n.site === 'mb' && (LIVING.has(path(n.id)) || path(n.id).startsWith('/inside/'))) && path(n.id) !== '/conformity/';  // Inside pages are the platform, not pieces
   // a Substack cross-post shares its title with the original: one row, both links
   const key = t => t.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const PREFER = {mb: 0, utt: 1, tychat: 2, substack: 3};

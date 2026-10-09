@@ -21,6 +21,7 @@ BASE = 'https://machinebehavior.io'
 SITE_GROUPS = {
     'mb': ('machinebehavior.io', '#FFB547'), 'utt': ('uncovertechtalent.com', '#6FA8FF'), 'tychat': ('tychat.io', '#3DDC97'),
     'substack': ('Substack', '#FF8FD8'), 'github': ('GitHub', '#EFE6D2'), 'reddit': ('Reddit', '#FF4D5E'),
+    'dashboard': ('Grafana dashboard', '#5EEAD4'),
 }
 SKIP_PATHS = ('/inside/search/',)
 
@@ -46,7 +47,7 @@ def main():
 
     graph = json.loads((ROOT / 'map' / 'graph.json').read_text(encoding='utf-8'))
     for n in graph['nodes']:
-        if n['kind'] in ('doc', 'tag'):
+        if n['kind'] in ('doc', 'tag', 'service'):
             continue
         u = n['id']
         if u.startswith(BASE + '/'):

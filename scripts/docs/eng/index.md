@@ -16,6 +16,7 @@ This space documents the systems behind machinebehavior.io, tychat.io and uncove
 | Map crawler | Crawls the three sites and Substack into one graph | `scripts/crawl_map.py` | [Map crawler](doc:eng/map-crawler) |
 | Inside | Front page with live status, deploys, experiments and dashboards | `inside/index.html` | [Inside portal](doc:eng/inside-portal) |
 | Docs tree | This documentation, from markdown and the knowledge vault | `scripts/build_docs.py` | [Docs tree](doc:eng/docs-tree) |
+| Service catalog | Every service with owner, tier, lifecycle, SLOs, dashboard and runbooks | `services/*.yml`, `scripts/build_inside.py` | [Service catalog](doc:eng/service-catalog) |
 | Top bar and search | One bar on every Inside page and one search index | `scripts/inside_chrome.py`, `scripts/build_search.py` | [Top bar and search](doc:eng/top-bar-and-search) |
 | Ticket board | Work items from GitHub Issues in columns | `scripts/board_snapshot.py`, `inside/board/index.html` | [Ticket board](doc:eng/board) |
 | Observability | Prometheus, Loki and Grafana behind the public dashboards | [agent-observability](https://github.com/uncovertechtalent/agent-observability) | [Observability space](doc:obs/index) |
