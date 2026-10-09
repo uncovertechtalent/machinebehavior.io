@@ -21,34 +21,6 @@ reviewed: no
   - **9.3.2** Management review inputs — eight required input categories.
   - **9.3.3** Management review results — decisions related to continual improvement and any need for changes to the ISMS; retain documented information.
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 9.1: the org "shall determine:
-  - a) what needs to be monitored and measured, including information security processes and controls;
-  - b) the methods for monitoring, measurement, analysis and evaluation, as applicable, to ensure valid results. The methods selected should produce comparable and reproducible results to be considered valid;
-  - c) when the monitoring and measuring shall be performed;
-  - d) who shall monitor and measure;
-  - e) when the results from monitoring and measurement shall be analysed and evaluated;
-  - f) who shall analyse and evaluate these results."
-- 9.2.2: the org shall:
-  - "a) plan, establish, implement and maintain an audit programme(s), including the frequency, methods, responsibilities, planning requirements and reporting, which shall take into consideration the importance of the processes concerned and the results of previous audits;
-  - b) define the audit criteria and scope for each audit;
-  - c) select auditors and conduct audits that ensure objectivity and the impartiality of the audit process;
-  - d) ensure that the results of the audits are reported to relevant management;
-  - e) retain documented information as evidence of the implementation of the audit programme and the audit results."
-- 9.3.2: management review shall include consideration of:
-  - "a) the status of actions from previous management reviews;
-  - b) changes in external and internal issues that are relevant to the information security management system;
-  - c) changes in needs and expectations of interested parties that are relevant to the information security management system;
-  - d) feedback on the information security performance, including trends in:
-    - 1) nonconformities and corrective actions;
-    - 2) monitoring and measurement results;
-    - 3) audit results;
-    - 4) fulfilment of information security objectives;
-  - e) feedback from interested parties;
-  - f) results of risk assessment and status of risk treatment plan;
-  - g) opportunities for continual improvement."
-
 ## Changes from :2013
 
 - **9.3.2 wording aligned with Annex SL.** Sub-items renumbered and slightly expanded (changes in interested-party needs as explicit input added at (c)).

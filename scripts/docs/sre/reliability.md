@@ -98,14 +98,6 @@ The inverse of reliability — how much failure is allowed:
 
 - [[Error Budgets as Reliability Currency]]
 
-## Homelab worked example
-
-Stefan's home LAN is a live SRE testbed. Reliability-relevant pieces:
-
-- **Pi-hole HA pair** (`[host]` MASTER + `[host]` BACKUP + VIP `[host]` via keepalived VRRP) — addresses the historical Pi-hole DNS SPoF that took the whole LAN down on any single-host outage. Failover ~4-5s on tested scenarios. See [[home-lan-topology|SRE/homelab addendum §1]] and `constraint_pihole_dns_chain` (memory). Outstanding: gravity.db replication (gravity-sync v4).
-- **Headscale HA** on AWS EC2 (`headscale-primary` + `headscale-standby` with EIPs, terraform-managed). See [[home-network-topology|work-kb SoT §5]].
-- **Migration sequencing rule** (homelab, agreed 2026-05-15): wait → cutover → steady state → THEN harden. Reliability work before security work; don't pile changes mid-flight.
-- **Single-NAT vs double-NAT** (DrayTek bridge migration §6): conntrack exhaustion on the consumer-grade WAN device is a Pi-hole-orthogonal availability failure; documented symptom + planned fix.
 ## People-substrate cross-cluster
 
 Reliability has a people-substrate dual. The leader's regulation under load is an SLI; trauma-substrate adaptations break the same way under-engineered systems break (cascading failure, hero patterns, single points of failure).

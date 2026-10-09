@@ -21,25 +21,6 @@ reviewed: no
   - **7.5.2** Creating and updating — identification, format, review and approval.
   - **7.5.3** Control of documented information — access, distribution, storage and preservation, version control, retention and disposition. Controls external documents and obsolete documents.
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 7.2: the org shall:
-  - "a) determine the necessary competence of person(s) doing work under its control that affects its information security performance;
-  - b) ensure that these persons are competent on the basis of appropriate education, training, or experience;
-  - c) where applicable, take actions to acquire the necessary competence, and evaluate the effectiveness of the actions taken;
-  - d) retain appropriate documented information as evidence of competence."
-- 7.3: persons "shall be aware of:
-  - a) the information security policy;
-  - b) their contribution to the effectiveness of the information security management system, including the benefits of improved information security performance;
-  - c) the implications of not conforming with the information security management system requirements."
-- 7.4: org shall determine the need for internal and external communications including:
-  - "a) on what to communicate;
-  - b) when to communicate;
-  - c) with whom to communicate;
-  - d) how to communicate."
-- 7.5.2: when creating and updating documented information the org shall ensure appropriate "a) identification and description (title, date, author, reference number); b) format (language, software version, graphics) and media (paper, electronic); c) review and approval for suitability and adequacy."
-- 7.5.3: documented information required by the ISMS and by the standard shall be controlled to ensure "a) it is available and suitable for use, where and when it is needed; b) it is adequately protected (loss of confidentiality, improper use, loss of integrity)" — and controlled for distribution, access, retrieval, storage, preservation, change control, retention and disposition.
-
 ## Changes from :2013
 
 - **7.4 wording tightened** to four explicit communication parameters (a-d). :2013 added a fifth "by whom" — :2022 absorbs this into the four-item structure with no substantive change in expectation.

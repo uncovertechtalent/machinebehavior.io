@@ -231,17 +231,6 @@ securityContext:
 
 - "Shifting left security" is a misnomer that needs to die (9-part series) -- the long-form argument behind this pillar's "security is a process, not a product" stance. Start at [[2024-12-30_shifting-left-security-is-a-misnomer-that-needs-to-die-part-1-of-9|Part 1 of 9]]; the series chains prev/next through [[2024-12-30_shifting-left-security-is-a-misnomer-that-needs-to-die-part-9-of-9|Part 9 of 9]].
 
-## Homelab worked example
-
-Stefan's home LAN is a live SRE testbed. Security-relevant pieces (2026-05-15 hardening pass):
-
-- **SSH hardening** on `[host]` and `[host]`: `PasswordAuthentication no`, `PubkeyAuthentication yes`, passwordless sudo via `/etc/sudoers.d/slaine-nopasswd`. Drop-in `01-hardening.conf` loads before cloud-init defaults. See [[home-lan-topology|SRE/homelab addendum §3]] and `reference_pihole_hardening` (memory).
-- **Single-key SPoF**: one SSH key on the Mac unlocks `[host]` + `[host]` + `[host]` with passwordless sudo, chains to AWS via `[host]`. Memory: `reference_slaine_lan_master_key`. Mitigation candidates: hardware-backed key (YubiKey resident), passphrase + agent-forwarding discipline.
-- **Plaintext-secret incident + remediation** (2026-05-15): `~/Ni-a` deleted; vodafone DSL credentials still at `~/.config/vodafone-dsl/credentials` mode 600 (not key-rotatable). Migration target: SOPS or age-encrypted vault.
-- **Zero-trust position** (addendum §4 hardening pass): tailscale node identity as authorisation primitive, not LAN location. Pi-hole web UI is currently anonymous on both nodes — closes when admin password set + tailscale ACLs scoped per device.
-- **Break-glass design** (parked): pre-baked AMI in second AWS region, MFA-locked launch, CloudTrail-tagged recovery events. Quarterly boot-and-verify drill required (else untested = unreliable).
-- **Headscale single point of failure**: if everything routes through Headscale ACLs, Headscale outage = ops outage. HA pair in same region only partially mitigates.
-- **WD MyCloud `[host]`**: end-of-life 2015 firmware, exposed SSH (ssh-rsa + ssh-dss legacy ciphers), NFS, SMB, AFP. Highest-risk surface on the LAN. Audit-and-decom listed in SoT §7 open items.
 ## People-substrate cross-cluster
 
 Security at the people layer = psychological safety + boundary integrity + structural defenses against the team-level failure modes. Fawning is the human auth-bypass (yes-by-default = compromised input validation). Scapegoat dynamics are the team-level incident-response failure that targets a projection surface. Narcissism is the persistent-threat actor at organisational scale.

@@ -19,29 +19,6 @@ reviewed: no
 - **6.2** Information security objectives and planning to achieve them.
 - **6.3** Planning of changes — **new in :2022.**
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 6.1.2: the org "shall define and apply an information security risk assessment process that:
-  - a) establishes and maintains information security risk criteria that include:
-    - 1) the risk acceptance criteria;
-    - 2) criteria for performing information security risk assessments;
-  - b) ensures that repeated information security risk assessments produce consistent, valid and comparable results;
-  - c) identifies the information security risks: ... apply the risk assessment process to identify risks associated with the loss of confidentiality, integrity and availability for information within the scope of the information security management system; identify the risk owners;
-  - d) analyses the information security risks: ... assess the potential consequences ... assess the realistic likelihood ... determine the levels of risk;
-  - e) evaluates the information security risks: ... compare the results of risk analysis with the risk criteria ... prioritize the analysed risks for risk treatment."
-- 6.1.3: the org "shall define and apply an information security risk treatment process to:
-  - a) select appropriate ... risk treatment options ...
-  - b) determine all controls that are necessary to implement the information security risk treatment option(s) chosen;
-  - c) compare the controls determined in 6.1.3 b) above with those in Annex A and verify that no necessary controls have been omitted;
-  - d) produce a Statement of Applicability that contains:
-    - the necessary controls ... and justification for their inclusion;
-    - whether the necessary controls are implemented or not;
-    - the justification for excluding any of the Annex A controls;
-  - e) formulate an information security risk treatment plan;
-  - f) obtain risk owners' approval of the information security risk treatment plan and acceptance of the residual information security risks."
-- 6.2: objectives shall "be consistent with the information security policy; be measurable (if practicable); take into account applicable information security requirements, and results from risk assessment and risk treatment; be monitored; be communicated; be updated as appropriate; be available as documented information."
-- 6.3: "When the organization determines the need for changes to the information security management system, the changes shall be carried out in a planned manner."
-
 ## Changes from :2013
 
 - **6.3 Planning of changes is new.** Previously planning of ISMS changes was implicit in 8.1 operational planning. :2022 surfaces it as a standalone clause, aligned with Annex SL update.

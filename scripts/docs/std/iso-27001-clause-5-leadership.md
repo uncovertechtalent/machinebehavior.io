@@ -16,26 +16,6 @@ reviewed: no
 - **5.2** Policy — top management shall establish an information security policy with seven listed properties (a-g).
 - **5.3** Organizational roles, responsibilities and authorities — top management assigns roles for ISMS conformance and ISMS performance reporting.
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 5.1 (selected): top management shall demonstrate leadership and commitment by:
-  - "ensuring that the information security policy and the information security objectives are established and are compatible with the strategic direction of the organization"
-  - "ensuring the integration of the information security management system requirements into the organization's processes"
-  - "ensuring that the resources needed for the information security management system are available"
-  - "communicating the importance of effective information security management and of conforming to the information security management system requirements"
-  - "directing and supporting persons to contribute to the effectiveness of the information security management system"
-  - "promoting continual improvement"
-  - "supporting other relevant management roles to demonstrate their leadership as it applies to their areas of responsibility"
-- 5.2: the information security policy shall:
-  - "be appropriate to the purpose of the organization"
-  - "include information security objectives or provide the framework for setting information security objectives"
-  - "include a commitment to satisfy applicable requirements related to information security"
-  - "include a commitment to continual improvement of the information security management system"
-  - "be available as documented information"
-  - "be communicated within the organization"
-  - "be available to interested parties, as appropriate"
-- 5.3: top management shall ensure responsibilities and authorities are assigned and communicated for "ensuring that the information security management system conforms to the requirements of this document" and "reporting on the performance of the information security management system to top management."
-
 ## Changes from :2013
 
 - **Wording shifts** to align with Annex SL harmonized text. "Top management shall demonstrate leadership and commitment with respect to the ISMS" replaced with "by" + list of actions.

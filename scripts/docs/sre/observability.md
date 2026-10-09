@@ -117,16 +117,6 @@ Page (wake someone up)
 - [[NIST CSF Core Functions]] DETECT function — continuous monitoring + adverse event analysis.
 - [[ITIL 4 Practices]] Monitoring and Event Management.
 
-## Homelab worked example
-
-Stefan's home LAN is a live SRE testbed. Observability-relevant pieces:
-
-- **Prometheus + Grafana + Alertmanager stack** on Synology `[host]` (`/volume1/docker/monitoring/`). Grafana on `:3030`, Prometheus on `:9090`. See [[home-network-topology|work-kb SoT §3]] service inventory.
-- **Exporters**: node-exporter on `[host]` + container on `[host]`, pihole-exporter `:9617`, blackbox-exporter `:9115`, speedtest-exporter `:9696`, unifi-poller `:9130` (pulls UCG-Max controller metrics).
-- **NetBox** at `http://[private IP]:8000` — structured device + IP inventory. Drives the SoT atom's host-inventory table via `~/code/scripts/regen-network-atom.py`. Combined with UniFi controller pull (`regen-unifi-atom.py`) for live state.
-- **Central rsyslog collector** at `[private IP]:514` UDP/TCP. Logs land in `/var/log/remote/<ip>/`. RADIUS deferred. Memory: `reference_rsyslog_161`.
-- **Cardinality discipline**: NetBox device records are the cardinality cap for per-host metrics; ARP-discovered ghost clients flagged as `apple-iot-placeholder-1` rather than minted as net-new devices each scrape.
-- **Audit-log gap** (per homelab addendum hardening backlog §4): sshd + sudo + headscale + pi-hole logs are not yet shipped off-host. Local-only logs equal no audit when LAN compromised.
 ## People-substrate cross-cluster
 
 Observability has a people-substrate dual: reading what's actually happening in the team (and in yourself) is the same skill as reading what's happening in a system. The three SRE pillars (metrics, logs, traces) map to substrate / apparent / assigned in the developmental-position frame. The trauma filter is the observability bias the operator has to debias against.

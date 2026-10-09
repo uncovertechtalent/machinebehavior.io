@@ -13,6 +13,9 @@ What is published and what is changed (decided by Stefan Coetzee, 2026-10-09):
   standards clusters under vault/pillars listed in STD_CLUSTERS.
 - Redacted mechanically: private IPv4 addresses and LAN shorthand (".161"), e-mail addresses,
   the former employer's name, home directory paths, host names under the owner's private domain.
+- Sections headed as home-lab detail ("Homelab worked example") are dropped whole: they describe the owner's hosts, keys and weak spots.
+- Sections whose heading says they hold standards text ("verbatim", "shall" requirements) are dropped whole and unread (2026-10-09,
+  after an outside review found ISO requirement text on 8 published pages).
 - Blockquotes in notes that carry a `clause:` field (ISO 27001 clause notes) are dropped unread:
   standards text is not machine-processed here (DIN Media terms on AI processing).
 - Placeholder words the deploy gate blocks (TODO, TBD) are written out.
@@ -31,6 +34,8 @@ STD_CLUSTERS = ['iso-27001', 'iso-42001', 'iso-21434', 'iso-22301', 'nis2', 'dor
                 'hitrust', 'fedramp-cmmc', 'csa-ccm', 'slsa-sbom', 'un-r155-r156', 'itil', 'togaf', 'cobit', 'cmmi', 'prince2']
 SRE_SKIP_DIRS = ('homelab', '.claude')
 SRE_SKIP_FILES = ('CLAUDE.md', 'README.md')  # SRE/README.md mirrors SRE/Home.md
+# House-infrastructure runbooks: they name hosts, users, egress and public addresses of the home lab. Not published.
+SRE_SKIP_NOTES = ('SRE/runbooks/SearXNG Health.md',)
 
 REDACT = [
     ('private IPv4', re.compile(r'\b(?:10(?:\.\d{1,3}){3}|172\.(?:1[6-9]|2\d|3[01])(?:\.\d{1,3}){2}|192\.168(?:\.\d{1,3}){1,2})(?:/\d{1,2})?\b'), '[private IP]'),
@@ -40,6 +45,9 @@ REDACT = [
     ('home path', re.compile(r'/Users/[a-z]+'), '~'),
     ('private host', re.compile(r'\b(?!grafana\.)[a-z0-9-]+\.scoetzee\.de\b', re.I), '[host]'),
     ('ssh user', re.compile(r'\bslaine@'), '[user]@'),
+    ('user name', re.compile(r'\bslaine\b'), '[user]'),
+    ('public IPv4', re.compile(r'\b(?!(?:0|127|10|100\.64|169\.254|192\.0\.2|198\.51\.100|203\.0\.113)\.)(?:\d{1,3}\.){3}\d{1,3}\b'), '[IP]'),
+    ('key path', re.compile(r'~/\.ssh/[\w.-]+'), '[key path]'),
 ]
 PLACEHOLDER = [(re.compile(r'\bTODO\b'), 'to do'), (re.compile(r'\bTBD\b'), 'to be decided'), (re.compile(r'\bLINK PENDING\b'), 'link to follow')]
 
@@ -101,7 +109,58 @@ def summary_of(body):
     return None
 
 
+# Sections that carry, or say they carry, the text of a standard. They are dropped whole and unread:
+# reproducing standards text is a copyright problem, and standards text is not machine-processed here.
+STANDARDS_TEXT_HEADING = re.compile(r'verbatim|wortlaut|"shall"\s+requirements|shall requirements|normtext', re.I)
+
+
+def drop_standards_text_sections(body, rel):
+    out, skip_level, dropped, sections = [], None, 0, 0
+    for ln in body.split('\n'):
+        m = re.match(r'^(#{1,6})\s+(.*)$', ln)
+        if m:
+            level = len(m.group(1))
+            if skip_level is not None and level <= skip_level:
+                skip_level = None
+            if skip_level is None and STANDARDS_TEXT_HEADING.search(m.group(2)):
+                skip_level, sections = level, sections + 1
+                continue
+        if skip_level is not None:
+            dropped += 1
+            continue
+        out.append(ln)
+    if sections:
+        report.append(f'- `{rel}`: {sections} section(s) headed as standards text dropped unread ({dropped} lines)')
+    return '\n'.join(out)
+
+
+# Sections that describe the owner's home lab (hosts, keys, credentials, weak spots). Dropped whole.
+HOMELAB_HEADING = re.compile(r'homelab worked example|home lab|home lan|home network', re.I)
+
+
+def drop_sections(body, rel, rx, why):
+    out, skip_level, dropped, sections = [], None, 0, 0
+    for ln in body.split('\n'):
+        m = re.match(r'^(#{1,6})\s+(.*)$', ln)
+        if m:
+            level = len(m.group(1))
+            if skip_level is not None and level <= skip_level:
+                skip_level = None
+            if skip_level is None and rx.search(m.group(2)):
+                skip_level, sections = level, sections + 1
+                continue
+        if skip_level is not None:
+            dropped += 1
+            continue
+        out.append(ln)
+    if sections:
+        report.append(f'- `{rel}`: {sections} section(s) dropped, {why} ({dropped} lines)')
+    return '\n'.join(out)
+
+
 def clean(body, rel, has_clause):
+    body = drop_standards_text_sections(body, rel)
+    body = drop_sections(body, rel, HOMELAB_HEADING, 'home-lab detail')
     lines_out, dropped = [], 0
     for ln in body.split('\n'):
         if has_clause and re.match(r'^\s*>', ln) and not re.match(r'^\s*>\s*\[!', ln):
@@ -241,6 +300,9 @@ for top in sorted(p for p in sre.iterdir() if p.is_dir() and p.name not in SRE_S
         continue
     for f in sorted(top.rglob('*.md')):
         if f.name == 'README.md' and f.parent == top:
+            continue
+        if f.relative_to(VAULT).as_posix() in SRE_SKIP_NOTES:
+            report.append(f'- `{f.relative_to(VAULT).as_posix()}`: not published (house infrastructure runbook)')
             continue
         note(f, 'sre', uniq(slugify(f.stem)), fslug, 100); count += 1
 for f in sorted(sre.glob('*.md')):

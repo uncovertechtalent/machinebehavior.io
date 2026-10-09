@@ -16,7 +16,7 @@
 <meta name="mb-source" content="scripts/docs/sre/runbooks.md">
 <meta name="docs-space" content="sre">
 <meta property="article:published_time" content="2026-04-25">
-<meta property="article:modified_time" content="2026-06-08">
+<meta property="article:modified_time" content="2026-10-09">
 <meta property="article:tag" content="moc">
 <meta property="article:tag" content="sre-runbooks">
 <meta name="docs-owner" content="Stefan Coetzee">
@@ -34,7 +34,7 @@
 <main id="main">
 <!-- mb:crumbs --><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/docs/">Docs</a></li><li><a href="/inside/docs/sre/">SRE Handbook</a></li><li><a href="/inside/docs/sre/runbooks/" aria-current="page">Runbooks</a></li></ol></nav><!-- /mb:crumbs -->
 <h1>Runbooks</h1>
-<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-04-25</span><span>updated 2026-06-08</span><span class="rv no">not reviewed</span><span>1 min read</span><span class="type">reference</span></div>
+<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-04-25</span><span>updated 2026-10-09</span><span class="rv no">not reviewed</span><span>1 min read</span><span class="type">reference</span></div>
 <div class="review"><b>Vault note, not reviewed against the source.</b> Written in the knowledge vault on 2026-04-25 by models working with Stefan Coetzee and published as it stands, with private addresses, e-mail addresses and an employer name redacted. Check claims against the primary source before relying on them.</div>
 <article class="doc">
 <p>Operational procedures for common scenarios.</p>
@@ -45,7 +45,7 @@
 <h3 id="incidents">Incidents</h3>
 <ul><li class="task"><span class="box">☑</span> <a href="/inside/docs/sre/service-outage-response/">Service Outage Response</a> — generic outage triage, mitigate-before-investigate decision tree</li><li class="task"><span class="box">☑</span> <a href="/inside/docs/sre/database-failover/">Database Failover</a> — promote replica to primary, engine-specific gotchas</li><li class="task"><span class="box">☑</span> <a href="/inside/docs/sre/rollback-deployment/">Rollback Deployment</a> — revert prod to last known good, schema-migration tax</li><li class="task"><span class="box">☑</span> <a href="/inside/docs/sre/certificate-rotation/">Certificate Rotation</a> — TLS cert renewal including emergency expiry response</li></ul>
 <h3 id="operations">Operations</h3>
-<ul><li class="task"><span class="box">☐</span> Scaling a service</li><li class="task"><span class="box">☐</span> Database maintenance</li><li class="task"><span class="box">☐</span> Log rotation</li><li class="task"><span class="box">☐</span> Backup verification</li></ul>
+<ul><li class="task"><span class="box">☑</span> <span class="wl-off" title="Vault note not published here">SearXNG Health</span> — house search engine: rate-limited engines, proxy egress, pacing, Grafana wiring</li><li class="task"><span class="box">☐</span> Scaling a service</li><li class="task"><span class="box">☐</span> Database maintenance</li><li class="task"><span class="box">☐</span> Log rotation</li><li class="task"><span class="box">☐</span> Backup verification</li></ul>
 <h3 id="security">Security</h3>
 <ul><li class="task"><span class="box">☑</span> <a href="/inside/docs/sre/credential-rotation/">Credential Rotation</a> — secret rotation, scheduled vs compromise differentiation</li><li class="task"><span class="box">☐</span> Security incident response</li><li class="task"><span class="box">☐</span> Access revocation</li></ul>
 <h2 id="template">Template</h2>

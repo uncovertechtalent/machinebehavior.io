@@ -6,7 +6,7 @@ labels: moc, sre-runbooks
 aliases: SRE Runbooks Cluster | SRE Runbooks MOC | Runbooks MOC
 type: MOC
 created: 2026-04-25
-updated: 2026-06-08
+updated: 2026-10-09
 origin: SRE/runbooks/README.md
 reviewed: no
 ---
@@ -31,6 +31,7 @@ Each runbook includes:
 - [x] [[Certificate Rotation]] — TLS cert renewal including emergency expiry response
 
 ### Operations
+- [x] [[SearXNG Health]] — house search engine: rate-limited engines, proxy egress, pacing, Grafana wiring
 - [ ] Scaling a service
 - [ ] Database maintenance
 - [ ] Log rotation

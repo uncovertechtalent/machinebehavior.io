@@ -16,25 +16,6 @@ reviewed: no
 - **10.2** Nonconformity and corrective action.
 
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 10.1: "The organization shall continually improve the suitability, adequacy and effectiveness of the information security management system."
-- 10.2: "When a nonconformity occurs, the organization shall:
-  - a) react to the nonconformity, and as applicable:
-    - 1) take action to control and correct it;
-    - 2) deal with the consequences;
-  - b) evaluate the need for action to eliminate the cause(s) of the nonconformity, in order that it does not recur or occur elsewhere, by:
-    - 1) reviewing the nonconformity;
-    - 2) determining the causes of the nonconformity;
-    - 3) determining if similar nonconformities exist, or could potentially occur;
-  - c) implement any action needed;
-  - d) review the effectiveness of any corrective action taken;
-  - e) make changes to the information security management system, if necessary.
-  Corrective actions shall be appropriate to the effects of the nonconformities encountered.
-  The organization shall retain documented information as evidence of:
-  - the nature of the nonconformities and any subsequent actions taken;
-  - the results of any corrective action."
-
 ## Changes from :2013
 
 - **Sub-clauses reversed in order** (continual improvement now 10.1, nonconformity now 10.2). Annex SL convention.

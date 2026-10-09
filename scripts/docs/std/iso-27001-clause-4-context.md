@@ -20,16 +20,6 @@ reviewed: no
 - **4.3** Determining the scope of the ISMS — boundaries and applicability; takes 4.1, 4.2, and interfaces / dependencies as input; the scope statement is documented information.
 - **4.4** Information security management system — the org "shall establish, implement, maintain and continually improve" an ISMS, including the processes needed and their interactions.
 
-## Key "shall" requirements (verbatim selections from :2022)
-
-- 4.1: "The organization shall determine external and internal issues that are relevant to its purpose and that affect its ability to achieve the intended outcome(s) of its information security management system."
-- 4.2.c: "The organization shall determine which of these requirements will be addressed through the information security management system."
-- 4.3: "When determining this scope, the organization shall consider:
-  - a) the external and internal issues referred to in 4.1;
-  - b) the requirements referred to in 4.2;
-  - c) interfaces and dependencies between activities performed by the organization, and those that are performed by other organizations.
-  The scope shall be available as documented information."
-
 ## Changes from :2013
 
 - **4.2 added subitem (c)** explicitly addressing which interested-party requirements are in scope of the ISMS (previously implicit).

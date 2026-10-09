@@ -63,22 +63,6 @@ Most clause-level wording mirrors ISO 27001 / ISO 9001 with "AI" substituted for
 
 The other sub-clause text mirrors Annex SL conventions. Mature ISO 27001 implementations carry most of the structural work; AI-specific content overlays at risk assessment, treatment, impact assessment, and Annex A controls.
 
-## Key "shall" requirements (selected, paraphrased; quote verbatim from the standard for audit purposes)
-
-- **Cl 4.2** — determine relevant interested parties and their requirements relevant to the AIMS, including ethical and societal expectations of AI use.
-- **Cl 4.4** — establish, implement, maintain, continually improve the AIMS in accordance with the standard, including the processes needed and their interactions.
-- **Cl 5.1** — top management shall demonstrate leadership and commitment for the AIMS including ensuring integration with organizational processes, ensuring resources, communicating importance, supporting continual improvement.
-- **Cl 5.2** — AI policy established, appropriate to org purpose, providing framework for AI objectives, commitment to applicable requirements (including legal and ethical), commitment to continual improvement.
-- **Cl 6.1.2** — AI risk assessment process defined and applied, producing consistent / valid / comparable results.
-- **Cl 6.1.3** — AI risk treatment process defined and applied; produce a Statement of Applicability for Annex A controls.
-- **Cl 6.1.4** — AI system impact assessment shall consider potential consequences for individuals, groups of individuals, and society from the development, provision, or use of AI systems.
-- **Cl 7.5** — documented information required by the standard and required by the org for AIMS effectiveness; control of documented information.
-- **Cl 8.4** — impact assessments performed at planned intervals or when significant changes occur.
-- **Cl 9.1** — monitoring and measurement of the AIMS including AI risk treatment effectiveness and progress against AI objectives.
-- **Cl 9.2** — internal audit at planned intervals.
-- **Cl 9.3** — management review at planned intervals.
-- **Cl 10.2** — nonconformity and corrective action; five-step structure consistent with ISO 27001.
-
 ## Evidence artefacts an auditor expects
 
 Aligned with ISO 27001 plus AI-specific additions:
