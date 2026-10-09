@@ -54,7 +54,7 @@ def kind_of(u):
         return 'page'
     if host == SUBSTACK and '/p/' in u: return 'substack'
     if host == 'github.com' and len([x for x in urlparse(u).path.split('/') if x]) >= 2: return 'github'
-    if host == GRAFANA and urlparse(u).path.startswith('/public-dashboards/'): return 'dashboard'
+    if host == GRAFANA and re.match(r'^/public-dashboards/[0-9a-f]{16,}$', urlparse(u).path): return 'dashboard'  # a shared dashboard, not the bare path
     if host in ('reddit.com', 'redd.it', 'old.reddit.com'): return 'reddit'
     return None
 
