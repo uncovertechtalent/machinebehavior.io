@@ -752,6 +752,24 @@
     }
    ],
    "tickets": []
+  },
+  {
+   "key": "ai-search",
+   "title": "AI search",
+   "url": "/topics/ai-search/",
+   "about": "How the engines behind AI answers pick the pages they cite, how this site is built for them, and how citations get measured.",
+   "pages": [
+    "/terms/",
+    "/aieo/",
+    "/aieo/this-site/",
+    "/aieo/measurement/",
+    "/map/",
+    "/inside/docs/eng/adr-0027-structured-data/"
+   ],
+   "posts": [],
+   "tickets": [
+    43
+   ]
   }
  ],
  "issues": [

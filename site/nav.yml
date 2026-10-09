@@ -103,6 +103,18 @@ sections:
         url: /red-team/method/
         published: 2026-10-09
 
+  - key: aieo
+    title: AIEO
+    url: /aieo/
+    about: What the engines behind AI answers document about the pages they cite, how this site is built for AI search, and how citations get measured.
+    pages:
+      - title: This site
+        url: /aieo/this-site/
+        published: 2026-10-09
+      - title: Measurement
+        url: /aieo/measurement/
+        published: 2026-10-09
+
   - key: inside
     title: Inside
     url: /inside/

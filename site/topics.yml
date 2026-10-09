@@ -75,3 +75,11 @@ topics:
     map_tags: [Evaluations, Red Teaming, Goodhart Labs]
     post_words: [cheating, chaos engineering, benchmark]
     ticket_words: [eval, probe, benchmark, rater]
+
+  - key: ai-search
+    title: AI search
+    about: How the engines behind AI answers pick the pages they cite, how this site is built for them, and how citations get measured.
+    pages: [/aieo/, /aieo/this-site/, /aieo/measurement/, /terms/, /map/]
+    docs_labels: [structured-data]
+    post_words: [AEO, AIEO]
+    ticket_words: [aeo, aieo, indexnow, structured data, search console]

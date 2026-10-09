@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How This Site Is Built for AI Search: Machine Behavior</title>
+<meta name="description" content="Each AI search lever on machinebehavior.io as a receipt: what the site does, which engine documents reading it (or no primary source), and where to check it. Crawl access, sitemap, canonicals, IndexNow, static HTML, JSON-LD, llms.txt, the link graph, Open Graph images and answer-first pages.">
+<link rel="canonical" href="https://machinebehavior.io/aieo/this-site/">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/aieo/this-site/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="How This Site Is Built for AI Search">
+<meta property="og:description" content="Each AI search lever on machinebehavior.io as a receipt: what the site does, which engine documents reading it, and where to check it.">
+<meta property="og:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta property="og:image:width" content="1640">
+<meta property="og:image:height" content="820">
+<meta property="og:image:alt" content="Map of the Work: a graph of Stefan Coetzee&#x27;s published pages, posts, repos and threads, coloured by site, with the links between them.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/map/home-graph.png">
+<!-- mb:head --><link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://machinebehavior.io/aieo/this-site/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "AIEO", "item": "https://machinebehavior.io/aieo/"}, {"@type": "ListItem", "position": 3, "name": "This site", "item": "https://machinebehavior.io/aieo/this-site/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://machinebehavior.io/#stefan", "name": "Stefan Coetzee", "url": "https://machinebehavior.io/", "sameAs": ["https://www.linkedin.com/in/coetzeestefan/", "https://coetzeestefan.substack.com/", "https://github.com/uncovertechtalent", "https://machinebehavior.io/", "https://x.com/scoetzeede"], "jobTitle": "Site Reliability Engineer"}, {"@type": "WebSite", "@id": "https://machinebehavior.io/#website", "name": "Machine Behavior", "url": "https://machinebehavior.io/", "inLanguage": "en", "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://machinebehavior.io/inside/search/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "WebPage", "@id": "https://machinebehavior.io/aieo/this-site/#page", "url": "https://machinebehavior.io/aieo/this-site/", "name": "How This Site Is Built for AI Search", "inLanguage": "en", "isPartOf": {"@id": "https://machinebehavior.io/#website"}, "breadcrumb": {"@id": "https://machinebehavior.io/aieo/this-site/#breadcrumb"}, "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "description": "Each AI search lever on machinebehavior.io as a receipt: what the site does, which engine documents reading it (or no primary source), and where to check it. Crawl access, sitemap, canonicals, IndexNow, static HTML, JSON-LD, llms.txt, the link graph, Open Graph images and answer-first pages.", "datePublished": "2026-10-09", "dateModified": "2026-10-09", "image": "https://machinebehavior.io/map/home-graph.png"}]}</script><!-- /mb:head --></head>
+<body class="mb-read mb-s-aieo mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><a href="/research/">Research</a><a href="/red-team/">Red team</a><a href="/aieo/" aria-current="true">AIEO</a><a href="/inside/">Inside</a><a href="/inside/docs/">Docs</a><a href="/topics/">Topics</a><a href="/map/">Map</a></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form></header><!-- /mb:bar -->
+
+<!-- mb:side --><nav class="mb-side" aria-label="AIEO pages"><details class="mb-side-wrap" open><summary><span>AIEO</span><span class="mb-side-n">2 pages</span></summary><a class="mb-side-head" href="/aieo/">AIEO</a><ul class="mb-side-tree"><li><a href="/aieo/this-site/" aria-current="page">This site</a></li><li><a href="/aieo/measurement/">Measurement</a></li></ul><div class="mb-topics"><a class="mb-side-label" href="/topics/">Topics</a><ul><li><a href="/topics/sycophancy-and-stance/">Sycophancy and stance</a></li><li><a href="/topics/conformity-and-law/">Conformity and law</a></li><li><a href="/topics/operations-and-sre/">Operations and SRE</a></li><li><a href="/topics/observability/">Observability</a></li><li><a href="/topics/finops/">FinOps</a></li><li><a href="/topics/agents-and-harness/">Agents and harness</a></li><li><a href="/topics/evaluation/">Evaluation</a></li><li><a class="mb-topic-in" href="/topics/ai-search/">AI search<span class="mb-sr"> (lists this page)</span></a></li></ul></div></details></nav><!-- /mb:side -->
+<div class="sheet" id="main" role="main"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/aieo/">AIEO</a></li><li><a href="/aieo/this-site/" aria-current="page">This site</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-10-09</span></p></div><!-- /mb:crumbs -->
+
+  <header>
+    <div class="eyebrow">Reference · 2026-10-09 · checked against the live site and the repository</div>
+    <h1>How This Site Is Built for AI Search</h1>
+    <p class="subtitle">Each lever as a receipt: what machinebehavior.io does, which engine documents reading it, and where to check it.</p>
+  </header>
+
+<p class="thesis"><strong>The answer, in one paragraph.</strong> machinebehavior.io lets every crawler in, lists 447 URLs in its sitemap, gives every page a canonical URL, serves its content as static HTML with no third-party requests, and writes one JSON-LD graph into every page. A deploy gate fails any push that leaves a page without a canonical link or out of the sitemap. Google and Bing document these levers as part of crawling and indexing, which their AI answers draw on. Three levers on this site have no primary source from any answer engine: llms.txt, the link graph at /map/graph.json, and Open Graph images. Whether any lever changes citations on this site is not measured yet; see <a class="mono" href="/aieo/measurement/">Measurement</a>.</p>
+
+<h2 id="levers">The levers</h2>
+<p class="thesis">Counts were taken from the repository and the live site on 2026-10-09. "No primary source" means none of the engine documents listed on the <a class="mono" href="/aieo/">AIEO hub</a> says the engine reads it.</p>
+<table>
+<thead><tr><th>Lever</th><th>What this site does</th><th>Engine documentation</th><th>Check it</th></tr></thead>
+<tbody>
+<tr><td>Crawl access</td><td>robots.txt allows every user agent and names the sitemap.</td><td>OpenAI: opting out of OAI-SearchBot removes a site from ChatGPT search answers. Perplexity recommends allowing PerplexityBot. Anthropic: blocking Claude-SearchBot <q>may reduce your site's visibility</q>. Bing lists <q>Blocking Bingbot in your robots.txt file</q> under things to avoid.</td><td><a class="mono" href="/robots.txt">/robots.txt</a></td></tr>
+<tr><td>Sitemap</td><td>447 URLs, each with a lastmod date. The deploy gate fails a push when a page is missing from it.</td><td>Bing: <q>Use XML sitemaps to indicate which URLs matter and when content changes.</q></td><td><a class="mono" href="/sitemap.xml">/sitemap.xml</a>; the gate's check in <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/.github/actions/conformity/run.py">run.py</a></td></tr>
+<tr><td>Canonical URLs</td><td>All 447 pages carry a canonical link. 444 point at themselves; the three pieces cross-posted to Substack point at the Substack copy. The gate fails a page without one.</td><td>Bing: duplicate URLs <q>reduce Bing's confidence in selecting a URL for grounding results or citations</q>. Google asks site owners to reduce duplicate content.</td><td>The page source of any page; <a class="mono" href="/conformity/">gate runs</a></td></tr>
+<tr><td>IndexNow</td><td>An IndexNow key file was added to the site root on 2026-10-02. No script in the repository pings IndexNow; any submission is manual.</td><td>Bing: <q>Use IndexNow to notify Bing when</q> URLs are added, updated or removed. IndexNow is <q>a simple ping so that search engines know that a URL and its content has been added, updated, or deleted</q> (<a class="mono" href="https://www.indexnow.org/">indexnow.org</a>).</td><td><a class="mono" href="/a738b040f4845f81e1a541ccd2b9e05d.txt">the key file</a></td></tr>
+<tr><td>Content in the HTML</td><td>Pages whose lists load in the browser (Inside, the board, Mission Control) carry the same lists as static HTML, written at build time, since commit ac332ff on 2026-10-09.</td><td>Bing lists <q>Hiding critical content behind client-side rendering</q> under things to avoid. Google: <q>Google is able to process content within JavaScript as long as it isn't blocked.</q></td><td><a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/commit/ac332fffccf6cbabcc876cccaceffaade848542c">commit ac332ff</a></td></tr>
+<tr><td>No third-party requests on load</td><td>Fonts and the graph library are served from the site. Opening a page sends no request to a third party; the Grafana frames on Inside load only when the reader scrolls to them.</td><td>Bing lists <q>Excessive or unnecessary HTTP requests to render the content</q> under things to avoid. Google names <q>reducing latency</q> as part of page experience. Neither says third-party requests affect citation.</td><td><a class="mono" href="/inside/docs/eng/adr-0010-no-third-party-requests/">ADR-0010</a></td></tr>
+<tr><td>Structured data (JSON-LD)</td><td>One graph per page, written from the navigation source: Stefan Coetzee as Person with his profiles as sameAs (LinkedIn, Substack, GitHub, X), the site as WebSite with its search as SearchAction, the page as Article, TechArticle, CollectionPage or WebPage with its dates, and a BreadcrumbList. <a class="mono" href="/terms/">Terms</a> and the <a class="mono" href="/continuous-conformity/">definition draft</a> carry a DefinedTermSet with one DefinedTerm per definition, read from the visible text. 446 of 447 pages carry the graph in the repository; the gate rewrites its own page, /conformity/, on every run, and the deploy job adds the graph there.</td><td>Google: <q>Structured data isn't required for generative AI search</q>. Bing: <q>Structured data may support clearer grounding but does not guarantee visibility or grounding traffic.</q> Both require markup to match visible content.</td><td><a class="mono" href="/inside/docs/eng/adr-0027-structured-data/">ADR-0027</a>; the page source; Google's <a class="mono" href="https://search.google.com/test/rich-results">Rich Results Test</a></td></tr>
+<tr><td>Titles and descriptions</td><td>447 of 447 pages carry a title and a meta description.</td><td>Bing: <q>Missing, duplicate, or overly short title tags and meta descriptions may reduce indexing reliability, ranking, and eligibility for grounding results and citations.</q></td><td>The page source of any page</td></tr>
+<tr><td>Defined terms and one name per entity</td><td>On Terms, each term has one canonical definition, in frozen wording. Stefan Coetzee is named as owner on every page, in the page header and in the JSON-LD.</td><td>Bing: <q>Use clear and consistent naming for people, organizations, products, and locations.</q> and <q>Facts and definitions are explicit</q>.</td><td><a class="mono" href="/terms/">/terms/</a></td></tr>
+<tr><td>Answer first</td><td>12 of 16 research and reference pages state their finding or content in the first paragraph; the table below lists each one.</td><td>Bing: <q>Place essential information near the top of the URL</q>. Google asks for sections and clear headings and gives no guidance on placement.</td><td><a class="mono" href="#answer-first">the table below</a></td></tr>
+<tr><td>llms.txt</td><td>A markdown index at the site root, 541 lines on 2026-10-09, with one line per page.</td><td><strong>No primary source.</strong> Google: <q>Google Search ignores them</q>. Bing's guidelines do not mention llms.txt. The proposal, version 2, describes it as information <q>to help agents use a website</q>. An Ahrefs study found that <q>Of the ~38,000 domains with a valid file, 97% saw no requests for it whatsoever in May.</q></td><td><a class="mono" href="/llms.txt">/llms.txt</a>; <a class="mono" href="https://llmstxt.org/">llmstxt.org</a>; <a class="mono" href="https://ahrefs.com/blog/llmstxt-study/">the Ahrefs study</a></td></tr>
+<tr><td>Link graph</td><td>Every page, post, repository and thread across the author's sites, with the links between them, as one JSON file.</td><td><strong>No primary source.</strong></td><td><a class="mono" href="/map/graph.json">/map/graph.json</a>; <a class="mono" href="/map/">the map</a></td></tr>
+<tr><td>Open Graph images</td><td>445 of 447 pages carry og:image and the other Open Graph tags.</td><td><strong>No primary source</strong> among the answer engines. The Open Graph protocol defines og:image as <q>An image URL which should represent your object within the graph</q>, for link previews in social networks.</td><td>The page source; <a class="mono" href="https://ogp.me/">ogp.me</a></td></tr>
+</tbody>
+</table>
+
+<h2 id="answer-first">Answer-first pages</h2>
+<p class="thesis">The test: does the first paragraph under the title state the page's finding, or for a list or reference page, what the page holds? Claude, the model that drafted this page, applied the test on 2026-10-09. It is a reading, not a mechanical check. Whether to write new answer-first pages for target questions is an open decision for the site owner.</p>
+<table>
+<thead><tr><th>Page</th><th>Verdict</th><th>Why</th></tr></thead>
+<tbody>
+<tr><td><a class="mono" href="/">Home</a></td><td>partly</td><td>First paragraph: a tagline. The finding (approval training produces a fawn response, suppressing it produces symptom substitution) comes in the second.</td></tr>
+<tr><td><a class="mono" href="/research/">Research</a></td><td>yes</td><td>First paragraph: what the section contains.</td></tr>
+<tr><td><a class="mono" href="/claims/">Claims ledger</a></td><td>yes</td><td>First paragraph: what the ledger contains, and why refuted claims stay in it.</td></tr>
+<tr><td><a class="mono" href="/experiments/">Experiments</a></td><td>no</td><td>First paragraph: where the data came from. Each result comes further down, under its experiment.</td></tr>
+<tr><td><a class="mono" href="/objections/">Objections register</a></td><td>yes</td><td>First paragraph: what the register contains.</td></tr>
+<tr><td><a class="mono" href="/evidence/">Evidence index</a></td><td>yes</td><td>First paragraph: what the index maps.</td></tr>
+<tr><td><a class="mono" href="/slips/">Slips</a></td><td>yes</td><td>First paragraph: what the log records.</td></tr>
+<tr><td><a class="mono" href="/terms/">Terms</a></td><td>yes</td><td>First paragraph: one definition per term, canonical wording.</td></tr>
+<tr><td><a class="mono" href="/continuous-conformity/">Continuous conformity</a></td><td>yes</td><td>First paragraph: what the 36 requirements test.</td></tr>
+<tr><td><a class="mono" href="/continuous-conformity-self-assessment/">Self-assessment, run 1</a></td><td>partly</td><td>First paragraph: the method. The result comes about 200 words in.</td></tr>
+<tr><td><a class="mono" href="/man/">Man pages</a></td><td>yes</td><td>First paragraph: what the page lists.</td></tr>
+<tr><td><a class="mono" href="/the-cheating-moved/">The cheating moved</a></td><td>partly</td><td>The finding is in the title; the first paragraph lists the contents.</td></tr>
+<tr><td><a class="mono" href="/chaos-engineering-for-behaviour/">Chaos engineering for behaviour</a></td><td>yes</td><td>First sentence: the thesis.</td></tr>
+<tr><td><a class="mono" href="/running-conjobs-for-ai/">Running conjobs for AI</a></td><td>yes</td><td>First paragraph after the subtitle: what the specimen shows, in one paragraph.</td></tr>
+<tr><td><a class="mono" href="/case-12-licence-rule-mid-task/">Case 12</a></td><td>yes</td><td>First paragraph after the subtitle: what the case shows, in one paragraph.</td></tr>
+<tr><td><a class="mono" href="/map/">Map of the Work</a></td><td>yes</td><td>First paragraph: what the graph contains and where its data is.</td></tr>
+</tbody>
+</table>
+
+<h2 id="how-the-counts-were-taken">How the counts were taken</h2>
+<ul>
+<li>Pages: every <code>index.html</code> in the repository, outside vendored and generated tool folders.</li>
+<li>Canonical, description and Open Graph counts: one regular expression per tag over each page's source.</li>
+<li>JSON-LD: every <code>application/ld+json</code> block parsed as JSON and walked for its <code>@type</code> values.</li>
+<li>Sitemap: the number of <code>&lt;loc&gt;</code> entries in <code>sitemap.xml</code>. llms.txt: its line count.</li>
+</ul>
+
+<h2 id="changelog">Changelog</h2>
+<ul>
+<li><strong>v1, 2026-10-09:</strong> first version.</li>
+</ul>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+<!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/aieo/this-site/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/aieo/this-site/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Faieo%2Fthis-site%2F%3A%20">Report an issue</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
+</body>
+</html>
