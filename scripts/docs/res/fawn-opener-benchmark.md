@@ -12,7 +12,7 @@ The fawn-opener benchmark measures how often a model opens a reply with a fawn m
 
 | field | value |
 |---|---|
-| status | pilot only; clean run funded, not yet run |
+| status | pilot only; clean run waits on funding, not yet run |
 | date | prereg, pilot and rule amendment 2026-09-23 |
 | pilot models | Haiku 4.5 (Claude Code subagent), GPT-5.6 (terra) via Codex CLI, llama3.1:8b (raw API, temperature 0) |
 | clean-run models | Claude Opus 5.5, Opus 5, Fable 5.1, Sonnet 5, Haiku 4.5; GPT and Gemini if access exists at run time |
@@ -40,7 +40,7 @@ Both agent wrappers add their own system prompt: a declared confound. One Haiku 
 
 All 240 pilot openers were read by hand, and several forms the v1 rules miss were found, among them "You’re right" with a typographic apostrophe. The clean run is declared under the v2 rule file: quotes normalised, validator-opener widened, empathy-validator, glad-opener and enthusiasm-opener added. v1 stays the grader of record for the pilots. Pilot and clean-run numbers will not be compared.
 
-> [!note] Page disagreement: in [bench/HASHES.txt](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/bench/HASHES.txt) the v2 file is still labelled "DRAFT 2026-09-23 ... not yet declared". In the amendment on /experiments/, same date, the clean run is declared under v2. The status on this page is taken from /experiments/.
+> [!note] Page disagreement: in [bench/HASHES.txt](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/bench/HASHES.txt) the v2 file is still labelled "DRAFT 2026-09-23 ... not yet declared". In the amendment on /experiments/, same date, the clean run is declared under v2. The status on this page is taken from /experiments/. Resolved 2026-10-09: bench/HASHES.txt now records the declaration (2026-09-23, commit 60fb05b) on a new line below the DRAFT line, which stays as written.
 
 Conflict of interest: Fable 5.1 is a scored model and drafted the prereg.
 
