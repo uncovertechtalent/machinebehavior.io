@@ -39,3 +39,7 @@ Code, blockquotes, `<q>`, spans with class `mono` and text inside double quotes.
 ## Ownership and false positives
 
 The legislation-track session owns the gate; Stefan Coetzee decides tier changes. A false positive is never fixed by editing the rule table in the site repository. Record the page, line and rule with the owner; rewriting the sentence unblocks the deploy in the meantime. See [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
+
+## Sites that share the gate
+
+tychat.io and uncovertechtalent.com run this gate pinned to a commit of main. A change to `.github/actions/conformity/`, an engine fix included, reaches them only when the gate owner bumps that commit in both repositories. Dependabot does not propose the bump, because this repository has no release tags. The bump step is in `conformity/README.md`.
