@@ -16,7 +16,7 @@ type: how-to
 
 The only path to the live site is a push to `main` that passes the gate ([Deploy pipeline](doc:eng/deploy-pipeline)), and changes reach `main` through pull requests ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A rollback is therefore a revert pull request that undoes the bad commit, and it goes through the same check, gate and deploy as any other change.
 
-Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` by name (`ref: main`), so a re-run, or a run started by hand, deploys the current `main`. There is no way in the workflow to redeploy an earlier build.
+Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` on every run except a pull request run, so a re-run, or a run started by hand, deploys the current `main`. There is no way in the workflow to redeploy an earlier build.
 
 ## Steps
 

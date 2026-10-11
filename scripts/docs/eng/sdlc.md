@@ -62,18 +62,17 @@ Commit subjects should name the issue (`#123`) or the decision (`ADR-0007`). Com
 |---|---|---|
 | Unit | None yet for the generators in `scripts/` | Nowhere |
 | Build checks | `scripts/build_docs.py` stops on a malformed date, an unknown page type, an unknown `doc:` link, or decision records that disagree | Locally, when the docs are built |
-| Gate | Blocking rule hits, placeholders, prediction hashes, site consistency, page labels, the vendored rule table | Locally as a dry run; in the workflow on every push to `main` |
+| Gate | Blocking rule hits, placeholders, prediction hashes, site consistency, page labels, the vendored rule table | Locally as a dry run; in the workflow on every pull request to `main` and every push to `main` |
 | Smoke | None after a deploy. The status page reads each site's `/conformity/latest.json` in the visitor's browser and shows a site that does not answer as an outage | Nowhere in the pipeline |
 
 Before pushing a branch, run:
 
 ```bash
 git fetch origin && git rebase origin/main
-python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json \
-  --requirements conformity/requirements.json --out conformity --dry-run
+python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run
 ```
 
-Push the branch only when the dry run prints `overall=pass`. In a script, compare the value; a `grep` for `overall=` succeeds on a failing run too. The same checks run on the pull request before the merge.
+Push the branch only when the dry run prints `overall=pass`. In a script, compare the value; a `grep` for `overall=` succeeds on a failing run too. The same checks run on the pull request before the merge. The one-line form matches the allow rule in the shared agent settings.
 
 ## Release and rollback
 

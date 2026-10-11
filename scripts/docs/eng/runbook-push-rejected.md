@@ -1,5 +1,5 @@
 title: Push rejected
-summary: A push to main is rejected because changes reach main through pull requests; a branch push is rejected when the branch is behind. Open a pull request, or rebase the branch.
+summary: A push to main is rejected because changes reach main through pull requests; open a pull request. A push to your branch is rejected after a rebase; push it with --force-with-lease.
 parent: runbooks
 order: 20
 labels: runbook, git

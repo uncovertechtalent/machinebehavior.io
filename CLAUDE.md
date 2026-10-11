@@ -11,7 +11,7 @@ Static site on GitHub Pages, deployed by `.github/workflows/conformity.yml`. Sev
 5. Run `/sdlc:change-review` on the pull request and put the review in its description.
 6. Merge only on Stefan Coetzee's explicit go in this session; otherwise he merges.
 
-Never push to `main`. Two automated writers do, each with its own deploy key: conformity-bot (`conformity/latest.json` and `conformity/index.html` after every run, `[skip ci]`) and the weekly decision-layer probe record. So `main` moves without you: rebase the branch on `origin/main` when it falls behind. Never name hosts or addresses here; the repo is public.
+Never push to `main`. Two automated writers do, each with its own deploy key: conformity-bot (`conformity/latest.json` and `conformity/index.html` after every run, `[skip ci]`) and the weekly decision-layer probe record. So `main` moves without you; the merge does not need an up-to-date branch, so rebase on `origin/main` only when GitHub reports a conflict. Never name hosts or addresses here; the repo is public.
 
 ## The deploy gate
 

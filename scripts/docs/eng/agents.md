@@ -23,7 +23,7 @@ Every agent session in this repository starts from the same shared setup in git.
 ## Permissions
 
 - Allowed without asking: the gate dry run as written in `CLAUDE.md`, `git status`, `git diff`, `git log`, `gh pr view`, `gh pr diff`, `gh pr checks`, `gh run view`.
-- Asked every time: `gh pr merge`, the review step. Claude Code asks on a matching ask rule in every permission mode, the bypass mode included. Pushing a branch and opening a pull request need no question, because the branch rules on `main` reject a direct push.
+- Asked every time: `gh pr merge`, the review step. Claude Code asks on a matching ask rule in every permission mode, the bypass mode included. Pushing a branch and opening a pull request have no rule in the shared settings and follow the session's permission mode; the branch rules on `main` reject a direct push.
 - Denied: reading or editing `.env` files and the `secrets/` folder.
 - Never in the shared settings: a rule that allows every shell command or every fetch, or the bypass mode.
 
