@@ -9,10 +9,11 @@ shells out to node (scan-runner.js next to this file).
 Usage:
   run.py --root <site root> --config <site-tier.json> --requirements <requirements.json>
          --out <dir for latest.json, index.html, runs/> [--trigger push|schedule|workflow_dispatch|manual]
-         [--git-dir <repo>] [--sha <commit>] [--runner <image>] [--dry-run]
-Exit codes: 0 written (overall in <out>/.result), 3 internal error, 4 placeholder gate.
+         [--git-dir <repo>] [--sha <commit>] [--runner <image>] [--dry-run [--private-terms <file>]]
+Exit codes: 0 written (overall in <out>/.result), 1 private.terms hits (dry run with --private-terms),
+2 --private-terms without --dry-run, 3 internal error, 4 placeholder gate.
 """
-import argparse, datetime, hashlib, html, json, os, platform, re, subprocess, sys, uuid
+import argparse, datetime, fnmatch, hashlib, html, json, os, platform, re, subprocess, sys, uuid
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -377,10 +378,25 @@ def check_fixtures():
             fails.append(f"{it['id']}: expected an owner outside the allowlist {it['allow']}; got none")
         elif it["expect"] == "miss" and outside:
             fails.append(f"{it['id']}: known-pass reference outside the allowlist {it['allow']}: {outside}")
+    tf = HERE / "fixtures-private-terms.jsonl"
+    pts = [json.loads(line) for line in tf.read_text().splitlines() if line.strip()] if tf.exists() else []
+    for it in pts:
+        terms = pt_terms(it["terms"])
+        entries, no_reason = pt_allow(it.get("allow", ""))
+        h, _ = pt_scan(it["path"], it["text"], terms, entries)
+        rules = sorted({x["rule"] for x in h} | ({"allow-without-reason"} if no_reason else set()))
+        shown = " ".join(x["file"] + " " + x["snippet"] for x in h)
+        if it["expect"] == "hit" and it["rule"] not in rules:
+            fails.append(f"{it['id']}: expected private-terms {it['rule']}; got {rules or 'nothing'}")
+        elif it["expect"] == "miss" and rules:
+            fails.append(f"{it['id']}: known-pass text hit private-terms {rules}")
+        if pt_find(shown, terms):
+            fails.append(f"{it['id']}: a hit shows the term")
     n_slips = sum(1 for it in items if it["expect"] == "slip")
     detail = (f"{len(items)} rule-table fixtures: {sum(it['expect']=='hit' for it in items)} known-fail (one per rule), {sum(it['expect']=='miss' for it in items)} known-pass; "
               f"{len(pins)} actions-pinned fixtures: {sum(it['expect']=='hit' for it in pins)} known-fail, {sum(it['expect']=='miss' for it in pins)} known-pass; "
-              f"{len(owns)} actions-owners fixtures: {sum(it['expect']=='hit' for it in owns)} known-fail, {sum(it['expect']=='miss' for it in owns)} known-pass; {len(fails)} failures")
+              f"{len(owns)} actions-owners fixtures: {sum(it['expect']=='hit' for it in owns)} known-fail, {sum(it['expect']=='miss' for it in owns)} known-pass; "
+              f"{len(pts)} private-terms fixtures (made-up terms): {sum(it['expect']=='hit' for it in pts)} known-fail, {sum(it['expect']=='miss' for it in pts)} known-pass; {len(fails)} failures")
     if n_slips:
         detail += f". Of {n_slips} logged slips (before text), the rule table catches {len(caught)}; {len(outside)} are outside its reach (stance and mode-leak devices: the lexical grader's blind spot, by design)"
     return {"result": "pass" if not fails else "fail", "detail": detail, "evidence": fails + [f"caught by the rule table: {c}" for c in caught[:10]], "hits": [{"file": "fixtures", "snippet": f} for f in fails]}
@@ -466,6 +482,137 @@ def check_actions_owners():
             "detail": f"{tier} tier: {len(refs)} external references from {len(owners)} owners ({', '.join(owners) or 'none'}); allowlist: {', '.join(allow) or 'empty'}; {len(hits)} from outside the allowlist. "
                       "A supply-chain control outside the scope of draft 0.3, so no requirement row lists it; nearest framework clause NIST CSF 2.0 GV.SC",
             "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits], "hits": hits}
+
+
+# Same rule as security.private-terms in the CTO powersuit (plugins/security/checks/private_terms.py). The term list (names of
+# prospective employers, internal shorthand, family references, private hosts) stays on the owner's machine, outside every
+# repository, so this check runs only in a dry run with --private-terms <file>: never in CI, never on the public page. A
+# public repository publishes a pushed commit before CI runs, so the owner's pre-push hook is the check that stops a term;
+# this dry run reads the tree and the built pages. Hits show the file, the line and the term's label, never the term.
+PT_LABEL = re.compile(r"^([A-Za-z0-9][A-Za-z0-9_.-]*)\s+=\s+(\S.*)$")
+PT_TAG = re.compile(r"<[^>]*>")
+PT_INVISIBLE = re.compile("[\u00ad\u200b-\u200d\u2060\ufeff]")  # soft hyphen and zero-width characters split no word for a reader
+PT_MARKUP = (".html", ".htm", ".xhtml", ".xml", ".svg")
+PT_ALLOW = ".private-terms-allow"
+
+
+def pt_terms(text):
+    """[(label, regex)] from the list: a term, "label = term", or "label = re:expression" per line; # starts a comment.
+    A literal term matches without case, on word boundaries, with any run of whitespace between its words. Errors name the line only."""
+    terms, seen = [], set()
+    for n, raw in enumerate(text.splitlines(), 1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        m = PT_LABEL.match(line)
+        label, body = (m.group(1), m.group(2).strip()) if m else (f"line{n}", line)
+        if label in seen:
+            raise ValueError(f"term list line {n}: label {label} is used twice")
+        seen.add(label)
+        if body.startswith("re:"):
+            core, head, tail = "(?:" + body[3:].strip() + ")", True, True
+        else:
+            words = body.split()
+            core = r"\s+".join(re.escape(w) for w in words)
+            head, tail = bool(re.match(r"\w", words[0])), bool(re.search(r"\w$", words[-1]))
+        try:
+            rx = re.compile(("(?<!\\w)" if head else "") + core + ("(?!\\w)" if tail else ""), re.I)
+        except re.error:
+            raise ValueError(f"term list line {n}: invalid regular expression") from None
+        if rx.search(""):
+            raise ValueError(f"term list line {n}: the expression matches an empty string")
+        terms.append((label, rx))
+    return terms
+
+
+def pt_allow(text):
+    """Allow entries "<path glob> <label or *> <reason>", and the line numbers of entries without a reason."""
+    entries, no_reason = [], []
+    for n, raw in enumerate(text.splitlines(), 1):
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split(None, 2)
+        if len(parts) < 3:
+            no_reason.append(n)
+        else:
+            entries.append({"glob": parts[0], "label": parts[1], "line": n, "used": 0})
+    return entries, no_reason
+
+
+def pt_find(text, terms):
+    """{(line, label)} for every match, read without invisible characters."""
+    import bisect
+    text = PT_INVISIBLE.sub("", text)
+    starts = [0] + [m.end() for m in re.finditer("\n", text)]
+    return {(bisect.bisect_right(starts, m.start()), label) for label, rx in terms for m in rx.finditer(text) if m.end() > m.start()}
+
+
+def pt_scan(rel, text, terms, entries):
+    """(hits, allowed) for one file: its name, and its text; markup also as a reader sees it (tags removed, entities decoded)."""
+    found = [(None, label, "private-term-in-path") for _, label in pt_find(rel, terms)]
+    if text is not None:
+        lines = pt_find(text, terms)
+        if rel.lower().endswith(PT_MARKUP) and ("<" in text or "&" in text):
+            bare = PT_TAG.sub(lambda m: "\n" * m.group(0).count("\n"), text)
+            lines |= pt_find("\n".join(html.unescape(x).replace("\n", " ") for x in bare.split("\n")), terms)
+        found += [(n, label, "private-term") for n, label in sorted(lines)]
+    shown = rel
+    for _, rx in terms:
+        shown = rx.sub("****", shown)
+    hits, allowed = [], 0
+    for n, label, rule in found:
+        e = next((e for e in entries if e["label"] in ("*", label) and fnmatch.fnmatchcase(rel, e["glob"])), None)
+        if e:
+            e["used"] += 1
+            allowed += 1
+        else:
+            where = "file name" if rule == "private-term-in-path" else "text"
+            hits.append({"file": shown, "line": n, "rule": rule, "snippet": f"private term {label} **** in the {where}"})
+    return hits, allowed
+
+
+def check_private_terms():
+    """Tracked files of --git-dir, their names, and the published files under --root carry no term from the owner's private list."""
+    repo = Path(ARGS.git_dir or ".").resolve()
+    path = Path(os.path.expanduser(ARGS.private_terms)).resolve()
+    fail = lambda d: {"result": "fail", "detail": d, "evidence": [], "hits": [{"file": "--private-terms", "snippet": d}]}
+    if not path.is_file():
+        return fail(f"no term list at {path}")
+    if any(path == r or r in path.parents for r in (repo, ROOT)):
+        return fail("the term list is inside the scanned tree; keep it outside every repository")
+    try:
+        terms = pt_terms(path.read_text(encoding="utf-8", errors="replace"))
+    except ValueError as e:
+        return fail(str(e))
+    if not terms:
+        return {"result": "n/a", "detail": "the term list has no terms yet", "evidence": [], "hits": []}
+    allow_file = repo / PT_ALLOW
+    entries, no_reason = pt_allow(allow_file.read_text(encoding="utf-8", errors="replace") if allow_file.is_file() else "")
+    hits = [{"file": PT_ALLOW, "line": n, "rule": "allow-without-reason", "snippet": "allow entry without a reason; every entry needs a path glob, a label and a reason"} for n in no_reason]
+    names = subprocess.run(["git", "-C", str(repo), "-c", "core.quotepath=off", "ls-files", "-z"], capture_output=True).stdout.decode("utf-8", "replace").split("\0")
+    files = {(repo / n).resolve() for n in names if n}
+    if ROOT != repo:  # a build output: every file the deploy publishes
+        files |= {p.resolve() for p in ROOT.rglob("*") if p.is_file() and not any(x.startswith(".") for x in p.relative_to(ROOT).parts)}
+    read = allowed = 0
+    for p in sorted(files):
+        if not p.is_file() or p == allow_file:
+            continue
+        r = os.path.relpath(p, repo)
+        data = p.read_bytes() if p.stat().st_size <= 2000000 else b"\0"
+        text = None if b"\0" in data[:8000] else data.decode("utf-8", errors="replace")
+        read += text is not None
+        h, a = pt_scan(r, text, terms, entries)
+        hits += h
+        allowed += a
+    unused = [str(e["line"]) for e in entries if not e["used"]]
+    unknown = [str(e["line"]) for e in entries if e["label"] != "*" and e["label"] not in {label for label, _ in terms}]
+    detail = (f"dry run on the owner's machine: {len(terms)} terms, {read} text files read (tracked files of {repo.name}"
+              f"{', plus the build output' if ROOT != repo else ''}), {len(hits)} hits, {allowed} allowed by {PT_ALLOW}")
+    detail += f"; allow entries that matched nothing: lines {', '.join(unused)}" if unused else ""
+    detail += f"; allow entries with a label not in the list: lines {', '.join(unknown)}" if unknown else ""
+    return {"result": "pass" if not hits else "fail", "detail": detail,
+            "evidence": [f"{h['file']}{':' + str(h['line']) if h['line'] else ''} {h['snippet']}" for h in hits], "hits": hits}
 
 
 def check_closure(findings):
@@ -692,7 +839,10 @@ def main():
     ap.add_argument("--sha", default=None)
     ap.add_argument("--runner", default=platform.platform())
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--private-terms", default=None, metavar="FILE", help="dry run only: the owner's private term list, kept outside every repository; adds the check private.terms")
     ARGS = ap.parse_args()
+    if ARGS.private_terms and not ARGS.dry_run:
+        print("run.py: --private-terms works with --dry-run only; a run that writes would publish where the hits are", file=sys.stderr); sys.exit(2)
     ROOT = Path(ARGS.root).resolve(); OUT = Path(ARGS.out).resolve()
     REQ = json.loads(Path(ARGS.requirements).read_text()); SITE = json.loads(Path(ARGS.config).read_text())
     PLACEHOLDER = re.compile(SITE["placeholder_pattern"], re.I)
@@ -707,6 +857,8 @@ def main():
     checks["components"] = check_components()
     checks["actions.pinned"] = check_actions_pinned()
     checks["actions.owners"] = check_actions_owners()
+    if ARGS.private_terms:
+        checks["private.terms"] = check_private_terms()
     checks["trigger.push"], checks["deploy.gated"], checks["trigger.schedule"] = check_triggers(latest["history"])
     checks["page.label"] = check_page_label()
     checks["requirements.marks"] = check_marks()
@@ -760,7 +912,10 @@ def main():
                 print(f"  FAIL {cid}: {c['detail']}")
                 for e in c["evidence"][:30]:
                     print(f"       {e}")
-        print("dry run: nothing written"); return
+        print("dry run: nothing written")
+        if ARGS.private_terms and checks["private.terms"]["result"] == "fail":
+            sys.exit(1)
+        return
     OUT.mkdir(parents=True, exist_ok=True); (OUT / "runs").mkdir(exist_ok=True)
     (OUT / "runs" / f"{TS.replace(':', '')}.json").write_text(json.dumps(record, indent=1))
     latest_path.write_text(json.dumps(latest, indent=1))
