@@ -37,7 +37,7 @@ runs:
       run: |
         python3 "${{ github.action_path }}/run.py" --root "${{ inputs.root }}" --config "${{ inputs.config }}" --requirements "${{ inputs.requirements }}" --out "${{ inputs.out }}" --git-dir "${{ inputs['git-dir'] }}" --trigger "${{ inputs.trigger }}" --sha "${{ inputs.sha }}" --runner "${{ inputs.runner }}"
     - name: Upload the run record
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: conformity-run-${{ github.run_id }}
         path: ${{ inputs.out }}/runs/*.json
