@@ -22,6 +22,14 @@ The conformity gate is a set of mechanical checks run by `.github/actions/confor
 | `actions.pinned` | A workflow or composite action under `.github/` references an outside action by tag, branch or short SHA, or a Docker image by tag; a commit SHA cannot be moved to other code |
 | `actions.owners` | An outside action, reusable workflow or Docker image comes from an owner outside `actions_owners_allow` in `site-tier.json`; a pinned commit from a lookalike repository still passes `actions.pinned` |
 
+## Local check (dry run only)
+
+| Check | Fails when |
+|---|---|
+| `private.terms` | A tracked file, a file name or a published file of the build output carries a term from the owner's private term list: names of prospective employers or clients, internal shorthand, family names in business copy, private hosts and addresses |
+
+The term list stays on the owner's machine, outside every repository, so this check runs only in a dry run with `--private-terms <file>`, never in CI, and never appears on [/conformity/](/conformity/). A pushed commit is public before CI runs; the owner's pre-push hook from the CTO powersuit (`security.private-terms`) is what stops a term before it leaves the machine. Hits show the file, the line and the term's label, never the term. Intended mentions go into `.private-terms-allow` at the repository root: a path glob, a label, and a reason. The matcher runs on every CI run against made-up terms in `fixtures-private-terms.jsonl`, through `grader.fixtures`.
+
 ## Warnings (never block)
 
 - `praise-opener` rule hits.

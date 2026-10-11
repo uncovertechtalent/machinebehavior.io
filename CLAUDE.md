@@ -23,6 +23,8 @@ Blocking (deploy stops): rule hits in the blocking tier (`service-closer`, `fill
 
 Warning (logged, never blocks): `praise-opener` hits, a page missing from `llms.txt`.
 
+Private terms (names of prospective employers or clients, internal shorthand, family names in business copy, private hosts) never go into this public repository, its commits or its pages. The list stays on the owner's machine; the check `private.terms` runs only in a dry run with `--private-terms <file>` (command in `conformity/README.md`), and the owner's pre-push hook stops a push that adds a term. Never write a term into a file, commit, issue or pull request to test the check: the fixtures use made-up terms.
+
 Exempt from the rule scan: code, blockquotes, `<q>`, spans with class `mono`, text inside double quotes. Quote a vestige; do not use it.
 
 Check locally before pushing the branch (Python 3 and Node, no network):
