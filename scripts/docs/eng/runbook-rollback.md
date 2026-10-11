@@ -62,4 +62,4 @@ Each of these steps may fail without failing the job, so a green deploy does not
 
 ## Time
 
-No rollback has been timed. The one recorded fix-forward, the blocked deploy of 2026-10-08, took 81 seconds from the failed run to the passing run.
+No rollback has been timed. The one recorded fix-forward, the blocked deploy of 2026-10-08, took 76 seconds from the start of the failed run to the start of the passing run.
