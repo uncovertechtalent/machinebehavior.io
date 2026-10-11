@@ -1,5 +1,5 @@
 title: Conformity gate
-summary: The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes and site consistency, with warnings logged.
+summary: The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes, site consistency and pinned actions, with warnings logged.
 order: 30
 labels: conformity, gate, quality
 owner: Stefan Coetzee
@@ -19,6 +19,7 @@ The conformity gate is a set of mechanical checks run by `.github/actions/confor
 | `site.consistency` | A page is missing from `sitemap.xml`, has no canonical link, or links internally with a relative or `.html` path |
 | `page.label` | A page says self-assessment near the top without the words "not a certification" |
 | `components` | The vendored rule table differs from the sha256 recorded in the site configuration |
+| `actions.pinned` | A workflow or composite action under `.github/` references an outside action by tag, branch or short SHA, or a Docker image by tag; a commit SHA cannot be moved to other code |
 
 ## Warnings (never block)
 
@@ -38,3 +39,7 @@ Code, blockquotes, `<q>`, spans with class `mono` and text inside double quotes.
 ## Ownership and false positives
 
 The legislation-track session owns the gate; Stefan Coetzee decides tier changes. A false positive is never fixed by editing the rule table in the site repository. Record the page, line and rule with the owner; rewriting the sentence unblocks the deploy in the meantime. See [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
+
+## Sites that share the gate
+
+tychat.io and uncovertechtalent.com run this gate pinned to a commit of main. A change to `.github/actions/conformity/`, an engine fix included, reaches them only when the gate owner bumps that commit in both repositories. Dependabot does not propose the bump, because this repository has no release tags. The bump step is in `conformity/README.md`.

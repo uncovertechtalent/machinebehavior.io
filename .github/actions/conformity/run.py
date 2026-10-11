@@ -9,7 +9,7 @@ shells out to node (scan-runner.js next to this file).
 Usage:
   run.py --root <site root> --config <site-tier.json> --requirements <requirements.json>
          --out <dir for latest.json, index.html, runs/> [--trigger push|schedule|workflow_dispatch|manual]
-         [--sha <commit>] [--runner <image>] [--dry-run]
+         [--git-dir <repo>] [--sha <commit>] [--runner <image>] [--dry-run]
 Exit codes: 0 written (overall in <out>/.result), 3 internal error, 4 placeholder gate.
 """
 import argparse, datetime, hashlib, html, json, os, platform, re, subprocess, sys, uuid
@@ -361,11 +361,67 @@ def check_fixtures():
             fails.append(f"{it['id']}: known-pass text hit blocking rule(s) {sorted(x['rule'] for x in blockers)} ({it['source']})")
         elif it["expect"] == "slip":
             (caught if names else outside).append(it["id"] + (f" [{', '.join(sorted(names))}]" if names else ""))
+    pf = HERE / "fixtures-actions-pinned.jsonl"
+    pins = [json.loads(line) for line in pf.read_text().splitlines() if line.strip()] if pf.exists() else []
+    for it in pins:
+        kinds = sorted({k for _, _, k in pin_refs(it["text"]) if k})
+        if it["expect"] == "hit" and it["rule"] not in kinds:
+            fails.append(f"{it['id']}: expected actions-pinned kind {it['rule']}; got {kinds or 'nothing'}")
+        elif it["expect"] == "miss" and kinds:
+            fails.append(f"{it['id']}: known-pass reference hit actions-pinned kind(s) {kinds}")
     n_slips = sum(1 for it in items if it["expect"] == "slip")
-    detail = f"{len(items)} fixtures: {sum(it['expect']=='hit' for it in items)} known-fail (one per rule), {sum(it['expect']=='miss' for it in items)} known-pass; {len(fails)} failures"
+    detail = (f"{len(items)} rule-table fixtures: {sum(it['expect']=='hit' for it in items)} known-fail (one per rule), {sum(it['expect']=='miss' for it in items)} known-pass; "
+              f"{len(pins)} actions-pinned fixtures: {sum(it['expect']=='hit' for it in pins)} known-fail, {sum(it['expect']=='miss' for it in pins)} known-pass; {len(fails)} failures")
     if n_slips:
         detail += f". Of {n_slips} logged slips (before text), the rule table catches {len(caught)}; {len(outside)} are outside its reach (stance and mode-leak devices: the lexical grader's blind spot, by design)"
     return {"result": "pass" if not fails else "fail", "detail": detail, "evidence": fails + [f"caught by the rule table: {c}" for c in caught[:10]], "hits": [{"file": "fixtures", "snippet": f} for f in fails]}
+
+
+# Same rule as gate.actions-pinned in the CTO powersuit (plugins/gate/checks/actions_pinned.py): a tag or a branch can be
+# moved to other code, a commit SHA cannot. Local actions (./...) are exempt.
+USES = re.compile(r"""(?:^\s*(?:-\s+)?|[{,]\s*)uses\s*:\s*(['"]?)(?P<ref>[^'"\s#,}]+)\1""")
+PIN_GLOBS = [".github/workflows/*.yml", ".github/workflows/*.yaml", ".github/actions/**/action.yml", ".github/actions/**/action.yaml", "action.yml", "action.yaml"]
+PIN_MESSAGE = {"tag-or-branch": "referenced by tag or branch; pin a full commit SHA", "short-sha": "short commit SHA; pin the full 40-character SHA",
+               "no-ref": "no ref; pin a full commit SHA", "docker-tag": "image referenced by tag; pin a sha256 digest"}
+
+
+def pin_kind(ref):
+    if ref.startswith("docker://"):
+        return None if re.search(r"@sha256:[0-9a-f]{64}$", ref) else "docker-tag"
+    _, at, version = ref.rpartition("@")
+    if not at:
+        return "no-ref"
+    if re.fullmatch(r"[0-9a-f]{40}", version):
+        return None
+    return "short-sha" if re.fullmatch(r"[0-9a-f]{7,39}", version) else "tag-or-branch"
+
+
+def pin_refs(text, allow=()):
+    """(line, ref, kind) for each external uses: reference; kind is None when the reference is pinned."""
+    out = []
+    for n, line in enumerate(text.splitlines(), 1):
+        if line.lstrip().startswith("#"):
+            continue
+        for m in USES.finditer(line):
+            ref = m.group("ref")
+            if not ref.startswith(("./", "../") + tuple(allow)):
+                out.append((n, ref, pin_kind(ref)))
+    return out
+
+
+def check_actions_pinned():
+    """Workflows and composite actions of the repository (--git-dir, default the current directory; never --root, which can
+    be a build output) reference every outside action by a full commit SHA and every Docker image by a sha256 digest."""
+    tier = SITE["tiers"].get("actions-pinned", "block")
+    repo = Path(ARGS.git_dir or ".").resolve()
+    files = sorted({f for g in PIN_GLOBS for f in repo.glob(g) if f.is_file()})
+    if tier == "off" or not files:
+        return {"result": "n/a", "detail": "actions-pinned tier off" if tier == "off" else f"no workflow or action files under {repo.name}/.github", "evidence": [], "hits": []}
+    refs = [(os.path.relpath(f, repo), ln, ref, kind) for f in files for ln, ref, kind in pin_refs(f.read_text(errors="replace"), SITE.get("actions_pinned_allow", []))]
+    hits = [{"file": f, "line": ln, "rule": kind, "snippet": f"{ref}: {PIN_MESSAGE[kind]}"} for f, ln, ref, kind in refs if kind]
+    return {"result": "pass" if not hits else ("fail" if tier == "block" else "warn"),
+            "detail": f"{tier} tier: {len(files)} workflow and action files, {len(refs)} external references, {len(hits)} not pinned to a commit SHA or image digest; a pinned reference names the exact action code each run used",
+            "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits] + [f"{f}:{ln} {ref}" for f, ln, ref, kind in refs if not kind], "hits": hits}
 
 
 def check_closure(findings):
@@ -587,7 +643,7 @@ def main():
     ap.add_argument("--config", required=True)
     ap.add_argument("--requirements", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--git-dir", default=None, help="repo dir for commit metadata when --root is a build output")
+    ap.add_argument("--git-dir", default=None, help="repo dir for commit metadata when --root is a build output; actions.pinned reads its .github (default: current directory)")
     ap.add_argument("--trigger", default="manual")
     ap.add_argument("--sha", default=None)
     ap.add_argument("--runner", default=platform.platform())
@@ -605,6 +661,7 @@ def main():
     checks["predictions.hashes"] = check_predictions()
     checks["site.consistency"] = check_site_consistency()
     checks["components"] = check_components()
+    checks["actions.pinned"] = check_actions_pinned()
     checks["trigger.push"], checks["deploy.gated"], checks["trigger.schedule"] = check_triggers(latest["history"])
     checks["page.label"] = check_page_label()
     checks["requirements.marks"] = check_marks()
