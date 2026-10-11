@@ -3,7 +3,7 @@
  "owner": "Stefan Coetzee",
  "deploy_gated": true,
  "deploy_gated_since": "2026-10-07",
- "deploy_gated_note": "GitHub Pages source set to GitHub Actions on 2026-10-07; the deploy job runs only after the conformity job passes (conformity.yml).",
+ "deploy_gated_note": "GitHub Pages source set to GitHub Actions on 2026-10-07; the deploy job runs only after the conformity job passes (conformity.yml). Since 2026-10-11 12:28 UTC a branch ruleset on main (ruleset 24879349, ADR-0029) also requires a pull request whose Conformity checks pass before any change reaches main; only the deploy keys of the conformity bot and the weekly probe record push directly. Known gap, recorded in ADR-0029: a pull request that edits the gate runs its own edited gate.",
  "schedule": {
   "cron": "17 6 * * 1",
   "interval_days": 7,
@@ -137,5 +137,6 @@
   "script": "scripts/site_chrome.py",
   "tier": "warn",
   "decided": "Stefan, 2026-10-09: warn tier for all four (chrome blocks, orphans, breadcrumb JSON-LD, colours outside tokens)"
- }
+ },
+ "required_pr_check_since": "2026-10-11T12:28Z"
 }
