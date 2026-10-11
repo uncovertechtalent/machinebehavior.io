@@ -93,16 +93,18 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0026-mission-control/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0028-home-page-portal-front/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/decision-log/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/docs-tree/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/docs-tree/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/inside-portal/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/map-crawler/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-rollback/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-template-href/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbooks/</loc><lastmod>2026-10-11</lastmod></url>

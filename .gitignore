@@ -4,3 +4,5 @@ conformity/runs/
 conformity/.result
 inside/deploys.json
 inside/board/issues.json
+.claude/settings.local.json
+.env*

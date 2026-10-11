@@ -89,7 +89,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (396 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (398 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -124,6 +124,8 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (396 pages). S
 - [ADR-0026: Mission Control, the live operations view inside the portal](https://machinebehavior.io/inside/docs/eng/adr-0026-mission-control/)
 - [ADR-0027: Structured data on every page from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/)
 - [ADR-0028: The home page as the front page of the portal](https://machinebehavior.io/inside/docs/eng/adr-0028-home-page-portal-front/)
+- [ADR-0029: Changes reach main through pull requests](https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/)
+- [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
 - [Conformity gate](https://machinebehavior.io/inside/docs/eng/conformity-gate/)
@@ -133,7 +135,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (396 pages). S
 - [Inside portal](https://machinebehavior.io/inside/docs/eng/inside-portal/)
 - [Map crawler](https://machinebehavior.io/inside/docs/eng/map-crawler/)
 - [Gate blocked a deploy](https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/)
-- [Push rejected after a deploy](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
+- [Push rejected](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
 - [Roll back a deploy](https://machinebehavior.io/inside/docs/eng/runbook-rollback/)
 - [Link check flags a template string](https://machinebehavior.io/inside/docs/eng/runbook-template-href/)
 - [Engineering runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
