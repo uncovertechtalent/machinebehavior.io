@@ -20,6 +20,7 @@ type: how-to
    - `rules.blocking`: rewrite the sentence. If the hit is a false positive, record it with the gate owner as well.
    - `predictions.hashes`: a hashed prediction changed. Restore the file; predictions are never edited after hashing.
    - `actions.pinned`: pin the reference. `gh api repos/<owner>/<repo>/commits/<tag> --jq .sha` gives the commit; write `uses: <owner>/<repo>@<sha> # <release>`.
+   - `actions.owners`: check that the repository is the one you meant (a lookalike owner is the reason this check exists). Replace it, or add the owner to `actions_owners_allow` in `conformity/site-tier.json` in its own pull request.
 4. Run the dry run until it prints `overall=pass`, then `git pull --rebase` and push.
 
 > [!warning] A chained command such as `grep -o 'overall=[a-z]*' && git push` pushes on a failing run, because `grep` succeeds on `overall=fail`. Compare the value: `[ "$R0" = "overall=pass" ] && git push`. This happened on 2026-10-08; the gate blocked the deploy.

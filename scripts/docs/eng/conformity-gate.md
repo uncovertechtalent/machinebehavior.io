@@ -1,5 +1,5 @@
 title: Conformity gate
-summary: The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes, site consistency and pinned actions, with warnings logged.
+summary: The checks every page passes before a deploy: blocking rule hits, placeholders, prediction hashes, site consistency, and pinned actions from listed owners, with warnings logged.
 order: 30
 labels: conformity, gate, quality
 owner: Stefan Coetzee
@@ -20,6 +20,7 @@ The conformity gate is a set of mechanical checks run by `.github/actions/confor
 | `page.label` | A page says self-assessment near the top without the words "not a certification" |
 | `components` | The vendored rule table differs from the sha256 recorded in the site configuration |
 | `actions.pinned` | A workflow or composite action under `.github/` references an outside action by tag, branch or short SHA, or a Docker image by tag; a commit SHA cannot be moved to other code |
+| `actions.owners` | An outside action, reusable workflow or Docker image comes from an owner outside `actions_owners_allow` in `site-tier.json`; a pinned commit from a lookalike repository still passes `actions.pinned` |
 
 ## Warnings (never block)
 
