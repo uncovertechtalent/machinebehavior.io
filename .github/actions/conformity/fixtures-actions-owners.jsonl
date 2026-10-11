@@ -1,0 +1,15 @@
+{"id": "fx-owner-unlisted-1", "expect": "hit", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: evil-org/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0"}
+{"id": "fx-owner-lookalike-1", "expect": "hit", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: actlons/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0"}
+{"id": "fx-owner-prefix-1", "expect": "hit", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: actions-org/checkout@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-reusable-1", "expect": "hit", "allow": ["actions", "example-org"], "source": "hand-written, 2026-10-11", "text": "  shared:\n    uses: other-org/workflows/.github/workflows/release.yml@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-repo-entry-1", "expect": "hit", "allow": ["example-org/lint-action"], "source": "hand-written, 2026-10-11", "text": "      - uses: example-org/other-action@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-flow-1", "expect": "hit", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - {uses: evil-org/checkout@11d5960a326750d5838078e36cf38b85af677262, with: {fetch-depth: 0}}"}
+{"id": "fx-owner-docker-1", "expect": "hit", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: docker://alpine@sha256:0000000000000000000000000000000000000000000000000000000000000000"}
+{"id": "fx-owner-listed-1", "expect": "miss", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0"}
+{"id": "fx-owner-slash-1", "expect": "miss", "allow": ["actions/"], "source": "hand-written, 2026-10-11", "text": "      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0"}
+{"id": "fx-owner-case-1", "expect": "miss", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      - uses: Actions/checkout@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-subpath-1", "expect": "miss", "allow": ["uncovertechtalent"], "source": "hand-written, 2026-10-11", "text": "        uses: uncovertechtalent/machinebehavior.io/.github/actions/conformity@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-repo-entry-2", "expect": "miss", "allow": ["example-org/lint-action"], "source": "hand-written, 2026-10-11", "text": "      - uses: example-org/lint-action@11d5960a326750d5838078e36cf38b85af677262"}
+{"id": "fx-owner-docker-2", "expect": "miss", "allow": ["docker://ghcr.io/example-org/tool"], "source": "hand-written, 2026-10-11", "text": "      - uses: docker://ghcr.io/example-org/tool:1.2@sha256:0000000000000000000000000000000000000000000000000000000000000000"}
+{"id": "fx-owner-local-1", "expect": "miss", "allow": [], "source": "hand-written, 2026-10-11", "text": "      - uses: ./.github/actions/build"}
+{"id": "fx-owner-comment-1", "expect": "miss", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      # uses: evil-org/checkout@v4 is an example; a comment line is not a reference"}

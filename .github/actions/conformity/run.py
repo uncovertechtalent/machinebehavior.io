@@ -369,9 +369,18 @@ def check_fixtures():
             fails.append(f"{it['id']}: expected actions-pinned kind {it['rule']}; got {kinds or 'nothing'}")
         elif it["expect"] == "miss" and kinds:
             fails.append(f"{it['id']}: known-pass reference hit actions-pinned kind(s) {kinds}")
+    of = HERE / "fixtures-actions-owners.jsonl"
+    owns = [json.loads(line) for line in of.read_text().splitlines() if line.strip()] if of.exists() else []
+    for it in owns:
+        outside = [ref for _, ref, _ in pin_refs(it["text"]) if not owner_allowed(ref, it["allow"])]
+        if it["expect"] == "hit" and not outside:
+            fails.append(f"{it['id']}: expected an owner outside the allowlist {it['allow']}; got none")
+        elif it["expect"] == "miss" and outside:
+            fails.append(f"{it['id']}: known-pass reference outside the allowlist {it['allow']}: {outside}")
     n_slips = sum(1 for it in items if it["expect"] == "slip")
     detail = (f"{len(items)} rule-table fixtures: {sum(it['expect']=='hit' for it in items)} known-fail (one per rule), {sum(it['expect']=='miss' for it in items)} known-pass; "
-              f"{len(pins)} actions-pinned fixtures: {sum(it['expect']=='hit' for it in pins)} known-fail, {sum(it['expect']=='miss' for it in pins)} known-pass; {len(fails)} failures")
+              f"{len(pins)} actions-pinned fixtures: {sum(it['expect']=='hit' for it in pins)} known-fail, {sum(it['expect']=='miss' for it in pins)} known-pass; "
+              f"{len(owns)} actions-owners fixtures: {sum(it['expect']=='hit' for it in owns)} known-fail, {sum(it['expect']=='miss' for it in owns)} known-pass; {len(fails)} failures")
     if n_slips:
         detail += f". Of {n_slips} logged slips (before text), the rule table catches {len(caught)}; {len(outside)} are outside its reach (stance and mode-leak devices: the lexical grader's blind spot, by design)"
     return {"result": "pass" if not fails else "fail", "detail": detail, "evidence": fails + [f"caught by the rule table: {c}" for c in caught[:10]], "hits": [{"file": "fixtures", "snippet": f} for f in fails]}
@@ -409,12 +418,16 @@ def pin_refs(text, allow=()):
     return out
 
 
-def check_actions_pinned():
-    """Workflows and composite actions of the repository (--git-dir, default the current directory; never --root, which can
-    be a build output) reference every outside action by a full commit SHA and every Docker image by a sha256 digest."""
-    tier = SITE["tiers"].get("actions-pinned", "block")
+def workflow_files():
+    """The repository's workflows and composite actions: --git-dir, default the current directory; never --root, which can be a build output."""
     repo = Path(ARGS.git_dir or ".").resolve()
-    files = sorted({f for g in PIN_GLOBS for f in repo.glob(g) if f.is_file()})
+    return repo, sorted({f for g in PIN_GLOBS for f in repo.glob(g) if f.is_file()})
+
+
+def check_actions_pinned():
+    """Workflows and composite actions reference every outside action by a full commit SHA and every Docker image by a sha256 digest."""
+    tier = SITE["tiers"].get("actions-pinned", "block")
+    repo, files = workflow_files()
     if tier == "off" or not files:
         return {"result": "n/a", "detail": "actions-pinned tier off" if tier == "off" else f"no workflow or action files under {repo.name}/.github", "evidence": [], "hits": []}
     refs = [(os.path.relpath(f, repo), ln, ref, kind) for f in files for ln, ref, kind in pin_refs(f.read_text(errors="replace"), SITE.get("actions_pinned_allow", []))]
@@ -422,6 +435,36 @@ def check_actions_pinned():
     return {"result": "pass" if not hits else ("fail" if tier == "block" else "warn"),
             "detail": f"{tier} tier: {len(files)} workflow and action files, {len(refs)} external references, {len(hits)} not pinned to a commit SHA or image digest; a pinned reference names the exact action code each run used",
             "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits] + [f"{f}:{ln} {ref}" for f, ln, ref, kind in refs if not kind], "hits": hits}
+
+
+def owner_names(ref):
+    """The allowlist entries a reference matches: owner and owner/repo, or docker://<image> without tag or digest."""
+    if ref.startswith("docker://"):
+        head, _, last = ref[len("docker://"):].split("@")[0].rpartition("/")
+        return {"docker://" + (head + "/" if head else "") + last.split(":")[0].lower()}
+    parts = ref.split("@")[0].lower().split("/")
+    return {parts[0], "/".join(parts[:2])}
+
+
+def owner_allowed(ref, allow):
+    return bool(owner_names(ref) & {a.lower().rstrip("/") for a in allow})
+
+
+def check_actions_owners():
+    """Every outside action, reusable workflow and Docker image comes from an owner on the site's allowlist (actions_owners_allow:
+    an owner, an owner/repo, or docker://<image>). A pinned commit from a lookalike repository passes actions.pinned; this check
+    names who may supply code to the workflows."""
+    tier = SITE["tiers"].get("actions-owners", "block")
+    allow = SITE.get("actions_owners_allow", [])
+    repo, files = workflow_files()
+    if tier == "off" or not files:
+        return {"result": "n/a", "detail": "actions-owners tier off" if tier == "off" else f"no workflow or action files under {repo.name}/.github", "evidence": [], "hits": []}
+    refs = [(os.path.relpath(f, repo), ln, ref) for f in files for ln, ref, _ in pin_refs(f.read_text(errors="replace"))]
+    hits = [{"file": f, "line": ln, "rule": "owner-not-allowed", "snippet": f"{ref}: owner not on the allowlist (actions_owners_allow in the site config)"} for f, ln, ref in refs if not owner_allowed(ref, allow)]
+    owners = sorted({min(owner_names(ref), key=len) for _, _, ref in refs})
+    return {"result": "pass" if not hits else ("fail" if tier == "block" else "warn"),
+            "detail": f"{tier} tier: {len(refs)} external references from {len(owners)} owners ({', '.join(owners) or 'none'}); allowlist: {', '.join(allow) or 'empty'}; {len(hits)} from outside the allowlist",
+            "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits], "hits": hits}
 
 
 def check_closure(findings):
@@ -643,7 +686,7 @@ def main():
     ap.add_argument("--config", required=True)
     ap.add_argument("--requirements", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--git-dir", default=None, help="repo dir for commit metadata when --root is a build output; actions.pinned reads its .github (default: current directory)")
+    ap.add_argument("--git-dir", default=None, help="repo dir for commit metadata when --root is a build output; actions.pinned and actions.owners read its .github (default: current directory)")
     ap.add_argument("--trigger", default="manual")
     ap.add_argument("--sha", default=None)
     ap.add_argument("--runner", default=platform.platform())
@@ -662,6 +705,7 @@ def main():
     checks["site.consistency"] = check_site_consistency()
     checks["components"] = check_components()
     checks["actions.pinned"] = check_actions_pinned()
+    checks["actions.owners"] = check_actions_owners()
     checks["trigger.push"], checks["deploy.gated"], checks["trigger.schedule"] = check_triggers(latest["history"])
     checks["page.label"] = check_page_label()
     checks["requirements.marks"] = check_marks()
