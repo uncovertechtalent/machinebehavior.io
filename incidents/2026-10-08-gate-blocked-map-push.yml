@@ -20,6 +20,6 @@ updates:
     text: A fix that sets the link with a.href in code was pushed.
   - stage: resolved
     at: 2026-10-08T14:07Z
-    text: The gate passed on the fix and the deploy went out. Time from the failed run to the passing run, 81 seconds.
+    text: The gate passed on the fix and the deploy went out. Time from the start of the failed run to the start of the passing run, 76 seconds.
 follow_up: The runbook for this failure was written the same day; Inside, the map and the docs build every link this way.
 postmortem: [doc:eng/runbook-template-href, doc:eng/conformity-gate]

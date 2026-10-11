@@ -21,7 +21,7 @@ Source: [Error Budgets as Reliability Currency](doc:sre/error-budgets-as-reliabi
 - **Tiers set how much risk a service may carry.** The [catalog](/inside/services/) puts each service in one of three tiers. Tier 1 is what readers meet or what decides a deploy, and is first in line; tier 2 is fixed the same day; tier 3 waits for the next working session ([Service catalog](doc:eng/service-catalog)).
 - **One service has a budget.** The [Local LLM](/inside/services/local-llm/) has two SLOs, 99% availability and 95% of streamed requests with a first token within 4 s. Multi-window burn-rate alerts fire when errors use the budget 14.4 times (page) or 6 times (ticket) faster than the 30-day window allows ([Alerts and SLOs](doc:obs/alerts-and-slos)).
 - **A budget sized to the traffic.** The model server answers a few requests an hour, so one failed request in a quiet hour is a 100% error ratio. The availability alerts carry a traffic floor, so one failure does not page.
-- **No budget for bad pages.** The gate blocks the deploy on any blocking finding. A blocked deploy costs minutes; a wrong page in front of readers costs their trust. The record of 2026-10-08 shows the trade: 81 seconds of delay and no reader impact ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
+- **No budget for bad pages.** The gate blocks the deploy on any blocking finding. A blocked deploy costs minutes; a wrong page in front of readers costs their trust. The record of 2026-10-08 shows the trade: the fix deployed 118 seconds after the gate blocked the first push, with no reader impact ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
 
 ## State
 
