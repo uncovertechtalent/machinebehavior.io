@@ -453,7 +453,7 @@ def owner_allowed(ref, allow):
 def check_actions_owners():
     """Every outside action, reusable workflow and Docker image comes from an owner on the site's allowlist (actions_owners_allow:
     an owner, an owner/repo, or docker://<image>). A pinned commit from a lookalike repository passes actions.pinned; this check
-    names who may supply code to the workflows."""
+    names who may supply code to the workflows. A supply-chain control outside draft 0.3: no requirement row lists it."""
     tier = SITE["tiers"].get("actions-owners", "block")
     allow = SITE.get("actions_owners_allow", [])
     repo, files = workflow_files()
@@ -463,7 +463,8 @@ def check_actions_owners():
     hits = [{"file": f, "line": ln, "rule": "owner-not-allowed", "snippet": f"{ref}: owner not on the allowlist (actions_owners_allow in the site config)"} for f, ln, ref in refs if not owner_allowed(ref, allow)]
     owners = sorted({min(owner_names(ref), key=len) for _, _, ref in refs})
     return {"result": "pass" if not hits else ("fail" if tier == "block" else "warn"),
-            "detail": f"{tier} tier: {len(refs)} external references from {len(owners)} owners ({', '.join(owners) or 'none'}); allowlist: {', '.join(allow) or 'empty'}; {len(hits)} from outside the allowlist",
+            "detail": f"{tier} tier: {len(refs)} external references from {len(owners)} owners ({', '.join(owners) or 'none'}); allowlist: {', '.join(allow) or 'empty'}; {len(hits)} from outside the allowlist. "
+                      "A supply-chain control outside the scope of draft 0.3, so no requirement row lists it; nearest framework clause NIST CSF 2.0 GV.SC",
             "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits], "hits": hits}
 
 

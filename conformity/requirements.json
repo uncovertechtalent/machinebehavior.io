@@ -143,8 +143,7 @@
    "threshold": "0",
    "checks": [
     "components",
-    "actions.pinned",
-    "actions.owners"
+    "actions.pinned"
    ],
    "maps_to": [
     {
