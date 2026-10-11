@@ -3,17 +3,17 @@ summary: One GitHub Actions workflow runs the conformity checks, commits the rec
 order: 20
 labels: deploy, github-actions, pipeline
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-11
+review_by: 2027-01-09
 type: explanation
 ---
-Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`. The workflow also runs every Monday at 06:17 UTC and by hand. It has two jobs, and the second runs only if the first passes.
+Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`; since [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) that push is a merged pull request or a bot commit. The workflow also runs every Monday at 06:17 UTC, by hand, and on every pull request to `main`. It has two jobs, and the second runs only if the first passes. A pull request run is the required check before the merge: it runs job 1 on the merge result of the pull request, commits nothing and skips job 2.
 
 ## Job 1: conformity checks
 
-1. Check out `main` with full history.
+1. Check out `main` with full history (a pull request run checks out the merge result). On every run except a pull request run, checkout uses the deploy key in the secret `CONFORMITY_PUSH_KEY` when it exists, so the bot commit in step 3 passes the branch rules on `main`.
 2. Run the conformity action against every published page (see [Conformity gate](doc:eng/conformity-gate)).
-3. Commit `conformity/latest.json` and `conformity/index.html` as `conformity-bot`, with `[skip ci]` in the message, and push.
+3. Commit `conformity/latest.json` and `conformity/index.html` as `conformity-bot`, with `[skip ci]` in the message, and push. Skipped on pull request runs.
 4. Gate step: read the overall result; anything other than `pass` fails the job with "deploy blocked, previous build stays live".
 
 ## Job 2: deploy to Pages
@@ -25,7 +25,7 @@ Every push to `main` of machinebehavior.io starts the workflow `.github/workflow
 5. Snapshot the issues: `scripts/board_snapshot.py` reads the open and recently closed GitHub Issues and writes `inside/board/issues.json` for the [board](/inside/board/). It may fail without failing the job and is never committed. See [Ticket board](doc:eng/board).
 6. Upload the repository as the Pages artifact and deploy it.
 
-> [!warning] The bot commit moves `main` after every run. Always `git pull --rebase` before pushing; a push without it is rejected. See [Push rejected after a deploy](doc:eng/runbook-push-rejected).
+> [!warning] The bot commit moves `main` after every run. Branch from `origin/main` and rebase the branch on it when it falls behind; a direct push to `main` is rejected. See [Push rejected](doc:eng/runbook-push-rejected).
 
 ## What happens around a deploy
 

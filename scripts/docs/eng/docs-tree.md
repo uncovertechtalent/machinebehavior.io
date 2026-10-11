@@ -18,7 +18,7 @@ python3 scripts/build_docs.py                  # all spaces, sitemap block, llms
 python3 scripts/build_inside.py                # bar sync, services, status, the site-wide search index
 ```
 
-The build writes one `index.html` per page, `inside/docs/search.json` (an input to the site-wide index; see [Top bar and search](doc:eng/top-bar-and-search)), a managed block in `sitemap.xml` and a managed section at the end of `llms.txt`. Then run the gate dry run and push as usual.
+The build writes one `index.html` per page, `inside/docs/search.json` (an input to the site-wide index; see [Top bar and search](doc:eng/top-bar-and-search)), a managed block in `sitemap.xml` and a managed section at the end of `llms.txt`. Then run the gate dry run and open a pull request as in `CLAUDE.md`.
 
 ## Front matter
 

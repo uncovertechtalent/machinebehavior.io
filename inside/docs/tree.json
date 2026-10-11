@@ -26,6 +26,11 @@
 "p": "/inside/docs/eng/"
 },
 {
+"u": "/inside/docs/eng/agents/",
+"t": "Agents in this repository",
+"p": "/inside/docs/eng/"
+},
+{
 "u": "/inside/docs/eng/deploy-pipeline/",
 "t": "Deploy pipeline",
 "p": "/inside/docs/eng/"
@@ -231,6 +236,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0029-changes-through-pull-requests/",
+"t": "ADR-0029: Changes reach main through pull requests",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
@@ -247,7 +257,7 @@
 },
 {
 "u": "/inside/docs/eng/runbook-push-rejected/",
-"t": "Push rejected after a deploy",
+"t": "Push rejected",
 "p": "/inside/docs/eng/runbooks/"
 },
 {
