@@ -4,7 +4,7 @@ Continuous conformity of machinebehavior.io against the working draft "Continuou
 
 - `requirements.json`: the 35 requirements with mark (M mechanical, A assisted, H manual), metric, threshold, check ids, the crosswalk to AI Act, DORA, GDPR and NIST (`maps_to`), and the run 1 self-assessment per row.
 - `site-tier.json`: site configuration: deploy gating, schedule, the vendored rule table and its sha256, rule tiers and the recorded false-positive test per blocking rule, placeholder pattern, retention.
-- Engine: `.github/actions/conformity/` (composite action: `run.py`, `scan-runner.js`, `rules/vestige-patterns.js` vendored from the public vestige-kit, `fixtures-manual.jsonl`). Other sites (tychat.io and uncovertechtalent.com) use it pinned to a commit of this repository's main, see "Pinned consumers" below.
+- Engine: `.github/actions/conformity/` (composite action: `run.py`, `scan-runner.js`, `rules/vestige-patterns.js` vendored from the public vestige-kit, `fixtures-manual.jsonl`, `fixtures-actions-pinned.jsonl`). Other sites (tychat.io and uncovertechtalent.com) use it pinned to a commit of this repository's main, see "Pinned consumers" below.
 - `latest.json`: run history, open and closed findings, requirement states (committed by the workflow).
 - `index.html`: the public page, rendered from the latest run (committed by the workflow).
 - `runs/`: full run records; written by the workflow and uploaded as artifacts (90 days), not committed.
@@ -33,4 +33,4 @@ A change to the gate reaches them only when the gate owner bumps that SHA on pur
 4. In the consumer's workflow, replace the SHA and the date in the comment, then open a pull request.
 5. After the merge, confirm the consumer's deploy run on main passes and the site serves.
 
-Every other action in this repository and the consumers is pinned to a full commit SHA with its release in a comment. Dependabot (`.github/dependabot.yml`, monthly, one grouped pull request) moves those pins.
+Every other action in this repository and the consumers is pinned to a full commit SHA with its release in a comment. Dependabot (`.github/dependabot.yml`, monthly, one grouped pull request) moves those pins. The check `actions.pinned` (block tier, mapped to CC-5.2) fails a run when a workflow or composite action references an outside action by tag, branch or short SHA, or a Docker image by tag. It reads the `.github` folder of the repository named by `--git-dir` (default: the current directory), never `--root`, so the Hugo consumer's workflows are checked even though its root is the build output. Its known-fail and known-pass references are in `fixtures-actions-pinned.jsonl`, run by `grader.fixtures`.
