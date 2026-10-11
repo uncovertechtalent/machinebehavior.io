@@ -21,6 +21,11 @@
 "p": "/inside/docs/eng/"
 },
 {
+"u": "/inside/docs/eng/sdlc/",
+"t": "Software delivery lifecycle",
+"p": "/inside/docs/eng/"
+},
+{
 "u": "/inside/docs/eng/deploy-pipeline/",
 "t": "Deploy pipeline",
 "p": "/inside/docs/eng/"
@@ -248,6 +253,11 @@
 {
 "u": "/inside/docs/eng/runbook-template-href/",
 "t": "Link check flags a template string",
+"p": "/inside/docs/eng/runbooks/"
+},
+{
+"u": "/inside/docs/eng/runbook-rollback/",
+"t": "Roll back a deploy",
 "p": "/inside/docs/eng/runbooks/"
 },
 {

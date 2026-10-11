@@ -89,7 +89,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (394 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (396 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -134,8 +134,10 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (394 pages). S
 - [Map crawler](https://machinebehavior.io/inside/docs/eng/map-crawler/)
 - [Gate blocked a deploy](https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/)
 - [Push rejected after a deploy](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
+- [Roll back a deploy](https://machinebehavior.io/inside/docs/eng/runbook-rollback/)
 - [Link check flags a template string](https://machinebehavior.io/inside/docs/eng/runbook-template-href/)
 - [Engineering runbooks](https://machinebehavior.io/inside/docs/eng/runbooks/)
+- [Software delivery lifecycle](https://machinebehavior.io/inside/docs/eng/sdlc/)
 - [Service catalog](https://machinebehavior.io/inside/docs/eng/service-catalog/)
 - [Site architecture](https://machinebehavior.io/inside/docs/eng/site-architecture/)
 - [Site navigation and chrome](https://machinebehavior.io/inside/docs/eng/site-navigation/)

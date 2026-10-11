@@ -14,3 +14,4 @@ Each runbook covers one failure that has happened, with how to see it, the cause
 | The deploy job did not run; the conformity job is red | [Gate blocked a deploy](doc:eng/runbook-gate-blocked) |
 | `git push` is rejected after a successful run | [Push rejected after a deploy](doc:eng/runbook-push-rejected) |
 | `site.consistency` fails with a relative link that is not in the page text | [Link check flags a template string](doc:eng/runbook-template-href) |
+| A deploy passed the gate but a live page is wrong | [Roll back a deploy](doc:eng/runbook-rollback) |
