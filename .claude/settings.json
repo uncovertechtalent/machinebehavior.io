@@ -19,7 +19,10 @@
       "Read(./secrets/**)",
       "Edit(./.env)",
       "Edit(./.env.*)",
-      "Edit(./secrets/**)"
+      "Edit(./secrets/**)",
+      "Bash(gh api *pulls/*/merge*)",
+      "Bash(gh api graphql *mergePullRequest*)",
+      "Bash(gh api graphql *enablePullRequestAutoMerge*)"
     ]
   }
 }
