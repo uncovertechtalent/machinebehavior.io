@@ -33,4 +33,4 @@ A change to the gate reaches them only when the gate owner bumps that SHA on pur
 4. In the consumer's workflow, replace the SHA and the date in the comment, then open a pull request.
 5. After the merge, confirm the consumer's deploy run on main passes and the site serves.
 
-Every other action in this repository and the consumers is pinned to a full commit SHA with its release in a comment. Dependabot (`.github/dependabot.yml`, monthly, one grouped pull request per directory) moves those pins.
+Every other action in this repository and the consumers is pinned to a full commit SHA with its release in a comment. Dependabot (`.github/dependabot.yml`, monthly, one grouped pull request) moves those pins.

@@ -1,7 +1,7 @@
 # Dependabot keeps the commit-SHA pins on GitHub Actions current: it moves the SHA and the
 # version comment together. "/" covers .github/workflows; "/.github/actions/*" covers the
-# composite conformity action. One group per directory, so at most one pull request per
-# directory each month, and each one runs the Conformity checks like any other pull request.
+# composite conformity action. One group covers both directories, so at most one pull
+# request each month, and it runs the Conformity checks like any other pull request.
 version: 2
 updates:
   - package-ecosystem: github-actions
