@@ -17,7 +17,7 @@ Ticket or decision: <#123 or ADR-NNNN>
 
 ## Review
 
-<The output of /sdlc:change-review on this pull request.>
+<A link to the change-review comment on this pull request (the CI workflow's, or the local runner's until CI has its key), or the review itself.>
 
 ## Rollback
 
