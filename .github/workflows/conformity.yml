@@ -42,7 +42,7 @@ jobs:
           ssh-key: ${{ github.event_name != 'pull_request' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
       - name: Run the checks
-        uses: ./.github/actions/conformity  # zizmor: ignore[self-repository] the gate accepts $/ only after #66 (.github/zizmor.yml)
+        uses: $/.github/actions/conformity
         with:
           root: .
           config: conformity/site-tier.json

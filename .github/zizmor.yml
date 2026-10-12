@@ -8,7 +8,4 @@
 # - artipacked, conformity.yml, the conformity job's "Checkout" step: it keeps the deploy key
 #   (ssh-key) because the bot commit of latest.json and the page pushes to main with it (ADR-0029).
 #   The job uploads only the run records (conformity/runs/*.json), never the checkout.
-# - self-repository, conformity.yml, `uses: ./.github/actions/conformity`: `uses: $/...` fails the
-#   gate until #66 merges, because actions.pinned in run.py exempts only "./" and "../" today.
-#   After #66, switch the line to `$/.github/actions/conformity` and drop the ignore.
 rules: {}
