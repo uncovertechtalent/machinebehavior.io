@@ -403,7 +403,7 @@ def check_fixtures():
 
 
 # Same rule as gate.actions-pinned in the CTO powersuit (plugins/gate/checks/actions_pinned.py): a tag or a branch can be
-# moved to other code, a commit SHA cannot. Local actions (./...) are exempt.
+# moved to other code, a commit SHA cannot. Local actions (./..., ../... and the self-repository form $/...) are exempt.
 USES = re.compile(r"""(?:^\s*(?:-\s+)?|[{,]\s*)uses\s*:\s*(['"]?)(?P<ref>[^'"\s#,}]+)\1""")
 PIN_GLOBS = [".github/workflows/*.yml", ".github/workflows/*.yaml", ".github/actions/**/action.yml", ".github/actions/**/action.yaml", "action.yml", "action.yaml"]
 PIN_MESSAGE = {"tag-or-branch": "referenced by tag or branch; pin a full commit SHA", "short-sha": "short commit SHA; pin the full 40-character SHA",
@@ -429,7 +429,7 @@ def pin_refs(text, allow=()):
             continue
         for m in USES.finditer(line):
             ref = m.group("ref")
-            if not ref.startswith(("./", "../") + tuple(allow)):
+            if not ref.startswith(("./", "../", "$/") + tuple(allow)):
                 out.append((n, ref, pin_kind(ref)))
     return out
 

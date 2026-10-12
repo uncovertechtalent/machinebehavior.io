@@ -13,3 +13,4 @@
 {"id": "fx-owner-docker-2", "expect": "miss", "allow": ["docker://ghcr.io/example-org/tool"], "source": "hand-written, 2026-10-11", "text": "      - uses: docker://ghcr.io/example-org/tool:1.2@sha256:0000000000000000000000000000000000000000000000000000000000000000"}
 {"id": "fx-owner-local-1", "expect": "miss", "allow": [], "source": "hand-written, 2026-10-11", "text": "      - uses: ./.github/actions/build"}
 {"id": "fx-owner-comment-1", "expect": "miss", "allow": ["actions"], "source": "hand-written, 2026-10-11", "text": "      # uses: evil-org/checkout@v4 is an example; a comment line is not a reference"}
+{"id": "fx-owner-self-repo-1", "expect": "miss", "allow": ["actions"], "source": "hand-written, 2026-10-12: self-repository form ($/...) is local and never checked against the allowlist", "text": "      - uses: $/.github/actions/conformity"}
