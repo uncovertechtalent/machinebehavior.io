@@ -26,6 +26,11 @@ name: Change review
 # Promote "block" findings to a failing check once the false-positive rate of the first reviews is
 # known; the structured output already carries the block count.
 #
+# Residual (gate owner, 2026-10-12): text in a pull request can still steer what this review says, up
+# to a misleading "no findings". The review is input to the merge decision, never evidence of
+# conformity: it is not a check of the conformity gate, and no requirement in
+# conformity/requirements.json may list it.
+#
 # Pull requests from forks, from Dependabot and from other bots, and drafts, are skipped. Without the
 # secret the review job skips its steps and passes, and nothing is posted. Context is public only; the
 # review with private context runs on the owner's machine (`claude "/sdlc:change-review <n> kb"`).
