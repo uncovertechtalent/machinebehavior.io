@@ -42,7 +42,7 @@ jobs:
           ssh-key: ${{ github.event_name != 'pull_request' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
       - name: Run the checks
-        uses: $/.github/actions/conformity
+        uses: $/.github/actions/conformity  # self-repository form (#70): the gate counts $/ as local (run.py pin_refs, #66); actionlint 1.7.12 does not know it yet
         with:
           root: .
           config: conformity/site-tier.json
