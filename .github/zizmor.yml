@@ -12,6 +12,6 @@ rules:
       - conformity.yml:34
   self-repository:
     ignore:
-      # `uses: $/...` fails the gate today: actions.pinned in run.py exempts only "./" and "../".
-      # Switch once the gate treats "$/" as local (gate owner, follow-up on #65).
+      # `uses: $/...` fails the gate until #66 merges: actions.pinned in run.py exempts only "./" and
+      # "../" today. After #66, switch this line to `$/.github/actions/conformity` and drop this ignore.
       - conformity.yml:45
