@@ -4,7 +4,8 @@ name: Conformity
 # (a required check before merge, ADR-0029), on every push to main (before the
 # changed site serves readers), on a weekly schedule, and by hand. The Pages
 # deploy job depends on the conformity job: a failing check blocks the deploy
-# and the previous build stays live. Pull request runs commit nothing and deploy nothing.
+# and the previous build stays live. Pull request runs, and manual runs from a branch other than
+# main, commit nothing and deploy nothing (#70).
 
 on:
   push:
