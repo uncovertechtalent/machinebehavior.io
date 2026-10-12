@@ -31,7 +31,7 @@ jobs:
     outputs:
       result: ${{ steps.gate.outputs.result }}
     steps:
-      - name: Checkout
+      - name: Checkout  # zizmor: ignore[artipacked] the bot commit pushes with the persisted deploy key (.github/zizmor.yml)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # A pull request run checks the merge result of the pull request; every other run checks main.
@@ -42,7 +42,7 @@ jobs:
           ssh-key: ${{ github.event_name != 'pull_request' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
       - name: Run the checks
-        uses: ./.github/actions/conformity
+        uses: ./.github/actions/conformity  # zizmor: ignore[self-repository] the gate accepts $/ only after #66 (.github/zizmor.yml)
         with:
           root: .
           config: conformity/site-tier.json

@@ -1,17 +1,14 @@
 # zizmor configuration: https://docs.zizmor.sh/configuration/
 # The "Workflow security (zizmor)" job in conformity.yml runs zizmor on .github with this file (#65).
-# Every accepted finding is listed here with its rule, its place and the reason. An ignore names a
-# line, so an edit above it moves the finding and fails the job: check the reason again, then move
-# the line number.
-rules:
-  artipacked:
-    ignore:
-      # The conformity job's checkout keeps the deploy key (ssh-key) because the bot commit of
-      # latest.json and the page pushes to main with it (ADR-0029). The job uploads only the run
-      # records (conformity/runs/*.json), never the checkout.
-      - conformity.yml:34
-  self-repository:
-    ignore:
-      # `uses: $/...` fails the gate until #66 merges: actions.pinned in run.py exempts only "./" and
-      # "../" today. After #66, switch this line to `$/.github/actions/conformity` and drop this ignore.
-      - conformity.yml:45
+#
+# Accepted findings. Each one is ignored by an inline `# zizmor: ignore[<rule>]` comment on its own
+# line, so the ignore moves with the line and covers nothing else. This list is the record: rule,
+# place, and reason. Add a line here whenever you add an inline ignore.
+#
+# - artipacked, conformity.yml, the conformity job's "Checkout" step: it keeps the deploy key
+#   (ssh-key) because the bot commit of latest.json and the page pushes to main with it (ADR-0029).
+#   The job uploads only the run records (conformity/runs/*.json), never the checkout.
+# - self-repository, conformity.yml, `uses: ./.github/actions/conformity`: `uses: $/...` fails the
+#   gate until #66 merges, because actions.pinned in run.py exempts only "./" and "../" today.
+#   After #66, switch the line to `$/.github/actions/conformity` and drop the ignore.
+rules: {}
