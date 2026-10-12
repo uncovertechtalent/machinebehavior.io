@@ -2,7 +2,8 @@
 *                               @uncovertechtalent
 
 # The deploy gate and the pipeline: workflows, the shared conformity action (tychat.io and
-# uncovertechtalent.com run it through their pins), the gate configuration, and this file.
+# uncovertechtalent.com run it through their pins), the CI tool pins in scripts/ci/, the gate
+# configuration, and this file.
 /.github/                       @uncovertechtalent
 /scripts/ci/                    @uncovertechtalent
 /conformity/site-tier.json      @uncovertechtalent

@@ -6,7 +6,8 @@
 # wheel hashes together (#65). The cooldown waits 7 days after a release before proposing it,
 # so a release that is pulled or found compromised in its first week never reaches a pull request.
 # The npm entry keeps the Claude Code pin of the change-review workflow in
-# scripts/ci/claude-code/package-lock.json current (#68), with the same 7-day cooldown.
+# scripts/ci/claude-code/package-lock.json current (#68), with the same 7-day cooldown; the job
+# "Claude Code pin installs" in change-review.yml installs a bump before it can merge.
 # The tool pins live in scripts/ci/, not under .github/: Dependabot's service refused the npm pull
 # request for the pin in .github/claude-code ("The request contains invalid or unauthorized
 # changes", job 1623162161, #77); only the github-actions ecosystem writes under .github/. If a pull

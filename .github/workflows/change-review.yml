@@ -47,6 +47,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  claude-code-pin:
+    name: Claude Code pin installs
+    # Runs on every pull request, Dependabot's included, with no secret: a bump of the Claude Code pin
+    # in scripts/ci/claude-code is installed from its lockfile before it can merge (#77).
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read        # check out the lockfile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install Claude Code from the pinned lockfile
+        run: |
+          mkdir -p "$RUNNER_TEMP/claude-code"
+          cp scripts/ci/claude-code/package.json scripts/ci/claude-code/package-lock.json "$RUNNER_TEMP/claude-code/"
+          npm ci --prefix "$RUNNER_TEMP/claude-code" --no-audit --no-fund
+          "$RUNNER_TEMP/claude-code/node_modules/.bin/claude" --version
+
   review:
     name: Change review
     if: >-
