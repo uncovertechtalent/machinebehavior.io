@@ -4,7 +4,8 @@ name: Conformity
 # (a required check before merge, ADR-0029), on every push to main (before the
 # changed site serves readers), on a weekly schedule, and by hand. The Pages
 # deploy job depends on the conformity job: a failing check blocks the deploy
-# and the previous build stays live. Pull request runs commit nothing and deploy nothing.
+# and the previous build stays live. Pull request runs, and manual runs from a branch other than
+# main, commit nothing and deploy nothing (#70).
 
 on:
   push:
@@ -39,10 +40,11 @@ jobs:
           fetch-depth: 0
           # The bot commit below pushes to main with this deploy key, which the branch rules on main let through
           # (ADR-0029). Without the secret, checkout falls back to the workflow token.
-          ssh-key: ${{ github.event_name != 'pull_request' && secrets.CONFORMITY_PUSH_KEY || '' }}
+          # Only runs on main get the key: a manual run from a branch is a dry run (#70, ADR-0029).
+          ssh-key: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
       - name: Run the checks
-        uses: ./.github/actions/conformity  # zizmor: ignore[self-repository] the gate accepts $/ only after #66 (.github/zizmor.yml)
+        uses: $/.github/actions/conformity  # self-repository form (#70): the gate counts $/ as local (run.py pin_refs, #66); actionlint 1.7.12 does not know it yet
         with:
           root: .
           config: conformity/site-tier.json
@@ -50,7 +52,8 @@ jobs:
           out: conformity
 
       - name: Commit latest.json and the page
-        if: github.event_name != 'pull_request'
+        # Only on main: a manual run from a branch runs that branch's gate (uses: $/...) and commits nothing.
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "conformity-bot"
           git config user.email "conformity-bot@users.noreply.github.com"
@@ -79,7 +82,8 @@ jobs:
   deploy:
     name: Deploy to Pages
     needs: conformity
-    if: github.event_name != 'pull_request'
+    # Only on main; the github-pages environment also allows deployments from main and gh-pages only.
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

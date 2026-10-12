@@ -4,8 +4,8 @@ parent: runbooks
 order: 40
 labels: runbook, deploy, rollback
 owner: Stefan Coetzee
-reviewed: 2026-10-11
-review_by: 2027-01-09
+reviewed: 2026-10-12
+review_by: 2027-01-10
 type: how-to
 ---
 **Symptom.** The Conformity workflow is green and the Deploy to Pages job succeeded, but a page on the live site is wrong or broken.
@@ -16,7 +16,7 @@ type: how-to
 
 The only path to the live site is a push to `main` that passes the gate ([Deploy pipeline](doc:eng/deploy-pipeline)), and changes reach `main` through pull requests ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A rollback is therefore a revert pull request that undoes the bad commit, and it goes through the same check, gate and deploy as any other change.
 
-Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` on every run except a pull request run, so a re-run, or a run started by hand, deploys the current `main`. There is no way in the workflow to redeploy an earlier build.
+Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` on every run except a pull request run, so a re-run, or a run started by hand from `main`, deploys the current `main`. A run started by hand from another branch is a dry run: it commits and deploys nothing. There is no way in the workflow to redeploy an earlier build.
 
 ## Steps
 
