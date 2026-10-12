@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit review settings (#65). Public guidance only: everything this file points at is in this
+# repository or on machinebehavior.io. CodeRabbit gets no private knowledge base, no MCP server, and
+# no secret.
+language: en-US
+tone_instructions: "Plain short sentences. Before you flag a design choice, check the ADRs in scripts/docs/eng/adr-*.md and CLAUDE.md; if a decision records the choice, do not flag it, or cite it."
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  in_progress_fortune: false
+  assess_linked_issues: true
+  path_filters:
+    - "!conformity/latest.json"
+    - "!conformity/index.html"
+    - "!inside/docs/**"
+    - "!inside/search.json"
+    - "!map/graph.json"
+    - "!.github/claude-code/package-lock.json"
+  path_instructions:
+    - path: "**"
+      instructions: |
+        Decisions are recorded in scripts/docs/eng/adr-NNNN-*.md; respect `supersedes:` in their front matter (ADR-0010 supersedes ADR-0003 and ADR-0006). A choice an ADR records is not a finding unless the change contradicts it. CLAUDE.md describes the pull request flow and the deploy gate (.github/actions/conformity/run.py), which blocks the deploy on its own checks.
+        Generated files are rebuilt from their source, never edited by hand: inside/docs/ from scripts/docs/ (scripts/build_docs.py), conformity/latest.json and conformity/index.html by the conformity bot.
+    - path: "**/*.html"
+      instructions: |
+        Internal links are root-absolute (/man/, /style.css), never relative or ending in .html (ADR-0001). Pages make no third-party requests on load (ADR-0010). Every page has a self canonical link and entries in sitemap.xml and llms.txt. Colours come from the design tokens (ADR-0025); structured data and navigation come from site/nav.yml (ADR-0021, ADR-0027). Phrases inside code, blockquotes, <q>, .mono spans and double quotes are quoted on purpose and exempt from the gate's rule scan.
+    - path: ".github/**"
+      instructions: |
+        Changes reach main through pull requests (ADR-0029); only the deploy keys of the conformity bot and the weekly probe push directly, and the bot commit carries [skip ci] on purpose. Every outside action is pinned to a full commit SHA with its release in a comment, and its owner is on actions_owners_allow in conformity/site-tier.json; the gate blocks otherwise. Permissions are set per job. Accepted zizmor findings have an inline ignore and an entry with its reason in .github/zizmor.yml.
+        .github/actions/conformity/ is shared: tychat.io and uncovertechtalent.com run it pinned to a commit of main, so a change reaches them only at the gate owner's pin bump.
+        change-review.yml runs Claude Code from a hash-pinned npm install, not from a third-party action, so no new action owner is needed; it runs with --restricted and read-only tools, and a separate job without a secret posts the comment.
+    - path: "predictions/**"
+      instructions: |
+        Predictions are hashed in predictions/HASHES.txt and never edited after publication; a changed prediction file fails the gate. Flag any edit to an existing prediction.
+    - path: "scripts/docs/**"
+      instructions: |
+        Every docs page carries owner, reviewed and review_by dates in its front matter (ADR-0015). A changed page gets a new reviewed date, and inside/docs/ is rebuilt in the same pull request.
+knowledge_base:
+  code_guidelines:
+    enabled: true
+    filePatterns:
+      - "CLAUDE.md"
+      - "scripts/docs/eng/adr-*.md"
+      - "conformity/README.md"
+  mcp:
+    usage: disabled
+  learnings:
+    scope: local

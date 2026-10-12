@@ -3,7 +3,8 @@
 # composite conformity action. One group covers both directories, so at most one pull
 # request each month, and it runs the Conformity checks like any other pull request.
 # The pip entry keeps the zizmor pin in .github/zizmor/requirements.txt current, version and
-# wheel hashes together (#65). The cooldown waits 7 days after a release before proposing it,
+# wheel hashes together; the npm entry keeps the Claude Code pin of the change-review workflow
+# in .github/claude-code/package-lock.json current (#65). The cooldown waits 7 days after a release before proposing it,
 # so a release that is pulled or found compromised in its first week never reaches a pull request.
 version: 2
 updates:
@@ -27,5 +28,15 @@ updates:
       default-days: 7
     groups:
       zizmor:
+        patterns:
+          - "*"
+  - package-ecosystem: npm
+    directory: "/.github/claude-code"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      claude-code:
         patterns:
           - "*"
