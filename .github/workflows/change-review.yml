@@ -63,7 +63,7 @@ jobs:
     outputs:
       result: ${{ steps.claude.outputs.result }}
     env:
-      SUIT_SHA: 93678455d1dad6d1a527ebe27727fdbc8e2a2b7c  # uncovertechtalent/cto-powersuit main at 2026-10-12, sdlc 0.2.1
+      SUIT_SHA: a56fd8922d323b23be993bfcef572fbaccb008b1  # uncovertechtalent/cto-powersuit main at 2026-10-12 (merge of #8), sdlc 0.2.2
       MODEL: claude-sonnet-5-5
     steps:
       - name: Check for the key
