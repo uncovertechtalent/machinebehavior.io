@@ -1,8 +1,0 @@
-{
-  "name": "machinebehavior-ci-claude-code",
-  "private": true,
-  "description": "The Claude Code version the change-review workflow runs. npm ci installs it from package-lock.json, so the tarball hashes are pinned too.",
-  "dependencies": {
-    "@anthropic-ai/claude-code": "2.1.286"
-  }
-}

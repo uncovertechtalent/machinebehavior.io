@@ -35,12 +35,6 @@ Permissions: `contents: read`.
 
 zizmor checks every workflow and the conformity action under `.github/` for template injection, broad permissions, persisted credentials, unpinned or impostor actions, and actions with known advisories. It runs on every trigger, pull requests included. A finding fails this job and never blocks the deploy; it is a required check only if the ruleset names it. Accepted findings have an inline `# zizmor: ignore[<rule>]` comment, and `.github/zizmor.yml` lists each one with its reason. Details in `conformity/README.md`.
 
-## Pull request review
-
-A second workflow, `.github/workflows/change-review.yml`, reviews each pull request from a branch of this repository with `/sdlc:change-review` from the CTO powersuit and posts the review as one comment. It reads this repository's ADRs, these docs, `CLAUDE.md`, the gate's README and config, [/man/](/man/), [/llms.txt](/llms.txt) and the linked issue first, so a recorded choice is a note ("intentional per ADR-NNNN"), not a finding. It needs the repository secret `CLAUDE_CODE_OAUTH_TOKEN`, skips without it, and is not a required check.
-
-> [!warning] The bot commit moves `main` after every run. Branch from `origin/main` and rebase the branch on it when it falls behind; a direct push to `main` is rejected. See [Push rejected](doc:eng/runbook-push-rejected).
-
 ## What happens around a deploy
 
 - The [deploy exporter](doc:obs/deploy-exporter) polls the GitHub Actions API and writes each run, step and gate check to Loki and Prometheus. The [Website deploys dashboard](https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4) shows them.

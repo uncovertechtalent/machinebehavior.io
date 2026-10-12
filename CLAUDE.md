@@ -8,7 +8,7 @@ Static site on GitHub Pages, deployed by `.github/workflows/conformity.yml`. Sev
 2. Run the gate dry run (below) until it prints `overall=pass`.
 3. Push the branch and open the pull request with `.github/pull_request_template.md`. Commit subjects and the title name the issue (`#123`) or the decision (`ADR-NNNN`).
 4. Wait for the Conformity checks job to pass on the pull request.
-5. Review: `.github/workflows/change-review.yml` posts `/sdlc:change-review` as one comment once the secret `CLAUDE_CODE_OAUTH_TOKEN` is set; until then run the skill and put the review in the description. It reads the ADRs and docs first, so a recorded choice is a note, not a finding. The review with private context runs only on the owner's machine (`claude "/sdlc:change-review <n> kb"`); nothing private goes into a workflow, a secret or a review bot.
+5. Run `/sdlc:change-review` on the pull request and put the review in its description.
 6. Merge only on Stefan Coetzee's explicit go in this session; otherwise he merges.
 
 Never push to `main`. Two automated writers do, each with its own deploy key: conformity-bot (`conformity/latest.json` and `conformity/index.html` after every run, `[skip ci]`) and the weekly decision-layer probe record. So `main` moves without you; the merge does not need an up-to-date branch, so rebase on `origin/main` only when GitHub reports a conflict. Never name hosts or addresses here; the repo is public.
