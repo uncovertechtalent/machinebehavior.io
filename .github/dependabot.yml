@@ -2,11 +2,16 @@
 # version comment together. "/" covers .github/workflows; "/.github/actions/*" covers the
 # composite conformity action. One group covers both directories, so at most one pull
 # request each month, and it runs the Conformity checks like any other pull request.
-# The pip entry keeps the zizmor pin in .github/zizmor/requirements.txt current, version and
+# The pip entry keeps the zizmor pin in scripts/ci/zizmor/requirements.txt current, version and
 # wheel hashes together (#65). The cooldown waits 7 days after a release before proposing it,
 # so a release that is pulled or found compromised in its first week never reaches a pull request.
 # The npm entry keeps the Claude Code pin of the change-review workflow in
-# .github/claude-code/package-lock.json current (#68), with the same 7-day cooldown.
+# scripts/ci/claude-code/package-lock.json current (#68), with the same 7-day cooldown.
+# The tool pins live in scripts/ci/, not under .github/: Dependabot's service refused the npm pull
+# request for the pin in .github/claude-code ("The request contains invalid or unauthorized
+# changes", job 1623162161, #77); only the github-actions ecosystem writes under .github/. If a pull
+# request still fails, bump by hand: `npm install --package-lock-only @anthropic-ai/claude-code@<version>`
+# in scripts/ci/claude-code, and for zizmor take the new version's wheel hashes from PyPI.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -22,7 +27,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: pip
-    directory: "/.github/zizmor"
+    directory: "/scripts/ci/zizmor"
     schedule:
       interval: monthly
     cooldown:
@@ -32,7 +37,7 @@ updates:
         patterns:
           - "*"
   - package-ecosystem: npm
-    directory: "/.github/claude-code"
+    directory: "/scripts/ci/claude-code"
     schedule:
       interval: monthly
     cooldown:

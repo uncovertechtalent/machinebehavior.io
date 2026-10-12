@@ -17,7 +17,7 @@ reviews:
     - "!inside/docs/**"
     - "!inside/search.json"
     - "!map/graph.json"
-    - "!.github/claude-code/package-lock.json"
+    - "!scripts/ci/claude-code/package-lock.json"
   path_instructions:
     - path: "**"
       instructions: |
