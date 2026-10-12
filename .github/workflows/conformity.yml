@@ -15,12 +15,8 @@ on:
     - cron: "17 6 * * 1"
   workflow_dispatch:
 
-permissions:
-  contents: write
-  pages: write
-  id-token: write
-  actions: read
-  issues: read
+# Each job asks for its own permissions (#65); the workflow grants none.
+permissions: {}
 
 concurrency:
   group: conformity-${{ github.ref }}
@@ -30,10 +26,12 @@ jobs:
   conformity:
     name: Conformity checks
     runs-on: ubuntu-latest
+    permissions:
+      contents: write   # the bot commit of latest.json and the page, when the deploy key is missing
     outputs:
       result: ${{ steps.gate.outputs.result }}
     steps:
-      - name: Checkout
+      - name: Checkout  # zizmor: ignore[artipacked] the bot commit pushes with the persisted deploy key (.github/zizmor.yml)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           # A pull request run checks the merge result of the pull request; every other run checks main.
@@ -44,7 +42,7 @@ jobs:
           ssh-key: ${{ github.event_name != 'pull_request' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
       - name: Run the checks
-        uses: ./.github/actions/conformity
+        uses: ./.github/actions/conformity  # zizmor: ignore[self-repository] the gate accepts $/ only after #66 (.github/zizmor.yml)
         with:
           root: .
           config: conformity/site-tier.json
@@ -86,11 +84,18 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read    # check out main after the bot commit
+      pages: write      # deploy to Pages
+      id-token: write   # the OIDC token deploy-pages needs
+      actions: read     # the deploy feed snapshot for Inside
+      issues: read      # the issue snapshot for the board
     steps:
       - name: Checkout (after the bot commit)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
+          persist-credentials: false
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -171,3 +176,28 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  zizmor:
+    name: Workflow security (zizmor)
+    # Static analysis of .github (#65): template injection, permissions, credential persistence, pins.
+    # It runs in this site's workflow only; the shared conformity action stays stdlib-only and offline.
+    # The deploy does not wait for it. Accepted findings, each with a reason, are in .github/zizmor.yml.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read    # check out the repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install zizmor (version and wheel hashes pinned in .github/zizmor/requirements.txt)
+        run: |
+          python3 -m venv "$RUNNER_TEMP/zizmor"
+          "$RUNNER_TEMP/zizmor/bin/pip" install --require-hashes --no-deps --only-binary :all: -r .github/zizmor/requirements.txt
+
+      - name: zizmor .github
+        # Online audits (impostor commits, known-vulnerable actions, stale version comments) read the GitHub API with the job token.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: '"$RUNNER_TEMP/zizmor/bin/zizmor" --format github .github'
