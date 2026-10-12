@@ -2,6 +2,9 @@
 # version comment together. "/" covers .github/workflows; "/.github/actions/*" covers the
 # composite conformity action. One group covers both directories, so at most one pull
 # request each month, and it runs the Conformity checks like any other pull request.
+# The pip entry keeps the zizmor pin in .github/zizmor/requirements.txt current, version and
+# wheel hashes together (#65). The cooldown waits 7 days after a release before proposing it,
+# so a release that is pulled or found compromised in its first week never reaches a pull request.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -10,7 +13,19 @@ updates:
       - "/.github/actions/*"
     schedule:
       interval: monthly
+    cooldown:
+      default-days: 7
     groups:
       github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: pip
+    directory: "/.github/zizmor"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      zizmor:
         patterns:
           - "*"

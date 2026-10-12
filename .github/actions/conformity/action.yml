@@ -34,8 +34,20 @@ runs:
   steps:
     - name: Run the checks
       shell: bash
+      # The inputs reach run.py through the environment, never through ${{ }} inside the script, so an
+      # input that carries event data cannot inject shell code (zizmor template-injection, #65).
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        CC_ROOT: ${{ inputs.root }}
+        CC_CONFIG: ${{ inputs.config }}
+        CC_REQUIREMENTS: ${{ inputs.requirements }}
+        CC_OUT: ${{ inputs.out }}
+        CC_GIT_DIR: ${{ inputs['git-dir'] }}
+        CC_TRIGGER: ${{ inputs.trigger }}
+        CC_SHA: ${{ inputs.sha }}
+        CC_RUNNER: ${{ inputs.runner }}
       run: |
-        python3 "${{ github.action_path }}/run.py" --root "${{ inputs.root }}" --config "${{ inputs.config }}" --requirements "${{ inputs.requirements }}" --out "${{ inputs.out }}" --git-dir "${{ inputs['git-dir'] }}" --trigger "${{ inputs.trigger }}" --sha "${{ inputs.sha }}" --runner "${{ inputs.runner }}"
+        python3 "$ACTION_PATH/run.py" --root "$CC_ROOT" --config "$CC_CONFIG" --requirements "$CC_REQUIREMENTS" --out "$CC_OUT" --git-dir "$CC_GIT_DIR" --trigger "$CC_TRIGGER" --sha "$CC_SHA" --runner "$CC_RUNNER"
     - name: Upload the run record
       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
