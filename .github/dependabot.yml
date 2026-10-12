@@ -5,6 +5,8 @@
 # The pip entry keeps the zizmor pin in .github/zizmor/requirements.txt current, version and
 # wheel hashes together (#65). The cooldown waits 7 days after a release before proposing it,
 # so a release that is pulled or found compromised in its first week never reaches a pull request.
+# The npm entry keeps the Claude Code pin of the change-review workflow in
+# .github/claude-code/package-lock.json current (#68), with the same 7-day cooldown.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -27,5 +29,15 @@ updates:
       default-days: 7
     groups:
       zizmor:
+        patterns:
+          - "*"
+  - package-ecosystem: npm
+    directory: "/.github/claude-code"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      claude-code:
         patterns:
           - "*"
