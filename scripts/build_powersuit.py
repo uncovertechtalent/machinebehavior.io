@@ -203,8 +203,14 @@ def load(cfg, repo):
                 if not any(x.startswith(f'{base}/checks/fixtures/{cid}/{kind}/') for x in files):
                     fail(f'{cid} has no {kind} fixture under {base}/checks/fixtures/{cid}/{kind}/')
             checks.append(cid)
+        if not pj.get('license') or not pj.get('version'):
+            fail(f'{base}/.claude-plugin/plugin.json has no license or no version')
         data[n] = {'version': pj.get('version'), 'license': pj.get('license'), 'skills': skills, 'checks': checks,
                    'intro': readme_intro(repo.read(f'{base}/README.md'))}
+    licences = {d['license'] for d in data.values()}
+    if len(licences) != 1:
+        fail(f'the plugins at {ref} carry more than one licence: {sorted(licences)}')
+    release['license'] = licences.pop()
     return release, data
 
 
@@ -319,7 +325,7 @@ claude plugin install {n}@cto-powersuit</code></pre>
 
 <h2 id="source">Source</h2>
 <p class="thesis">{esc(release["definition"]).replace("&#x27;", "'")} <code>{esc(n)}</code> is one of its {release["plugins"]} plugins, published by Stefan Coetzee.</p>
-<p class="thesis">The skills, templates, checks, fixtures, and the full README of <code>{esc(n)}</code> at release {release["ref"]}: <a href="{src}">github.com/{release["slug"]}/tree/{release["ref"]}/plugins/{n}</a>. License: {esc(d["license"] or "MIT")}. Every plugin of the powersuit: <a href="/cto-powersuit/">CTO powersuit</a>.</p>
+<p class="thesis">The skills, templates, checks, fixtures, and the full README of <code>{esc(n)}</code> at release {release["ref"]}: <a href="{src}">github.com/{release["slug"]}/tree/{release["ref"]}/plugins/{n}</a>. License: {esc(d["license"])}. Every plugin of the powersuit: <a href="/cto-powersuit/">CTO powersuit</a>.</p>
 
 {pager}
 
@@ -370,7 +376,7 @@ def install_block(release):
 
 
 def eyebrow_block(release):
-    return f'Open source · MIT license · latest release {release["ref"]}, {release["date"]}'
+    return f'Open source · {esc(release["license"])} license · latest release {release["ref"]}, {release["date"]}'
 
 
 def latest_block(release):

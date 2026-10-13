@@ -291,8 +291,9 @@ jobs:
 
   script-tests:
     name: Script tests
-    # Tests for the scripts this workflow runs (#85): scripts/test_indexnow.py checks which URLs the indexnow job
-    # submits. Runs on every trigger, pull requests included; the deploy does not wait for it.
+    # Tests of the site's scripts (#85, #90): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, which runs on a
+    # maintainer's machine, never here (ADR-0030). Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     permissions:
       contents: read    # check out the repository
@@ -304,3 +305,6 @@ jobs:
 
       - name: IndexNow URL selection
         run: python3 scripts/test_indexnow.py
+
+      - name: Powersuit page generator
+        run: python3 scripts/test_build_powersuit.py
