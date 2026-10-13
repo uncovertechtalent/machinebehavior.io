@@ -17,7 +17,7 @@ source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
   ref: v0.1.0
   commit: 82d1c08f19721ba3fc36b075807d8c5631e0aed2
-  unreleased: "On the main branch since v0.1.0: `ai-ops` 0.2.0 adds an audit trail of agent tool calls with an alert on denied calls, and `security` 0.3.0 adds a quarantine for third-party text."
+  unreleased: "On the main branch on 2026-10-13, after v0.1.0: `ai-ops` 0.2.0 adds an audit trail of agent tool calls with an alert on denied calls, and `security` 0.3.0 adds a quarantine for third-party text."
 published: 2026-10-13
 
 areas:

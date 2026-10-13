@@ -1,6 +1,7 @@
 /* The CTO powersuit pages: /cto-powersuit/ and its plugin pages (body.ps-page), written by scripts/build_powersuit.py.
    Linked from these pages only. The sidebar of plugins by area (.mb-side-ps, written by scripts/site_chrome.py),
-   the area rows and plugin tiles, and the parts of a plugin page. Values from /design/tokens.css (ADR-0025, ADR-0030). */
+   the area rows and plugin tiles, and the parts of a plugin page. Colours, type, radii and the main spacing come from
+   /design/tokens.css (ADR-0025, ADR-0030); a few layout lengths (column width, gaps, tracking) are set here. */
 
 /* a wider column for the tiles and skills; text keeps the reading width */
 body.ps-page.mb-read > .sheet { max-width: 1080px; }  /* after chrome.css's reading width, as on the home page */

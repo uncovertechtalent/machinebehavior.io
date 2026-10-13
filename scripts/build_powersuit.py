@@ -260,7 +260,7 @@ def plugin_page(cfg, release, data, i, seq):
     sk, ck = len(d['skills']), len(d['checks'])
     plain_line = re.sub(r'`([^`]+)`', r'\1', m['line'])
     desc = (f'{n}, a plugin of the CTO powersuit by Stefan Coetzee for Claude Code: {plain_line} '
-            f'Version {d["version"]} in release {release["ref"]}, {sk} skills, {ck} gate check{"s" if ck != 1 else ""}.')
+            f'Version {d["version"]} in release {release["ref"]}, {sk} skill{"s" if sk != 1 else ""}, {ck} gate check{"s" if ck != 1 else ""}.')
     skills = ''.join(
         f'<li class="ps-skill"><code class="ps-cmd">{esc(("/" + n + ":" + s["name"]) if s["invocable"] else s["name"])}</code>'
         f'<p>{inline(s["line"], lambda u: u)}</p></li>' for s in d['skills'])
@@ -400,7 +400,7 @@ def hand_text_stops(cfg, release, overview):
         if int(n) != release['plugins']:
             problems.append(f'says {n} plugins, the release has {release["plugins"]}')
     lic_name = r'([A-Z][A-Z0-9.-]+|[A-Za-z]+-[0-9][A-Za-z0-9.-]*)'  # MIT, BSD-3-Clause, Apache-2.0; not "The"
-    for lic in re.findall(rf'\b{lic_name} license\b|\blicense is {lic_name}', words):
+    for lic in re.findall(rf'\b{lic_name} (?i:licen[cs]e)\b|\b(?i:licen[cs]e) is {lic_name}', words):
         name = (lic[0] or lic[1]).rstrip('.')
         if name != release['license']:
             problems.append(f'names the {name} licence, the release has {release["license"]}')
@@ -459,6 +459,13 @@ def put_static(src, name, body):
     return rx.sub(lambda _: f'<!-- static:{name} -->{body}<!-- /static:{name} -->', src)
 
 
+def sitemap_text(lastmod):
+    """The sitemap block powersuit as scripts/inside_chrome.py writes it, for --check."""
+    return ('  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n'
+            + ''.join(f'  <url><loc>{BASE}{u}</loc><lastmod>{d}</lastmod></url>\n' for u, d in lastmod)
+            + '  <!-- powersuit:end -->\n')
+
+
 def llms_body(cfg, release, data):
     out = (f'One page per plugin of the CTO powersuit at release {release["ref"]} ({release["date"]}), grouped by the area of the CTO job: '
            f'the line, the version, the skills with their commands, the gate checks, and the install commands. Overview: {BASE}/cto-powersuit/\n')
@@ -467,13 +474,19 @@ def llms_body(cfg, release, data):
         for m in group['modules']:
             d = data[m['name']]
             line = re.sub(r'`([^`]+)`', r'\1', m['line'])
-            out += f'- [{m["name"]}]({BASE}/cto-powersuit/{m["name"]}/): {line} Version {d["version"]}, {len(d["skills"])} skills.\n'
+            sk = len(d['skills'])
+            out += f'- [{m["name"]}]({BASE}/cto-powersuit/{m["name"]}/): {line} Version {d["version"]}, {sk} skill{"s" if sk != 1 else ""}.\n'
     return out
 
 
 def main(argv):
     check = '--check' in argv
-    path = argv[argv.index('--repo') + 1] if '--repo' in argv else None
+    path = None
+    if '--repo' in argv:
+        i = argv.index('--repo')
+        if i + 1 >= len(argv) or argv[i + 1].startswith('--'):
+            fail('--repo needs the path of a clone of the powersuit repository')
+        path = argv[i + 1]
     cfg = mini_yaml.load_file(CFG_FILE)
     repo = open_repo(cfg, path)
     release, data = load(cfg, repo)
@@ -518,6 +531,10 @@ def main(argv):
     if check:
         if site_chrome.apply(overview, 'cto-powersuit/index.html') != OVERVIEW.read_text(encoding='utf-8'):
             differs.append('cto-powersuit/index.html')
+        sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
+        have = re.search(r'  <!-- powersuit:begin.*?<!-- powersuit:end -->\n', sm, re.S)
+        if not have or have.group(0) != sitemap_text(lastmod):
+            differs.append('sitemap.xml')
         if llms_body(cfg, release, data).strip() not in (ROOT / 'llms.txt').read_text(encoding='utf-8'):
             differs.append('llms.txt')
     else:
