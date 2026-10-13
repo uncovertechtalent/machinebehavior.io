@@ -42,7 +42,7 @@ Model behavior is what the model does. Machine behavior is what the whole assemb
 - [How this site is built for AI search](https://machinebehavior.io/aieo/this-site/): each lever on machinebehavior.io as a receipt: what the site does, which engine documents reading it, or no primary source (llms.txt, the link graph, Open Graph images), and where to check it; answer-first pages listed
 - [AIEO measurement](https://machinebehavior.io/aieo/measurement/): the Search Console Generative AI performance report, Bing Webmaster Tools AI Performance and a Perplexity API probe; what each counts and leaves out; none feeds a number to this site yet, so no baseline is published
 - [Stefan Coetzee: your next CTO](https://machinebehavior.io/your-next-cto/): Stefan Coetzee, 30 years in production infrastructure, as a fractional CTO and fractional Chief AI & Technology Officer (CAITO) for companies of 10 to 200 people, one role for the platform and the AI on it: platform, reliability, compliance and AI operations, built in a quarter and handed to a named owner inside the company. What a first quarter delivers (docs tree, deploy gate, observability, services and status, FinOps, ticket board, compliance evidence, legal baseline, AI operations), each linked to the same part running on this site; engagement shapes (assessment, fractional quarter, ongoing, install, interim) without prices. The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform. Fifteen modules (decisions, docs, gate, reliability, observability, FinOps, compliance, hiring, AI operations, red team, AIEO, hand-over, SDLC, fit, security) plus three knowledge infrastructure plugins (vestige, stance, vault); Inside on this site is the powersuit in use; the plugin list and the install commands are at [machinebehavior.io/cto-powersuit/](https://machinebehavior.io/cto-powersuit/), and the open-source repository is [github.com/uncovertechtalent/cto-powersuit](https://github.com/uncovertechtalent/cto-powersuit). Contact on LinkedIn
-- [CTO powersuit](https://machinebehavior.io/cto-powersuit/): the CTO powersuit is an open-source set of Claude Code agent skills by Stefan Coetzee, 18 plugins under the MIT license in one Claude Code plugin marketplace: 15 modules, one per CTO function (ai-ops, aieo, compliance, decisions, docs, finops, fit, gate, handover, hiring, observability, red-team, reliability, sdlc, security), and 3 knowledge infrastructure plugins (vestige, vault, stance). Each plugin with one line and the page on machinebehavior.io where it runs; install commands pinned to release v0.1.0 (2026-10-12) for Claude Code and the skills CLI; links to the repository github.com/uncovertechtalent/cto-powersuit and its changelog. Definition: The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform.
+- [CTO powersuit](https://machinebehavior.io/cto-powersuit/): the CTO powersuit is an open-source set of Claude Code agent skills by Stefan Coetzee, 18 plugins under the MIT license in one Claude Code plugin marketplace: 15 modules, one per CTO function (ai-ops, aieo, compliance, decisions, docs, finops, fit, gate, handover, hiring, observability, red-team, reliability, sdlc, security), and 3 knowledge infrastructure plugins (vestige, vault, stance). The plugins as tiles in seven areas of the CTO job (Direction, Delivery, Operations, Money, Security and risk, AI, People) plus the knowledge layer, each with one line, its own page at machinebehavior.io/cto-powersuit/<plugin>/, and the page on machinebehavior.io where it runs; install commands pinned to release v0.1.0 (2026-10-12) for Claude Code and the skills CLI; links to the repository github.com/uncovertechtalent/cto-powersuit and its changelog. Definition: The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform.
 - [The CTO powersuit experiment](https://machinebehavior.io/your-next-cto/experiment/): a public answer-engine experiment. Stefan Coetzee defined the term CTO powersuit on 2026-10-11 and hashed a prediction before the term went on the page: on 2026-11-30, at least 2 of ChatGPT search, Perplexity and Google AI Overviews name him for the term, with a control query (fractional CTO Germany) predicted not to. The earlier term, build-exit CTO (2026-10-09), was withdrawn before any probe and its prediction will not be scored. Probe plan, baseline, measurement status (Search Console and Bing set up, no reading recorded, Perplexity not set up), and what the experiment does not do
 
 ## Evidence index
@@ -91,7 +91,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (399 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (400 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -127,6 +127,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (399 pages). S
 - [ADR-0027: Structured data on every page from the navigation source](https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/)
 - [ADR-0028: The home page as the front page of the portal](https://machinebehavior.io/inside/docs/eng/adr-0028-home-page-portal-front/)
 - [ADR-0029: Changes reach main through pull requests](https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/)
+- [ADR-0030: The CTO powersuit pages are built from the pinned release](https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
@@ -548,3 +549,49 @@ The status page at https://machinebehavior.io/inside/status/: the state of each 
 - [Agents and harness](https://machinebehavior.io/topics/agents-and-harness/): topic hub, 4 research pages, 2 Inside pages, 16 docs pages, 12 posts, 4 tickets. Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
 - [Evaluation](https://machinebehavior.io/topics/evaluation/): topic hub, 7 research pages, 3 red team pages, 9 docs pages, 2 posts. Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.
 - [AI search](https://machinebehavior.io/topics/ai-search/): topic hub, 1 research page, 4 Inside pages, 1 docs page, 1 ticket. How the engines behind AI answers pick the pages they cite, how this site is built for them, and how citations get measured.
+
+## CTO powersuit plugins
+
+One page per plugin of the CTO powersuit at release v0.1.0 (2026-10-12), grouped by the area of the CTO job: the line, the version, the skills with their commands, the gate checks, and the install commands. Overview: https://machinebehavior.io/cto-powersuit/
+
+### Direction
+
+- [fit](https://machinebehavior.io/cto-powersuit/fit/): The entry assessment: runs the sdlc audit and recommends which modules to fit and in which order. Its repo clinic audits a public repository at its owner's request. Version 0.2.0, 2 skills.
+- [decisions](https://machinebehavior.io/cto-powersuit/decisions/): RFCs, architecture decision records, and a review of the decision log, with a gate check that every record has a status, an owner, and a date. Version 0.1.0, 3 skills.
+
+### Delivery
+
+- [sdlc](https://machinebehavior.io/cto-powersuit/sdlc/): The software delivery lifecycle: an audit for repositories built without one, tickets, change review for agent-written code, a local CI run before each push, test strategy, and release with rollback. Version 0.2.0, 8 skills.
+- [gate](https://machinebehavior.io/cto-powersuit/gate/): A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate. Version 0.2.0, 3 skills.
+- [docs](https://machinebehavior.io/cto-powersuit/docs/): A docs tree where every page has an owner and review dates, runbooks, a sweep for stale pages, and a static docs build. Version 0.1.0, 3 skills.
+
+### Operations
+
+- [reliability](https://machinebehavior.io/cto-powersuit/reliability/): Availability targets, SLOs and error budgets, incidents and postmortems, a static status page, and an on-call policy. Version 0.1.0, 6 skills.
+- [observability](https://machinebehavior.io/cto-powersuit/observability/): Alloy, Prometheus, Loki, Grafana, and Alertmanager with docker compose, dashboards as code, and alert routes. Version 0.1.0, 3 skills.
+
+### Money
+
+- [finops](https://machinebehavior.io/cto-powersuit/finops/): A cost baseline from invoices and billing exports, showback, unit costs, a SaaS stack audit, and a FOCUS export, with a gate check that every cost figure carries a period and a source. Version 0.1.0, 5 skills.
+
+### Security and risk
+
+- [security](https://machinebehavior.io/cto-powersuit/security/): Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, and a pre-push hook for private terms. Version 0.2.0, 6 skills.
+- [compliance](https://machinebehavior.io/cto-powersuit/compliance/): A control map to ISO 27001, TISAX, NIS2, and the GDPR by clause and article number, an AI Act triage, and a legal baseline for a website. Version 0.1.0, 3 skills.
+- [red-team](https://machinebehavior.io/cto-powersuit/red-team/): Pressure tests for a team's AI features: scripted multi-turn runs in a world with a known right answer, graded on the decision the system took. Version 0.1.0, 3 skills.
+
+### AI
+
+- [ai-ops](https://machinebehavior.io/cto-powersuit/ai-ops/): Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, and a coordinator pattern with state in files. Version 0.1.0, 3 skills.
+- [aieo](https://machinebehavior.io/cto-powersuit/aieo/): Visibility in AI search: llms.txt, structured data, answer probes, and predictions hashed before a page goes live. Version 0.1.0, 4 skills.
+
+### People
+
+- [hiring](https://machinebehavior.io/cto-powersuit/hiring/): An interview loop, rubrics with anchored levels, debriefs with evidence before votes, and the profile of the person who takes over the platform. Version 0.1.0, 4 skills.
+- [handover](https://machinebehavior.io/cto-powersuit/handover/): Hand the platform to its owner: training per module, exit criteria, and a test plan that shows the owner runs the platform from the docs alone. Version 0.1.1, 3 skills.
+
+### Knowledge layer
+
+- [vestige](https://machinebehavior.io/cto-powersuit/vestige/): An output filter you calibrate to yourself from your own transcripts. Hooks scan every reply and every Markdown file Claude writes. Version 0.1.0, 4 skills.
+- [vault](https://machinebehavior.io/cto-powersuit/vault/): A plain-Markdown vault with hybrid keyword and semantic search, served to Claude as an MCP server, with skills to seed it and to atomize documents into it. Version 0.1.0, 3 skills.
+- [stance](https://machinebehavior.io/cto-powersuit/stance/): Stance filters: professional-b2, good-chad, receipts, poles, and mode-leak. Version 0.1.0, 6 skills.

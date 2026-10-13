@@ -10,8 +10,9 @@
 #   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb
 #   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
-#          services (inside/services/services.json, written by scripts/build_inside.py)
-#          and topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
+#          services (inside/services/services.json, written by scripts/build_inside.py),
+#          topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
+#          and powersuit (cto-powersuit/modules.json, written by scripts/build_powersuit.py from site/powersuit.yml)
 #   pages  the pages under an entry
 #   published    the date a page gives itself as its publication date (JSON-LD datePublished); left out when it gives none
 #   contributor  a model the page names as its writer or scorer (JSON-LD contributor)
@@ -175,6 +176,7 @@ sections:
       - title: CTO powersuit
         url: /cto-powersuit/
         published: 2026-10-13
+        auto: powersuit
         software:
           name: CTO powersuit
           alternate_name: cto-powersuit

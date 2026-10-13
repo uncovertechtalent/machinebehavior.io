@@ -60,6 +60,26 @@
   <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/ai-search/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- hubs:end -->
+  <!-- powersuit:begin (scripts/build_powersuit.py) -->
+  <url><loc>https://machinebehavior.io/cto-powersuit/fit/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/decisions/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/sdlc/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/gate/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/docs/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/reliability/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/observability/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/finops/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/security/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/compliance/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/red-team/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/ai-ops/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/aieo/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/hiring/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/handover/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/vestige/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/vault/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/cto-powersuit/stance/</loc><lastmod>2026-10-13</lastmod></url>
+  <!-- powersuit:end -->
   <!-- docs:begin (scripts/build_docs.py) -->
   <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-13</lastmod></url>
@@ -95,6 +115,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0028-home-page-portal-front/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
