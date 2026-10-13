@@ -111,6 +111,18 @@ def main():
     case('block: table', bp.block('| A | B |\n|---|---|\n| `x` | y |', link),
          '<div class="tablewrap"><table><thead><tr><th>A</th><th>B</th></tr></thead><tbody><tr><td><code>x</code></td><td>y</td></tr></tbody></table></div>')
 
+    # the overview's hand-written text must agree with the release
+    kb3 = {'knowledge': {'modules': [1, 2, 3]}}
+    rel = {'plugins': 18, 'license': 'MIT'}
+    case('hand text: counts and licence that agree go through',
+         stops(lambda: bp.hand_text_stops(kb3, rel, '<p>18 plugins: 15 modules and 3 knowledge infrastructure plugins. The license is MIT.</p>')), 0)
+    case('hand text: a release name stops the build', stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Pinned to v0.2.0.</p>')), 2)
+    case('hand text: a wrong count in a meta description stops the build',
+         stops(lambda: bp.hand_text_stops(kb3, rel, '<meta name="description" content="19 Claude Code plugins">')), 2)
+    case('hand text: another licence stops the build', stops(lambda: bp.hand_text_stops(kb3, rel, '<p>The license is Apache-2.0.</p>')), 2)
+    case('hand text: static and chrome blocks are not hand text',
+         stops(lambda: bp.hand_text_stops(kb3, rel, '<!-- static:x -->v0.0.1, 9 plugins<!-- /static:x --><!-- mb:head -->v0.0.2<!-- /mb:head -->')), 0)
+
     # the stops of load() and open_repo(), on a small repository
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

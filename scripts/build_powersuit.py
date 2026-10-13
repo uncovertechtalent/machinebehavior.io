@@ -14,11 +14,12 @@ Writes:
   pinned to the release, and links to the source at the release;
 - cto-powersuit/modules.json: the areas and the plugin pages, which scripts/site_chrome.py reads for the navigation
   tree, the powersuit sidebar and the structured data of each plugin page;
-- the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-areas, powersuit-knowledge and
-  powersuit-release on /cto-powersuit/;
+- the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-license, powersuit-areas,
+  powersuit-knowledge and powersuit-release on /cto-powersuit/;
 - the sitemap block powersuit and the llms.txt section "CTO powersuit plugins";
 then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
-Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one.
+Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one,
+or states a licence or a plugin count that differs from the release.
 Stdlib and git only. Tests of the parsers: python3 scripts/test_build_powersuit.py.
 """
 import atexit, datetime, html, json, posixpath, re, shutil, subprocess, sys, tempfile
@@ -375,6 +376,38 @@ def install_block(release):
             f'<a href="{repo}/blob/{r}/README.md#versions-and-rollback">Versions and rollback</a> in the README at {r}.</p>')
 
 
+def license_block(release):
+    return f'<strong>License:</strong> <a href="{release["repo"]}/blob/{release["ref"]}/LICENSE">{esc(release["license"])}</a>.'
+
+
+def hand_text_stops(cfg, release, overview):
+    """The hand-written text of the overview (outside the static and chrome blocks) must agree with the pinned release:
+    no release name at all (those live in the static blocks), and every licence and count it states equal to the release's."""
+    hand = re.sub(r'<!-- (static|mb):(\S+) -->.*?<!-- /\1:\2 -->', '', overview, flags=re.S)
+    text = html.unescape(re.sub(r'<[^>]+>', ' ', hand))
+    meta = ' '.join(html.unescape(m) for m in re.findall(r'<meta [^>]*content="([^"]*)"', hand))
+    words = text + ' ' + meta
+    problems = [f'names {v}' for v in sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', words)))]
+    n_kb = len(cfg['knowledge']['modules'])
+    want = {'modules': release['plugins'] - n_kb, 'knowledge infrastructure plugins': n_kb, 'plugins': release['plugins']}
+    for n in re.findall(r'\b(\d+) modules\b', words):
+        if int(n) != want['modules']:
+            problems.append(f'says {n} modules, the release has {want["modules"]}')
+    for n in re.findall(r'\b(\d+) knowledge infrastructure plugins\b', words):
+        if int(n) != want['knowledge infrastructure plugins']:
+            problems.append(f'says {n} knowledge infrastructure plugins, the release has {n_kb}')
+    for n in re.findall(r'\b(\d+) (?:Claude Code )?plugins\b', words):
+        if int(n) != release['plugins']:
+            problems.append(f'says {n} plugins, the release has {release["plugins"]}')
+    lic_name = r'([A-Z][A-Z0-9.-]+|[A-Za-z]+-[0-9][A-Za-z0-9.-]*)'  # MIT, BSD-3-Clause, Apache-2.0; not "The"
+    for lic in re.findall(rf'\b{lic_name} license\b|\blicense is {lic_name}', words):
+        name = (lic[0] or lic[1]).rstrip('.')
+        if name != release['license']:
+            problems.append(f'names the {name} licence, the release has {release["license"]}')
+    if problems:
+        fail('cto-powersuit/index.html, hand-written text: ' + '; '.join(sorted(set(problems))) + '. Move the text into a static block or update it.')
+
+
 def eyebrow_block(release):
     return f'Open source · {esc(release["license"])} license · latest release {release["ref"]}, {release["date"]}'
 
@@ -458,12 +491,10 @@ def main(argv):
     # 1. the module list first: the chrome reads it for the tree, the sidebar and the structured data
     overview = OVERVIEW.read_text(encoding='utf-8')
     for name, body in (('powersuit-eyebrow', eyebrow_block(release)), ('powersuit-install', install_block(release)),
-                       ('powersuit-latest', latest_block(release)), ('powersuit-areas', areas_block(cfg)),
+                       ('powersuit-latest', latest_block(release)), ('powersuit-license', license_block(release)), ('powersuit-areas', areas_block(cfg)),
                        ('powersuit-knowledge', knowledge_block(cfg)), ('powersuit-release', release_block(release, data, cfg['source'].get('unreleased')))):
         overview = put_static(overview, name, body)
-    others = sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', re.sub(r'<!-- (static|mb):(\S+) -->.*?<!-- /\1:\2 -->', '', overview, flags=re.S))))
-    if others:  # every release name on the overview comes from the static blocks, so hand text cannot fall behind the pin
-        fail(f'cto-powersuit/index.html names {", ".join(others)} outside its static blocks; move that text into a block or update it to {release["ref"]}')
+    hand_text_stops(cfg, release, overview)
     write(MODULES_JSON, json.dumps(modules_json(cfg, release, data, overview), ensure_ascii=False, indent=1) + '\n')
     if check and differs:
         print('differs:', *differs)
