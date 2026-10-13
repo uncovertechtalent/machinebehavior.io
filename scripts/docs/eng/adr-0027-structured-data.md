@@ -5,10 +5,11 @@ order: 27
 adr: 27
 status: accepted
 created: 2026-10-09
+updated: 2026-10-13
 labels: adr, decision, structured-data, navigation
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-13
+review_by: 2027-01-11
 type: explanation
 ---
 ## Context
