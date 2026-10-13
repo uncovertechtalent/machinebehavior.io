@@ -5,6 +5,7 @@
   "commit": "82d1c08f19721ba3fc36b075807d8c5631e0aed2",
   "version": "0.1.0",
   "date": "2026-10-12",
+  "marketplace": "cto-powersuit",
   "repo": "https://github.com/uncovertechtalent/cto-powersuit",
   "slug": "uncovertechtalent/cto-powersuit",
   "plugins": 18,

@@ -36,6 +36,8 @@ OUT = ROOT / 'cto-powersuit'
 OVERVIEW = OUT / 'index.html'
 MODULES_JSON = OUT / 'modules.json'
 TODAY = datetime.date.today().isoformat()
+NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen',
+           'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
 STOP = re.compile(r'\s(?:Use when|Use it when|Use before|Use after|Use on|Use to|Use once|Activates on)\b')
 
 
@@ -179,7 +181,9 @@ def load(cfg, repo):
     m = re.search(rf'^## \[{re.escape(str(version))}\] - (\d{{4}}-\d{{2}}-\d{{2}})', changelog, re.M)
     if not m:
         fail(f'CHANGELOG.md at {ref} has no entry for {version}')
-    release = {'ref': ref, 'commit': cfg['source']['commit'], 'version': str(version), 'date': m.group(1),
+    if not manifest.get('name'):
+        fail(f'.claude-plugin/marketplace.json at {ref} has no name; the install commands need it')
+    release = {'ref': ref, 'commit': cfg['source']['commit'], 'version': str(version), 'date': m.group(1), 'marketplace': manifest['name'],
                'repo': cfg['source']['repo'], 'slug': cfg['source']['repo'].split('github.com/', 1)[-1], 'plugins': len(names),
                'definition': definition()}
     data = {}
@@ -208,6 +212,10 @@ def load(cfg, repo):
             fail(f'{base}/.claude-plugin/plugin.json has no license or no version')
         data[n] = {'version': pj.get('version'), 'license': pj.get('license'), 'skills': skills, 'checks': checks,
                    'intro': readme_intro(repo.read(f'{base}/README.md'))}
+    for a in cfg['areas']:  # the overview says each module has a gate check; the knowledge plugins are not modules
+        for m in a['modules']:
+            if not data[m['name']]['checks']:
+                fail(f'module {m["name"]} has no gate check at {ref}; the overview says each module has one')
     licences = {d['license'] for d in data.values()}
     if len(licences) != 1:
         fail(f'the plugins at {ref} carry more than one licence: {sorted(licences)}')
@@ -316,7 +324,7 @@ def plugin_page(cfg, release, data, i, seq):
 <h2 id="install">Install</h2>
 <p class="thesis">Add the marketplace at release {release["ref"]} once, then install the plugin and restart Claude Code.</p>
 <pre><code>claude plugin marketplace add {release["slug"]}#{release["ref"]}
-claude plugin install {n}@cto-powersuit</code></pre>
+claude plugin install {n}@{release["marketplace"]}</code></pre>
 
 <h2 id="skills">Skills</h2>
 <ul class="ps-skills">{skills}</ul>
@@ -366,8 +374,8 @@ def install_block(release):
     r, d, repo = release['ref'], release['date'], release['repo']
     return (f'<p class="thesis">The latest release is {r}, tagged on {d}. The commands below pin it. The repository is the only source of the project: '
             f'install it only with these owner-qualified commands or from a clone of the repository.</p>\n'
-            f'<pre><code>claude plugin marketplace add {release["slug"]}#{r}\nclaude plugin install sdlc@cto-powersuit</code></pre>\n'
-            f'<p class="thesis">Install each plugin you need by its name from the tiles below, as <code>&lt;plugin&gt;@cto-powersuit</code>, and restart Claude Code after installing. '
+            f'<pre><code>claude plugin marketplace add {release["slug"]}#{r}\nclaude plugin install sdlc@{release["marketplace"]}</code></pre>\n'
+            f'<p class="thesis">Install each plugin you need by its name from the tiles below, as <code>&lt;plugin&gt;@{release["marketplace"]}</code>, and restart Claude Code after installing. '
             f'Inside Claude Code the same commands work as <code>/plugin marketplace add</code> and <code>/plugin install</code>. With the skills CLI:</p>\n'
             f'<pre><code>npx skills add {release["slug"]}#{r}</code></pre>\n'
             f'<p class="thesis">The skills CLI copies the skill folders only. Skills that copy templates, the hooks, and the MCP server need the plugin install. '
@@ -389,16 +397,17 @@ def hand_text_stops(cfg, release, overview):
     words = text + ' ' + meta
     problems = [f'names {v}' for v in sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', words)))]
     n_kb = len(cfg['knowledge']['modules'])
-    want = {'modules': release['plugins'] - n_kb, 'knowledge infrastructure plugins': n_kb, 'plugins': release['plugins']}
-    for n in re.findall(r'\b(\d+) modules\b', words):
-        if int(n) != want['modules']:
-            problems.append(f'says {n} modules, the release has {want["modules"]}')
-    for n in re.findall(r'\b(\d+) knowledge infrastructure plugins\b', words):
-        if int(n) != want['knowledge infrastructure plugins']:
-            problems.append(f'says {n} knowledge infrastructure plugins, the release has {n_kb}')
-    for n in re.findall(r'\b(\d+) (?:Claude Code )?plugins\b', words):
-        if int(n) != release['plugins']:
-            problems.append(f'says {n} plugins, the release has {release["plugins"]}')
+    num = r'(\d+|(?i:' + '|'.join(NUMBERS) + r'))'
+
+    def count(pattern, want, what):
+        for n in re.findall(pattern, words):
+            got = int(n) if n.isdigit() else NUMBERS.index(n.lower())
+            if got != want:
+                problems.append(f'says {n} {what}, the release has {want}')
+    count(rf'\b{num} modules\b', release['plugins'] - n_kb, 'modules')
+    count(rf'\b{num} knowledge infrastructure plugins\b', n_kb, 'knowledge infrastructure plugins')
+    count(rf'\b{num} plugins for the knowledge layer\b', n_kb, 'plugins for the knowledge layer')
+    count(rf'\b{num} (?:Claude Code )?plugins\b(?! for the knowledge layer)', release['plugins'], 'plugins')
     lic_name = r'([A-Z][A-Z0-9.-]+|[A-Za-z]+-[0-9][A-Za-z0-9.-]*)'  # MIT, BSD-3-Clause, Apache-2.0; not "The"
     for lic in re.findall(rf'\b{lic_name} (?i:licen[cs]e)\b|\b(?i:licen[cs]e) is {lic_name}', words):
         name = (lic[0] or lic[1]).rstrip('.')
@@ -441,7 +450,7 @@ def modules_json(cfg, release, data, overview_src):
     for area, m in order(cfg):
         n = m['name']
         pages.append({'title': n, 'url': f'/cto-powersuit/{n}/', 'software': {
-            'name': f'{n} (CTO powersuit plugin)', 'alternate_name': f'{n}@cto-powersuit',
+            'name': f'{n} (CTO powersuit plugin)', 'alternate_name': f'{n}@{release["marketplace"]}',
             'description': re.sub(r'`([^`]+)`', r'\1', m['line']),
             'repository': release['repo'], 'license': f'{release["repo"]}/blob/{release["ref"]}/LICENSE',
             'version': data[n]['version'], 'platform': 'Claude Code', 'part_of': '/cto-powersuit/#software'}})

@@ -18,7 +18,7 @@ import build_powersuit as bp  # noqa: E402
 
 REL = {'repo': 'https://github.com/o/r', 'ref': 'v9.9.9'}
 FILES = {
-    '.claude-plugin/marketplace.json': json.dumps({'metadata': {'version': '0.0.1'}, 'plugins': [{'name': 'a'}]}),
+    '.claude-plugin/marketplace.json': json.dumps({'name': 'mkt', 'metadata': {'version': '0.0.1'}, 'plugins': [{'name': 'a'}]}),
     'CHANGELOG.md': '# Changelog\n\n## [0.0.1] - 2026-01-02\n',
     'plugins/a/.claude-plugin/plugin.json': json.dumps({'name': 'a', 'version': '0.0.1', 'license': 'MIT'}),
     'plugins/a/README.md': '# a\n\nIntro.\n\nInstall:\n',
@@ -120,6 +120,10 @@ def main():
     case('hand text: a wrong count in a meta description stops the build',
          stops(lambda: bp.hand_text_stops(kb3, rel, '<meta name="description" content="19 Claude Code plugins">')), 2)
     case('hand text: another licence stops the build', stops(lambda: bp.hand_text_stops(kb3, rel, '<p>The license is Apache-2.0.</p>')), 2)
+    case('hand text: a count in words stops the build when it differs',
+         stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Four plugins for the knowledge layer.</p>')), 2)
+    case('hand text: a count in words that agrees goes through',
+         stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Three plugins for the knowledge layer, of eighteen plugins.</p>')), 0)
     case('hand text: British spelling and capitals count too', stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Under the BSD-3-Clause Licence.</p>')), 2)
     case('sitemap text: one line per plugin page between the markers', bp.sitemap_text([('/cto-powersuit/a/', '2026-01-02')]),
          '  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n  <url><loc>https://machinebehavior.io/cto-powersuit/a/</loc>'
@@ -133,8 +137,9 @@ def main():
         git(root, 'init', '-q')
         c1 = commit(root, FILES, 'v0.0.1')
         release, data = bp.load(cfg('v0.0.1', c1), bp.Repo(root, c1))
-        case('load: release, skills and checks', (release['date'], [s['name'] for s in data['a']['skills']], data['a']['checks']),
-             ('2026-01-02', ['s'], ['a.c']))
+        case('load: release, marketplace, skills and checks',
+             (release['date'], release['marketplace'], [s['name'] for s in data['a']['skills']], data['a']['checks']),
+             ('2026-01-02', 'mkt', ['s'], ['a.c']))
         case('open_repo: the tag at the pinned commit goes through', stops(lambda: bp.open_repo(cfg('v0.0.1', c1), root)), 0)
         case('open_repo: a moved tag stops the build', stops(lambda: bp.open_repo(cfg('v0.0.1', '0' * 40), root)), 2)
         case('load: a plugin list that differs from the manifest stops the build',
@@ -143,6 +148,13 @@ def main():
         case('load: a check without a fail fixture stops the build', stops(lambda: bp.load(cfg('v0.0.1', c2), bp.Repo(root, c2))), 2)
         c3 = commit(root, {'plugins/a/checks/fixtures/a.c/fail/x.txt': 'x', 'plugins/a/checks/c.py': '# no id\n'}, 'v0.0.1-noid')
         case('load: a check without an ID stops the build', stops(lambda: bp.load(cfg('v0.0.1', c3), bp.Repo(root, c3))), 2)
+        c4 = commit(root, {'plugins/a/checks/c.py': None, 'plugins/a/checks/fixtures/a.c/pass/x.txt': None,
+                           'plugins/a/checks/fixtures/a.c/fail/x.txt': None}, 'v0.0.1-nocheck')
+        case('load: a module without a gate check stops the build', stops(lambda: bp.load(cfg('v0.0.1', c4), bp.Repo(root, c4))), 2)
+        c5 = commit(root, {'.claude-plugin/marketplace.json': json.dumps({'metadata': {'version': '0.0.1'}, 'plugins': [{'name': 'a'}]}),
+                           'plugins/a/checks/c.py': 'ID = "a.c"\n', 'plugins/a/checks/fixtures/a.c/pass/x.txt': 'x',
+                           'plugins/a/checks/fixtures/a.c/fail/x.txt': 'x'}, 'v0.0.1-noname')
+        case('load: a manifest without a name stops the build', stops(lambda: bp.load(cfg('v0.0.1', c5), bp.Repo(root, c5))), 2)
 
     for f in failures:
         print(f, file=sys.stderr)
