@@ -118,6 +118,11 @@ def main():
          ['https://a/', 'mailto:a@b', '/inside/'])
     case('data link: a javascript: target stops the build', stops(lambda: bp.data_link('javascript:alert(1)')), 2)
     case('data link: a protocol-relative target stops the build', stops(lambda: bp.data_link('//evil.test/')), 2)
+    case('demo link: a root-absolute page goes through', bp.demo_html({'name': 'x', 'demo_url': '/inside/', 'demo_title': 'Inside'}),
+         '<a href="/inside/">Inside</a>')
+    case('demo link: a protocol-relative target stops the build',
+         stops(lambda: bp.demo_html({'name': 'x', 'demo_url': '//evil.test/', 'demo_title': 'X'})), 2)
+    case('demo link: a URL without a title stops the build', stops(lambda: bp.demo_html({'name': 'x', 'demo_url': '/inside/'})), 2)
     case('block: table', bp.block('| A | B |\n|---|---|\n| `x` | y |', link),
          '<div class="tablewrap"><table><thead><tr><th>A</th><th>B</th></tr></thead><tbody><tr><td><code>x</code></td><td>y</td></tr></tbody></table></div>')
 

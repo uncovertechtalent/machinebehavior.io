@@ -276,8 +276,10 @@ def order(cfg):
 def demo_html(m, cls=''):
     if not m.get('demo_url'):
         return '<span class="ps-none">No public page yet</span>'
+    if not m.get('demo_title'):
+        fail(f'site/powersuit.yml: {m["name"]} has a demo_url and no demo_title')
     c = f' class="{cls}"' if cls else ''
-    return f'<a{c} href="{esc(m["demo_url"])}">{esc(m["demo_title"])}</a>'
+    return f'<a{c} href="{esc(data_link(m["demo_url"]))}">{esc(m["demo_title"])}</a>'
 
 
 def line_html(m):
