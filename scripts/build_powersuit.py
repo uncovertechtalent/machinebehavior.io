@@ -16,7 +16,7 @@ Writes:
   tree, the powersuit sidebar and the structured data of each plugin page;
 - the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-license, powersuit-areas,
   powersuit-knowledge and powersuit-release on /cto-powersuit/;
-- the sitemap block powersuit and the llms.txt section "CTO powersuit plugins";
+- the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
 then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
 Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one,
 or states a licence or a plugin count that differs from the release.
@@ -271,7 +271,7 @@ def plugin_page(cfg, release, data, i, seq):
             f'Version {d["version"]} in release {release["ref"]}, {sk} skill{"s" if sk != 1 else ""}, {ck} gate check{"s" if ck != 1 else ""}.')
     skills = ''.join(
         f'<li class="ps-skill"><code class="ps-cmd">{esc(("/" + n + ":" + s["name"]) if s["invocable"] else s["name"])}</code>'
-        f'<p>{inline(s["line"], lambda u: u)}</p></li>' for s in d['skills'])
+        f'<p>{inline(s["line"], link_for(release, n))}</p></li>' for s in d['skills'])
     checks = (''.join(f'<li><code>{esc(c)}</code></li>' for c in d['checks']) if d['checks'] else '')
     checks_html = (f'<p class="thesis">The checks this plugin adds to the deploy gate of the <a href="/cto-powersuit/gate/"><code>gate</code></a> module, each with a pass fixture and a fail fixture:</p>'
                    f'<ul class="ps-checks">{checks}</ul>') if d['checks'] else '<p class="thesis">This plugin has no gate check.</p>'
@@ -468,6 +468,30 @@ def put_static(src, name, body):
     return rx.sub(lambda _: f'<!-- static:{name} -->{body}<!-- /static:{name} -->', src)
 
 
+LLMS_ENTRY = re.compile(r'^- \[CTO powersuit\]\(' + re.escape(BASE) + r'/cto-powersuit/\): the CTO powersuit .*$', re.M)
+
+
+def llms_entry(cfg, release, data):
+    """The overview's line in the Pages section of llms.txt, from the release, so its facts follow each pin."""
+    n_kb = len(cfg['knowledge']['modules'])
+    areas = ', '.join(a['title'] for a in cfg['areas'])
+    mods = ', '.join(m['name'] for a in cfg['areas'] for m in a['modules'])
+    kb = ', '.join(m['name'] for m in cfg['knowledge']['modules'])
+    return (f'- [CTO powersuit]({BASE}/cto-powersuit/): the CTO powersuit is an open-source set of Claude Code agent skills by Stefan Coetzee, '
+            f'{release["plugins"]} plugins under the {release["license"]} license in one Claude Code plugin marketplace: '
+            f'{release["plugins"] - n_kb} modules, one per CTO function ({mods}), and {n_kb} knowledge infrastructure plugins ({kb}). '
+            f'The plugins as tiles in {len(cfg["areas"])} areas of the CTO job ({areas}) plus the knowledge layer, each with one line, '
+            f'its own page at machinebehavior.io/cto-powersuit/<plugin>/, and the page on machinebehavior.io where it runs; '
+            f'install commands pinned to release {release["ref"]} ({release["date"]}) for Claude Code and the skills CLI; '
+            f'links to the repository github.com/{release["slug"]} and its changelog. Definition: {release["definition"]}')
+
+
+def put_llms_entry(text, line):
+    if not LLMS_ENTRY.search(text):
+        fail('llms.txt: no line for /cto-powersuit/ in the Pages section')
+    return LLMS_ENTRY.sub(lambda _: line, text, count=1)
+
+
 def sitemap_text(lastmod):
     """The sitemap block powersuit as scripts/inside_chrome.py writes it, for --check."""
     return ('  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n'
@@ -544,12 +568,15 @@ def main(argv):
         have = re.search(r'  <!-- powersuit:begin.*?<!-- powersuit:end -->\n', sm, re.S)
         if not have or have.group(0) != sitemap_text(lastmod):
             differs.append('sitemap.xml')
-        if llms_body(cfg, release, data).strip() not in (ROOT / 'llms.txt').read_text(encoding='utf-8'):
+        llms = (ROOT / 'llms.txt').read_text(encoding='utf-8')
+        if llms_body(cfg, release, data).strip() not in llms or put_llms_entry(llms, llms_entry(cfg, release, data)) != llms:
             differs.append('llms.txt')
     else:
         # 3. the shared lists, then the chrome again with the new dates
         inside_chrome.sitemap_block('powersuit', lastmod, BASE, 'scripts/build_powersuit.py')
         inside_chrome.llms_section('CTO powersuit plugins', llms_body(cfg, release, data))
+        lp = ROOT / 'llms.txt'
+        lp.write_text(put_llms_entry(lp.read_text(encoding='utf-8'), llms_entry(cfg, release, data)), encoding='utf-8')
         site_chrome.tree(reload=True)
         for rel, page in raw.items():
             write(ROOT / rel, site_chrome.apply(page, rel))

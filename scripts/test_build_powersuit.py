@@ -103,6 +103,8 @@ def main():
     case('link: folder goes to a tree URL', link('templates/'), 'https://github.com/o/r/tree/v9.9.9/plugins/ai-ops/templates')
     case('link: anchor in the README', link('#install'), 'https://github.com/o/r/blob/v9.9.9/plugins/ai-ops/README.md#install')
     case('link: absolute stays', link('https://example.test/x'), 'https://example.test/x')
+    case('link: a javascript: target goes to GitHub, never into an href as written', link('javascript:alert(1)'),
+         'https://github.com/o/r/tree/v9.9.9/plugins/ai-ops/javascript:alert(1)')
 
     # inline Markdown and tables
     case('inline: code, bold, link with code, escaping',
