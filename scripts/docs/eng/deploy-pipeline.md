@@ -3,11 +3,11 @@ summary: One GitHub Actions workflow runs the conformity checks, commits the rec
 order: 20
 labels: deploy, github-actions, pipeline
 owner: Stefan Coetzee
-reviewed: 2026-10-12
-review_by: 2027-01-10
+reviewed: 2026-10-13
+review_by: 2027-01-11
 type: explanation
 ---
-Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`; since [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) that push is a merged pull request or a bot commit. The workflow also runs every Monday at 06:17 UTC, by hand, and on every pull request to `main`. It has three jobs. Job 2 runs only if job 1 passes; job 3 runs beside them and the deploy does not wait for it. A pull request run is the required check before the merge: it runs job 1 on the merge result of the pull request, commits nothing and skips job 2. The workflow grants no permissions itself; each job asks for its own, listed under its heading.
+Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`; since [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) that push is a merged pull request or a bot commit. The workflow also runs every Monday at 06:17 UTC, by hand, and on every pull request to `main`. It has five jobs. Job 2 runs only if job 1 passes; jobs 3 and 5 run beside them and the deploy does not wait for them; job 4 runs after each successful deploy from `main`. A pull request run is the required check before the merge: it runs job 1 on the merge result of the pull request, commits nothing and skips job 2. The workflow grants no permissions itself; each job asks for its own, listed under its heading.
 
 ## Job 1: conformity checks
 
@@ -34,6 +34,25 @@ Permissions: `contents: read`, `pages: write` and `id-token: write` for the depl
 Permissions: `contents: read`.
 
 zizmor checks every workflow and the conformity action under `.github/` for template injection, broad permissions, persisted credentials, unpinned or impostor actions, and actions with known advisories. It runs on every trigger, pull requests included. A finding fails this job and never blocks the deploy; it is a required check only if the ruleset names it. Accepted findings have an inline `# zizmor: ignore[<rule>]` comment, and `.github/zizmor.yml` lists each one with its reason. Details in `conformity/README.md`.
+
+## Job 4: submit changed URLs to IndexNow
+
+Permissions: `contents: read`, to check out the deployed commit with its history, and `deployments: read`, to find where the range starts.
+
+Runs after job 2 succeeds on `main` ([#85](https://github.com/uncovertechtalent/machinebehavior.io/issues/85)).
+
+1. Check out the commit job 2 deployed, recorded by its step "Record the deployed commit", with full history.
+2. Find the start of the range: the commit of the newest `github-pages` deployment with a success status, other than this run's. Starting there, and not at the commit before the push, also covers pushes whose own run failed or was cancelled, and deploys from scheduled and manual runs. A deployment carries its run's trigger commit, which comes before that run's bot commit, so the range also holds the previous bot commit and `/conformity/` goes out with most submissions. When the API gives no such deployment, a push run starts at the commit before the push (`github.event.before`); any other run submits nothing.
+3. `scripts/indexnow.py` lists the files that changed between the start and the deployed commit. Each changed `index.html` of a page in `sitemap.xml` becomes its URL, a changed `llms.txt` is added, and the sitemap URL goes with every submission. Removed pages are left out. When nothing a search engine reads changed, the job stops here. `python3 scripts/test_indexnow.py` tests the script on a small repository built in a temporary folder; job 5 runs it.
+4. `curl` posts the host, the key, the key location and the URL list to `https://api.indexnow.org/indexnow` and logs the HTTP status: 200 means submitted, 202 received with the key check pending. Any other status, or no URL list, is a warning in the job log.
+
+The key is public by design: the engines fetch `/a738b040f4845f81e1a541ccd2b9e05d.txt` from the site root to check that a submission comes from the site's owner. The job is `continue-on-error` and never fails the run; the deploy is already live, and a refused submission waits for the next crawl. To check a submission, read the job log of the run.
+
+## Job 5: script tests
+
+Permissions: `contents: read`.
+
+Runs the tests of the scripts this workflow runs, on every trigger, pull requests included: `python3 scripts/test_indexnow.py` ([#85](https://github.com/uncovertechtalent/machinebehavior.io/issues/85)). A failure fails this job and never blocks the deploy; it is a required check only if the ruleset names it.
 
 ## What happens around a deploy
 

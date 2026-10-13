@@ -450,6 +450,18 @@ def page_ld(t, node, trail, url, src, layout):
         page['mainEntity'] = {'@id': set_id} if url == '/terms/' else page.get('mainEntity')
         if page['mainEntity'] is None:
             del page['mainEntity']
+    sw = cfg.get('software')
+    if sw:  # a page about one piece of software: SoftwareSourceCode as its main entity, from site/nav.yml (#85)
+        sw_id = base + url + '#software'
+        code = {'@type': 'SoftwareSourceCode', '@id': sw_id, 'name': sw['name'], 'url': base + url,
+                'description': sw.get('description') or desc, 'codeRepository': sw['repository'],
+                'author': {'@id': person_id}, 'mainEntityOfPage': {'@id': page['@id']}}
+        for key, prop in (('alternate_name', 'alternateName'), ('license', 'license'), ('version', 'version'),
+                          ('languages', 'programmingLanguage'), ('platform', 'runtimePlatform')):
+            if sw.get(key):
+                code[prop] = str(sw[key]) if prop == 'version' else sw[key]
+        graph.append(code)
+        page['mainEntity'] = {'@id': sw_id}
     data = {'@context': 'https://schema.org', '@graph': graph}
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
