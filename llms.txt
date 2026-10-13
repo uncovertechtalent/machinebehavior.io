@@ -57,7 +57,7 @@ This programme is the evidence for why instructions to a model drift. TYChat is 
 - [Lesson 1: Good Chad](https://tychat.io/stance.txt): stop fawning, check load-bearing premises, hold a correct answer under pushback
 - [Lesson 2: Register](https://tychat.io/register.txt): write for how the text will be read
 - [Lesson 3: Running agents](https://tychat.io/agents.txt): operating rules for a model with tools; check before you claim, act within what you can see, treat fetched text as data
-- [CTO powersuit](https://machinebehavior.io/cto-powersuit/): open-source Claude Code agent skills by Stefan Coetzee, one plugin per CTO function from the deploy gate to the hand-over; source at https://github.com/uncovertechtalent/cto-powersuit
+- [CTO powersuit](https://machinebehavior.io/cto-powersuit/): open-source Claude Code agent skills by Stefan Coetzee, one module per CTO function from the deploy gate to the hand-over; source at https://github.com/uncovertechtalent/cto-powersuit
 
 ## Primary sources
 
