@@ -170,6 +170,9 @@ sections:
     url: /your-next-cto/
     about: What Stefan Coetzee builds for a company of 10 to 200 people as a fractional CTO, the engagement shapes, the CTO powersuit, and the live pages that show each part.
     pages:
+      - title: CTO powersuit
+        url: /cto-powersuit/
+        published: 2026-10-13
       - title: The CTO powersuit experiment
         url: /your-next-cto/experiment/
         published: 2026-10-09

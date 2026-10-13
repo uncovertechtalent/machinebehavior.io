@@ -5,7 +5,8 @@ name: Conformity
 # changed site serves readers), on a weekly schedule, and by hand. The Pages
 # deploy job depends on the conformity job: a failing check blocks the deploy
 # and the previous build stays live. Pull request runs, and manual runs from a branch other than
-# main, commit nothing and deploy nothing (#70).
+# main, commit nothing and deploy nothing (#70). After a deploy from a push to main, the changed
+# page URLs go to IndexNow (#85).
 
 on:
   push:
@@ -94,12 +95,19 @@ jobs:
       id-token: write   # the OIDC token deploy-pages needs
       actions: read     # the deploy feed snapshot for Inside
       issues: read      # the issue snapshot for the board
+    outputs:
+      sha: ${{ steps.deployed.outputs.sha }}
     steps:
       - name: Checkout (after the bot commit)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: main
           persist-credentials: false
+
+      - name: Record the deployed commit
+        # The IndexNow job submits the pages that changed up to this commit (#85).
+        id: deployed
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Setup Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -180,6 +188,53 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+
+  indexnow:
+    name: Submit changed URLs to IndexNow
+    # After a successful deploy from a push to main (#85): the pages that changed between the commit before the push
+    # and the deployed commit, plus the sitemap, go to the IndexNow endpoint, which shares them with Bing and the other
+    # engines that take part. Scheduled and manual runs have no push range and submit nothing. The job never fails the
+    # run: the deploy is already live, and a refused submission only waits for the next crawl.
+    needs: deploy
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 5
+    permissions:
+      contents: read    # check out the deployed commit with its history, for the diff
+    steps:
+      - name: Checkout (the deployed commit)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.deploy.outputs.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Submit to IndexNow
+        # scripts/indexnow.py writes the request body (host, key, keyLocation, urlList). The key is public by design:
+        # engines fetch it from the site root. 200 means submitted, 202 received with the key check pending.
+        env:
+          BEFORE: ${{ github.event.before }}
+          DEPLOYED: ${{ needs.deploy.outputs.sha }}
+        run: |
+          rc=0
+          python3 scripts/indexnow.py "$BEFORE" "$DEPLOYED" "$RUNNER_TEMP/indexnow.json" || rc=$?
+          if [ "$rc" = 3 ]; then
+            exit 0
+          elif [ "$rc" != 0 ]; then
+            echo "::warning::IndexNow: no URL list (exit $rc); nothing submitted"
+            exit 0
+          fi
+          rm -f "$RUNNER_TEMP/indexnow.out"
+          status=$(curl -sS --max-time 30 --retry 2 -o "$RUNNER_TEMP/indexnow.out" -w '%{http_code}' \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            --data-binary "@$RUNNER_TEMP/indexnow.json" https://api.indexnow.org/indexnow) || true
+          echo "IndexNow HTTP ${status:-000}"
+          case "${status:-000}" in
+            200|202) echo "IndexNow accepted the URLs" ;;
+            *) echo "::warning::IndexNow returned HTTP ${status:-000}; the deploy is live, the URLs were not accepted"
+               head -c 500 "$RUNNER_TEMP/indexnow.out" 2>/dev/null || true ;;
+          esac
 
   zizmor:
     name: Workflow security (zizmor)
