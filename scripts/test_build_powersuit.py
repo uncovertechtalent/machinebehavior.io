@@ -131,6 +131,10 @@ def main():
     case('hand text: a count in words that agrees goes through',
          stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Three plugins for the knowledge layer, of eighteen plugins.</p>')), 0)
     case('hand text: British spelling and capitals count too', stops(lambda: bp.hand_text_stops(kb3, rel, '<p>Under the BSD-3-Clause Licence.</p>')), 2)
+    llms = '## A\n\nx\n\n## CTO powersuit plugins\n\nbody\n- stale line\n\n## B\n\ny\n'
+    case('llms section: the whole section up to the next heading, stale lines included', bp.llms_section_text(llms),
+         '## CTO powersuit plugins\n\nbody\n- stale line\n')
+    case('llms section: missing', bp.llms_section_text('## A\n'), None)
     case('sitemap text: one line per plugin page between the markers', bp.sitemap_text([('/cto-powersuit/a/', '2026-01-02')]),
          '  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n  <url><loc>https://machinebehavior.io/cto-powersuit/a/</loc>'
          '<lastmod>2026-01-02</lastmod></url>\n  <!-- powersuit:end -->\n')

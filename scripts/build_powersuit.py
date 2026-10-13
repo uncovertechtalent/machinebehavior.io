@@ -499,6 +499,16 @@ def put_llms_entry(text, line):
     return LLMS_ENTRY.sub(lambda _: line, text, count=1)
 
 
+LLMS_HEADING = 'CTO powersuit plugins'
+
+
+def llms_section_text(llms):
+    """The section '## CTO powersuit plugins' of llms.txt as scripts/inside_chrome.py bounds it: up to the next '## '
+    heading or the end, without the blank line before that heading."""
+    m = re.search(rf'^## {re.escape(LLMS_HEADING)}\n.*?(?=^## |\Z)', llms, re.S | re.M)
+    return m.group(0).rstrip('\n') + '\n' if m else None
+
+
 def sitemap_text(lastmod):
     """The sitemap block powersuit as scripts/inside_chrome.py writes it, for --check."""
     return ('  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n'
@@ -576,12 +586,13 @@ def main(argv):
         if not have or have.group(0) != sitemap_text(lastmod):
             differs.append('sitemap.xml')
         llms = (ROOT / 'llms.txt').read_text(encoding='utf-8')
-        if llms_body(cfg, release, data).strip() not in llms or put_llms_entry(llms, llms_entry(cfg, release, data)) != llms:
+        if llms_section_text(llms) != f'## {LLMS_HEADING}\n\n{llms_body(cfg, release, data).strip()}\n' \
+                or put_llms_entry(llms, llms_entry(cfg, release, data)) != llms:
             differs.append('llms.txt')
     else:
         # 3. the shared lists, then the chrome again with the new dates
         inside_chrome.sitemap_block('powersuit', lastmod, BASE, 'scripts/build_powersuit.py')
-        inside_chrome.llms_section('CTO powersuit plugins', llms_body(cfg, release, data))
+        inside_chrome.llms_section(LLMS_HEADING, llms_body(cfg, release, data))
         lp = ROOT / 'llms.txt'
         lp.write_text(put_llms_entry(lp.read_text(encoding='utf-8'), llms_entry(cfg, release, data)), encoding='utf-8')
         site_chrome.tree(reload=True)
