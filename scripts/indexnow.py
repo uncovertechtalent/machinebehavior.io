@@ -7,7 +7,7 @@ Lists the files that changed between the commits BEFORE and AFTER, maps them to 
 IndexNow request body to OUT: host, key, keyLocation and urlList. A changed file counts when it is the index.html of a
 page listed in sitemap.xml, or llms.txt. The sitemap URL goes with every submission. Removed pages are left out; they
 leave the sitemap too. The deploy workflow sends OUT to https://api.indexnow.org/indexnow with curl (deploy pipeline
-doc, job 4).
+doc, job 4). Tests: python3 scripts/test_indexnow.py.
 
 Exit 0: OUT written, the URLs printed. Exit 3: nothing a search engine reads changed, or BEFORE is the null commit of
 a new branch; OUT not written. Exit 2: an error (no key file or more than one, an unknown commit).

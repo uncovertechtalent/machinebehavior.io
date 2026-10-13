@@ -15,6 +15,8 @@
 #   pages  the pages under an entry
 #   published    the date a page gives itself as its publication date (JSON-LD datePublished); left out when it gives none
 #   contributor  a model the page names as its writer or scorer (JSON-LD contributor)
+#   software     a page about one piece of software: name, description, repository, license, version, languages,
+#                platform, alternate_name; written as a SoftwareSourceCode node, the page's main entity (JSON-LD, #85)
 #
 # Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
 
@@ -173,6 +175,15 @@ sections:
       - title: CTO powersuit
         url: /cto-powersuit/
         published: 2026-10-13
+        software:
+          name: CTO powersuit
+          alternate_name: cto-powersuit
+          description: "The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform."
+          repository: https://github.com/uncovertechtalent/cto-powersuit
+          license: https://github.com/uncovertechtalent/cto-powersuit/blob/main/LICENSE
+          version: "0.1.0"
+          languages: [Python, JavaScript, Shell]
+          platform: Claude Code
       - title: The CTO powersuit experiment
         url: /your-next-cto/experiment/
         published: 2026-10-09
