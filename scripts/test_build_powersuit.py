@@ -165,6 +165,12 @@ def main():
                            'plugins/a/checks/c.py': 'ID = "a.c"\n', 'plugins/a/checks/fixtures/a.c/pass/x.txt': 'x',
                            'plugins/a/checks/fixtures/a.c/fail/x.txt': 'x'}, 'v0.0.1-noname')
         case('load: a manifest without a name stops the build', stops(lambda: bp.load(cfg('v0.0.1', c5), bp.Repo(root, c5))), 2)
+        git(root, 'tag', 'v0.0.2')
+        git(root, 'tag', 'v0.10.0')
+        subprocess.run(['git', 'clone', '-q', '--bare', str(root), str(Path(tmp) / 'remote.git')], check=True, capture_output=True)
+        case('newer tags: release tags above the pin, in version order, other tags left out',
+             bp.newer_tags(str(Path(tmp) / 'remote'), 'v0.0.1'), ['v0.0.2', 'v0.10.0'])
+        case('newer tags: none above the newest', bp.newer_tags(str(Path(tmp) / 'remote'), 'v0.10.0'), [])
 
     for f in failures:
         print(f, file=sys.stderr)

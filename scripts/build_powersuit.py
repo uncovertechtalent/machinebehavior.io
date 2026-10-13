@@ -19,7 +19,8 @@ Writes:
 - the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
 then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
 Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one,
-or states a licence or a plugin count that differs from the release.
+or states a licence or a plugin count that differs from the release. --check also fails when the repository has a newer
+release tag than the pin, since the pages call the pinned release the latest.
 Stdlib and git only. Tests of the parsers: python3 scripts/test_build_powersuit.py.
 """
 import atexit, datetime, html, json, posixpath, re, shutil, subprocess, sys, tempfile
@@ -67,6 +68,21 @@ class Repo:
 
     def files(self, rel):
         return self.git('ls-tree', '-r', '--name-only', self.commit, rel).split()
+
+
+def newer_tags(repo_url, ref):
+    """Release tags on the remote above the pinned one; the pages call the pinned release the latest, so a newer tag
+    means the pin is stale. Empty when the remote cannot be read (the check then says so)."""
+    def ver(tag):
+        m = re.fullmatch(r'v(\d+)\.(\d+)\.(\d+)', tag)
+        return tuple(int(x) for x in m.groups()) if m else None
+    r = subprocess.run(['git', 'ls-remote', '--tags', '--refs', repo_url + '.git', 'v*'], capture_output=True, text=True, timeout=60)
+    if r.returncode:
+        print(f'build_powersuit: warning: cannot list the tags of {repo_url}: {r.stderr.strip()}', file=sys.stderr)
+        return []
+    pinned = ver(ref)
+    tags = [line.split('refs/tags/', 1)[1] for line in r.stdout.splitlines() if 'refs/tags/' in line]
+    return sorted((t for t in tags if ver(t) and pinned and ver(t) > pinned), key=ver)
 
 
 def open_repo(cfg, path):
@@ -599,6 +615,12 @@ def main(argv):
         for rel, page in raw.items():
             write(ROOT / rel, site_chrome.apply(page, rel))
         write(OVERVIEW, site_chrome.apply(overview, 'cto-powersuit/index.html'))
+    newer = newer_tags(release['repo'], release['ref'])
+    if newer:  # the overview says "latest release"; a newer tag makes that false
+        print(f'build_powersuit: {release["repo"]} has a newer release than the pin {release["ref"]}: {", ".join(newer)}. '
+              f'Move ref and commit in site/powersuit.yml, check the lines, and rebuild.', file=sys.stderr)
+        if check:
+            differs.append('site/powersuit.yml (newer release)')
     total_sk = sum(len(d['skills']) for d in data.values())
     print(f'powersuit {release["ref"]} ({release["commit"][:12]}): {len(seq)} plugin pages, {total_sk} skills; '
           + ((f'differs: {" ".join(differs)}' if differs else 'up to date') if check else f'wrote {len(differs)} files'))

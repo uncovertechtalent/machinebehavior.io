@@ -296,6 +296,7 @@ jobs:
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030). Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
+    timeout-minutes: 5    # the --check step clones from github.com
     permissions:
       contents: read    # check out the repository
     steps:
