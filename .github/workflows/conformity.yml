@@ -195,10 +195,10 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install zizmor (version and wheel hashes pinned in .github/zizmor/requirements.txt)
+      - name: Install zizmor (version and wheel hashes pinned in scripts/ci/zizmor/requirements.txt)
         run: |
           python3 -m venv "$RUNNER_TEMP/zizmor"
-          "$RUNNER_TEMP/zizmor/bin/pip" install --require-hashes --no-deps --only-binary :all: -r .github/zizmor/requirements.txt
+          "$RUNNER_TEMP/zizmor/bin/pip" install --require-hashes --no-deps --only-binary :all: -r scripts/ci/zizmor/requirements.txt
 
       - name: zizmor .github
         # Online audits (impostor commits, known-vulnerable actions, stale version comments) read the GitHub API with the job token.
