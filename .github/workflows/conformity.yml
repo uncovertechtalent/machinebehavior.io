@@ -292,8 +292,9 @@ jobs:
   script-tests:
     name: Script tests
     # Tests of the site's scripts (#85, #90): scripts/test_indexnow.py checks which URLs the indexnow job submits;
-    # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, which runs on a
-    # maintainer's machine, never here (ADR-0030). Runs on every trigger, pull requests included; the deploy does not wait for it.
+    # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
+    # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
+    # repository and writes nothing; ADR-0030). Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     permissions:
       contents: read    # check out the repository
@@ -308,3 +309,6 @@ jobs:
 
       - name: Powersuit page generator
         run: python3 scripts/test_build_powersuit.py
+
+      - name: Powersuit pages match the pinned release
+        run: python3 scripts/build_powersuit.py --check

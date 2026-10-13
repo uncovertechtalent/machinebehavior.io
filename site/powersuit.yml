@@ -7,6 +7,7 @@
 #
 #   ref       the release tag; the install commands on every page pin it
 #   commit    the commit the tag points to; the script stops when the tag resolves to another commit (a moved tag)
+#   release_note what the release page carries (assets, attestation); check it against the release when the pin moves
 #   unreleased one sentence on what the main branch has beyond the release, or leave it out
 #   published the date the plugin pages first went live
 #   areas     the areas of the CTO job, in page order, each with its modules in order
@@ -17,6 +18,7 @@ source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
   ref: v0.1.0
   commit: 82d1c08f19721ba3fc36b075807d8c5631e0aed2
+  release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
   unreleased: "On the main branch on 2026-10-13, after v0.1.0: `ai-ops` 0.2.0 adds an audit trail of agent tool calls with an alert on denied calls, and `security` 0.3.0 adds a quarantine for third-party text."
 published: 2026-10-13
 

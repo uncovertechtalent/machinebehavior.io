@@ -87,19 +87,25 @@ def open_repo(cfg, path):
 
 
 # ---------- Markdown, the small part READMEs and skill descriptions use ----------
+INLINE = re.compile(r'(`[^`]+`)|\[([^\]]+)\]\(([^)\s]+)\)')
+
+
 def inline(s, link):
-    """Inline Markdown to HTML: code spans, bold, links. link(target) returns the href for a link target."""
-    parts = re.split(r'(`[^`]+`)', s)
-    out = ''
-    for p in parts:
-        if p.startswith('`') and p.endswith('`') and len(p) > 1:
-            out += f'<code>{esc(p[1:-1])}</code>'
-            continue
+    """Inline Markdown to HTML: code spans, bold, links. link(target) returns the href for a link target. A code span is
+    taken before a link at the same place, so link syntax shown inside backticks stays text; a link text may hold a
+    code span."""
+    def plain(p):
         p = esc(p).replace('&#x27;', "'")
-        p = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
-        out += p
-    # links last, over the escaped text; a link text may hold a code span
-    return re.sub(r'\[([^\]]+)\]\(([^)\s]+)\)', lambda m: f'<a href="{esc(link(html.unescape(m.group(2))))}">{m.group(1)}</a>', out)
+        return re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', p)
+    out, pos = '', 0
+    for m in INLINE.finditer(s):
+        out += plain(s[pos:m.start()])
+        if m.group(1):
+            out += f'<code>{esc(m.group(1)[1:-1])}</code>'
+        else:
+            out += f'<a href="{esc(link(m.group(3)))}">{inline(m.group(2), link)}</a>'
+        pos = m.end()
+    return out + plain(s[pos:])
 
 
 def block(md, link):
@@ -147,7 +153,10 @@ def readme_intro(text):
             continue
         if re.match(r'(Install\b|Demo:|#|```)', p):
             break
-        keep.append(p)
+        if not p.startswith('|'):  # a sentence with a fill-in such as `<URL of ...>` is for the plugin's user, not for a reader here
+            p = ' '.join(x for x in re.split(r'(?<=[.!?])\s+(?=[A-Z])', ' '.join(p.split())) if not re.search(r'`<[^`>]+>`', x))
+        if p:
+            keep.append(p)
     return '\n\n'.join(keep)
 
 
@@ -421,12 +430,10 @@ def eyebrow_block(release):
     return f'Open source · {esc(release["license"])} license · latest release {release["ref"]}, {release["date"]}'
 
 
-def latest_block(release):
+def latest_block(release, note=None):
     r, repo = release['ref'], release['repo']
-    first = 'v0.1.0' if r == 'v0.1.0' else 'The first release, v0.1.0,'
-    return (f'<strong>Latest release:</strong> <a href="{repo}/releases/tag/{r}">{r}</a>, {release["date"]}. '
-            f'Every release after v0.1.0 carries a source tarball of its tag, the tarball\'s sha256, and a build provenance attestation. '
-            f'{first} was tagged before the release workflow existed and has neither.')
+    return (f'<strong>Latest release:</strong> <a href="{repo}/releases/tag/{r}">{r}</a>, {release["date"]}.'
+            + (f' {inline(note, lambda u: u)}' if note else ''))
 
 
 def release_block(release, data, note=None):
@@ -537,7 +544,7 @@ def main(argv):
     # 1. the module list first: the chrome reads it for the tree, the sidebar and the structured data
     overview = OVERVIEW.read_text(encoding='utf-8')
     for name, body in (('powersuit-eyebrow', eyebrow_block(release)), ('powersuit-install', install_block(release)),
-                       ('powersuit-latest', latest_block(release)), ('powersuit-license', license_block(release)), ('powersuit-areas', areas_block(cfg)),
+                       ('powersuit-latest', latest_block(release, cfg['source'].get('release_note'))), ('powersuit-license', license_block(release)), ('powersuit-areas', areas_block(cfg)),
                        ('powersuit-knowledge', knowledge_block(cfg)), ('powersuit-release', release_block(release, data, cfg['source'].get('unreleased')))):
         overview = put_static(overview, name, body)
     hand_text_stops(cfg, release, overview)

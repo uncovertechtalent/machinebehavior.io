@@ -25,7 +25,7 @@ type: explanation
 
 ## Consequences
 
-- A release of the powersuit reaches the site only through a pull request that moves the pin and rebuilds; nothing fetches the repository at deploy time. `python3 scripts/build_powersuit.py --check` reports pages that differ from the pinned release.
+- A release of the powersuit reaches the site only through a pull request that moves the pin and rebuilds; nothing fetches the repository at deploy time. `python3 scripts/build_powersuit.py --check` reports pages that differ from the pinned release; the job `Script tests` runs it, with the generator's tests, on every pull request. It writes nothing.
 - The pages say what the pinned release contains. Work on the powersuit's main branch after the tag shows only in the release line on the overview, until the next tag.
 - A rebuild of an unchanged release changes no file. A plugin page's sitemap date moves only when its content changes, and the IndexNow job submits only the plugin pages a rebuild changed.
-- The generator runs on a machine with git and network access to GitHub, never in the deploy job.
+- The generator writes the pages on a maintainer's machine with git and network access to GitHub, never in CI or the deploy job; CI runs only its `--check`.

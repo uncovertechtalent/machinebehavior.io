@@ -94,6 +94,8 @@ def main():
     case('readme intro: stops at Install', bp.readme_intro(readme), 'First paragraph.\n\n| A | B |\n|---|---|\n| 1 | 2 |')
     case('readme intro: stops at Demo', bp.readme_intro('# x\n\nOne.\n\nDemo: [a](https://a/)\n\nTwo.'), 'One.')
     case('readme intro: stops at a heading', bp.readme_intro('# x\n\nOne.\n\n## Skills\n\nTwo.'), 'One.')
+    case('readme intro: a sentence with a fill-in placeholder is left out',
+         bp.readme_intro('# x\n\nOne thing. Check at `<URL of the docs>`. Two things.\n\nInstall:'), 'One thing. Two things.')
 
     # links in plugins/<n>/README.md
     link = bp.link_for(REL, 'ai-ops')
@@ -110,6 +112,8 @@ def main():
     case('inline: code, bold, link with code, escaping',
          bp.inline('Use `a<b>` and **this** with [`vestige`](../vestige/) & more', link),
          'Use <code>a&lt;b&gt;</code> and <strong>this</strong> with <a href="/cto-powersuit/vestige/"><code>vestige</code></a> &amp; more')
+    case('inline: link syntax inside a code span stays text', bp.inline('Lines like `[a](b)` and [c](../vestige/)', link),
+         'Lines like <code>[a](b)</code> and <a href="/cto-powersuit/vestige/">c</a>')
     case('block: table', bp.block('| A | B |\n|---|---|\n| `x` | y |', link),
          '<div class="tablewrap"><table><thead><tr><th>A</th><th>B</th></tr></thead><tbody><tr><td><code>x</code></td><td>y</td></tr></tbody></table></div>')
 
