@@ -4,6 +4,7 @@
     python3 scripts/build_powersuit.py               clone the pinned release into a temporary folder, then build
     python3 scripts/build_powersuit.py --repo DIR    read from an existing clone of the powersuit repository
     python3 scripts/build_powersuit.py --check       write nothing; exit 1 when a page, a block or a list differs
+    python3 scripts/build_powersuit.py --check --fail-on-newer   also exit 1 when the repository has a newer release tag
 
 Every file is read from the pinned commit with git (git show), never from a working tree, and the build stops when the
 tag resolves to another commit or the manifest's plugins differ from site/powersuit.yml.
@@ -19,11 +20,11 @@ Writes:
 - the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
 then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
 Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one,
-or states a licence or a plugin count that differs from the release. --check also fails when the repository has a newer
-release tag than the pin, since the pages call the pinned release the latest.
+or states a licence or a plugin count that differs from the release. A newer release tag than the pin is a warning, and
+with --fail-on-newer a failure, since the pages call the pinned release the latest.
 Stdlib and git only. Tests of the parsers: python3 scripts/test_build_powersuit.py.
 """
-import atexit, datetime, html, json, posixpath, re, shutil, subprocess, sys, tempfile
+import atexit, datetime, html, json, os, posixpath, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -37,6 +38,7 @@ OUT = ROOT / 'cto-powersuit'
 OVERVIEW = OUT / 'index.html'
 MODULES_JSON = OUT / 'modules.json'
 TODAY = datetime.date.today().isoformat()
+WARN = '::warning::' if os.environ.get('GITHUB_ACTIONS') == 'true' else 'warning: '
 NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen',
            'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']
 STOP = re.compile(r'\s(?:Use when|Use it when|Use before|Use after|Use on|Use to|Use once|Activates on)\b')
@@ -76,9 +78,13 @@ def newer_tags(repo_url, ref):
     def ver(tag):
         m = re.fullmatch(r'v(\d+)\.(\d+)\.(\d+)', tag)
         return tuple(int(x) for x in m.groups()) if m else None
-    r = subprocess.run(['git', 'ls-remote', '--tags', '--refs', repo_url + '.git', 'v*'], capture_output=True, text=True, timeout=60)
+    try:
+        r = subprocess.run(['git', 'ls-remote', '--tags', '--refs', repo_url + '.git', 'v*'], capture_output=True, text=True, timeout=60)
+    except subprocess.TimeoutExpired:
+        print(f'{WARN}build_powersuit: cannot list the tags of {repo_url}: no answer in 60 s', file=sys.stderr)
+        return []
     if r.returncode:
-        print(f'build_powersuit: warning: cannot list the tags of {repo_url}: {r.stderr.strip()}', file=sys.stderr)
+        print(f'{WARN}build_powersuit: cannot list the tags of {repo_url}: {r.stderr.strip()}', file=sys.stderr)
         return []
     pinned = ver(ref)
     tags = [line.split('refs/tags/', 1)[1] for line in r.stdout.splitlines() if 'refs/tags/' in line]
@@ -90,8 +96,11 @@ def open_repo(cfg, path):
     if path is None:
         tmp = tempfile.mkdtemp(prefix='powersuit-')
         atexit.register(shutil.rmtree, tmp, True)
-        r = subprocess.run(['git', 'clone', '--quiet', '--depth', '1', '--branch', src['ref'], src['repo'] + '.git', tmp],
-                           capture_output=True, text=True)
+        try:
+            r = subprocess.run(['git', 'clone', '--quiet', '--depth', '1', '--branch', src['ref'], src['repo'] + '.git', tmp],
+                               capture_output=True, text=True, timeout=180)
+        except subprocess.TimeoutExpired:
+            fail(f'clone of {src["repo"]} at {src["ref"]}: no answer in 180 s')
         if r.returncode:
             fail(f'clone of {src["repo"]} at {src["ref"]} failed: {r.stderr.strip()}')
         path = tmp
@@ -137,6 +146,13 @@ def block(md, link):
         else:
             out.append(f'<p class="thesis">{inline(" ".join(l.strip() for l in lines), link)}</p>')
     return '\n'.join(out)
+
+
+def data_link(target):
+    """A link written in site/powersuit.yml: http(s), mailto or a root-absolute path on this site; anything else stops the build."""
+    if re.match(r'(https?:|mailto:|/(?!/))', target):
+        return target
+    fail(f'site/powersuit.yml: link target {target!r} is not http(s), mailto or a root-absolute path')
 
 
 def first_sentence(s):
@@ -265,7 +281,7 @@ def demo_html(m, cls=''):
 
 
 def line_html(m):
-    return inline(m['line'], lambda u: u)
+    return inline(m['line'], data_link)
 
 
 def link_for(release, n):
@@ -449,7 +465,7 @@ def eyebrow_block(release):
 def latest_block(release, note=None):
     r, repo = release['ref'], release['repo']
     return (f'<strong>Latest release:</strong> <a href="{repo}/releases/tag/{r}">{r}</a>, {release["date"]}.'
-            + (f' {inline(note, lambda u: u)}' if note else ''))
+            + (f' {inline(note, data_link)}' if note else ''))
 
 
 def release_block(release, data, note=None):
@@ -458,7 +474,7 @@ def release_block(release, data, note=None):
     return (f'<p class="thesis">The plugin list, the lines, and the plugin pages follow release <a href="{release["repo"]}/releases/tag/{release["ref"]}">{release["ref"]}</a> '
             f'of {release["date"]}: {release["plugins"]} plugins with {sk} skills and {ck} gate checks. Each plugin page links its source at that release. '
             f'Changes on the main branch since the release are in the changelog under Unreleased.'
-            + (f' {inline(note, lambda u: u)}' if note else '') + '</p>')
+            + (f' {inline(note, data_link)}' if note else '') + '</p>')
 
 
 def sections(src):
@@ -617,9 +633,9 @@ def main(argv):
         write(OVERVIEW, site_chrome.apply(overview, 'cto-powersuit/index.html'))
     newer = newer_tags(release['repo'], release['ref'])
     if newer:  # the overview says "latest release"; a newer tag makes that false
-        print(f'build_powersuit: {release["repo"]} has a newer release than the pin {release["ref"]}: {", ".join(newer)}. '
+        print(f'{WARN}build_powersuit: {release["repo"]} has a newer release than the pin {release["ref"]}: {", ".join(newer)}. '
               f'Move ref and commit in site/powersuit.yml, check the lines, and rebuild.', file=sys.stderr)
-        if check:
+        if check and '--fail-on-newer' in argv:  # scheduled and push runs; a pull request only warns
             differs.append('site/powersuit.yml (newer release)')
     total_sk = sum(len(d['skills']) for d in data.values())
     print(f'powersuit {release["ref"]} ({release["commit"][:12]}): {len(seq)} plugin pages, {total_sk} skills; '

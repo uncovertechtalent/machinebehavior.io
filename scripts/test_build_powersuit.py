@@ -114,6 +114,10 @@ def main():
          'Use <code>a&lt;b&gt;</code> and <strong>this</strong> with <a href="/cto-powersuit/vestige/"><code>vestige</code></a> &amp; more')
     case('inline: link syntax inside a code span stays text', bp.inline('Lines like `[a](b)` and [c](../vestige/)', link),
          'Lines like <code>[a](b)</code> and <a href="/cto-powersuit/vestige/">c</a>')
+    case('data link: http, mailto and root-absolute paths stay', [bp.data_link(u) for u in ('https://a/', 'mailto:a@b', '/inside/')],
+         ['https://a/', 'mailto:a@b', '/inside/'])
+    case('data link: a javascript: target stops the build', stops(lambda: bp.data_link('javascript:alert(1)')), 2)
+    case('data link: a protocol-relative target stops the build', stops(lambda: bp.data_link('//evil.test/')), 2)
     case('block: table', bp.block('| A | B |\n|---|---|\n| `x` | y |', link),
          '<div class="tablewrap"><table><thead><tr><th>A</th><th>B</th></tr></thead><tbody><tr><td><code>x</code></td><td>y</td></tr></tbody></table></div>')
 

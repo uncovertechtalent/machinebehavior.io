@@ -312,4 +312,13 @@ jobs:
         run: python3 scripts/test_build_powersuit.py
 
       - name: Powersuit pages match the pinned release
-        run: python3 scripts/build_powersuit.py --check
+        # A newer powersuit tag fails scheduled and push runs and only warns on a pull request, so it never turns an
+        # unrelated pull request red.
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT" = pull_request ]; then
+            python3 scripts/build_powersuit.py --check
+          else
+            python3 scripts/build_powersuit.py --check --fail-on-newer
+          fi
