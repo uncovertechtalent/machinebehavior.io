@@ -561,6 +561,11 @@
 "p": "/inside/docs/sre/principles-in-practice/"
 },
 {
+"u": "/inside/docs/sre/principle-zero-trust/",
+"t": "Zero trust",
+"p": "/inside/docs/sre/principles-in-practice/"
+},
+{
 "u": "/inside/docs/sre/pillars/",
 "t": "The ten pillars",
 "p": "/inside/docs/sre/"

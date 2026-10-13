@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-12",
+ "generated": "2026-10-13",
  "source": "https://github.com/uncovertechtalent/machinebehavior.io/tree/main/services",
  "services": [
   {
@@ -32,7 +32,8 @@
     "/inside/docs/sre/principle-release-engineering/",
     "/inside/docs/sre/principle-embracing-risk/",
     "/inside/docs/sre/principle-ops-as-software/",
-    "/inside/docs/sre/principle-sre-is-ops/"
+    "/inside/docs/sre/principle-sre-is-ops/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [],
    "external": [
@@ -41,7 +42,7 @@
    "status": {
     "gate": "https://machinebehavior.io/conformity/latest.json"
    },
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "deploy-job",
@@ -70,7 +71,8 @@
    "principles": [
     "/inside/docs/sre/principle-release-engineering/",
     "/inside/docs/sre/principle-eliminate-toil/",
-    "/inside/docs/sre/principle-simplicity/"
+    "/inside/docs/sre/principle-simplicity/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [
     "conformity-gate",
@@ -84,7 +86,7 @@
    "status": {
     "deploys": "uncovertechtalent/machinebehavior.io"
    },
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "machinebehavior-io",
@@ -117,7 +119,8 @@
     "/inside/docs/sre/principle-truth-verified-working/",
     "/inside/docs/sre/principle-release-engineering/",
     "/inside/docs/sre/principle-simplicity/",
-    "/inside/docs/sre/principle-everything-in-git/"
+    "/inside/docs/sre/principle-everything-in-git/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [
     "conformity-gate",
@@ -133,7 +136,7 @@
     "gate": "https://machinebehavior.io/conformity/latest.json",
     "deploys": "uncovertechtalent/machinebehavior.io"
    },
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "tychat-io",
@@ -161,7 +164,8 @@
    ],
    "principles": [
     "/inside/docs/sre/principle-release-engineering/",
-    "/inside/docs/sre/principle-simplicity/"
+    "/inside/docs/sre/principle-simplicity/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [
     "conformity-gate"
@@ -174,7 +178,7 @@
     "gate": "https://tychat.io/conformity/latest.json",
     "deploys": "uncovertechtalent/tychat.io"
    },
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "uncovertechtalent-com",
@@ -201,7 +205,8 @@
    ],
    "principles": [
     "/inside/docs/sre/principle-release-engineering/",
-    "/inside/docs/sre/principle-simplicity/"
+    "/inside/docs/sre/principle-simplicity/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [
     "conformity-gate"
@@ -214,7 +219,7 @@
    "status": {
     "gate": "https://uncovertechtalent.com/conformity/latest.json"
    },
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "docs-build",
@@ -354,14 +359,15 @@
     "/inside/docs/sre/principle-monitor-symptoms/",
     "/inside/docs/sre/principle-everything-in-git/",
     "/inside/docs/sre/principle-ops-as-software/",
-    "/inside/docs/sre/principle-cost-per-unit-of-work/"
+    "/inside/docs/sre/principle-cost-per-unit-of-work/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [],
    "external": [
     "Docker Compose"
    ],
    "status": {},
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   },
   {
    "id": "searxng",
@@ -476,7 +482,8 @@
     "/inside/docs/sre/principle-agents-are-ops-work/",
     "/inside/docs/sre/principle-cost-per-unit-of-work/",
     "/inside/docs/sre/principle-incidents-end-in-records/",
-    "/inside/docs/sre/principle-sre-is-ops/"
+    "/inside/docs/sre/principle-sre-is-ops/",
+    "/inside/docs/sre/principle-zero-trust/"
    ],
    "depends_on": [
     "observability-stack",
@@ -488,7 +495,7 @@
     "Anthropic API"
    ],
    "status": {},
-   "updated": "2026-10-09"
+   "updated": "2026-10-13"
   }
  ]
 }

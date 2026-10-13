@@ -1,5 +1,5 @@
 title: Principles in practice
-summary: Fourteen SRE principles, from Stefan Coetzee's framework with Google's SRE book as the reference, each tied to where this platform applies it, with its state (in place, partial or gap) and the open work.
+summary: Fifteen SRE principles, from Stefan Coetzee's framework with Google's SRE book as the reference, each tied to where this platform applies it, with its state (in place, partial or gap) and the open work.
 parent: index
 order: 15
 labels: principles, sre, practice
