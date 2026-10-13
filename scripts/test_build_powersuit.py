@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-"""Tests for the parsers in scripts/build_powersuit.py, on strings shaped like the powersuit repository's files: the
-first sentence of a skill description, SKILL.md front matter, the README introduction, links in a README, and the
-inline and table Markdown. Stdlib only; no network and no repository needed.
+"""Tests for scripts/build_powersuit.py: the parsers, on strings shaped like the powersuit repository's files (the first
+sentence of a skill description, SKILL.md front matter, the README introduction, links in a README, inline and table
+Markdown), and the stops in load() and open_repo(), on a small repository built in a temporary folder (a moved tag, a
+plugin list that differs from the manifest, a check without an ID, a check without a fail fixture). Stdlib and git;
+no network.
 
     python3 scripts/test_build_powersuit.py
 
 Exits 1 when a case fails.
 """
-import sys
+import contextlib, io, json, subprocess, sys, tempfile
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # no __pycache__ in the repository
@@ -15,6 +17,51 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_powersuit as bp  # noqa: E402
 
 REL = {'repo': 'https://github.com/o/r', 'ref': 'v9.9.9'}
+FILES = {
+    '.claude-plugin/marketplace.json': json.dumps({'metadata': {'version': '0.0.1'}, 'plugins': [{'name': 'a'}]}),
+    'CHANGELOG.md': '# Changelog\n\n## [0.0.1] - 2026-01-02\n',
+    'plugins/a/.claude-plugin/plugin.json': json.dumps({'name': 'a', 'version': '0.0.1', 'license': 'MIT'}),
+    'plugins/a/README.md': '# a\n\nIntro.\n\nInstall:\n',
+    'plugins/a/skills/s/SKILL.md': '---\nname: s\ndescription: Do one thing. Use when asked.\n---\n',
+    'plugins/a/checks/c.py': 'ID = "a.c"\n',
+    'plugins/a/checks/fixtures/a.c/pass/x.txt': 'x',
+    'plugins/a/checks/fixtures/a.c/fail/x.txt': 'x',
+}
+
+
+def git(root, *args):
+    return subprocess.run(['git', '-C', str(root), '-c', 'user.name=test', '-c', 'user.email=test@example.test', *args],
+                          check=True, capture_output=True, text=True).stdout.strip()
+
+
+def commit(root, files, tag):
+    for path, text in files.items():
+        f = root / path
+        if text is None:
+            f.unlink()
+        else:
+            f.parent.mkdir(parents=True, exist_ok=True)
+            f.write_text(text)
+    git(root, 'add', '-A')
+    git(root, 'commit', '-q', '-m', tag)
+    git(root, 'tag', tag)
+    return git(root, 'rev-parse', 'HEAD')
+
+
+def stops(fn):
+    """2 when the build stops (build_powersuit.fail), 0 when it goes through."""
+    with contextlib.redirect_stderr(io.StringIO()):
+        try:
+            fn()
+        except SystemExit as e:
+            return e.code
+    return 0
+
+
+def cfg(ref, commit_sha, names=('a',)):
+    return {'source': {'repo': 'https://github.com/o/r', 'ref': ref, 'commit': commit_sha},
+            'areas': [{'title': 'T', 'about': 'A.', 'modules': [{'name': n, 'line': 'L.'} for n in names]}],
+            'knowledge': {'title': 'K', 'about': 'B.', 'modules': []}}
 
 
 def main():
@@ -63,6 +110,23 @@ def main():
          'Use <code>a&lt;b&gt;</code> and <strong>this</strong> with <a href="/cto-powersuit/vestige/"><code>vestige</code></a> &amp; more')
     case('block: table', bp.block('| A | B |\n|---|---|\n| `x` | y |', link),
          '<div class="tablewrap"><table><thead><tr><th>A</th><th>B</th></tr></thead><tbody><tr><td><code>x</code></td><td>y</td></tr></tbody></table></div>')
+
+    # the stops of load() and open_repo(), on a small repository
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        git(root, 'init', '-q')
+        c1 = commit(root, FILES, 'v0.0.1')
+        release, data = bp.load(cfg('v0.0.1', c1), bp.Repo(root, c1))
+        case('load: release, skills and checks', (release['date'], [s['name'] for s in data['a']['skills']], data['a']['checks']),
+             ('2026-01-02', ['s'], ['a.c']))
+        case('open_repo: the tag at the pinned commit goes through', stops(lambda: bp.open_repo(cfg('v0.0.1', c1), root)), 0)
+        case('open_repo: a moved tag stops the build', stops(lambda: bp.open_repo(cfg('v0.0.1', '0' * 40), root)), 2)
+        case('load: a plugin list that differs from the manifest stops the build',
+             stops(lambda: bp.load(cfg('v0.0.1', c1, ('a', 'b')), bp.Repo(root, c1))), 2)
+        c2 = commit(root, {'plugins/a/checks/fixtures/a.c/fail/x.txt': None}, 'v0.0.1-nofail')
+        case('load: a check without a fail fixture stops the build', stops(lambda: bp.load(cfg('v0.0.1', c2), bp.Repo(root, c2))), 2)
+        c3 = commit(root, {'plugins/a/checks/fixtures/a.c/fail/x.txt': 'x', 'plugins/a/checks/c.py': '# no id\n'}, 'v0.0.1-noid')
+        case('load: a check without an ID stops the build', stops(lambda: bp.load(cfg('v0.0.1', c3), bp.Repo(root, c3))), 2)
 
     for f in failures:
         print(f, file=sys.stderr)

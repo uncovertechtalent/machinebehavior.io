@@ -141,8 +141,9 @@ class Tree:
             data = json.loads(POWERSUIT_JSON.read_text(encoding='utf-8'))
             self.powersuit = (node, data)
             cfg = getattr(node, 'cfg_page', None) or {}
-            if cfg.get('software'):  # the overview's version is the pinned release's, never a second copy in site/nav.yml
-                node.cfg_page = dict(cfg, software=dict(cfg['software'], version=data['release']['version']))
+            if cfg.get('software'):  # the overview's version and licence come from the pinned release, never a second copy in site/nav.yml
+                rel = data['release']
+                node.cfg_page = dict(cfg, software=dict(cfg['software'], version=rel['version'], license=f"{rel['repo']}/blob/{rel['ref']}/LICENSE"))
             for p in data['pages']:
                 kid = node.add(Node(p['title'], p['url'], node.section))
                 kid.cfg_page = {'software': p['software']}
@@ -368,10 +369,14 @@ def side(t, node):
         cur = ' aria-current="page"' if n is node else ''
         return f'<a href="{n.url}"{cur}>{esc(n.title)}</a>'
 
+    ps = t.powersuit[0] if t.powersuit else None
+
     def items(kids):
         h = ''
         for k in kids:
-            if k.group:
+            if k is ps:  # the plugin pages stay in the powersuit sidebar; elsewhere the overview is one link
+                h += f'<li>{link(k)}</li>'
+            elif k.group:
                 h += f'<li class="mb-side-group"><span class="mb-side-label">{esc(k.title)}</span><ul>{items(k.kids)}</ul></li>'
             elif k.kids:
                 op = ' open' if id(k) in here else ''
@@ -380,7 +385,7 @@ def side(t, node):
                 h += f'<li>{link(k)}</li>'
         return h
 
-    count = sum(1 for _ in _pages_under(sec))
+    count = sum(1 for _ in _pages_under(sec)) - (sum(1 for _ in _pages_under(ps)) if ps is not None and ps.section == sec.section else 0)
     head_cur = ' aria-current="page"' if node is sec else ''
     topics = topics_block(t, node.url) if node.section != 'topics' else ''
     return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
