@@ -293,6 +293,8 @@
    ],
    "posts": [],
    "tickets": [
+    83,
+    82,
     80,
     79,
     76,
@@ -574,6 +576,7 @@
     }
    ],
    "tickets": [
+    83,
     41,
     38,
     37,
@@ -785,6 +788,35 @@
   }
  ],
  "issues": [
+  {
+   "n": 83,
+   "t": "Internal dashboards and stores: access by identity in place of the home network",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/83",
+   "labels": [
+    "type: feature",
+    "area: observability",
+    "area: security",
+    "P3"
+   ],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 82,
+   "t": "Make Workflow security (zizmor) a required check on main",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/82",
+   "labels": [
+    "type: chore",
+    "area: gate",
+    "area: security",
+    "P3",
+    "status: blocked"
+   ],
+   "closed": "",
+   "reason": ""
+  },
   {
    "n": 80,
    "t": "SRE principles: zero trust as an operating principle",
