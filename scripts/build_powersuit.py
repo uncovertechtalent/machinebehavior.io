@@ -14,12 +14,14 @@ Writes:
   pinned to the release, and links to the source at the release;
 - cto-powersuit/modules.json: the areas and the plugin pages, which scripts/site_chrome.py reads for the navigation
   tree, the powersuit sidebar and the structured data of each plugin page;
-- the static blocks powersuit-install, powersuit-areas, powersuit-knowledge and powersuit-release on /cto-powersuit/;
+- the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-areas, powersuit-knowledge and
+  powersuit-release on /cto-powersuit/;
 - the sitemap block powersuit and the llms.txt section "CTO powersuit plugins";
 then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
-Stdlib and git only.
+Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one.
+Stdlib and git only. Tests of the parsers: python3 scripts/test_build_powersuit.py.
 """
-import datetime, html, json, posixpath, re, subprocess, sys, tempfile
+import atexit, datetime, html, json, posixpath, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -68,6 +70,7 @@ def open_repo(cfg, path):
     src = cfg['source']
     if path is None:
         tmp = tempfile.mkdtemp(prefix='powersuit-')
+        atexit.register(shutil.rmtree, tmp, True)
         r = subprocess.run(['git', 'clone', '--quiet', '--depth', '1', '--branch', src['ref'], src['repo'] + '.git', tmp],
                            capture_output=True, text=True)
         if r.returncode:
@@ -145,6 +148,22 @@ def readme_intro(text):
     return '\n\n'.join(keep)
 
 
+def definition():
+    """The definition of the term, from the overview's entry in site/nav.yml: one copy for every page that carries it."""
+    def walk(items):
+        for it in items or []:
+            if it.get('url') == '/cto-powersuit/':
+                return it
+            hit = walk(it.get('pages'))
+            if hit:
+                return hit
+    nav = mini_yaml.load_file(ROOT / 'site' / 'nav.yml')
+    entry = walk([p for s in nav['sections'] for p in (s.get('pages') or [])])
+    if not entry or not (entry.get('software') or {}).get('description'):
+        fail('site/nav.yml: no software.description on the /cto-powersuit/ entry')
+    return entry['software']['description']
+
+
 def load(cfg, repo):
     ref = cfg['source']['ref']
     manifest = json.loads(repo.read('.claude-plugin/marketplace.json'))
@@ -160,7 +179,8 @@ def load(cfg, repo):
     if not m:
         fail(f'CHANGELOG.md at {ref} has no entry for {version}')
     release = {'ref': ref, 'commit': cfg['source']['commit'], 'version': str(version), 'date': m.group(1),
-               'repo': cfg['source']['repo'], 'plugins': len(names)}
+               'repo': cfg['source']['repo'], 'slug': cfg['source']['repo'].split('github.com/', 1)[-1], 'plugins': len(names),
+               'definition': definition()}
     data = {}
     for p in manifest['plugins']:
         n = p['name']
@@ -176,8 +196,13 @@ def load(cfg, repo):
         checks = []
         for f in sorted(f for f in files if re.fullmatch(rf'{base}/checks/[^/]+\.py', f)):
             cm = re.search(r'^ID\s*=\s*"([^"]+)"', repo.read(f), re.M)
-            if cm:
-                checks.append(cm.group(1))
+            if not cm:
+                fail(f'{f} has no ID line')
+            cid = cm.group(1)
+            for kind in ('pass', 'fail'):  # the pages say each check has both fixtures
+                if not any(x.startswith(f'{base}/checks/fixtures/{cid}/{kind}/') for x in files):
+                    fail(f'{cid} has no {kind} fixture under {base}/checks/fixtures/{cid}/{kind}/')
+            checks.append(cid)
         data[n] = {'version': pj.get('version'), 'license': pj.get('license'), 'skills': skills, 'checks': checks,
                    'intro': readme_intro(repo.read(f'{base}/README.md'))}
     return release, data
@@ -283,7 +308,7 @@ def plugin_page(cfg, release, data, i, seq):
 
 <h2 id="install">Install</h2>
 <p class="thesis">Add the marketplace at release {release["ref"]} once, then install the plugin and restart Claude Code.</p>
-<pre><code>claude plugin marketplace add uncovertechtalent/cto-powersuit#{release["ref"]}
+<pre><code>claude plugin marketplace add {release["slug"]}#{release["ref"]}
 claude plugin install {n}@cto-powersuit</code></pre>
 
 <h2 id="skills">Skills</h2>
@@ -293,8 +318,8 @@ claude plugin install {n}@cto-powersuit</code></pre>
 {checks_html}
 
 <h2 id="source">Source</h2>
-<p class="thesis">The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform. <code>{esc(n)}</code> is one of its {release["plugins"]} plugins, published by Stefan Coetzee.</p>
-<p class="thesis">The skills, templates, checks, fixtures, and the full README of <code>{esc(n)}</code> at release {release["ref"]}: <a href="{src}">github.com/uncovertechtalent/cto-powersuit/tree/{release["ref"]}/plugins/{n}</a>. License: {esc(d["license"] or "MIT")}. Every plugin of the powersuit: <a href="/cto-powersuit/">CTO powersuit</a>.</p>
+<p class="thesis">{esc(release["definition"]).replace("&#x27;", "'")} <code>{esc(n)}</code> is one of its {release["plugins"]} plugins, published by Stefan Coetzee.</p>
+<p class="thesis">The skills, templates, checks, fixtures, and the full README of <code>{esc(n)}</code> at release {release["ref"]}: <a href="{src}">github.com/{release["slug"]}/tree/{release["ref"]}/plugins/{n}</a>. License: {esc(d["license"] or "MIT")}. Every plugin of the powersuit: <a href="/cto-powersuit/">CTO powersuit</a>.</p>
 
 {pager}
 
@@ -331,8 +356,29 @@ def knowledge_block(cfg):
 
 
 def install_block(release):
-    return (f'<pre><code>claude plugin marketplace add uncovertechtalent/cto-powersuit#{release["ref"]}\n'
-            f'claude plugin install sdlc@cto-powersuit</code></pre>')
+    r, d, repo = release['ref'], release['date'], release['repo']
+    return (f'<p class="thesis">The latest release is {r}, tagged on {d}. The commands below pin it. The repository is the only source of the project: '
+            f'install it only with these owner-qualified commands or from a clone of the repository.</p>\n'
+            f'<pre><code>claude plugin marketplace add {release["slug"]}#{r}\nclaude plugin install sdlc@cto-powersuit</code></pre>\n'
+            f'<p class="thesis">Install each plugin you need by its name from the tiles below, as <code>&lt;plugin&gt;@cto-powersuit</code>, and restart Claude Code after installing. '
+            f'Inside Claude Code the same commands work as <code>/plugin marketplace add</code> and <code>/plugin install</code>. With the skills CLI:</p>\n'
+            f'<pre><code>npx skills add {release["slug"]}#{r}</code></pre>\n'
+            f'<p class="thesis">The skills CLI copies the skill folders only. Skills that copy templates, the hooks, and the MCP server need the plugin install. '
+            f'Without <code>#{r}</code>, both installers follow the main branch. On an existing repository, start with <code>/sdlc:sdlc-audit</code>: '
+            f'it needs no other module and names the module that fills each gap. To move a pin or roll back, see '
+            f'<a href="{repo}/blob/{r}/README.md#versions-and-rollback">Versions and rollback</a> in the README at {r}.</p>')
+
+
+def eyebrow_block(release):
+    return f'Open source · MIT license · latest release {release["ref"]}, {release["date"]}'
+
+
+def latest_block(release):
+    r, repo = release['ref'], release['repo']
+    first = 'v0.1.0' if r == 'v0.1.0' else 'The first release, v0.1.0,'
+    return (f'<strong>Latest release:</strong> <a href="{repo}/releases/tag/{r}">{r}</a>, {release["date"]}. '
+            f'Every release after v0.1.0 carries a source tarball of its tag, the tarball\'s sha256, and a build provenance attestation. '
+            f'{first} was tagged before the release workflow existed and has neither.')
 
 
 def release_block(release, data, note=None):
@@ -405,12 +451,13 @@ def main(argv):
 
     # 1. the module list first: the chrome reads it for the tree, the sidebar and the structured data
     overview = OVERVIEW.read_text(encoding='utf-8')
-    for name, body in (('powersuit-install', install_block(release)), ('powersuit-areas', areas_block(cfg)),
+    for name, body in (('powersuit-eyebrow', eyebrow_block(release)), ('powersuit-install', install_block(release)),
+                       ('powersuit-latest', latest_block(release)), ('powersuit-areas', areas_block(cfg)),
                        ('powersuit-knowledge', knowledge_block(cfg)), ('powersuit-release', release_block(release, data, cfg['source'].get('unreleased')))):
         overview = put_static(overview, name, body)
-    others = sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', re.sub(r'<!-- static:.*?<!-- /static:[^>]*-->', '', overview, flags=re.S))) - {release['ref']})
-    if others:  # hand-written text on the overview that may still name an older release
-        print(f'build_powersuit: warning: cto-powersuit/index.html also names {", ".join(others)}; check the text against {release["ref"]}', file=sys.stderr)
+    others = sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', re.sub(r'<!-- (static|mb):(\S+) -->.*?<!-- /\1:\2 -->', '', overview, flags=re.S))))
+    if others:  # every release name on the overview comes from the static blocks, so hand text cannot fall behind the pin
+        fail(f'cto-powersuit/index.html names {", ".join(others)} outside its static blocks; move that text into a block or update it to {release["ref"]}')
     write(MODULES_JSON, json.dumps(modules_json(cfg, release, data, overview), ensure_ascii=False, indent=1) + '\n')
     if check and differs:
         print('differs:', *differs)

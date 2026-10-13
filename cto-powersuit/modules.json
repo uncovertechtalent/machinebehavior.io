@@ -6,7 +6,9 @@
   "version": "0.1.0",
   "date": "2026-10-12",
   "repo": "https://github.com/uncovertechtalent/cto-powersuit",
-  "plugins": 18
+  "slug": "uncovertechtalent/cto-powersuit",
+  "plugins": 18,
+  "definition": "The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform."
  },
  "sections": [
   {

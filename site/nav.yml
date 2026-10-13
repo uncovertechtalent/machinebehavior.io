@@ -183,7 +183,6 @@ sections:
           description: "The CTO powersuit is a set of agent skills, one module per CTO function from the deploy gate to the hand-over, that one person uses to run a company's whole engineering platform."
           repository: https://github.com/uncovertechtalent/cto-powersuit
           license: https://github.com/uncovertechtalent/cto-powersuit/blob/main/LICENSE
-          version: "0.1.0"
           languages: [Python, JavaScript, Shell]
           platform: Claude Code
       - title: The CTO powersuit experiment

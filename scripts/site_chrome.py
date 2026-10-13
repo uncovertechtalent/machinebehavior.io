@@ -140,6 +140,9 @@ class Tree:
                 return
             data = json.loads(POWERSUIT_JSON.read_text(encoding='utf-8'))
             self.powersuit = (node, data)
+            cfg = getattr(node, 'cfg_page', None) or {}
+            if cfg.get('software'):  # the overview's version is the pinned release's, never a second copy in site/nav.yml
+                node.cfg_page = dict(cfg, software=dict(cfg['software'], version=data['release']['version']))
             for p in data['pages']:
                 kid = node.add(Node(p['title'], p['url'], node.section))
                 kid.cfg_page = {'software': p['software']}
