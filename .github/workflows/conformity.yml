@@ -288,3 +288,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: '"$RUNNER_TEMP/zizmor/bin/zizmor" --format github .github'
+
+  script-tests:
+    name: Script tests
+    # Tests for the scripts this workflow runs (#85): scripts/test_indexnow.py checks which URLs the indexnow job
+    # submits. Runs on every trigger, pull requests included; the deploy does not wait for it.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read    # check out the repository
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: IndexNow URL selection
+        run: python3 scripts/test_indexnow.py
