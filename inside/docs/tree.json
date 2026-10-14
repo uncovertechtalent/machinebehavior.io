@@ -71,6 +71,11 @@
 "p": "/inside/docs/eng/"
 },
 {
+"u": "/inside/docs/eng/cockpit/",
+"t": "Cockpit page",
+"p": "/inside/docs/eng/"
+},
+{
 "u": "/inside/docs/eng/service-catalog/",
 "t": "Service catalog",
 "p": "/inside/docs/eng/"
@@ -243,6 +248,11 @@
 {
 "u": "/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/",
 "t": "ADR-0030: The CTO powersuit pages are built from the pinned release",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0031-cockpit-from-a-counts-only-snapshot/",
+"t": "ADR-0031: The cockpit page is built from a counts-only snapshot behind a contract check",
 "p": "/inside/docs/eng/decision-log/"
 },
 {

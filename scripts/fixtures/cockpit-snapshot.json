@@ -1,0 +1,182 @@
+{
+ "schema": 1,
+ "generated": "2026-10-14T14:00:00Z",
+ "source": "fixture",
+ "areas": [
+  {
+   "key": "direction",
+   "name": "Direction",
+   "open": 2,
+   "in_progress": 1,
+   "blocked": 0,
+   "closed_7d": 1,
+   "findings_open": 0,
+   "decisions_open": 2,
+   "actions_open": 1,
+   "oldest_open_days": 9
+  },
+  {
+   "key": "delivery",
+   "name": "Delivery",
+   "open": 4,
+   "in_progress": 1,
+   "blocked": 0,
+   "closed_7d": 3,
+   "findings_open": 2,
+   "decisions_open": 0,
+   "actions_open": 2,
+   "oldest_open_days": 23
+  },
+  {
+   "key": "operations",
+   "name": "Operations",
+   "open": 5,
+   "in_progress": 1,
+   "blocked": 1,
+   "closed_7d": 4,
+   "findings_open": 1,
+   "decisions_open": 0,
+   "actions_open": 6,
+   "oldest_open_days": 31
+  },
+  {
+   "key": "money",
+   "name": "Money",
+   "open": 1,
+   "in_progress": 0,
+   "blocked": 0,
+   "closed_7d": 1,
+   "findings_open": 1,
+   "decisions_open": 1,
+   "actions_open": 0,
+   "oldest_open_days": 6
+  },
+  {
+   "key": "security",
+   "name": "Security",
+   "open": 6,
+   "in_progress": 2,
+   "blocked": 1,
+   "closed_7d": 5,
+   "findings_open": 4,
+   "decisions_open": 1,
+   "actions_open": 4,
+   "oldest_open_days": 19
+  },
+  {
+   "key": "ai",
+   "name": "AI",
+   "open": 7,
+   "in_progress": 1,
+   "blocked": 0,
+   "closed_7d": 3,
+   "findings_open": 2,
+   "decisions_open": 1,
+   "actions_open": 5,
+   "oldest_open_days": 27
+  },
+  {
+   "key": "people",
+   "name": "People",
+   "open": 0,
+   "in_progress": 0,
+   "blocked": 0,
+   "closed_7d": 0,
+   "findings_open": 0,
+   "decisions_open": 0,
+   "actions_open": 0,
+   "oldest_open_days": 0
+  },
+  {
+   "key": "knowledge",
+   "name": "Knowledge",
+   "open": 9,
+   "in_progress": 2,
+   "blocked": 0,
+   "closed_7d": 3,
+   "findings_open": 1,
+   "decisions_open": 0,
+   "actions_open": 10,
+   "oldest_open_days": 44
+  }
+ ],
+ "totals": {
+  "open": 34,
+  "in_progress": 8,
+  "blocked": 2,
+  "closed_7d": 20
+ },
+ "trend": [
+  {
+   "date": "2026-10-01",
+   "open": 52,
+   "closed": 2
+  },
+  {
+   "date": "2026-10-02",
+   "open": 51,
+   "closed": 3
+  },
+  {
+   "date": "2026-10-03",
+   "open": 53,
+   "closed": 1
+  },
+  {
+   "date": "2026-10-04",
+   "open": 50,
+   "closed": 4
+  },
+  {
+   "date": "2026-10-05",
+   "open": 49,
+   "closed": 2
+  },
+  {
+   "date": "2026-10-06",
+   "open": 50,
+   "closed": 1
+  },
+  {
+   "date": "2026-10-07",
+   "open": 48,
+   "closed": 3
+  },
+  {
+   "date": "2026-10-08",
+   "open": 47,
+   "closed": 3
+  },
+  {
+   "date": "2026-10-09",
+   "open": 49,
+   "closed": 2
+  },
+  {
+   "date": "2026-10-10",
+   "open": 46,
+   "closed": 4
+  },
+  {
+   "date": "2026-10-11",
+   "open": 45,
+   "closed": 2
+  },
+  {
+   "date": "2026-10-12",
+   "open": 46,
+   "closed": 3
+  },
+  {
+   "date": "2026-10-13",
+   "open": 45,
+   "closed": 3
+  },
+  {
+   "date": "2026-10-14",
+   "open": 44,
+   "closed": 3
+  }
+ ],
+ "public_items": []
+}
