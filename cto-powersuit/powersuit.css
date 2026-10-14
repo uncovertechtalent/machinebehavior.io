@@ -1,0 +1,59 @@
+/* The CTO powersuit pages: /cto-powersuit/ and its plugin pages (body.ps-page), written by scripts/build_powersuit.py.
+   Linked from these pages only. The sidebar of plugins by area (.mb-side-ps, written by scripts/site_chrome.py),
+   the area rows and plugin tiles, and the parts of a plugin page. Colours, type, radii and the main spacing come from
+   /design/tokens.css (ADR-0025, ADR-0030); a few layout lengths (column width, gaps, tracking) are set here. */
+
+/* a wider column for the tiles and skills; text keeps the reading width */
+body.ps-page.mb-read > .sheet { max-width: 1080px; }  /* after chrome.css's reading width, as on the home page */
+body.ps-page.mb-read > .sheet > :not(.ps-areas):not(.ps-tiles):not(.ps-skills):not(.tablewrap):not(.mb-crumbbar):not(.mb-crumbs):not(.ps-pager):not(.footer) { max-width: var(--mb-read-w); }
+
+/* sidebar: the overview's sections, the areas as open disclosures, plugin names in mono */
+/* the sticky sidebar is taller than the screen here, so the footer paints above it at the end of the page */
+body.ps-page > .mb-foot { position: relative; z-index: 1; }
+.mb-side-ps .mb-ps-sec { font-weight: 500; color: var(--mb-text); }
+.mb-side-ps .mb-ps-areas { margin: 2px 0 8px 4px; }
+.mb-side-ps .mb-ps-areas details > summary { padding: 6px 10px 2px 0; font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.2px; text-transform: uppercase; color: var(--mb-text-dim); }
+.mb-side-ps .mb-ps-areas details > summary::before { padding-top: 0; }
+.mb-side-ps code { background: none; border: 0; padding: 0; font: var(--mb-text-sm)/1.35 var(--mb-font-mono); color: inherit; }
+
+/* the areas of the CTO job: one row per area, its name left, its plugin tiles right */
+.ps-areas { margin: var(--mb-space-4) 0 0; border-bottom: 1px solid var(--mb-line); }
+.ps-area { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: var(--mb-space-5); padding: var(--mb-space-5) 0; border-top: 1px solid var(--mb-line); align-items: start; }
+.ps-area-head h3 { margin: 0; font: 600 var(--mb-text-lg)/1.25 var(--mb-font-sans); color: var(--mb-text); }
+.ps-area-head p { margin: 6px 0 0; font-size: var(--mb-text-sm); line-height: 1.45; color: var(--mb-text-dim); }
+
+/* tiles: two lines of the plugin's line; hover, focus, or a tap on the tile shows all of it */
+.ps-tiles { list-style: none; margin: var(--mb-space-4) 0 var(--mb-space-4); padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: var(--mb-space-3); }
+.ps-area .ps-tiles { margin: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ps-tile { display: flex; flex-direction: column; gap: 6px; padding: var(--mb-space-3) var(--mb-space-4); background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-l); transition: box-shadow .2s, transform .2s; }
+.ps-tile:hover, .ps-tile:focus-within { box-shadow: var(--mb-shadow); transform: translateY(-2px); }
+.ps-tile-kb { background: linear-gradient(150deg, var(--mb-accent-tint), var(--mb-surface-raised) 60%); }
+.ps-tile-name { align-self: flex-start; text-decoration: none; color: var(--mb-text); }
+.ps-tile-name code { background: none; border: 0; padding: 0; font: 700 var(--mb-text-md)/1.3 var(--mb-font-mono); color: inherit; }
+.ps-tile-name:hover, .ps-tile-name:focus-visible { color: var(--mb-accent); }
+.ps-tile-line { margin: 0; font-size: var(--mb-text-sm); line-height: 1.45; color: var(--mb-text-soft); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ps-tile:hover .ps-tile-line, .ps-tile:focus-within .ps-tile-line { -webkit-line-clamp: unset; }
+.ps-tile-demo { margin: auto 0 0; font-size: var(--mb-text-sm); display: flex; flex-direction: column; gap: 2px; }
+.ps-label { font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.2px; text-transform: uppercase; color: var(--mb-text-dim); }
+.ps-arrow { font-weight: 600; text-decoration: none; color: var(--mb-accent); }
+.ps-arrow::after { content: ' \2192'; content: ' \2192' / ''; }
+.ps-none { color: var(--mb-text-dim); }
+@media (max-width: 52rem) {
+  .ps-area { grid-template-columns: minmax(0, 1fr); gap: var(--mb-space-3); }
+  .ps-area .ps-tiles { grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .ps-tile { transition: none; } .ps-tile:hover, .ps-tile:focus-within { transform: none; } }
+
+/* a plugin page: name, facts, skills, gate checks, previous and next plugin */
+.ps-name { font-family: var(--mb-font-mono); letter-spacing: -0.02em; }
+.ps-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0 0 var(--mb-space-6); padding: 0; font: var(--mb-text-xs)/1.6 var(--mb-font-mono); color: var(--mb-text-dim); }
+.ps-facts strong { color: var(--mb-text); font-weight: 600; }
+.ps-skills { list-style: none; margin: var(--mb-space-4) 0 var(--mb-space-4); padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: var(--mb-space-3); }
+.ps-skill { display: flex; flex-direction: column; gap: 6px; padding: var(--mb-space-3) var(--mb-space-4); background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-l); }
+.ps-cmd { align-self: flex-start; font-weight: 700; }
+.ps-skill p { margin: 0; font-size: var(--mb-text-sm); line-height: 1.5; color: var(--mb-text-soft); }
+.ps-checks { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: var(--mb-space-3) 0 var(--mb-space-4); padding: 0; }
+.ps-pager { display: flex; justify-content: space-between; gap: var(--mb-space-4); margin-top: var(--mb-space-7); padding-top: var(--mb-space-4); border-top: 1px solid var(--mb-line); }
+.ps-pager a { display: flex; flex-direction: column; gap: 2px; text-decoration: none; }
+.ps-pager a[rel="next"] { text-align: right; margin-left: auto; }
+.ps-pager span { font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.2px; text-transform: uppercase; color: var(--mb-text-dim); }

@@ -1,0 +1,122 @@
+# The CTO powersuit pages: /cto-powersuit/ and one page per plugin at /cto-powersuit/<plugin>/.
+#
+# scripts/build_powersuit.py reads this file and the powersuit repository at the pinned release, and writes the plugin
+# pages, cto-powersuit/modules.json (the module tree for site/nav.yml and the sidebar), the module tiles on the
+# overview, a sitemap block and an llms.txt section. To follow a new release: set ref and commit, check each line
+# below against the release, run the script, and review the diff.
+#
+#   ref       the release tag; the install commands on every page pin it
+#   commit    the commit the tag points to; the script stops when the tag resolves to another commit (a moved tag)
+#   release_note what the release page carries (assets, attestation); check it against the release when the pin moves
+#   unreleased one sentence on what the main branch has beyond the release, or leave it out
+#   published the date the plugin pages first went live
+#   areas     the areas of the CTO job, in page order, each with its modules in order
+#   line      one line per module, true for the pinned release; it leads the module's tile and page
+#   demo_*    where the module runs in public on this site (demo_title, demo_url); demo_title none when no page exists
+
+source:
+  repo: https://github.com/uncovertechtalent/cto-powersuit
+  ref: v0.1.0
+  commit: 82d1c08f19721ba3fc36b075807d8c5631e0aed2
+  release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
+  unreleased: "On the main branch on 2026-10-13, after v0.1.0: `ai-ops` 0.2.0 adds an audit trail of agent tool calls with an alert on denied calls, and `security` 0.3.0 adds a quarantine for third-party text."
+published: 2026-10-13
+
+areas:
+  - title: Direction
+    about: Where the company stands, and the big technical decisions.
+    modules:
+      - name: fit
+        line: "The entry assessment: runs the sdlc audit and recommends which modules to fit and in which order. Its repo clinic audits a public repository at its owner's request."
+        demo_title: Inside
+        demo_url: /inside/
+      - name: decisions
+        line: "RFCs, architecture decision records, and a review of the decision log, with a gate check that every record has a status, an owner, and a date."
+        demo_title: Decision log
+        demo_url: /inside/docs/eng/decision-log/
+  - title: Delivery
+    about: How code gets from an idea to production.
+    modules:
+      - name: sdlc
+        line: "The software delivery lifecycle: an audit for repositories built without one, tickets, change review for agent-written code, a local CI run before each push, test strategy, and release with rollback."
+        demo_title: Board
+        demo_url: /inside/board/
+      - name: gate
+        line: "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate."
+        demo_title: Conformity gate
+        demo_url: /inside/docs/eng/conformity-gate/
+      - name: docs
+        line: "A docs tree where every page has an owner and review dates, runbooks, a sweep for stale pages, and a static docs build."
+        demo_title: Docs health
+        demo_url: /inside/docs/health/
+  - title: Operations
+    about: Keeping it running, and seeing what it does.
+    modules:
+      - name: reliability
+        line: "Availability targets, SLOs and error budgets, incidents and postmortems, a static status page, and an on-call policy."
+        demo_title: Status
+        demo_url: /inside/status/
+      - name: observability
+        line: "Alloy, Prometheus, Loki, Grafana, and Alertmanager with docker compose, dashboards as code, and alert routes."
+        demo_title: Mission Control
+        demo_url: /inside/mission-control/
+  - title: Money
+    about: What the platform costs, and where the money goes.
+    modules:
+      - name: finops
+        line: "A cost baseline from invoices and billing exports, showback, unit costs, a SaaS stack audit, and a FOCUS export, with a gate check that every cost figure carries a period and a source."
+        demo_title: FinOps space
+        demo_url: /inside/docs/fin/
+  - title: Security and risk
+    about: Protecting systems and data, staying compliant, testing for failure.
+    modules:
+      - name: security
+        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, and a pre-push hook for private terms."
+        demo_title: Gate runs
+        demo_url: /conformity/
+      - name: compliance
+        line: "A control map to ISO 27001, TISAX, NIS2, and the GDPR by clause and article number, an AI Act triage, and a legal baseline for a website."
+        demo_title: Standards space
+        demo_url: /inside/docs/std/
+      - name: red-team
+        line: "Pressure tests for a team's AI features: scripted multi-turn runs in a world with a known right answer, graded on the decision the system took."
+        demo_title: Red team
+        demo_url: /red-team/
+  - title: AI
+    about: Running AI in the company, and being found by AI.
+    modules:
+      - name: ai-ops
+        line: "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, and a coordinator pattern with state in files."
+        demo_title: Agent sessions
+        demo_url: /inside/services/agent-sessions/
+      - name: aieo
+        line: "Visibility in AI search: `llms.txt`, structured data, answer probes, and predictions hashed before a page goes live."
+        demo_title: AIEO
+        demo_url: /aieo/
+  - title: People
+    about: Hiring the team, and handing the work over.
+    modules:
+      - name: hiring
+        line: "An interview loop, rubrics with anchored levels, debriefs with evidence before votes, and the profile of the person who takes over the platform."
+        demo_title: none
+      - name: handover
+        line: "Hand the platform to its owner: training per module, exit criteria, and a test plan that shows the owner runs the platform from the docs alone."
+        demo_title: Founder tour
+        demo_url: /inside/tour/
+
+knowledge:
+  title: Knowledge layer
+  about: "The layer under every module: what agents know and how they answer."
+  modules:
+    - name: vestige
+      line: "An output filter you calibrate to yourself from your own transcripts. Hooks scan every reply and every Markdown file Claude writes."
+      demo_title: Conformity gate
+      demo_url: /inside/docs/eng/conformity-gate/
+    - name: vault
+      line: "A plain-Markdown vault with hybrid keyword and semantic search, served to Claude as an MCP server, with skills to seed it and to atomize documents into it."
+      demo_title: SRE Handbook space
+      demo_url: /inside/docs/sre/
+    - name: stance
+      line: "Stance filters: `professional-b2`, `good-chad`, `receipts`, `poles`, and `mode-leak`."
+      demo_title: Research space
+      demo_url: /inside/docs/res/

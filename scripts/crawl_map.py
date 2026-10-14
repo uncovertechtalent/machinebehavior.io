@@ -195,6 +195,8 @@ for u in sorted(set(pages)) + subs:
     body_links = set(links(body, u))
     nav_links = set(links(doc, u)) - body_links
     if k in ('doc', 'service'): nav_links = set()  # the docs sidebar lists the whole space; the structure is in the 'tree' edges
+    if k == 'page' and urlparse(u).netloc == 'machinebehavior.io' and urlparse(u).path.startswith('/cto-powersuit/'):
+        nav_links = set()  # the powersuit sidebar lists every plugin on every page; tiles, pager and body links carry the structure
     for tgt, lk in [(t, 'body') for t in body_links] + [(t, 'nav') for t in nav_links]:
         tk = kind_of(tgt)
         if not tk: continue

@@ -38,6 +38,7 @@ NAV_FILE = ROOT / 'site' / 'nav.yml'
 SIDEBARS = {'research', 'red-team', 'inside', 'topics', 'aieo', 'cto'}  # sections whose pages carry the section sidebar
 TOPICS_FILE = ROOT / 'site' / 'topics.yml'
 TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
+POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
@@ -85,6 +86,7 @@ class Tree:
         self.bar = cfg.get('bar') or {}
         self.sections, self.by_url = [], {}
         self.home = None
+        self.powersuit = None  # the powersuit node and its module list, when site/nav.yml has auto: powersuit
         for s in cfg['sections']:
             node = Node(s['title'], s['url'], s['key'])
             node.cfg = s
@@ -133,6 +135,19 @@ class Tree:
         elif kind == 'topics':
             for tp in mini_yaml.load_file(TOPICS_FILE)['topics']:
                 self._index(node.add(Node(tp['title'], f'/topics/{tp["key"]}/', node.section)))
+        elif kind == 'powersuit':
+            if not POWERSUIT_JSON.exists():
+                return
+            data = json.loads(POWERSUIT_JSON.read_text(encoding='utf-8'))
+            self.powersuit = (node, data)
+            cfg = getattr(node, 'cfg_page', None) or {}
+            if cfg.get('software'):  # the overview's version and licence come from the pinned release, never a second copy in site/nav.yml
+                rel = data['release']
+                node.cfg_page = dict(cfg, software=dict(cfg['software'], version=rel['version'], license=f"{rel['repo']}/blob/{rel['ref']}/LICENSE"))
+            for p in data['pages']:
+                kid = node.add(Node(p['title'], p['url'], node.section))
+                kid.cfg_page = {'software': p['software']}
+                self._index(kid)
         elif kind == 'services':
             f = ROOT / 'inside' / 'services' / 'services.json'
             if not f.exists():
@@ -311,12 +326,42 @@ def topics_block(t, url):
             f'<ul>{li}</ul></div>')
 
 
+def powersuit_side(t, node):
+    """The sidebar of /cto-powersuit/ and its plugin pages, in place of the section sidebar: the overview's sections,
+    the plugins by area under Modules and the knowledge layer under its own section, the current page marked."""
+    top, data = t.powersuit
+
+    def mod(m):
+        cur = ' aria-current="page"' if node.url == m['url'] else ''
+        return f'<li><a href="{m["url"]}"{cur}><code>{esc(m["name"])}</code></a></li>'
+
+    def group(title, mods):
+        return f'<li><details open><summary><span>{esc(title)}</span></summary><ul>{"".join(mod(m) for m in mods)}</ul></details></li>'
+
+    secs = ''
+    for s in data['sections']:
+        secs += f'<li><a class="mb-ps-sec" href="{top.url}#{s["id"]}">{esc(s["title"])}</a>'
+        if s['id'] == 'modules':
+            secs += '<ul class="mb-ps-areas">' + ''.join(group(a['title'], a['modules']) for a in data['areas']) + '</ul>'
+        elif s['id'] == 'knowledge-infrastructure':
+            secs += '<ul class="mb-ps-areas">' + group(data['knowledge']['title'], data['knowledge']['modules']) + '</ul>'
+        secs += '</li>'
+    head_cur = ' aria-current="page"' if node is top else ''
+    return (f'<nav class="mb-side mb-side-ps" aria-label="{esc(top.title)}"><details class="mb-side-wrap" open>'
+            f'<summary><span>{esc(top.title)}</span><span class="mb-side-n">{len(data["pages"])} plugins</span></summary>'
+            f'<a class="mb-side-head" href="{top.url}"{head_cur}>{esc(top.title)}</a>'
+            f'<ul class="mb-side-tree">{secs}</ul></details></nav>')
+
+
 def side(t, node):
     """The section sidebar: every page of the section, the current one marked; groups as headings, a page with
     children as a disclosure that is open when the current page is inside it. Open by default; /inside/bar.js
-    closes it on narrow screens, where it sits above the content."""
+    closes it on narrow screens, where it sits above the content. /cto-powersuit/ and its plugin pages get the
+    powersuit sidebar instead (powersuit_side)."""
     if node is None or node.section not in SIDEBARS:
         return ''
+    if t.powersuit and (node is t.powersuit[0] or node.parent is t.powersuit[0]):
+        return powersuit_side(t, node)
     sec = t.section(node.section)
     here = {id(n) for n in t.trail(node)}
 
@@ -324,10 +369,14 @@ def side(t, node):
         cur = ' aria-current="page"' if n is node else ''
         return f'<a href="{n.url}"{cur}>{esc(n.title)}</a>'
 
+    ps = t.powersuit[0] if t.powersuit else None
+
     def items(kids):
         h = ''
         for k in kids:
-            if k.group:
+            if k is ps:  # the plugin pages stay in the powersuit sidebar; elsewhere the overview is one link
+                h += f'<li>{link(k)}</li>'
+            elif k.group:
                 h += f'<li class="mb-side-group"><span class="mb-side-label">{esc(k.title)}</span><ul>{items(k.kids)}</ul></li>'
             elif k.kids:
                 op = ' open' if id(k) in here else ''
@@ -336,7 +385,7 @@ def side(t, node):
                 h += f'<li>{link(k)}</li>'
         return h
 
-    count = sum(1 for _ in _pages_under(sec))
+    count = sum(1 for _ in _pages_under(sec)) - (sum(1 for _ in _pages_under(ps)) if ps is not None and ps.section == sec.section else 0)
     head_cur = ' aria-current="page"' if node is sec else ''
     topics = topics_block(t, node.url) if node.section != 'topics' else ''
     return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
@@ -460,6 +509,8 @@ def page_ld(t, node, trail, url, src, layout):
                           ('languages', 'programmingLanguage'), ('platform', 'runtimePlatform')):
             if sw.get(key):
                 code[prop] = str(sw[key]) if prop == 'version' else sw[key]
+        if sw.get('part_of'):
+            code['isPartOf'] = {'@id': base + sw['part_of']}
         graph.append(code)
         page['mainEntity'] = {'@id': sw_id}
     data = {'@context': 'https://schema.org', '@graph': graph}
