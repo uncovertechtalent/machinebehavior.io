@@ -16,10 +16,9 @@
 
 source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
-  ref: v0.1.0
-  commit: 82d1c08f19721ba3fc36b075807d8c5631e0aed2
+  ref: v0.2.0
+  commit: 5c8f96aa16c97f8b23bef9c47a9a370719d6593d
   release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
-  unreleased: "On the main branch on 2026-10-13, after v0.1.0: `ai-ops` 0.2.0 adds an audit trail of agent tool calls with an alert on denied calls, and `security` 0.3.0 adds a quarantine for third-party text."
 published: 2026-10-13
 
 areas:
@@ -71,7 +70,7 @@ areas:
     about: Protecting systems and data, staying compliant, testing for failure.
     modules:
       - name: security
-        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, and a pre-push hook for private terms."
+        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, a pre-push hook for private terms, and a quarantine for third-party text."
         demo_title: Gate runs
         demo_url: /conformity/
       - name: compliance
@@ -86,7 +85,7 @@ areas:
     about: Running AI in the company, and being found by AI.
     modules:
       - name: ai-ops
-        line: "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, and a coordinator pattern with state in files."
+        line: "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files."
         demo_title: Agent sessions
         demo_url: /inside/services/agent-sessions/
       - name: aieo

@@ -1,10 +1,10 @@
 {
  "generated_by": "scripts/build_powersuit.py",
  "release": {
-  "ref": "v0.1.0",
-  "commit": "82d1c08f19721ba3fc36b075807d8c5631e0aed2",
-  "version": "0.1.0",
-  "date": "2026-10-12",
+  "ref": "v0.2.0",
+  "commit": "5c8f96aa16c97f8b23bef9c47a9a370719d6593d",
+  "version": "0.2.0",
+  "date": "2026-10-14",
   "marketplace": "cto-powersuit",
   "repo": "https://github.com/uncovertechtalent/cto-powersuit",
   "slug": "uncovertechtalent/cto-powersuit",
@@ -165,7 +165,7 @@
     "alternate_name": "fit@cto-powersuit",
     "description": "The entry assessment: runs the sdlc audit and recommends which modules to fit and in which order. Its repo clinic audits a public repository at its owner's request.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.2.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -179,7 +179,7 @@
     "alternate_name": "decisions@cto-powersuit",
     "description": "RFCs, architecture decision records, and a review of the decision log, with a gate check that every record has a status, an owner, and a date.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -193,8 +193,8 @@
     "alternate_name": "sdlc@cto-powersuit",
     "description": "The software delivery lifecycle: an audit for repositories built without one, tickets, change review for agent-written code, a local CI run before each push, test strategy, and release with rollback.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
-    "version": "0.2.0",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
+    "version": "0.2.3",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
    }
@@ -207,8 +207,8 @@
     "alternate_name": "gate@cto-powersuit",
     "description": "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
-    "version": "0.2.0",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
+    "version": "0.2.1",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
    }
@@ -221,7 +221,7 @@
     "alternate_name": "docs@cto-powersuit",
     "description": "A docs tree where every page has an owner and review dates, runbooks, a sweep for stale pages, and a static docs build.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -235,7 +235,7 @@
     "alternate_name": "reliability@cto-powersuit",
     "description": "Availability targets, SLOs and error budgets, incidents and postmortems, a static status page, and an on-call policy.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -249,7 +249,7 @@
     "alternate_name": "observability@cto-powersuit",
     "description": "Alloy, Prometheus, Loki, Grafana, and Alertmanager with docker compose, dashboards as code, and alert routes.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -263,7 +263,7 @@
     "alternate_name": "finops@cto-powersuit",
     "description": "A cost baseline from invoices and billing exports, showback, unit costs, a SaaS stack audit, and a FOCUS export, with a gate check that every cost figure carries a period and a source.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -275,10 +275,10 @@
    "software": {
     "name": "security (CTO powersuit plugin)",
     "alternate_name": "security@cto-powersuit",
-    "description": "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, and a pre-push hook for private terms.",
+    "description": "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, a pre-push hook for private terms, and a quarantine for third-party text.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
-    "version": "0.2.0",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
+    "version": "0.3.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
    }
@@ -291,7 +291,7 @@
     "alternate_name": "compliance@cto-powersuit",
     "description": "A control map to ISO 27001, TISAX, NIS2, and the GDPR by clause and article number, an AI Act triage, and a legal baseline for a website.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -305,7 +305,7 @@
     "alternate_name": "red-team@cto-powersuit",
     "description": "Pressure tests for a team's AI features: scripted multi-turn runs in a world with a known right answer, graded on the decision the system took.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -317,10 +317,10 @@
    "software": {
     "name": "ai-ops (CTO powersuit plugin)",
     "alternate_name": "ai-ops@cto-powersuit",
-    "description": "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, and a coordinator pattern with state in files.",
+    "description": "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
-    "version": "0.1.0",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
+    "version": "0.2.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
    }
@@ -333,7 +333,7 @@
     "alternate_name": "aieo@cto-powersuit",
     "description": "Visibility in AI search: llms.txt, structured data, answer probes, and predictions hashed before a page goes live.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -347,7 +347,7 @@
     "alternate_name": "hiring@cto-powersuit",
     "description": "An interview loop, rubrics with anchored levels, debriefs with evidence before votes, and the profile of the person who takes over the platform.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -361,7 +361,7 @@
     "alternate_name": "handover@cto-powersuit",
     "description": "Hand the platform to its owner: training per module, exit criteria, and a test plan that shows the owner runs the platform from the docs alone.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.1",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -375,7 +375,7 @@
     "alternate_name": "vestige@cto-powersuit",
     "description": "An output filter you calibrate to yourself from your own transcripts. Hooks scan every reply and every Markdown file Claude writes.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -389,7 +389,7 @@
     "alternate_name": "vault@cto-powersuit",
     "description": "A plain-Markdown vault with hybrid keyword and semantic search, served to Claude as an MCP server, with skills to seed it and to atomize documents into it.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"
@@ -403,7 +403,7 @@
     "alternate_name": "stance@cto-powersuit",
     "description": "Stance filters: professional-b2, good-chad, receipts, poles, and mode-leak.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
-    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.1.0/LICENSE",
+    "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.2.0/LICENSE",
     "version": "0.1.0",
     "platform": "Claude Code",
     "part_of": "/cto-powersuit/#software"

@@ -18,8 +18,10 @@ Writes:
 - the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-license, powersuit-areas,
   powersuit-knowledge and powersuit-release on /cto-powersuit/;
 - the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
-then the chrome of every page it wrote. A plugin page's lastmod moves to today only when its content changes.
-Every release name on the overview comes from its static blocks; the build stops when the hand-written text names one,
+then the chrome of every page it wrote. A plugin page's lastmod, and the overview's line in the hand-written part of
+the sitemap, move to today only when the page's content changes.
+Every release name on the overview comes from its static blocks, and the note on the main branch (unreleased) may name
+only the pinned release; the build stops when the hand-written text names one,
 or states a licence or a plugin count that differs from the release. A newer release tag than the pin is a warning, and
 with --fail-on-newer a failure, since the pages call the pinned release the latest.
 Stdlib and git only. Tests of the parsers: python3 scripts/test_build_powersuit.py.
@@ -89,6 +91,16 @@ def newer_tags(repo_url, ref):
     pinned = ver(ref)
     tags = [line.split('refs/tags/', 1)[1] for line in r.stdout.splitlines() if 'refs/tags/' in line]
     return sorted((t for t in tags if ver(t) and pinned and ver(t) > pinned), key=ver)
+
+
+def notes_stops(cfg):
+    """The note on the main branch must speak of the pinned release: a note that names any release other than the pin,
+    older or newer, stops the build, so the overview never says "after v0.1.0" next to a v0.2.0 pin. A newer tag belongs
+    in a pin move."""
+    src = cfg['source']
+    others = sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', src.get('unreleased') or '')) - {src['ref']})
+    if others:
+        fail(f'site/powersuit.yml: unreleased names {", ".join(others)}, not the pinned {src["ref"]}; rewrite it for the pin or leave it out')
 
 
 def open_repo(cfg, path):
@@ -543,6 +555,26 @@ def llms_section_text(llms):
     return m.group(0).rstrip('\n') + '\n' if m else None
 
 
+OVERVIEW_LOC = re.compile(r'(<url><loc>' + re.escape(BASE) + r'/cto-powersuit/</loc><lastmod>)([0-9-]+)(</lastmod></url>)')
+
+
+def refresh_overview_date(overview, day=None):
+    """Move the overview's sitemap date to today when the page, with the chrome of its current date, differs from the file.
+    Runs before the chrome is written again, so the new date reaches dateModified and the Updated line. Returns whether it moved."""
+    if site_chrome.apply(overview, 'cto-powersuit/index.html') == (ROOT / 'cto-powersuit' / 'index.html').read_text(encoding='utf-8'):
+        return False
+    set_overview_lastmod(day or TODAY)
+    return True
+
+
+def set_overview_lastmod(day):
+    p = ROOT / 'sitemap.xml'
+    sm = p.read_text(encoding='utf-8')
+    if not OVERVIEW_LOC.search(sm):
+        fail('sitemap.xml: no line for /cto-powersuit/')
+    p.write_text(OVERVIEW_LOC.sub(lambda m: m.group(1) + day + m.group(3), sm, count=1), encoding='utf-8')
+
+
 def sitemap_text(lastmod):
     """The sitemap block powersuit as scripts/inside_chrome.py writes it, for --check."""
     return ('  <!-- powersuit:begin (scripts/build_powersuit.py) -->\n'
@@ -572,6 +604,7 @@ def main(argv):
             fail('--repo needs the path of a clone of the powersuit repository')
         path = argv[i + 1]
     cfg = mini_yaml.load_file(CFG_FILE)
+    notes_stops(cfg)
     repo = open_repo(cfg, path)
     release, data = load(cfg, repo)
     seq = order(cfg)
@@ -624,7 +657,9 @@ def main(argv):
                 or put_llms_entry(llms, llms_entry(cfg, release, data)) != llms:
             differs.append('llms.txt')
     else:
-        # 3. the shared lists, then the chrome again with the new dates
+        # 3. the shared lists, then the chrome again with the new dates. The overview is a hand-written page with its own
+        # sitemap line; it moves to today when the static blocks or the chrome change what the page says.
+        refresh_overview_date(overview)
         inside_chrome.sitemap_block('powersuit', lastmod, BASE, 'scripts/build_powersuit.py')
         inside_chrome.llms_section(LLMS_HEADING, llms_body(cfg, release, data))
         lp = ROOT / 'llms.txt'
