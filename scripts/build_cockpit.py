@@ -21,7 +21,7 @@ What reaches the page is public GitHub data only:
   each item's URL must be the GitHub URL of that issue or pull request in a listed repository of the owner.
 Stdlib only. Tests: python3 scripts/test_build_cockpit.py.
 """
-import datetime, html, json, os, re, sys, unicodedata, urllib.error, urllib.parse, urllib.request
+import datetime, html, json, os, re, sys, unicodedata, urllib.parse, urllib.request
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -229,7 +229,7 @@ def get(url):
             h['Authorization'] = 'Bearer ' + os.environ['GH_TOKEN']
         try:
             return json.load(urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=20))
-        except (urllib.error.URLError, ValueError) as e:
+        except (OSError, ValueError) as e:  # URLError, timeouts, and resets while the body is read are OSErrors
             print(f'warning: {url.split("?")[0]} (token={auth}) failed: {e}', file=sys.stderr)
             last = e
     raise SystemExit(f'build_cockpit: reading GitHub failed: {last}')
@@ -300,7 +300,7 @@ def to_item(repo, i):
 def fetch(now=None):
     now = now or datetime.datetime.now(datetime.timezone.utc)
     start = (now - datetime.timedelta(days=WINDOW_DAYS)).strftime('%Y-%m-%dT00:00:00Z')
-    repos = public_repos(get(f'{API}/users/{OWNER}/repos?type=owner&per_page=100'))
+    repos = public_repos(pages(f'users/{OWNER}/repos', {'type': 'owner'}))
     items, untriaged = [], {}
     for repo in repos:
         raw = pages(f'repos/{repo}/issues', {'state': 'open'})
