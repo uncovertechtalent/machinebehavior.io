@@ -150,6 +150,13 @@ def main():
     case('hand text: static and chrome blocks are not hand text',
          stops(lambda: bp.hand_text_stops(kb3, rel, '<!-- static:x -->v0.0.1, 9 plugins<!-- /static:x --><!-- mb:head -->v0.0.2<!-- /mb:head -->')), 0)
 
+    # the note on the main branch speaks of the pinned release only
+    note = lambda text: {'source': {'ref': 'v0.2.0', 'unreleased': text}}  # noqa: E731
+    case('unreleased: a note that names an older release stops the build', stops(lambda: bp.notes_stops(note('On main after v0.1.0: x.'))), 2)
+    case('unreleased: a note about the pinned release goes through', stops(lambda: bp.notes_stops(note('On main after v0.2.0: x.'))), 0)
+    case('unreleased: plugin versions are not release names', stops(lambda: bp.notes_stops(note('`ai-ops` 0.3.0 adds x.'))), 0)
+    case('unreleased: no note goes through', stops(lambda: bp.notes_stops({'source': {'ref': 'v0.2.0'}})), 0)
+
     # the stops of load() and open_repo(), on a small repository
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

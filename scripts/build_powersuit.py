@@ -91,6 +91,15 @@ def newer_tags(repo_url, ref):
     return sorted((t for t in tags if ver(t) and pinned and ver(t) > pinned), key=ver)
 
 
+def notes_stops(cfg):
+    """The note on the main branch must speak of the pinned release: a pin move that leaves it naming an older tag stops
+    the build, so the overview never says "after v0.1.0" next to a v0.2.0 pin."""
+    src = cfg['source']
+    others = sorted(set(re.findall(r'\bv\d+\.\d+\.\d+\b', src.get('unreleased') or '')) - {src['ref']})
+    if others:
+        fail(f'site/powersuit.yml: unreleased names {", ".join(others)}, not the pinned {src["ref"]}; rewrite it for the pin or leave it out')
+
+
 def open_repo(cfg, path):
     src = cfg['source']
     if path is None:
@@ -572,6 +581,7 @@ def main(argv):
             fail('--repo needs the path of a clone of the powersuit repository')
         path = argv[i + 1]
     cfg = mini_yaml.load_file(CFG_FILE)
+    notes_stops(cfg)
     repo = open_repo(cfg, path)
     release, data = load(cfg, repo)
     seq = order(cfg)
