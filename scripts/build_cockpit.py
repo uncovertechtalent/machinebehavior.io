@@ -1,26 +1,26 @@
 #!/usr/bin/env python3
-"""The cockpit page /inside/cockpit/, from the counts-only snapshot inside/cockpit/snapshot.json (ADR-0031).
+"""The cockpit page /inside/cockpit/, from the issues and pull requests of the owner's public repositories (ADR-0031).
 
-    python3 scripts/build_cockpit.py                    check the snapshot, then write the page and its sitemap date
-    python3 scripts/build_cockpit.py --check            write nothing; exit 1 when the snapshot breaks the contract,
-                                                        or the page or its sitemap date differ from the snapshot
-    python3 scripts/build_cockpit.py --snapshot FILE    check (and without --check, publish) another file: the build
-                                                        copies a valid FILE to inside/cockpit/snapshot.json first
+    python3 scripts/build_cockpit.py --fetch    read GitHub, check, write inside/cockpit/cockpit.json, then build the page
+    python3 scripts/build_cockpit.py            build the page from the committed inside/cockpit/cockpit.json (no network)
+    python3 scripts/build_cockpit.py --check    write nothing; exit 1 when cockpit.json breaks the contract, or the page
+                                                or its sitemap date differ from it (no network)
 
-The cockpit is the local app in which Stefan Coetzee runs his work by the eight areas of the CTO powersuit. Its
-`export --public-json` writes the snapshot; the file reaches this repository through a pull request only.
+The deploy job runs --fetch (artifact only, never committed), so the live page is as fresh as the last deploy; a
+failed read or check leaves the committed page in place. The Conformity checks job runs --check.
 
-The contract (schema 1) is the guard. check() returns every violation, and the build and --check stop on any:
-- exactly the keys schema, generated, source, areas, totals, trend, public_items, at every level exactly the keys
-  listed below, nothing else, and no key twice;
-- counts are integers from 0; generated is a UTC timestamp; source is beads-desk@<commit> (or "fixture", the sample
-  file, which the page labels as sample figures); each area key and its name are fixed;
-- totals are the sums of the eight areas, so no count from outside the eight areas reaches the page;
-- the only free text is the title of a public item, and an item is a pull request or an issue on GitHub in a repository
-  of an owner in PUBLIC_OWNERS, with a URL that matches its repository and kind.
+What reaches the page is public GitHub data only:
+- the repositories are the owner's own (no forks, nothing archived) that GitHub reports as public; the read uses
+  GH_TOKEN if set, else no token, as scripts/board_snapshot.py does. In the deploy job GH_TOKEN is this repository's
+  workflow token, which reads no private repository of the owner, and the read stops on any repository not reported
+  public;
+- an item reaches the page with its title only when a maintainer has given it an area label (area:<area>); other open
+  items are counted per repository, without their text, as the board does with untriaged issues;
+- check() allows exactly the keys of the contract, fixed forms for every value, and as free text only an item's title;
+  each item's URL must be the GitHub URL of that issue or pull request in a listed repository of the owner.
 Stdlib only. Tests: python3 scripts/test_build_cockpit.py.
 """
-import datetime, html, json, re, shutil, sys
+import datetime, html, json, os, re, sys, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -31,46 +31,41 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://machinebehavior.io'
 PAGE_URL = '/inside/cockpit/'
 PAGE = ROOT / 'inside' / 'cockpit' / 'index.html'
-SNAPSHOT = ROOT / 'inside' / 'cockpit' / 'snapshot.json'
+DATA = ROOT / 'inside' / 'cockpit' / 'cockpit.json'
 POWERSUIT_YML = ROOT / 'site' / 'powersuit.yml'
 MODULES_JSON = ROOT / 'cto-powersuit' / 'modules.json'
-SITE_REPO = 'uncovertechtalent/machinebehavior.io'  # its open issues are on the board; the page counts them and links there
+OWNER = 'uncovertechtalent'  # the only owner whose repositories are read; another owner is a reviewed change
+API = 'https://api.github.com'
+WINDOW_DAYS = 14  # the trend; closed items older than this are not kept
 
-# The eight areas of the cockpit, in page order: the export's key and name, and the area's title on the powersuit
-# pages (site/powersuit.yml; None is its knowledge layer). A change here is a change of the contract.
+# The eight areas, in page order: the label's key and the area's title on the powersuit pages (site/powersuit.yml;
+# None is its knowledge layer). The same keys as the cockpit's local tracker.
 AREAS = [
-    ('direction', 'Direction', 'Direction'),
-    ('delivery', 'Delivery', 'Delivery'),
-    ('operations', 'Operations', 'Operations'),
-    ('money', 'Money', 'Money'),
-    ('security', 'Security', 'Security and risk'),
-    ('ai', 'AI', 'AI'),
-    ('people', 'People', 'People'),
-    ('knowledge', 'Knowledge', None),
+    ('direction', 'Direction'),
+    ('delivery', 'Delivery'),
+    ('operations', 'Operations'),
+    ('money', 'Money'),
+    ('security', 'Security and risk'),
+    ('ai', 'AI'),
+    ('people', 'People'),
+    ('knowledge', None),
 ]
-NAME = {k: n for k, n, _ in AREAS}
-# Owners whose public repositories may appear as public items. Adding an owner is its own reviewed pull request.
-PUBLIC_OWNERS = ('uncovertechtalent',)
+AREA_KEYS = [k for k, _ in AREAS]
+KINDS = ['finding', 'decision', 'action', 'lead']
+OPEN_STATUSES = ('open', 'in_progress', 'blocked')
+STATUSES = OPEN_STATUSES + ('done', 'dropped')
 
 SCHEMA = 1
-TOP_KEYS = {'schema', 'generated', 'source', 'areas', 'totals', 'trend', 'public_items'}
-AREA_COUNTS = ('open', 'in_progress', 'blocked', 'closed_7d', 'findings_open', 'decisions_open', 'actions_open', 'oldest_open_days')
-AREA_KEYS = {'key', 'name', *AREA_COUNTS}
-TOTAL_KEYS = ('open', 'in_progress', 'blocked', 'closed_7d')
-TREND_KEYS = {'date', 'open', 'closed'}
-ITEM_KEYS = {'repo', 'kind', 'title', 'url', 'state'}
-ITEM_KINDS = {'pr': 'pull', 'issue': 'issues'}
-ITEM_STATES = ('open', 'closed', 'merged')
+TOP_KEYS = {'schema', 'generated', 'owner', 'repos', 'items', 'untriaged'}
+ITEM_KEYS = {'repo', 'number', 'pr', 'title', 'url', 'area', 'kind', 'status', 'created', 'closed'}
 GENERATED_RX = re.compile(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z')
-SOURCE_RX = re.compile(r'beads-desk@[0-9a-f]{7,40}|fixture')
 DATE_RX = re.compile(r'\d{4}-\d{2}-\d{2}')
-REPO_RX = re.compile(r'([A-Za-z0-9][A-Za-z0-9-]{0,38})/([A-Za-z0-9._-]{1,100})')
-CONTROL_RX = re.compile(r'[\x00-\x1f\x7f<>]')
-MAX_BYTES = 256 * 1024
+REPO_RX = re.compile(rf'{re.escape(OWNER)}/[A-Za-z0-9._-]{{1,100}}')
+CONTROL_RX = re.compile(r'[\x00-\x1f\x7f]')
+MAX_BYTES = 512 * 1024
 MAX_TITLE = 300
-MAX_ITEMS = 200
-MAX_TREND = 366
-TREND_SHOWN = 14
+MAX_ITEMS = 1000
+MAX_REPOS = 100
 
 
 class ContractError(ValueError):
@@ -87,18 +82,18 @@ def _no_dupes(pairs):
 
 
 def _no_constant(name):
-    raise ContractError(f'{name} is not a count')
+    raise ContractError(f'{name} is not a number')
 
 
 def parse(text):
-    """The snapshot as a dict, or ContractError: too large, not JSON, a key twice, NaN or Infinity."""
+    """The data as a dict, or ContractError: too large, not JSON, a key twice, NaN or Infinity."""
     if len(text.encode('utf-8')) > MAX_BYTES:
         raise ContractError(f'larger than {MAX_BYTES} bytes')
     try:
         return json.loads(text, object_pairs_hook=_no_dupes, parse_constant=_no_constant)
+    except ContractError:
+        raise
     except ValueError as e:
-        if isinstance(e, ContractError):
-            raise
         raise ContractError(f'not JSON ({e})') from None
 
 
@@ -110,125 +105,102 @@ def _keys(obj, want, where):
     if not isinstance(obj, dict):
         return [f'{where}: not an object']
     extra, missing = sorted(set(obj) - set(want)), sorted(set(want) - set(obj))
-    out = []
-    if extra:
-        out.append(f'{where}: keys outside the contract {extra}')
-    if missing:
-        out.append(f'{where}: missing keys {missing}')
-    return out
+    return ([f'{where}: keys outside the contract {extra}'] if extra else []) + ([f'{where}: missing keys {missing}'] if missing else [])
 
 
-def _date(s):
+def _day(s):
+    if not (isinstance(s, str) and DATE_RX.fullmatch(s)):
+        return None
     try:
         return datetime.date.fromisoformat(s)
+    except ValueError:
+        return None
+
+
+def _when(g):
+    try:
+        return datetime.datetime.strptime(g, '%Y-%m-%dT%H:%M:%SZ')
     except (TypeError, ValueError):
         return None
 
 
-def check_item(x, where):
+def item_url(repo, number, pr):
+    return f'https://github.com/{repo}/{"pull" if pr else "issues"}/{number}'
+
+
+def check_item(x, where, repos):
     errs = _keys(x, ITEM_KEYS, where)
     if errs:
         return errs
-    repo, kind = x['repo'], x['kind']
-    m = REPO_RX.fullmatch(repo) if isinstance(repo, str) else None
-    if not m:
-        errs.append(f'{where}.repo: not owner/name')
-    elif m.group(1) not in PUBLIC_OWNERS:
-        errs.append(f'{where}.repo: owner {m.group(1)!r} is not in PUBLIC_OWNERS {list(PUBLIC_OWNERS)}')
-    if kind not in ITEM_KINDS:
-        errs.append(f'{where}.kind: not one of {sorted(ITEM_KINDS)}')
-    if x['state'] not in ITEM_STATES:
-        errs.append(f'{where}.state: not one of {list(ITEM_STATES)}')
+    if x['repo'] not in repos:
+        errs.append(f'{where}.repo: not one of the listed repositories')
+    if not (_count(x['number']) and x['number'] > 0):
+        errs.append(f'{where}.number: not an issue number')
+    if not isinstance(x['pr'], bool):
+        errs.append(f'{where}.pr: not true or false')
+    elif x['repo'] in repos and _count(x['number']) and x['url'] != item_url(x['repo'], x['number'], x['pr']):
+        errs.append(f'{where}.url: not {item_url(x["repo"], x["number"], x["pr"])}')
     t = x['title']
     if not isinstance(t, str) or not t.strip() or len(t) > MAX_TITLE or CONTROL_RX.search(t) or t != t.strip():
-        errs.append(f'{where}.title: empty, longer than {MAX_TITLE}, padded, or holds a control character or < >')
-    if m and kind in ITEM_KINDS:
-        if not (isinstance(x['url'], str) and re.fullmatch(rf'https://github\.com/{re.escape(repo)}/{ITEM_KINDS[kind]}/[1-9]\d{{0,6}}', x['url'])):
-            errs.append(f'{where}.url: not https://github.com/{repo}/{ITEM_KINDS[kind]}/<number>')
+        errs.append(f'{where}.title: empty, longer than {MAX_TITLE}, padded, or holds a control character')
+    if x['area'] not in AREA_KEYS:
+        errs.append(f'{where}.area: not one of {AREA_KEYS}')
+    if x['kind'] is not None and x['kind'] not in KINDS:
+        errs.append(f'{where}.kind: not one of {KINDS} or null')
+    if x['status'] not in STATUSES:
+        errs.append(f'{where}.status: not one of {list(STATUSES)}')
+    created = _day(x['created'])
+    if created is None:
+        errs.append(f'{where}.created: not a date like 2026-10-14')
+    if x['status'] in OPEN_STATUSES:
+        if x['closed'] is not None:
+            errs.append(f'{where}.closed: must be null for an open item')
+    else:
+        closed = _day(x['closed'])
+        if closed is None:
+            errs.append(f'{where}.closed: not a date for a closed item')
+        elif created and closed < created:
+            errs.append(f'{where}.closed: before created')
     return errs
 
 
 def check(doc):
-    """Every way the snapshot breaks the contract; an empty list means the page may show it."""
-    errs = _keys(doc, TOP_KEYS, 'snapshot')
+    """Every way the data breaks the contract; an empty list means the page may show it."""
+    errs = _keys(doc, TOP_KEYS, 'cockpit.json')
     if not isinstance(doc, dict):
         return errs
     if doc.get('schema') != SCHEMA or isinstance(doc.get('schema'), bool):
         errs.append(f'schema: must be {SCHEMA}')
-    g = doc.get('generated')
-    if not (isinstance(g, str) and GENERATED_RX.fullmatch(g) and _when(g)):
+    if not (isinstance(doc.get('generated'), str) and GENERATED_RX.fullmatch(doc['generated']) and _when(doc['generated'])):
         errs.append('generated: not a UTC timestamp like 2026-10-14T14:00:00Z')
-    s = doc.get('source')
-    if not (isinstance(s, str) and SOURCE_RX.fullmatch(s)):
-        errs.append('source: not beads-desk@<commit> or fixture')
-
-    areas = doc.get('areas')
-    if not isinstance(areas, list):
-        errs.append('areas: not a list')
-        areas = []
-    seen = []
-    for i, a in enumerate(areas):
-        w = f'areas[{i}]'
-        e = _keys(a, AREA_KEYS, w)
-        if e:
-            errs += e
-            continue
-        if a['key'] not in NAME:
-            errs.append(f'{w}.key: not one of the eight areas')
-        else:
-            seen.append(a['key'])
-            if a['name'] != NAME[a['key']]:
-                errs.append(f'{w}.name: must be {NAME[a["key"]]!r}')
-        errs += [f'{w}.{k}: not a count' for k in AREA_COUNTS if not _count(a[k])]
-    if len(areas) != len(NAME) or sorted(seen) != sorted(NAME):
-        errs.append(f'areas: each of the eight areas exactly once ({", ".join(NAME)})')
-
-    totals = doc.get('totals')
-    e = _keys(totals, TOTAL_KEYS, 'totals')
-    if e:
-        errs += e
-    else:
-        errs += [f'totals.{k}: not a count' for k in TOTAL_KEYS if not _count(totals[k])]
-        good = [a for a in areas if isinstance(a, dict) and not _keys(a, AREA_KEYS, '') and all(_count(a[k]) for k in TOTAL_KEYS)]
-        if len(good) == len(areas) == len(NAME):
-            for k in TOTAL_KEYS:
-                if _count(totals[k]) and totals[k] != sum(a[k] for a in good):
-                    errs.append(f'totals.{k}: {totals[k]} is not the sum of the eight areas ({sum(a[k] for a in good)})')
-
-    trend = doc.get('trend')
-    if not isinstance(trend, list) or len(trend) > MAX_TREND:
-        errs.append(f'trend: not a list of at most {MAX_TREND} days')
-        trend = []
-    last = None
-    for i, t in enumerate(trend):
-        w = f'trend[{i}]'
-        e = _keys(t, TREND_KEYS, w)
-        if e:
-            errs += e
-            continue
-        d = _date(t['date']) if isinstance(t['date'], str) and DATE_RX.fullmatch(t['date']) else None
-        if d is None:
-            errs.append(f'{w}.date: not a date like 2026-10-14')
-        elif last is not None and d <= last:
-            errs.append(f'{w}.date: not after the day before it')
-        last = d or last
-        errs += [f'{w}.{k}: not a count' for k in ('open', 'closed') if not _count(t[k])]
-
-    items = doc.get('public_items')
+    if doc.get('owner') != OWNER:
+        errs.append(f'owner: must be {OWNER!r}')
+    repos = doc.get('repos')
+    if not isinstance(repos, list) or len(repos) > MAX_REPOS or not all(isinstance(r, str) and REPO_RX.fullmatch(r) for r in repos):
+        errs.append(f'repos: not a list of {OWNER}/<name>')
+        repos = []
+    elif len(set(repos)) != len(repos):
+        errs.append('repos: a repository twice')
+    repos = set(repos)
+    items = doc.get('items')
     if not isinstance(items, list) or len(items) > MAX_ITEMS:
-        errs.append(f'public_items: not a list of at most {MAX_ITEMS} items')
+        errs.append(f'items: not a list of at most {MAX_ITEMS} items')
         items = []
-    urls = []
+    seen = set()
     for i, x in enumerate(items):
-        errs += check_item(x, f'public_items[{i}]')
-        if isinstance(x, dict) and x.get('url') in urls:
-            errs.append(f'public_items[{i}].url: listed twice')
-        urls.append(x.get('url') if isinstance(x, dict) else None)
+        errs += check_item(x, f'items[{i}]', repos)
+        key = (x.get('repo'), x.get('number')) if isinstance(x, dict) else None
+        if key in seen:
+            errs.append(f'items[{i}]: the same issue twice')
+        seen.add(key)
+    un = doc.get('untriaged')
+    if not isinstance(un, dict) or not all(r in repos and _count(n) for r, n in un.items()):
+        errs.append('untriaged: not an object of listed repositories and counts')
     return errs
 
 
-def load_snapshot(path):
-    """The checked snapshot, or ContractError with every violation."""
+def load(path=DATA):
+    """The checked data, or ContractError with every violation."""
     try:
         text = Path(path).read_text(encoding='utf-8')
     except (OSError, UnicodeDecodeError) as e:
@@ -240,123 +212,236 @@ def load_snapshot(path):
     return doc
 
 
+# ---------- reading GitHub ----------
+def get(url):
+    """GET a GitHub API URL: with GH_TOKEN when set, then without a token, as scripts/board_snapshot.py does."""
+    last = None
+    for auth in (True, False):
+        if auth and not os.environ.get('GH_TOKEN'):
+            continue
+        h = {'Accept': 'application/vnd.github+json', 'User-Agent': 'machinebehavior.io cockpit'}
+        if auth:
+            h['Authorization'] = 'Bearer ' + os.environ['GH_TOKEN']
+        try:
+            return json.load(urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=20))
+        except (urllib.error.URLError, ValueError) as e:
+            print(f'warning: {url.split("?")[0]} (token={auth}) failed: {e}', file=sys.stderr)
+            last = e
+    raise SystemExit(f'build_cockpit: reading GitHub failed: {last}')
+
+
+def pages(path, params):
+    out = []
+    for page in range(1, 11):
+        q = urllib.parse.urlencode({**params, 'per_page': 100, 'page': page})
+        batch = get(f'{API}/{path}?{q}')
+        if not isinstance(batch, list):
+            raise SystemExit(f'build_cockpit: {path} did not return a list')
+        out += batch
+        if len(batch) < 100:
+            break
+    return out
+
+
+def public_repos(rows):
+    """The owner's own public repositories with issues, from GET /users/<owner>/repos; stops on anything not public."""
+    out = []
+    for r in rows:
+        if (r.get('owner') or {}).get('login') != OWNER:
+            raise SystemExit(f'build_cockpit: {r.get("full_name")} is not a repository of {OWNER}')
+        if r.get('private') is not False or r.get('visibility') != 'public':
+            raise SystemExit(f'build_cockpit: {r.get("full_name")} is not reported public; nothing written')
+        if r.get('fork') or r.get('archived') or not r.get('has_issues'):
+            continue
+        out.append(r['full_name'])
+    return sorted(out)
+
+
+def labelled(names, prefix, keys):
+    for k in keys:  # the first in page order, when an item carries more than one
+        if prefix + k in names:
+            return k
+    return None
+
+
+def to_item(repo, i):
+    """One issue or pull request from the issues API as an item, or None when it has no area label."""
+    names = {l['name'] for l in i.get('labels') or []}
+    area = labelled(names, 'area:', AREA_KEYS)
+    if area is None:
+        return None
+    pr = 'pull_request' in i
+    if i['state'] == 'open':
+        status = 'blocked' if 'status: blocked' in names else 'in_progress' if pr or 'status: in progress' in names else 'open'
+        closed = None
+    else:
+        done = bool((i.get('pull_request') or {}).get('merged_at')) if pr else i.get('state_reason') != 'not_planned'
+        status, closed = ('done' if done else 'dropped'), i['closed_at'][:10]
+    url = item_url(repo, i['number'], pr)
+    if i.get('html_url') != url:
+        raise SystemExit(f'build_cockpit: {i.get("html_url")} is not {url}')
+    return {'repo': repo, 'number': i['number'], 'pr': pr, 'title': ' '.join(str(i['title']).split())[:MAX_TITLE].strip(),
+            'url': url, 'area': area, 'kind': labelled(names, 'kind:', KINDS), 'status': status,
+            'created': i['created_at'][:10], 'closed': closed}
+
+
+def fetch(now=None):
+    now = now or datetime.datetime.now(datetime.timezone.utc)
+    start = (now - datetime.timedelta(days=WINDOW_DAYS)).strftime('%Y-%m-%dT00:00:00Z')
+    repos = public_repos(get(f'{API}/users/{OWNER}/repos?type=owner&per_page=100'))
+    items, untriaged = [], {}
+    for repo in repos:
+        raw = pages(f'repos/{repo}/issues', {'state': 'open'})
+        raw += [i for i in pages(f'repos/{repo}/issues', {'state': 'closed', 'since': start}) if (i.get('closed_at') or '') >= start]
+        for i in raw:
+            it = to_item(repo, i)
+            if it:
+                items.append(it)
+            elif i['state'] == 'open':
+                untriaged[repo] = untriaged.get(repo, 0) + 1
+    items.sort(key=lambda x: (x['repo'], x['number']))
+    return {'schema': SCHEMA, 'generated': now.strftime('%Y-%m-%dT%H:%M:%SZ'), 'owner': OWNER, 'repos': repos,
+            'items': items, 'untriaged': untriaged}
+
+
 # ---------- the page ----------
 def esc(s):
     return html.escape(str(s), quote=True)
-
-
-def _when(g):
-    try:
-        return datetime.datetime.strptime(g, '%Y-%m-%dT%H:%M:%SZ')
-    except (TypeError, ValueError):
-        return None
 
 
 def stamp(doc):
     return _when(doc['generated']).strftime('%Y-%m-%d %H:%M UTC')
 
 
+def today(doc):
+    return _when(doc['generated']).date()
+
+
 def plural(n, one, many=None):
     return f'{n} {one if n == 1 else (many or one + "s")}'
 
 
+def short(repo):
+    return repo.split('/', 1)[1]
+
+
 def area_info():
-    """For each area key: its title, its one line, and its plugins (name, page) from the powersuit pages."""
+    """For each area key: its title, its one line, and its plugins (name, page), from the powersuit pages."""
     cfg = mini_yaml.load_file(POWERSUIT_YML)
     mods = json.loads(MODULES_JSON.read_text(encoding='utf-8'))
     about = {a['title']: a['about'] for a in cfg['areas']}
     plugins = {a['title']: [(m['name'], m['url']) for m in a['modules']] for a in mods['areas']}
     out = {}
-    for key, _, title in AREAS:
+    for key, title in AREAS:
         if title is None:
-            t, ab, pl = cfg['knowledge']['title'], cfg['knowledge']['about'], [(m['name'], m['url']) for m in mods['knowledge']['modules']]
+            out[key] = (cfg['knowledge']['title'], cfg['knowledge']['about'], [(m['name'], m['url']) for m in mods['knowledge']['modules']])
+        elif title in about and title in plugins:
+            out[key] = (title, about[title], plugins[title])
         else:
-            if title not in about or title not in plugins:
-                raise SystemExit(f'build_cockpit: area {title!r} is not in site/powersuit.yml and cto-powersuit/modules.json')
-            t, ab, pl = title, about[title], plugins[title]
-        out[key] = (t, ab, pl)
+            raise SystemExit(f'build_cockpit: area {title!r} is not in site/powersuit.yml and cto-powersuit/modules.json')
     return out
+
+
+def counts(items, day):
+    week = day - datetime.timedelta(days=7)
+    live = [x for x in items if x['status'] in OPEN_STATUSES]
+    c = {s: sum(1 for x in live if x['status'] == s) for s in OPEN_STATUSES}
+    c['closed_7d'] = sum(1 for x in items if x['status'] == 'done' and _day(x['closed']) > week)
+    c.update({k: sum(1 for x in live if x['kind'] == k) for k in KINDS})
+    c['oldest'] = max(((day - _day(x['created'])).days for x in live), default=None)
+    return c
 
 
 def b_eyebrow(doc):
-    sample = ' · sample figures' if doc['source'] == 'fixture' else ''
-    return f'Counts only · snapshot {stamp(doc)}{sample}'
+    return f'CTO powersuit cockpit · from GitHub Issues · {stamp(doc)}'
 
 
 def b_lede(doc):
-    out = (f'This page shows Stefan Coetzee\'s operation as he runs it through the cockpit: the work in each of the eight '
-           f'areas of the CTO job, as counts only, from the snapshot of {stamp(doc)}.')
-    if doc['source'] == 'fixture':
-        out += ' These are sample figures from the test file; the first snapshot of the operation replaces them.'
-    return out
+    return (f'This is the CTO powersuit cockpit running on Stefan Coetzee\'s public work: the issues and pull requests of '
+            f'his public repositories on GitHub, by area of the CTO job, as of {stamp(doc)}. An install can run the same '
+            f'cockpit on beads, a local issue tracker, or on GitHub Issues.')
 
 
 def b_totals(doc):
-    t = doc['totals']
-    week = (_when(doc['generated']).date() - datetime.timedelta(days=7)).isoformat()
-    cells = [('Open', t['open'], 'not started, not blocked'), ('In progress', t['in_progress'], 'being worked on'),
-             ('Blocked', t['blocked'], 'waiting on another item'), ('Closed in 7 days', t['closed_7d'], f'since {week}')]
+    c = counts(doc['items'], today(doc))
+    week = (today(doc) - datetime.timedelta(days=7)).isoformat()
+    cells = [('Open', c['open'], 'not started, not blocked'), ('In progress', c['in_progress'], 'labelled, or an open pull request'),
+             ('Blocked', c['blocked'], 'waiting on a decision or an input'), ('Closed in 7 days', c['closed_7d'], f'done since {week}')]
     return ''.join(f'<li class="card ck-kpi"><span class="k">{k}</span><span class="v">{v}</span><span class="s">{s}</span></li>'
                    for k, v, s in cells)
 
 
+def trend(doc):
+    end = today(doc)
+    out = []
+    for n in range(WINDOW_DAYS - 1, -1, -1):
+        d = end - datetime.timedelta(days=n)
+        out.append((d, sum(1 for x in doc['items'] if _day(x['created']) <= d and (x['closed'] is None or _day(x['closed']) > d)),
+                    sum(1 for x in doc['items'] if x['status'] == 'done' and _day(x['closed']) == d)))
+    return out
+
+
 def b_trend(doc):
-    days = doc['trend'][-TREND_SHOWN:]
-    if not days:
-        return '<p class="empty">This snapshot has no trend.</p>'
-    top = max(d['open'] for d in days) or 1
-    li = ''
-    for d in days:
-        h = round(100 * d['open'] / top)
-        li += (f'<li><span class="ck-col" aria-hidden="true"><span class="ck-fill" style="height:{h}%"></span></span>'
-               f'<span class="ck-n" aria-hidden="true">{d["open"]}</span><span class="ck-c" aria-hidden="true">{d["closed"]}</span>'
-               f'<span class="ck-day" aria-hidden="true">{d["date"][5:]}</span>'
-               f'<span class="mb-sr">{d["date"]}: {d["open"]} not closed, {d["closed"]} closed that day</span></li>')
-    return (f'<figure class="ck-trend"><figcaption>Items in the eight areas not yet closed at the end of each day '
-            f'(bars), and items closed that day (the row below), for the {plural(len(days), "day")} to {days[-1]["date"]}.</figcaption>'
-            f'<ol class="ck-days">{li}</ol><p class="ck-legend" aria-hidden="true"><span>not closed</span><span>closed that day</span></p></figure>')
+    days = trend(doc)
+    top = max(o for _, o, _ in days) or 1
+    li = ''.join(
+        f'<li><span class="ck-col" aria-hidden="true"><span class="ck-fill" style="height:{round(100 * o / top)}%"></span></span>'
+        f'<span class="ck-n" aria-hidden="true">{o}</span><span class="ck-c" aria-hidden="true">{c}</span>'
+        f'<span class="ck-day" aria-hidden="true">{d.isoformat()[5:]}</span>'
+        f'<span class="mb-sr">{d.isoformat()}: {o} not closed, {c} done that day</span></li>' for d, o, c in days)
+    return (f'<figure class="ck-trend"><figcaption>Items with an area label not yet closed at the end of each day (bars), and items '
+            f'done that day (the row below), for the {WINDOW_DAYS} days to {days[-1][0].isoformat()}.</figcaption>'
+            f'<ol class="ck-days">{li}</ol><p class="ck-legend" aria-hidden="true"><span>not closed</span><span>done that day</span></p></figure>')
+
+
+STATUS_ORDER = {'blocked': 0, 'in_progress': 1, 'open': 2}
+STATUS_TEXT = {'blocked': 'blocked', 'in_progress': 'in progress', 'open': 'open'}
+
+
+def card(x, day):
+    age = (day - _day(x['created'])).days
+    chips = (f'<span class="ck-chip ck-st-{x["status"]}">{STATUS_TEXT[x["status"]]}</span>'
+             + (f'<span class="ck-chip">{x["kind"]}</span>' if x['kind'] else ''))
+    return (f'<li class="ck-item"><a href="{esc(x["url"])}">{esc(x["title"])}</a>'
+            f'<span class="ck-meta">{chips}<span>{esc(short(x["repo"]))} · {"pull request" if x["pr"] else "issue"} {x["number"]}</span>'
+            f'<span>{plural(age, "day")} old</span></span></li>')
 
 
 def b_areas(doc):
-    info = area_info()
-    by_key = {a['key']: a for a in doc['areas']}
+    info, day = area_info(), today(doc)
     out = ''
-    for key, _, _ in AREAS:
-        a, (title, about, plugins) = by_key[key], info[key]
-        live = a['open'] + a['in_progress'] + a['blocked']
+    for key, _ in AREAS:
+        title, about, plugins = info[key]
+        mine = [x for x in doc['items'] if x['area'] == key]
+        c = counts(mine, day)
+        live = sorted((x for x in mine if x['status'] in OPEN_STATUSES), key=lambda x: (STATUS_ORDER[x['status']], x['created'], x['repo'], x['number']))
         links = ' '.join(f'<a href="{esc(u)}"><code>{esc(n)}</code></a>' for n, u in plugins)
-        mix = ''.join(f'<span class="ck-mix-{c}" style="flex-grow:{a[k]}"></span>' for k, c in
-                      (('open', 'open'), ('in_progress', 'prog'), ('blocked', 'block')) if a[k])
-        counts = ''.join(f'<div><dt>{k}</dt><dd>{a[f]}</dd></div>' for k, f in
-                         (('Open', 'open'), ('In progress', 'in_progress'), ('Blocked', 'blocked'), ('Closed in 7 days', 'closed_7d')))
-        oldest = plural(a['oldest_open_days'], 'day') if live or a['oldest_open_days'] else 'none open'
-        kinds = ''.join(f'<div><dt>{k}</dt><dd>{a[f]}</dd></div>' for k, f in
-                        (('Findings', 'findings_open'), ('Decisions', 'decisions_open'), ('Actions', 'actions_open')))
-        kinds += f'<div><dt>Oldest open</dt><dd>{oldest}</dd></div>'
+        mix = ''.join(f'<span class="ck-mix-{cls}" style="flex-grow:{c[s]}"></span>' for s, cls in
+                      (('open', 'open'), ('in_progress', 'prog'), ('blocked', 'block')) if c[s])
+        nums = ''.join(f'<div><dt>{k}</dt><dd>{c[f]}</dd></div>' for k, f in
+                       (('Open', 'open'), ('In progress', 'in_progress'), ('Blocked', 'blocked'), ('Closed in 7 days', 'closed_7d')))
+        kinds = ''.join(f'<div><dt>{k.capitalize()}s</dt><dd>{c[k]}</dd></div>' for k in ('finding', 'decision', 'action'))
+        kinds += f'<div><dt>Oldest open</dt><dd>{plural(c["oldest"], "day") if c["oldest"] is not None else "none open"}</dd></div>'
+        cards = (f'<ul class="ck-items">{"".join(card(x, day) for x in live)}</ul>' if live
+                 else '<p class="empty">Nothing open in this area.</p>')
         out += (f'<section class="ck-area" id="{key}" aria-labelledby="ck-{key}">'
                 f'<div class="ck-area-head"><h3 id="ck-{key}">{esc(title)}</h3><p>{esc(about)}</p>'
                 f'<p class="ck-plugins"><span class="ck-label">Powersuit plugins</span><span>{links}</span></p></div>'
-                f'<div class="ck-card"><dl class="ck-counts">{counts}</dl>'
-                + (f'<div class="ck-mix" aria-hidden="true">{mix}</div>' if live else '<div class="ck-mix ck-mix-none" aria-hidden="true"></div>')
-                + f'<p class="ck-label">Open by kind</p><dl class="ck-kinds">{kinds}</dl></div></section>')
+                f'<div class="ck-card"><dl class="ck-counts">{nums}</dl>'
+                f'<div class="ck-mix{"" if mix else " ck-mix-none"}" aria-hidden="true">{mix}</div>'
+                f'<p class="ck-label">Open by kind</p><dl class="ck-kinds">{kinds}</dl></div>'
+                f'<div class="ck-open">{cards}</div></section>')
     return f'<div class="ck-areas">{out}</div>'
 
 
-def b_items(doc):
-    items = [x for x in doc['public_items'] if x['state'] == 'open']
-    site_issues = [x for x in items if x['repo'] == SITE_REPO and x['kind'] == 'issue']
-    shown = sorted((x for x in items if x not in site_issues),
-                   key=lambda x: (x['repo'], x['kind'], int(x['url'].rsplit('/', 1)[1])))
-    out = ''
-    if shown:
-        out += '<ul class="mb-links ck-items">' + ''.join(
-            f'<li><a href="{esc(x["url"])}">{esc(x["title"])}</a><span class="mb-links-meta">{esc(x["repo"])} · '
-            f'{"pull request" if x["kind"] == "pr" else "issue"} {x["url"].rsplit("/", 1)[1]}</span></li>' for x in shown) + '</ul>'
-    else:
-        out += '<p class="empty">No open public pull request or issue in this snapshot.</p>'
-    if site_issues:
-        out += (f'<p class="ck-board">This site has {plural(len(site_issues), "open issue")} in the snapshot; they are '
-                f'on the <a href="/inside/board/">board</a>, with their columns.</p>')
+def b_sources(doc):
+    repos = ', '.join(f'<a href="https://github.com/{esc(r)}">{esc(short(r))}</a>' for r in doc['repos'])
+    un = sum(doc['untriaged'].values())
+    out = f'<p>Read from the public repositories of {esc(doc["owner"])} on GitHub: {repos}.</p>'
+    if un:
+        per = ', '.join(f'{esc(short(r))} {n}' for r, n in sorted(doc['untriaged'].items()))
+        out += (f'<p>{plural(un, "open item")} in these repositories {"has" if un == 1 else "have"} no area label yet ({per}); '
+                f'{"it is" if un == 1 else "they are"} counted here only, without {"its" if un == 1 else "their"} text.</p>')
     return out
 
 
@@ -366,7 +451,7 @@ BLOCKS = {
     'cockpit-totals': b_totals,
     'cockpit-trend': b_trend,
     'cockpit-areas': b_areas,
-    'cockpit-items': b_items,
+    'cockpit-sources': b_sources,
 }
 
 
@@ -394,51 +479,54 @@ def sitemap_date(text):
     return m.group(2)
 
 
+def report(msg):
+    print(f'build_cockpit: {msg}')
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
-    check_only = '--check' in argv
-    src_path = SNAPSHOT
-    if '--snapshot' in argv:
-        i = argv.index('--snapshot')
-        if i + 1 >= len(argv):
-            print('build_cockpit: --snapshot needs a file', file=sys.stderr)
-            return 2
-        src_path = Path(argv[i + 1])
-    try:
-        doc = load_snapshot(src_path)
-    except ContractError as e:
-        print(f'build_cockpit: {src_path} breaks the snapshot contract (ADR-0031):', file=sys.stderr)
-        for line in str(e).splitlines():
-            print('  ' + line, file=sys.stderr)
-        return 1
+    if '--fetch' in argv:
+        doc = fetch()
+        errs = check(doc)
+        if errs:
+            print('build_cockpit: the data read from GitHub breaks the contract (ADR-0031); nothing written:', file=sys.stderr)
+            for e in errs:
+                print('  ' + e, file=sys.stderr)
+            return 1
+        text = json.dumps(doc, indent=1, ensure_ascii=False) + '\n'
+    else:
+        try:
+            text = DATA.read_text(encoding='utf-8')
+            doc = load(DATA)
+        except ContractError as e:
+            print(f'build_cockpit: {DATA.relative_to(ROOT)} breaks the contract (ADR-0031):', file=sys.stderr)
+            for line in str(e).splitlines():
+                print('  ' + line, file=sys.stderr)
+            return 1
     page = PAGE.read_text(encoding='utf-8')
     new = put_blocks(page, doc)
     sm_path = ROOT / 'sitemap.xml'
     sitemap = sm_path.read_text(encoding='utf-8')
     day = doc['generated'][:10]
+    summary = (f'{len(doc["repos"])} repositories, {sum(x["status"] in OPEN_STATUSES for x in doc["items"])} open items with an area, '
+               f'{sum(doc["untriaged"].values())} without, as of {doc["generated"]}')
 
-    if check_only:
+    if '--check' in argv:
         differ = [n for n in BLOCKS if block_rx(n).search(page).group(1) != block_rx(n).search(new).group(1)]
-        on_disk = SNAPSHOT.read_text(encoding='utf-8') if SNAPSHOT.exists() else None
-        if src_path != SNAPSHOT and on_disk != Path(src_path).read_text(encoding='utf-8'):
-            differ.append(f'{SNAPSHOT.relative_to(ROOT)} (not the file given)')
         if sitemap_date(sitemap) != day:
-            differ.append(f'sitemap.xml lastmod of {PAGE_URL} ({sitemap_date(sitemap)}, snapshot {day})')
+            differ.append(f'sitemap.xml lastmod of {PAGE_URL} ({sitemap_date(sitemap)}, data {day})')
         for d in differ:
-            print(f'build_cockpit: differs from the snapshot: {d}')
-        print(f'build_cockpit: snapshot {doc["generated"]} ({doc["source"]}) meets the contract; '
-              + ('page up to date' if not differ else f'{len(differ)} differ; run python3 scripts/build_cockpit.py'))
+            report(f'differs from cockpit.json: {d}')
+        report(f'cockpit.json meets the contract ({summary}); ' + ('page up to date' if not differ else f'{len(differ)} differ; run python3 scripts/build_cockpit.py'))
         return 1 if differ else 0
 
-    if src_path != SNAPSHOT:
-        shutil.copyfile(src_path, SNAPSHOT)
-    sitemap_date(sitemap)
+    DATA.write_text(text, encoding='utf-8')
     sm_path.write_text(SITEMAP_RX.sub(lambda m: m.group(1) + day + m.group(3), sitemap, count=1), encoding='utf-8')
     site_chrome.tree(reload=True)  # the page's Updated line and dateModified come from the sitemap date
     out = site_chrome.apply(new, PAGE.relative_to(ROOT).as_posix())
     if out != page:
         PAGE.write_text(out, encoding='utf-8')
-    print(f'build_cockpit: {PAGE.relative_to(ROOT)} from the snapshot of {doc["generated"]} ({doc["source"]})')
+    report(f'{PAGE.relative_to(ROOT)} written: {summary}')
     return 0
 
 

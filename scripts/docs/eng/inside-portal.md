@@ -15,8 +15,7 @@ The live operations view sits on its own page, [Mission Control](/inside/mission
 
 ## Cockpit
 
-The work behind the platform sits on [the cockpit](/inside/cockpit/): Stefan Coetzee's work in the eight areas of the CTO job as counts, with a 14-day trend, the CTO powersuit plugins of each area, and the open pull requests in public repositories. It is a static page built from a counts-only snapshot that a contract check guards in the deploy gate. See [Cockpit page](doc:eng/cockpit) and [ADR-0031](doc:eng/adr-0031-cockpit-from-a-counts-only-snapshot).
-
+[The cockpit](/inside/cockpit/) is the CTO powersuit cockpit running on the public work: the issues and pull requests of the owner's public repositories by area of the CTO job, with a scorecard and the open items for each area, a 14-day trend, and the CTO powersuit plugins of each area. It is a static page, rebuilt at each deploy from the GitHub API behind a contract check. See [Cockpit page](doc:eng/cockpit) and [ADR-0031](doc:eng/adr-0031-cockpit-from-public-github-issues).
 ## Panels and their data
 
 | Panel | Data | Notes |
@@ -29,7 +28,7 @@ The work behind the platform sits on [the cockpit](/inside/cockpit/): Stefan Coe
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
 | Board | [Board](/inside/board/), from `/inside/board/issues.json` written by the deploy job | Work items from GitHub Issues; see [Ticket board](doc:eng/board) |
 | Services | [Service catalog](/inside/services/), from `services/*.yml` | See [Service catalog](doc:eng/service-catalog) |
-| Cockpit | [Cockpit](/inside/cockpit/), from `/inside/cockpit/snapshot.json`, published by pull request | Counts per area of the CTO job; see [Cockpit page](doc:eng/cockpit) |
+| Cockpit | [Cockpit](/inside/cockpit/), from `/inside/cockpit/cockpit.json`, written by the deploy job from the GitHub API | Issues of the public repositories by area of the CTO job; see [Cockpit page](doc:eng/cockpit) |
 | Status | [Status](/inside/status/), from the gate records, `/inside/deploys.json` and `incidents/*.yml` | See [Status page](doc:eng/status-page) |
 | Top bar and search | `scripts/site_chrome.py`, `/inside/search.json` | The same bar on every page of the site; the search covers the docs, the services and the map. See [Top bar and search](doc:eng/top-bar-and-search) |
 

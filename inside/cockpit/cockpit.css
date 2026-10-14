@@ -1,4 +1,4 @@
-/* The cockpit page /inside/cockpit/, written by scripts/build_cockpit.py from inside/cockpit/snapshot.json (ADR-0031).
+/* The cockpit page /inside/cockpit/, written by scripts/build_cockpit.py from inside/cockpit/cockpit.json (ADR-0031).
    Linked from this page only, after docs.css and inside.css. The area rows follow the area rows of the CTO powersuit
    pages (/cto-powersuit/powersuit.css): the area's name, line, and plugins left, its scorecard right. Colours, type,
    radii, and the main spacing come from /design/tokens.css (ADR-0025); a few layout lengths are set here. */
@@ -58,10 +58,18 @@ main.wrap.ck { max-width: 1100px; }
 .ck-counts div:nth-child(-n+3) dt::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; }
 .ck-card > .ck-label { margin: 2px 0 0; }
 
-/* public items */
-.ck-items { margin: var(--mb-space-3) 0 0; }
-.ck-board { font-size: var(--mb-text-sm); color: var(--mb-text-soft); margin: 10px 0 0; }
-.ck-board a, .ck-about a { color: var(--mb-accent); }
+/* the open items of an area, as cards under its row */
+.ck-open { grid-column: 1 / -1; min-width: 0; }
+.ck-items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: var(--mb-space-2); }
+.ck-item { display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; background: var(--mb-surface-raised); border: 1px solid var(--mb-line); border-radius: var(--mb-radius-m); min-width: 0; }
+.ck-item > a { color: var(--mb-text); font-weight: 500; font-size: var(--mb-text-sm); line-height: 1.4; text-decoration: none; overflow-wrap: anywhere; }
+.ck-item > a:hover, .ck-item > a:focus-visible { color: var(--mb-accent); text-decoration: underline; }
+.ck-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: var(--mb-text-2xs)/1.5 var(--mb-font-mono); color: var(--mb-text-dim); }
+.ck-chip { padding: 0 6px; border: 1px solid var(--mb-line); border-radius: 5px; color: var(--mb-text-soft); white-space: nowrap; }
+.ck-st-open { border-color: color-mix(in srgb, var(--mb-accent) 55%, transparent); color: var(--mb-accent); }
+.ck-st-in_progress { border-color: color-mix(in srgb, var(--mb-info) 55%, transparent); color: var(--mb-info); }
+.ck-st-blocked { border-color: color-mix(in srgb, var(--mb-bad) 55%, transparent); color: var(--mb-bad); }
+.ck-about a { color: var(--mb-accent); }
 .ck-about { font-size: var(--mb-text-md); line-height: 1.55; color: var(--mb-text-soft); }
 .ck-about p, .ck-about ul { max-width: 760px; }
 .ck-about ul.links li { border-top: 0; padding: 3px 0; }

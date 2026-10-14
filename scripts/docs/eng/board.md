@@ -37,6 +37,8 @@ Only issues with a `type:` label are shown with their title and text. Only a mai
 | Priority | `P0`, `P1`, `P2`, `P3` | P0 must close before anyone outside sees the platform; P3 is optional |
 | Status | `status: ready`, `status: in progress`, `status: blocked` | The column. No status label means Backlog; closed means Done |
 
+The labels `area:<area>` and `kind:<kind>`, with no space after the colon, belong to the [cockpit](doc:eng/cockpit), which shows the issues of all public repositories by area of the CTO job. The board ignores them.
+
 Milestones group the work by phase of the platform review: Phase 0 (legal and leaks), Phase 1 (enterprise layer), Phase 2 (depth) and Phase 3 (hosting).
 
 ## Workflow

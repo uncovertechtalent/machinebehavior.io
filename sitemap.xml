@@ -20,7 +20,7 @@
   <url><loc>https://machinebehavior.io/red-team/method/</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://machinebehavior.io/map/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/</loc><lastmod>2026-10-14</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/search/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/tour/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/mission-control/</loc><lastmod>2026-10-14</lastmod></url>
@@ -117,9 +117,9 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0028-home-page-portal-front/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-a-counts-only-snapshot/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/cockpit/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-11</lastmod></url>

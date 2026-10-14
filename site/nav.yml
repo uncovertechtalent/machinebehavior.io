@@ -138,7 +138,7 @@ sections:
         about: The live operations view. Gate and deploy state of the three sites, open incidents and the dashboards on one screen.
       - title: Cockpit
         url: /inside/cockpit/
-        about: The work in the eight areas of the CTO job, counts only, from a dated snapshot of the cockpit.
+        about: The CTO powersuit cockpit on the public work. Issues of the public repositories by area of the CTO job, with a scorecard per area.
       - title: Services
         url: /inside/services/
         auto: services
