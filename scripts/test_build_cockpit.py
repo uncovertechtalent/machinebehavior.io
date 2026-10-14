@@ -203,6 +203,7 @@ def main():
         f'{bc.API}/users/uncovertechtalent/repos': [repo_row('machinebehavior.io'), repo_row('preloop', fork=True)],
         f'{bc.API}/repos/{MB}/issues|open': [api_issue(MB, 83, ['area:security', 'kind:action']), api_issue(MB, 84, ['type: bug'], title='A stranger\'s report'),
                                             api_issue(MB, 86, ['area:ai'], title='A stranger\'s labelled issue', author='NONE'),
+                                            api_issue(MB, 87, ['area:direction', 'kind:lead'], title='A lead at a stranger company'),
                                             api_issue(MB, 93, ['area:direction'], pr=True)],
         f'{bc.API}/repos/{MB}/issues|closed': [api_issue(MB, 85, ['area:ai'], 'closed', reason='completed', closed='2026-10-13T09:00:00Z'),
                                               api_issue(MB, 20, ['area:ai'], 'closed', reason='completed', closed='2026-09-01T09:00:00Z')],
@@ -223,7 +224,8 @@ def main():
     case('fetch: the result meets the contract', bc.check(doc), [])
     case('fetch: forks are not read', doc['repos'], [MB])
     case('fetch: labelled items kept, a closed item older than the window left out', [x['number'] for x in doc['items']], [83, 85, 93])
-    case('fetch: an unlabelled report and a stranger\'s labelled issue are counted without their text', (doc['untriaged'], 'stranger' in json.dumps(doc)), ({MB: 2}, False))
+    case('fetch: an unlabelled report, a stranger\'s labelled issue, and a lead are counted without their text', (doc['untriaged'], 'stranger' in json.dumps(doc)), ({MB: 3}, False))
+    case('sources: the counted items are explained, leads included', 'and leads are counted this way' in bc.b_sources(doc))
 
     # the blocks
     d = base()

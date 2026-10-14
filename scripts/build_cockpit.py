@@ -461,8 +461,8 @@ def b_sources(doc):
     if un:
         per = ', '.join(f'{esc(short(r))} {n}' for r, n in sorted(doc['untriaged'].items()))
         out += (f'<p>{plural(un, "open item")} in these repositories {"is" if un == 1 else "are"} counted here only, without '
-                f'{"its" if un == 1 else "their"} text ({per}): {"it has" if un == 1 else "they have"} no area label yet, or someone outside '
-                f'the owner\'s account and its collaborators opened {"it" if un == 1 else "them"}.</p>')
+                f'{"its" if un == 1 else "their"} text ({per}). Items without an area label, items opened by someone outside the '
+                f'owner\'s account and its collaborators, and leads are counted this way.</p>')
     return out
 
 
