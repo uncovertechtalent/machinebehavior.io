@@ -28,7 +28,7 @@ Every public repository of the owner has these labels. The area and kind labels 
 | `kind:action` | Work to do |
 | `kind:lead` | A sales lead or an application |
 
-An item reaches the page with its title only when it has an area label. Other open items are counted per repository, without their text. The status of an open item comes from the board's labels: `status: blocked`, then `status: in progress`. An open pull request counts as in progress, and every other open item as open. Closed in 7 days counts issues closed as done and pull requests merged. Issues closed as not planned and pull requests closed without a merge are left out of it.
+An item reaches the page with its title only when it has an area label and its author is the owner, a member, or a collaborator. Anyone can open an issue on a public repository and edit its title later, so a label does not let a stranger's title onto the page. Other open items are counted per repository, without their text. The status of an open item comes from the board's labels: `status: blocked`, then `status: in progress`. An open pull request counts as in progress, and every other open item as open. Closed in 7 days counts issues closed as completed and pull requests merged. Issues closed as not planned or as duplicates, and pull requests closed without a merge, are left out of it.
 
 To place an item, add its labels:
 
@@ -46,10 +46,10 @@ gh label create area:delivery --repo uncovertechtalent/<new-repo> --color C77D00
 
 1. The deploy job runs `python3 scripts/build_cockpit.py --fetch` after the board's snapshot step. The job's token is this repository's workflow token, which reads no private repository of the owner.
 2. The script lists the owner's repositories and stops if GitHub reports any of them as private or as another owner's. It skips forks, archived repositories, and repositories without issues.
-3. From each repository it reads the open issues and pull requests, and those closed in the last 14 days. It keeps the items with an area label and counts the other open items.
+3. From each repository it reads the open issues and pull requests, and those closed in the last 14 days. It keeps the items with an area label from the owner, members, and collaborators, and counts the other open items. Titles lose control characters and the characters that reorder or hide text.
 4. It checks the result against the contract below and writes `inside/cockpit/cockpit.json` and the page blocks into the Pages artifact. If the read or the check fails, nothing is written and the committed page stays live.
 
-The committed `cockpit.json` and page come from the same command, run by hand in a pull request. The Conformity checks job runs `python3 scripts/build_cockpit.py --check` on them, before the gate. That job is the required check and the job the deploy waits for. The check fails when `cockpit.json` breaks the contract, or when the page's blocks or its sitemap date differ from it.
+The committed `cockpit.json` and page come from the same command, run by hand in a pull request. The area rows also take titles, lines, and plugins from `site/powersuit.yml` and `cto-powersuit/modules.json`, so `scripts/build_powersuit.py` rebuilds the page from its committed data after a pin move. The Conformity checks job runs `python3 scripts/build_cockpit.py --check` on them, before the gate. That job is the required check and the job the deploy waits for. The check fails when `cockpit.json` breaks the contract, or when the page's blocks or its sitemap date differ from it.
 
 ## The contract (schema 1)
 
@@ -60,9 +60,9 @@ The committed `cockpit.json` and page come from the same command, run by hand in
 | `owner` | `uncovertechtalent`, the value of `OWNER` in the script |
 | `repos` | The repositories read, each `uncovertechtalent/<name>`, each once |
 | `items` | Up to 1000 items with exactly `repo` (a listed repository), `number`, `pr` (true or false), `title`, `url`, `area` (one of the eight), `kind` (one of the four, or null), `status` (`open`, `in_progress`, `blocked`, `done`, or `dropped`), `created` (a date), and `closed` (a date, or null while open) |
-| `untriaged` | Per listed repository, the count of open items without an area label |
+| `untriaged` | Per listed repository, the count of open items shown without their text: no area label, or an author outside the owner's account and its collaborators |
 
-A key outside the table, a key that appears twice in one object, a missing key, or a value of another form fails the check. An item's `url` must be `https://github.com/<repo>/issues/<number>`, or `.../pull/<number>` for a pull request. The title is the only free text: at most 300 characters and no control characters. The page escapes it.
+A key outside the table, a key that appears twice in one object, a missing key, or a value of another form fails the check. An item's `url` must be `https://github.com/<repo>/issues/<number>`, or `.../pull/<number>` for a pull request. The title is the only free text: at most 300 characters, with no control characters and no characters that reorder or hide text (bidi overrides and isolates, zero widths). The page escapes it.
 
 ## Run it
 

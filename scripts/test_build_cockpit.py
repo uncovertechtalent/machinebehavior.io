@@ -9,7 +9,7 @@ merges), and the page blocks. Stdlib only; no network: the read runs on a stand-
 
 Exits 1 when a case fails.
 """
-import contextlib, copy, datetime, io, json, sys
+import contextlib, copy, datetime, io, json, shutil, sys, tempfile
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # no __pycache__ in the repository
@@ -65,9 +65,9 @@ def repo_row(name, private=False, visibility='public', fork=False, archived=Fals
             'fork': fork, 'archived': archived, 'has_issues': has_issues}
 
 
-def api_issue(repo, n, labels=(), state='open', pr=False, merged=False, reason=None, created='2026-10-10T08:00:00Z', closed=None, title='T'):
+def api_issue(repo, n, labels=(), state='open', pr=False, merged=False, reason=None, created='2026-10-10T08:00:00Z', closed=None, title='T', author='OWNER'):
     i = {'number': n, 'title': title, 'state': state, 'labels': [{'name': l} for l in labels], 'created_at': created,
-         'closed_at': closed, 'state_reason': reason, 'html_url': bc.item_url(repo, n, pr)}
+         'closed_at': closed, 'state_reason': reason, 'html_url': bc.item_url(repo, n, pr), 'author_association': author}
     if pr:
         i['pull_request'] = {'merged_at': '2026-10-12T10:00:00Z' if merged else None}
     return i
@@ -128,6 +128,7 @@ def main():
     case('item: URL of another issue', fails(variant(setitem(['items', 0, 'url'], bc.item_url(MB, 84, False))), '.url:'))
     case('item: issue with a pull request URL', fails(variant(setitem(['items', 0, 'url'], bc.item_url(MB, 83, True))), '.url:'))
     case('item: title with a line break', fails(variant(setitem(['items', 0, 'title'], 'one\ntwo')), '.title:'))
+    case('item: title with a bidi override', fails(variant(setitem(['items', 0, 'title'], 'abc\u202edef')), '.title:'))
     case('item: title too long', fails(variant(setitem(['items', 0, 'title'], 'x' * (bc.MAX_TITLE + 1))), '.title:'))
     case('item: empty title', fails(variant(setitem(['items', 0, 'title'], ' ')), '.title:'))
     case('item: the same issue twice', fails(variant(lambda d: d['items'].append(copy.deepcopy(d['items'][0]))), 'the same issue twice'))
@@ -150,6 +151,12 @@ def main():
     case('item: a pull request closed without a merge is dropped', to(MB, api_issue(MB, 6, ['area:ai'], 'closed', pr=True, closed='2026-10-12T10:00:00Z'))['status'], 'dropped')
     case('item: an issue closed as not planned is dropped', to(MB, api_issue(MB, 7, ['area:ai'], 'closed', reason='not_planned', closed='2026-10-12T10:00:00Z'))['status'], 'dropped')
     case('item: whitespace in a title is folded', to(MB, api_issue(MB, 8, ['area:ai'], title='  a\tb\n c '))['title'], 'a b c')
+    case('item: bidi and zero-width characters are dropped from a title', to(MB, api_issue(MB, 8, ['area:ai'], title='a\u202eb\u200bc\x07d'))['title'], 'abcd')
+    case('item: a labelled issue of a stranger is not an item', to(MB, api_issue(MB, 8, ['area:ai'], author='NONE')), None)
+    case('item: a labelled issue of a contributor is not an item', to(MB, api_issue(MB, 8, ['area:ai'], author='CONTRIBUTOR')), None)
+    case('item: a collaborator\'s issue is an item', to(MB, api_issue(MB, 8, ['area:ai'], author='COLLABORATOR'))['area'], 'ai')
+    case('item: an issue closed as a duplicate is dropped', to(MB, api_issue(MB, 7, ['area:ai'], 'closed', reason='duplicate', closed='2026-10-12T10:00:00Z'))['status'], 'dropped')
+    case('item: an issue closed as completed is done', to(MB, api_issue(MB, 7, ['area:ai'], 'closed', reason='completed', closed='2026-10-12T10:00:00Z'))['status'], 'done')
     bad = api_issue(MB, 9, ['area:ai'])
     bad['html_url'] = 'https://github.com/someone/else/issues/9'
     case('item: an html_url of another repository stops the read', quiet(lambda: to(MB, bad)), 'stop')
@@ -157,6 +164,7 @@ def main():
     api = {
         f'{bc.API}/users/uncovertechtalent/repos': [repo_row('machinebehavior.io'), repo_row('preloop', fork=True)],
         f'{bc.API}/repos/{MB}/issues|open': [api_issue(MB, 83, ['area:security', 'kind:action']), api_issue(MB, 84, ['type: bug'], title='A stranger\'s report'),
+                                            api_issue(MB, 86, ['area:ai'], title='A stranger\'s labelled issue', author='NONE'),
                                             api_issue(MB, 93, ['area:direction'], pr=True)],
         f'{bc.API}/repos/{MB}/issues|closed': [api_issue(MB, 85, ['area:ai'], 'closed', reason='completed', closed='2026-10-13T09:00:00Z'),
                                               api_issue(MB, 20, ['area:ai'], 'closed', reason='completed', closed='2026-09-01T09:00:00Z')],
@@ -177,7 +185,7 @@ def main():
     case('fetch: the result meets the contract', bc.check(doc), [])
     case('fetch: forks are not read', doc['repos'], [MB])
     case('fetch: labelled items kept, a closed item older than the window left out', [x['number'] for x in doc['items']], [83, 85, 93])
-    case('fetch: an unlabelled report is counted without its text', (doc['untriaged'], 'stranger' in json.dumps(doc)), ({MB: 1}, False))
+    case('fetch: an unlabelled report and a stranger\'s labelled issue are counted without their text', (doc['untriaged'], 'stranger' in json.dumps(doc)), ({MB: 2}, False))
 
     # the blocks
     d = base()
@@ -201,6 +209,30 @@ def main():
     case('sources: repositories linked, untriaged counted without text', 'href="https://github.com/uncovertechtalent/cto-powersuit"' in bc.b_sources(d) and '2 open items' in bc.b_sources(d))
     case('page: a missing block stops the build', quiet(lambda: bc.put_blocks('<p>no blocks</p>', d)), 'stop')
     case('--check: the committed data and page agree', quiet(lambda: bc.main(['--check'])), 0)
+
+    # --check on a copy: a block edited by hand, or a sitemap date moved, fails it
+    saved = (bc.PAGE, bc.DATA, bc.SITEMAP)
+    with tempfile.TemporaryDirectory() as tmp:
+        t = Path(tmp)
+        for src in saved:
+            shutil.copyfile(src, t / src.name)
+        bc.PAGE, bc.DATA, bc.SITEMAP = t / saved[0].name, t / saved[1].name, t / saved[2].name
+        try:
+            case('--check on the copy: agrees', quiet(lambda: bc.main(['--check'])), 0)
+            page = bc.PAGE.read_text(encoding='utf-8')
+            bc.PAGE.write_text(page.replace('<!-- static:cockpit-lede -->', '<!-- static:cockpit-lede -->Added by hand. ', 1), encoding='utf-8')
+            case('--check: a block edited by hand fails', quiet(lambda: bc.main(['--check'])), 1)
+            bc.PAGE.write_text(page, encoding='utf-8')
+            sm = bc.SITEMAP.read_text(encoding='utf-8')
+            bc.SITEMAP.write_text(bc.SITEMAP_RX.sub(lambda m: m.group(1) + '2000-01-01' + m.group(3), sm), encoding='utf-8')
+            case('--check: a sitemap date that differs from the data fails', quiet(lambda: bc.main(['--check'])), 1)
+            bc.SITEMAP.write_text(sm, encoding='utf-8')
+            doc = json.loads(bc.DATA.read_text(encoding='utf-8'))
+            doc['items'][0]['body'] = 'issue text'
+            bc.DATA.write_text(json.dumps(doc), encoding='utf-8')
+            case('--check: data with a key outside the contract fails', quiet(lambda: bc.main(['--check'])), 1)
+        finally:
+            bc.PAGE, bc.DATA, bc.SITEMAP = saved
 
     for f in failures:
         print(f, file=sys.stderr)

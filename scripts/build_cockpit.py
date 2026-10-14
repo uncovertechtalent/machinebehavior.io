@@ -14,13 +14,14 @@ What reaches the page is public GitHub data only:
   GH_TOKEN if set, else no token, as scripts/board_snapshot.py does. In the deploy job GH_TOKEN is this repository's
   workflow token, which reads no private repository of the owner, and the read stops on any repository not reported
   public;
-- an item reaches the page with its title only when a maintainer has given it an area label (area:<area>); other open
-  items are counted per repository, without their text, as the board does with untriaged issues;
+- an item reaches the page with its title only when a maintainer has given it an area label (area:<area>) and its author
+  is the owner, a member, or a collaborator, so a title that a stranger edits after the label stays off the page; other
+  open items are counted per repository, without their text, as the board does with untriaged issues;
 - check() allows exactly the keys of the contract, fixed forms for every value, and as free text only an item's title;
   each item's URL must be the GitHub URL of that issue or pull request in a listed repository of the owner.
 Stdlib only. Tests: python3 scripts/test_build_cockpit.py.
 """
-import datetime, html, json, os, re, sys, urllib.error, urllib.parse, urllib.request
+import datetime, html, json, os, re, sys, unicodedata, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -30,7 +31,9 @@ import mini_yaml, site_chrome  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://machinebehavior.io'
 PAGE_URL = '/inside/cockpit/'
-PAGE = ROOT / 'inside' / 'cockpit' / 'index.html'
+PAGE_REL = 'inside/cockpit/index.html'  # the page's path in the site, for the chrome
+PAGE = ROOT / PAGE_REL
+SITEMAP = ROOT / 'sitemap.xml'
 DATA = ROOT / 'inside' / 'cockpit' / 'cockpit.json'
 POWERSUIT_YML = ROOT / 'site' / 'powersuit.yml'
 MODULES_JSON = ROOT / 'cto-powersuit' / 'modules.json'
@@ -61,7 +64,9 @@ ITEM_KEYS = {'repo', 'number', 'pr', 'title', 'url', 'area', 'kind', 'status', '
 GENERATED_RX = re.compile(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z')
 DATE_RX = re.compile(r'\d{4}-\d{2}-\d{2}')
 REPO_RX = re.compile(rf'{re.escape(OWNER)}/[A-Za-z0-9._-]{{1,100}}')
-CONTROL_RX = re.compile(r'[\x00-\x1f\x7f]')
+# control characters, and the format characters that reorder or hide text (bidi overrides and isolates, zero widths)
+CONTROL_RX = re.compile('[\x00-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]')
+TRUSTED = ('OWNER', 'MEMBER', 'COLLABORATOR')  # author_association values whose titles may reach the page
 MAX_BYTES = 512 * 1024
 MAX_TITLE = 300
 MAX_ITEMS = 1000
@@ -264,23 +269,30 @@ def labelled(names, prefix, keys):
     return None
 
 
+def clean_title(t):
+    """The title on one line: control and format characters dropped, whitespace folded."""
+    t = ''.join(ch for ch in str(t) if unicodedata.category(ch) not in ('Cc', 'Cf') or ch in '\t\n\r')
+    return ' '.join(t.split())[:MAX_TITLE].strip()
+
+
 def to_item(repo, i):
-    """One issue or pull request from the issues API as an item, or None when it has no area label."""
+    """One issue or pull request from the issues API as an item, or None when it has no area label or its author is
+    outside the owner's account and its collaborators."""
     names = {l['name'] for l in i.get('labels') or []}
     area = labelled(names, 'area:', AREA_KEYS)
-    if area is None:
+    if area is None or i.get('author_association') not in TRUSTED:
         return None
     pr = 'pull_request' in i
     if i['state'] == 'open':
         status = 'blocked' if 'status: blocked' in names else 'in_progress' if pr or 'status: in progress' in names else 'open'
         closed = None
     else:
-        done = bool((i.get('pull_request') or {}).get('merged_at')) if pr else i.get('state_reason') != 'not_planned'
+        done = bool((i.get('pull_request') or {}).get('merged_at')) if pr else i.get('state_reason') in ('completed', None)
         status, closed = ('done' if done else 'dropped'), i['closed_at'][:10]
     url = item_url(repo, i['number'], pr)
     if i.get('html_url') != url:
         raise SystemExit(f'build_cockpit: {i.get("html_url")} is not {url}')
-    return {'repo': repo, 'number': i['number'], 'pr': pr, 'title': ' '.join(str(i['title']).split())[:MAX_TITLE].strip(),
+    return {'repo': repo, 'number': i['number'], 'pr': pr, 'title': clean_title(i['title']),
             'url': url, 'area': area, 'kind': labelled(names, 'kind:', KINDS), 'status': status,
             'created': i['created_at'][:10], 'closed': closed}
 
@@ -440,8 +452,9 @@ def b_sources(doc):
     out = f'<p>Read from the public repositories of {esc(doc["owner"])} on GitHub: {repos}.</p>'
     if un:
         per = ', '.join(f'{esc(short(r))} {n}' for r, n in sorted(doc['untriaged'].items()))
-        out += (f'<p>{plural(un, "open item")} in these repositories {"has" if un == 1 else "have"} no area label yet ({per}); '
-                f'{"it is" if un == 1 else "they are"} counted here only, without {"its" if un == 1 else "their"} text.</p>')
+        out += (f'<p>{plural(un, "open item")} in these repositories {"is" if un == 1 else "are"} counted here only, without '
+                f'{"its" if un == 1 else "their"} text ({per}): {"it has" if un == 1 else "they have"} no area label yet, or someone outside '
+                f'the owner\'s account and its collaborators opened {"it" if un == 1 else "them"}.</p>')
     return out
 
 
@@ -499,14 +512,13 @@ def main(argv=None):
             text = DATA.read_text(encoding='utf-8')
             doc = load(DATA)
         except ContractError as e:
-            print(f'build_cockpit: {DATA.relative_to(ROOT)} breaks the contract (ADR-0031):', file=sys.stderr)
+            print(f'build_cockpit: {DATA.name} breaks the contract (ADR-0031):', file=sys.stderr)
             for line in str(e).splitlines():
                 print('  ' + line, file=sys.stderr)
             return 1
     page = PAGE.read_text(encoding='utf-8')
     new = put_blocks(page, doc)
-    sm_path = ROOT / 'sitemap.xml'
-    sitemap = sm_path.read_text(encoding='utf-8')
+    sitemap = SITEMAP.read_text(encoding='utf-8')
     day = doc['generated'][:10]
     summary = (f'{len(doc["repos"])} repositories, {sum(x["status"] in OPEN_STATUSES for x in doc["items"])} open items with an area, '
                f'{sum(doc["untriaged"].values())} without, as of {doc["generated"]}')
@@ -516,17 +528,23 @@ def main(argv=None):
         if sitemap_date(sitemap) != day:
             differ.append(f'sitemap.xml lastmod of {PAGE_URL} ({sitemap_date(sitemap)}, data {day})')
         for d in differ:
-            report(f'differs from cockpit.json: {d}')
+            report(f'differs from what cockpit.json, site/powersuit.yml, and cto-powersuit/modules.json give: {d}')
         report(f'cockpit.json meets the contract ({summary}); ' + ('page up to date' if not differ else f'{len(differ)} differ; run python3 scripts/build_cockpit.py'))
         return 1 if differ else 0
 
-    DATA.write_text(text, encoding='utf-8')
-    sm_path.write_text(SITEMAP_RX.sub(lambda m: m.group(1) + day + m.group(3), sitemap, count=1), encoding='utf-8')
-    site_chrome.tree(reload=True)  # the page's Updated line and dateModified come from the sitemap date
-    out = site_chrome.apply(new, PAGE.relative_to(ROOT).as_posix())
+    # The chrome reads the page's Updated line and dateModified from the sitemap on disk, so the sitemap is written first
+    # and put back if the chrome fails; the data and the page are written only after the chrome has run.
+    SITEMAP.write_text(SITEMAP_RX.sub(lambda m: m.group(1) + day + m.group(3), sitemap, count=1), encoding='utf-8')
+    try:
+        site_chrome.tree(reload=True)
+        out = site_chrome.apply(new, PAGE_REL)
+    except BaseException:
+        SITEMAP.write_text(sitemap, encoding='utf-8')
+        raise
     if out != page:
         PAGE.write_text(out, encoding='utf-8')
-    report(f'{PAGE.relative_to(ROOT)} written: {summary}')
+    DATA.write_text(text, encoding='utf-8')
+    report(f'{PAGE_REL} written: {summary}')
     return 0
 
 
