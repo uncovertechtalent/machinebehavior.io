@@ -558,6 +558,15 @@ def llms_section_text(llms):
 OVERVIEW_LOC = re.compile(r'(<url><loc>' + re.escape(BASE) + r'/cto-powersuit/</loc><lastmod>)([0-9-]+)(</lastmod></url>)')
 
 
+def refresh_overview_date(overview, day=None):
+    """Move the overview's sitemap date to today when the page, with the chrome of its current date, differs from the file.
+    Runs before the chrome is written again, so the new date reaches dateModified and the Updated line. Returns whether it moved."""
+    if site_chrome.apply(overview, 'cto-powersuit/index.html') == (ROOT / 'cto-powersuit' / 'index.html').read_text(encoding='utf-8'):
+        return False
+    set_overview_lastmod(day or TODAY)
+    return True
+
+
 def set_overview_lastmod(day):
     p = ROOT / 'sitemap.xml'
     sm = p.read_text(encoding='utf-8')
@@ -650,8 +659,7 @@ def main(argv):
     else:
         # 3. the shared lists, then the chrome again with the new dates. The overview is a hand-written page with its own
         # sitemap line; it moves to today when the static blocks or the chrome change what the page says.
-        if site_chrome.apply(overview, 'cto-powersuit/index.html') != OVERVIEW.read_text(encoding='utf-8'):
-            set_overview_lastmod(TODAY)
+        refresh_overview_date(overview)
         inside_chrome.sitemap_block('powersuit', lastmod, BASE, 'scripts/build_powersuit.py')
         inside_chrome.llms_section(LLMS_HEADING, llms_body(cfg, release, data))
         lp = ROOT / 'llms.txt'

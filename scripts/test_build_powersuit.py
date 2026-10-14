@@ -158,6 +158,26 @@ def main():
     case('unreleased: plugin versions are not release names', stops(lambda: bp.notes_stops(note('`ai-ops` 0.3.0 adds x.'))), 0)
     case('unreleased: no note goes through', stops(lambda: bp.notes_stops({'source': {'ref': 'v0.2.0'}})), 0)
 
+    # the overview's sitemap date follows its content (a stand-in chrome that returns the page as it is)
+    with tempfile.TemporaryDirectory() as tmp:
+        root, real_root, real_chrome = Path(tmp), bp.ROOT, bp.site_chrome
+        (root / 'cto-powersuit').mkdir()
+        (root / 'cto-powersuit' / 'index.html').write_text('<p>old</p>')
+        line = '<url><loc>https://machinebehavior.io/cto-powersuit/</loc><lastmod>2026-10-01</lastmod></url>'
+        (root / 'sitemap.xml').write_text(f'<urlset>\n  {line}\n</urlset>\n')
+        bp.ROOT, bp.site_chrome = root, type('Chrome', (), {'apply': staticmethod(lambda src, rel: src)})
+        try:
+            case('overview date: an unchanged page keeps its date',
+                 (bp.refresh_overview_date('<p>old</p>', '2026-10-14'), '2026-10-01' in (root / 'sitemap.xml').read_text()), (False, True))
+            case('overview date: a changed page moves to the given day',
+                 (bp.refresh_overview_date('<p>new</p>', '2026-10-14'), '<lastmod>2026-10-14</lastmod>' in (root / 'sitemap.xml').read_text()),
+                 (True, True))
+            (root / 'sitemap.xml').write_text('<urlset>\n</urlset>\n')
+            case('overview date: a sitemap without the overview line stops the build',
+                 stops(lambda: bp.refresh_overview_date('<p>newer</p>', '2026-10-15')), 2)
+        finally:
+            bp.ROOT, bp.site_chrome = real_root, real_chrome
+
     # the stops of load() and open_repo(), on a small repository
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
