@@ -26,9 +26,9 @@ Every public repository of the owner has these labels. The area and kind labels 
 | `kind:finding` | A gap that an audit or a review found |
 | `kind:decision` | A choice still to make |
 | `kind:action` | Work to do |
-| `kind:lead` | A sales lead or an application |
+| `kind:lead` | A sales lead or an application; counted only, since its title may name a person or a company |
 
-An item reaches the page with its title only when it has an area label and its author is the owner, a member, or a collaborator. Anyone can open an issue on a public repository and edit its title later, so a label does not let a stranger's title onto the page. Other open items are counted per repository, without their text. The status of an open item comes from the board's labels: `status: blocked`, then `status: in progress`. An open pull request counts as in progress, and every other open item as open. Closed in 7 days counts issues closed as completed and pull requests merged. Issues closed as not planned or as duplicates, and pull requests closed without a merge, are left out of it.
+An item reaches the page with its title only when it has an area label and its author is the owner, a member, or a collaborator. Anyone can open an issue on a public repository and edit its title later, so a label does not let a stranger's title onto the page. A lead never shows its title. Other open items are counted per repository, without their text. The status of an open item comes from the board's labels: `status: blocked`, then `status: in progress`. An open pull request counts as in progress, and every other open item as open. Closed in 7 days counts issues closed as completed and pull requests merged. Issues closed as not planned or as duplicates, and pull requests closed without a merge, are left out of it.
 
 To place an item, add its labels:
 
@@ -59,10 +59,10 @@ The committed `cockpit.json` and page come from the same command, run by hand in
 | `generated` | A UTC timestamp, `2026-10-14T14:00:00Z` |
 | `owner` | `uncovertechtalent`, the value of `OWNER` in the script |
 | `repos` | The repositories read, each `uncovertechtalent/<name>`, each once |
-| `items` | Up to 1000 items with exactly `repo` (a listed repository), `number`, `pr` (true or false), `title`, `url`, `area` (one of the eight), `kind` (one of the four, or null), `status` (`open`, `in_progress`, `blocked`, `done`, or `dropped`), `created` (a date), and `closed` (a date, or null while open) |
-| `untriaged` | Per listed repository, the count of open items shown without their text: no area label, or an author outside the owner's account and its collaborators |
+| `items` | Up to 1000 items with exactly `repo` (a listed repository), `number`, `pr` (true or false), `title`, `url`, `area` (one of the eight), `kind` (finding, decision, action, or null; never lead), `status` (`open`, `in_progress`, `blocked`, `done`, or `dropped`), `created` (a date), and `closed` (a date, or null while open) |
+| `untriaged` | Per listed repository, the count of open items shown without their text: no area label, an author outside the owner's account and its collaborators, or a lead |
 
-A key outside the table, a key that appears twice in one object, a missing key, or a value of another form fails the check. An item's `url` must be `https://github.com/<repo>/issues/<number>`, or `.../pull/<number>` for a pull request. The title is the only free text: at most 300 characters, with no control characters and no characters that reorder or hide text (bidi overrides and isolates, zero widths). The page escapes it.
+A key outside the table, a key that appears twice in one object, a missing key, or a value of another form fails the check. An item's `url` must be `https://github.com/<repo>/issues/<number>`, or `.../pull/<number>` for a pull request. The title is the only free text: at most 300 characters, with no control or format characters (bidi marks, zero widths, soft hyphens, tag characters) and no line or paragraph separators. The page escapes it.
 
 ## Run it
 

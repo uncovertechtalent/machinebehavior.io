@@ -15,8 +15,9 @@ What reaches the page is public GitHub data only:
   workflow token, which reads no private repository of the owner, and the read stops on any repository not reported
   public;
 - an item reaches the page with its title only when a maintainer has given it an area label (area:<area>) and its author
-  is the owner, a member, or a collaborator, so a title that a stranger edits after the label stays off the page; other
-  open items are counted per repository, without their text, as the board does with untriaged issues;
+  is the owner, a member, or a collaborator, so a title that a stranger edits after the label stays off the page, and
+  when it is not a lead (kind:lead), whose title may name a person or a company; other open items are counted per
+  repository, without their text, as the board does with untriaged issues;
 - check() allows exactly the keys of the contract, fixed forms for every value, and as free text only an item's title;
   each item's URL must be the GitHub URL of that issue or pull request in a listed repository of the owner.
 Stdlib only. Tests: python3 scripts/test_build_cockpit.py.
@@ -54,7 +55,8 @@ AREAS = [
     ('knowledge', None),
 ]
 AREA_KEYS = [k for k, _ in AREAS]
-KINDS = ['finding', 'decision', 'action', 'lead']
+KINDS = ['finding', 'decision', 'action', 'lead']  # the kind labels; a lead (a sales lead or an application) is only counted
+SHOWN_KINDS = KINDS[:3]  # the kinds an item on the page may have
 OPEN_STATUSES = ('open', 'in_progress', 'blocked')
 STATUSES = OPEN_STATUSES + ('done', 'dropped')
 
@@ -64,8 +66,6 @@ ITEM_KEYS = {'repo', 'number', 'pr', 'title', 'url', 'area', 'kind', 'status', '
 GENERATED_RX = re.compile(r'\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z')
 DATE_RX = re.compile(r'\d{4}-\d{2}-\d{2}')
 REPO_RX = re.compile(rf'{re.escape(OWNER)}/[A-Za-z0-9._-]{{1,100}}')
-# control characters, and the format characters that reorder or hide text (bidi overrides and isolates, zero widths)
-CONTROL_RX = re.compile('[\x00-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2060-\u2064\u2066-\u2069\ufeff]')
 TRUSTED = ('OWNER', 'MEMBER', 'COLLABORATOR')  # author_association values whose titles may reach the page
 MAX_BYTES = 512 * 1024
 MAX_TITLE = 300
@@ -129,6 +129,12 @@ def _when(g):
         return None
 
 
+def hidden(t):
+    """True when a title holds a control or format character (bidi marks, zero widths, soft hyphens, tag characters) or
+    a line or paragraph separator: anything that reorders or hides text."""
+    return any(unicodedata.category(ch) in ('Cc', 'Cf', 'Zl', 'Zp') for ch in t)
+
+
 def item_url(repo, number, pr):
     return f'https://github.com/{repo}/{"pull" if pr else "issues"}/{number}'
 
@@ -146,12 +152,12 @@ def check_item(x, where, repos):
     elif x['repo'] in repos and _count(x['number']) and x['url'] != item_url(x['repo'], x['number'], x['pr']):
         errs.append(f'{where}.url: not {item_url(x["repo"], x["number"], x["pr"])}')
     t = x['title']
-    if not isinstance(t, str) or not t.strip() or len(t) > MAX_TITLE or CONTROL_RX.search(t) or t != t.strip():
+    if not isinstance(t, str) or not t.strip() or len(t) > MAX_TITLE or hidden(t) or t != t.strip():
         errs.append(f'{where}.title: empty, longer than {MAX_TITLE}, padded, or holds a control character')
     if x['area'] not in AREA_KEYS:
         errs.append(f'{where}.area: not one of {AREA_KEYS}')
-    if x['kind'] is not None and x['kind'] not in KINDS:
-        errs.append(f'{where}.kind: not one of {KINDS} or null')
+    if x['kind'] is not None and x['kind'] not in SHOWN_KINDS:
+        errs.append(f'{where}.kind: not one of {SHOWN_KINDS} or null')
     if x['status'] not in STATUSES:
         errs.append(f'{where}.status: not one of {list(STATUSES)}')
     created = _day(x['created'])
@@ -245,6 +251,8 @@ def pages(path, params):
         out += batch
         if len(batch) < 100:
             break
+    else:
+        print(f'warning: {path}: stopped after 10 full pages; the counts leave out the rest', file=sys.stderr)
     return out
 
 
@@ -271,7 +279,7 @@ def labelled(names, prefix, keys):
 
 def clean_title(t):
     """The title on one line: control and format characters dropped, whitespace folded."""
-    t = ''.join(ch for ch in str(t) if unicodedata.category(ch) not in ('Cc', 'Cf') or ch in '\t\n\r')
+    t = ''.join(ch for ch in str(t) if unicodedata.category(ch) not in ('Cc', 'Cf') or ch in '\t\n\r')  # whitespace folds below
     return ' '.join(t.split())[:MAX_TITLE].strip()
 
 
@@ -280,7 +288,7 @@ def to_item(repo, i):
     outside the owner's account and its collaborators."""
     names = {l['name'] for l in i.get('labels') or []}
     area = labelled(names, 'area:', AREA_KEYS)
-    if area is None or i.get('author_association') not in TRUSTED:
+    if area is None or i.get('author_association') not in TRUSTED or 'kind:lead' in names:
         return None
     pr = 'pull_request' in i
     if i['state'] == 'open':

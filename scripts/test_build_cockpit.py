@@ -9,7 +9,7 @@ merges), and the page blocks. Stdlib only; no network: the read runs on a stand-
 
 Exits 1 when a case fails.
 """
-import contextlib, copy, datetime, io, json, shutil, sys, tempfile
+import contextlib, copy, datetime, io, json, os, shutil, sys, tempfile, urllib.error
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # no __pycache__ in the repository
@@ -128,7 +128,10 @@ def main():
     case('item: URL of another issue', fails(variant(setitem(['items', 0, 'url'], bc.item_url(MB, 84, False))), '.url:'))
     case('item: issue with a pull request URL', fails(variant(setitem(['items', 0, 'url'], bc.item_url(MB, 83, True))), '.url:'))
     case('item: title with a line break', fails(variant(setitem(['items', 0, 'title'], 'one\ntwo')), '.title:'))
-    case('item: title with a bidi override', fails(variant(setitem(['items', 0, 'title'], 'abc\u202edef')), '.title:'))
+    for ch, name in (('\u202e', 'a bidi override'), ('\u061c', 'the Arabic letter mark'), ('\U000e0041', 'a tag character'),
+                     ('\u00ad', 'a soft hyphen'), ('\u2028', 'a line separator')):
+        case(f'item: title with {name}', fails(variant(setitem(['items', 0, 'title'], 'abc' + ch + 'def')), '.title:'))
+    case('item: kind lead', fails(variant(setitem(['items', 0, 'kind'], 'lead')), '.kind:'))
     case('item: title too long', fails(variant(setitem(['items', 0, 'title'], 'x' * (bc.MAX_TITLE + 1))), '.title:'))
     case('item: empty title', fails(variant(setitem(['items', 0, 'title'], ' ')), '.title:'))
     case('item: the same issue twice', fails(variant(lambda d: d['items'].append(copy.deepcopy(d['items'][0]))), 'the same issue twice'))
@@ -153,6 +156,8 @@ def main():
     case('item: whitespace in a title is folded', to(MB, api_issue(MB, 8, ['area:ai'], title='  a\tb\n c '))['title'], 'a b c')
     case('item: bidi and zero-width characters are dropped from a title', to(MB, api_issue(MB, 8, ['area:ai'], title='a\u202eb\u200bc\x07d'))['title'], 'abcd')
     case('item: a labelled issue of a stranger is not an item', to(MB, api_issue(MB, 8, ['area:ai'], author='NONE')), None)
+    case('item: a lead is not an item, even with another kind', to(MB, api_issue(MB, 8, ['area:direction', 'kind:action', 'kind:lead'])), None)
+    case('item: tag characters are dropped from a title', to(MB, api_issue(MB, 8, ['area:ai'], title='ok\U000e0041\U000e0042'))['title'], 'ok')
     case('item: a labelled issue of a contributor is not an item', to(MB, api_issue(MB, 8, ['area:ai'], author='CONTRIBUTOR')), None)
     case('item: a collaborator\'s issue is an item', to(MB, api_issue(MB, 8, ['area:ai'], author='COLLABORATOR'))['area'], 'ai')
     case('item: an issue closed as a duplicate is dropped', to(MB, api_issue(MB, 7, ['area:ai'], 'closed', reason='duplicate', closed='2026-10-12T10:00:00Z'))['status'], 'dropped')
@@ -160,6 +165,39 @@ def main():
     bad = api_issue(MB, 9, ['area:ai'])
     bad['html_url'] = 'https://github.com/someone/else/issues/9'
     case('item: an html_url of another repository stops the read', quiet(lambda: to(MB, bad)), 'stop')
+
+    # get(): the token first, then no token, then a stop; pages(): a warning after 10 full pages
+    calls = []
+
+    def urlopen_fails_once(req, timeout=None):
+        calls.append('Authorization' in req.headers)
+        if len(calls) == 1:
+            raise urllib.error.URLError('refused')
+        return io.BytesIO(b'[1]')
+
+    def urlopen_fails(req, timeout=None):
+        raise TimeoutError('timed out')
+    real_open, had = bc.urllib.request.urlopen, os.environ.get('GH_TOKEN')
+    os.environ['GH_TOKEN'] = 'test-token'
+    try:
+        bc.urllib.request.urlopen = urlopen_fails_once
+        case('get: a failed read with the token falls back to no token', (quiet(lambda: bc.get('https://api.github.com/x')), calls), ([1], [True, False]))
+        bc.urllib.request.urlopen = urlopen_fails
+        case('get: a timeout on both reads stops the read', quiet(lambda: bc.get('https://api.github.com/x')), 'stop')
+    finally:
+        bc.urllib.request.urlopen = real_open
+        if had is None:
+            os.environ.pop('GH_TOKEN', None)
+        else:
+            os.environ['GH_TOKEN'] = had
+    real_get, bc.get = bc.get, (lambda url: [{}] * 100)
+    err = io.StringIO()
+    try:
+        with contextlib.redirect_stderr(err):
+            n = len(bc.pages('repos/x/issues', {}))
+    finally:
+        bc.get = real_get
+    case('pages: stops after 10 full pages and says so', (n, 'stopped after 10 full pages' in err.getvalue()), (1000, True))
 
     api = {
         f'{bc.API}/users/uncovertechtalent/repos': [repo_row('machinebehavior.io'), repo_row('preloop', fork=True)],
