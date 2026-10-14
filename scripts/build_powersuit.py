@@ -18,7 +18,8 @@ Writes:
 - the static blocks powersuit-eyebrow, powersuit-install, powersuit-latest, powersuit-license, powersuit-areas,
   powersuit-knowledge and powersuit-release on /cto-powersuit/;
 - the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
-then the chrome of every page it wrote. A plugin page's lastmod, and the overview's line in the hand-written part of
+then the chrome of every page it wrote, and the cockpit page (scripts/build_cockpit.py, from its committed data), whose
+area rows come from site/powersuit.yml and modules.json. A plugin page's lastmod, and the overview's line in the hand-written part of
 the sitemap, move to today only when the page's content changes.
 Every release name on the overview comes from its static blocks, and the note on the main branch (unreleased) may name
 only the pinned release; the build stops when the hand-written text names one,
@@ -668,6 +669,10 @@ def main(argv):
         for rel, page in raw.items():
             write(ROOT / rel, site_chrome.apply(page, rel))
         write(OVERVIEW, site_chrome.apply(overview, 'cto-powersuit/index.html'))
+        # 4. the cockpit page takes its area titles, lines, and plugins from site/powersuit.yml and modules.json (ADR-0031)
+        import build_cockpit
+        if build_cockpit.main([]) != 0:
+            fail('the cockpit page did not build; run python3 scripts/build_cockpit.py')
     newer = newer_tags(release['repo'], release['ref'])
     if newer:  # the overview says "latest release"; a newer tag makes that false
         print(f'{WARN}build_powersuit: {release["repo"]} has a newer release than the pin {release["ref"]}: {", ".join(newer)}. '

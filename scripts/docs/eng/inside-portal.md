@@ -13,6 +13,9 @@ type: reference
 
 The live operations view sits on its own page, [Mission Control](/inside/mission-control/): the gate and deploy state of the three sites, the last ten deploy runs, open incidents, this site's gate result and the dashboards as tabs, read from the same records as the panels below. The dashboard list is `/inside/dashboards.js`, shared by both pages. See [ADR-0026](doc:eng/adr-0026-mission-control).
 
+## Cockpit
+
+[The cockpit](/inside/cockpit/) is the CTO powersuit cockpit running on the public work: the issues and pull requests of the owner's public repositories by area of the CTO job, with a scorecard and the open items for each area, a 14-day trend, and the CTO powersuit plugins of each area. It is a static page, rebuilt at each deploy from the GitHub API behind a contract check. See [Cockpit page](doc:eng/cockpit) and [ADR-0031](doc:eng/adr-0031-cockpit-from-public-github-issues).
 ## Panels and their data
 
 | Panel | Data | Notes |
@@ -25,6 +28,7 @@ The live operations view sits on its own page, [Mission Control](/inside/mission
 | Docs | [Inside docs](/inside/docs/) | The documentation tree; see [Docs tree](doc:eng/docs-tree) |
 | Board | [Board](/inside/board/), from `/inside/board/issues.json` written by the deploy job | Work items from GitHub Issues; see [Ticket board](doc:eng/board) |
 | Services | [Service catalog](/inside/services/), from `services/*.yml` | See [Service catalog](doc:eng/service-catalog) |
+| Cockpit | [Cockpit](/inside/cockpit/), from `/inside/cockpit/cockpit.json`, written by the deploy job from the GitHub API | Issues of the public repositories by area of the CTO job; see [Cockpit page](doc:eng/cockpit) |
 | Status | [Status](/inside/status/), from the gate records, `/inside/deploys.json` and `incidents/*.yml` | See [Status page](doc:eng/status-page) |
 | Top bar and search | `scripts/site_chrome.py`, `/inside/search.json` | The same bar on every page of the site; the search covers the docs, the services and the map. See [Top bar and search](doc:eng/top-bar-and-search) |
 

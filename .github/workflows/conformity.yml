@@ -44,6 +44,12 @@ jobs:
           # Only runs on main get the key: a manual run from a branch is a dry run (#70, ADR-0029).
           ssh-key: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
+      - name: Cockpit data matches the contract and the page
+        # ADR-0031: inside/cockpit/cockpit.json holds only public GitHub data in the keys and forms of the contract (its
+        # one kind of free text is an issue title), and the page's cockpit blocks and sitemap date match it. No network.
+        # Here, in the required check that the deploy waits for, data that breaks the contract can neither merge nor deploy.
+        run: python3 scripts/build_cockpit.py --check
+
       - name: Run the checks
         uses: $/.github/actions/conformity  # self-repository form (#70): the gate counts $/ as local (run.py pin_refs, #66); actionlint 1.7.12 does not know it yet
         with:
@@ -180,6 +186,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/board_snapshot.py inside/board/issues.json
 
+      - name: Read the public issues for the cockpit (artifact only, never committed)
+        # ADR-0031: the issues and pull requests of the owner's public repositories, by area label, into
+        # inside/cockpit/cockpit.json and the page. The workflow token reads no private repository of the owner, and the
+        # script stops on any repository not reported public; it checks the data against the contract before it writes
+        # anything, so a failed read or check leaves the committed page live.
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build_cockpit.py --fetch
+
       - name: Upload site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -291,10 +308,11 @@ jobs:
 
   script-tests:
     name: Script tests
-    # Tests of the site's scripts (#85, #90): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # Tests of the site's scripts (#85, #90, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
-    # repository and writes nothing; ADR-0030). Runs on every trigger, pull requests included; the deploy does not wait for it.
+    # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.
+    # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
     permissions:
@@ -310,6 +328,9 @@ jobs:
 
       - name: Powersuit page generator
         run: python3 scripts/test_build_powersuit.py
+
+      - name: Cockpit contract, GitHub read, and page blocks
+        run: python3 scripts/test_build_cockpit.py
 
       - name: Powersuit pages match the pinned release
         # A newer powersuit tag fails scheduled and push runs and only warns on a pull request, so it never turns an
