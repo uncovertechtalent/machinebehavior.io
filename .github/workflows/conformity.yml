@@ -286,6 +286,61 @@ jobs:
                head -c 500 "$RUNNER_TEMP/indexnow.out" 2>/dev/null || true ;;
           esac
 
+  deploy-s3:
+    name: Deploy to S3 and CloudFront
+    # Publishes the build the Pages job uploaded, so both hosts serve the same bytes while
+    # GitHub Pages stays deployed as the rollback (ADR-0032). AWS access is a 15-minute
+    # session of a role that trusts this repository's main branch through GitHub OIDC, may
+    # only sync one bucket and invalidate one distribution, and is defined in
+    # uncovertechtalent-git/site-infra. GitHub stores no AWS credential: the role ARN, bucket
+    # and distribution are repository secrets only so the log masks them (the account id
+    # is in the ARN). The job skips until the repository variable S3_DEPLOY is "on".
+    needs: deploy
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && vars.S3_DEPLOY == 'on'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      id-token: write   # the OIDC token the deploy role trusts
+    steps:
+      - name: Download the Pages build
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/pages
+
+      - name: Check out the deploy script (site-infra at a reviewed commit)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: uncovertechtalent-git/site-infra
+          ref: 445c327b2f8447d869731102f5e52897ae90df83 # main after uncovertechtalent-git/site-infra#1
+          path: site-infra
+          persist-credentials: false
+
+      - name: Sync to the bucket and invalidate the distribution
+        env:
+          AWS_ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          SITE_BUCKET: ${{ secrets.SITE_BUCKET }}
+          DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+          AWS_REGION: eu-central-1
+        run: |
+          echo "::add-mask::$AWS_ROLE_ARN"
+          mkdir -p "$RUNNER_TEMP/site"
+          tar -xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/site"
+          token=$(curl -fsS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | jq -r .value)
+          echo "::add-mask::$token"
+          creds=$(aws sts assume-role-with-web-identity --role-arn "$AWS_ROLE_ARN" \
+            --role-session-name "machinebehavior-io-$GITHUB_RUN_ID" --web-identity-token "$token" \
+            --duration-seconds 900 --query Credentials --output json)
+          AWS_ACCESS_KEY_ID=$(jq -r .AccessKeyId <<<"$creds")
+          AWS_SECRET_ACCESS_KEY=$(jq -r .SecretAccessKey <<<"$creds")
+          AWS_SESSION_TOKEN=$(jq -r .SessionToken <<<"$creds")
+          echo "::add-mask::$AWS_ACCESS_KEY_ID"
+          echo "::add-mask::$AWS_SECRET_ACCESS_KEY"
+          echo "::add-mask::$AWS_SESSION_TOKEN"
+          export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+          site-infra/scripts/deploy-site.sh "$RUNNER_TEMP/site" "$SITE_BUCKET" "$DISTRIBUTION_ID"
+
   zizmor:
     name: Workflow security (zizmor)
     # Static analysis of .github (#65): template injection, permissions, credential persistence, pins.

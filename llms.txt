@@ -93,7 +93,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (402 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (403 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -131,6 +131,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (402 pages). S
 - [ADR-0029: Changes reach main through pull requests](https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/)
 - [ADR-0030: The CTO powersuit pages are built from the pinned release](https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/)
 - [ADR-0031: The cockpit page is built from the public GitHub Issues of the owner's repositories](https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/)
+- [ADR-0032: The site moves to S3 and CloudFront, built with Terraform, and deploys there next to GitHub Pages until the cutover](https://machinebehavior.io/inside/docs/eng/adr-0032-s3-and-cloudfront-next-to-pages/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

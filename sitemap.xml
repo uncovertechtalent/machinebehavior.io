@@ -83,8 +83,8 @@
   <url><loc>https://machinebehavior.io/cto-powersuit/stance/</loc><lastmod>2026-10-14</lastmod></url>
   <!-- powersuit:end -->
   <!-- docs:begin (scripts/build_docs.py) -->
-  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-14</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/access-model/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/add-a-page/</loc><lastmod>2026-10-09</lastmod></url>
@@ -119,6 +119,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0032-s3-and-cloudfront-next-to-pages/</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
