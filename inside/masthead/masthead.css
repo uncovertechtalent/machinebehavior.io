@@ -25,6 +25,15 @@ main.wrap.mh { max-width: 1100px; }
 .mh-list b { color: var(--mb-text); font-weight: 500; }
 .mh-list code { font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text); }
 
+/* where a gate runs */
+.mh-where-wrap { max-width: 760px; margin: 0 0 14px; }
+.mh-where-wrap summary { cursor: pointer; font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text-dim); letter-spacing: 1.2px; text-transform: uppercase; }
+.mh-where { margin: 8px 0 0; display: grid; gap: 6px; }
+.mh-where div { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 10px; font-size: var(--mb-text-sm); line-height: 1.5; }
+.mh-where dt { font: var(--mb-text-xs)/1.5 var(--mb-font-mono); color: var(--mb-text); }
+.mh-where dd { margin: 0; color: var(--mb-text-soft); }
+.mh-where-chip { display: inline-block; font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); padding: 1px 6px; border: 1px solid var(--mb-line); border-radius: 5px; color: var(--mb-text-dim); margin: 0 4px; vertical-align: middle; }
+
 /* the standards */
 .mh .std h3 { margin: var(--mb-space-4) 0 6px; font-size: var(--mb-text-md); }
 .mh .std ul { max-width: 760px; padding-left: 20px; }
@@ -32,4 +41,5 @@ main.wrap.mh { max-width: 1100px; }
 
 @media (max-width: 720px) {
   .mh-cols { grid-template-columns: minmax(0, 1fr); }
+  .mh-where div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
 }
