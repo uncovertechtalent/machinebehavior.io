@@ -12,7 +12,7 @@ type: how-to
 
 **If the gate failed instead,** there is nothing to roll back: the deploy did not run and the previous build is still live. Follow [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
 
-**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0032](doc:eng/adr-0032-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run the workflow.
+**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run the workflow.
 
 ## How a rollback works here
 

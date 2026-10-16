@@ -81,6 +81,11 @@
 "p": "/inside/docs/eng/"
 },
 {
+"u": "/inside/docs/eng/masthead/",
+"t": "Masthead page",
+"p": "/inside/docs/eng/"
+},
+{
 "u": "/inside/docs/eng/status-page/",
 "t": "Status page",
 "p": "/inside/docs/eng/"
@@ -256,8 +261,13 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
-"u": "/inside/docs/eng/adr-0032-s3-and-cloudfront-next-to-pages/",
-"t": "ADR-0032: The site moves to S3 and CloudFront, built with Terraform, and deploys there next to GitHub Pages until the cutover",
+"u": "/inside/docs/eng/adr-0032-masthead-from-a-seats-file/",
+"t": "ADR-0032: The masthead is built from a public seats file",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0033-s3-and-cloudfront-next-to-pages/",
+"t": "ADR-0033: The site moves to S3 and CloudFront, built with Terraform, and deploys there next to GitHub Pages until the cutover",
 "p": "/inside/docs/eng/decision-log/"
 },
 {

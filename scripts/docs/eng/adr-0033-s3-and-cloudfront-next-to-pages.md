@@ -1,8 +1,8 @@
-title: ADR-0032: The site moves to S3 and CloudFront, built with Terraform, and deploys there next to GitHub Pages until the cutover
+title: ADR-0033: The site moves to S3 and CloudFront, built with Terraform, and deploys there next to GitHub Pages until the cutover
 summary: Every push to main that passes the gate also syncs the same build to a private S3 bucket behind CloudFront, through a GitHub OIDC role that may write one bucket and invalidate one distribution; the infrastructure is the public Terraform repository site-infra, and GitHub Pages stays deployed as the rollback until the apex has run on CloudFront without one.
 parent: decision-log
-order: 32
-adr: 32
+order: 33
+adr: 33
 status: accepted
 created: 2026-10-15
 labels: adr, decision, hosting, deploy, cloudfront, terraform, privacy

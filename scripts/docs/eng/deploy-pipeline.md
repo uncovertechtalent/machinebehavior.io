@@ -56,7 +56,7 @@ Runs the tests of the scripts this workflow runs, on every trigger, pull request
 
 ## Job 6: deploy to S3 and CloudFront
 
-Permissions: `id-token: write`, for the OIDC token the deploy role trusts. Runs on `main` after job 2, and only while the repository variable `S3_DEPLOY` is `on` ([ADR-0032](doc:eng/adr-0032-s3-and-cloudfront-next-to-pages)).
+Permissions: `id-token: write`, for the OIDC token the deploy role trusts. Runs on `main` after job 2, and only while the repository variable `S3_DEPLOY` is `on` ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)).
 
 1. Download the `github-pages` artifact job 2 uploaded, so both hosts serve the same bytes.
 2. Check out the deploy script of uncovertechtalent-git/site-infra at the commit pinned in the workflow.
