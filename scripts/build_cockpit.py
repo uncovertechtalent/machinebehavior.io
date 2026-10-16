@@ -427,30 +427,32 @@ def card(x, day):
             f'<span>{plural(age, "day")} old</span></span></li>')
 
 
+def area_section(key, title, about, plugins, mine, day):
+    """One area's section: its head with the plugins, its counts and mix, and its open items as cards. The masthead's
+    seat tabs render the same section for a seat's areas (#99, ADR-0032)."""
+    c = counts(mine, day)
+    live = sorted((x for x in mine if x['status'] in OPEN_STATUSES), key=lambda x: (STATUS_ORDER[x['status']], x['created'], x['repo'], x['number']))
+    links = ' '.join(f'<a href="{esc(u)}"><code>{esc(n)}</code></a>' for n, u in plugins)
+    mix = ''.join(f'<span class="ck-mix-{cls}" style="flex-grow:{c[s]}"></span>' for s, cls in
+                  (('open', 'open'), ('in_progress', 'prog'), ('blocked', 'block')) if c[s])
+    nums = ''.join(f'<div><dt>{k}</dt><dd>{c[f]}</dd></div>' for k, f in
+                   (('Open', 'open'), ('In progress', 'in_progress'), ('Blocked', 'blocked'), ('Closed in 7 days', 'closed_7d')))
+    kinds = ''.join(f'<div><dt>{k.capitalize()}s</dt><dd>{c[k]}</dd></div>' for k in ('finding', 'decision', 'action'))
+    kinds += f'<div><dt>Oldest open</dt><dd>{plural(c["oldest"], "day") if c["oldest"] is not None else "none open"}</dd></div>'
+    cards = (f'<ul class="ck-items">{"".join(card(x, day) for x in live)}</ul>' if live
+             else '<p class="empty">Nothing open in this area.</p>')
+    return (f'<section class="ck-area" id="{key}" aria-labelledby="ck-{key}">'
+            f'<div class="ck-area-head"><h3 id="ck-{key}">{esc(title)}</h3><p>{esc(about)}</p>'
+            f'<p class="ck-plugins"><span class="ck-label">Powersuit plugins</span><span>{links}</span></p></div>'
+            f'<div class="ck-card"><dl class="ck-counts">{nums}</dl>'
+            f'<div class="ck-mix{"" if mix else " ck-mix-none"}" aria-hidden="true">{mix}</div>'
+            f'<p class="ck-label">Open by kind</p><dl class="ck-kinds">{kinds}</dl></div>'
+            f'<div class="ck-open">{cards}</div></section>')
+
+
 def b_areas(doc):
     info, day = area_info(), today(doc)
-    out = ''
-    for key, _ in AREAS:
-        title, about, plugins = info[key]
-        mine = [x for x in doc['items'] if x['area'] == key]
-        c = counts(mine, day)
-        live = sorted((x for x in mine if x['status'] in OPEN_STATUSES), key=lambda x: (STATUS_ORDER[x['status']], x['created'], x['repo'], x['number']))
-        links = ' '.join(f'<a href="{esc(u)}"><code>{esc(n)}</code></a>' for n, u in plugins)
-        mix = ''.join(f'<span class="ck-mix-{cls}" style="flex-grow:{c[s]}"></span>' for s, cls in
-                      (('open', 'open'), ('in_progress', 'prog'), ('blocked', 'block')) if c[s])
-        nums = ''.join(f'<div><dt>{k}</dt><dd>{c[f]}</dd></div>' for k, f in
-                       (('Open', 'open'), ('In progress', 'in_progress'), ('Blocked', 'blocked'), ('Closed in 7 days', 'closed_7d')))
-        kinds = ''.join(f'<div><dt>{k.capitalize()}s</dt><dd>{c[k]}</dd></div>' for k in ('finding', 'decision', 'action'))
-        kinds += f'<div><dt>Oldest open</dt><dd>{plural(c["oldest"], "day") if c["oldest"] is not None else "none open"}</dd></div>'
-        cards = (f'<ul class="ck-items">{"".join(card(x, day) for x in live)}</ul>' if live
-                 else '<p class="empty">Nothing open in this area.</p>')
-        out += (f'<section class="ck-area" id="{key}" aria-labelledby="ck-{key}">'
-                f'<div class="ck-area-head"><h3 id="ck-{key}">{esc(title)}</h3><p>{esc(about)}</p>'
-                f'<p class="ck-plugins"><span class="ck-label">Powersuit plugins</span><span>{links}</span></p></div>'
-                f'<div class="ck-card"><dl class="ck-counts">{nums}</dl>'
-                f'<div class="ck-mix{"" if mix else " ck-mix-none"}" aria-hidden="true">{mix}</div>'
-                f'<p class="ck-label">Open by kind</p><dl class="ck-kinds">{kinds}</dl></div>'
-                f'<div class="ck-open">{cards}</div></section>')
+    out = ''.join(area_section(key, *info[key], [x for x in doc['items'] if x['area'] == key], day) for key, _ in AREAS)
     return f'<div class="ck-areas">{out}</div>'
 
 

@@ -202,6 +202,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/build_cockpit.py --fetch
 
+      - name: Rebuild the masthead's seat tabs from the fresh cockpit data (artifact only, never committed)
+        # #99, ADR-0032: the seat tabs render the cockpit's panels per seat from inside/cockpit/cockpit.json; after the
+        # fetch above they are as fresh as the cockpit. A failed build leaves the committed page in place.
+        continue-on-error: true
+        run: python3 scripts/build_masthead.py
+
       - name: Upload site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:

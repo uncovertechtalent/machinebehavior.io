@@ -20,6 +20,7 @@ import build_masthead as bm  # noqa: E402
 
 def seat(key, title, areas, holder='A. Holder'):
     return {'seat': key, 'title': title, 'holder': holder, 'areas': areas, 'bundle': None,
+            'lens': ['Does it move the goal?', 'What does it displace?'],
             'machinery': [{'name': 'direction', 'what': 'The weekly review.'}],
             'gates': [{'check': 'direction.review-memo', 'where': 'module', 'what': 'Every memo has a date.'}]}
 
@@ -63,6 +64,10 @@ FAILS = {
     'holder with trailing newline': (lambda d: d['seats'][0].__setitem__('holder', 'A. Holder\n'), 'seats[0].holder:'),
     'holder with markup': (lambda d: d['seats'][0].__setitem__('holder', '<img src=x>'), 'seats[0].holder: angle brackets'),
     'bundle not a slug': (lambda d: d['seats'][0].__setitem__('bundle', 'CEO Bundle'), 'seats[0].bundle: null or a slug'),
+    'lens missing': (lambda d: d['seats'][0].pop('lens'), 'seats[0]: missing keys: lens'),
+    'lens with one question': (lambda d: d['seats'][0].__setitem__('lens', ['One?']), 'seats[0].lens: not a list of 2 to 6 questions'),
+    'lens question with markup': (lambda d: d['seats'][0].__setitem__('lens', ['a', '<b>?']), 'seats[0].lens[1]: angle brackets'),
+    'lens question too long': (lambda d: d['seats'][0].__setitem__('lens', ['a', 'x' * (bm.MAX_LENS + 1)]), f'longer than {bm.MAX_LENS} characters'),
     'machinery row key outside the contract': (lambda d: d['seats'][0]['machinery'][0].__setitem__('url', 'x'), 'seats[0].machinery[0]: keys outside the contract: url'),
     'machinery empty': (lambda d: d['seats'][0].__setitem__('machinery', []), 'seats[0].machinery: not a non-empty list'),
     'gate without where': (lambda d: d['seats'][0]['gates'][0].pop('where'), 'seats[0].gates[0]: missing keys: where'),
@@ -114,16 +119,35 @@ def main():
     esc = variant(lambda d: d['seats'][0]['machinery'][0].__setitem__('what', 'Tags & "names"'))
     ok('free text is escaped', 'Tags &amp; &quot;names&quot;' in bm.b_seats(esc))
 
+    # 2b. The seat tabs, on a synthetic cockpit document (the cockpit tests' base shape)
+    import test_build_cockpit as tc
+    ck = tc.base()
+    tabs = bm.b_tabs(doc, ck)
+    ok('tabs: one radio input per seat plus the seats tab', tabs.count('type="radio"') == 3 and 'id="mh-tab-seats"' in tabs and 'checked' in tabs)
+    ok('tabs: one label per seat', '<label for="mh-tab-ceo">Chief executive</label>' in tabs and '<label for="mh-tab-cto">Chief technology officer</label>' in tabs)
+    ok('tabs: lens questions render', '<li>Does it move the goal?</li>' in tabs)
+    cto = tabs[tabs.index('id="mh-panel-cto"'):]
+    ok('cto tab holds its areas only', 'id="delivery"' in cto and 'id="operations"' in cto and 'id="security"' not in cto and 'id="money"' not in cto)
+    ok('cto tab lists the item of its area', 'Item 41' in cto and 'Item 83' not in cto)
+    ceo = tabs[tabs.index('id="mh-panel-ceo"'):tabs.index('id="mh-panel-cto"')]
+    ok('ceo tab has a tile per area', ceo.count('class="card ck-card mh-tile"') == len(bm.AREAS))
+    ok('ceo tab lists open decisions only', 'No open decision' in ceo)
+    with_decision = copy.deepcopy(ck)
+    with_decision['items'].append(tc.item(tc.MB, 7, 'money', kind='decision', title='Pick a ledger'))
+    ceo2 = bm.b_tabs(doc, with_decision)
+    ok('ceo tab lists a decision', 'Pick a ledger' in ceo2[ceo2.index('id="mh-panel-ceo"'):ceo2.index('id="mh-panel-cto"')])
+    ok('cockpit areas render unchanged through the shared function', bm.bc.b_areas(ck).count('class="ck-area"') == len(bm.AREAS))
+
     # 3. put_blocks needs every block exactly once
     page = '<p><!-- static:masthead-eyebrow --><!-- /static:masthead-eyebrow --></p>'
     try:
-        bm.put_blocks(page, doc)
+        bm.put_blocks(page, doc, ck)
         ok('a page without a block stops the build', False)
     except SystemExit as e:
         ok('a page without a block stops the build', 'masthead-lede' in str(e))
     twice = ''.join(f'<!-- static:{n} --><!-- /static:{n} -->' for n in bm.BLOCKS) + '<!-- static:masthead-lede --><!-- /static:masthead-lede -->'
     try:
-        bm.put_blocks(twice, doc)
+        bm.put_blocks(twice, doc, ck)
         ok('a page with a block twice stops the build', False)
     except SystemExit as e:
         ok('a page with a block twice stops the build', '2 <!-- static:masthead-lede -->' in str(e))
