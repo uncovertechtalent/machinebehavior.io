@@ -1,0 +1,117 @@
+{
+ "schema": 1,
+ "house": "machinebehavior.io",
+ "source": "The public projection of the seats file the cockpit reads. Fields: seat, title, holder, areas, bundle; plus machinery and gates, listed by hand until a bundle manifest exists for the seat. No private field.",
+ "seats": [
+  {
+   "seat": "ceo",
+   "title": "Chief executive",
+   "holder": "Stefan Coetzee",
+   "areas": ["direction"],
+   "bundle": null,
+   "machinery": [
+    {"name": "direction", "what": "A weekly review that reads the tracker across all areas and writes the memo: what moved, what is blocked, the allocation of the week, and the decisions needed. A confirmed decision becomes a tracker item."},
+    {"name": "decisions", "what": "Requests for comments, numbered decision records with supersede links, and a review of the decision log."},
+    {"name": "cockpit", "what": "The queue of items that wait on the holder, one scorecard per area, and the 12-week trend."}
+   ],
+   "gates": [
+    {"check": "direction.review-memo", "what": "Every review memo names its date and period, carries the four sections, and gives every decision a status."},
+    {"check": "decisions.adr-fields", "what": "Every decision record has a status, an owner, and a date."}
+   ]
+  },
+  {
+   "seat": "cto",
+   "title": "Chief AI and technology officer",
+   "holder": "Stefan Coetzee",
+   "areas": ["delivery", "operations", "security", "ai"],
+   "bundle": null,
+   "machinery": [
+    {"name": "sdlc", "what": "The lifecycle of a change: tickets, a change review on every pull request, a test strategy, and a release with a rollback plan."},
+    {"name": "gate", "what": "The deploy gate: rules with pass and fail fixtures, run records, and a deploy job that waits for the gate."},
+    {"name": "docs", "what": "Pages with an owner and review dates, runbooks, and a sweep for stale pages."},
+    {"name": "observability and reliability", "what": "Dashboards as code, alert routes, availability targets per service, a status page, incidents, and postmortems."},
+    {"name": "security and compliance", "what": "Actions pinned to a commit and limited to an owner allowlist, a secrets scan, an access review, threat models, a quarantine for third-party text, a control map by clause number, and the legal baseline of a site."},
+    {"name": "ai-ops and red-team", "what": "A shared harness for coding agents with narrow permissions, spend metered per request, a coordinator pattern, and pressure tests with a known right answer."}
+   ],
+   "gates": [
+    {"check": "sdlc.traceability", "what": "Every change names a ticket or a decision."},
+    {"check": "gate.actions-pinned", "what": "Every action from outside the repository is pinned to a full commit."},
+    {"check": "gate.rule-fixtures", "what": "Every blocking rule has a pass fixture and a fail fixture."},
+    {"check": "docs.review", "what": "Every page has an owner, a review date, and a next review date."},
+    {"check": "security.secrets", "what": "No secret pattern in a tracked file."},
+    {"check": "security.action-owners", "what": "Every action comes from an owner on the allowlist."},
+    {"check": "reliability.service-catalog", "what": "Every service has an owner, an availability target, and a runbook."},
+    {"check": "observability.alert-routes", "what": "Every alert rule names a route and a runbook."},
+    {"check": "compliance.security-txt", "what": "The security contact file exists and has not expired."},
+    {"check": "compliance.no-third-party", "what": "No page loads a file from a third party."},
+    {"check": "ai-ops.agent-settings", "what": "The shared agent settings carry no secret and no wildcard permission."},
+    {"check": "red-team.run-records", "what": "Every pressure-test run names the expected and the observed decision."}
+   ]
+  },
+  {
+   "seat": "cfo",
+   "title": "Chief financial officer",
+   "holder": "Stefan Coetzee",
+   "areas": ["money"],
+   "bundle": null,
+   "machinery": [
+    {"name": "finops", "what": "A cost baseline from invoices and billing exports, showback per team or service, unit costs, an audit of the tool stack, and a cost export in one open format."},
+    {"name": "FinOps space", "what": "The public cost pages of the platform, each figure with its period and its source."}
+   ],
+   "gates": [
+    {"check": "finops.cost-provenance", "what": "Every cost figure on a page carries a date range and a source."}
+   ]
+  },
+  {
+   "seat": "chro",
+   "title": "Chief human resources officer",
+   "holder": "Stefan Coetzee",
+   "areas": ["people"],
+   "bundle": null,
+   "machinery": [
+    {"name": "hiring", "what": "An interview loop in which each stage collects one signal, rubrics with anchored levels, debriefs with evidence before votes, and the profile of the next platform owner."},
+    {"name": "handover", "what": "Training checklists per module, exit criteria, and a test plan that shows the new owner runs the platform from the docs alone."}
+   ],
+   "gates": [
+    {"check": "hiring.rubric-anchors", "what": "Every rubric dimension has anchored levels."},
+    {"check": "handover.module-owners", "what": "Every installed module has a named owner."}
+   ]
+  },
+  {
+   "seat": "publisher",
+   "title": "Publisher",
+   "holder": "Stefan Coetzee",
+   "areas": ["ai", "knowledge"],
+   "bundle": null,
+   "machinery": [
+    {"name": "aieo", "what": "A plain index for agents, structured data that matches the visible page, a fixed query set probed against AI search engines, and predictions hashed before a page goes live."},
+    {"name": "site gate", "what": "The conformity gate on every page of the house's sites, with public run records."},
+    {"name": "change review", "what": "An advisory review of every pull request by the coding agent, with no shell and no network, before the holder approves."},
+    {"name": "editorial standards", "what": "The standards on this page: sources and verification, the gates every piece passes, and how corrections are made."}
+   ],
+   "gates": [
+    {"check": "site gate, blocking tier", "what": "No placeholder text, a canonical link on every page, root-absolute links only, and no service closer, filler idiom, or stage hook in the copy."},
+    {"check": "aieo.prediction-hashes", "what": "Every prediction file matches its recorded hash."},
+    {"check": "private.terms", "what": "No private term reaches a public repository or page: a dry run on the owner's machine before every push, with the term list kept there."},
+    {"check": "approval", "what": "The holder approves and merges every change; an agent session never merges on its own."}
+   ]
+  },
+  {
+   "seat": "cko",
+   "title": "Chief knowledge officer",
+   "holder": "Stefan Coetzee",
+   "areas": ["knowledge"],
+   "bundle": null,
+   "machinery": [
+    {"name": "vault", "what": "A plain-Markdown knowledge base with keyword and semantic search served to the coding agent, seeded from an interview, and fed by a skill that turns documents into linked one-idea notes."},
+    {"name": "quarantine", "what": "Third-party text goes into a store outside every indexed folder; a local model with no tools returns a summary and never the raw text."},
+    {"name": "library", "what": "The catalog of files and works in the cockpit, rescanned on demand."},
+    {"name": "docs review sweep", "what": "Stale pages found, checked against the system they describe, and dated again only after that check."}
+   ],
+   "gates": [
+    {"check": "vault.private-boundary", "what": "Private folders and notes are never indexed, never returned, and refused on read."},
+    {"check": "docs.review", "what": "Every page has an owner, a review date, and a next review date."}
+   ]
+  }
+ ]
+}
