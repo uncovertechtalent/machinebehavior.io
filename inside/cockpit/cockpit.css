@@ -20,7 +20,7 @@ main.wrap.ck { max-width: 1100px; }
 
 /* the trend: one column per day, the bar scaled to the highest day */
 .ck-panel { padding: 14px 16px; min-width: 0; }
-.ck-panel h2 { margin: 0 0 10px; font: 400 var(--mb-text-xs)/1.4 var(--mb-font-mono); letter-spacing: 2.4px; text-transform: uppercase; color: var(--mb-text-dim); border: 0; padding: 0; }
+.ck-panel h2, .ck-panel h4 { margin: 0 0 10px; font: 400 var(--mb-text-xs)/1.4 var(--mb-font-mono); letter-spacing: 2.4px; text-transform: uppercase; color: var(--mb-text-dim); border: 0; padding: 0; }
 .ck-trend { margin: 0; }
 .ck-trend figcaption { font-size: var(--mb-text-sm); line-height: 1.45; color: var(--mb-text-soft); margin: 0 0 12px; max-width: 760px; }
 .ck-days { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(14, minmax(0, 1fr)); gap: 6px; }

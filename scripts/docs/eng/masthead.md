@@ -52,6 +52,7 @@ The build writes five blocks between `<!-- static:masthead-… -->` markers in `
 1. Edit `inside/masthead/seats.json`. A seat that moves to another person is one changed `holder`. A new gate needs a `where` from the map; a gate this site does not run cannot carry `site gate`.
 2. Set `updated` to today.
 3. Run the build, then `python3 scripts/site_chrome.py --check` and the gate dry run from `CLAUDE.md`.
-4. Open the pull request with the issue in its title.
+4. After a refresh of the committed `inside/cockpit/cockpit.json` or a move of the powersuit pin, run `python3 scripts/build_masthead.py` as well: the seat tabs and the area titles come from there, and the required check compares the page with both files (`scripts/build_powersuit.py` runs it after the cockpit build).
+5. Open the pull request with the issue in its title.
 
 The file is hand-edited for now. The seats file of the local cockpit, and a command that writes this public copy from it, are planned outside this repository.

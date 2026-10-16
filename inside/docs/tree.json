@@ -262,7 +262,7 @@
 },
 {
 "u": "/inside/docs/eng/adr-0032-masthead-from-a-seats-file/",
-"t": "\"ADR-0032: The masthead is built from a public seats file\"",
+"t": "ADR-0032: The masthead is built from a public seats file",
 "p": "/inside/docs/eng/decision-log/"
 },
 {

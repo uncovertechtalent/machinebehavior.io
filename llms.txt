@@ -131,7 +131,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (404 pages). S
 - [ADR-0029: Changes reach main through pull requests](https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/)
 - [ADR-0030: The CTO powersuit pages are built from the pinned release](https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/)
 - [ADR-0031: The cockpit page is built from the public GitHub Issues of the owner's repositories](https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/)
-- ["ADR-0032: The masthead is built from a public seats file"](https://machinebehavior.io/inside/docs/eng/adr-0032-masthead-from-a-seats-file/)
+- [ADR-0032: The masthead is built from a public seats file](https://machinebehavior.io/inside/docs/eng/adr-0032-masthead-from-a-seats-file/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

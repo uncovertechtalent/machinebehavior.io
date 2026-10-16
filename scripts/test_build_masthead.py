@@ -10,7 +10,7 @@ field, every seat renders with its areas, machinery and gates, text is escaped),
 
 Exits 1 when a case fails.
 """
-import contextlib, copy, io, json, os, shutil, sys, tempfile
+import contextlib, copy, io, json, os, re, shutil, sys, tempfile
 from pathlib import Path
 
 sys.dont_write_bytecode = True  # no __pycache__ in the repository
@@ -127,7 +127,7 @@ def main():
     ok('tabs: one label per seat', '<label for="mh-tab-ceo">Chief executive</label>' in tabs and '<label for="mh-tab-cto">Chief technology officer</label>' in tabs)
     ok('tabs: lens questions render', '<li>Does it move the goal?</li>' in tabs)
     cto = tabs[tabs.index('id="mh-panel-cto"'):]
-    ok('cto tab holds its areas only', 'id="delivery"' in cto and 'id="operations"' in cto and 'id="security"' not in cto and 'id="money"' not in cto)
+    ok('cto tab holds its areas only', 'id="mh-cto-delivery"' in cto and 'id="mh-cto-operations"' in cto and 'id="mh-cto-security"' not in cto and 'id="mh-cto-money"' not in cto)
     ok('cto tab lists the item of its area', 'Item 41' in cto and 'Item 83' not in cto)
     ceo = tabs[tabs.index('id="mh-panel-ceo"'):tabs.index('id="mh-panel-cto"')]
     ok('ceo tab has a tile per area', ceo.count('class="card ck-card mh-tile"') == len(bm.AREAS))
@@ -137,6 +137,11 @@ def main():
     ceo2 = bm.b_tabs(doc, with_decision)
     ok('ceo tab lists a decision', 'Pick a ledger' in ceo2[ceo2.index('id="mh-panel-ceo"'):ceo2.index('id="mh-panel-cto"')])
     ok('cockpit areas render unchanged through the shared function', bm.bc.b_areas(ck).count('class="ck-area"') == len(bm.AREAS))
+    ids = re.findall(r' id="([^"]+)"', tabs)
+    ok('every id in the tabs occurs once', len(ids) == len(set(ids)), str([i for i in ids if ids.count(i) > 1][:5]))
+    ok('an area shared by two seats carries a prefix per seat', 'id="mh-cto-operations"' in tabs and 'id="operations"' not in tabs)
+    ok('cockpit area ids carry no prefix', 'id="operations"' in bm.bc.b_areas(ck))
+    ok('no h2 inside a seat panel', '<h2' not in tabs)
 
     # 3. put_blocks needs every block exactly once
     page = '<p><!-- static:masthead-eyebrow --><!-- /static:masthead-eyebrow --></p>'

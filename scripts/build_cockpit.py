@@ -427,9 +427,10 @@ def card(x, day):
             f'<span>{plural(age, "day")} old</span></span></li>')
 
 
-def area_section(key, title, about, plugins, mine, day):
+def area_section(key, title, about, plugins, mine, day, prefix=''):
     """One area's section: its head with the plugins, its counts and mix, and its open items as cards. The masthead's
-    seat tabs render the same section for a seat's areas (#99, ADR-0032)."""
+    seat tabs render the same section for a seat's areas with an id prefix per seat, so a shared area keeps unique ids
+    on one page (#99, ADR-0032)."""
     c = counts(mine, day)
     live = sorted((x for x in mine if x['status'] in OPEN_STATUSES), key=lambda x: (STATUS_ORDER[x['status']], x['created'], x['repo'], x['number']))
     links = ' '.join(f'<a href="{esc(u)}"><code>{esc(n)}</code></a>' for n, u in plugins)
@@ -441,8 +442,8 @@ def area_section(key, title, about, plugins, mine, day):
     kinds += f'<div><dt>Oldest open</dt><dd>{plural(c["oldest"], "day") if c["oldest"] is not None else "none open"}</dd></div>'
     cards = (f'<ul class="ck-items">{"".join(card(x, day) for x in live)}</ul>' if live
              else '<p class="empty">Nothing open in this area.</p>')
-    return (f'<section class="ck-area" id="{key}" aria-labelledby="ck-{key}">'
-            f'<div class="ck-area-head"><h3 id="ck-{key}">{esc(title)}</h3><p>{esc(about)}</p>'
+    return (f'<section class="ck-area" id="{prefix}{key}" aria-labelledby="ck-{prefix}{key}">'
+            f'<div class="ck-area-head"><h3 id="ck-{prefix}{key}">{esc(title)}</h3><p>{esc(about)}</p>'
             f'<p class="ck-plugins"><span class="ck-label">Powersuit plugins</span><span>{links}</span></p></div>'
             f'<div class="ck-card"><dl class="ck-counts">{nums}</dl>'
             f'<div class="ck-mix{"" if mix else " ck-mix-none"}" aria-hidden="true">{mix}</div>'

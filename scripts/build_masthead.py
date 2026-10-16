@@ -333,15 +333,15 @@ def seat_panel(s, ck, info, day, titles):
                  f'<ul class="ck-kpis" aria-label="Totals across the eight areas">{bc.b_totals(ck)}</ul>'
                  f'{today_tiles(ck, info, day)}'
                  f'<h4 class="mh-sub">Open decisions</h4>{decisions(ck, day)}'
-                 f'<section class="card ck-panel" aria-labelledby="mh-trend-{esc(key)}"><h2 id="mh-trend-{esc(key)}">The last 14 days, all areas</h2>'
+                 f'<section class="card ck-panel" aria-labelledby="mh-trend-{esc(key)}"><h4 id="mh-trend-{esc(key)}">The last 14 days, all areas</h4>'
                  f'{bc.b_trend(ck)}</section>')
     else:
         body += (f'<p class="note">The cockpit\'s panels for this seat\'s areas only; items with an area label in the public cockpit '
                  f'data as of {bc.stamp(ck)}.</p>'
                  f'<ul class="ck-kpis" aria-label="Totals across the seat\'s areas">{bc.b_totals(f)}</ul>'
-                 f'<section class="card ck-panel" aria-labelledby="mh-trend-{esc(key)}"><h2 id="mh-trend-{esc(key)}">The last 14 days</h2>'
+                 f'<section class="card ck-panel" aria-labelledby="mh-trend-{esc(key)}"><h4 id="mh-trend-{esc(key)}">The last 14 days</h4>'
                  f'{bc.b_trend(f)}</section>'
-                 f'<div class="ck-areas">{"".join(bc.area_section(a, *info[a], [x for x in f["items"] if x["area"] == a], day) for a in areas)}</div>')
+                 f'<div class="ck-areas">{"".join(bc.area_section(a, *info[a], [x for x in f["items"] if x["area"] == a], day, prefix=f"mh-{key}-") for a in areas)}</div>')
     return f'<section class="mh-panel" id="mh-panel-{esc(key)}" aria-labelledby="mh-tab-h-{esc(key)}">{head}{body}</section>'
 
 

@@ -1,4 +1,4 @@
-title: "ADR-0032: The masthead is built from a public seats file"
+title: ADR-0032: The masthead is built from a public seats file
 summary: /inside/masthead/ shows the seats of the house, the holder of each, the machinery that runs its staff work, and the gates that apply with where each one runs, written by scripts/build_masthead.py from inside/masthead/seats.json; a contract check in the required job refuses a file outside the contract; the house name sits in one field; the product of the seats is called the C-suit.
 parent: decision-log
 order: 32

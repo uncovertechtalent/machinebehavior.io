@@ -50,9 +50,10 @@ jobs:
         # Here, in the required check that the deploy waits for, data that breaks the contract can neither merge nor deploy.
         run: python3 scripts/build_cockpit.py --check
 
-      - name: Masthead page matches seats.json
-        # #99: inside/masthead/seats.json holds the seats in the keys and forms of its contract, and the page's masthead
-        # blocks match it. No network.
+      - name: Masthead page matches seats.json and cockpit.json
+        # #99, ADR-0032: inside/masthead/seats.json holds the seats in the keys and forms of its contract; the page's masthead
+        # blocks match it and the committed cockpit.json (the seat tabs), and the page's sitemap date matches the file's
+        # updated date. No network.
         run: python3 scripts/build_masthead.py --check
 
       - name: Run the checks
@@ -206,6 +207,7 @@ jobs:
         # #99, ADR-0032: the seat tabs render the cockpit's panels per seat from inside/cockpit/cockpit.json; after the
         # fetch above they are as fresh as the cockpit. A failed build leaves the committed page in place.
         continue-on-error: true
+        timeout-minutes: 1
         run: python3 scripts/build_masthead.py
 
       - name: Upload site
