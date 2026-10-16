@@ -7,7 +7,7 @@ reviewed: 2026-10-13
 review_by: 2027-01-11
 type: explanation
 ---
-Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`; since [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) that push is a merged pull request or a bot commit. The workflow also runs every Monday at 06:17 UTC, by hand, and on every pull request to `main`. It has five jobs. Job 2 runs only if job 1 passes; jobs 3 and 5 run beside them and the deploy does not wait for them; job 4 runs after each successful deploy from `main`. A pull request run is the required check before the merge: it runs job 1 on the merge result of the pull request, commits nothing and skips job 2. The workflow grants no permissions itself; each job asks for its own, listed under its heading.
+Every push to `main` of machinebehavior.io starts the workflow `.github/workflows/conformity.yml`; since [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) that push is a merged pull request or a bot commit. The workflow also runs every Monday at 06:17 UTC, by hand, and on every pull request to `main`. It has six jobs. Job 2 runs only if job 1 passes; jobs 3 and 5 run beside them and the deploy does not wait for them; jobs 4 and 6 run after each successful deploy from `main`. A pull request run is the required check before the merge: it runs job 1 on the merge result of the pull request, commits nothing and skips job 2. The workflow grants no permissions itself; each job asks for its own, listed under its heading.
 
 ## Job 1: conformity checks
 
@@ -53,6 +53,16 @@ The key is public by design: the engines fetch `/a738b040f4845f81e1a541ccd2b9e05
 Permissions: `contents: read`.
 
 Runs the tests of the scripts this workflow runs, on every trigger, pull requests included: `python3 scripts/test_indexnow.py` ([#85](https://github.com/uncovertechtalent/machinebehavior.io/issues/85)). A failure fails this job and never blocks the deploy; it is a required check only if the ruleset names it.
+
+## Job 6: deploy to S3 and CloudFront
+
+Permissions: `id-token: write`, for the OIDC token the deploy role trusts. Runs on `main` after job 2, and only while the repository variable `S3_DEPLOY` is `on` ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)).
+
+1. Download the `github-pages` artifact job 2 uploaded, so both hosts serve the same bytes.
+2. Check out the deploy script of uncovertechtalent-git/site-infra at the commit pinned in the workflow.
+3. Exchange the job's OIDC token for a 15-minute session of the deploy role (role ARN, bucket and distribution are repository secrets, masked in the log), sync the build to the bucket with the content types and `Cache-Control` GitHub Pages sends, and invalidate the distribution.
+
+Until the cutover, GitHub Pages serves the site. A failed job 6 then leaves Pages live and up to date, though the [deploy exporter](doc:obs/deploy-exporter) records the run as failed: there is nothing to roll back; re-run the workflow. After the cutover CloudFront serves the site, and a failed job 6 means the live site did not change.
 
 ## What happens around a deploy
 

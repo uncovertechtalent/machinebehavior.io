@@ -12,6 +12,8 @@ type: how-to
 
 **If the gate failed instead,** there is nothing to roll back: the deploy did not run and the previous build is still live. Follow [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
 
+**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run the workflow.
+
 ## How a rollback works here
 
 The only path to the live site is a push to `main` that passes the gate ([Deploy pipeline](doc:eng/deploy-pipeline)), and changes reach `main` through pull requests ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A rollback is therefore a revert pull request that undoes the bad commit, and it goes through the same check, gate and deploy as any other change.
