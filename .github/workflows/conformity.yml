@@ -50,9 +50,10 @@ jobs:
         # Here, in the required check that the deploy waits for, data that breaks the contract can neither merge nor deploy.
         run: python3 scripts/build_cockpit.py --check
 
-      - name: Masthead page matches seats.json
-        # #99: inside/masthead/seats.json holds the seats in the keys and forms of its contract, and the page's masthead
-        # blocks match it. No network.
+      - name: Masthead page matches seats.json and cockpit.json
+        # #99, ADR-0032: inside/masthead/seats.json holds the seats in the keys and forms of its contract; the page's masthead
+        # blocks match it and the committed cockpit.json (the seat tabs), and the page's sitemap date matches the file's
+        # updated date. No network.
         run: python3 scripts/build_masthead.py --check
 
       - name: Run the checks
@@ -202,6 +203,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/build_cockpit.py --fetch
 
+      - name: Rebuild the masthead's seat tabs from the fresh cockpit data (artifact only, never committed)
+        # #99, ADR-0032: the seat tabs render the cockpit's panels per seat from inside/cockpit/cockpit.json; after the
+        # fetch above they are as fresh as the cockpit. A failed build leaves the committed page in place.
+        continue-on-error: true
+        timeout-minutes: 1
+        run: python3 scripts/build_masthead.py
+
       - name: Upload site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -313,7 +321,8 @@ jobs:
 
   script-tests:
     name: Script tests
-    # Tests of the site's scripts (#85, #90, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # Tests of the site's scripts (#85, #90, #99, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # scripts/test_build_masthead.py checks the seats.json contract, the masthead page blocks, and --check (#99);
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.

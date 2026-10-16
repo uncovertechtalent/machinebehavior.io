@@ -81,6 +81,11 @@
 "p": "/inside/docs/eng/"
 },
 {
+"u": "/inside/docs/eng/masthead/",
+"t": "Masthead page",
+"p": "/inside/docs/eng/"
+},
+{
 "u": "/inside/docs/eng/status-page/",
 "t": "Status page",
 "p": "/inside/docs/eng/"
@@ -253,6 +258,11 @@
 {
 "u": "/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/",
 "t": "ADR-0031: The cockpit page is built from the public GitHub Issues of the owner's repositories",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0032-masthead-from-a-seats-file/",
+"t": "ADR-0032: The masthead is built from a public seats file",
 "p": "/inside/docs/eng/decision-log/"
 },
 {
