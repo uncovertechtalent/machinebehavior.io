@@ -93,7 +93,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (402 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (404 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -131,6 +131,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (402 pages). S
 - [ADR-0029: Changes reach main through pull requests](https://machinebehavior.io/inside/docs/eng/adr-0029-changes-through-pull-requests/)
 - [ADR-0030: The CTO powersuit pages are built from the pinned release](https://machinebehavior.io/inside/docs/eng/adr-0030-powersuit-pages-from-the-release/)
 - [ADR-0031: The cockpit page is built from the public GitHub Issues of the owner's repositories](https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/)
+- ["ADR-0032: The masthead is built from a public seats file"](https://machinebehavior.io/inside/docs/eng/adr-0032-masthead-from-a-seats-file/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
@@ -141,6 +142,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (402 pages). S
 - [Docs tree](https://machinebehavior.io/inside/docs/eng/docs-tree/)
 - [Inside portal](https://machinebehavior.io/inside/docs/eng/inside-portal/)
 - [Map crawler](https://machinebehavior.io/inside/docs/eng/map-crawler/)
+- [Masthead page](https://machinebehavior.io/inside/docs/eng/masthead/)
 - [Gate blocked a deploy](https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/)
 - [Push rejected](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
 - [Roll back a deploy](https://machinebehavior.io/inside/docs/eng/runbook-rollback/)
