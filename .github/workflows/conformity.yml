@@ -313,7 +313,8 @@ jobs:
 
   script-tests:
     name: Script tests
-    # Tests of the site's scripts (#85, #90, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # Tests of the site's scripts (#85, #90, #99, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
+    # scripts/test_build_masthead.py checks the seats.json contract, the masthead page blocks, and --check (#99);
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.
