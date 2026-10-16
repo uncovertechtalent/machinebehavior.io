@@ -163,6 +163,7 @@ def b_lede(doc):
             f'{plural(n, "seat")}, {plural(len(h), "holder")} today: {who}. Each seat reads some of the eight areas of the '
             f'<a href="/inside/cockpit/">cockpit</a>, its staff work runs on the open modules of the '
             f'<a href="/cto-powersuit/">CTO powersuit</a>, and every piece passes the gates listed under the seat. '
+            f'The seats together are the C-suit: one suit per seat, the whole suit for a company. '
             f'The seats are a data file, <a href="/inside/masthead/seats.json">seats.json</a>; a seat that moves to another '
             f'person is one changed line in it.')
 

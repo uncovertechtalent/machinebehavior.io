@@ -77,6 +77,7 @@ for name, fn in FAILS.items():
 doc = base()
 lede = bm.b_lede(doc)
 ok('lede names the house from the one field', 'Example House is a publishing house' in lede)
+ok('lede names the C-suit', 'The seats together are the C-suit' in lede)
 ok('lede counts seats and holders', '2 seats, 2 holders today: A. Holder and B. Holder' in lede)
 one = variant(lambda d: d['seats'].pop())
 ok('lede with one holder', '1 seat, 1 holder today: A. Holder.' in bm.b_lede(one))
