@@ -65,6 +65,8 @@ main.wrap.mh { max-width: 1100px; }
 .mh-tile h4 { margin: 0 0 8px; font-size: var(--mb-text-md); }
 .mh-tile h4 a { text-decoration: none; }
 .mh-tile h4 a:hover { color: var(--mb-amber); }
+.mh-tile .ck-counts, .mh-tile .ck-kinds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 10px; }
+.mh-tile .ck-label { margin-top: 8px; }
 
 /* the standards */
 .mh .std h3 { margin: var(--mb-space-4) 0 6px; font-size: var(--mb-text-md); }
