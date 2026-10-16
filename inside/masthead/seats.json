@@ -105,7 +105,7 @@
     {"check": "site.consistency", "where": "site gate", "what": "A canonical link on every page, root-absolute links only, and every page in the sitemap."},
     {"check": "predictions.hashes", "where": "site gate", "what": "Every prediction file matches its recorded hash."},
     {"check": "private.terms", "where": "pre-push", "what": "A push that adds a private term stops on the holder's machine; the site gate runs the same check as a dry run only, with the list kept off the repository (issue 63)."},
-    {"check": "approval", "where": "policy", "what": "The holder approves and merges every change; an agent session never merges on its own. Denying the merge path to agent sessions is an open item (issue 51)."}
+    {"check": "approval", "where": "policy", "what": "The holder approves every change and merges it, or gives one session the go to merge it; no session merges without that go. Closing the merge path to sessions in the shared settings is an open item (issue 51)."}
    ]
   },
   {

@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import site_chrome  # noqa: E402
+import build_cockpit, site_chrome  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://machinebehavior.io'
@@ -35,9 +35,7 @@ DATA = ROOT / 'inside' / 'masthead' / 'seats.json'
 
 SCHEMA = 1
 SEATS = ['ceo', 'cto', 'cfo', 'chro', 'publisher', 'cko']  # masthead order
-AREAS = ['direction', 'delivery', 'operations', 'money', 'security', 'ai', 'people', 'knowledge']  # the cockpit's eight
-AREA_TITLES = {'direction': 'Direction', 'delivery': 'Delivery', 'operations': 'Operations', 'money': 'Money',
-               'security': 'Security and risk', 'ai': 'AI', 'people': 'People', 'knowledge': 'Knowledge layer'}
+AREAS = build_cockpit.AREA_KEYS  # the cockpit's eight, in its order; the titles come from the powersuit pages (ADR-0031)
 TOP_KEYS = {'schema', 'updated', 'house', 'source', 'where', 'seats'}
 SEAT_KEYS = {'seat', 'title', 'holder', 'areas', 'bundle', 'machinery', 'gates'}
 NAME_RX = re.compile(r'[A-Za-z0-9][A-Za-z0-9 .,&/:()-]{0,79}')   # titles, holders, machinery and gate names, where keys
@@ -234,10 +232,16 @@ def b_where(doc):
             + '</dl>')
 
 
+def area_titles():
+    """Area key to title, from site/powersuit.yml and cto-powersuit/modules.json through the cockpit generator."""
+    return {key: info[0] for key, info in build_cockpit.area_info().items()}
+
+
 def b_seats(doc):
+    titles = area_titles()
     out = ['<div class="mh-seats">']
     for s in doc['seats']:
-        areas = ''.join(f'<li><a href="/inside/cockpit/#{esc(a)}">{esc(AREA_TITLES[a])}</a></li>' for a in s['areas'])
+        areas = ''.join(f'<li><a href="/inside/cockpit/#{esc(a)}">{esc(titles[a])}</a></li>' for a in s['areas'])
         machinery = ''.join(f'<li><b>{esc(r["name"])}</b> {esc(r["what"])}</li>' for r in s['machinery'])
         gates = ''.join(f'<li><code>{esc(r["check"])}</code> <span class="mh-where-chip">{esc(r["where"])}</span> {esc(r["what"])}</li>'
                         for r in s['gates'])
