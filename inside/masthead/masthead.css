@@ -1,0 +1,35 @@
+/* The masthead page /inside/masthead/, written by scripts/build_masthead.py from inside/masthead/seats.json (#99).
+   Linked from this page only, after docs.css and inside.css. Colours, type, radii, and the main spacing come from
+   /design/tokens.css (ADR-0025); a few layout lengths are set here. */
+
+main.wrap.mh { max-width: 1100px; }
+.mh-head { margin-bottom: var(--mb-space-4); }
+.mh-head .lede { max-width: 760px; }
+.mh .sec { margin-top: var(--mb-space-6); }
+.mh .note, .mh .std p { max-width: 760px; }
+.mh-label { font: var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--mb-text-dim); margin: 0; }
+
+/* the seats */
+.mh-seats { display: grid; gap: 14px; }
+.mh-seat { padding: 16px 18px; min-width: 0; }
+.mh-seat h3 { margin: 2px 0 4px; font-size: var(--mb-text-lg); line-height: 1.2; }
+.mh-holder { margin: 0 0 8px; font-size: var(--mb-text-sm); color: var(--mb-text-soft); }
+.mh-areas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
+.mh-areas li a { display: inline-block; font: var(--mb-text-xs)/1.4 var(--mb-font-mono); padding: 2px 8px; border: 1px solid var(--mb-line); border-radius: 6px; color: var(--mb-text-soft); text-decoration: none; }
+.mh-areas li a:hover { border-color: var(--mb-amber); color: var(--mb-text); }
+.mh-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
+.mh-cols h4 { margin: 0 0 6px; font: 400 var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 2px; text-transform: uppercase; color: var(--mb-text-dim); }
+.mh-list { margin: 0; padding: 0; list-style: none; }
+.mh-list li { font-size: var(--mb-text-sm); line-height: 1.5; color: var(--mb-text-soft); padding: 5px 0; border-top: 1px solid var(--mb-line); }
+.mh-list li:first-child { border-top: 0; padding-top: 0; }
+.mh-list b { color: var(--mb-text); font-weight: 500; }
+.mh-list code { font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text); }
+
+/* the standards */
+.mh .std h3 { margin: var(--mb-space-4) 0 6px; font-size: var(--mb-text-md); }
+.mh .std ul { max-width: 760px; padding-left: 20px; }
+.mh .std li { margin: 4px 0; line-height: 1.5; }
+
+@media (max-width: 720px) {
+  .mh-cols { grid-template-columns: minmax(0, 1fr); }
+}

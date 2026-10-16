@@ -50,6 +50,11 @@ jobs:
         # Here, in the required check that the deploy waits for, data that breaks the contract can neither merge nor deploy.
         run: python3 scripts/build_cockpit.py --check
 
+      - name: Masthead page matches seats.json
+        # #99: inside/masthead/seats.json holds the seats in the keys and forms of its contract, and the page's masthead
+        # blocks match it. No network.
+        run: python3 scripts/build_masthead.py --check
+
       - name: Run the checks
         uses: $/.github/actions/conformity  # self-repository form (#70): the gate counts $/ as local (run.py pin_refs, #66); actionlint 1.7.12 does not know it yet
         with:
@@ -331,6 +336,9 @@ jobs:
 
       - name: Cockpit contract, GitHub read, and page blocks
         run: python3 scripts/test_build_cockpit.py
+
+      - name: Masthead contract and page blocks
+        run: python3 scripts/test_build_masthead.py
 
       - name: Powersuit pages match the pinned release
         # A newer powersuit tag fails scheduled and push runs and only warns on a pull request, so it never turns an

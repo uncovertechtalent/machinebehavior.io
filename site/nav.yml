@@ -139,6 +139,9 @@ sections:
       - title: Cockpit
         url: /inside/cockpit/
         about: The CTO powersuit cockpit on the public work. Issues of the public repositories by area of the CTO job, with a scorecard per area.
+      - title: Masthead
+        url: /inside/masthead/
+        about: The seats of the house, who holds each, the machinery that runs its staff work, the gates that apply, and the editorial standards.
       - title: Services
         url: /inside/services/
         auto: services
