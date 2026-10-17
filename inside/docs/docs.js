@@ -7,13 +7,19 @@
     (kids || []).forEach(function (c) { e.appendChild(c); });
     return e;
   }
-  // page tree: collapsed on small screens
+  // page tree: collapsed on small screens. Above 820 px its summary is hidden, so a tree closed on a narrow load could
+  // not be opened again: it opens when the window grows past that width (scripts/test_docs_tree.mjs). An open tree
+  // scrolls the current page into view.
   var side = document.querySelector('.side-wrap');
-  if (side && window.matchMedia('(max-width: 820px)').matches) side.removeAttribute('open');
-  var cur = document.querySelector('.side a[aria-current="page"]');
-  if (cur && side && side.open) {
-    var box = document.querySelector('.side');
-    if (box && cur.offsetTop > box.clientHeight - 80) box.scrollTop = cur.offsetTop - box.clientHeight / 3;
+  function reveal() {
+    var cur = document.querySelector('.side a[aria-current="page"]'), box = document.querySelector('.side');
+    if (cur && box && cur.offsetTop > box.clientHeight - 80) box.scrollTop = cur.offsetTop - box.clientHeight / 3;
+  }
+  if (side) {
+    var narrow = window.matchMedia('(max-width: 820px)');
+    if (narrow.matches) side.removeAttribute('open');
+    if (side.open) reveal();
+    narrow.addEventListener('change', function (e) { if (!e.matches && !side.open) { side.setAttribute('open', ''); reveal(); } });
   }
 
   // on this page: mark the heading in view

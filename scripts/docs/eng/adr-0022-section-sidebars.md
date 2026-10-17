@@ -19,7 +19,7 @@ The docs had a page tree beside every page; the research pages and the Inside pa
 
 `side()` in `scripts/site_chrome.py` writes the sidebar of the Research and Inside sections (`SIDEBARS`) from `site/nav.yml`, between `<!-- mb:side -->` markers, before the reading column or `<main>`. It lists every page of the section: groups (Case files, Articles, Reference) as headings, a page with children (Services) as a disclosure that is open when the current page is inside it, and the current page marked with `aria-current="page"`. The Docs section keeps its own space tree from `scripts/build_docs.py`; Home and Map have no sidebar.
 
-From 1100 px the sidebar is a column of 264 px beside the content, sticky under the top bar, and the page body becomes a two-column grid. Below 1100 px it is a disclosure above the content that names the section and its page count; `/inside/bar.js` closes it on load, and without JavaScript it stays open. The reading column keeps its width of 660 px in both cases.
+From 1100 px the sidebar is a column of 264 px beside the content, sticky under the top bar, and the page body becomes a two-column grid. Below 1100 px it is a disclosure above the content that names the section and its page count; `/inside/bar.js` closes it on load and opens it again when the window grows to 1100 px or more, where its summary is hidden, and without JavaScript it stays open. The docs space tree does the same at its own width of 820 px (`/inside/docs/docs.js`). The reading column keeps its width of 660 px in both cases.
 
 ## Consequences
 
