@@ -23,7 +23,7 @@ topics:
   - key: conformity-and-law
     title: Conformity and law
     about: Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
-    pages: [/continuous-conformity/, /continuous-conformity-self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
+    pages: [/continuous-conformity/, /continuous-conformity/why-test-the-running-system/, /continuous-conformity/the-six-month-problem/, /continuous-conformity-self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
     docs_labels: [conformity, gate, self-assessment]
     docs_spaces: [std]
     post_words: [conformity, regulation]
