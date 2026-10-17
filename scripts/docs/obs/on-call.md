@@ -67,7 +67,7 @@ Inhibition keeps one cause to one alert, within the same Prometheus: `OllamaDown
 
 ## Watching the alerting path
 
-Nothing inside the house can report that the house is down, so the last check sits outside. Alertmanager sends each Prometheus's `Watchdog` to its own check every 5 minutes; a check that gets no ping for 5 minutes past its period alarms into the alerting-path channel and by e-mail, from outside. A stopped Prometheus, Alertmanager, home server or uplink all stop the pings. Inside, the pager cannot report its own outage either, so `PagerDown`, `PagerDisconnected` and `PagerFailing` (a Discord call that failed for an incident) go past it by webhook, and so does a notification Alertmanager gave up on.
+Nothing inside the house can report that the house is down, so the last check sits outside. Both Watchdogs ping their checks; the alarm on a stopped Watchdog is not yet tested end to end. Alertmanager sends each Prometheus's `Watchdog` to its own check every 5 minutes; a check that gets no ping for 5 minutes past its period alarms into the alerting-path channel and by e-mail, from outside. A stopped Prometheus, Alertmanager, home server or uplink all stop the pings. Inside, the pager cannot report its own outage either, so `PagerDown`, `PagerDisconnected` and `PagerFailing` (a Discord call that failed for an incident) go past it by webhook, and so does a notification Alertmanager gave up on.
 
 `scripts/check-alerting.sh` in the stack's repository checks it all without sending anything: promtool on the Prometheus config and every rule test, amtool on the Alertmanager config and its routing tree, every alert rule's severity against the receivers it promises, and the unit tests of the ticket receiver and the pager.
 

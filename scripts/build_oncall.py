@@ -40,6 +40,7 @@ DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 RECORD = re.compile(r'<!-- pager-record (\[.*?\]) -->', re.S)
 ISO = re.compile(r'\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ')
 NAME = re.compile(r"[\w .,'()-]{1,80}")
+DRILL = re.compile(r'PagerTest.*')  # test pages: listed as drills, left out of the weekly load
 ALERT = re.compile(r'[A-Za-z_:][A-Za-z0-9_:]{0,99}')
 
 
@@ -156,6 +157,8 @@ def records_from_issue(issue):
 
 def page_rows(views, rot, now):
     primary = rot['escalation_policy']['rules'][0]['schedule']
+    # Only names the rotation knows, or Alertmanager itself: anything else (an ID, a stranger's name) becomes None.
+    known = {p['name'] for p in rot['people'].values()} | {'Alertmanager', 'Alertmanager (stale)'}
     rows = []
     for v in views:
         if not (isinstance(v.get('alert'), str) and ALERT.fullmatch(v['alert']) and isinstance(v.get('fired'), str)
@@ -167,10 +170,10 @@ def page_rows(views, rot, now):
         clean = lambda x: x.replace('\u200b', '') if isinstance(x, str) else None  # noqa: E731
         num = lambda x: x if isinstance(x, int) and not isinstance(x, bool) and x >= 0 else None  # noqa: E731
         ack, res = clean(v.get('acknowledged_by')), clean(v.get('resolved_by'))
-        rows.append({'alert': v['alert'], 'fired': v['fired'],
-                     'acknowledged_by': ack if ack and NAME.fullmatch(ack) else None,
+        rows.append({'alert': v['alert'], 'fired': v['fired'], 'drill': bool(DRILL.fullmatch(v['alert'])),
+                     'acknowledged_by': ack if ack in known else None,
                      'time_to_acknowledge_s': num(v.get('time_to_acknowledge_s')),
-                     'resolved_by': res if res and NAME.fullmatch(res) else None,
+                     'resolved_by': res if res in known else None,
                      'time_to_resolve_s': num(v.get('time_to_resolve_s')),
                      'responder_ran': v.get('responder_ran') is True,
                      'out_of_hours': who(rot, primary, fired) is None})
@@ -183,7 +186,7 @@ def weeks(rows, now):
     for back in range(WEEKS - 1, -1, -1):
         y, w, _ = (now - datetime.timedelta(weeks=back)).isocalendar()
         key = f'{y}-W{w:02d}'
-        mine = [r for r in rows if '{}-W{:02d}'.format(*utc(r['fired']).isocalendar()[:2]) == key]
+        mine = [r for r in rows if not r['drill'] and '{}-W{:02d}'.format(*utc(r['fired']).isocalendar()[:2]) == key]
         ttas = [r['time_to_acknowledge_s'] for r in mine if r['time_to_acknowledge_s'] is not None]
         out.append({'week': key, 'pages': len(mine), 'out_of_hours': sum(r['out_of_hours'] for r in mine),
                     'median_tta_s': int(statistics.median(ttas)) if ttas else None})
@@ -208,7 +211,7 @@ SHAPE = {
     'layers': [{'schedule': 'key', 'name': 'name', 'members': ['name'], 'hours': 'text'}],
     'policy': {'name': 'name', 'steps': [{'after_min': 'int', 'schedule': 'key'}], 'renotify_min': 'int', 'renotify_limit': 'int'},
     'overrides': [{'person': 'name', 'schedule': 'key', 'start': 'iso', 'end': 'iso'}],
-    'pages': [{'alert': 'alert', 'fired': 'iso', 'acknowledged_by': 'name?', 'time_to_acknowledge_s': 'int?',
+    'pages': [{'alert': 'alert', 'fired': 'iso', 'drill': 'bool', 'acknowledged_by': 'name?', 'time_to_acknowledge_s': 'int?',
                'resolved_by': 'name?', 'time_to_resolve_s': 'int?', 'responder_ran': 'bool', 'out_of_hours': 'bool'}],
     'weeks': [{'week': 'week', 'pages': 'int', 'out_of_hours': 'int', 'median_tta_s': 'int?'}],
 }
@@ -216,7 +219,7 @@ FORMS = {
     'iso': lambda v: isinstance(v, str) and ISO.fullmatch(v),
     'tz': lambda v: isinstance(v, str) and re.fullmatch(r'[A-Za-z_]+(/[A-Za-z_]+)*', v),
     'key': lambda v: isinstance(v, str) and re.fullmatch(r'[a-z][a-z0-9_-]{0,39}', v),
-    'name': lambda v: isinstance(v, str) and NAME.fullmatch(v),
+    'name': lambda v: isinstance(v, str) and NAME.fullmatch(v) and not re.search(r'\d{15,}', v),
     'kind': lambda v: v in ('human', 'agent'),
     'text': lambda v: isinstance(v, str) and len(v) <= 300 and not re.search(r'[<>]|https?://|\d{15,}', v),
     'alert': lambda v: isinstance(v, str) and ALERT.fullmatch(v),
@@ -272,9 +275,9 @@ def render(data):
         out.append(f'<tr><td>{e(oc["schedule"])}</td><td>{person}</td><td>{lays}</td></tr>')
     out.append('</tbody></table></div>')
     pol = data['policy']
-    def when(minutes):
+    def delay(minutes):
         return 'At once' if minutes == 0 else f'After {minutes} minutes'
-    steps = ''.join(f'<li>{when(s["after_min"])}: {e(s["schedule"])}</li>' for s in pol['steps'])
+    steps = ''.join(f'<li>{delay(s["after_min"])}: {e(s["schedule"])}</li>' for s in pol['steps'])
     out += [f'<h3>Escalation policy: {e(pol["name"])}</h3>', f'<ol>{steps}</ol>',
             f'<p>Until somebody acknowledges, the person on call is mentioned again every {pol["renotify_min"]} '
             f'minutes, {pol["renotify_limit"]} times. A level with nobody on call passes the page on at once.</p>']
@@ -286,7 +289,7 @@ def render(data):
         out.append('<div class="tbl"><table><thead><tr><th>Fired (UTC)</th><th>Alert</th><th>Acknowledged</th>'
                    '<th>Time to acknowledge</th><th>Resolved by</th><th>Time to resolve</th></tr></thead><tbody>')
         for p in data['pages']:
-            when = p['fired'][:16].replace('T', ' ') + (' (out of hours)' if p['out_of_hours'] else '')
+            when = p['fired'][:16].replace('T', ' ') + (' (out of hours)' if p['out_of_hours'] else '') + (' (drill)' if p['drill'] else '')
             ack = e(p['acknowledged_by']) if p['acknowledged_by'] else ('responder only' if p['responder_ran'] else 'no')
             out.append(f'<tr><td>{when}</td><td><code>{e(p["alert"])}</code></td><td>{ack}</td>'
                        f'<td>{span(p["time_to_acknowledge_s"])}</td><td>{e(p["resolved_by"] or "open")}</td>'
@@ -294,8 +297,9 @@ def render(data):
         out.append('</tbody></table></div>')
     else:
         out.append(f'<p>No page has gone through the pager in the last {WEEKS} weeks.</p>')
-    out.append('<h3>Pager load per week</h3><div class="tbl"><table><thead><tr><th>Week</th><th>Pages</th>'
-               '<th>Out of hours</th><th>Median time to acknowledge</th></tr></thead><tbody>')
+    out.append('<h3>Pager load per week</h3><p>Drills left out. Out of hours means nobody was on the primary schedule '
+               'when the page fired, by the current rotation.</p><div class="tbl"><table><thead><tr><th>Week</th>'
+               '<th>Pages</th><th>Out of hours</th><th>Median time to acknowledge</th></tr></thead><tbody>')
     for w in data['weeks']:
         out.append(f'<tr><td>{w["week"]}</td><td>{w["pages"]}</td><td>{w["out_of_hours"]}</td><td>{span(w["median_tta_s"])}</td></tr>')
     out.append('</tbody></table></div>')
@@ -311,7 +315,7 @@ def render(data):
 def fetch(url, raw=False):
     last = None
     for auth in (True, False):
-        if auth and not os.environ.get('GH_TOKEN'):
+        if auth and (raw or not os.environ.get('GH_TOKEN')):  # raw files are read without the token
             continue
         h = {'User-Agent': 'machinebehavior.io on-call snapshot'}
         if not raw:

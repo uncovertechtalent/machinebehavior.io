@@ -82,12 +82,20 @@ class RecordsTest(unittest.TestCase):
 
     def test_rows_drop_bad_entries_and_flag_out_of_hours(self):
         views = [record(), record(fired='2026-10-16T21:30:00Z'), record(alert='bad name!'), record(fired='yesterday'),
-                 record(fired='2026-07-01T10:00:00Z'), record(acknowledged_by='Ste​fan <b>', time_to_acknowledge_s=True)]
+                 record(fired='2026-07-01T10:00:00Z'), record(acknowledged_by='Ste\u200bfan <b>', time_to_acknowledge_s=True)]
         rows = bo.page_rows(views, ROT, NOW)
         self.assertEqual([r['fired'] for r in rows], ['2026-10-17T10:00:00Z', '2026-10-17T10:00:00Z', '2026-10-16T21:30:00Z'])
         self.assertEqual([r['out_of_hours'] for r in rows], [False, False, True])
         self.assertIn(None, [r['acknowledged_by'] for r in rows])  # a name with markup is dropped, not escaped into the data
         self.assertIn(None, [r['time_to_acknowledge_s'] for r in rows])
+
+    def test_only_rotation_names_survive_and_drills_stay_out_of_the_load(self):
+        rows = bo.page_rows([record(acknowledged_by='123456789012345678'), record(acknowledged_by='Somebody Else'),
+                             record(alert='PagerTestNoAck', resolved_by='Alertmanager (stale)')], ROT, NOW)
+        self.assertEqual([r['acknowledged_by'] for r in rows], [None, None, 'Stefan Coetzee'])
+        self.assertEqual([r['drill'] for r in rows], [False, False, True])
+        self.assertEqual(rows[2]['resolved_by'], 'Alertmanager (stale)')
+        self.assertEqual(bo.weeks(rows, NOW)[-1]['pages'], 2)
 
     def test_weeks_count_and_median(self):
         rows = bo.page_rows([record(), record(time_to_acknowledge_s=60), record(fired='2026-10-08T10:00:00Z')], ROT, NOW)
@@ -115,6 +123,7 @@ class ContractTest(unittest.TestCase):
         d = copy.deepcopy(self.data); d['on_call'][0]['description'] = 'see https://discord.com/x'; cases.append(d)
         d = copy.deepcopy(self.data); d['html'] = d['html'].replace('Stefan', 'Someone'); cases.append(d)
         d = copy.deepcopy(self.data); d['weeks'][0]['pages'] = -1; cases.append(d)
+        d = copy.deepcopy(self.data); d['pages'][0]['acknowledged_by'] = '123456789012345678'; cases.append(d)
         for d in cases:
             with self.assertRaises(bo.ContractError):
                 bo.check(d)
