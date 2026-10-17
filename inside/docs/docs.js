@@ -9,7 +9,8 @@
   }
   // page tree: collapsed on small screens. Above 820 px its summary is hidden, so a tree closed on a narrow load could
   // not be opened again: it opens when the window grows past that width (scripts/test_docs_tree.mjs). An open tree
-  // scrolls the current page into view.
+  // scrolls the current page into view. Safari before 14 has addListener only; a call to a missing addEventListener
+  // would throw and stop the rest of this script ("on this page", "report an issue").
   var side = document.querySelector('.side-wrap');
   function reveal() {
     var cur = document.querySelector('.side a[aria-current="page"]'), box = document.querySelector('.side');
@@ -19,7 +20,9 @@
     var narrow = window.matchMedia('(max-width: 820px)');
     if (narrow.matches) side.removeAttribute('open');
     if (side.open) reveal();
-    narrow.addEventListener('change', function (e) { if (!e.matches && !side.open) { side.setAttribute('open', ''); reveal(); } });
+    var onChange = function (e) { if (!e.matches && !side.open) { side.setAttribute('open', ''); reveal(); } };
+    if (narrow.addEventListener) narrow.addEventListener('change', onChange);
+    else if (narrow.addListener) narrow.addListener(onChange);
   }
 
   // on this page: mark the heading in view
