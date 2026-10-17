@@ -98,6 +98,11 @@ sections:
           - title: Continuous conformity
             url: /continuous-conformity/
             published: 2026-10-09
+            pages:
+              - title: Why test the running system
+                url: /continuous-conformity/why-test-the-running-system/
+              - title: The six-month problem
+                url: /continuous-conformity/the-six-month-problem/
           - title: Self-assessment, run 1
             url: /continuous-conformity-self-assessment/
             published: 2026-10-03

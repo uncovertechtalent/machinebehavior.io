@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-13",
+ "generated": "2026-10-17",
  "source": "site/topics.yml",
  "topics": [
   {
@@ -73,6 +73,8 @@
    "about": "Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.",
    "pages": [
     "/continuous-conformity/",
+    "/continuous-conformity/why-test-the-running-system/",
+    "/continuous-conformity/the-six-month-problem/",
     "/continuous-conformity-self-assessment/",
     "/evidence/",
     "/case-12-licence-rule-mid-task/",
@@ -295,7 +297,6 @@
    "tickets": [
     83,
     82,
-    80,
     79,
     76,
     40,
@@ -306,6 +307,7 @@
     12,
     11,
     10,
+    80,
     70,
     61,
     59,
@@ -783,11 +785,72 @@
    ],
    "posts": [],
    "tickets": [
+    85,
     43
    ]
   }
  ],
  "issues": [
+  {
+   "n": 99,
+   "t": "Masthead and editorial standards at /inside/masthead/",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/99",
+   "labels": [],
+   "closed": "2026-10-16",
+   "reason": "completed"
+  },
+  {
+   "n": 97,
+   "t": "Build-exit CTO definition on the CTO page; Fix your models on the home page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/97",
+   "labels": [],
+   "closed": "2026-10-16",
+   "reason": "completed"
+  },
+  {
+   "n": 90,
+   "t": "CTO powersuit pages: tiles by area, a plugin sidebar, and one page per plugin",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/90",
+   "labels": [
+    "type: feature",
+    "P2",
+    "area: site",
+    "area:ai",
+    "kind:action"
+   ],
+   "closed": "2026-10-14",
+   "reason": "completed"
+  },
+  {
+   "n": 88,
+   "t": "your-next-cto: $4M savings dated FY23, the public source says 2022",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/88",
+   "labels": [
+    "area:direction",
+    "kind:finding"
+   ],
+   "closed": "2026-10-13",
+   "reason": "completed"
+  },
+  {
+   "n": 85,
+   "t": "CTO powersuit landing page at /cto-powersuit/ and IndexNow submission after each deploy",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/85",
+   "labels": [
+    "type: feature",
+    "P2",
+    "area: site",
+    "area:ai",
+    "kind:action"
+   ],
+   "closed": "2026-10-13",
+   "reason": "completed"
+  },
   {
    "n": 83,
    "t": "Internal dashboards and stores: access by identity in place of the home network",
@@ -797,7 +860,9 @@
     "type: feature",
     "area: observability",
     "area: security",
-    "P3"
+    "P3",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -812,7 +877,9 @@
     "area: gate",
     "area: security",
     "P3",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -820,17 +887,19 @@
   {
    "n": 80,
    "t": "SRE principles: zero trust as an operating principle",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/80",
    "labels": [
     "type: docs",
     "area: docs",
     "area: security",
     "P2",
-    "status: in progress"
+    "status: in progress",
+    "area:security",
+    "kind:action"
    ],
-   "closed": "",
-   "reason": ""
+   "closed": "2026-10-13",
+   "reason": "completed"
   },
   {
    "n": 79,
@@ -841,7 +910,9 @@
     "type: feature",
     "area: security",
     "P2",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:decision"
    ],
    "closed": "",
    "reason": ""
@@ -849,18 +920,24 @@
   {
    "n": 77,
    "t": "Dependabot cannot open pull requests for the tool pins under .github/",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/77",
-   "labels": [],
-   "closed": "",
-   "reason": ""
+   "labels": [
+    "area:security",
+    "kind:finding"
+   ],
+   "closed": "2026-10-13",
+   "reason": "completed"
   },
   {
    "n": 76,
    "t": "Move CONFORMITY_PUSH_KEY to an environment limited to main",
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/76",
-   "labels": [],
+   "labels": [
+    "area:security",
+    "kind:action"
+   ],
    "closed": "",
    "reason": ""
   },
@@ -869,7 +946,10 @@
    "t": "PR flow: run the local review until the CI review has a key",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/74",
-   "labels": [],
+   "labels": [
+    "area:delivery",
+    "kind:action"
+   ],
    "closed": "2026-10-12",
    "reason": "completed"
   },
@@ -878,7 +958,10 @@
    "t": "Change review: load the sdlc plugin from cto-powersuit a56fd89 (sdlc 0.2.2)",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/72",
-   "labels": [],
+   "labels": [
+    "area:delivery",
+    "kind:action"
+   ],
    "closed": "2026-10-12",
    "reason": "completed"
   },
@@ -887,7 +970,10 @@
    "t": "Load the conformity action with the self-repository form (uses: $/...)",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/70",
-   "labels": [],
+   "labels": [
+    "area:delivery",
+    "kind:action"
+   ],
    "closed": "2026-10-12",
    "reason": "completed"
   },
@@ -896,7 +982,10 @@
    "t": "Change review in CI with the repository's public context, and CodeRabbit guidance",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/68",
-   "labels": [],
+   "labels": [
+    "area:delivery",
+    "kind:action"
+   ],
    "closed": "2026-10-12",
    "reason": "completed"
   },
@@ -905,7 +994,10 @@
    "t": "Workflow security: zizmor, job-level permissions and CODEOWNERS",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/65",
-   "labels": [],
+   "labels": [
+    "area:security",
+    "kind:action"
+   ],
    "closed": "2026-10-12",
    "reason": "completed"
   },
@@ -914,7 +1006,10 @@
    "t": "Gate check private.terms: private terms stay out of the repository and the pages (dry run only)",
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/63",
-   "labels": [],
+   "labels": [
+    "area:security",
+    "kind:action"
+   ],
    "closed": "",
    "reason": ""
   },
@@ -927,7 +1022,9 @@
     "type: feature",
     "area: gate",
     "area: security",
-    "P2"
+    "P2",
+    "area:security",
+    "kind:action"
    ],
    "closed": "2026-10-11",
    "reason": "completed"
@@ -941,7 +1038,9 @@
     "type: feature",
     "area: gate",
     "area: security",
-    "P2"
+    "P2",
+    "area:security",
+    "kind:action"
    ],
    "closed": "2026-10-11",
    "reason": "completed"
@@ -955,7 +1054,9 @@
     "type: chore",
     "area: gate",
     "area: security",
-    "P2"
+    "P2",
+    "area:security",
+    "kind:action"
    ],
    "closed": "2026-10-11",
    "reason": "completed"
@@ -965,7 +1066,10 @@
    "t": "Incident record and four docs state 81 seconds; run history gives 76",
    "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/53",
-   "labels": [],
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
    "closed": "2026-10-11",
    "reason": "completed"
   },
@@ -974,7 +1078,10 @@
    "t": "Agent sessions: deny pull-request merges through gh api",
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/51",
-   "labels": [],
+   "labels": [
+    "area:ai",
+    "kind:action"
+   ],
    "closed": "",
    "reason": ""
   },
@@ -983,7 +1090,10 @@
    "t": "Link the published CTO powersuit repository",
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/48",
-   "labels": [],
+   "labels": [
+    "area:ai",
+    "kind:action"
+   ],
    "closed": "",
    "reason": ""
   },
@@ -996,7 +1106,9 @@
     "type: feature",
     "P1",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1010,7 +1122,9 @@
     "type: feature",
     "P1",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:ai",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1025,7 +1139,9 @@
     "area: inside",
     "area: observability",
     "P1",
-    "status: in progress"
+    "status: in progress",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1039,7 +1155,9 @@
     "type: feature",
     "area: observability",
     "P2",
-    "status: ready"
+    "status: ready",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1053,7 +1171,9 @@
     "type: feature",
     "area: docs",
     "area: gate",
-    "P2"
+    "P2",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1066,7 +1186,9 @@
    "labels": [
     "type: chore",
     "area: gate",
-    "P3"
+    "P3",
+    "area:delivery",
+    "kind:finding"
    ],
    "closed": "",
    "reason": ""
@@ -1080,7 +1202,9 @@
     "type: docs",
     "area: observability",
     "P2",
-    "status: ready"
+    "status: ready",
+    "area:operations",
+    "kind:decision"
    ],
    "closed": "",
    "reason": ""
@@ -1094,7 +1218,9 @@
     "type: feature",
     "area: observability",
     "P2",
-    "status: ready"
+    "status: ready",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1108,7 +1234,9 @@
     "type: feature",
     "area: observability",
     "P1",
-    "status: blocked"
+    "status: blocked",
+    "area:operations",
+    "kind:decision"
    ],
    "closed": "",
    "reason": ""
@@ -1122,7 +1250,9 @@
     "type: docs",
     "area: docs",
     "P2",
-    "status: in progress"
+    "status: in progress",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1136,7 +1266,9 @@
     "type: feature",
     "P1",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1150,7 +1282,9 @@
     "type: feature",
     "P2",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1164,7 +1298,9 @@
     "type: feature",
     "P1",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1178,7 +1314,9 @@
     "type: feature",
     "P1",
     "status: in progress",
-    "area: site"
+    "area: site",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1191,7 +1329,9 @@
    "labels": [
     "type: feature",
     "area: inside",
-    "P1"
+    "P1",
+    "area:people",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1205,7 +1345,9 @@
     "type: chore",
     "area: observability",
     "P2",
-    "status: ready"
+    "status: ready",
+    "area:money",
+    "kind:finding"
    ],
    "closed": "",
    "reason": ""
@@ -1218,7 +1360,9 @@
    "labels": [
     "type: feature",
     "area: inside",
-    "P3"
+    "P3",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1233,7 +1377,9 @@
     "area: docs",
     "area: gate",
     "P3",
-    "status: blocked"
+    "status: blocked",
+    "area:delivery",
+    "kind:decision"
    ],
    "closed": "",
    "reason": ""
@@ -1247,7 +1393,9 @@
     "type: feature",
     "area: security",
     "P2",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1261,7 +1409,9 @@
     "type: docs",
     "area: observability",
     "area: legal",
-    "P2"
+    "P2",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1275,7 +1425,9 @@
     "type: feature",
     "area: inside",
     "area: map",
-    "P2"
+    "P2",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1288,7 +1440,9 @@
    "labels": [
     "type: feature",
     "area: docs",
-    "P3"
+    "P3",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1301,7 +1455,9 @@
    "labels": [
     "type: docs",
     "area: observability",
-    "P2"
+    "P2",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1314,7 +1470,9 @@
    "labels": [
     "type: docs",
     "area: docs",
-    "P2"
+    "P2",
+    "area:people",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1327,7 +1485,9 @@
    "labels": [
     "type: docs",
     "area: docs",
-    "P2"
+    "P2",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1340,7 +1500,9 @@
    "labels": [
     "type: docs",
     "area: docs",
-    "P2"
+    "P2",
+    "area:direction",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1353,7 +1515,9 @@
    "labels": [
     "type: feature",
     "area: observability",
-    "P2"
+    "P2",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1367,7 +1531,9 @@
     "type: feature",
     "area: inside",
     "area: security",
-    "P2"
+    "P2",
+    "area:security",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1381,7 +1547,9 @@
     "type: feature",
     "area: inside",
     "area: search",
-    "P1"
+    "P1",
+    "area:knowledge",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1394,7 +1562,9 @@
    "labels": [
     "type: feature",
     "area: observability",
-    "P1"
+    "P1",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1407,7 +1577,9 @@
    "labels": [
     "type: feature",
     "area: docs",
-    "P1"
+    "P1",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1420,7 +1592,9 @@
    "labels": [
     "type: feature",
     "area: inside",
-    "P1"
+    "P1",
+    "area:operations",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1434,7 +1608,9 @@
     "type: feature",
     "area: security",
     "P1",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1448,7 +1624,9 @@
     "type: feature",
     "area: legal",
     "P0",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1462,7 +1640,9 @@
     "type: feature",
     "area: legal",
     "P0",
-    "status: blocked"
+    "status: blocked",
+    "area:security",
+    "kind:action"
    ],
    "closed": "",
    "reason": ""
@@ -1475,7 +1655,9 @@
    "labels": [
     "type: feature",
     "area: docs",
-    "P1"
+    "P1",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
@@ -1488,7 +1670,9 @@
    "labels": [
     "type: feature",
     "area: inside",
-    "P1"
+    "P1",
+    "area:delivery",
+    "kind:action"
    ],
    "closed": "2026-10-09",
    "reason": "completed"
