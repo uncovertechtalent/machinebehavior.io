@@ -19,7 +19,7 @@
   <url><loc>https://machinebehavior.io/red-team/tactics/</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://machinebehavior.io/red-team/method/</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://machinebehavior.io/map/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/search/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/tour/</loc><lastmod>2026-10-09</lastmod></url>
@@ -83,8 +83,8 @@
   <url><loc>https://machinebehavior.io/cto-powersuit/stance/</loc><lastmod>2026-10-14</lastmod></url>
   <!-- powersuit:end -->
   <!-- docs:begin (scripts/build_docs.py) -->
-  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-16</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/access-model/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/add-a-page/</loc><lastmod>2026-10-09</lastmod></url>
@@ -121,17 +121,18 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0031-cockpit-from-public-github-issues/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0032-masthead-from-a-seats-file/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0033-s3-and-cloudfront-next-to-pages/</loc><lastmod>2026-10-15</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0034-inside-intranet-theme-and-seat-tabs/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/cockpit/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/cockpit/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/decision-log/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/docs-tree/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/inside-portal/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/map-crawler/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/masthead/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/masthead/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-rollback/</loc><lastmod>2026-10-16</lastmod></url>
