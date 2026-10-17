@@ -272,10 +272,11 @@
     pick((to + tabs.length) % tabs.length, true, 'replace');
   });
   const fromHash = () => panels.findIndex(p => '#' + p.id === location.hash);
+  // later hash moves: a seat hash or no hash selects; another hash (a Grafana tab) leaves the seat choice alone
   const sync = () => { const i = fromHash(); if (i >= 0 || !location.hash) pick(Math.max(i, 0), false, false); };
   window.addEventListener('hashchange', sync);
   window.addEventListener('popstate', sync);
-  sync();
+  pick(Math.max(fromHash(), 0), false, false);  // first load always selects one, also under #dashboards/...
 })();
 
 const SITES = [
