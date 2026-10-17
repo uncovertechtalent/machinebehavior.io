@@ -395,6 +395,7 @@ jobs:
     # scripts/test_build_masthead.py checks the seats.json contract, the masthead page blocks, and --check (#99);
     # scripts/test_build_inside_seats.py checks the seat cards and dashboards of the Inside landing page and --check (ADR-0034, ADR-0036);
     # scripts/test_seat_tabs.mjs drives inside/seat-tabs.js over a minimal DOM (node --test) for the keyboard moves and ARIA state;
+    # scripts/test_bar.mjs runs inside/bar.js with a stub DOM for the section sidebar's open state across the 1100 px width;
     # scripts/test_docs_tree.mjs runs inside/docs/docs.js with a stub DOM for the page tree's open state across the 820 px width;
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
@@ -427,6 +428,9 @@ jobs:
 
       - name: Inside seat tabs script (keyboard and ARIA)
         run: node --test scripts/test_seat_tabs.mjs
+
+      - name: Section sidebar open state (bar.js)
+        run: node --test scripts/test_bar.mjs
 
       - name: Docs page tree open state (docs.js)
         run: node --test scripts/test_docs_tree.mjs
