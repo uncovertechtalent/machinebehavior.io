@@ -3,13 +3,16 @@
 // Arrow down moves focus into the suggestions, where Enter follows the focused link. "/" focuses the box.
 // The section sidebar (scripts/site_chrome.py) is open in the page source; on narrow screens it sits above the
 // content, so it starts closed there. From 1100 px its summary is hidden, so a sidebar closed on a narrow load could
-// not be opened again: it opens when the window grows past that width (scripts/test_bar.mjs).
+// not be opened again: it opens when the window grows past that width (scripts/test_bar.mjs). Safari before 14 has
+// addListener only; a call to a missing addEventListener would throw and stop the search part below as well.
 (function () {
   var side = document.querySelector('.mb-side-wrap');
   if (!side) return;
   var narrow = window.matchMedia('(max-width: 1099px)');
   if (narrow.matches) side.removeAttribute('open');
-  narrow.addEventListener('change', function (e) { if (!e.matches) side.setAttribute('open', ''); });
+  var onChange = function (e) { if (!e.matches) side.setAttribute('open', ''); };
+  if (narrow.addEventListener) narrow.addEventListener('change', onChange);
+  else if (narrow.addListener) narrow.addListener(onChange);
 })();
 (function () {
   var data = null, loading = null;
