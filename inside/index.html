@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Inside: Machine Behavior</title>
-<meta name="description" content="The working front page of Stefan Coetzee's sites: live deploy and gate status of the three sites, one dashboard per seat of the house from the public cockpit data, the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, experiment results, the live Grafana dashboards and the tools.">
+<meta name="description" content="The working front page of Stefan Coetzee's sites: live deploy and gate status of the three sites, one dashboard per seat of the house from the public cockpit data, the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com, and Substack, experiment results, the live Grafana dashboards, and the tools.">
 <link rel="canonical" href="https://machinebehavior.io/inside/">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://machinebehavior.io/inside/">
 <meta property="og:site_name" content="Machine Behavior">
 <meta property="og:title" content="Inside: Stefan Coetzee's work in one place">
-<meta property="og:description" content="Live deploy and gate status of three sites, a dashboard per seat, the latest pieces across four sites, experiment results, dashboards and tools, on one front page.">
+<meta property="og:description" content="Live deploy and gate status of three sites, a dashboard per seat, the latest pieces across four sites, experiment results, dashboards, and tools, on one front page.">
 <meta property="og:image" content="https://machinebehavior.io/inside/og.png">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1254">
@@ -97,7 +97,7 @@
   .page-note { margin-top: 28px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); line-height: 1.7; }
   .page-note a { color: var(--dim); }
   .wait { color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
-  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } h1 { font-size: 34px; } }
+  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } .status { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 480px) { .apps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   /* the intranet layout (ADR-0034): sites, the seat cards as tabs, the selected seat's dashboard; tokens only */
   .in-sec { margin: 0 0 24px; scroll-margin-top: calc(var(--mb-bar-h) + 12px); }
@@ -156,7 +156,7 @@
   @media (max-width: 900px) { .in-seat-tabs, .in-kpis, .in-areas { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 560px) { .in-seat-tabs { grid-template-columns: minmax(0, 1fr); } .in-panel { padding: 16px; } .in-item { grid-template-columns: minmax(0, 1fr); } }
 </style>
-<!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://machinebehavior.io/inside/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Inside", "item": "https://machinebehavior.io/inside/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://machinebehavior.io/#stefan", "name": "Stefan Coetzee", "url": "https://machinebehavior.io/", "sameAs": ["https://www.linkedin.com/in/coetzeestefan/", "https://coetzeestefan.substack.com/", "https://github.com/uncovertechtalent", "https://machinebehavior.io/", "https://x.com/scoetzeede"], "jobTitle": "Site Reliability Engineer"}, {"@type": "WebSite", "@id": "https://machinebehavior.io/#website", "name": "Machine Behavior", "url": "https://machinebehavior.io/", "inLanguage": "en", "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://machinebehavior.io/inside/search/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "WebPage", "@id": "https://machinebehavior.io/inside/#page", "url": "https://machinebehavior.io/inside/", "name": "Inside: Stefan Coetzee's work in one place", "inLanguage": "en", "isPartOf": {"@id": "https://machinebehavior.io/#website"}, "breadcrumb": {"@id": "https://machinebehavior.io/inside/#breadcrumb"}, "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "description": "The working front page of Stefan Coetzee's sites: live deploy and gate status of the three sites, one dashboard per seat of the house from the public cockpit data, the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com and Substack, experiment results, the live Grafana dashboards and the tools.", "dateModified": "2026-10-17", "image": "https://machinebehavior.io/inside/og.png"}]}</script><!-- /mb:head --></head>
+<!-- mb:head --><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://machinebehavior.io/inside/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Inside", "item": "https://machinebehavior.io/inside/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://machinebehavior.io/#stefan", "name": "Stefan Coetzee", "url": "https://machinebehavior.io/", "sameAs": ["https://www.linkedin.com/in/coetzeestefan/", "https://coetzeestefan.substack.com/", "https://github.com/uncovertechtalent", "https://machinebehavior.io/", "https://x.com/scoetzeede"], "jobTitle": "Site Reliability Engineer"}, {"@type": "WebSite", "@id": "https://machinebehavior.io/#website", "name": "Machine Behavior", "url": "https://machinebehavior.io/", "inLanguage": "en", "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://machinebehavior.io/inside/search/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "WebPage", "@id": "https://machinebehavior.io/inside/#page", "url": "https://machinebehavior.io/inside/", "name": "Inside: Stefan Coetzee's work in one place", "inLanguage": "en", "isPartOf": {"@id": "https://machinebehavior.io/#website"}, "breadcrumb": {"@id": "https://machinebehavior.io/inside/#breadcrumb"}, "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "description": "The working front page of Stefan Coetzee's sites: live deploy and gate status of the three sites, one dashboard per seat of the house from the public cockpit data, the latest pieces across machinebehavior.io, tychat.io, uncovertechtalent.com, and Substack, experiment results, the live Grafana dashboards, and the tools.", "dateModified": "2026-10-17", "image": "https://machinebehavior.io/inside/og.png"}]}</script><!-- /mb:head --></head>
 <body class="mb-app mb-s-inside mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><ul class="mb-nav-list"><li class="mb-nav-group"><details class="mb-drop"><summary>Research</summary><ul class="mb-drop-panel"><li><a href="/research/">Research</a></li><li><a href="/red-team/">Red team</a></li><li><a href="/aieo/">AIEO</a></li></ul></details></li><li><a href="/inside/" aria-current="page">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Map</a></li></ul></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form><a class="mb-cta" href="/your-next-cto/">CTO</a><details class="mb-menu"><summary><span class="mb-menu-icon" aria-hidden="true"></span>Menu</summary><nav class="mb-menu-panel" aria-label="All sections"><ul><li class="mb-menu-group"><span class="mb-menu-label">Research</span><ul><li><a href="/research/">Research</a></li><li><a href="/red-team/">Red team</a></li><li><a href="/aieo/">AIEO</a></li></ul></li><li><a href="/inside/" aria-current="page">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Map</a></li><li><a href="/your-next-cto/">CTO</a></li></ul></nav></details></header><script>(function(){var q=function(){return document.querySelectorAll(".mb-bar details[open]")};document.addEventListener("click",function(e){q().forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});document.addEventListener("keydown",function(e){if(e.key==="Escape")q().forEach(function(d){d.removeAttribute("open");var s=d.querySelector("summary");if(s)s.focus()})})})();</script><aside class="mb-demo" aria-label="About this intranet"><span class="mb-demo-tag">Public demo</span><span>This intranet is open to read. In production it sits behind single sign-on, with internal and restricted spaces granted per person and device.</span><a href="/inside/docs/eng/access-model/">Access model</a><a href="/inside/tour/">Five-minute tour</a></aside><!-- /mb:bar -->
 
 <!-- mb:side --><nav class="mb-side" aria-label="Inside pages"><details class="mb-side-wrap" open><summary><span>Inside</span><span class="mb-side-n">21 pages</span></summary><a class="mb-side-head" href="/inside/" aria-current="page">Inside</a><ul class="mb-side-tree"><li><a href="/inside/mission-control/">Mission Control</a></li><li><a href="/inside/cockpit/">Cockpit</a></li><li><a href="/inside/masthead/">Masthead</a></li><li><details><summary><a href="/inside/services/">Services</a></summary><ul><li><a href="/inside/services/conformity-gate/">Conformity gate</a></li><li><a href="/inside/services/deploy-job/">Deploy job</a></li><li><a href="/inside/services/machinebehavior-io/">machinebehavior.io</a></li><li><a href="/inside/services/tychat-io/">tychat.io</a></li><li><a href="/inside/services/uncovertechtalent-com/">uncovertechtalent.com</a></li><li><a href="/inside/services/docs-build/">Docs build</a></li><li><a href="/inside/services/map-crawler/">Map crawler</a></li><li><a href="/inside/services/deploy-exporter/">Deploy exporter</a></li><li><a href="/inside/services/observability-stack/">Observability stack</a></li><li><a href="/inside/services/searxng/">SearXNG</a></li><li><a href="/inside/services/local-llm/">Local LLM</a></li><li><a href="/inside/services/agent-sessions/">Agent sessions</a></li></ul></details></li><li><a href="/inside/status/">Status</a></li><li><a href="/inside/board/">Board</a></li><li><a href="/conformity/">Gate runs</a></li><li><a href="/inside/tour/">Tour</a></li><li><a href="/inside/search/">Search</a></li></ul><div class="mb-topics"><a class="mb-side-label" href="/topics/">Topics</a><ul><li><a href="/topics/sycophancy-and-stance/">Sycophancy and stance</a></li><li><a href="/topics/conformity-and-law/">Conformity and law</a></li><li><a href="/topics/operations-and-sre/">Operations and SRE</a></li><li><a class="mb-topic-in" href="/topics/observability/">Observability<span class="mb-sr"> (lists this page)</span></a></li><li><a href="/topics/finops/">FinOps</a></li><li><a href="/topics/agents-and-harness/">Agents and harness</a></li><li><a href="/topics/evaluation/">Evaluation</a></li><li><a href="/topics/ai-search/">AI search</a></li></ul></div></details></nav><!-- /mb:side -->
@@ -234,7 +234,9 @@
 <script src="/inside/dashboards.js"></script>
 <script>
 // ---- seat tabs (ADR-0034): without a script the seat cards are links and every dashboard follows in order;
-// here the list becomes a tablist with one dashboard shown, arrow keys, Home and End, and the choice in the URL hash.
+// here the list becomes a tablist with one dashboard shown, arrow keys, Home and End, and the choice in the URL hash: a click
+// adds a history entry (Back steps through the seats), an arrow key replaces it. The page has one hash: the Grafana tabs
+// below write it too, so a link keeps the last choice.
 (function () {
   const list = document.querySelector('.in-seat-tabs');
   if (!list) return;
@@ -252,14 +254,14 @@
   function pick(i, focus, remember) {
     tabs.forEach((t, j) => { t.setAttribute('aria-selected', String(i === j)); t.tabIndex = i === j ? 0 : -1; panels[j].hidden = i !== j; });
     if (focus) tabs[i].focus();
-    if (remember) history.replaceState(null, '', '#' + panels[i].id);
+    if (remember && location.hash !== '#' + panels[i].id) history[remember === 'push' ? 'pushState' : 'replaceState'](null, '', '#' + panels[i].id);
   }
   list.addEventListener('click', e => {
     const t = e.target.closest('a.in-seat');
     if (!t) return;
     e.preventDefault();
     const i = tabs.indexOf(t);
-    pick(i, false, true);
+    pick(i, false, 'push');
     if (panels[i].getBoundingClientRect().top > innerHeight * 0.75) panels[i].scrollIntoView();  // phone width: the cards stack above it
   });
   list.addEventListener('keydown', e => {
@@ -267,11 +269,13 @@
     const to = {ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1}[e.key];
     if (i < 0 || to === undefined) return;
     e.preventDefault();
-    pick((to + tabs.length) % tabs.length, true, true);
+    pick((to + tabs.length) % tabs.length, true, 'replace');
   });
   const fromHash = () => panels.findIndex(p => '#' + p.id === location.hash);
-  window.addEventListener('hashchange', () => { const i = fromHash(); if (i >= 0) pick(i, false, false); });
-  pick(Math.max(fromHash(), 0), false, false);
+  const sync = () => { const i = fromHash(); if (i >= 0 || !location.hash) pick(Math.max(i, 0), false, false); };
+  window.addEventListener('hashchange', sync);
+  window.addEventListener('popstate', sync);
+  sync();
 })();
 
 const SITES = [

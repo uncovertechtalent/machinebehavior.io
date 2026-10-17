@@ -4,7 +4,8 @@ document (the chief executive counts every area, another seat its own areas only
 open; done and dropped items stay off the lists; decisions waiting are open decisions only; the empty state and the
 publisher's placeholder show no invented number; titles are escaped; no panel is hidden in the markup, so the page reads
 as a plain list without a script; every id once), a page with the block missing or twice, --check on the committed
-files, and --check on a copy with an edited block or a seats file outside its contract. Stdlib only.
+files, and --check on a copy with an edited block or a seats file outside its contract. Stdlib only. The tab script in
+inside/index.html (roles, arrow keys, hidden panels, the hash) has no automated test; it is checked by hand in a browser.
 
     python3 scripts/test_build_inside_seats.py
 
