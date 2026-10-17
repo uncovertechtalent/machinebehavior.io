@@ -197,9 +197,11 @@ body.mb-app main .mb-crumbs { margin-bottom: 10px; }
   body.mb-read.mb-has-side { grid-template-rows: auto 1fr auto; }
   body.mb-app.mb-has-side { grid-template-rows: auto auto 1fr auto; }
   body.mb-has-side > .mb-bar, body.mb-has-side > .mb-demo, body.mb-has-side > .mb-foot { grid-column: 1 / -1; }
-  body.mb-has-side > .mb-side { grid-column: 1; position: sticky; top: var(--mb-bar-h); align-self: start;
-    max-height: calc(100vh - var(--mb-bar-h)); overflow: auto; padding: 22px 14px 32px 18px; border-right: 1px solid var(--mb-line);
-    scrollbar-width: thin; scrollbar-color: var(--mb-line) transparent; }
+  /* the column fills its row, which ends at the footer; its one child is the sticky box. A sticky grid item would travel
+     as far as the body and slide over the footer at the end of a page (#112), a sticky child stops at the column's end. */
+  body.mb-has-side > .mb-side { grid-column: 1; border-right: 1px solid var(--mb-line); }
+  body.mb-has-side > .mb-side > .mb-side-wrap { position: sticky; top: var(--mb-bar-h); max-height: calc(100vh - var(--mb-bar-h)); overflow: auto;
+    padding: 22px 14px 32px 18px; scrollbar-width: thin; scrollbar-color: var(--mb-line) transparent; }
   body.mb-has-side > main, body.mb-has-side > .sheet { grid-column: 2; min-width: 0; }
   .mb-side-wrap > summary { display: none; }
 }
