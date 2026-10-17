@@ -281,6 +281,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0036-inside-seat-tabs-as-folder-tabs/",
+"t": "ADR-0036: The Inside seat cards become folder tabs joined to the dashboard panel",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
