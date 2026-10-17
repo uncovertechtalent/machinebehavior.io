@@ -250,7 +250,11 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     return best;
   }
 
-  DARK.addEventListener('change', () => { palette(); draw(); });
+  // Safari 13.1 to 13.x has addListener only; a call to a missing addEventListener would end this callback before the map starts
+  // (#120). Older Safari cannot parse this script at all (the ?. below needs 13.1).
+  const recolour = () => { palette(); draw(); };
+  if (DARK.addEventListener) DARK.addEventListener('change', recolour);
+  else if (DARK.addListener) DARK.addListener(recolour);
   function draw() {
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.fillStyle = INK.bg; ctx.fillRect(0, 0, W, H);
