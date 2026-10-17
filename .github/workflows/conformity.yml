@@ -396,6 +396,7 @@ jobs:
     # scripts/test_build_inside_seats.py checks the seat cards and dashboards of the Inside landing page and --check (ADR-0034, ADR-0036);
     # scripts/test_seat_tabs.mjs drives inside/seat-tabs.js over a minimal DOM (node --test) for the keyboard moves and ARIA state;
     # scripts/test_bar.mjs runs inside/bar.js with a stub DOM for the section sidebar's open state across the 1100 px width;
+    # scripts/test_docs_tree.mjs runs inside/docs/docs.js with a stub DOM for the page tree's open state across the 820 px width;
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.
@@ -430,6 +431,9 @@ jobs:
 
       - name: Section sidebar open state (bar.js)
         run: node --test scripts/test_bar.mjs
+
+      - name: Docs page tree open state (docs.js)
+        run: node --test scripts/test_docs_tree.mjs
 
       - name: Powersuit pages match the pinned release
         # A newer powersuit tag fails scheduled and push runs and only warns on a pull request, so it never turns an
