@@ -3,10 +3,11 @@
 document (the chief executive counts every area, another seat its own areas only; blocked before in progress before
 open; done and dropped items stay off the lists; decisions waiting are open decisions only; the empty state and the
 publisher's placeholder show no invented number; titles are escaped; no panel is hidden in the markup, so the page reads
-as a plain list without a script; every id once), a page with the block missing or twice, --check on the committed
-files, and --check on a copy with an edited block or a seats file outside its contract. Stdlib only. The tab script in
-inside/index.html (roles, arrow keys, hidden panels, the hash, Back and Forward, a first load under a Grafana hash such
-as /inside/#dashboards) has no automated test; it is checked by hand in a browser.
+as a plain list without a script; every id once), the tab's pill rule and short code (ADR-0036), a page with the block
+missing or twice, --check on the committed files, and --check on a copy with an edited block or a seats file outside its
+contract. Stdlib only. The tab script in inside/seat-tabs.js (roles, roving tabindex, arrow keys, hidden panels, the
+hash, Back and Forward, a first load under a Grafana hash such as /inside/#dashboards) is tested in
+scripts/test_seat_tabs.mjs (node --test).
 
     python3 scripts/test_build_inside_seats.py
 
@@ -71,15 +72,31 @@ def main():
     live_all = [x for x in ck['items'] if x['status'] in ('open', 'in_progress', 'blocked')]
     ceo_open = sum(x['status'] == 'open' for x in live_all)
     ceo_blocked = sum(x['status'] == 'blocked' for x in live_all)
-    ok('ceo card counts every area', f'{ceo_open} open · {ceo_blocked} blocked · 1 done in 14 days' in card(out, 'ceo'), card(out, 'ceo'))
-    ok('ceo card says it reads every area', 'Direction · reads every area' in card(out, 'ceo'))
-    ok('cto card counts delivery and operations only', '1 open · 1 blocked · 0 done in 14 days' in card(out, 'cto'), card(out, 'cto'))
-    ok('blocked leads the pill', '<span class="in-pill is-bad" id="in-tab-cto-pill">1 blocked</span>' in card(out, 'cto'))
-    ok('a seat with only done items is clear', '<span class="in-pill is-ok" id="in-tab-publisher-pill">clear</span>' in card(out, 'publisher'))
-    ok('a card is named by its code and title, described by the rest',
-       'aria-labelledby="in-tab-cto-code in-tab-cto-title" aria-describedby="in-tab-cto-pill in-tab-cto-areas in-tab-cto-nums"' in card(out, 'cto'))
+    ok('ceo pill leads with blocked, counting every area',
+       f'<span class="in-pill is-bad" aria-hidden="true"><span class="in-pill-long">{ceo_blocked} blocked</span><span class="in-pill-short">{ceo_blocked}</span></span>' in card(out, 'ceo'), card(out, 'ceo'))
+    ok('ceo screen-reader text gives the full title and state', f'<span class="mb-sr">Chief executive, {ceo_blocked} blocked</span>' in card(out, 'ceo'))
+    ok('ceo reads every area, in the panel not on the tab', 'Direction · reads every area' in panel(out, 'ceo') and 'reads every area' not in card(out, 'ceo'))
+    ok('cto tab shows only the code and pill, blocked leading',
+       '<span class="in-pill is-bad" aria-hidden="true"><span class="in-pill-long">1 blocked</span><span class="in-pill-short">1</span></span>' in card(out, 'cto'), card(out, 'cto'))
+    ok('cto code and pill are hidden from a screen reader, which reads the title and state once',
+       card(out, 'cto').count('aria-hidden="true"') == 2 and '<span class="mb-sr">Chief technology officer, 1 blocked</span>' in card(out, 'cto'))
+    ok('the tab carries no area or count text', 'Delivery' not in card(out, 'cto') and 'done in 14 days' not in card(out, 'cto'))
+    ok('a seat with only done items is clear',
+       '<span class="in-pill is-ok" aria-hidden="true"><span class="in-pill-long">clear</span><span class="in-pill-short">0</span></span>' in card(out, 'publisher'), card(out, 'publisher'))
     ok('a panel is named by its own heading', 'id="seat-cto" aria-labelledby="seat-cto-h"' in out and 'id="seat-cto-h"' in out)
     ok('no empty class attribute', 'class=""' not in out)
+
+    # 2b. The pill rule (ADR-0036): blocked beats open beats clear; in progress never reaches the tab
+    ok('pill: blocked wins', bi.state({'blocked': 3, 'open': 5, 'in_progress': 2}) == ('is-bad', '3 blocked', '3'))
+    ok('pill: open when nothing blocked', bi.state({'blocked': 0, 'open': 5, 'in_progress': 2}) == ('is-open', '5 open', '5'))
+    ok('pill: clear when nothing blocked or open, even with in progress', bi.state({'blocked': 0, 'open': 0, 'in_progress': 4}) == ('is-ok', 'clear', '0'))
+    ok('pill markup carries the full label and the count alone',
+       bi.pill({'blocked': 0, 'open': 2, 'in_progress': 0}) == '<span class="in-pill is-open" aria-hidden="true"><span class="in-pill-long">2 open</span><span class="in-pill-short">2</span></span>')
+
+    # 2c. The short code (ADR-0036): PUBLISHER is PUB on a phone; every other code is already short
+    ok('publisher tab carries both the long code and PUB', '<span class="in-code-long">PUBLISHER</span><span class="in-code-short">PUB</span>' in card(out, 'publisher'))
+    ok('a short code equals the long code for the others', '<span class="in-code-long">CTO</span><span class="in-code-short">CTO</span>' in card(out, 'cto'))
+    ok('short_code only shortens the publisher', bi.short_code({'seat': 'publisher'}) == 'PUB' and bi.short_code({'seat': 'cfo'}) == 'CFO')
     cto = panel(out, 'cto')
     ok('kpis render the four counts', all(f'<dt>{k}</dt>' in cto for k in ('Open', 'In progress', 'Blocked', 'Done in 14 days')))
     ok('a nonzero blocked count is marked', '<div class="is-bad"><dt>Blocked</dt><dd>1</dd></div>' in cto)

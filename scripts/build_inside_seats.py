@@ -5,12 +5,13 @@
     python3 scripts/build_inside_seats.py --check   write nothing; exit 1 when a file breaks its contract or the page
                                                     block differs from what the two files give
 
-One block in inside/index.html, <!-- static:inside-seats -->: one card per seat in masthead order, then one dashboard
-per seat. A card shows the seat's counts. A dashboard shows the lens questions from seats.json, the counts (open, in
-progress, blocked, and done in the cockpit's 14 days) for the seat's areas, and the seat's items that are not done,
-blocked first, each linked to its issue or pull request. The chief executive's dashboard counts every area, shows one
-tile per area and the decisions waiting (kind decision, not done) as on the masthead (ADR-0032), then the items of its own
-areas, a list new in ADR-0034.
+One block in inside/index.html, <!-- static:inside-seats -->: one folder tab per seat in masthead order, then one
+dashboard per seat. A tab shows only the seat code and one status pill (ADR-0036): "N blocked" when blocked, else
+"N open" when open, else "clear"; the areas and the counts live in the dashboard, not on the tab. A dashboard shows the
+lens questions from seats.json, the counts (open, in progress, blocked, and done in the cockpit's 14 days) for the seat's
+areas, and the seat's items that are not done, blocked first, each linked to its issue or pull request. The chief
+executive's dashboard counts every area, shows one tile per area and the decisions waiting (kind decision, not done) as
+on the masthead (ADR-0032), then the items of its own areas, a list new in ADR-0034.
 
 No new data source: the seats, holders, areas, and lens come from the seats contract (ADR-0032), the items and the area
 titles from the cockpit's (ADR-0031), each read through its own loader and check. A panel whose data source does not
@@ -70,32 +71,43 @@ def scope(s, ck):
     return ck['items'] if s['seat'] == CEO else [x for x in ck['items'] if x['area'] in s['areas']]
 
 
-def pill(c, pid):
+def state(c):
+    """The tab's one status (ADR-0036): blocked beats open beats clear; in progress shows in the panel, not the tab.
+    Returns (css class, full label, count-only label)."""
     if c['blocked']:
-        cls, text = 'is-bad', f'{c["blocked"]} blocked'
-    elif c['open']:
-        cls, text = 'is-open', f'{c["open"]} open'
-    elif c['in_progress']:
-        cls, text = 'is-warn', f'{c["in_progress"]} in progress'
-    else:
-        cls, text = 'is-ok', 'clear'
-    return f'<span class="in-pill {cls}" id="{pid}">{text}</span>'
+        return 'is-bad', f'{c["blocked"]} blocked', str(c['blocked'])
+    if c['open']:
+        return 'is-open', f'{c["open"]} open', str(c['open'])
+    return 'is-ok', 'clear', '0'
+
+
+def pill(c):
+    """The status pill on a tab: the full label on a wide screen, the count alone (0 for clear) on a phone. Hidden from
+    a screen reader, which reads the tab's title and state from the mb-sr text instead, so the state is not said twice."""
+    sty, long, short = state(c)
+    return (f'<span class="in-pill {sty}" aria-hidden="true"><span class="in-pill-long">{long}</span>'
+            f'<span class="in-pill-short">{short}</span></span>')
+
+
+def short_code(s):
+    """PUBLISHER is too wide for a phone tab, so it shows as PUB there; every other code is short already."""
+    return 'PUB' if s['seat'] == 'publisher' else code(s)
 
 
 def cls(name, on):
     return f' class="{name}"' if on else ''
 
 
-def card(s, ck, titles):
+def card(s, ck):
+    """A folder tab (ADR-0036): the seat code and one status pill, visible; the full title and state for a screen
+    reader. The areas and the counts live in the dashboard below, not on the tab."""
     k, c = esc(s['seat']), tally(scope(s, ck))
-    t = f'in-tab-{k}'  # the card's name is its code and title; the pill, areas, and counts describe it
-    return (f'<li><a class="in-seat" id="{t}" href="#seat-{k}" aria-controls="seat-{k}" aria-labelledby="{t}-code {t}-title" '
-            f'aria-describedby="{t}-pill {t}-areas {t}-nums">'
-            f'<span class="in-seat-top"><span class="in-seat-code" id="{t}-code">{esc(code(s))}</span>{pill(c, f"{t}-pill")}</span>'
-            f'<span class="in-seat-title" id="{t}-title">{esc(s["title"])}</span>'
-            f'<span class="in-seat-areas" id="{t}-areas">{areas_label(s, titles)}</span>'
-            f'<span class="in-seat-nums" id="{t}-nums">{c["open"]} open · {c["blocked"]} blocked · {c["done"]} done in {bc.WINDOW_DAYS} days</span>'
-            f'</a></li>')
+    _, long, _ = state(c)
+    return (f'<li><a class="in-seat" id="in-tab-{k}" href="#seat-{k}" aria-controls="seat-{k}">'
+            f'<span class="in-seat-code" aria-hidden="true"><span class="in-code-long">{esc(code(s))}</span>'
+            f'<span class="in-code-short">{esc(short_code(s))}</span></span>'
+            f'{pill(c)}'
+            f'<span class="mb-sr">{esc(s["title"])}, {long}</span></a></li>')
 
 
 def kpis(c):
@@ -165,7 +177,7 @@ def b_seats(doc, ck):
     sub += (' A seat that moves to another person is one changed line in the <a href="/inside/masthead/">seats file</a>.')
     return (f'<section class="in-sec" id="seats" aria-labelledby="in-seats-h">'
             f'<div class="in-sec-head"><h2 id="in-seats-h">Seats</h2><p>{sub}</p></div>'
-            f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck, titles) for s in doc["seats"])}</ul>'
+            f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck) for s in doc["seats"])}</ul>'
             f'</section>'
             f'<div class="in-panels">{"".join(panel(s, ck, titles) for s in doc["seats"])}</div>'
             f'<p class="in-note">Counts and items: the issues and pull requests with an area label in the public '

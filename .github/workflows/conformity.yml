@@ -393,7 +393,8 @@ jobs:
     name: Script tests
     # Tests of the site's scripts (#85, #90, #99, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
     # scripts/test_build_masthead.py checks the seats.json contract, the masthead page blocks, and --check (#99);
-    # scripts/test_build_inside_seats.py checks the seat cards and dashboards of the Inside landing page and --check (ADR-0034);
+    # scripts/test_build_inside_seats.py checks the seat cards and dashboards of the Inside landing page and --check (ADR-0034, ADR-0036);
+    # scripts/test_seat_tabs.mjs drives inside/seat-tabs.js over a minimal DOM (node --test) for the keyboard moves and ARIA state;
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.
@@ -422,6 +423,9 @@ jobs:
 
       - name: Inside landing seat tabs
         run: python3 scripts/test_build_inside_seats.py
+
+      - name: Inside seat tabs script (keyboard and ARIA)
+        run: node --test scripts/test_seat_tabs.mjs
 
       - name: Powersuit pages match the pinned release
         # A newer powersuit tag fails scheduled and push runs and only warns on a pull request, so it never turns an
