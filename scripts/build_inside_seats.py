@@ -9,7 +9,8 @@ One block in inside/index.html, <!-- static:inside-seats -->: one card per seat 
 per seat. A card shows the seat's counts. A dashboard shows the lens questions from seats.json, the counts (open, in
 progress, blocked, and done in the cockpit's 14 days) for the seat's areas, and the seat's items that are not done,
 blocked first, each linked to its issue or pull request. The chief executive's dashboard counts every area, shows one
-tile per area and the decisions waiting (kind decision, not done), then the items of its own areas (ADR-0032).
+tile per area and the decisions waiting (kind decision, not done) as on the masthead (ADR-0032), then the items of its own
+areas, a list new in ADR-0034.
 
 No new data source: the seats, holders, areas, and lens come from the seats contract (ADR-0032), the items and the area
 titles from the cockpit's (ADR-0031), each read through its own loader and check. A panel whose data source does not
