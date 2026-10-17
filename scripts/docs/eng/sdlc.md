@@ -39,7 +39,7 @@ Stages with no module or practice yet:
 | Test | No unit tests for the Python generators in `scripts/`, and no check after a deploy that the pages answer | `sdlc:test-strategy` |
 | Build | Commit subjects do not name the issue or the decision, so a commit cannot be traced to its request | `sdlc.traceability` gate check on `warn` with `since: 2026-10-11` |
 | Release | No way to redeploy an earlier build: both jobs check out `main`. Rollback time is not measured | Owner decision; see [Roll back a deploy](doc:eng/runbook-rollback) |
-| Observe | No SLO for the site, and no alert reaches a person ([ADR-0017](doc:eng/adr-0017-on-call-model)) | `reliability:slo`; the proposed routing in [On-call and escalation](doc:obs/on-call) |
+| Observe | No SLO for the site. Platform alerts reach the operator since 2026-10-17 ([ADR-0037](doc:eng/adr-0037-alert-routing-discord-board-heartbeat)); none watches the site itself | `reliability:slo`; [On-call and escalation](doc:obs/on-call) |
 
 ## Tickets
 

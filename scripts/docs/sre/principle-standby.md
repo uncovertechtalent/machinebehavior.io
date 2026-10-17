@@ -1,13 +1,13 @@
 title: Someone carries the pager
-summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here 17 alert rules reach nobody, the gate is the one control that acts at any hour, and three of four incidents were found by someone working at the time.
+summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here alerts reach the one operator, pages in Discord in waking hours and every page and ticket as an issue on the board, an outside heartbeat watches the alerting path, and nobody is woken at night.
 parent: principles-in-practice
 order: 30
 labels: principle, sre, on-call, alerting, standby
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-17
+review_by: 2027-01-15
 type: explanation
-state: gap
+state: partial
 source: [Manifesto](doc:sre/manifesto), the standby differentiator; [Google SRE book ch. 11](https://sre.google/sre-book/being-on-call/)
 ---
 ## The principle
@@ -18,15 +18,15 @@ Source: the standby section of the [manifesto](doc:sre/manifesto); Google's [Bei
 
 ## On this platform
 
-- **Rules exist, delivery does not.** Prometheus evaluates 17 alert rules: 5 with severity page, 11 ticket and 1 info ([Alerts and SLOs](doc:obs/alerts-and-slos)). The stack runs no Alertmanager, so a firing alert stays in Prometheus and Grafana until someone looks ([On-call and escalation](doc:obs/on-call)).
-- **One path reaches a person.** The AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend. It sits outside the stack ([Budgets and alerts](doc:fin/budgets-and-alerts)).
+- **Alerts reach a person.** Since 2026-10-17 one Alertmanager routes the rules of both Prometheus servers: the 5 page rules to Discord between 08:00 and 22:00 Berlin time and onto the [board](/inside/board/) as issues at any hour, 12 ticket rules onto the board, and the info rule and the three AWS spend rules nowhere ([On-call and escalation](doc:obs/on-call), [Alerts and SLOs](doc:obs/alerts-and-slos)).
+- **The alerting path is watched from outside.** Each Prometheus carries an always-firing Watchdog that pings a heartbeat check outside the house every 5 minutes; the check alarms when the pings stop.
+- **A second path for cost.** The AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend. It sits outside the stack ([Budgets and alerts](doc:fin/budgets-and-alerts)).
 - **One control acts at any hour.** The [conformity gate](/inside/services/conformity-gate/) stops a failing deploy and keeps the previous build live without anyone on call. On 2026-10-08 it blocked a deploy, and the run on the fix started 76 seconds later and passed ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
-- **How incidents were found.** Of the four records on the [status page](/inside/status/), the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
-- **A routing proposal.** The [on-call page](doc:obs/on-call) holds a routing: pages to the operator's phone in waking hours, tickets onto the [board](/inside/board/), an always-firing Watchdog with an outside heartbeat, and inhibition so one cause raises one alert.
+- **How incidents were found.** Of the four records on the [status page](/inside/status/) before alert routing, the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
 
 ## State
 
-**Gap.** Nobody is on standby and no alert rule reaches anyone. The gate covers the largest tier-1 risk, a bad page in front of readers, without a person. Every other failure stays unseen until someone looks: a down search instance, a model server that stopped, a spend spike at night. The proposal is wired once the operator chooses the receivers ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)).
+**Partial.** Alerts reach the operator, and a dead alerting path raises its own alarm ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)). Standby in the full sense is missing: one person, no rotation, and a page at night waits on the board until 08:00 by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.
 
 ## Services that name it
 
@@ -41,5 +41,4 @@ Source: the standby section of the [manifesto](doc:sre/manifesto); Google's [Bei
 
 ## Open work
 
-- [#36 Alert routing: Alertmanager, a Watchdog and receivers chosen by the operator](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)
 - [#41 Incident records: when and how each incident was detected](https://github.com/uncovertechtalent/machinebehavior.io/issues/41)

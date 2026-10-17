@@ -3,8 +3,9 @@ summary: The [On-call and escalation](doc:obs/on-call) page states the model as 
 parent: decision-log
 order: 17
 adr: 17
-status: accepted
+status: superseded
 created: 2026-10-09
+superseded_by: adr-0037-alert-routing-discord-board-heartbeat
 labels: adr, decision
 owner: Stefan Coetzee
 reviewed: 2026-10-09

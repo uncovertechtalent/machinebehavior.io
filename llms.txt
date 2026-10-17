@@ -95,7 +95,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (408 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (409 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -138,6 +138,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (408 pages). S
 - [ADR-0034: Inside gets a light intranet theme of the design system, and its landing page a tab per seat](https://machinebehavior.io/inside/docs/eng/adr-0034-inside-intranet-theme-and-seat-tabs/)
 - [ADR-0035: Every page under /inside/ uses the intranet theme, set by the site chrome](https://machinebehavior.io/inside/docs/eng/adr-0035-intranet-theme-on-every-inside-page/)
 - [ADR-0036: The Inside seat cards become folder tabs joined to the dashboard panel](https://machinebehavior.io/inside/docs/eng/adr-0036-inside-seat-tabs-as-folder-tabs/)
+- [ADR-0037: Alerts go to Discord and the board, with an outside heartbeat on the alerting path](https://machinebehavior.io/inside/docs/eng/adr-0037-alert-routing-discord-board-heartbeat/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

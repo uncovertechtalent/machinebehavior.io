@@ -286,6 +286,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0037-alert-routing-discord-board-heartbeat/",
+"t": "ADR-0037: Alerts go to Discord and the board, with an outside heartbeat on the alerting path",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

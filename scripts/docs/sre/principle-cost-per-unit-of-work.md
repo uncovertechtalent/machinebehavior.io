@@ -1,11 +1,11 @@
 title: Cost per unit of work
-summary: Cost is an operational signal read per unit of output, metered like latency and alerted like errors. Here a FinOps space meters each component, prices spend per call, commit and deploy, and sets alert thresholds from data; only the AWS budget e-mail reaches a person.
+summary: Cost is an operational signal read per unit of output, metered like latency and alerted like errors. Here a FinOps space meters each component, prices spend per call, commit and deploy, and sets alert thresholds from data; the Claude Code spend alert opens an issue on the board and the AWS budget sends an e-mail.
 parent: principles-in-practice
 order: 130
 labels: principle, sre, finops, cost, unit-economics
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-17
+review_by: 2027-01-15
 type: explanation
 state: partial
 source: [Pillar 9, unit economics](doc:sre/unit-economics-of-infrastructure); [FinOps Foundation framework](https://www.finops.org/framework/)
@@ -26,7 +26,7 @@ Source: [Cost Optimization](doc:sre/cost-optimization) and [Unit Economics of In
 
 ## State
 
-**Partial.** Inform and optimise run on real data. Operate is weaker: of the cost alerts, only the AWS Budgets e-mail reaches a person, because no Alertmanager runs ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)); the Claude Code counters behind the wrong total still land in Prometheus ([#29](https://github.com/uncovertechtalent/machinebehavior.io/issues/29)); and some costs have no meter, as the cost model lists.
+**Partial.** Inform and optimise run on real data. Operate is weaker: of the cost alerts, the Claude Code spend alert opens an issue on the board and the AWS Budgets e-mail reaches a person, while the three AWS spend rules stay on the dashboard, undelivered by the operator's choice ([On-call and escalation](doc:obs/on-call)); the Claude Code counters behind the wrong total still land in Prometheus ([#29](https://github.com/uncovertechtalent/machinebehavior.io/issues/29)); and some costs have no meter, as the cost model lists.
 
 ## Services that name it
 
@@ -41,5 +41,4 @@ Source: [Cost Optimization](doc:sre/cost-optimization) and [Unit Economics of In
 
 ## Open work
 
-- [#36 Alert routing](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)
 - [#29 Cost counters: drop them or alert on their resets](https://github.com/uncovertechtalent/machinebehavior.io/issues/29)
