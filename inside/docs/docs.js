@@ -55,4 +55,17 @@
     if (by) by.appendChild(rep);
     else h1.insertAdjacentElement('afterend', el('div', {class: 'byline'}, [rep]));
   }
+
+  // on-call snapshot (#36, ADR-0037): the docs build embeds the committed copy; the deploy job writes a fresh
+  // /inside/oncall/oncall.json, whose html comes from the same renderer (scripts/build_oncall.py). Same origin only.
+  var oncall = document.querySelectorAll('[data-oncall-src]');
+  if (oncall.length && typeof fetch === 'function') {
+    fetch(oncall[0].getAttribute('data-oncall-src'), {cache: 'no-store'})
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || typeof d.html !== 'string' || d.html.indexOf('<div class="oncall-snapshot">') !== 0) return;
+        oncall.forEach(function (box) { box.innerHTML = d.html; });
+      })
+      .catch(function () {});
+  }
 })();

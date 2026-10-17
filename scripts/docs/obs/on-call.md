@@ -1,35 +1,42 @@
 title: On-call and escalation
-summary: The on-call model as it runs: one operator, agent sessions as responders, the deploy gate as the one control that acts on its own, and one Alertmanager for both Prometheus servers that sends a page to Discord in waking hours, opens an issue on the board for every page and ticket, and pings an outside heartbeat check so a dead alerting path shows.
+summary: The on-call model as it runs: a PagerDuty-style pager on a private Discord server with a rotation, an escalation policy and a read-only responder agent; one Alertmanager for both Prometheus servers; every page and ticket as an issue on the board; an outside heartbeat on the alerting path; and the rotation, last pages and pager load from a public snapshot.
 order: 15
-labels: on-call, alerts, alertmanager, escalation, incidents, discord, heartbeat
+labels: on-call, alerts, alertmanager, pager, rotation, escalation, incidents, discord, heartbeat
 owner: Stefan Coetzee
 reviewed: 2026-10-17
 review_by: 2027-01-15
 type: explanation
 ---
-Alerts reach a person. One Alertmanager serves both Prometheus servers in the house: the agent-observability stack's and the NAS monitoring stack's. A `page` goes to Discord between 08:00 and 22:00 Berlin time and opens an issue on the [board](/inside/board/) at any hour; a `ticket` opens an issue; `info` goes nowhere. Each Prometheus also carries an always-firing `Watchdog` that pings a heartbeat check outside the house every 5 minutes, and the check alarms when the pings stop, so a dead Prometheus no longer looks like a quiet night. One person answers for every service, the agent sessions that build the platform are the responders, and the [deploy gate](doc:eng/conformity-gate) stays the one control that acts without a person: a failed check stops the deploy and the previous build stays live.
+A page reaches the person on call through a pager. One Alertmanager serves both Prometheus servers in the house, the agent-observability stack's and the NAS monitoring stack's. A `page` becomes an incident on a private Discord server, run the way PagerDuty runs one: a message with Acknowledge, Resolve and Escalate buttons, a thread for its timeline, a rotation that says who is on call, and an escalation policy for when nobody acknowledges. Every page and every `ticket` also opens an issue on the [board](/inside/board/); `info` goes nowhere. Each Prometheus carries an always-firing `Watchdog` that pings a heartbeat check outside the house, so a dead Prometheus no longer looks like a quiet night. The [deploy gate](doc:eng/conformity-gate) stays the one control that acts without a person.
+
+## On call now
+
+The tables below are a snapshot: the rotation from [pager/rotation.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml), and the pages from the records the pager keeps on their board issues. The deploy job refreshes it; the page sends no request to GitHub. It shows names, alert names and times, never a Discord account or channel.
+
+<!-- oncall-snapshot -->
 
 ## Roles
 
 | Role | Who | What they do |
 |---|---|---|
-| Operator | Stefan Coetzee | Owns every service in the [catalog](/inside/services/), receives the pages, decides, starts and stops agent sessions, holds the credentials |
-| Responders | Claude Code sessions, one per track of work | Read the alert issue, the records and dashboards, follow the runbooks, fix within their track, push through the gate, write the incident record |
+| Primary | Stefan Coetzee, 08:00 to 22:00 Berlin time | Acknowledges a page, owns the incident, decides, holds the credentials |
+| Responder agent | The pager's responder layer, at all hours | Posts the alert's runbook link and a read-only diagnosis in the incident thread. Changes nothing and never acknowledges |
+| Responder sessions | Claude Code sessions, one per track of work | Pick up an acknowledged incident from its board issue, follow the runbooks, fix through the gate, write the incident record |
 | Gate owner | The legislation-track session | Owns the conformity checks; tier changes are the operator's decision |
-| Control | The conformity gate | Runs before every deploy of the three sites; blocks on a failed check without anyone on call |
+| Control | The conformity gate | Blocks a failing deploy of the three sites without anyone on call |
 
-A responder session works only while the operator has it running. There is no rotation, no second person and no response time agreed with anyone. At night a page waits on the board; nobody is woken.
+There is one person, so there is one human layer. Nobody is woken at night: out of hours the responder agent takes the page at once, and the primary hears at 08:00 if the page is still open and unacknowledged.
 
-## How a problem is noticed
+## How a page runs
 
-1. **A page fires.** In waking hours a message arrives in the operator's Discord channel within about a minute, and an issue opens on the board. At night only the issue opens; if the alert still fires at 08:00, the Discord message follows then.
-2. **A ticket fires.** An issue opens on the board, labelled `kind:finding` and an area. It closes when the alert resolves and reopens when the same alert fires again.
-3. **The gate fails.** The deploy does not run, the run is red on GitHub Actions, the [status page](/inside/status/) shows the site as degraded and the [Website deploys](https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4) dashboard shows the failing check. Readers keep the previous build.
-4. **The heartbeat stops.** The outside check alarms when no `Watchdog` ping has arrived for 10 minutes: Prometheus, Alertmanager, the home server or the uplink is down.
-5. **A session or the operator sees it** while working: a dashboard, a failed search, a wrong number.
-6. **A reader reports it** as a [GitHub issue](https://github.com/uncovertechtalent/machinebehavior.io/issues); it reaches the board after triage.
+1. **It fires.** Alertmanager sends it to the pager, grouped by alert name and Prometheus. The pager opens an incident keyed by the alert's fingerprint: a message in the pages channel and a thread under it.
+2. **The person on call is notified.** The thread mentions the primary. Without an acknowledgement, the mention repeats every 5 minutes, 3 times.
+3. **It escalates.** At 15 minutes the responder layer runs: the runbook link and a diagnosis from read-only Prometheus queries (the alert's expression now, minutes firing in the last 24 hours, `up` of its job, the other alerts firing). The Escalate button reaches the next layer at once.
+4. **Someone acknowledges.** Acknowledge stops the escalation; the message shows who and after how long.
+5. **It resolves.** Alertmanager's resolve closes the incident. Resolve in the pager closes it too, and the rest of that firing episode stays quiet; a new episode pages again. An incident that hears nothing from Alertmanager for 2.5 hours closes as stale, since an alert that clears while inhibited or silenced sends no resolve.
+6. **The record stays public.** The pager sends a redacted record of the page (times, names from the rotation) to the alert's board issue, which comments on acknowledge, responder and a person's resolve. The snapshot above reads these records.
 
-Before 2026-10-17 only routes 3, 5 and 6 existed. Of the four incidents then on the status page, the gate found one (the blocked deploy of 2026-10-08) and someone working at the time found the other three.
+Tickets do not page: each opens a board issue and a message in the tickets channel that links it.
 
 ## Routing
 
@@ -37,16 +44,32 @@ The configuration is [alertmanager.yml](https://github.com/uncovertechtalent/age
 
 | Alert | Receiver | Repeats |
 |---|---|---|
-| `severity="page"` | Discord, 08:00 to 22:00 Europe/Berlin | every hour while it fires |
-| `severity="page"` or `"ticket"` | `alert-issues`: one issue per alert on this repository | the issue body refreshes daily; no comment |
-| `severity="info"` | nowhere | |
-| `AWSCostForecastOverBudget`, `AWSCostMonthToDateOver80`, `AWSCostDailySpike` | nowhere: the AWS spend rules stay a dashboard showcase | |
 | `Watchdog` | the outside heartbeat check of the Prometheus that sent it | every 5 minutes |
-| anything else | `alert-issues` | daily |
+| `PagerDown`, `PagerDisconnected`, `PagerFailing`, `AlertmanagerNotificationsFailing` | the alerting-path channel by webhook, and the board: never through the pager | hourly |
+| `AWSCostForecastOverBudget`, `AWSCostMonthToDateOver80`, `AWSCostDailySpike` | nowhere: the AWS spend rules stay a dashboard showcase | |
+| `severity="info"` | nowhere | |
+| `severity="page"` | the pager, and the board | hourly; the pager only refreshes the open incident |
+| `severity="ticket"` | the board, and the tickets channel | daily; the issue body refreshes, no comment |
 
-Inhibition keeps one cause to one alert, within the same Prometheus: `OllamaDown` silences `LocalLLM.+`, `ModelSpilledToCPU` and `OllamaExporterDown`, and `SearXNGDown` silences the other SearXNG alerts.
+Inhibition keeps one cause to one alert, within the same Prometheus: `OllamaDown` silences `LocalLLM.+`, `ModelSpilledToCPU` and `OllamaExporterDown`; `SearXNGDown` silences the other SearXNG alerts; `PagerDown` silences `PagerDisconnected`.
 
-**What an alert issue shows.** This repository is public, so `alert-issues` writes the alert name, the summary annotation, the start and end time and an allowlist of labels (severity, the Prometheus, job, component, and the name, engine, model or source a rule splits by). The description, the instance address and the link back to Prometheus stay out; every shown value loses URLs and IP addresses, and cannot mention a person or link an issue. One issue belongs to one alert fingerprint, the hash of the alert's labels: a repeat refreshes the body, a resolve comments and closes, and a new firing episode reopens the same issue with a comment. An alert that resolves while inhibited or silenced sends no resolve, so an issue that hears nothing from Alertmanager for 25 hours closes with a comment and reopens if the alert fires again. An issue the operator closed stays closed until the alert fires again.
+**What a board issue shows.** This repository is public, so the ticket receiver `alert-issues` writes the alert name, the summary annotation, the start and end time, an allowlist of labels and the pager record. The description, the instance address and the link back to Prometheus stay out; every shown value loses URLs and IP addresses, and cannot mention a person or link an issue. One issue belongs to one alert fingerprint: a repeat refreshes the body, a resolve comments and closes, a new firing episode reopens it, and an issue that hears nothing for 25 hours closes with a comment. An issue the operator closed stays closed until the alert fires again.
+
+## Rotation and policy
+
+[pager/rotation.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml) uses PagerDuty's model:
+
+- **Schedules with layers.** A layer has members, a turn length and a handoff time, and may be restricted to days and hours; a shift past midnight belongs to the day it starts. A later layer wins over an earlier one.
+- **Overrides** win over every layer, from the file or from `/pager override` on the server.
+- **An escalation policy** walks its rules in order of delay. A level with nobody on call passes the page on at once.
+
+`/oncall` on the server shows the same as the snapshot. The Discord accounts behind the names are linked on the server with `/pager iam`, so no ID is written down anywhere.
+
+## Watching the alerting path
+
+Nothing inside the house can report that the house is down, so the last check sits outside. Alertmanager sends each Prometheus's `Watchdog` to its own check every 5 minutes; a check that gets no ping for 5 minutes past its period alarms into the alerting-path channel and by e-mail, from outside. A stopped Prometheus, Alertmanager, home server or uplink all stop the pings. Inside, the pager cannot report its own outage either, so `PagerDown`, `PagerDisconnected` and `PagerFailing` (a Discord call that failed for an incident) go past it by webhook, and so does a notification Alertmanager gave up on.
+
+`scripts/check-alerting.sh` in the stack's repository checks it all without sending anything: promtool on the Prometheus config and every rule test, amtool on the Alertmanager config and its routing tree, every alert rule's severity against the receivers it promises, and the unit tests of the ticket receiver and the pager.
 
 ## The alert rules
 
@@ -57,47 +80,42 @@ Inhibition keeps one cause to one alert, within the same Prometheus: `OllamaDown
 | Claude Code spend | ClaudeCodeSpendSpike | ticket |
 | SearXNG | SearXNGDown, SearXNGProxyEgressDown, SearXNGTunnelDown, SearXNGEngineFailing, SearXNGDegradedSearches, SearXNGSlowSearches | page, then five ticket |
 | AWS cost | AWSCostForecastOverBudget, AWSCostMonthToDateOver80, AWSCostDailySpike, AWSCostExporterStale | ticket; the three spend rules not delivered |
-| Alerting path | Watchdog, AlertmanagerNotificationsFailing | heartbeat, ticket |
+| Alerting path | Watchdog, PagerDown, PagerDisconnected, PagerFailing, AlertmanagerNotificationsFailing | heartbeat, page, page, page, ticket |
 | UniFi gateway (NAS Prometheus) | UCGMaxLowAvailableMemory, UCGMaxMetricsMissing, UCGMaxPollerScrapeFailing, and its own Watchdog | ticket, heartbeat |
 
-Across both servers that is 5 page rules, 15 ticket rules (3 of them the AWS spend showcase), 1 info rule and 2 Watchdogs. Outside the stack, the AWS monthly budget in AWS Budgets still sends an e-mail at 80% of actual spend ([Budgets and alerts](doc:fin/budgets-and-alerts)). Conditions and tests: [Alerts and SLOs](doc:obs/alerts-and-slos).
-
-## Watching the alerting path
-
-Nothing inside the house can report that the house is down, so the check sits outside. Alertmanager sends each Prometheus's `Watchdog` to its own check every 5 minutes; a check that gets no ping for 5 minutes past its period alarms the operator from outside. A stopped Prometheus, a stopped Alertmanager, a dead home server and a dead uplink all stop the pings. `AlertmanagerNotificationsFailing` covers the other half: a notification Alertmanager gave up on after its retries, such as a broken Discord webhook, becomes a ticket.
-
-`scripts/check-alerting.sh` in the stack's repository checks the setup without sending anything: promtool on the Prometheus config and every rule test, amtool on the Alertmanager config and its routing tree, every alert rule's severity against the receivers it promises, and the ticket receiver's unit tests.
+Across both servers: 8 page rules, 15 ticket rules (3 of them the AWS spend showcase), 1 info rule and 2 Watchdogs. Outside the stack, the AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend ([Budgets and alerts](doc:fin/budgets-and-alerts)). Conditions and tests: [Alerts and SLOs](doc:obs/alerts-and-slos).
 
 ## Response
 
-1. Start from the alert issue. For anything readers saw, open a record in `incidents/` with an `investigating` update and push; the status page shows it after the deploy. See [Status page](doc:eng/status-page).
-2. Find the service in the [catalog](/inside/services/) and follow its runbook.
+1. Acknowledge in the pager, then start from the incident thread and its board issue. For anything readers saw, open a record in `incidents/` with an `investigating` update and push; the status page shows it after the deploy. See [Status page](doc:eng/status-page).
+2. Find the service in the [catalog](/inside/services/) and follow its runbook; the responder's link points there.
 3. Fix through the gate. A fix that cannot pass the gate does not go out.
-4. Move the record through identified, monitoring and resolved. The alert issue closes on its own when the alert resolves.
+4. Move the record through identified, monitoring and resolved. The incident and its board issue close when the alert resolves.
 5. For anything readers saw, write the cause and the fix into the docs and link it from the record.
 
 Order of work follows the service tier: tier 1 first, tier 2 the same day, tier 3 in the next working session.
 
-## Escalation
+## Escalation outside the pager
 
 | From | To | When |
 |---|---|---|
 | Responder session | The operator, in the session | Anything outside the session's track, anything that needs a credential, a cost, a change to the gate or a public statement |
 | Operator | The gate owner | A false positive or a rule change in the gate |
-| Operator | The provider | GitHub for Pages, Actions and the board, Discord for the page channel, the heartbeat service, Anthropic for the API, the upstream search engines for blocks |
+| Operator | The provider | GitHub for Pages, Actions and the board, Discord for the pager, the heartbeat service, Anthropic for the API, the upstream search engines for blocks |
 
 ## What changed from the proposal
 
-The routing proposed here on 2026-10-09 ([ADR-0017](doc:eng/adr-0017-on-call-model)) was wired on 2026-10-17 ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36), [ADR-0037](doc:eng/adr-0037-alert-routing-discord-board-heartbeat)), with four changes:
+The routing proposed here on 2026-10-09 ([ADR-0017](doc:eng/adr-0017-on-call-model)) was wired on 2026-10-17 ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36), [ADR-0037](doc:eng/adr-0037-alert-routing-discord-board-heartbeat)). Five points differ:
 
-- **Discord is the push receiver**, through Alertmanager's own Discord integration and a channel webhook.
-- **Every page is also a ticket**, day and night. The proposal turned a page into a ticket only outside waking hours. A ticket route muted by day would drop the resolved notice of a page that started at night and leave its issue open, and the proposal's night route came after a route that already matched, so it could never fire.
-- **The three AWS spend rules are not delivered.** They show their state on the AWS spend dashboard, as before; `AWSCostExporterStale`, which reports a broken exporter, is a ticket.
-- **Both Prometheus servers use the one Alertmanager**, each with its own Watchdog and heartbeat check.
+- **A pager instead of a push.** Pages go to a pager service with a rotation, an escalation policy, buttons and a timeline, in place of a plain push in waking hours.
+- **An agent layer.** The responder agent is the second level of the policy, and the first out of hours.
+- **Every page is also a ticket**, day and night, so each page leaves an issue with its history and its public record.
+- **The three AWS spend rules are not delivered.** `AWSCostExporterStale`, which reports a broken exporter, is a ticket.
+- **Both Prometheus servers use the one Alertmanager**, each with its own Watchdog and heartbeat check, behind basic auth.
 
 ## Related
 
 - [Alerts and SLOs](doc:obs/alerts-and-slos): every rule and its condition.
 - [Runbooks](doc:obs/runbooks) and the [Engineering runbooks](doc:eng/runbooks).
 - [Access model](doc:eng/access-model): who can reach what.
-- [Standby](doc:sre/principle-standby): the SRE principle this page answers.
+- [Someone carries the pager](doc:sre/principle-standby): the SRE principle this page answers.

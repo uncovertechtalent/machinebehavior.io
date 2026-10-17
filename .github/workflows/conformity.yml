@@ -61,6 +61,11 @@ jobs:
         # inside/cockpit/cockpit.json, each checked against its own contract (ADR-0032, ADR-0031). No network.
         run: python3 scripts/build_inside_seats.py --check
 
+      - name: On-call snapshot matches its contract
+        # #36, ADR-0037: inside/oncall/oncall.json holds names from pager/rotation.yml, alert names, times and durations
+        # in the keys and forms of its contract, and its html is what its data renders. No network.
+        run: python3 scripts/build_oncall.py --check
+
       - name: Run the checks
         uses: $/.github/actions/conformity  # self-repository form (#70): the gate counts $/ as local (run.py pin_refs, #66); actionlint 1.7.12 does not know it yet
         with:
@@ -207,6 +212,17 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/build_cockpit.py --fetch
+
+      - name: Snapshot the pager's rotation and records for the on-call pages (artifact only, never committed)
+        # #36, ADR-0037: pager/rotation.yml from the agent-observability repository and the pager records on this
+        # repository's alert issues (opened by the machine account, labelled kind:finding) into inside/oncall/oncall.json.
+        # The docs pages embed the committed copy and docs.js swaps in this one. A failed read or check leaves the
+        # committed snapshot live.
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/build_oncall.py --fetch
 
       - name: Rebuild the masthead's seat tabs from the fresh cockpit data (artifact only, never committed)
         # #99, ADR-0032: the seat tabs render the cockpit's panels per seat from inside/cockpit/cockpit.json; after the
@@ -399,7 +415,8 @@ jobs:
     # scripts/test_docs_tree.mjs runs inside/docs/docs.js with a stub DOM for the page tree's open state across the 820 px width;
     # scripts/test_build_powersuit.py checks the parsers and the stops of the powersuit page generator, and
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
-    # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks.
+    # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks;
+    # scripts/test_build_oncall.py checks the on-call snapshot's rotation evaluator, its record filter, and its contract (#36).
     # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
@@ -419,6 +436,9 @@ jobs:
 
       - name: Cockpit contract, GitHub read, and page blocks
         run: python3 scripts/test_build_cockpit.py
+
+      - name: On-call snapshot rotation, records, and contract
+        run: python3 scripts/test_build_oncall.py
 
       - name: Masthead contract and page blocks
         run: python3 scripts/test_build_masthead.py
