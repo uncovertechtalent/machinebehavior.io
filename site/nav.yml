@@ -175,7 +175,7 @@ sections:
     auto: topics
 
   - key: map
-    title: Map
+    title: Graph
     url: /map/
     about: Every page, post, repository and thread, and the links between them, as one graph.
 

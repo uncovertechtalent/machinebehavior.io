@@ -7,7 +7,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the sections Research, Inside, Docs and Map, and the search box. The current section is marked. The bar comes from one source, so a page cannot show a different menu.
+Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the sections Research, Inside, Docs, Topics, and Graph, and the search box. The current section is marked. The bar comes from one source, so a page cannot show a different menu.
 
 ## One source for the bar
 
