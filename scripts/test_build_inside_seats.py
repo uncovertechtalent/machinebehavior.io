@@ -74,8 +74,12 @@ def main():
     ok('ceo card counts every area', f'{ceo_open} open · {ceo_blocked} blocked · 1 done in 14 days' in card(out, 'ceo'), card(out, 'ceo'))
     ok('ceo card says it reads every area', 'Direction · reads every area' in card(out, 'ceo'))
     ok('cto card counts delivery and operations only', '1 open · 1 blocked · 0 done in 14 days' in card(out, 'cto'), card(out, 'cto'))
-    ok('blocked leads the pill', '<span class="in-pill is-bad">1 blocked</span>' in card(out, 'cto'))
-    ok('a seat with only done items is clear', '<span class="in-pill is-ok">clear</span>' in card(out, 'publisher'))
+    ok('blocked leads the pill', '<span class="in-pill is-bad" id="in-tab-cto-pill">1 blocked</span>' in card(out, 'cto'))
+    ok('a seat with only done items is clear', '<span class="in-pill is-ok" id="in-tab-publisher-pill">clear</span>' in card(out, 'publisher'))
+    ok('a card is named by its code and title, described by the rest',
+       'aria-labelledby="in-tab-cto-code in-tab-cto-title" aria-describedby="in-tab-cto-pill in-tab-cto-areas in-tab-cto-nums"' in card(out, 'cto'))
+    ok('a panel is named by its own heading', 'id="seat-cto" aria-labelledby="seat-cto-h"' in out and 'id="seat-cto-h"' in out)
+    ok('no empty class attribute', 'class=""' not in out)
     cto = panel(out, 'cto')
     ok('kpis render the four counts', all(f'<dt>{k}</dt>' in cto for k in ('Open', 'In progress', 'Blocked', 'Done in 14 days')))
     ok('a nonzero blocked count is marked', '<div class="is-bad"><dt>Blocked</dt><dd>1</dd></div>' in cto)
@@ -88,7 +92,8 @@ def main():
     ok('the meta names repo, number, type, and area', 'machinebehavior.io#7 · issue · Operations · decision' in cto)
     ceo = panel(out, 'ceo')
     ok('ceo lists its own area', 'id="seat-ceo"' in ceo and 'Item 93' in ceo and '<span class="in-pill is-warn">in progress</span>' in ceo)
-    ok('ceo has a tile per area', ceo.count('<li class="') - ceo.count('<li class="in-item"') == len(bi.bc.AREA_KEYS))
+    tiles = ceo[ceo.index('<ul class="in-areas">'):ceo.index('</ul>', ceo.index('<ul class="in-areas">'))]
+    ok('ceo has a tile per area', tiles.count('<li') == len(bi.bc.AREA_KEYS), tiles)
     dec = ceo[ceo.index('Decisions waiting'):ceo.index('Not done')]
     ok('decisions waiting: open decisions only, blocked first', dec.index('Pick a pager') < dec.index('Pick a ledger') and 'Item 83' not in dec)
     ok('titles are escaped', 'Pick a ledger &lt;now&gt;' in dec and '<now>' not in out)

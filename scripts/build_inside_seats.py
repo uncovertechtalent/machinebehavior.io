@@ -69,23 +69,31 @@ def scope(s, ck):
     return ck['items'] if s['seat'] == CEO else [x for x in ck['items'] if x['area'] in s['areas']]
 
 
-def pill(c):
+def pill(c, pid):
     if c['blocked']:
-        return f'<span class="in-pill is-bad">{c["blocked"]} blocked</span>'
-    if c['open']:
-        return f'<span class="in-pill is-open">{c["open"]} open</span>'
-    if c['in_progress']:
-        return f'<span class="in-pill is-warn">{c["in_progress"]} in progress</span>'
-    return '<span class="in-pill is-ok">clear</span>'
+        cls, text = 'is-bad', f'{c["blocked"]} blocked'
+    elif c['open']:
+        cls, text = 'is-open', f'{c["open"]} open'
+    elif c['in_progress']:
+        cls, text = 'is-warn', f'{c["in_progress"]} in progress'
+    else:
+        cls, text = 'is-ok', 'clear'
+    return f'<span class="in-pill {cls}" id="{pid}">{text}</span>'
+
+
+def cls(name, on):
+    return f' class="{name}"' if on else ''
 
 
 def card(s, ck, titles):
     k, c = esc(s['seat']), tally(scope(s, ck))
-    return (f'<li><a class="in-seat" id="in-tab-{k}" href="#seat-{k}" aria-controls="seat-{k}">'
-            f'<span class="in-seat-top"><span class="in-seat-code">{esc(code(s))}</span>{pill(c)}</span>'
-            f'<span class="in-seat-title">{esc(s["title"])}</span>'
-            f'<span class="in-seat-areas">{areas_label(s, titles)}</span>'
-            f'<span class="in-seat-nums">{c["open"]} open · {c["blocked"]} blocked · {c["done"]} done in {bc.WINDOW_DAYS} days</span>'
+    t = f'in-tab-{k}'  # the card's name is its code and title; the pill, areas, and counts describe it
+    return (f'<li><a class="in-seat" id="{t}" href="#seat-{k}" aria-controls="seat-{k}" aria-labelledby="{t}-code {t}-title" '
+            f'aria-describedby="{t}-pill {t}-areas {t}-nums">'
+            f'<span class="in-seat-top"><span class="in-seat-code" id="{t}-code">{esc(code(s))}</span>{pill(c, f"{t}-pill")}</span>'
+            f'<span class="in-seat-title" id="{t}-title">{esc(s["title"])}</span>'
+            f'<span class="in-seat-areas" id="{t}-areas">{areas_label(s, titles)}</span>'
+            f'<span class="in-seat-nums" id="{t}-nums">{c["open"]} open · {c["blocked"]} blocked · {c["done"]} done in {bc.WINDOW_DAYS} days</span>'
             f'</a></li>')
 
 
@@ -93,7 +101,7 @@ def kpis(c):
     cells = (('Open', c['open']), ('In progress', c['in_progress']), ('Blocked', c['blocked']),
              (f'Done in {bc.WINDOW_DAYS} days', c['done']))
     return ('<dl class="in-kpis">' + ''.join(
-        f'<div class="{"is-bad" if k == "Blocked" and v else ""}"><dt>{k}</dt><dd>{v}</dd></div>' for k, v in cells) + '</dl>')
+        f'<div{cls("is-bad", k == "Blocked" and v)}><dt>{k}</dt><dd>{v}</dd></div>' for k, v in cells) + '</dl>')
 
 
 def row(x, titles):
@@ -114,7 +122,7 @@ def area_tiles(ck, titles):
     out = ''
     for a in bc.AREA_KEYS:
         c = tally([x for x in ck['items'] if x['area'] == a])
-        out += (f'<li class="{"is-bad" if c["blocked"] else ""}"><a href="/inside/cockpit/#{esc(a)}">{esc(titles[a])}</a>'
+        out += (f'<li{cls("is-bad", c["blocked"])}><a href="/inside/cockpit/#{esc(a)}">{esc(titles[a])}</a>'
                 f'<span>{c["open"]} open · {c["in_progress"]} in progress · {c["blocked"]} blocked</span></li>')
     return f'<ul class="in-areas">{out}</ul>'
 

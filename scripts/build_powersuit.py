@@ -19,7 +19,8 @@ Writes:
   powersuit-knowledge and powersuit-release on /cto-powersuit/;
 - the sitemap block powersuit, the llms.txt section "CTO powersuit plugins", and the overview's line in its Pages section;
 then the chrome of every page it wrote, and the cockpit page (scripts/build_cockpit.py, from its committed data), whose
-area rows come from site/powersuit.yml and modules.json. A plugin page's lastmod, and the overview's line in the hand-written part of
+area rows come from site/powersuit.yml and modules.json, then the masthead (scripts/build_masthead.py) and the seat tabs of
+the Inside landing page (scripts/build_inside_seats.py), which take the area titles the same way. A plugin page's lastmod, and the overview's line in the hand-written part of
 the sitemap, move to today only when the page's content changes.
 Every release name on the overview comes from its static blocks, and the note on the main branch (unreleased) may name
 only the pinned release; the build stops when the hand-written text names one,
