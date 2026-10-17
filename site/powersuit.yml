@@ -16,8 +16,8 @@
 
 source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
-  ref: v0.2.0
-  commit: 5c8f96aa16c97f8b23bef9c47a9a370719d6593d
+  ref: v0.3.0
+  commit: 36469d4ec47b0de0c3d81c70caa99d83677a8519
   release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
 published: 2026-10-13
 
@@ -26,13 +26,17 @@ areas:
     about: Where the company stands, and the big technical decisions.
     modules:
       - name: fit
-        line: "The entry assessment: runs the sdlc audit and recommends which modules to fit and in which order. Its repo clinic audits a public repository at its owner's request."
+        line: "The entry assessment: runs the sdlc audit and recommends which modules to fit and in which order. Its repo clinic audits a public repository at its owner's request, and its file-findings skill files a review's findings as GitHub Issues labelled by area, kind, and severity, with a scorecard per area."
         demo_title: Inside
         demo_url: /inside/
       - name: decisions
         line: "RFCs, architecture decision records, and a review of the decision log, with a gate check that every record has a status, an owner, and a date."
         demo_title: Decision log
         demo_url: /inside/docs/eng/decision-log/
+      - name: direction
+        line: "A weekly review of the tracker across all areas that writes a memo (what moved, what is blocked, the proposed allocation of the week, the decisions needed) and records each confirmed decision as a tracker item, with a gate check that every memo has a date, a period, its four sections, and a status on every decision."
+        demo_title: Cockpit
+        demo_url: /inside/cockpit/#direction
   - title: Delivery
     about: How code gets from an idea to production.
     modules:
