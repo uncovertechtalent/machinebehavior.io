@@ -1,14 +1,14 @@
 title: Alerts and SLOs
-summary: The recording rules, service level objectives and 17 alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files.
+summary: The recording rules, service level objectives and 22 alerts that Prometheus and the Loki ruler evaluate, with thresholds from the rule files and the receiver each severity reaches.
 parent: metrics-reference
 order: 10
 labels: prometheus, alerts, slo, loki
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-17
+review_by: 2027-01-15
 type: reference
 ---
-Prometheus evaluates recording rules and 17 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml) and [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml). The Loki ruler adds one recording rule for Claude Code spend. The compose file runs no Alertmanager, so no alert reaches a person; who responds and a proposed routing are on [On-call and escalation](doc:obs/on-call).
+Prometheus evaluates recording rules and 22 alerts from [recording.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/recording.yml), [alerts.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerts.yml) and [alerting.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/prometheus/rules/alerting.yml). The Loki ruler adds one recording rule for Claude Code spend. Alertmanager routes by severity: `page` to the pager on Discord and to an issue on the board, `ticket` to an issue, `info` nowhere, and the three AWS spend rules nowhere; who responds and the full routing are on [On-call and escalation](doc:obs/on-call).
 
 ## Service level objectives
 
@@ -42,6 +42,11 @@ SLI rules record the error ratio and the slow-first-token ratio over 5m, 30m, 1h
 | AWSCostMonthToDateOver80 | AWS month to date above 80% of that budget, for 1 hour | ticket |
 | AWSCostDailySpike | The latest day before today above twice the 28-day median and above USD 1, domain renewals and tax left out, for 1 hour | ticket |
 | AWSCostExporterStale | No error-free poll of the AWS cost exporter for 13 hours, or none since it started, for 30 minutes | ticket |
+| Watchdog | Always fires (`vector(1)`); Alertmanager pings the outside heartbeat check with it every 5 minutes | none |
+| AlertmanagerNotificationsFailing | Alertmanager gave up on a notification after its retries, in the last 15 minutes, per integration | ticket |
+| PagerDown | `up{job="pager"} == 0` for 2 minutes | page |
+| PagerDisconnected | `pager_discord_connected == 0` for 5 minutes: not connected to Discord, or no channels set | page |
+| PagerFailing | A Discord call failed for an incident in the last 15 minutes (`pager_tick_errors_total` increased) | page |
 
 The burn-rate alerts follow the multi-window, multi-burn-rate pattern from chapter 5 of the Google SRE Workbook. A homelab LLM serves a handful of requests per hour, and one failed request in a quiet hour is a 100% error ratio. The traffic floor on the two availability alerts holds the page in that case.
 

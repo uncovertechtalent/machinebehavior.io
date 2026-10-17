@@ -1,13 +1,13 @@
 title: Someone carries the pager
-summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here 17 alert rules reach nobody, the gate is the one control that acts at any hour, and three of four incidents were found by someone working at the time.
+summary: The test for SRE work is standby, a person who is told when production breaks and acts. Here a PagerDuty-style pager on Discord holds the rotation (the operator in waking hours, an agent responder at all hours) and the escalation policy, an outside heartbeat watches the alerting path, and the rotation, the last pages and the pager load are public.
 parent: principles-in-practice
 order: 30
-labels: principle, sre, on-call, alerting, standby
+labels: principle, sre, on-call, alerting, standby, pager, rotation
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-17
+review_by: 2027-01-15
 type: explanation
-state: gap
+state: partial
 source: [Manifesto](doc:sre/manifesto), the standby differentiator; [Google SRE book ch. 11](https://sre.google/sre-book/being-on-call/)
 ---
 ## The principle
@@ -18,15 +18,21 @@ Source: the standby section of the [manifesto](doc:sre/manifesto); Google's [Bei
 
 ## On this platform
 
-- **Rules exist, delivery does not.** Prometheus evaluates 17 alert rules: 5 with severity page, 11 ticket and 1 info ([Alerts and SLOs](doc:obs/alerts-and-slos)). The stack runs no Alertmanager, so a firing alert stays in Prometheus and Grafana until someone looks ([On-call and escalation](doc:obs/on-call)).
-- **One path reaches a person.** The AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend. It sits outside the stack ([Budgets and alerts](doc:fin/budgets-and-alerts)).
+- **A pager with a rotation.** One Alertmanager routes the rules of both Prometheus servers. A page goes to a PagerDuty-style pager on a private Discord server: an incident with Acknowledge, Resolve and Escalate buttons, the operator on call from 08:00 to 22:00 Berlin time, a mention again every 5 minutes, and at 15 minutes an agent responder that posts the runbook link and a read-only diagnosis. Out of hours the responder takes the page at once and the operator hears at 08:00. Every page and ticket is also an issue on the [board](/inside/board/) ([On-call and escalation](doc:obs/on-call), [Alerts and SLOs](doc:obs/alerts-and-slos)).
+- **The alerting path is watched from outside.** Each Prometheus carries an always-firing Watchdog that pings a heartbeat check outside the house every 5 minutes; the check alarms when the pings stop. Tested on 2026-10-17: with the Watchdog silenced at 17:55, the outside check went down at 18:02:08 and its alarm e-mail arrived the same minute. A down pager goes past itself, by webhook (tested: a stopped pager reached the alerting-path channel in about 2 minutes).
+- **A second path for cost.** The AWS monthly budget in AWS Budgets sends an e-mail at 80% of actual spend. It sits outside the stack ([Budgets and alerts](doc:fin/budgets-and-alerts)).
 - **One control acts at any hour.** The [conformity gate](/inside/services/conformity-gate/) stops a failing deploy and keeps the previous build live without anyone on call. On 2026-10-08 it blocked a deploy, and the run on the fix started 76 seconds later and passed ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
-- **How incidents were found.** Of the four records on the [status page](/inside/status/), the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
-- **A routing proposal.** The [on-call page](doc:obs/on-call) holds a routing: pages to the operator's phone in waking hours, tickets onto the [board](/inside/board/), an always-firing Watchdog with an outside heartbeat, and inhibition so one cause raises one alert.
+- **How incidents were found.** Of the four records on the [status page](/inside/status/) before alert routing, the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
+
+## Rotation and the last pages
+
+The rotation, the escalation policy, the last pages with their time to acknowledge and to resolve, and the pager load per week, from the public snapshot that the [on-call page](doc:obs/on-call) also shows:
+
+<!-- oncall-snapshot -->
 
 ## State
 
-**Gap.** Nobody is on standby and no alert rule reaches anyone. The gate covers the largest tier-1 risk, a bad page in front of readers, without a person. Every other failure stays unseen until someone looks: a down search instance, a model server that stopped, a spend spike at night. The proposal is wired once the operator chooses the receivers ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)).
+**Partial.** On 2026-10-17 test pages went through the whole chain to a person ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)): Alertmanager to the pager, a Discord message with buttons, the mention, an acknowledgement 16 seconds after the page fired, and the resolve; a page left alone was mentioned again at 5, 10 and 15 minutes, and the responder agent posted its read-only diagnosis at 15. Each left a board issue with its record. Standby in the full sense stays thin: one person, one human layer, and nobody woken at night by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.
 
 ## Services that name it
 

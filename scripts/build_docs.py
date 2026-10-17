@@ -505,10 +505,24 @@ for p in pages.values():
             rows.append(f'| [{q["title"]}](doc:sre/{q["slug"]}) | {q["source"]} | {q["state"]} | {sv} |')
         p['body'] = IDX_MARK.sub(lambda m: '\n'.join(rows), p['body'])
 
+# <!-- oncall-snapshot --> embeds the committed on-call snapshot (#36, ADR-0037): rotation, policy, last pages and load
+# per week, rendered by scripts/build_oncall.py into inside/oncall/oncall.json; docs.js swaps in the deploy job's copy.
+ONCALL_MARK = re.compile(r'^<!-- oncall-snapshot -->$', re.M)
+ONCALL_TOKEN = 'ONCALLSNAPSHOTPLACEHOLDER'
+ONCALL_JSON = ROOT / 'inside' / 'oncall' / 'oncall.json'
+for p in pages.values():
+    if ONCALL_MARK.search(p['body']):
+        p['body'] = ONCALL_MARK.sub(ONCALL_TOKEN, p['body'])
+        p['oncall'] = True
+
 for p in pages.values():
     ctx = Ctx(p)
     toc = []
     p['html'] = render(p['body'], ctx, toc)
+    if p.get('oncall'):
+        snap = json.loads(ONCALL_JSON.read_text())['html'] if ONCALL_JSON.exists() else '<p>No on-call snapshot yet.</p>'
+        p['html'] = p['html'].replace(f'<p>{ONCALL_TOKEN}</p>',
+                                      f'<div class="oncall" data-oncall-src="/inside/oncall/oncall.json">{snap}</div>')
     p['toc'] = toc
     p['out_links'] = ctx.out_links - {p['url']}
     p['missing'] = ctx.missing

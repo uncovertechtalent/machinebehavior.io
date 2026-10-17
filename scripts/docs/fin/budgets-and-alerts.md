@@ -1,13 +1,13 @@
 title: Budgets and alerts
-summary: The cost controls that exist (the Claude Code spend alert, the AWS monthly budget with its internal dashboard and four alert rules, the eval harness caps), why only the AWS Budgets e-mail reaches a person, and what a budget alert for Claude Code would look like.
+summary: The cost controls that exist (the Claude Code spend alert, the AWS monthly budget with its internal dashboard and four alert rules, the eval harness caps), which of them reach a person, and what a budget alert for Claude Code would look like.
 order: 50
 labels: finops, budgets, alerts, prometheus, loki
 owner: Stefan Coetzee
-reviewed: 2026-10-09
-review_by: 2027-01-07
+reviewed: 2026-10-17
+review_by: 2027-01-15
 type: reference
 ---
-Two kinds of cost control exist. For Claude Code, `ClaudeCodeSpendSpike` fires when the list-price value of calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. For the AWS account, a monthly cost budget in AWS Budgets e-mails at 80% of actual spend, and since 2026-10-09 an internal dashboard and four Prometheus rules compare spend and forecast with that budget. The stack runs no Alertmanager, so the Prometheus alerts are visible in Prometheus and Grafana and reach nobody; the AWS Budgets e-mail is the one cost notification that reaches a person. Claude Code has no budget, and the eval harness caps each run.
+Two kinds of cost control exist. For Claude Code, `ClaudeCodeSpendSpike` fires when the list-price value of calls in the trailing hour stays above USD 40 for 10 minutes; until 2026-10-09 the threshold was USD 20. For the AWS account, a monthly cost budget in AWS Budgets e-mails at 80% of actual spend, and since 2026-10-09 an internal dashboard and four Prometheus rules compare spend and forecast with that budget. Since 2026-10-17 Alertmanager turns `ClaudeCodeSpendSpike` and `AWSCostExporterStale` into issues on the board; the three AWS spend rules show their state on the dashboard and reach nobody, by the operator's choice, and the AWS Budgets e-mail is the one AWS spend notification that reaches a person ([On-call and escalation](doc:obs/on-call)). Claude Code has no budget, and the eval harness caps each run.
 
 ## What exists
 
@@ -66,7 +66,7 @@ On a flat plan a dollar budget limits nothing that is billed. It is a usage budg
 
 ## A budget alert for Claude Code (proposal, not deployed)
 
-1. Delivery first. Add Alertmanager with one receiver that reaches a person, such as mail or a push service. Without it, none of the rules below reaches anyone.
+1. Delivery exists since 2026-10-17: a rule with severity ticket opens an issue on the board, and one with severity page also reaches Discord in waking hours ([On-call and escalation](doc:obs/on-call)).
 2. Record a daily and a weekly sum with the Loki ruler, next to the hourly rule:
 
 ```yaml
