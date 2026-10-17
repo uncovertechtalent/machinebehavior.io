@@ -670,12 +670,15 @@ def main(argv):
             write(ROOT / rel, site_chrome.apply(page, rel))
         write(OVERVIEW, site_chrome.apply(overview, 'cto-powersuit/index.html'))
         # 4. the cockpit page takes its area titles, lines, and plugins from site/powersuit.yml and modules.json (ADR-0031)
-        import build_cockpit, build_masthead
+        import build_cockpit, build_inside_seats, build_masthead
         if build_cockpit.main([]) != 0:
             fail('the cockpit page did not build; run python3 scripts/build_cockpit.py')
         # 5. the masthead's seat tabs take the area titles and the cockpit data the same way (ADR-0032)
         if build_masthead.main([]) != 0:
             fail('the masthead page did not build; run python3 scripts/build_masthead.py')
+        # 6. the seat tabs of the Inside landing page take the area titles and the cockpit data the same way (ADR-0034)
+        if build_inside_seats.main([]) != 0:
+            fail('the Inside landing page did not build; run python3 scripts/build_inside_seats.py')
     newer = newer_tags(release['repo'], release['ref'])
     if newer:  # the overview says "latest release"; a newer tag makes that false
         print(f'{WARN}build_powersuit: {release["repo"]} has a newer release than the pin {release["ref"]}: {", ".join(newer)}. '

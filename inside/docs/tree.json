@@ -271,6 +271,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0034-inside-intranet-theme-and-seat-tabs/",
+"t": "ADR-0034: Inside gets a light intranet theme of the design system, and its landing page a tab per seat",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

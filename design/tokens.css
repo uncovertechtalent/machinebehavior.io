@@ -1,5 +1,6 @@
 /* Design tokens of machinebehavior.io: colour, type, spacing. One file; every page loads it.
    Light and dark follow the visitor's system setting (prefers-color-scheme). Nothing is stored on the device.
+   One theme: a page that sets data-mb-theme="intranet" on <html> gets the light intranet values (ADR-0034).
    Every token starts with --mb-. The older page variables (--ink, --line, --card, --amber ...) are mapped onto the
    tokens at the end of this file, so pages written before the design system follow it too.
    Contrast: text tokens reach 4.5:1 on --mb-surface and --mb-surface-raised in both schemes (WCAG 2.2 AA). */
@@ -98,7 +99,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-mb-theme="intranet"]) {
     --mb-surface: #0C0F12;
     --mb-surface-raised: #13181D;
     --mb-surface-sunken: #090B0E;
@@ -138,6 +139,28 @@
 
 /* App pages (Inside, Docs, Map): amber leads */
 body.mb-app { --mb-accent: var(--mb-amber); --mb-focus: var(--mb-amber); }
+
+/* Intranet theme (ADR-0034): the working view of Inside. A page opts in with data-mb-theme="intranet" on <html>. Light in
+   both system settings (the dark values above skip it): white panels on light grey and one blue accent. The top bar
+   keeps its dark tokens; the light status and data colours above stay. Text tokens reach 6.5:1 or more on these surfaces. */
+:root[data-mb-theme="intranet"] {
+  color-scheme: light;
+  --mb-surface: #F3F4F6;
+  --mb-surface-raised: #FFFFFF;
+  --mb-surface-sunken: #F7F8FA;
+  --mb-surface-hover: #EEF1F5;
+  --mb-text: #18202B;
+  --mb-text-soft: #3A4452;
+  --mb-text-dim: #4E5866;
+  --mb-line: #D9DDE3;
+  --mb-ok: #146C43;
+  --mb-warn: #7A4300;
+  --mb-bad: #A12A1C;
+  --mb-info: #1F4FA8;
+  --mb-accent: var(--mb-info);
+  --mb-focus: var(--mb-info);
+}
+:root[data-mb-theme="intranet"] body.mb-app { --mb-accent: var(--mb-info); --mb-focus: var(--mb-info); }
 
 :root, body.mb-app { --mb-accent-tint: color-mix(in srgb, var(--mb-accent) 13%, transparent); }
 

@@ -53,6 +53,7 @@ The build writes five blocks between `<!-- static:masthead-… -->` markers in `
 2. Set `updated` to today.
 3. Run the build, then `python3 scripts/site_chrome.py --check` and the gate dry run from `CLAUDE.md`.
 4. After a refresh of the committed `inside/cockpit/cockpit.json` or a move of the powersuit pin, run `python3 scripts/build_masthead.py` as well: the seat tabs and the area titles come from there, and the required check compares the page with both files (`scripts/build_powersuit.py` runs it after the cockpit build).
-5. Open the pull request with the issue in its title.
+5. Run `python3 scripts/build_inside_seats.py` after any of the above: the seat cards and dashboards of the [Inside landing page](/inside/) read the seats, the lens questions, and the cockpit data, and their own required check compares the page with both files ([ADR-0034](doc:eng/adr-0034-inside-intranet-theme-and-seat-tabs)).
+6. Open the pull request with the issue in its title.
 
 The file is hand-edited for now. The seats file of the local cockpit, and a command that writes this public copy from it, are planned outside this repository.
