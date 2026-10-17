@@ -23,7 +23,7 @@ A responder session works only while the operator has it running. There is no ro
 ## How a problem is noticed
 
 1. **A page fires.** In waking hours a message arrives in the operator's Discord channel within about a minute, and an issue opens on the board. At night only the issue opens; if the alert still fires at 08:00, the Discord message follows then.
-2. **A ticket fires.** An issue opens on the board, labelled `kind:finding` and an area. It closes itself when the alert resolves and reopens when the same alert fires again.
+2. **A ticket fires.** An issue opens on the board, labelled `kind:finding` and an area. It closes when the alert resolves and reopens when the same alert fires again.
 3. **The gate fails.** The deploy does not run, the run is red on GitHub Actions, the [status page](/inside/status/) shows the site as degraded and the [Website deploys](https://grafana.scoetzee.de/public-dashboards/e0f6a0c8f3a64884a67faac5cf4c3ad4) dashboard shows the failing check. Readers keep the previous build.
 4. **The heartbeat stops.** The outside check alarms when no `Watchdog` ping has arrived for 10 minutes: Prometheus, Alertmanager, the home server or the uplink is down.
 5. **A session or the operator sees it** while working: a dashboard, a failed search, a wrong number.
@@ -46,7 +46,7 @@ The configuration is [alertmanager.yml](https://github.com/uncovertechtalent/age
 
 Inhibition keeps one cause to one alert, within the same Prometheus: `OllamaDown` silences `LocalLLM.+`, `ModelSpilledToCPU` and `OllamaExporterDown`, and `SearXNGDown` silences the other SearXNG alerts.
 
-**What an alert issue shows.** This repository is public, so `alert-issues` writes the alert name, the summary annotation, the start and end time and an allowlist of labels (severity, the Prometheus, job, component, and the name, engine, model or source a rule splits by). The description, the instance address and the link back to Prometheus stay out; every shown value loses URLs and IP addresses, and cannot mention a person or link an issue. One issue belongs to one alert fingerprint, the hash of the alert's labels: a repeat refreshes the body, a resolve comments and closes, and a new firing episode reopens the same issue with a comment. An issue the operator closed stays closed until the alert fires again.
+**What an alert issue shows.** This repository is public, so `alert-issues` writes the alert name, the summary annotation, the start and end time and an allowlist of labels (severity, the Prometheus, job, component, and the name, engine, model or source a rule splits by). The description, the instance address and the link back to Prometheus stay out; every shown value loses URLs and IP addresses, and cannot mention a person or link an issue. One issue belongs to one alert fingerprint, the hash of the alert's labels: a repeat refreshes the body, a resolve comments and closes, and a new firing episode reopens the same issue with a comment. An alert that resolves while inhibited or silenced sends no resolve, so an issue that hears nothing from Alertmanager for 25 hours closes with a comment and reopens if the alert fires again. An issue the operator closed stays closed until the alert fires again.
 
 ## The alert rules
 
