@@ -9,9 +9,9 @@ type: explanation
 ---
 A page reaches the person on call through a pager. One Alertmanager serves both Prometheus servers in the house, the agent-observability stack's and the NAS monitoring stack's. A `page` becomes an incident on a private Discord server, run the way PagerDuty runs one: a message with Acknowledge, Resolve and Escalate buttons, a thread for its timeline, a rotation that says who is on call, and an escalation policy for when nobody acknowledges. Every page and every `ticket` also opens an issue on the [board](/inside/board/); `info` goes nowhere. Each Prometheus carries an always-firing `Watchdog` that pings a heartbeat check outside the house, so a dead Prometheus no longer looks like a quiet night. The [deploy gate](doc:eng/conformity-gate) stays the one control that acts without a person.
 
-## On call now
+## Rotation and the last pages
 
-The tables below are a snapshot: the rotation from [pager/rotation.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml), and the pages from the records the pager keeps on their board issues. The deploy job refreshes it; the page sends no request to GitHub. It shows names, alert names and times, never a Discord account or channel.
+The tables below are a snapshot, as of the time in its last line: the rotation from [pager/rotation.yml](https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml), and the pages from the records the pager keeps on their board issues. The deploy job refreshes it; the page sends no request to GitHub. It shows names, alert names and times, never a Discord account or channel.
 
 <!-- oncall-snapshot -->
 

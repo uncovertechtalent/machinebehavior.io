@@ -24,7 +24,7 @@ Source: the standby section of the [manifesto](doc:sre/manifesto); Google's [Bei
 - **One control acts at any hour.** The [conformity gate](/inside/services/conformity-gate/) stops a failing deploy and keeps the previous build live without anyone on call. On 2026-10-08 it blocked a deploy, and the run on the fix started 76 seconds later and passed ([incident record](/inside/status/#2026-10-08-gate-blocked-map-push)).
 - **How incidents were found.** Of the four records on the [status page](/inside/status/) before alert routing, the gate found one, the blocked deploy. Someone who was working at the time found the other three, and none of those three records the time of the first report or check.
 
-## On call now
+## Rotation and the last pages
 
 The rotation, the escalation policy, the last pages with their time to acknowledge and to resolve, and the pager load per week, from the public snapshot that the [on-call page](doc:obs/on-call) also shows:
 

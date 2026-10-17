@@ -267,7 +267,7 @@ def span(s):
 def render(data):
     e = html.escape
     out = ['<div class="oncall-snapshot">', '<h3>Rotation</h3>', '<div class="tbl"><table><thead><tr>'
-           '<th>Schedule</th><th>On call now</th><th>Layers</th></tr></thead><tbody>']
+           '<th>Schedule</th><th>On call at the snapshot</th><th>Layers</th></tr></thead><tbody>']
     for oc in data['on_call']:
         lays = '; '.join(f'{e(l["name"])}: {e(", ".join(l["members"]))}, {e(l["hours"])}'
                          for l in data['layers'] if l['schedule'] == oc['schedule'])
