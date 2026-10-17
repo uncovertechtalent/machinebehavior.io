@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mb-theme="intranet">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,17 +29,17 @@
   .actions { display: flex; flex-wrap: wrap; gap: 8px; }
   .btn { display: inline-block; font: 13px 'JetBrains Mono', monospace; text-decoration: none; padding: 7px 12px; border-radius: 8px;
     border: 1px solid var(--line); background: var(--card2); color: var(--soft); cursor: pointer; }
-  .btn:hover, .btn:focus-visible { border-color: var(--amber); color: var(--ink); outline: none; }
+  .btn:hover, .btn:focus-visible { border-color: var(--mb-accent); color: var(--ink); outline: none; }
   .btn[hidden] { display: none; }
-  .btn.primary { background: var(--mb-amber-fill); border-color: var(--mb-amber-fill); color: var(--mb-on-fill); }
-  .btn.primary:hover { color: var(--mb-on-fill); filter: brightness(1.08); }
+  .btn.primary { background: var(--mb-accent); border-color: var(--mb-accent); color: var(--mb-surface-raised); }
+  .btn.primary:hover { color: var(--mb-surface-raised); filter: brightness(1.08); }
 
   .filters { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 22px 0 14px; padding: 10px 12px;
     background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
   .filters label { display: flex; align-items: center; gap: 6px; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
   .filters select { background: var(--card2); color: var(--ink); border: 1px solid var(--line); border-radius: 7px; padding: 5px 8px;
     font: 13px 'JetBrains Mono', monospace; max-width: 46vw; }
-  .filters select:focus { border-color: var(--amber); outline: none; }
+  .filters select:focus { border-color: var(--mb-accent); outline: none; }
   .filters .btn { padding: 5px 10px; font-size: 12px; }
   .filters .shown { margin-left: auto; font: 12px 'JetBrains Mono', monospace; color: var(--dim); }
 
@@ -53,8 +53,8 @@
   ol.cards { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   ol.cards .empty { font: 12px 'JetBrains Mono', monospace; color: var(--dim); padding: 10px 6px; border: 1px dashed var(--line); border-radius: 9px; text-align: center; }
   a.card { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px 10px; }
-  a.card:hover { border-color: var(--amber); }
-  a.card:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+  a.card:hover { border-color: var(--mb-accent); }
+  a.card:focus-visible { outline: 2px solid var(--mb-accent); outline-offset: 1px; }
   .c-top, .c-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
   .num { font: 12px 'JetBrains Mono', monospace; color: var(--dim); margin-right: 2px; }
   .c-title { display: block; font-size: 14.5px; line-height: 1.35; font-weight: 500; margin: 6px 0 7px; overflow-wrap: anywhere; }
@@ -67,7 +67,7 @@
   .how { margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 14px; color: var(--soft); line-height: 1.55; max-width: 860px; }
   .how h2 { font: 400 12px 'JetBrains Mono', monospace; letter-spacing: 2.5px; text-transform: uppercase; color: var(--dim); margin: 0 0 8px; }
   .how p { margin: 0 0 8px; }
-  .how a { color: var(--amber); }
+  .how a { color: var(--mb-accent); }
 
   .scrim { position: fixed; inset: 0; background: var(--mb-scrim); z-index: 35; }
   .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(560px, 100vw); z-index: 40; overflow-y: auto; background: var(--card);
@@ -86,7 +86,7 @@
   .d-body ul { margin: 0 0 12px; padding-left: 20px; }
   .d-body li { margin: 3px 0; }
   .d-body h3 { font-size: 16px; margin: 16px 0 6px; }
-  .d-body a { color: var(--amber); }
+  .d-body a { color: var(--mb-accent); }
   .d-body code { font-size: 13px; background: var(--mb-surface-sunken); border: 1px solid var(--line); border-radius: 4px; padding: 1px 4px; }
   .d-body b { font-weight: 600; color: var(--ink); }
   .d-gh { margin-top: 14px; }

@@ -9,6 +9,9 @@ One function, apply(html, rel), writes the managed blocks of a page:
     <!-- mb:side -->    the section sidebar (sections listed in SIDEBARS)
     <!-- mb:foot -->    the footer: conformity line, page source and history, report an issue, legal links
 
+It also sets the theme attribute on <html>: every page under /inside/ (Inside and Docs) gets data-mb-theme="intranet",
+the light intranet theme of the design system, and every other page loses it (ADR-0034, ADR-0035).
+
 Each block sits between <!-- mb:NAME --> and <!-- /mb:NAME -->. A page that has the markers keeps them where they are;
 a page without them gets them at fixed anchors (after <body>, at the top of <div class="sheet"> or <main>, before
 </body>). Everything outside the markers is page content and stays as written, except the old chrome this replaces
@@ -41,6 +44,7 @@ TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/
 POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
+THEMED = ('/inside/', 'intranet')  # pages under this URL prefix get data-mb-theme on <html> (ADR-0035)
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
 
 BLOCK_RE = re.compile(r'<!-- mb:(\w+) -->.*?<!-- /mb:\1 -->', re.S)
@@ -554,6 +558,15 @@ def _insert_before(src, pattern, text):
     return src[:m.start()] + text + src[m.start():]
 
 
+def _html_theme(src, theme):
+    """Set data-mb-theme on the <html> element to theme, or remove it when theme is None."""
+    m = re.search(r'<html([^>]*)>', src)
+    if not m:
+        return src
+    attrs = re.sub(r'\sdata-mb-theme="[^"]*"', '', m.group(1)) + (f' data-mb-theme="{theme}"' if theme else '')
+    return src[:m.start()] + f'<html{attrs}>' + src[m.end():]
+
+
 def apply(src, rel):
     """Return the page with its managed blocks written from site/nav.yml. rel is the path from the repo root."""
     t = tree()
@@ -619,6 +632,7 @@ def apply(src, rel):
     # 4. body classes and the skip-link target
     sec = node.section if node else 'none'
     src = _body_class(src, [f'mb-{layout}', f'mb-s-{sec}'] + (['mb-has-side'] if has_side else []))
+    src = _html_theme(src, THEMED[1] if url.startswith(THEMED[0]) else None)
     if 'id="main"' not in src:
         if layout == 'read':
             src = re.sub(r'<div class="sheet"', '<div class="sheet" id="main" role="main"', src, count=1)

@@ -13,4 +13,5 @@ window.MB_DASHES = [
   {key: 'host', label: 'host', token: '81c9dfd269cc430abaf6a6ce7b64c4d6', range: 'now-24h',
    about: 'The box that runs all of this: CPU, memory, ZFS, disks, network, GPU and sensors.'},
 ];
-window.MB_DASH_URL = d => `https://grafana.scoetzee.de/public-dashboards/${d.token}?from=${d.range}&to=now`;
+// theme=light: both pages use the light intranet theme (ADR-0035), so the frames match them.
+window.MB_DASH_URL = d => `https://grafana.scoetzee.de/public-dashboards/${d.token}?from=${d.range}&to=now&theme=light`;

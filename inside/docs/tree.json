@@ -276,6 +276,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0035-intranet-theme-on-every-inside-page/",
+"t": "ADR-0035: Every page under /inside/ uses the intranet theme, set by the site chrome",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

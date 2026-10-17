@@ -16,7 +16,7 @@ main.wrap.mh { max-width: 1100px; }
 .mh-holder { margin: 0 0 8px; font-size: var(--mb-text-sm); color: var(--mb-text-soft); }
 .mh-areas { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; padding: 0; list-style: none; }
 .mh-areas li a { display: inline-block; font: var(--mb-text-xs)/1.4 var(--mb-font-mono); padding: 2px 8px; border: 1px solid var(--mb-line); border-radius: 6px; color: var(--mb-text-soft); text-decoration: none; }
-.mh-areas li a:hover { border-color: var(--mb-amber); color: var(--mb-text); }
+.mh-areas li a:hover { border-color: var(--mb-accent); color: var(--mb-text); }
 .mh-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; }
 .mh-cols h4 { margin: 0 0 6px; font: 400 var(--mb-text-2xs)/1.4 var(--mb-font-mono); letter-spacing: 2px; text-transform: uppercase; color: var(--mb-text-dim); }
 .mh-list { margin: 0; padding: 0; list-style: none; }
@@ -38,7 +38,7 @@ main.wrap.mh { max-width: 1100px; }
 .mh-tabs { margin-top: var(--mb-space-4); }
 .mh-tablist { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; border-bottom: 1px solid var(--mb-line); padding-bottom: 10px; }
 .mh-tablist label { cursor: pointer; font: var(--mb-text-xs)/1.4 var(--mb-font-mono); padding: 5px 10px; border: 1px solid var(--mb-line); border-radius: 7px; color: var(--mb-text-soft); }
-.mh-tablist label:hover { border-color: var(--mb-amber); color: var(--mb-text); }
+.mh-tablist label:hover { border-color: var(--mb-accent); color: var(--mb-text); }
 .mh-tab-in:focus-visible + .mh-tablist label, .mh-tab-in:focus-visible ~ .mh-tablist label { outline: 0; }
 .mh-tabs > .mh-panel { display: none; }
 #mh-tab-seats:checked ~ #mh-panel-seats, #mh-tab-ceo:checked ~ #mh-panel-ceo, #mh-tab-cto:checked ~ #mh-panel-cto,
@@ -47,11 +47,11 @@ main.wrap.mh { max-width: 1100px; }
 #mh-tab-seats:checked ~ .mh-tablist label[for="mh-tab-seats"], #mh-tab-ceo:checked ~ .mh-tablist label[for="mh-tab-ceo"],
 #mh-tab-cto:checked ~ .mh-tablist label[for="mh-tab-cto"], #mh-tab-cfo:checked ~ .mh-tablist label[for="mh-tab-cfo"],
 #mh-tab-chro:checked ~ .mh-tablist label[for="mh-tab-chro"], #mh-tab-publisher:checked ~ .mh-tablist label[for="mh-tab-publisher"],
-#mh-tab-cko:checked ~ .mh-tablist label[for="mh-tab-cko"] { color: var(--mb-text); border-color: var(--mb-amber); background: var(--mb-surface-hover); }
+#mh-tab-cko:checked ~ .mh-tablist label[for="mh-tab-cko"] { color: var(--mb-text); border-color: var(--mb-accent); background: var(--mb-surface-hover); }
 #mh-tab-seats:focus-visible ~ .mh-tablist label[for="mh-tab-seats"], #mh-tab-ceo:focus-visible ~ .mh-tablist label[for="mh-tab-ceo"],
 #mh-tab-cto:focus-visible ~ .mh-tablist label[for="mh-tab-cto"], #mh-tab-cfo:focus-visible ~ .mh-tablist label[for="mh-tab-cfo"],
 #mh-tab-chro:focus-visible ~ .mh-tablist label[for="mh-tab-chro"], #mh-tab-publisher:focus-visible ~ .mh-tablist label[for="mh-tab-publisher"],
-#mh-tab-cko:focus-visible ~ .mh-tablist label[for="mh-tab-cko"] { outline: 2px solid var(--mb-amber); outline-offset: 2px; }
+#mh-tab-cko:focus-visible ~ .mh-tablist label[for="mh-tab-cko"] { outline: 2px solid var(--mb-accent); outline-offset: 2px; }
 .mh-panel > h3 { margin: 0 0 8px; font-size: var(--mb-text-lg); line-height: 1.2; }
 .mh-panel .ck-kpis { margin-top: 12px; }
 .mh-panel .ck-panel { margin: 14px 0; }
@@ -65,7 +65,7 @@ main.wrap.mh { max-width: 1100px; }
 .mh-tile { padding: 12px 14px; min-width: 0; }
 .mh-tile h4 { margin: 0 0 8px; font-size: var(--mb-text-md); }
 .mh-tile h4 a { text-decoration: none; }
-.mh-tile h4 a:hover { color: var(--mb-amber); }
+.mh-tile h4 a:hover { color: var(--mb-accent); }
 .mh-tile .ck-counts, .mh-tile .ck-kinds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 10px; }
 .mh-tile .ck-label { margin-top: 8px; }
 
