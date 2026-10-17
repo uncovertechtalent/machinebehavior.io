@@ -7,7 +7,7 @@ owner: Stefan Coetzee
 reviewed: 2026-10-17
 review_by: 2027-01-15
 type: explanation
-state: gap
+state: partial
 source: [Manifesto](doc:sre/manifesto), the standby differentiator; [Google SRE book ch. 11](https://sre.google/sre-book/being-on-call/)
 ---
 ## The principle
@@ -32,7 +32,7 @@ The rotation, the escalation policy, the last pages with their time to acknowled
 
 ## State
 
-**Gap.** The pager, the rotation and the escalation policy run on the home server, and the routing is tested offline, but no test page has yet gone through the whole chain to a person: Discord message, acknowledgement, escalation without one, resolve ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)). The state moves when one has. Even then, standby in the full sense stays thin: one person, one human layer, and nobody woken at night by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.
+**Partial.** On 2026-10-17 test pages went through the whole chain to a person ([#36](https://github.com/uncovertechtalent/machinebehavior.io/issues/36)): Alertmanager to the pager, a Discord message with buttons, the mention, an acknowledgement 16 seconds after the page fired, and the resolve; a page left alone was mentioned again at 5, 10 and 15 minutes, and the responder agent posted its read-only diagnosis at 15. Each left a board issue with its record. Standby in the full sense stays thin: one person, one human layer, and nobody woken at night by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.
 
 ## Services that name it
 

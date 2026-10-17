@@ -40,7 +40,7 @@
 <main id="main">
 <!-- mb:crumbs --><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/inside/docs/">Docs</a></li><li><a href="/inside/docs/sre/">SRE Handbook</a></li><li><a href="/inside/docs/sre/principles-in-practice/">Principles in practice</a></li><li><a href="/inside/docs/sre/principle-standby/" aria-current="page">Someone carries the pager</a></li></ol></nav><!-- /mb:crumbs -->
 <h1>Someone carries the pager</h1>
-<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-10-17</span><span>updated 2026-10-17</span><span>reviewed 2026-10-17</span><span>review by 2027-01-15</span><span>3 min read</span><span class="type">explanation</span><span class="rv late">state: gap</span></div>
+<div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-10-17</span><span>updated 2026-10-17</span><span>reviewed 2026-10-17</span><span>review by 2027-01-15</span><span>4 min read</span><span class="type">explanation</span><span class="type">state: partial</span></div>
 
 <article class="doc">
 <h2 id="the-principle">The principle</h2>
@@ -60,7 +60,12 @@
 <ol><li>At once: primary</li><li>After 15 minutes: responder</li></ol>
 <p>Until somebody acknowledges, the person on call is mentioned again every 5 minutes, 3 times. A level with nobody on call passes the page on at once.</p>
 <h3>Last pages</h3>
-<p>No page has gone through the pager in the last 8 weeks.</p>
+<div class="tbl"><table><thead><tr><th>Fired (UTC)</th><th>Alert</th><th>Acknowledged</th><th>Time to acknowledge</th><th>Resolved by</th><th>Time to resolve</th></tr></thead><tbody>
+<tr><td>2026-10-17 15:24</td><td><code>PagerTestNoAck</code></td><td>responder only</td><td>-</td><td>Alertmanager</td><td>16 min</td></tr>
+<tr><td>2026-10-17 15:19</td><td><code>PagerTestNoAck</code></td><td>no</td><td>-</td><td>Alertmanager</td><td>5 min</td></tr>
+<tr><td>2026-10-17 15:18</td><td><code>PagerTestEscalation</code></td><td>Stefan Coetzee</td><td>0 min</td><td>Alertmanager</td><td>5 min</td></tr>
+<tr><td>2026-10-17 15:18</td><td><code>PagerTestAcknowledge</code></td><td>Stefan Coetzee</td><td>0 min</td><td>Alertmanager</td><td>5 min</td></tr>
+</tbody></table></div>
 <h3>Pager load per week</h3><div class="tbl"><table><thead><tr><th>Week</th><th>Pages</th><th>Out of hours</th><th>Median time to acknowledge</th></tr></thead><tbody>
 <tr><td>2026-W35</td><td>0</td><td>0</td><td>-</td></tr>
 <tr><td>2026-W36</td><td>0</td><td>0</td><td>-</td></tr>
@@ -69,12 +74,12 @@
 <tr><td>2026-W39</td><td>0</td><td>0</td><td>-</td></tr>
 <tr><td>2026-W40</td><td>0</td><td>0</td><td>-</td></tr>
 <tr><td>2026-W41</td><td>0</td><td>0</td><td>-</td></tr>
-<tr><td>2026-W42</td><td>0</td><td>0</td><td>-</td></tr>
+<tr><td>2026-W42</td><td>4</td><td>0</td><td>0 min</td></tr>
 </tbody></table></div>
-<p class="oncall-asof">Snapshot of 2026-10-17 14:30 UTC. Rotation from <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml">pager/rotation.yml</a>; pages from the pager records on the alert issues of this repository.</p>
+<p class="oncall-asof">Snapshot of 2026-10-17 15:41 UTC. Rotation from <a href="https://github.com/uncovertechtalent/agent-observability/blob/main/pager/rotation.yml">pager/rotation.yml</a>; pages from the pager records on the alert issues of this repository.</p>
 </div></div>
 <h2 id="state">State</h2>
-<p><strong>Gap.</strong> The pager, the rotation and the escalation policy run on the home server, and the routing is tested offline, but no test page has yet gone through the whole chain to a person: Discord message, acknowledgement, escalation without one, resolve (<a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/36">#36</a>). The state moves when one has. Even then, standby in the full sense stays thin: one person, one human layer, and nobody woken at night by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.</p>
+<p><strong>Partial.</strong> On 2026-10-17 test pages went through the whole chain to a person (<a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/36">#36</a>): Alertmanager to the pager, a Discord message with buttons, the mention, an acknowledgement 16 seconds after the page fired, and the resolve; a page left alone was mentioned again at 5, 10 and 15 minutes, and the responder agent posted its read-only diagnosis at 15. Each left a board issue with its record. Standby in the full sense stays thin: one person, one human layer, and nobody woken at night by design. The gate still covers the largest tier-1 risk, a bad page in front of readers, without a person.</p>
 <h2 id="services-that-name-it">Services that name it</h2>
 <p>No service in the catalog names this principle.</p>
 <h2 id="in-a-company-of-10-to-200-people">In a company of 10 to 200 people</h2>
