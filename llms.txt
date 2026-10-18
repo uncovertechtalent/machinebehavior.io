@@ -4,6 +4,12 @@
 
 Model behavior is what the model does. Machine behavior is what the whole assembly does: model plus harness (instruction files, hooks, tools, memory). The program studies the assembly.
 
+## Full text
+
+- [Full text of machinebehavior.io](https://machinebehavior.io/llms-full.txt): every public page of the site as markdown in one file, each page with its URL and date, rebuilt at each deploy
+- Markdown twin of each page: the page URL plus `index.html.md`, for example https://machinebehavior.io/man/index.html.md
+- [Passage index](https://machinebehavior.io/llms-passages.json): the same pages cut into passages, each with its page URL, title and date, plus BM25 term statistics, for search tools
+
 ## Canonical claims
 
 - Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.

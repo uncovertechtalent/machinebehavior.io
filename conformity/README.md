@@ -46,3 +46,11 @@ python3 .github/actions/conformity/run.py --root . --config conformity/site-tier
 ```
 
 It reads the tracked files of `--git-dir`, their names, and, when `--root` is a build output, every file under it. It exits 1 on a hit and 2 when `--private-terms` comes without `--dry-run`: a run that writes would publish where the hits are. Hits show the file, the line and the term's label, never the term. Intended mentions go into `.private-terms-allow` at the repository root, one per line: a path glob that does not spell the term, a label, and a reason. A pushed commit is public before CI runs, so the owner's pre-push hook (`security.private-terms` in the CTO powersuit) is the check that stops a term in time; this dry run covers the tree and the build output. `grader.fixtures` runs the matcher on every CI run against made-up terms in `fixtures-private-terms.jsonl`. The consumers need no pin bump for this check: it never runs in their CI, and a dry run can use this repository's `run.py` at main.
+
+The deploy job writes the full text for language models (`scripts/build_llms_full.py`: a markdown twin per page, `llms-full.txt`, `llms-passages.json`) from the deployed pages, so those files are not in the tree. Scan them the same way before a deploy that changes many pages:
+
+```bash
+python3 scripts/build_llms_full.py --check-only --private-terms "$POWERSUIT_OVERLAY/security/private-terms.txt"
+```
+
+It builds every file in memory from this checkout, runs the matcher and the allow entries above on every byte (the dry run skips files over 2 MB, and `llms-full.txt` is larger), writes nothing, and exits 1 on a hit.
