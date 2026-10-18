@@ -378,7 +378,10 @@ def passages(md, page_title):
         if not text:
             return
         while len(text) > PASSAGE_MAX:
+            # A paragraph break first, then a line break (table rows, list items), then a sentence end.
             cut = text.rfind('\n\n', 0, PASSAGE_MAX)
+            if cut < PASSAGE_MAX // 3:
+                cut = text.rfind('\n', 0, PASSAGE_MAX)
             if cut < PASSAGE_MAX // 3:
                 cut = text.rfind('. ', 0, PASSAGE_MAX)
                 cut = cut + 1 if cut >= PASSAGE_MAX // 3 else PASSAGE_MAX

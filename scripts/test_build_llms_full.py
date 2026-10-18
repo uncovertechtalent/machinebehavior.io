@@ -97,7 +97,8 @@ def test_build_and_write():
     pages = {
         '/': page('Machine Behavior', '<h1>Machine Behavior</h1><p>Home text.</p>'),
         '/claims/': page('Claims ledger', '<header><h1>Claims ledger</h1></header><p>Claim one.</p>'
-                         f'<h2>Long</h2><p>{long_section}</p>',
+                         f'<h2>Long</h2><p>{long_section}</p><h2>Table</h2><table>'
+                         + ''.join(f'<tr><td>row {i}</td><td>cell text. More cell text here.</td></tr>' for i in range(60)) + '</table>',
                          head='<meta property="article:published_time" content="2026-09-01T10:00:00Z">'
                               '<meta name="description" content="Every claim with &quot;receipts&quot;.">'),
         '/hidden/': page('Hidden', '<p>x</p>', head='<meta name="robots" content="noindex">'),
@@ -128,6 +129,9 @@ def test_build_and_write():
         check('passage length cap', all(len(p['x']) <= b.PASSAGE_MAX for p in idx['passages']),
               max(len(p['x']) for p in idx['passages']))
         check('long section split', sum(1 for p in idx['passages'] if p['h'] == 'Long') >= 4)
+        table = [p['x'] for p in idx['passages'] if p['h'] == 'Table']
+        check('long table split at row ends', len(table) >= 2 and all(t.startswith('|') and t.endswith('|') for t in table),
+              [t[:40] + ' ... ' + t[-40:] for t in table])
         bm = idx['bm25']
         check('bm25 counts', bm['n'] == len(idx['passages']) == len(bm['len']))
         tf = Counter()
