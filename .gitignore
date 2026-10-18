@@ -9,4 +9,4 @@ inside/board/issues.json
 # Written by scripts/build_llms_full.py in the deploy job (artifact only, never committed)
 llms-full.txt
 llms-passages.json
-index.html.md
+*.html.md
