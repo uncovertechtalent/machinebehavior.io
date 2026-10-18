@@ -16,8 +16,8 @@
 
 source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
-  ref: v0.3.0
-  commit: 36469d4ec47b0de0c3d81c70caa99d83677a8519
+  ref: v0.4.0
+  commit: c2f4c72a413c3600d92091beea9b0324c08d4c14
   release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
 published: 2026-10-13
 
@@ -45,7 +45,7 @@ areas:
         demo_title: Board
         demo_url: /inside/board/
       - name: gate
-        line: "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate."
+        line: "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests."
         demo_title: Conformity gate
         demo_url: /inside/docs/eng/conformity-gate/
       - name: docs
@@ -56,7 +56,7 @@ areas:
     about: Keeping it running, and seeing what it does.
     modules:
       - name: reliability
-        line: "Availability targets, SLOs and error budgets, incidents and postmortems, a static status page, and an on-call policy."
+        line: "Availability targets, SLOs and error budgets, incidents and postmortems, a static status page, an on-call policy, a backup inventory with restore tests, and a change record on every server."
         demo_title: Status
         demo_url: /inside/status/
       - name: observability
@@ -74,7 +74,7 @@ areas:
     about: Protecting systems and data, staying compliant, testing for failure.
     modules:
       - name: security
-        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, a pre-push hook for private terms, and a quarantine for third-party text."
+        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, pre-push hooks that refuse a secret or a private term, an inventory of admin entrances with their multi-factor method, and a quarantine for third-party text."
         demo_title: Gate runs
         demo_url: /conformity/
       - name: compliance
