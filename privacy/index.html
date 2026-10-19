@@ -27,7 +27,7 @@
 <h2 id="verantwortlicher">1. Who is responsible</h2>
 <p>Verantwortlicher under Article 4(7) of the GDPR: Stefan Coetzee, Wilhelmstraße 74, 38100 Braunschweig, Germany. Email: <a href="mailto:stefan@uncovertechtalent.com">stefan@uncovertechtalent.com</a>. The same details are in the <a href="/impressum/">Impressum</a>. This notice covers machinebehavior.io. tychat.io and uncovertechtalent.com have their own notices.</p>
 <h2 id="hosting">2. Opening a page: hosting and access logs</h2>
-<p>Amazon CloudFront delivers the pages of this site from a private Amazon S3 bucket in the AWS Region Europe (Frankfurt). The provider is Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, L-1855 Luxembourg, the AWS contracting party for customers in Europe, the Middle East, and Africa. It works for me as a processor under the AWS Data Processing Addendum (Article 28 GDPR).</p>
+<p>Amazon CloudFront delivers the pages of this site from a private Amazon S3 bucket in the AWS Region Europe (Frankfurt). The provider is Amazon Web Services EMEA SARL, 38 Avenue John F. Kennedy, L-1855 Luxembourg, the AWS contracting party for customers in Europe, the Middle East, and Africa. It works for me as a processor under the AWS Data Processing Addendum (Article 28 GDPR). GitHub Pages stays deployed as a fallback host. If the domain points back to it, GitHub receives your IP address as described in the <a href="https://tychat.io/privacy/">notice on tychat.io</a>, and I will update this notice at the same time.</p>
 <p>To deliver a page, CloudFront receives your IP address and the details of your request. It needs them to answer you and to protect the service. AWS sets how long it keeps the connection data it needs to run CloudFront. I have not configured that and cannot see it.</p>
 <p>My own access log records, for each request: the date and time, the AWS edge location, the host name and path, the HTTP method and status, the bytes sent, the response times, the cache result, the protocol and its version, the content type, a request ID, the referring page (the Referer header), your browser's User-Agent string, and the country AWS derives from your IP address. The log never contains your IP address, your port, cookies, or the query string of the address.</p>
 <p>I use the log to count visits, find errors, and see which pages and sources bring readers. The legal basis is my legitimate interest in running the site and knowing which pages are read (Article 6(1)(f) GDPR). I weighed this against your interests. The log holds no IP address, it expires after 30 days, and I build no profile of any reader.</p>
@@ -59,6 +59,7 @@
 <thead><tr><th>Recipient</th><th>Role</th><th>Safeguard for transfers to the USA</th></tr></thead>
 <tbody>
 <tr><td>Amazon Web Services EMEA SARL (Luxembourg) with Amazon Web Services, Inc. (USA): CloudFront, S3, Route 53, EC2</td><td>Processor (Article 28)</td><td>EU-U.S. Data Privacy Framework: Amazon Web Services, Inc. is a covered entity of Amazon.com, Inc., status Active. The AWS Service Terms also include the Standard Contractual Clauses.</td></tr>
+<tr><td>GitHub, Inc. (USA), listed as "GitHub": host of tychat.io and uncovertechtalent.com</td><td>Independent host of those two sites; it receives your IP address only when you open one of them from this site</td><td>EU-U.S. Data Privacy Framework, status Active.</td></tr>
 <tr><td>Google (mail for stefan@uncovertechtalent.com)</td><td>Processor</td><td>EU-U.S. Data Privacy Framework: Google LLC, status Active.</td></tr>
 </tbody>
 </table>
@@ -71,7 +72,7 @@
 <tr><td>Raw access log without IP address</td><td>Amazon S3</td><td>30 days</td></tr>
 <tr><td>Copy of the raw log</td><td>My server in Germany</td><td>Up to 32 days</td></tr>
 <tr><td>Statistics lines without User-Agent and full referrer</td><td>My server in Germany</td><td>90 days</td></tr>
-<tr><td>Requests for the Grafana frames</td><td>Reverse proxy</td><td>No access log is written</td></tr>
+<tr><td>Access log of the reverse proxy for the Grafana frames</td><td>Reverse proxy</td><td>None is written</td></tr>
 <tr><td>Email</td><td>Google mailbox</td><td>As long as needed to handle your request (section 9)</td></tr>
 </tbody>
 </table>
