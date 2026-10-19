@@ -38,8 +38,12 @@ site:
       - https://machinebehavior.io/
       - https://x.com/scoetzeede
 
-# Impressum and privacy links go here as entries with title and url. Both wait on the business address (issues #10 and #11).
-legal: []
+# The links in the legal line of every footer (scripts/site_chrome.py foot()): Impressum and privacy notice, issues #10 and #11.
+legal:
+  - title: Impressum
+    url: /impressum/
+  - title: Privacy
+    url: /privacy/
 
 # How the top bar shows the sections (scripts/site_chrome.py bar()). A group is one menu in the bar; its sections keep
 # their own URLs, breadcrumbs and sidebars. The action is the conversion link: a button at the end of the bar, visible at
@@ -54,6 +58,11 @@ sections:
   - key: home
     title: Home
     url: /
+    pages:
+      - title: Impressum
+        url: /impressum/
+      - title: Privacy notice
+        url: /privacy/
 
   - key: research
     title: Research
