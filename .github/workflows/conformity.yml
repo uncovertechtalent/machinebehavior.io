@@ -44,6 +44,13 @@ jobs:
           # Only runs on main get the key: a manual run from a branch is a dry run (#70, ADR-0029).
           ssh-key: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && secrets.CONFORMITY_PUSH_KEY || '' }}
 
+      - name: Record the checked-out commit
+        # The run record names the commit the checks ran on. github.sha is the branch commit on a manual run from a
+        # branch, which checks main (the ref above), so the record takes HEAD instead: the merge result on a pull
+        # request, main on every other run (#76).
+        id: checked
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
       - name: Cockpit data matches the contract and the page
         # ADR-0031: inside/cockpit/cockpit.json holds only public GitHub data in the keys and forms of the contract (its
         # one kind of free text is an issue title), and the page's cockpit blocks and sitemap date match it. No network.
@@ -73,6 +80,7 @@ jobs:
           config: conformity/site-tier.json
           requirements: conformity/requirements.json
           out: conformity
+          sha: ${{ steps.checked.outputs.sha }}
 
       - name: Commit latest.json and the page
         # Only on main: a manual run from a branch runs that branch's gate (uses: $/...) and commits nothing.
