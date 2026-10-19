@@ -40,7 +40,7 @@
 <p>The name servers of machinebehavior.io run on Amazon Route 53, also operated by AWS. When your device looks up the address of this site, your resolver asks them.</p>
 <h2 id="grafana">4. Grafana dashboards on Inside and Mission Control</h2>
 <p>The pages <a href="/inside/">Inside</a> and <a href="/inside/mission-control/">Mission Control</a> show public Grafana dashboards in a frame. On Inside, the frame opens when the dashboards section scrolls into view. On Mission Control, it opens when you press the load button. The only other place that can open a frame is the Map of the Work (section 5).</p>
-<p>The frames come from grafana.scoetzee.de, a Grafana server that I operate myself. Its address points to a reverse proxy on an Amazon EC2 server in the AWS Region Europe (Frankfurt). The proxy passes only the public dashboard paths to Grafana, which runs on a server that I operate in Germany. When a frame opens, your browser sends your IP address, your User-Agent string, and the dashboard path to that proxy. The site opens the frame with an instruction to send no referrer. What the proxy and Grafana log, and for how long: $GRAFANA_PROXY_LOGGING.</p>
+<p>The frames come from grafana.scoetzee.de, a Grafana server that I operate myself. Its address points to a reverse proxy on an Amazon EC2 server in the AWS Region Europe (Frankfurt). The proxy passes only the public dashboard paths to Grafana, which runs on a server that I operate in Germany. When a frame opens, your browser sends your IP address, your User-Agent string, and the dashboard path to that proxy. The site opens the frame with an instruction to send no referrer. The proxy writes no access log.</p>
 <p>On 2026-10-19 I opened a public dashboard in a clean browser. Grafana set no cookie, all 51 requests went to grafana.scoetzee.de, and Grafana wrote two entries to the browser's local storage for that host: a list of dashboards viewed and the time picker history. I cannot read them. They stay on your device until you clear them.</p>
 <p>The legal basis is Article 6(1)(f) GDPR: showing the live operating data of this site next to the text that describes it. Amazon Web Services EMEA SARL provides the server for the proxy as my processor (section 10).</p>
 <h2 id="map">5. Map of the work</h2>
@@ -71,7 +71,7 @@
 <tr><td>Raw access log without IP address</td><td>Amazon S3</td><td>30 days</td></tr>
 <tr><td>Copy of the raw log</td><td>My server in Germany</td><td>Up to 32 days</td></tr>
 <tr><td>Statistics lines without User-Agent and full referrer</td><td>My server in Germany</td><td>90 days</td></tr>
-<tr><td>Grafana frame requests</td><td>Reverse proxy and Grafana</td><td>$GRAFANA_PROXY_LOGGING</td></tr>
+<tr><td>Requests for the Grafana frames</td><td>Reverse proxy</td><td>No access log is written</td></tr>
 <tr><td>Email</td><td>Google mailbox</td><td>As long as needed to handle your request (section 9)</td></tr>
 </tbody>
 </table>
