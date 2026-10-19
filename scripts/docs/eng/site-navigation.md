@@ -46,7 +46,7 @@ sections:
         auto: services             # one child per service, from inside/services/services.json
 ```
 
-`title` is the name in the breadcrumbs and the sidebar. `url` is a root-absolute page path, or an anchor on a page (`/inside/#dashboards`), which appears in the sidebar but is not a page. `legal` holds the Impressum and privacy links for the footer; it stays empty until the business address exists ([#10](https://github.com/uncovertechtalent/machinebehavior.io/issues/10), [#11](https://github.com/uncovertechtalent/machinebehavior.io/issues/11)).
+`title` is the name in the breadcrumbs and the sidebar. `url` is a root-absolute page path, or an anchor on a page (`/inside/#dashboards`), which appears in the sidebar but is not a page. `legal` holds the Impressum and privacy links for the footer ([#10](https://github.com/uncovertechtalent/machinebehavior.io/issues/10), [#11](https://github.com/uncovertechtalent/machinebehavior.io/issues/11)); the two pages sit under the home entry.
 
 ## The managed blocks
 

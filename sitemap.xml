@@ -85,9 +85,11 @@
   <url><loc>https://machinebehavior.io/cto-powersuit/vault/</loc><lastmod>2026-10-18</lastmod></url>
   <url><loc>https://machinebehavior.io/cto-powersuit/stance/</loc><lastmod>2026-10-18</lastmod></url>
   <!-- powersuit:end -->
+  <url><loc>https://machinebehavior.io/impressum/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://machinebehavior.io/privacy/</loc><lastmod>2026-10-19</lastmod></url>
   <!-- docs:begin (scripts/build_docs.py) -->
-  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/health/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/access-model/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/add-a-page/</loc><lastmod>2026-10-09</lastmod></url>
@@ -147,7 +149,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/service-catalog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-architecture/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-19</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/status-page/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/top-bar-and-search/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/fin/</loc><lastmod>2026-10-09</lastmod></url>
