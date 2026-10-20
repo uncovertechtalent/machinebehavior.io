@@ -6,3 +6,7 @@ inside/deploys.json
 inside/board/issues.json
 .claude/settings.local.json
 .env*
+# Written by scripts/build_llms_full.py in the deploy job (artifact only, never committed)
+llms-full.txt
+llms-passages.json
+*.html.md

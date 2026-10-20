@@ -246,6 +246,15 @@ jobs:
         timeout-minutes: 1
         run: python3 scripts/build_inside_seats.py
 
+      - name: Write the full text for language models (artifact only, never committed)
+        # A markdown twin per page (<page>/index.html.md), /llms-full.txt and /llms-passages.json, the passage index the
+        # "ask mbio" MCP server searches, all from the pages as deployed: this runs after every step above that rewrites a
+        # page. The private-terms scan of these files runs in the owner's dry run, where the term list is (conformity/README.md).
+        # A failed build deploys the site without them; /llms.txt then links files that return 404 until the next deploy.
+        continue-on-error: true
+        timeout-minutes: 2
+        run: python3 scripts/build_llms_full.py
+
       - name: Upload site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
@@ -425,6 +434,7 @@ jobs:
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks;
     # scripts/test_build_oncall.py checks the on-call snapshot's rotation evaluator, its record filter, and its contract (#36).
+    # scripts/test_build_llms_full.py checks the HTML to markdown pass, the twins, llms-full.txt, the passage index, and the private-terms scan.
     # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
@@ -453,6 +463,13 @@ jobs:
 
       - name: Inside landing seat tabs
         run: python3 scripts/test_build_inside_seats.py
+
+      - name: Full text for language models (twins, llms-full.txt, passage index)
+        # The unit cases, then a build of every page of this checkout in memory, so a page the HTML pass cannot read
+        # fails here on the pull request instead of in the deploy job.
+        run: |
+          python3 scripts/test_build_llms_full.py
+          python3 scripts/build_llms_full.py --check-only
 
       - name: Inside seat tabs script (keyboard and ARIA)
         run: node --test scripts/test_seat_tabs.mjs
