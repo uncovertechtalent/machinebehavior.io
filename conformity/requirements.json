@@ -27,7 +27,7 @@
   "NIS2": "Directive (EU) 2022/2555 (NIS2), EUR-Lex"
  },
  "law_asks": {
-  "note": "Short paraphrases of the public text of each clause, read in English on EUR-Lex on the date given. Article numbers only; no text of licensed standards. A row lists the requirements whose crosswalk entry (maps_to) has the relation evidence_for; a pass there is evidence toward the clause, never conformity to the framework. {art} in a source is the article number, for the anchor on the EUR-Lex page.",
+  "note": "Short paraphrases of the public text of each clause, read in English on EUR-Lex on the date given. Article numbers only; no text of licensed standards. A row lists the requirements whose crosswalk entry (maps_to) has the relation evidence_for; a pass there is evidence toward the clause, never conformity to the framework. {art} in a source is the article number, for the anchor on the EUR-Lex page. The text read is the act as published in the Official Journal (the CELEX HTML page linked), not a consolidated version.",
   "sources": {
    "AIA": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1689#art_{art}",
    "DORA": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R2554#art_{art}",
@@ -634,7 +634,7 @@
      "framework": "NIS2",
      "clause": "Art 21(2)(f)",
      "relation": "evidence_for",
-     "slice": "assessing whether the risk-management measures work, on a fixed interval"
+     "slice": "assessing whether the risk-management measures work (the clause sets no interval; this site runs the full set weekly)"
     },
     {
      "framework": "AIA",

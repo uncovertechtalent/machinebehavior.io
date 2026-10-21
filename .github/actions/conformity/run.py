@@ -769,7 +769,7 @@ def render_law(reqs, states, checks, sa_link, sa_date):
         ref = f"{esc(c['framework'])} {esc(c['clause'])}"
         ref = f'<a class="mono" href="{esc(href)}">{ref}</a>' if href else f'<span class="mono">{ref}</span>'
         asks = (f'<p class="ref">{ref} <span class="self">{esc(REQ["frameworks"].get(c["framework"], c["framework"]))}</span></p>'
-                f'<p>{esc(c["asks"])}</p><p class="self">applies to {esc(c.get("applies_to", ""))}; paraphrase of the source text, read {esc(c.get("read", ""))}</p>')
+                f'<p>{esc(c.get("asks", ""))}</p><p class="self">applies to {esc(c.get("applies_to", ""))}; paraphrase of the linked text, read {esc(c.get("read", ""))}</p>')
         does = []
         for r, m in hits:
             live = states[r["id"]]["live"]; sa = r.get("self_assessment", {})
@@ -795,7 +795,7 @@ def render_law(reqs, states, checks, sa_link, sa_date):
     return f"""
   <section>
   <div class="label">The law asks, we do</div>
-  <p class="thesis">Left: what a clause of public law asks, paraphrased from the published text, with a link to the article. The applies-to line names whom the clause binds. Right: the requirement of this draft that answers it on this site, with the result of the latest run where a tool decides and the self-assessment where a person decides. A pass is evidence toward the clause, for the slice named, and never conformity to the framework.{rest_p}</p>
+  <p class="thesis">Left: what a clause of public law asks, paraphrased from the published text, with a link to the article. The applies-to line names whom or what the clause covers. Right: the requirement of this draft that answers it on this site, with the result of the latest run where a tool decides and the self-assessment where a person decides. A pass is evidence toward the clause, for the slice named, and never conformity to the framework.{rest_p}</p>
   <div class="tablewrap"><table class="law">
     <caption>{esc(label)}. Rebuilt on every run from the requirements file: law_asks, and the maps_to crosswalk with the relation evidence_for.</caption>
     <tr><th>The law asks</th><th>We do</th></tr>
