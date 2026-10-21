@@ -2,7 +2,7 @@
 
 Continuous conformity of machinebehavior.io against the working draft "Continuous conformity for deployed AI systems" (draft 0.2, 35 requirements). Self-assessment, not a certification.
 
-- `requirements.json`: the 35 requirements with mark (M mechanical, A assisted, H manual), metric, threshold, check ids, the crosswalk to AI Act, DORA, GDPR and NIST (`maps_to`), and the run 1 self-assessment per row.
+- `requirements.json`: the 35 requirements with mark (M mechanical, A assisted, H manual), metric, threshold, check ids, the crosswalk to AI Act, DORA, GDPR, NIS2 and NIST (`maps_to`), the paraphrase per law clause (`law_asks`), and the run 1 self-assessment per row.
 - `site-tier.json`: site configuration: deploy gating, schedule, the vendored rule table and its sha256, rule tiers and the recorded false-positive test per blocking rule, placeholder pattern, retention.
 - Engine: `.github/actions/conformity/` (composite action: `run.py`, `scan-runner.js`, `rules/vestige-patterns.js` vendored from the public vestige-kit, `fixtures-manual.jsonl`, `fixtures-actions-pinned.jsonl`, `fixtures-actions-owners.jsonl`, `fixtures-private-terms.jsonl`). Other sites (tychat.io and uncovertechtalent.com) use it pinned to a commit of this repository's main, see "Pinned consumers" below.
 - `latest.json`: run history, open and closed findings, requirement states (committed by the workflow).
@@ -16,6 +16,10 @@ python3 .github/actions/conformity/run.py --root . --config conformity/site-tier
 ```
 
 Workflow: `.github/workflows/conformity.yml` runs on push to main, weekly (Mondays 06:17 UTC) and by hand. The Pages deploy job depends on the conformity job.
+
+## The law asks, we do
+
+The first table on the page puts each clause of public law next to what this site does about it. Left: framework, article and a short paraphrase from the requirements key `law_asks` (per clause: `framework`, `clause`, `applies_to`, `asks`, and `read`, the date the text was read; `sources` holds the EUR-Lex link per framework, with `{art}` for the article anchor). Right: every requirement whose `maps_to` entry names that clause with the relation `evidence_for`, with this run's state and check results, or the self-assessment where a person decides. Rows follow the order of `law_asks.clauses`; the page rebuilds the table on every run. Paraphrases are written from the EUR-Lex text, never from a summary. Licensed standards (ISO, DIN) get article and clause numbers only, never their text. A crosswalk clause with no `law_asks` entry is named under the table and stays in "By framework". A site whose requirements file has no `law_asks` gets the page as before, byte for byte, so the consumers change nothing until they add the key.
 
 ## Pinned consumers
 
