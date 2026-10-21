@@ -3,7 +3,8 @@
 
 The gate engine is shared: tychat.io and uncovertechtalent.com run it through a pinned commit, and their requirements
 files have no law_asks key. So the cases check the data of this site, and that the key only adds the table and its CSS:
-a requirements file without it renders the page as before. Each render is a real run of run.py into a temporary folder
+the key adds only the table and its CSS, so a requirements file without it leaves the rest of the page unchanged. Each render
+is a real run of run.py into a temporary folder
 (Python 3 and Node, no network); nothing in the checkout is written. Stdlib only.
 
     python3 scripts/test_conformity_law.py
@@ -72,7 +73,7 @@ with tempfile.TemporaryDirectory() as tmp:
     check("with law_asks: one row per clause", rows == len(keys), f"{rows} rows, {len(keys)} clauses")
     links = re.findall(r'href="https://eur-lex\.europa\.eu/[^"]*#art_\d+"', with_law)
     check("with law_asks: each row links its article on EUR-Lex", len(links) == len(keys), f"{len(links)} links")
-    check("with law_asks: the table carries the label", "Self-assessment, not a certification. Rebuilt on every run" in with_law)
+    check("with law_asks: the table carries the label", "Self-assessment, not a certification." in with_law and "a later amendment is not reflected. Rebuilt on every run" in with_law)
     check("with law_asks: the testing clause GDPR Art 32(1)(d) comes first",
           with_law.find("GDPR Art 32(1)(d)</a>") < with_law.find("NIS2 Art 21(2)(f)</a>") < with_law.find("AIA Art 17(1)(d)</a>"))
     check("with law_asks: no nearest_clause row in the table", "nearest clause" not in with_law[with_law.find('<table class="law">'):with_law.find("</table>", with_law.find('<table class="law">'))])
@@ -92,4 +93,4 @@ if FAILS:
     for f in FAILS:
         print("  " + f)
     sys.exit(1)
-print(f"ok: {len(keys)} clauses, the table renders with law_asks, and a requirements file without it renders the page as before")
+print(f"ok: {len(keys)} clauses, the table renders with law_asks, and the key adds only the table and its CSS")

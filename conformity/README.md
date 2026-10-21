@@ -33,7 +33,7 @@ A change to the gate reaches them only when the gate owner bumps that SHA on pur
 
 1. Merge the gate change here and wait for its Conformity run on main to pass.
 2. Read the new SHA: `gh api repos/uncovertechtalent/machinebehavior.io/commits/main --jq .sha`.
-3. Dry-run the new `run.py` against the consumer (for uncovertechtalent.com, against its Hugo build output with `--git-dir .`) until it prints `overall=pass`. A consumer whose `requirements.json` has no `law_asks` key renders the page as before; `scripts/test_conformity_law.py` proves this for this site's own file on every run, but each consumer is only confirmed when its own file is dry-run here (uncovertechtalent.com was not confirmed in #142).
+3. Dry-run the new `run.py` against the consumer (for uncovertechtalent.com, against its Hugo build output with `--git-dir .`) until it prints `overall=pass`. A consumer whose `requirements.json` has no `law_asks` key renders the page as before. `scripts/test_conformity_law.py` proves the structural half on every run: the `law_asks` key adds only the table and its CSS, so a file without it leaves the rest of the page unchanged. The byte-for-byte match against this repository's own `run.py` at `main` is checked by hand when the gate changes (recorded in a pull request), and each consumer is confirmed only when its own file is dry-run in step 3 above (uncovertechtalent.com was not confirmed in #142).
 4. In the consumer's workflow, replace the SHA and the date in the comment, then open a pull request.
 5. After the merge, confirm the consumer's deploy run on main passes and the site serves.
 
