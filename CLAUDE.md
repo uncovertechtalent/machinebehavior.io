@@ -21,7 +21,7 @@ Every `uses:` reference to an action outside this repository is pinned to a full
 
 Blocking (deploy stops): rule hits in the blocking tier (`service-closer`, `filler-idiom`, `hook-opener`; see `conformity/site-tier.json`), placeholder text on a page (`TODO`, `TBD`, `[Voice pass ...]` and the like), a prediction file whose sha256 differs from `predictions/HASHES.txt`, a page directory missing from `sitemap.xml`, a page without `<link rel="canonical">`, relative or `.html` internal links (root-absolute only: `/man/`, `/style.css`), a page whose eyebrow says self-assessment without "not a certification", a `uses:` reference in `.github/` not pinned to a full commit SHA (`actions.pinned`) or from an owner outside the allowlist (`actions.owners`).
 
-Warning (logged, never blocks): `praise-opener` hits, a page missing from `llms.txt`.
+Warning (logged, never blocks): `praise-opener` hits, a page missing from `llms.txt`, and the compliance checks `compliance.security-txt` and `compliance.no-third-party` (warn tier, key `compliance` in `conformity/site-tier.json`).
 
 Private terms (names of prospective employers or clients, internal shorthand, family names in business copy, private hosts) never go into this public repository, its commits or its pages. The list stays on the owner's machine; the check `private.terms` runs only in a dry run with `--private-terms <file>` (command in `conformity/README.md`), and the owner's pre-push hook stops a push that adds a term. Never write a term into a file, commit, issue or pull request to test the check: the fixtures use made-up terms.
 

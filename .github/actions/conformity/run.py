@@ -13,7 +13,7 @@ Usage:
 Exit codes: 0 written (overall in <out>/.result), 1 private.terms hits (dry run with --private-terms),
 2 --private-terms without --dry-run, 3 internal error, 4 placeholder gate.
 """
-import argparse, datetime, fnmatch, hashlib, html, json, os, platform, re, subprocess, sys, uuid
+import argparse, datetime, fnmatch, hashlib, html, importlib.util, json, os, platform, re, subprocess, sys, uuid
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -175,6 +175,7 @@ def check_components():
         "site_config": {"path": rel(Path(ARGS.config).resolve()) if str(Path(ARGS.config).resolve()).startswith(str(ROOT)) else str(ARGS.config), "sha256": sha256(Path(ARGS.config))},
         "scan_runner": {"sha256": sha256(HERE / "scan-runner.js")},
         "run_py": {"sha256": sha256(HERE / "run.py")},
+        "compliance_checks": {f: sha256(HERE / "compliance" / f) for f in COMPLIANCE.values() if (HERE / "compliance" / f).exists()},
         "runtime": {"python": platform.python_version(), "node": subprocess.run(["node", "--version"], capture_output=True, text=True).stdout.strip(), "runner": ARGS.runner},
         "pages_hashed": {rel(p): sha256(p)[:16] for p in pages()},
     }
@@ -482,6 +483,65 @@ def check_actions_owners():
             "detail": f"{tier} tier: {len(refs)} external references from {len(owners)} owners ({', '.join(owners) or 'none'}); allowlist: {', '.join(allow) or 'empty'}; {len(hits)} from outside the allowlist. "
                       "A supply-chain control outside the scope of draft 0.3, so no requirement row lists it; nearest framework clause NIST CSF 2.0 GV.SC",
             "evidence": [f"{h['file']}:{h['line']} {h['snippet']}" for h in hits], "hits": hits}
+
+
+# Compliance checks from the CTO powersuit (plugins/compliance/checks/), vendored unchanged into compliance/ next to this
+# file; the source commit is in the site config key "compliance". They follow the powersuit gate's rule contract, so
+# ComplianceCtx gives them the parts of that contract they read. Off unless the site config names a tier: "warn" logs a
+# hit and blocks nothing, "block" fails the run and needs a recorded false-positive test. No requirement row lists them.
+COMPLIANCE = {"compliance.security-txt": "security_txt.py", "compliance.no-third-party": "no_third_party.py"}
+
+
+def compliance_shipped(relpath):
+    """The deploy's staging rule (conformity.yml): every dot path stays out except .well-known at the root; node_modules too."""
+    parts = relpath.split("/")
+    return "node_modules" not in parts and all(not x.startswith(".") or (i == 0 and x == ".well-known") for i, x in enumerate(parts))
+
+
+class ComplianceCtx:
+    def __init__(self, options):
+        self.root, self.options, self.now, self.today = ROOT, options, NOW, NOW.date()
+
+    def files(self, globs, exclude=()):
+        out = set()
+        for g in globs:
+            out.update(p for p in ROOT.glob(g) if p.is_file() and compliance_shipped(self.rel(p)))
+        return sorted(out)
+
+    def rel(self, p):
+        return Path(p).resolve().relative_to(ROOT).as_posix()
+
+    def read(self, p):
+        return Path(p).read_text(encoding="utf-8", errors="replace")
+
+
+def check_compliance(cid):
+    conf = SITE.get("compliance", {}).get(cid, {})
+    tier = conf.get("tier", "off")
+    if tier not in ("off", "warn", "block"):
+        return {"result": "fail", "detail": f"{cid}: tier {tier!r} in the site config key compliance; want off, warn or block", "evidence": [], "hits": []}
+    if tier == "off":
+        return {"result": "n/a", "detail": f"{cid} tier off (site config key compliance)", "evidence": [], "hits": []}
+    fp = conf.get("false_positive_test")
+    if tier == "block" and not fp:
+        return {"result": "fail", "detail": f"{cid} in the block tier without a recorded false-positive test (site config key compliance)", "evidence": [], "hits": []}
+    path = HERE / "compliance" / COMPLIANCE[cid]
+    want = SITE.get("compliance", {}).get("sha256", {}).get(COMPLIANCE[cid])
+    if want and path.exists() and sha256(path) != want:
+        return {"result": "fail" if tier == "block" else "warn", "detail": f"{tier} tier: compliance/{COMPLIANCE[cid]} differs from the sha256 recorded in the site config (vendored unchanged from the commit in compliance.source); not run", "evidence": [], "hits": []}
+    try:
+        spec = importlib.util.spec_from_file_location(cid.replace(".", "_").replace("-", "_"), path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        r = mod.check(ComplianceCtx({**mod.DEFAULTS, **conf.get("options", {})}))
+    except Exception as e:  # a broken check shows on the page; on warn it never stops the deploy
+        return {"result": "fail" if tier == "block" else "warn", "detail": f"{tier} tier: {cid} raised {type(e).__name__}: {e}", "evidence": [], "hits": []}
+    hits = r.get("hits") or []
+    result = "warn" if r.get("result") == "fail" and tier != "block" else r.get("result", "warn")
+    fp_text = (f"false-positive test {fp.get('date', '?')}: {fp.get('hits', '?')} hits, {fp.get('legitimate', '?')} legitimate, decision {fp.get('decision', '?')}"
+               if isinstance(fp, dict) else "no false-positive test recorded")
+    return {"result": result, "detail": f"{tier} tier: {r.get('detail', '')}; {fp_text}",
+            "evidence": [f"{h.get('file')}:{h.get('line', 1)} {h.get('snippet')}" for h in hits], "hits": hits}
 
 
 # Same rule as security.private-terms in the CTO powersuit (plugins/security/checks/private_terms.py). The term list (names of
@@ -857,6 +917,8 @@ def main():
     checks["components"] = check_components()
     checks["actions.pinned"] = check_actions_pinned()
     checks["actions.owners"] = check_actions_owners()
+    for cid in COMPLIANCE:
+        checks[cid] = check_compliance(cid)
     if ARGS.private_terms:
         checks["private.terms"] = check_private_terms()
     checks["trigger.push"], checks["deploy.gated"], checks["trigger.schedule"] = check_triggers(latest["history"])
