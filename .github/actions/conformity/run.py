@@ -728,9 +728,81 @@ h1{font-size:2.2em;margin:.2em 0} .subtitle{font-size:1.1em;color:var(--ink-soft
 .footer{display:flex;justify-content:space-between;margin-top:3rem;color:var(--ink-soft);font-family:var(--mono);font-size:.8em} a{color:var(--teal)}
 """
 
+LAW_CSS = """
+table.law { width: 100%; table-layout: fixed; font-family: var(--serif, Georgia, serif); font-size: .95rem; }
+.law th { width: 50%; font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+.law td { vertical-align: top; overflow-wrap: anywhere; }
+.law td p { margin: 0 0 .55em; }
+.law td p:last-child { margin-bottom: 0; }
+.law .ref, .law .mono { font-family: var(--mono); font-size: .85em; }
+.law .does + .does { border-top: 1px dashed var(--rule); margin-top: .7em; padding-top: .7em; }
+.law caption { caption-side: bottom; text-align: left; padding-top: .4em; color: var(--ink-soft); font-size: .85em; }
+@media (max-width: 640px) {
+  table.law, .law caption, .law tbody, .law tr, .law td { display: block; width: auto; }
+  .law tr:first-child { display: none; }
+  .law td::before { content: attr(data-col); display: block; font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .3em; }
+  .law td:first-child { border-top-width: 3px; }
+}
+"""
+
 
 def esc(s):
     return html.escape(str(s))
+
+
+def render_law(reqs, states, checks, sa_link, sa_date):
+    """The two-column report: what a clause of public law asks (paraphrase and source in the requirements key law_asks),
+    next to the requirements whose crosswalk entry is evidence_for that clause, with this run's result. Row order is the
+    order of law_asks.clauses. Empty without law_asks, so a site whose requirements file lacks the key renders as before."""
+    law = REQ.get("law_asks") or {}
+    marks = {k: v.split(": ", 1)[-1] for k, v in REQ.get("marks", {}).items()}
+    rows, shown = [], set()
+    for c in law.get("clauses", []):
+        key = (c["framework"], c["clause"])
+        hits = [(r, m) for r in reqs for m in r.get("maps_to", []) if (m["framework"], m["clause"]) == key and m["relation"] == "evidence_for"]
+        if not hits:
+            continue
+        shown.add(key)
+        art = re.match(r"Art (\d+)", c["clause"])
+        src = law.get("sources", {}).get(c["framework"], "")
+        href = src.replace("{art}", art.group(1)) if art else src.split("#")[0]
+        ref = f"{esc(c['framework'])} {esc(c['clause'])}"
+        ref = f'<a class="mono" href="{esc(href)}">{ref}</a>' if href else f'<span class="mono">{ref}</span>'
+        asks = (f'<p class="ref">{ref} <span class="self">{esc(REQ["frameworks"].get(c["framework"], c["framework"]))}</span></p>'
+                f'<p>{esc(c.get("asks", ""))}</p><p class="self">applies to {esc(c.get("applies_to", ""))}; paraphrase of the linked text, read {esc(c.get("read", ""))}</p>')
+        does = []
+        for r, m in hits:
+            live = states[r["id"]]["live"]; sa = r.get("self_assessment", {})
+            if live:
+                badge = f'<span class="st st-{live}">{STATE_LABEL.get(live, live)}</span>'
+                ev = "<br>".join(f'<span class="mono">{esc(cid)}</span> <span class="st st-{checks[cid]["result"]}">{esc(checks[cid]["result"])}</span> {esc(checks[cid]["detail"])}' for cid in r["checks"] if cid in checks)
+                if r["mark"] != "M" and sa and sa_link:
+                    ev += f' <span class="self">self-assessed {esc(sa_date)}: {esc(sa.get("result", ""))}</span>'
+            elif sa and sa_link:
+                badge = f'<span class="st st-self">{esc(sa.get("result", ""))}</span> <span class="self">self-assessed {esc(sa_date)}</span>'
+                ev = esc(sa.get("evidence", ""))
+            else:
+                badge = '<span class="st st-self">not assessed</span>'
+                ev = "no self-assessment exists for this site yet"
+            does.append(f'<div class="does"><p><span class="mono">{esc(r["id"])}</span> {esc(r["title"])} {badge}</p><p>{ev}</p>'
+                        f'<p class="self">{esc(r["mark"])}: {esc(marks.get(r["mark"], ""))}; evidence toward {esc(m.get("slice", ""))}</p></div>')
+        rows.append(f'<tr><td data-col="The law asks">{asks}</td><td data-col="We do">{"".join(does)}</td></tr>')
+    if not rows:
+        return ""
+    rest = sorted({f"{m['framework']} {m['clause']}" for r in reqs for m in r.get("maps_to", []) if m["relation"] == "evidence_for" and (m["framework"], m["clause"]) not in shown})
+    rest_p = f" Crosswalk clauses with evidence from this tier and no paraphrase here: {esc(', '.join(rest))}. They are listed under By framework below." if rest else ""
+    label = SITE.get("self_assessment_label", "Self-assessment, not a certification")
+    return f"""
+  <section>
+  <div class="label">The law asks, we do</div>
+  <p class="thesis">Left: what a clause of public law asks, paraphrased from the published text, with a link to the article. The applies-to line names whom or what the clause covers. Right: the requirement of this draft that answers it on this site, with the result of the latest run where a tool decides and the self-assessment where a person decides. A pass is evidence toward the clause, for the slice named, and never conformity to the framework.{rest_p}</p>
+  <div class="tablewrap"><table class="law">
+    <caption>{esc(label)}. Each paraphrase follows the article as published in the Official Journal (the linked text); a later amendment is not reflected. Rebuilt on every run from the requirements file: law_asks, and the maps_to crosswalk with the relation evidence_for.</caption>
+    <tr><th>The law asks</th><th>We do</th></tr>
+    {''.join(rows)}
+  </table></div>
+  </section>
+"""
 
 
 def render(record, latest):
@@ -783,6 +855,7 @@ def render(record, latest):
                 cells.append(f"<span class=\"mono\">{rid}</span> <span class=\"st st-{cls}\">{esc(lab)}</span>" + (" <span class=\"self\">nearest clause; it does not require this</span>" if relation == "nearest_clause" else f" <span class=\"self\">{esc(slice_)}</span>"))
             trs.append(f"<tr><td class=\"n\">{esc(clause)}</td><td>{'<br>'.join(cells)}</td></tr>")
         fw_sections.append(f"<h3>{esc(REQ['frameworks'].get(name, name))}</h3><div class=\"tablewrap\"><table><tr><th>clause</th><th>evidence from this tier</th></tr>{''.join(trs)}</table></div>")
+    law_section = render_law(reqs, states, checks, sa_link, sa_date)
     overall = record["x-cc"]["overall"]
     nav = "".join(f'<a href="{esc(h)}">{esc(l)}</a>\n    ' for l, h in page_cfg.get("nav", [["home", "/"]]))
     stylesheet = f'<link rel="stylesheet" href="{esc(page_cfg["stylesheet"])}">' if page_cfg.get("stylesheet") else f"<style>{STANDALONE_CSS}</style>"
@@ -805,7 +878,7 @@ def render(record, latest):
 .st-self {{ color: var(--ink-soft); border-style: dashed; }}
 .self {{ color: var(--ink-soft); font-size: .85em; }}
 .kpi {{ display: flex; gap: 1.2em; flex-wrap: wrap; margin: .6em 0 1em; font-family: var(--mono); font-size: .9em; }}
-</style>
+{LAW_CSS.lstrip() if law_section else ''}</style>
 </head>
 <body>
 <div class="sheet">
@@ -818,7 +891,7 @@ def render(record, latest):
     <p class="subtitle">{esc(SITE.get('self_assessment_label', 'Self-assessment, not a certification'))}. The published pages of {esc(SITE['site'])} are the output of one deployed assembly (a model, its instruction files, hooks, memory, a knowledge vault and a human operator). The mechanical requirements of <a class="mono" href="{esc(draft_link)}">the working draft</a> run against every page on every push, before the changed site serves readers, and on a schedule. This page is rendered from the latest run record.</p>
   </header>
 
-  <div class="kpi"><span>overall <span class="st st-{overall}">{esc(overall)}</span></span><span>open findings {len(open_f)}</span><span>warnings logged {len(checks['rules.warning']['hits'])}</span><span>live: pass {counts.get('pass',0)} · partial {counts.get('partial',0)} · gap {counts.get('gap',0)} · pending {counts.get('pending',0)}</span><span>self-assessed or not assessed: {counts['self']}</span></div>
+  <div class="kpi"><span>overall <span class="st st-{overall}">{esc(overall)}</span></span><span>open findings {len(open_f)}</span><span>warnings logged {len(checks['rules.warning']['hits'])}</span><span>live: pass {counts.get('pass',0)} · partial {counts.get('partial',0)} · gap {counts.get('gap',0)} · pending {counts.get('pending',0)}</span><span>self-assessed or not assessed: {counts['self']}</span></div>{law_section}
 
   <section>
   <div class="label">What this tier decides</div>

@@ -23,7 +23,208 @@
   "DORA": "Regulation (EU) 2022/2554 (DORA), EUR-Lex",
   "GDPR": "Regulation (EU) 2016/679, EUR-Lex",
   "NIST-AI-RMF": "NIST AI 100-1, AI Risk Management Framework 1.0",
-  "NIST-CSF": "NIST CSF 2.0"
+  "NIST-CSF": "NIST CSF 2.0",
+  "NIS2": "Directive (EU) 2022/2555 (NIS2), EUR-Lex"
+ },
+ "law_asks": {
+  "note": "Short paraphrases of the public text of each clause, read in English on EUR-Lex on the date given. Article numbers only; no text of licensed standards. A row lists the requirements whose crosswalk entry (maps_to) has the relation evidence_for; a pass there is evidence toward the clause, never conformity to the framework. {art} in a source is the article number, for the anchor on the EUR-Lex page. The text read is the act as published in the Official Journal (the CELEX HTML page linked), not a consolidated version.",
+  "sources": {
+   "AIA": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32024R1689#art_{art}",
+   "DORA": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022R2554#art_{art}",
+   "GDPR": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679#art_{art}",
+   "NIS2": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32022L2555#art_{art}"
+  },
+  "clauses": [
+   {
+    "framework": "GDPR",
+    "clause": "Art 32(1)(d)",
+    "applies_to": "controllers and processors of personal data",
+    "asks": "A process for testing, assessing and evaluating, at regular intervals, whether the technical and organisational measures that secure the processing work.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "NIS2",
+    "clause": "Art 21(2)(f)",
+    "applies_to": "essential and important entities, through national law",
+    "asks": "Policies and procedures to assess whether the cybersecurity risk-management measures work.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 17(1)(d)",
+    "applies_to": "providers of high-risk AI systems",
+    "asks": "A quality management system that names the examination, test and validation procedures to run before, during and after development, and how often each runs.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 24(6)",
+    "applies_to": "financial entities other than microenterprises",
+    "asks": "Appropriate tests, at least once a year, on every ICT system and application that supports a critical or important function.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 72(2)",
+    "applies_to": "providers of high-risk AI systems",
+    "asks": "Post-market monitoring that collects, documents and analyses performance data over the system's lifetime, so the provider can evaluate whether the system still meets the requirements of Chapter III, Section 2.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 9(8)",
+    "applies_to": "high-risk AI systems",
+    "asks": "Testing during development as appropriate, and in any case before the system is placed on the market or put into service, against metrics and probabilistic thresholds defined beforehand.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 9(6)-(7)",
+    "applies_to": "high-risk AI systems",
+    "asks": "Testing to find the most suitable risk management measures and to confirm that the system performs consistently for its intended purpose; tests may include real-world conditions under Article 60.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 9(4)(e)",
+    "applies_to": "financial entities",
+    "asks": "Documented, risk-based policies, procedures and controls for ICT change management, so that every change to ICT systems is recorded, tested, assessed, approved, implemented and verified in a controlled way.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 25(1)",
+    "applies_to": "financial entities",
+    "asks": "A testing programme that runs appropriate tests, for example vulnerability scans, open source analyses, source code reviews, and scenario-based, performance, end-to-end and penetration tests.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 24(1)",
+    "applies_to": "financial entities other than microenterprises",
+    "asks": "A sound and comprehensive digital operational resilience testing programme, set up, maintained and reviewed as part of the ICT risk-management framework, to find weaknesses and correct them promptly.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 24(2)",
+    "applies_to": "financial entities other than microenterprises",
+    "asks": "A testing programme that includes a range of assessments, tests, methods, practices and tools, applied under Articles 25 and 26.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 24(4)",
+    "applies_to": "financial entities other than microenterprises",
+    "asks": "Tests run by independent parties, internal or external; an internal tester gets enough resources, and conflicts of interest are avoided while the test is designed and run.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 24(5)",
+    "applies_to": "financial entities other than microenterprises",
+    "asks": "Procedures to prioritise, classify and remedy every issue a test reveals, and internal validation methods to confirm that each weakness, deficiency or gap is fully addressed.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 26(5)",
+    "applies_to": "financial entities that run threat-led penetration tests",
+    "asks": "Effective risk management controls during threat-led penetration tests, applied with the ICT providers and testers, to limit any impact on data, assets and critical or important functions.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 26(8)",
+    "applies_to": "financial entities that run threat-led penetration tests",
+    "asks": "Testers for threat-led penetration tests contracted under Article 27; where internal testers are used, external testers for every third test; significant credit institutions use external testers only.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 27",
+    "applies_to": "financial entities that run threat-led penetration tests",
+    "asks": "Testers for threat-led penetration tests who are suitable and reputable, have the expertise, are accredited in a Member State or bound by a code of conduct, give independent assurance and carry indemnity insurance; further conditions apply to internal testers.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 15(1)",
+    "applies_to": "high-risk AI systems",
+    "asks": "An appropriate level of accuracy, robustness and cybersecurity, with consistent performance in those respects throughout the lifecycle.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 15(5)",
+    "applies_to": "high-risk AI systems",
+    "asks": "Resilience against attempts by unauthorised third parties to change the system's use, outputs or performance through its vulnerabilities.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 12(1)",
+    "applies_to": "high-risk AI systems",
+    "asks": "Automatic recording of events (logs) over the lifetime of the system, made technically possible by its design.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 19(1)",
+    "applies_to": "providers of high-risk AI systems",
+    "asks": "Automatically generated logs under the provider's control, kept for a period suited to the intended purpose and at least six months, unless other law says otherwise.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 18(1)",
+    "applies_to": "providers of high-risk AI systems",
+    "asks": "Technical documentation, quality management documentation, notified-body documents and the EU declaration of conformity, kept available to national authorities for 10 years after the system is placed on the market or put into service.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 72(1)",
+    "applies_to": "providers of high-risk AI systems",
+    "asks": "A documented post-market monitoring system, proportionate to the nature of the AI technology and the risks of the system.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 9(1)-(2)",
+    "applies_to": "high-risk AI systems",
+    "asks": "A risk management system, set up, documented and maintained as a continuous iterative process across the whole lifecycle, with regular systematic review and updating.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 14(1)",
+    "applies_to": "high-risk AI systems",
+    "asks": "A design that lets natural persons oversee the system effectively while it is in use, including through suitable human-machine interface tools.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "AIA",
+    "clause": "Art 73(1)",
+    "applies_to": "providers of high-risk AI systems placed on the Union market",
+    "asks": "A report of any serious incident to the market surveillance authorities of the Member States where it occurred.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "DORA",
+    "clause": "Art 19(1)",
+    "applies_to": "financial entities",
+    "asks": "A report of each major ICT-related incident to the relevant competent authority.",
+    "read": "2026-10-21"
+   },
+   {
+    "framework": "GDPR",
+    "clause": "Art 5(1)(d)",
+    "applies_to": "the processing of personal data",
+    "asks": "Personal data that are accurate and, where necessary, kept up to date; every reasonable step is taken to erase or correct inaccurate data without delay.",
+    "read": "2026-10-21"
+   }
+  ]
  },
  "requirements": [
   {
@@ -428,6 +629,12 @@
      "clause": "Art 32(1)(d)",
      "relation": "evidence_for",
      "slice": "regular testing, assessing and evaluating"
+    },
+    {
+     "framework": "NIS2",
+     "clause": "Art 21(2)(f)",
+     "relation": "evidence_for",
+     "slice": "assessing whether the risk-management measures work (the clause sets no interval; this site runs the full set weekly)"
     },
     {
      "framework": "AIA",

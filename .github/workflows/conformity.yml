@@ -445,7 +445,8 @@ jobs:
     # build_powersuit.py --check compares the committed powersuit pages with the pinned release (it clones the public
     # repository and writes nothing; ADR-0030); scripts/test_build_cockpit.py checks the cockpit's contract, its GitHub read, and its page blocks;
     # scripts/test_build_oncall.py checks the on-call snapshot's rotation evaluator, its record filter, and its contract (#36).
-    # scripts/test_build_llms_full.py checks the HTML to markdown pass, the twins, llms-full.txt, the passage index, and the private-terms scan.
+    # scripts/test_build_llms_full.py checks the HTML to markdown pass, the twins, llms-full.txt, the passage index, and the private-terms scan;
+    # scripts/test_conformity_law.py checks the law_asks data and that the law_asks key adds only the table and its CSS, so a requirements file without it renders the rest of the page unchanged (#142).
     # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
@@ -471,6 +472,9 @@ jobs:
 
       - name: Masthead contract and page blocks
         run: python3 scripts/test_build_masthead.py
+
+      - name: Conformity law table (law_asks data, and the key adds only the table and its CSS)
+        run: python3 scripts/test_conformity_law.py
 
       - name: Inside landing seat tabs
         run: python3 scripts/test_build_inside_seats.py
