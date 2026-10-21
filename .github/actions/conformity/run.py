@@ -513,19 +513,26 @@ class ComplianceCtx:
 def check_compliance(cid):
     conf = SITE.get("compliance", {}).get(cid, {})
     tier = conf.get("tier", "off")
+    if tier not in ("off", "warn", "block"):
+        return {"result": "fail", "detail": f"{cid}: tier {tier!r} in the site config key compliance; want off, warn or block", "evidence": [], "hits": []}
     if tier == "off":
         return {"result": "n/a", "detail": f"{cid} tier off (site config key compliance)", "evidence": [], "hits": []}
     fp = conf.get("false_positive_test")
     if tier == "block" and not fp:
         return {"result": "fail", "detail": f"{cid} in the block tier without a recorded false-positive test (site config key compliance)", "evidence": [], "hits": []}
-    spec = importlib.util.spec_from_file_location(cid.replace(".", "_").replace("-", "_"), HERE / "compliance" / COMPLIANCE[cid])
-    mod = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(mod)
-    r = mod.check(ComplianceCtx({**mod.DEFAULTS, **conf.get("options", {})}))
+    try:
+        spec = importlib.util.spec_from_file_location(cid.replace(".", "_").replace("-", "_"), HERE / "compliance" / COMPLIANCE[cid])
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        r = mod.check(ComplianceCtx({**mod.DEFAULTS, **conf.get("options", {})}))
+    except Exception as e:  # a broken check shows on the page; on warn it never stops the deploy
+        return {"result": "fail" if tier == "block" else "warn", "detail": f"{tier} tier: {cid} raised {type(e).__name__}: {e}", "evidence": [], "hits": []}
     hits = r.get("hits") or []
-    result = "warn" if r["result"] == "fail" and tier != "block" else r["result"]
-    detail = f"{tier} tier: {r['detail']}; " + (f"false-positive test {fp['date']}: {fp['hits']} hits, {fp['legitimate']} legitimate, decision {fp['decision']}" if fp else "no false-positive test recorded")
-    return {"result": result, "detail": detail, "evidence": [f"{h.get('file')}:{h.get('line', 1)} {h.get('snippet')}" for h in hits], "hits": hits}
+    result = "warn" if r.get("result") == "fail" and tier != "block" else r.get("result", "warn")
+    fp_text = (f"false-positive test {fp.get('date', '?')}: {fp.get('hits', '?')} hits, {fp.get('legitimate', '?')} legitimate, decision {fp.get('decision', '?')}"
+               if isinstance(fp, dict) else "no false-positive test recorded")
+    return {"result": result, "detail": f"{tier} tier: {r.get('detail', '')}; {fp_text}",
+            "evidence": [f"{h.get('file')}:{h.get('line', 1)} {h.get('snippet')}" for h in hits], "hits": hits}
 
 
 # Same rule as security.private-terms in the CTO powersuit (plugins/security/checks/private_terms.py). The term list (names of
