@@ -25,7 +25,7 @@ Source: the [manifesto](doc:sre/manifesto), with the team-design side in [The Di
 
 ## State
 
-**Partial.** The roles are named and every ring is covered, by one person. No second person can take a ring, a page or a review, so the model is visible in the work and a team does not exist yet. Two security items are blocked: security headers on the hosting decision ([#26](https://github.com/uncovertechtalent/machinebehavior.io/issues/26)) and security.txt on a contact route for vulnerability reports ([#12](https://github.com/uncovertechtalent/machinebehavior.io/issues/12)).
+**Partial.** The roles are named and every ring is covered, by one person. No second person can take a ring, a page or a review, so the model is visible in the work and a team does not exist yet. One security item is blocked: security headers on the hosting decision ([#26](https://github.com/uncovertechtalent/machinebehavior.io/issues/26)). security.txt, with a contact route for vulnerability reports, is served since [#12](https://github.com/uncovertechtalent/machinebehavior.io/issues/12).
 
 ## Services that name it
 

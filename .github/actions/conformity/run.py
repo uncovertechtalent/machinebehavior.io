@@ -490,7 +490,12 @@ def check_actions_owners():
 # ComplianceCtx gives them the parts of that contract they read. Off unless the site config names a tier: "warn" logs a
 # hit and blocks nothing, "block" fails the run and needs a recorded false-positive test. No requirement row lists them.
 COMPLIANCE = {"compliance.security-txt": "security_txt.py", "compliance.no-third-party": "no_third_party.py"}
-COMPLIANCE_EXCLUDE = (".git/", "node_modules/")
+
+
+def compliance_shipped(relpath):
+    """The deploy's staging rule (conformity.yml): every dot path stays out except .well-known at the root; node_modules too."""
+    parts = relpath.split("/")
+    return "node_modules" not in parts and all(not x.startswith(".") or (i == 0 and x == ".well-known") for i, x in enumerate(parts))
 
 
 class ComplianceCtx:
@@ -500,7 +505,7 @@ class ComplianceCtx:
     def files(self, globs, exclude=()):
         out = set()
         for g in globs:
-            out.update(p for p in ROOT.glob(g) if p.is_file() and not self.rel(p).startswith(COMPLIANCE_EXCLUDE))
+            out.update(p for p in ROOT.glob(g) if p.is_file() and compliance_shipped(self.rel(p)))
         return sorted(out)
 
     def rel(self, p):
@@ -520,8 +525,12 @@ def check_compliance(cid):
     fp = conf.get("false_positive_test")
     if tier == "block" and not fp:
         return {"result": "fail", "detail": f"{cid} in the block tier without a recorded false-positive test (site config key compliance)", "evidence": [], "hits": []}
+    path = HERE / "compliance" / COMPLIANCE[cid]
+    want = SITE.get("compliance", {}).get("sha256", {}).get(COMPLIANCE[cid])
+    if want and path.exists() and sha256(path) != want:
+        return {"result": "fail" if tier == "block" else "warn", "detail": f"{tier} tier: compliance/{COMPLIANCE[cid]} differs from the sha256 recorded in the site config (vendored unchanged from the commit in compliance.source); not run", "evidence": [], "hits": []}
     try:
-        spec = importlib.util.spec_from_file_location(cid.replace(".", "_").replace("-", "_"), HERE / "compliance" / COMPLIANCE[cid])
+        spec = importlib.util.spec_from_file_location(cid.replace(".", "_").replace("-", "_"), path)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         r = mod.check(ComplianceCtx({**mod.DEFAULTS, **conf.get("options", {})}))
