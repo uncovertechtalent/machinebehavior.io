@@ -37,6 +37,12 @@ Every other action in this repository and the consumers is pinned to a full comm
 
 The job "Workflow security (zizmor)" in `conformity.yml` runs [zizmor](https://docs.zizmor.sh/) on `.github` on every pull request, push and weekly run (#65). It finds template injection, broad permissions, persisted credentials, unpinned or impostor actions, and actions with known advisories. It runs in this site's workflow only: the shared action stays stdlib-only and offline, so the consumers get no new dependency through their pins. zizmor installs with `pip --require-hashes` from `scripts/ci/zizmor/requirements.txt`, and Dependabot moves that pin. An accepted finding gets an inline `# zizmor: ignore[<rule>]` comment on its line, and `.github/zizmor.yml` lists each one with its reason. The deploy does not wait for the job, and the job is a required check only if the ruleset names it.
 
+## Compliance checks (warn tier)
+
+Two checks from the CTO powersuit's `compliance` module run in every site's gate once its site config names a tier under the key `compliance`: `compliance.security-txt` (a valid `/.well-known/security.txt` with Contact and an Expires date in the future, RFC 9116) and `compliance.no-third-party` (no script, stylesheet, font, icon, image, frame or media loaded from another host when a page opens). The files sit unchanged in `.github/actions/conformity/compliance/`; the source commit is in the site config and their sha256 in each run record (`components.compliance_checks`). A site without the key gets `n/a` for both, so a consumer changes nothing until it opts in. `warn` logs hits on the page and blocks nothing; `block` needs a recorded `false_positive_test` in the same entry, or the check fails the run. No requirement row lists them yet. This site runs both on warn since 2026-10-21 (#12), with the false-positive records in `site-tier.json`.
+
+The deploy job stages the site into `$RUNNER_TEMP/site` before the upload, so `.well-known` ships and no other dot path does: `upload-pages-artifact` leaves out every dot path unless `include-hidden-files` is set.
+
 ## Private terms (dry run only)
 
 Names of prospective employers or clients, internal shorthand, family names in business copy, and private hosts and addresses stay out of this repository and its pages. The term list is private and stays on the owner's machine, outside every repository, so the check `private.terms` runs only in a dry run:

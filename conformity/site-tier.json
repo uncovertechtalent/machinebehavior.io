@@ -163,5 +163,41 @@
  "required_pr_check_since": "2026-10-11T12:28Z",
  "actions_owners_allow": [
   "actions"
- ]
+ ],
+ "compliance": {
+  "source": "github.com/uncovertechtalent/cto-powersuit, plugins/compliance/checks/ at c8e0cd9bae546f7f070b0bdf32d0d6f5cd6224bb, vendored unchanged to .github/actions/conformity/compliance/ (sha256 in the run record, components.compliance_checks)",
+  "decided": "Stefan, 2026-10-21: both rules on warn, with the false-positive records (#12)",
+  "compliance.security-txt": {
+   "tier": "warn",
+   "options": {
+    "roots": [
+     "."
+    ]
+   },
+   "false_positive_test": {
+    "date": "2026-10-21",
+    "corpus": "the site root of origin/main 43c7d04 and the live /.well-known/security.txt",
+    "hits": 1,
+    "legitimate": 1,
+    "decision": "real gap (live 404); #12 adds the file, warn tier"
+   }
+  },
+  "compliance.no-third-party": {
+   "tier": "warn",
+   "options": {
+    "roots": [
+     "."
+    ],
+    "allowed_hosts": []
+   },
+   "false_positive_test": {
+    "date": "2026-10-21",
+    "corpus": "491 HTML files of origin/main 43c7d04 and the 490 live pages of sitemap.xml; tychat.io (7 and 7) in the same test",
+    "hits": 0,
+    "legitimate": 0,
+    "examples": "an independent grep found 497 absolute URLs on resource tags, all <link rel=canonical>, which load nothing; 3 loads planted in copies of live pages gave 3 hits, a 4th inside <pre> was skipped as specified",
+    "decision": "warn; ready for block"
+   }
+  }
+ }
 }
