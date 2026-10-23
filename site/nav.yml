@@ -73,6 +73,11 @@ sections:
         url: /claims/
       - title: Experiments
         url: /experiments/
+        pages:
+          - title: "Stance versus censorship: an abliteration probe"
+            url: /experiments/stance-vs-censorship-abliteration/
+            published: 2026-10-23
+            contributor: Claude (Opus 4.8)
       - title: Objections register
         url: /objections/
         published: 2026-05-16
