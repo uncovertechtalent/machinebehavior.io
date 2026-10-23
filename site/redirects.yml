@@ -6,7 +6,7 @@
 #   from   the old root-absolute URL, ending in '/'
 #   to     the new root-absolute URL, ending in '/'
 #   kind   'move' (a page relocated by git mv in the same PR) or 'convenience' (a data directory that never had a page)
-#   phase  the migration phase that adds the entry (the IA restructure proposal)
+#   phase  the migration phase that adds the entry (the phases recorded in ADR-0038)
 #
 # A move leaves the sitemap at its old path and enters it at the new one in the same PR; the stub is noindex and never
 # enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages, so this list is empty until the
