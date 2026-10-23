@@ -51,7 +51,7 @@
     url: /research/
     pages:
       - title: Claims ledger
-        url: /claims/
+        url: /research/claims/
       - group: Case files          # a sidebar heading; no page, no breadcrumb
         pages:
           - title: Running conjobs for AI
@@ -85,7 +85,7 @@ python3 scripts/site_chrome.py --check   # write nothing; exit 1 if a page diffe
 <h2 id="home-page">Home page</h2>
 <p>The home page is the front page of the portal: section cards from <code>site/nav.yml</code> (<code>about</code> per section), the four research pages published last (<code>published</code>), and the topics, all written between <code>&lt;!-- static:home-... --&gt;</code> markers by <code>scripts/build_fallbacks.py</code>. See <a href="/inside/docs/eng/adr-0028-home-page-portal-front/">ADR-0028</a>.</p>
 <h2 id="structured-data">Structured data</h2>
-<p>The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (from <code>site.person</code>), the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with headline, description and dates, and DefinedTermSet on <code>/terms/</code> and <code>/conformity/standard/</code> with the wording on the page. A research page's publication date sits in <code>site/nav.yml</code> as <code>published</code>. <code>--check</code> fails on a JSON-LD block that does not parse. See <a href="/inside/docs/eng/adr-0027-structured-data/">ADR-0027</a>.</p>
+<p>The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (from <code>site.person</code>), the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with headline, description and dates, and DefinedTermSet on <code>/research/terms/</code> and <code>/conformity/standard/</code> with the wording on the page. A research page's publication date sits in <code>site/nav.yml</code> as <code>published</code>. <code>--check</code> fails on a JSON-LD block that does not parse. See <a href="/inside/docs/eng/adr-0027-structured-data/">ADR-0027</a>.</p>
 <h2 id="layouts">Layouts</h2>
 <p>Two layouts under one brand. The reading layout keeps the serif column of the research pages (<code>/style.css</code>, <code>&lt;div class=&quot;sheet&quot;&gt;</code>, teal accent). The app layout keeps the portal look of Inside, Docs and the map (amber accent). <code>apply()</code> picks the layout from the stylesheet the page loads and sets <code>mb-read</code> or <code>mb-app</code> and <code>mb-s-&lt;section&gt;</code> on <code>&lt;body&gt;</code>. Light and dark follow the system setting in both layouts. The styles are in <code>/design/</code>: <code>tokens.css</code> (colour, type, spacing; the older page variables map onto it), <code>chrome.css</code> (bar, breadcrumbs, sidebars, footer, layouts) and <code>components.css</code> (page header, pills, cards, panels, tables, lists). See <a href="/inside/docs/eng/adr-0025-one-design-system/">ADR-0025</a>.</p>
 <p>Hand-written pages show their owner and the date from <code>sitemap.xml</code> beside the breadcrumbs; generated pages carry their own byline.</p>

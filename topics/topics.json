@@ -8,11 +8,11 @@
    "url": "/topics/sycophancy-and-stance/",
    "about": "The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.",
    "pages": [
-    "/claims/",
-    "/objections/",
-    "/experiments/",
-    "/slips/",
-    "/terms/",
+    "/research/claims/",
+    "/research/objections/",
+    "/research/experiments/",
+    "/research/slips/",
+    "/research/terms/",
     "/the-cheating-moved/",
     "/running-conjobs-for-ai/",
     "/red-team/",
@@ -74,7 +74,7 @@
    "url": "/topics/conformity-and-law/",
    "about": "Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.",
    "pages": [
-    "/evidence/",
+    "/research/evidence/",
     "/case-12-licence-rule-mid-task/",
     "/conformity/standard/",
     "/conformity/standard/why-test-the-running-system/",
@@ -297,6 +297,7 @@
    ],
    "posts": [],
    "tickets": [
+    162,
     144,
     83,
     82,
@@ -649,7 +650,7 @@
     "/man/",
     "/case-12-licence-rule-mid-task/",
     "/running-conjobs-for-ai/",
-    "/slips/",
+    "/research/slips/",
     "/inside/services/agent-sessions/",
     "/inside/services/local-llm/",
     "/inside/docs/fin/anomaly-the-phantom-two-million/",
@@ -756,10 +757,10 @@
    "url": "/topics/evaluation/",
    "about": "Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.",
    "pages": [
-    "/experiments/",
-    "/claims/",
-    "/evidence/",
-    "/objections/",
+    "/research/experiments/",
+    "/research/claims/",
+    "/research/evidence/",
+    "/research/objections/",
     "/the-cheating-moved/",
     "/chaos-engineering-for-behaviour/",
     "/red-team/",
@@ -801,7 +802,7 @@
    "url": "/topics/ai-search/",
    "about": "How the engines behind AI answers pick the pages they cite, how this site is built for them, and how citations get measured.",
    "pages": [
-    "/terms/",
+    "/research/terms/",
     "/aieo/",
     "/aieo/this-site/",
     "/aieo/measurement/",
@@ -816,6 +817,33 @@
   }
  ],
  "issues": [
+  {
+   "n": 162,
+   "t": "Shared conformity action: links.draft fallback points at the self-assessment URL",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/162",
+   "labels": [],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 161,
+   "t": "Test the DefinedTermSet URL match in site_chrome",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/161",
+   "labels": [],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 160,
+   "t": "Add a `prefix` redirect kind (redirects.yml + build_redirects + CloudFront)",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/160",
+   "labels": [],
+   "closed": "",
+   "reason": ""
+  },
   {
    "n": 158,
    "t": "build_docs: a created date alone freezes the updated date",

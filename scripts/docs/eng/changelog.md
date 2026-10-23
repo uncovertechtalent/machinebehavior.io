@@ -49,7 +49,7 @@ What changed on machinebehavior.io and the platform behind it, newest first: 25 
 - SRE principles in practice: one page per principle, linked to the services that apply it ([#35](https://github.com/uncovertechtalent/machinebehavior.io/issues/35))
 - Numbered decision records and a changelog ([#19](https://github.com/uncovertechtalent/machinebehavior.io/issues/19))
 - FinOps space in the docs ([#7](https://github.com/uncovertechtalent/machinebehavior.io/issues/7))
-- Structured data: an article's breadcrumb sits on its mainEntityOfPage (schema.org validator warning on /terms/) ([de53357](https://github.com/uncovertechtalent/machinebehavior.io/commit/de533570f8d79e8301f2ed0d4d5875c3057d31f9))
+- Structured data: an article's breadcrumb sits on its mainEntityOfPage (schema.org validator warning on /research/terms/) ([de53357](https://github.com/uncovertechtalent/machinebehavior.io/commit/de533570f8d79e8301f2ed0d4d5875c3057d31f9))
 - Site: structured data on every page (Person, WebSite with search, Article and TechArticle, DefinedTermSet) ([328a312](https://github.com/uncovertechtalent/machinebehavior.io/commit/328a3128a50cf34393752e3c77dc30c663cb802e))
 - Docs: ISO clause pages reference the standard instead of reproducing it (re-import from the vault) ([8118948](https://github.com/uncovertechtalent/machinebehavior.io/commit/8118948d3022a22542a9b0e035836363f81c2e46))
 - Docs import: drop ISO requirement text and home-lab detail; skip the house SearXNG runbook ([f2ef8b0](https://github.com/uncovertechtalent/machinebehavior.io/commit/f2ef8b0f9057e57d9a0e928253eda99d894a4fde))

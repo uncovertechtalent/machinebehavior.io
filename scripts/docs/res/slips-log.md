@@ -14,7 +14,7 @@ The slips log records the register and stance slips caught while drafting the si
 | status | running; the log starts on 2026-09-29 |
 | rows | 72, dated 2026-09-29 to 2026-10-06 |
 | drafting model (author column) | Claude (Fable 5.1) 48, Claude (Opus 5.5) 16, Claude with model not recorded (author, Language and coordinator sessions) 8 |
-| published page | [/slips/](/slips/) |
+| published page | [/research/slips/](/research/slips/) |
 
 ## What counts
 
@@ -42,7 +42,7 @@ The grader.fixtures check on [/conformity/](/conformity/) runs the site's rule t
 
 ## Files
 
-- [slips/log.csv](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/slips/log.csv): the data; columns `date`, `piece`, `author`, `device`, `before`, `after`, `caught_by`, `relation`, `reader_catch`
+- [slips/log.csv](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/slips/log.csv): the data; columns `date`, `piece`, `author`, `device`, `before`, `after`, `caught_by`, `relation`, `reader_catch`
 - [scripts/slips_page.py](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py): builds slips/index.html from the CSV, with the counts by relation, device and piece
 
 ## Rebuild

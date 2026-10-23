@@ -17,7 +17,7 @@ Exemplar seeding was a test of whether two corrected-output exemplar pairs injec
 | arm installed | 2026-08-07T18:28+02:00, SessionStart hook |
 | evaluated | 2026-09-22 |
 | n | cold-start: 36 events pre-install, 17 post-install |
-| published page | [/experiments/](/experiments/), section 02; [/claims/](/claims/) |
+| published page | [/research/experiments/](/research/experiments/), section 02; [/research/claims/](/research/claims/) |
 
 ## Prediction and outcomes
 

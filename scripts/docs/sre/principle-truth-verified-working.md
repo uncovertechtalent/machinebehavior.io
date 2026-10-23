@@ -22,7 +22,7 @@ Source: [SRE as Truth Verified Working](doc:sre/sre-as-truth-verified-working), 
 - **State only from records.** The [status page](/inside/status/) shows the state of a service only from records the site already publishes: the gate record, the deploy feed and the incident files. A service without a record shows "no live check from this page" in place of a green light ([ADR-0014](doc:eng/adr-0014-status-page-from-published-records)).
 - **Unverified is labelled.** Every page imported from the knowledge vault carries the label "not reviewed against the source" ([ADR-0009](doc:eng/adr-0009-vault-notes-with-review-label)). Each hand-written page names an owner, the date it was last checked against the system and the date of the next check, and [Docs health](/inside/docs/health/) lists the pages past that date ([ADR-0015](doc:eng/adr-0015-owner-and-review-dates)).
 - **Probe the artifact.** On 2026-10-09 Prometheus reported USD 1,970,946.62 of Claude Code spend for a week whose per-request events sum to USD 1,003.45. The counters were wrong and the events were the artifact, so spend is now summed from the events ([incident record](/inside/status/#2026-10-09-phantom-spend-counters), [The phantom two million](doc:fin/anomaly-the-phantom-two-million)). The vault holds the same move as a pattern: [Probe the artifact before reasoning from counts](doc:sre/probe-the-artifact-before-reasoning-from-counts).
-- **Claims with a refutation.** The research programme's [claims ledger](/claims/) lists each claim with its receipts and the observation that would refute it.
+- **Claims with a refutation.** The research programme's [claims ledger](/research/claims/) lists each claim with its receipts and the observation that would refute it.
 
 ## State
 

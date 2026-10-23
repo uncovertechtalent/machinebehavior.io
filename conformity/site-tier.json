@@ -101,18 +101,18 @@
  "freshness_note": "Site tier: every page shows at least one date and the newest date is within 90 days; observation level until pages carry a verified-against-source field (CC-8.2).",
  "fixtures": {
   "manual": ".github/actions/conformity/fixtures-manual.jsonl",
-  "derived": "slips/log.csv (before = known-fail candidate, after = known-pass)",
+  "derived": "research/slips/log.csv (before = known-fail candidate, after = known-pass)",
   "removals": "conformity/fixtures/REMOVALS.md"
  },
  "base_url": "https://machinebehavior.io",
  "repo_url": "https://github.com/uncovertechtalent/machinebehavior.io",
  "rerun_command": "python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run",
  "require_root_absolute_links": true,
- "slips_log": "slips/log.csv",
+ "slips_log": "research/slips/log.csv",
  "links": {
   "draft": "/conformity/standard/",
   "self_assessment": "/conformity/self-assessment/",
-  "objections": "/objections/"
+  "objections": "/research/objections/"
  },
  "page": {
   "site_title": "Machine Behavior",
@@ -129,19 +129,19 @@
    ],
    [
     "claims",
-    "/claims/"
+    "/research/claims/"
    ],
    [
     "experiments",
-    "/experiments/"
+    "/research/experiments/"
    ],
    [
     "objections",
-    "/objections/"
+    "/research/objections/"
    ],
    [
     "terms",
-    "/terms/"
+    "/research/terms/"
    ],
    [
     "inside",

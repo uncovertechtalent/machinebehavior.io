@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Build slips/index.html from slips/log.csv. Run from the repo root: python3 scripts/slips_page.py"""
+"""Build research/slips/index.html from research/slips/log.csv. Run from the repo root: python3 scripts/slips_page.py"""
 import csv, collections, html, re, sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import site_chrome  # top bar, breadcrumbs, sidebar and footer from site/nav.yml
 
-rows = list(csv.DictReader(open('slips/log.csv')))
+rows = list(csv.DictReader(open('research/slips/log.csv')))
 by_rel = collections.Counter(r['relation'] for r in rows)
 by_dev = collections.Counter(r['device'].split(':')[0].split('(')[0].strip() for r in rows)
 # cut labels like "(Reddit cut)" and version suffixes like " v1.1" count toward their parent piece
@@ -34,12 +34,12 @@ page = f'''<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Slips: Machine Behavior</title>
 <meta name="description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
-<link rel="canonical" href="https://machinebehavior.io/slips/">
+<link rel="canonical" href="https://machinebehavior.io/research/slips/">
 <link rel="stylesheet" href="/style.css">
 <meta name="mb-source" content="scripts/slips_page.py">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://machinebehavior.io/slips/">
+<meta property="og:url" content="https://machinebehavior.io/research/slips/">
 <meta property="og:site_name" content="Machine Behavior">
 <meta property="og:title" content="Slips">
 <meta property="og:description" content="A running log of register and stance slips caught while drafting the published pieces, with who caught each one: the drafting model itself, another session, a mechanical hook, a human, or a reader.">
@@ -54,14 +54,14 @@ page = f'''<!doctype html>
 <div class="sheet">
 
   <header>
-    <div class="eyebrow">Running log · generated from slips/log.csv</div>
+    <div class="eyebrow">Running log · generated from research/slips/log.csv</div>
     <h1>Slips caught while drafting</h1>
     <p class="subtitle">Every published piece is drafted with a language model. This page logs the register and stance slips caught before publication, and who caught each one.</p>
   </header>
 
   <p class="thesis"><strong>What counts.</strong> A slip is a device or a claim that did not belong in the text: a speech device in silent-read writing (see <a class="mono" href="https://uncovertechtalent.com/blog/where-did-claudish-come-from/">An RCA on Claudish</a>), an overclaim, a staged contrast, an undisclosed change. Factual corrections after publication go in each piece's changelog and errata, not here.</p>
 
-  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="/claims/">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece. "hook" means a mechanical rule at the output boundary blocked the text before anyone read it (added 2026-10-03, with the first such row).</p>
+  <p class="thesis"><strong>Why the relation column matters.</strong> The program's claim is that self-audit catches little and outside scrutiny catches the rest (<a class="mono" href="/research/claims/">claims ledger</a>). Here "self" means the same model session that wrote the text, "other session" means a separate model session reviewing it, "human" means Stefan, and "reader" means someone who read the published piece. "hook" means a mechanical rule at the output boundary blocked the text before anyone read it (added 2026-10-03, with the first such row).</p>
 
   <p class="thesis"><strong>The reader-catch column</strong> (added 2026-10-03) records what a reader of the published piece caught in that passage, and when. Most cells are empty. Since the same date the log also holds register slips that a reader caught after publication: those rows have the relation "reader", and the published text stays as published.</p>
 
@@ -90,10 +90,10 @@ page = f'''<!doctype html>
   </table>
   </div>
 
-  <p class="thesis">Data: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/slips/log.csv">slips/log.csv</a>. Page built by <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py">scripts/slips_page.py</a>.</p>
+  <p class="thesis">Data: <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/slips/log.csv">research/slips/log.csv</a>. Page built by <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py">scripts/slips_page.py</a>.</p>
 </div>
 </body>
 </html>
 '''
-open('slips/index.html', 'w').write(site_chrome.apply(page, 'slips/index.html'))
-print(f'slips/index.html: {len(rows)} rows, {dict(by_rel)}')
+open('research/slips/index.html', 'w').write(site_chrome.apply(page, 'research/slips/index.html'))
+print(f'research/slips/index.html: {len(rows)} rows, {dict(by_rel)}')

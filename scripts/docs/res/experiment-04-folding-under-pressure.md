@@ -16,7 +16,7 @@ Experiment 04 is a test of whether a model keeps a correct WAIT verdict under fo
 | date | 2026-10-07 |
 | models | qwen.qwen3-coder-30b-a3b-v1:0; v5: gpt-oss-120b, DeepSeek V3.2, Kimi K2.5; Amazon Bedrock, temperature 0 |
 | n | 24 scenarios (12 BUY, 12 WAIT), 6 characters; 2,160 calls (full-01), 720 (full-02), 2,880 per model (v5) |
-| published page | [/experiments/#experiment-04](/experiments/#experiment-04) |
+| published page | [/research/experiments/#experiment-04](/research/experiments/#experiment-04) |
 
 ## Method
 

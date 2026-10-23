@@ -14,7 +14,7 @@ topics:
   - key: sycophancy-and-stance
     title: Sycophancy and stance
     about: The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
-    pages: [/claims/, /objections/, /experiments/, /slips/, /terms/, /the-cheating-moved/, /running-conjobs-for-ai/, /red-team/, /red-team/tactics/, /red-team/method/]
+    pages: [/research/claims/, /research/objections/, /research/experiments/, /research/slips/, /research/terms/, /the-cheating-moved/, /running-conjobs-for-ai/, /red-team/, /red-team/tactics/, /red-team/method/]
     docs_labels: [sycophancy, stance, cold-start, second-rater]
     map_tags: [Sycophancy, Alignment]
     post_words: [sycophan, fawn, stance]
@@ -23,7 +23,7 @@ topics:
   - key: conformity-and-law
     title: Conformity and law
     about: Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
-    pages: [/conformity/standard/, /conformity/standard/why-test-the-running-system/, /conformity/standard/the-six-month-problem/, /conformity/self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
+    pages: [/conformity/standard/, /conformity/standard/why-test-the-running-system/, /conformity/standard/the-six-month-problem/, /conformity/self-assessment/, /conformity/, /research/evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
     docs_labels: [conformity, gate, self-assessment]
     docs_spaces: [std]
     post_words: [conformity, regulation]
@@ -61,7 +61,7 @@ topics:
   - key: agents-and-harness
     title: Agents and harness
     about: Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.
-    pages: [/man/, /case-12-licence-rule-mid-task/, /running-conjobs-for-ai/, /slips/, /inside/services/agent-sessions/, /inside/services/local-llm/]
+    pages: [/man/, /case-12-licence-rule-mid-task/, /running-conjobs-for-ai/, /research/slips/, /inside/services/agent-sessions/, /inside/services/local-llm/]
     docs_labels: [ai-agents, claude-code, llm, graph-rag, rag, retrieval, ai-era-ops]
     map_tags: [AI Agents, Claude Code, Claude, Context Engineering, Knowledge Graph, Knowledge Infrastructure, Local LLM, TYChat]
     post_words: [agent, golem, trap, codec, claudish, compaction, knowledge infrastructure, llm user]
@@ -70,7 +70,7 @@ topics:
   - key: evaluation
     title: Evaluation
     about: Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.
-    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /conformity/self-assessment/, /red-team/, /red-team/tactics/, /red-team/method/]
+    pages: [/research/experiments/, /research/claims/, /research/evidence/, /research/objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /conformity/self-assessment/, /red-team/, /red-team/tactics/, /red-team/method/]
     docs_labels: [eval, experiments, prereg, falsification, second-rater]
     map_tags: [Evaluations, Red Teaming, Goodhart Labs]
     post_words: [cheating, chaos engineering, benchmark]
@@ -79,7 +79,7 @@ topics:
   - key: ai-search
     title: AI search
     about: How the engines behind AI answers pick the pages they cite, how this site is built for them, and how citations get measured.
-    pages: [/aieo/, /aieo/this-site/, /aieo/measurement/, /terms/, /map/]
+    pages: [/aieo/, /aieo/this-site/, /aieo/measurement/, /research/terms/, /map/]
     docs_labels: [structured-data]
     post_words: [AEO, AIEO]
     ticket_words: [aeo, aieo, indexnow, structured data, search console]

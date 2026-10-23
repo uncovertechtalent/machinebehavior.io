@@ -218,14 +218,14 @@
         <div class="apps" id="apps"></div>
       </section>
       <section class="card" aria-labelledby="ex">
-        <h2 id="ex">Experiments <a class="more" href="/experiments/">all experiments</a></h2>
+        <h2 id="ex">Experiments <a class="more" href="/research/experiments/">all experiments</a></h2>
         <div class="kv" id="eval04"></div>
         <p class="note">Eval 04: an AI advisor answers BUY or WAIT from a fact sheet, then a scripted character pushes back for four turns. Fold = a correct WAIT switched to BUY. Prompts frozen and hashed before the first call.</p>
         <div class="kv" id="probe" style="margin-top:14px"><span class="wait">reading the probe record</span></div>
       </section>
       <section class="card" aria-labelledby="ld">
         <h2 id="ld">Living documents</h2>
-        <ul class="plain" id="living"><!-- static:living --><li><a href="/inside/">Inside: Stefan Coetzee&#x27;s work in one place</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/conformity/">Conformity</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/claims/">Claims ledger</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/experiments/">Experiments</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/board/">Inside board: the work on machinebehavior.io</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/services/">Inside services: the service catalog</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/status/">Inside status: services and incidents</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/map/">Map of the Work</a><span class="mono">updated 8 Oct 2026</span></li><li><a href="/evidence/">Evidence index</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/man/">The LLM man pages</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/terms/">Terms</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/slips/">Slips</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/conformity/self-assessment/">Continuous Conformity Self-Assessment, Run 1</a><span class="mono">updated 3 Oct 2026</span></li><li><a href="/objections/">Objections register</a><span class="mono">updated 16 May 2026</span></li><!-- /static:living --></ul>
+        <ul class="plain" id="living"><!-- static:living --><li><a href="/inside/">Inside: Stefan Coetzee&#x27;s work in one place</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/conformity/">Conformity</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/research/claims/">Claims ledger</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/research/experiments/">Experiments</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/board/">Inside board: the work on machinebehavior.io</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/services/">Inside services: the service catalog</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/inside/status/">Inside status: services and incidents</a><span class="mono">updated 9 Oct 2026</span></li><li><a href="/map/">Map of the Work</a><span class="mono">updated 8 Oct 2026</span></li><li><a href="/research/evidence/">Evidence index</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/man/">The LLM man pages</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/research/terms/">Terms</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/research/slips/">Slips</a><span class="mono">updated 7 Oct 2026</span></li><li><a href="/conformity/self-assessment/">Continuous Conformity Self-Assessment, Run 1</a><span class="mono">updated 3 Oct 2026</span></li><li><a href="/research/objections/">Objections register</a><span class="mono">updated 16 May 2026</span></li><!-- /static:living --></ul>
       </section>
       <section class="card" aria-labelledby="rt">
         <h2 id="rt">Repos and threads</h2>
@@ -257,7 +257,7 @@ const SITES = [
 const COLOR = {mb: 'var(--mb-data-amber)', tychat: 'var(--mb-data-green)', utt: 'var(--mb-data-blue)', substack: 'var(--mb-data-pink)', github: 'var(--mb-data-ivory)', reddit: 'var(--mb-data-red)', tag: 'var(--mb-data-grey)'};
 const SITE_LABEL = {mb: 'machinebehavior.io', tychat: 'tychat.io', utt: 'uncovertechtalent.com', substack: 'Substack', github: 'GitHub', reddit: 'Reddit'};
 // pages that are kept up to date rather than published once
-const LIVING = new Set(['/claims/', '/experiments/', '/terms/', '/slips/', '/objections/', '/man/', '/evidence/', '/conformity/',
+const LIVING = new Set(['/research/claims/', '/research/experiments/', '/research/terms/', '/research/slips/', '/research/objections/', '/man/', '/research/evidence/', '/conformity/',
   '/conformity/self-assessment/', '/map/', '/inside/', '/inside/board/', '/inside/services/', '/inside/status/']);
 const GRAFANA = 'https://grafana.scoetzee.de/public-dashboards/';
 const APPS = [
@@ -273,11 +273,11 @@ const APPS = [
   ['Local LLM', 'Grafana', '#dashboards/llm'],
   ['Search engines', 'Grafana', '#dashboards/search'],
   ['TYChat lessons', 'tychat.io', 'https://tychat.io/'],
-  ['Claims ledger', 'what is claimed', '/claims/'],
-  ['Evidence index', 'capability to artefact', '/evidence/'],
-  ['Slips log', 'every logged slip', '/slips/'],
+  ['Claims ledger', 'what is claimed', '/research/claims/'],
+  ['Evidence index', 'capability to artefact', '/research/evidence/'],
+  ['Slips log', 'every logged slip', '/research/slips/'],
   ['Conformity', 'the deploy gate', '/conformity/'],
-  ['Objections', 'the incident register', '/objections/'],
+  ['Objections', 'the incident register', '/research/objections/'],
   ['GitHub', 'uncovertechtalent', 'https://github.com/uncovertechtalent'],
   ['Substack', 'coetzeestefan', 'https://coetzeestefan.substack.com/'],
 ];
