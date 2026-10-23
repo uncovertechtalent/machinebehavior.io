@@ -46,7 +46,9 @@ legal:
     url: /privacy/
 
 # How the top bar shows the sections (scripts/site_chrome.py bar()). A group is one menu in the bar; its sections keep
-# their own URLs, breadcrumbs and sidebars. The action is the conversion link: a button at the end of the bar, visible at
+# their own URLs, breadcrumbs and sidebars. A group may add `overview`: a section key whose hub page leads the menu,
+# labelled "<title> overview", so the hub sits ahead of its leaves; a group without one lists only its `sections`.
+# The action is the conversion link: a button at the end of the bar, visible at
 # every width. Below 900 px the sections sit in one Menu panel.
 bar:
   groups:
