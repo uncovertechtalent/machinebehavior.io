@@ -51,7 +51,10 @@ legal:
 bar:
   groups:
     - title: Research
-      sections: [research, red-team, aieo]
+      overview: research
+      sections: [red-team]
+    - title: More
+      sections: [aieo, topics, map]
   action: cto
 
 sections:
@@ -134,17 +137,10 @@ sections:
         url: /red-team/method/
         published: 2026-10-09
 
-  - key: aieo
-    title: AIEO
-    url: /aieo/
-    about: What the engines behind AI answers document about the pages they cite, how this site is built for AI search, and how citations get measured.
-    pages:
-      - title: This site
-        url: /aieo/this-site/
-        published: 2026-10-09
-      - title: Measurement
-        url: /aieo/measurement/
-        published: 2026-10-09
+  - key: conformity
+    title: Conformity
+    url: /conformity/
+    about: Continuous conformity of this site. The gate runs on every push and publishes an OSCAL-shaped record; the working-draft standard and the self-assessment move here in a later phase.
 
   - key: inside
     title: Inside
@@ -168,8 +164,6 @@ sections:
         url: /inside/status/
       - title: Board
         url: /inside/board/
-      - title: Gate runs
-        url: /conformity/
       - title: Tour
         url: /inside/tour/
       - title: Search
@@ -181,6 +175,18 @@ sections:
     banner: true
     about: The documentation tree in six spaces. Engineering, observability, research, FinOps, an SRE handbook and standards, each page with an owner and a review date.
     auto: docs
+
+  - key: aieo
+    title: AIEO
+    url: /aieo/
+    about: What the engines behind AI answers document about the pages they cite, how this site is built for AI search, and how citations get measured.
+    pages:
+      - title: This site
+        url: /aieo/this-site/
+        published: 2026-10-09
+      - title: Measurement
+        url: /aieo/measurement/
+        published: 2026-10-09
 
   - key: topics
     title: Topics

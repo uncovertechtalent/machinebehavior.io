@@ -212,7 +212,7 @@ def bar(t, node, layout):
     outside or on Escape."""
     sec = node.section if node else None
     cfg = t.bar
-    grouped = {k: g for g in cfg.get('groups', []) for k in g['sections']}
+    grouped = {k: g for g in cfg.get('groups', []) for k in (list(g.get('sections', [])) + ([g['overview']] if g.get('overview') else []))}
     action = cfg.get('action')
 
     def cur(s):
@@ -226,10 +226,19 @@ def bar(t, node, layout):
             continue
         g = grouped.get(s.section)
         if g:
-            members = [t.section(k) for k in g['sections'] if t.section(k)]
-            seen.update(g['sections'])
+            ov = t.section(g['overview']) if g.get('overview') else None
+            rest = [t.section(k) for k in g.get('sections', []) if t.section(k)]
+            members = ([ov] if ov else []) + rest
+            seen.update(g.get('sections', []))
+            if g.get('overview'):
+                seen.add(g['overview'])
             here = any(m.section == sec for m in members)
-            links = ''.join(f'<li><a href="{m.url}"{cur(m)}>{esc(m.title)}</a></li>' for m in members)
+            parts = []
+            if ov:
+                # the hub page leads the panel, labelled so a reader sees it is the section's own front page, not a repeat of the group name
+                parts.append(f'<li><a href="{ov.url}"{cur(ov)}>{esc(ov.title)} overview</a></li>')
+            parts += [f'<li><a href="{m.url}"{cur(m)}>{esc(m.title)}</a></li>' for m in rest]
+            links = ''.join(parts)
             mark = ' class="is-current"' if here else ''
             sr = '<span class="mb-sr"> (current section)</span>' if here else ''
             inline.append(f'<li class="mb-nav-group"><details class="mb-drop"><summary{mark}>{esc(g["title"])}{sr}</summary>'
