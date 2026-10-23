@@ -19,14 +19,15 @@ The site grew by accretion to about 490 URLs. Around 24 content routes sit flat 
 
 ## Decision
 
-Stefan Coetzee, 2026-10-23. The decision is accepted; the moves land in phases 1 to 3, following [ADR-0019](doc:eng/adr-0019-definition-published-before-committee), which publishes a record before the work it governs.
+Stefan Coetzee, 2026-10-23. The decision is accepted; the moves land in phases 1 to 3 (all merged 2026-10-23), following [ADR-0019](doc:eng/adr-0019-definition-published-before-committee), which publishes a record before the work it governs.
 
 1. Adopt a small set of top-level pillars: Research, Conformity, Inside, and Docs, with the CTO page as the action, and Topics, Graph, Search, and AIEO as utilities off the pillar bar.
 2. Nest the flat root registers and reference under their pillar: `/research/{claims,experiments,objections,evidence,slips,terms}/` and `/research/red-team/`.
 3. Consolidate the three conformity routes under one `/conformity/` hub: the live gate runs stay at `/conformity/` (the page path and its canonical are fixed by the shared gate action that tychat.io and uncovertechtalent.com pin, and `conformity/latest.json` is a data contract across the three sites), `/conformity/standard/` for the working draft and its entries, and `/conformity/self-assessment/`.
-4. Freeze the URLs that carry external or legal weight: the product pages (`/your-next-cto/`, `/cto-powersuit/`, for the hashed answer-engine experiment), the articles and case files (external canonical references and hashed predictions), `/man/`, the legal notices, and the high-fan-in aids `/topics/` and `/map/`. A frozen URL still gets a home: the hub lists it by link.
+4. Freeze the URLs that carry external or legal weight: the product pages (`/your-next-cto/`, `/cto-powersuit/`, for the hashed answer-engine experiment), `/man/`, the legal notices, and the high-fan-in aids `/topics/` and `/map/`. A frozen URL still gets a home: the hub lists it by link. (Revised 2026-10-23: the articles and case files, frozen here at first, now nest too; see decision 7.)
 5. Record every moved URL in `site/redirects.yml`, the one source for both redirect layers. `scripts/build_redirects.py` writes a GitHub Pages stub at the old path with a canonical link to the target, a meta refresh, and robots noindex; the CloudFront viewer-request function issues the 301 at the edge from the same list.
 6. Add a convenience 301 from `/services/` to `/inside/services/`, so a plausible reader URL resolves instead of returning 404.
+7. Nest the research pieces by kind, and make this the convention for every new piece: articles at `/research/articles/<slug>/`, case files at `/research/case-files/<slug>/`, red team at `/research/red-team/`. Revised 2026-10-23, reversing the freeze of the articles and case files in decision 4 and Q1 of the phase-0 decisions: the cost of moving a piece grows with every citation, one rule for all pieces is simpler than a frozen set, and the canonical for these pieces is on Substack, so the site URL carries little equity. Their redirects are permanent (see Consequences).
 
 ## Consequences
 
@@ -36,6 +37,8 @@ Stefan Coetzee, 2026-10-23. The decision is accepted; the moves land in phases 1
 - The CloudFront rule map lives in the infrastructure repository, which the site's workflow token cannot reach, so the owner applies it per phase from a prepared patch, after the deploy that serves the new paths is live, so the edge never 301s to a page that does not exist yet.
 - A move that carries non-page files (phase 1 moved the self-assessment evidence under `second-rater/` with the page) gets no Pages stub, since `scripts/build_redirects.py` writes stubs for page directories only. Those old paths return 404 on Pages and are covered at the edge by a CloudFront prefix rule from the same patch. A `prefix` kind in `site/redirects.yml`, read by both layers, is a tracked follow-up.
 - The redirect stub complements the withdrawn-page pattern of [issue #23](https://github.com/uncovertechtalent/machinebehavior.io/issues/23): the stub redirects a moved page, and the withdrawal notice keeps a retired page at its URL.
+- Edge prefix rules match at the start of the path only, never as a substring. Phase 3 moves `/red-team/`, whose slug also sits inside the rule's own target `/research/red-team/` and inside the frozen powersuit module `/cto-powersuit/red-team/`; a substring match would loop on the target and 301 the module. The site-infra apply checks that `/research/red-team/` and `/cto-powersuit/red-team/` both return 200. The article and case-file moves (`/the-cheating-moved/`, `/chaos-engineering-for-behaviour/`, `/running-conjobs-for-ai/`, `/case-12-licence-rule-mid-task/`) get the same start-anchored prefix rules, so their markdown twins follow.
+- The article and case-file redirects are permanent. Their old URLs are cited off site, so the stub-retirement cadence of issue #23 never retires them; they carry `permanent: true` in `site/redirects.yml`. The register, conformity and red-team redirects may be retired once inbound links fade; the permanent ones never are.
 
 ## Alternatives considered
 

@@ -13,8 +13,8 @@
     "/research/experiments/",
     "/research/slips/",
     "/research/terms/",
-    "/the-cheating-moved/",
-    "/running-conjobs-for-ai/",
+    "/research/articles/the-cheating-moved/",
+    "/research/case-files/running-conjobs-for-ai/",
     "/research/red-team/",
     "/research/red-team/tactics/",
     "/research/red-team/method/",
@@ -29,8 +29,8 @@
    "posts": [
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
@@ -41,7 +41,7 @@
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
      "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
      "date": "2026-09-29"
     },
@@ -75,7 +75,7 @@
    "about": "Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.",
    "pages": [
     "/research/evidence/",
-    "/case-12-licence-rule-mid-task/",
+    "/research/case-files/case-12-licence-rule-mid-task/",
     "/conformity/standard/",
     "/conformity/standard/why-test-the-running-system/",
     "/conformity/standard/the-six-month-problem/",
@@ -331,7 +331,7 @@
    "url": "/topics/operations-and-sre/",
    "about": "Running software and agents in production. Incidents written blameless, runbooks, error budgets, toil, and the operations practice that carries over to language models.",
    "pages": [
-    "/chaos-engineering-for-behaviour/",
+    "/research/articles/chaos-engineering-for-behaviour/",
     "/inside/mission-control/",
     "/inside/status/",
     "/inside/services/",
@@ -469,8 +469,8 @@
     },
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
@@ -487,7 +487,7 @@
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
      "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
      "date": "2026-09-29"
     },
@@ -648,8 +648,8 @@
    "about": "Language models at work inside a harness of instruction files, hooks, memory and a knowledge vault, and what the harness holds where an instruction alone fails.",
    "pages": [
     "/man/",
-    "/case-12-licence-rule-mid-task/",
-    "/running-conjobs-for-ai/",
+    "/research/case-files/case-12-licence-rule-mid-task/",
+    "/research/case-files/running-conjobs-for-ai/",
     "/research/slips/",
     "/inside/services/agent-sessions/",
     "/inside/services/local-llm/",
@@ -761,8 +761,8 @@
     "/research/claims/",
     "/research/evidence/",
     "/research/objections/",
-    "/the-cheating-moved/",
-    "/chaos-engineering-for-behaviour/",
+    "/research/articles/the-cheating-moved/",
+    "/research/articles/chaos-engineering-for-behaviour/",
     "/research/red-team/",
     "/research/red-team/tactics/",
     "/research/red-team/method/",
@@ -780,13 +780,13 @@
    "posts": [
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/the-cheating-moved/",
+     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
      "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
      "date": "2026-09-29"
     }

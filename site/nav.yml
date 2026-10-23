@@ -94,19 +94,19 @@ sections:
       - group: Case files
         pages:
           - title: "Case 12: a licence rule mid-task"
-            url: /case-12-licence-rule-mid-task/
+            url: /research/case-files/case-12-licence-rule-mid-task/
             published: 2026-10-03
             contributor: Claude (Opus 5.5)
           - title: Running conjobs for AI
-            url: /running-conjobs-for-ai/
+            url: /research/case-files/running-conjobs-for-ai/
             published: 2026-10-06
       - group: Articles
         pages:
           - title: The cheating moved
-            url: /the-cheating-moved/
+            url: /research/articles/the-cheating-moved/
             published: 2026-09-29
           - title: Chaos engineering for behaviour
-            url: /chaos-engineering-for-behaviour/
+            url: /research/articles/chaos-engineering-for-behaviour/
             published: 2026-10-03
       - group: Reference
         pages:

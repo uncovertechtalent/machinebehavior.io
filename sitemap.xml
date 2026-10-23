@@ -5,13 +5,13 @@
   <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/research/terms/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://machinebehavior.io/the-cheating-moved/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/articles/the-cheating-moved/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/research/slips/</loc><lastmod>2026-10-07</lastmod></url>
   <url><loc>https://machinebehavior.io/research/objections/</loc><lastmod>2026-10-07</lastmod></url>
   <url><loc>https://machinebehavior.io/man/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://machinebehavior.io/chaos-engineering-for-behaviour/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/case-12-licence-rule-mid-task/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/running-conjobs-for-ai/</loc><lastmod>2026-10-07</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/articles/chaos-engineering-for-behaviour/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/case-files/running-conjobs-for-ai/</loc><lastmod>2026-10-07</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/standard/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/standard/why-test-the-running-system/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/standard/the-six-month-problem/</loc><lastmod>2026-10-17</lastmod></url>
@@ -176,7 +176,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbook-stat-panel-no-data/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbooks/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/</loc><lastmod>2026-10-23</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/res/case-files/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/res/case-files/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/claims-ledger/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/conformity-self-assessment/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/decision-layer-probe/</loc><lastmod>2026-10-09</lastmod></url>
@@ -186,7 +186,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/res/fawn-opener-benchmark/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/half-life-study/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/objections-register/</loc><lastmod>2026-10-23</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/res/predictions-and-hashes/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/res/predictions-and-hashes/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/slips-log/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/sre/</loc><lastmod>2026-06-08</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/sre/ai-agents-are-ops-work/</loc><lastmod>2026-06-08</lastmod></url>
