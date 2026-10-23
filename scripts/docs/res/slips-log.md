@@ -42,8 +42,8 @@ The grader.fixtures check on [/conformity/](/conformity/) runs the site's rule t
 
 ## Files
 
-- [slips/log.csv](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/slips/log.csv): the data; columns `date`, `piece`, `author`, `device`, `before`, `after`, `caught_by`, `relation`, `reader_catch`
-- [scripts/slips_page.py](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py): builds slips/index.html from the CSV, with the counts by relation, device and piece
+- [research/slips/log.csv](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/slips/log.csv): the data; columns `date`, `piece`, `author`, `device`, `before`, `after`, `caught_by`, `relation`, `reader_catch`
+- [scripts/slips_page.py](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/scripts/slips_page.py): builds research/slips/index.html from the CSV, with the counts by relation, device and piece
 
 ## Rebuild
 

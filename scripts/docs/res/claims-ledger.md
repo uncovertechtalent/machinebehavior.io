@@ -14,7 +14,7 @@ The claims ledger lists each claim of the programme with its status, receipts an
 | status | running; refuted claims stay listed |
 | latest dated evidence | 2026-10-07 (experiment 04 and the slips cross-check) |
 | published page | [/research/claims/](/research/claims/) |
-| source file | [claims/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/claims/index.html) |
+| source file | [research/claims/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/claims/index.html) |
 
 ## The claims
 

@@ -108,11 +108,11 @@ def test_build_and_write():
         root = site(tmp, pages)
         rc, log = quiet(b.main, ['--root', str(root), '--check-only'])
         check('check-only exit', rc == 0, log)
-        check('check-only writes nothing', not (root / b.FULL).exists() and not (root / 'claims' / b.TWIN).exists())
+        check('check-only writes nothing', not (root / b.FULL).exists() and not (root / 'research' / 'claims' / b.TWIN).exists())
         check('missing page reported', 'no page file for https://machinebehavior.io/missing/' in log, log)
         rc, log = quiet(b.main, ['--root', str(root)])
         check('write exit', rc == 0, log)
-        twin = (root / 'claims' / b.TWIN).read_text(encoding='utf-8')
+        twin = (root / 'research' / 'claims' / b.TWIN).read_text(encoding='utf-8')
         check('twin front matter', twin.startswith('---\nurl: https://machinebehavior.io/research/claims/\ntitle: "Claims ledger"\n'
                                                    'date: 2026-10-01\npublished: 2026-09-01\n'
                                                    'description: "Every claim with \\"receipts\\"."\n'), twin[:300])

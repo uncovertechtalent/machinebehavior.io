@@ -15,7 +15,7 @@ Four studies are published on [/research/experiments/](/research/experiments/): 
 | dates | 2026-08-07 (01) to 2026-10-07 (04 and the first probe record) |
 | models | Claude models in the author's harness (01, 02); Haiku 4.5, GPT-5.6 (terra), llama3.1:8b (03 pilot); qwen3-coder-30b, gpt-oss-120b, DeepSeek V3.2, Kimi K2.5 (04) |
 | published page | [/research/experiments/](/research/experiments/), probe on [/conformity/](/conformity/) |
-| source file | [experiments/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/experiments/index.html) |
+| source file | [research/experiments/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/experiments/index.html) |
 
 ## The studies
 
