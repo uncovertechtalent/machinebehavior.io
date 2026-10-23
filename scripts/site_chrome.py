@@ -643,11 +643,23 @@ def apply(src, rel):
 
 
 # ---------- the whole site ----------
+def _is_redirect_stub(p):
+    """A redirect stub from scripts/build_redirects.py (ADR-0038): no chrome of its own, skipped here so the
+    chrome pass does not write a top bar into it and report() does not read it as an orphan."""
+    try:
+        with open(p, 'rb') as fh:
+            return b'<!-- mb:redirect -->' in fh.read(200)
+    except OSError:
+        return False
+
+
 def page_files():
     out = []
     for p in sorted(ROOT.rglob('*.html')):
         rel = p.relative_to(ROOT).as_posix()
         if rel.startswith(SKIP_DIRS) or '/.' in rel or '/node_modules/' in rel:
+            continue
+        if _is_redirect_stub(p):
             continue
         if rel.endswith('/index.html') or rel in ('index.html', NOT_FOUND):
             out.append((rel, p))

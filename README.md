@@ -1,11 +1,25 @@
 # machinebehavior.io
 
-Site for the Machine Behavior program: the psychology of language models, studied with case files, logged relapses, and falsifiable claims. By Stefan Coetzee, 2026.
+Site for the Machine Behavior program: the psychology of language models, studied with case files, logged relapses, and falsifiable claims. By Stefan Coetzee, 2026. Fix your models (https://machinebehavior.io).
 
 Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next.
 
 - Paper: https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution
 - Registry: https://www.reddit.com/r/ModelBehavior/
-- Kits: [vestige-kit](https://github.com/uncovertechtalent/vestige-kit) · [vault-kit](https://github.com/uncovertechtalent/vault-kit)
+- Kits: [vestige-kit](https://github.com/uncovertechtalent/vestige-kit), [vault-kit](https://github.com/uncovertechtalent/vault-kit)
 
-Static site, GitHub Pages, no build step. `llms.txt` at root per the [llms.txt convention](https://llmstxt.org/).
+## Build
+
+The site is static HTML. Some pages are hand-written, for example the research pages; the Python scripts in `scripts/` generate the other pages, and the chrome of every page, from one navigation source, `site/nav.yml` (ADR-0021), and the data beside it: `site/topics.yml`, `site/powersuit.yml`, the `services/` and `incidents/` YAML, and the docs sources under `scripts/docs/`. `scripts/site_chrome.py` writes the top bar, breadcrumbs, sidebar, and footer on every page from `site/nav.yml`. The build scripts also write the managed blocks of `sitemap.xml` and `llms.txt`, the markdown twin and passage index for language models (`scripts/build_llms_full.py`), and the Inside search index (`scripts/build_search.py`). `llms.txt` sits at the root per the llms.txt convention (https://llmstxt.org/).
+
+A new page needs an entry in `site/nav.yml`, in `sitemap.xml`, and in `llms.txt`, a self canonical link, and root-absolute internal links. A moved URL is recorded in `site/redirects.yml`, which feeds the GitHub Pages stub (`scripts/build_redirects.py`) and the CloudFront 301 (ADR-0038).
+
+## Deploy and the gate
+
+Every change to `main` goes through a pull request. The branch ruleset requires a passing Conformity gate and no approvals; the merge is the review step, and Stefan Coetzee merges or a session merges on his go (ADR-0029). The site deploys to GitHub Pages and to S3 behind CloudFront (ADR-0033). Agent notes, the gate, and the pull request flow: `CLAUDE.md` and `scripts/docs/eng/agents.md`.
+
+Gate dry run, from the repo root (Python 3 and Node, no network):
+
+```bash
+python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run
+```

@@ -49,12 +49,26 @@ def excluded(relpath):
     return False
 
 
+REDIRECT_SENTINEL = b"<!-- mb:redirect -->"
+
+
+def is_redirect_stub(p):
+    """A redirect stub written by scripts/build_redirects.py (ADR-0038): noindex, a canonical to the new URL, no
+    content of its own, so the page scan and the sitemap check skip it the way a reader's browser skips past it."""
+    try:
+        with open(p, "rb") as fh:
+            return REDIRECT_SENTINEL in fh.read(200)
+    except OSError:
+        return False
+
+
 def pages():
-    """Published page files: every *.html under root (minus exclusions) plus llms.txt and configured text files."""
+    """Published page files: every *.html under root (minus exclusions and redirect stubs) plus llms.txt and
+    configured text files."""
     out = []
     for p in sorted(ROOT.rglob("*.html")):
         r = rel(p)
-        if r.startswith(".") or "/." in r or excluded(r):
+        if r.startswith(".") or "/." in r or excluded(r) or is_redirect_stub(p):
             continue
         out.append(p)
     for extra in ["llms.txt"] + SITE.get("text_files", []):
