@@ -117,14 +117,14 @@ sections:
 
   - key: red-team
     title: Red team
-    url: /red-team/
+    url: /research/red-team/
     about: Psychological red-teaming of language models. Tests of whether a model drops a correct answer, a rule or a task boundary under social pressure alone, with a catalogue of tactics, the method of a run and the results so far.
     pages:
       - title: Tactics catalogue
-        url: /red-team/tactics/
+        url: /research/red-team/tactics/
         published: 2026-10-09
       - title: How a run works
-        url: /red-team/method/
+        url: /research/red-team/method/
         published: 2026-10-09
 
   - key: conformity

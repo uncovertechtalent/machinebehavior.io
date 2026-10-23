@@ -480,7 +480,7 @@ def page_ld(t, node, trail, url, src, layout):
     title = (m.get('og:title') or [None])[0] or (TITLE_RE.search(src).group(1) if TITLE_RE.search(src) else trail[-1].title)
     title = re.sub(r'\s*(:|·)\s*(Machine Behavior|Inside docs)$', '', html.unescape(title)).strip()
     section = node.section if node else None
-    hub = url in ('/research/', '/red-team/', '/topics/', '/inside/docs/') or url.startswith('/topics/')
+    hub = url in ('/research/', '/research/red-team/', '/topics/', '/inside/docs/') or url.startswith('/topics/')
     kind = 'CollectionPage' if hub else 'TechArticle' if section == 'docs' else 'Article' if section == 'research' else 'WebPage'
     page = {'@type': kind, '@id': base + url + '#page', 'url': base + url, 'name': title, 'inLanguage': 'en',
             'isPartOf': {'@id': site_id}, 'breadcrumb': {'@id': base + url + '#breadcrumb'},

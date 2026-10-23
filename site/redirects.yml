@@ -71,3 +71,15 @@ redirects:
     to: /research/terms/
     kind: move
     phase: 2
+  - from: /red-team/
+    to: /research/red-team/
+    kind: move
+    phase: 3
+  - from: /red-team/tactics/
+    to: /research/red-team/tactics/
+    kind: move
+    phase: 3
+  - from: /red-team/method/
+    to: /research/red-team/method/
+    kind: move
+    phase: 3

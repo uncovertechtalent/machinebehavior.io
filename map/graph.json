@@ -349,7 +349,7 @@
    "date": "2026-10-01"
   },
   {
-   "id": "https://machinebehavior.io/red-team/",
+   "id": "https://machinebehavior.io/research/red-team/",
    "title": "Red Team",
    "kind": "page",
    "site": "mb",
@@ -6268,7 +6268,7 @@
    "date": "2026-05-12"
   },
   {
-   "id": "https://machinebehavior.io/red-team/tactics/",
+   "id": "https://machinebehavior.io/research/red-team/tactics/",
    "title": "Tactics Catalogue",
    "kind": "page",
    "site": "mb",
@@ -6276,7 +6276,7 @@
    "date": "2026-10-09"
   },
   {
-   "id": "https://machinebehavior.io/red-team/method/",
+   "id": "https://machinebehavior.io/research/red-team/method/",
    "title": "How a Run Works",
    "kind": "page",
    "site": "mb",
@@ -6684,7 +6684,7 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "body"
   },
   {
@@ -6784,7 +6784,7 @@
   },
   {
    "source": "https://machinebehavior.io/aieo/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -6879,7 +6879,7 @@
   },
   {
    "source": "https://machinebehavior.io/aieo/measurement/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7064,7 +7064,7 @@
   },
   {
    "source": "https://machinebehavior.io/aieo/this-site/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7214,7 +7214,7 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7474,7 +7474,7 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7654,7 +7654,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/claims/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7839,7 +7839,7 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -7999,7 +7999,7 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/self-assessment/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -8169,7 +8169,7 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/standard/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -8339,7 +8339,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/evidence/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -8504,7 +8504,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/experiments/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -8929,7 +8929,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -9109,7 +9109,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/board/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -28469,7 +28469,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/mission-control/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -28664,7 +28664,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/search/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -28879,7 +28879,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/services/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30264,7 +30264,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/status/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30524,7 +30524,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/tour/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30769,7 +30769,7 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30809,7 +30809,7 @@
   },
   {
    "source": "https://machinebehavior.io/map/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30959,7 +30959,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/objections/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -30993,407 +30993,407 @@
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/evaluation/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/claims/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/evidence/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
-   "target": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/tactics/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/the-cheating-moved/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/running-conjobs-for-ai/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/terms/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
-   "target": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/method/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/inside/docs/res/decision-layer-probe/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/slips/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/sycophancy-and-stance/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/objections/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/observability/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/finops/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/conformity-and-law/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/operations-and-sre/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/research/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/inside/docs/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/map/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/inside/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/aieo/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/agents-and-harness/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/",
    "target": "https://machinebehavior.io/topics/ai-search/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/research/claims/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
-   "target": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
+   "target": "https://machinebehavior.io/research/red-team/tactics/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/running-conjobs-for-ai/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/inside/docs/res/decision-layer-probe/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/research/objections/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/observability/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/finops/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/conformity-and-law/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/operations-and-sre/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/research/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/sycophancy-and-stance/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/evaluation/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
-   "target": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/inside/docs/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/map/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/inside/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/aieo/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/agents-and-harness/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/method/",
    "target": "https://machinebehavior.io/topics/ai-search/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/research/claims/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/running-conjobs-for-ai/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
-   "target": "https://machinebehavior.io/red-team/method/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
+   "target": "https://machinebehavior.io/research/red-team/method/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
-   "target": "https://machinebehavior.io/red-team/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/inside/docs/res/decision-layer-probe/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/research/objections/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/observability/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/finops/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/conformity-and-law/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/operations-and-sre/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/research/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/sycophancy-and-stance/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/evaluation/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/inside/docs/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/map/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/inside/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/aieo/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/agents-and-harness/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/red-team/tactics/",
+   "source": "https://machinebehavior.io/research/red-team/tactics/",
    "target": "https://machinebehavior.io/topics/ai-search/",
    "kind": "nav"
   },
@@ -31509,7 +31509,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -31679,7 +31679,7 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -31839,7 +31839,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/slips/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -31979,7 +31979,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/terms/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -32184,7 +32184,7 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -32269,7 +32269,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -32584,7 +32584,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/agents-and-harness/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -32699,7 +32699,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/ai-search/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -33874,7 +33874,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/conformity-and-law/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -33944,7 +33944,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://machinebehavior.io/red-team/tactics/",
+   "target": "https://machinebehavior.io/research/red-team/tactics/",
    "kind": "body"
   },
   {
@@ -34019,12 +34019,12 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://machinebehavior.io/red-team/method/",
+   "target": "https://machinebehavior.io/research/red-team/method/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "body"
   },
   {
@@ -34209,7 +34209,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/finops/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -34444,7 +34444,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/observability/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -35274,7 +35274,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/operations-and-sre/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "nav"
   },
   {
@@ -35364,7 +35364,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://machinebehavior.io/red-team/tactics/",
+   "target": "https://machinebehavior.io/research/red-team/tactics/",
    "kind": "body"
   },
   {
@@ -35439,12 +35439,12 @@
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://machinebehavior.io/red-team/method/",
+   "target": "https://machinebehavior.io/research/red-team/method/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://machinebehavior.io/red-team/",
+   "target": "https://machinebehavior.io/research/red-team/",
    "kind": "body"
   },
   {
