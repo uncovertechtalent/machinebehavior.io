@@ -103,7 +103,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (409 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (410 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -147,6 +147,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (409 pages). S
 - [ADR-0035: Every page under /inside/ uses the intranet theme, set by the site chrome](https://machinebehavior.io/inside/docs/eng/adr-0035-intranet-theme-on-every-inside-page/)
 - [ADR-0036: The Inside seat cards become folder tabs joined to the dashboard panel](https://machinebehavior.io/inside/docs/eng/adr-0036-inside-seat-tabs-as-folder-tabs/)
 - [ADR-0037: A pager on Discord with a rotation, the board for every alert, and an outside heartbeat](https://machinebehavior.io/inside/docs/eng/adr-0037-alert-routing-discord-board-heartbeat/)
+- [ADR-0038: URL taxonomy and redirects](https://machinebehavior.io/inside/docs/eng/adr-0038-url-taxonomy-and-redirects/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
