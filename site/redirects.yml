@@ -1,0 +1,16 @@
+# Redirect source for machinebehavior.io (ADR-0038). One file feeds both redirect layers:
+#   - scripts/build_redirects.py writes a GitHub Pages stub (canonical, meta-refresh, noindex) at each `from`;
+#   - the CloudFront viewer-request function (site-infra) issues the 301 at the edge from the same list.
+#
+# Each entry:
+#   from   the old root-absolute URL, ending in '/'
+#   to     the new root-absolute URL, ending in '/'
+#   kind   'move' (a page relocated by git mv in the same PR) or 'convenience' (a data directory that never had a page)
+#   phase  the migration phase that adds the entry (the IA restructure proposal)
+#
+# A move leaves the sitemap at its old path and enters it at the new one in the same PR; the stub is noindex and never
+# enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages, so this list is empty until the
+# first move. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
+# /impressum/, /privacy/, /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs.
+
+redirects: []
