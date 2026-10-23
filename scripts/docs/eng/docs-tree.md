@@ -12,7 +12,7 @@ The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/bu
 ## Build
 
 ```bash
-python3 scripts/import_vault_docs.py ~/vault   # vault spaces: sre, std (only on the machine with the vault)
+VAULT_PRIVATE_USER=… python3 scripts/import_vault_docs.py ~/vault   # set the private user name to redact; vault spaces sre, std; only on the machine with the vault
 python3 scripts/build_changelog.py             # eng/changelog.md from closed issues and commits (needs the network)
 python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, docs search index
 python3 scripts/build_inside.py                # bar sync, services, status, the site-wide search index

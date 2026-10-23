@@ -463,6 +463,9 @@ jobs:
       - name: IndexNow URL selection
         run: python3 scripts/test_indexnow.py
 
+      - name: Vault import refuses without VAULT_PRIVATE_USER
+        run: python3 scripts/test_import_redaction.py
+
       - name: Redirect stubs (ADR-0038)
         run: python3 scripts/test_build_redirects.py
 
