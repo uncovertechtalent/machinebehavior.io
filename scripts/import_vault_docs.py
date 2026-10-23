@@ -22,7 +22,7 @@ What is published and what is changed (decided by Stefan Coetzee, 2026-10-09):
 - Every page is labelled as a vault note not reviewed against its source (reviewed: no).
 A report of every change is written to scripts/docs/IMPORT-REPORT.md.
 """
-import re, subprocess, sys
+import os, re, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,11 +44,18 @@ REDACT = [
     ('employer', re.compile(r'makersite', re.I), '[employer]'),
     ('home path', re.compile(r'/Users/[a-z]+'), '~'),
     ('private host', re.compile(r'\b(?!grafana\.)[a-z0-9-]+\.scoetzee\.de\b', re.I), '[host]'),
-    ('ssh user', re.compile(r'\bslaine@'), '[user]@'),
-    ('user name', re.compile(r'\bslaine\b'), '[user]'),
     ('public IPv4', re.compile(r'\b(?!(?:0|127|10|100\.64|169\.254|192\.0\.2|198\.51\.100|203\.0\.113)\.)(?:\d{1,3}\.){3}\d{1,3}\b'), '[IP]'),
     ('key path', re.compile(r'~/\.ssh/[\w.-]+'), '[key path]'),
 ]
+# The private SSH user name is not written in this public repository. The import reads it from the environment,
+# where the owner sets VAULT_PRIVATE_USER when the import runs, and the private-terms pre-push hook is the backstop.
+_priv_user = os.environ.get('VAULT_PRIVATE_USER', '')
+if _priv_user:
+    _u = re.escape(_priv_user)
+    REDACT += [
+        ('ssh user', re.compile(r'\b' + _u + r'@'), '[user]@'),
+        ('user name', re.compile(r'\b' + _u + r'\b'), '[user]'),
+    ]
 PLACEHOLDER = [(re.compile(r'\bTODO\b'), 'to do'), (re.compile(r'\bTBD\b'), 'to be decided'), (re.compile(r'\bLINK PENDING\b'), 'link to follow')]
 
 report = []
