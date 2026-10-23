@@ -11,8 +11,10 @@ slug equals a hand-written file name stops the import. Run from the repo root on
 What is published and what is changed (decided by Stefan Coetzee, 2026-10-09):
 - In: vault/SRE (minus homelab/, .claude/, CLAUDE.md and the README mirror of Home.md) and the 28
   standards clusters under vault/pillars listed in STD_CLUSTERS.
-- Redacted mechanically: private IPv4 addresses and LAN shorthand (".161"), e-mail addresses,
+- Redacted mechanically: private IPv4 addresses and LAN shorthand (a leading-dot host number), e-mail addresses,
   the former employer's name, home directory paths, host names under the owner's private domain.
+- The private user name comes from the environment variable VAULT_PRIVATE_USER; the import refuses to run without it
+  (set VAULT_PRIVATE_USER=- to import without that redaction on purpose).
 - Sections headed as home-lab detail ("Homelab worked example") are dropped whole: they describe the owner's hosts, keys and weak spots.
 - Sections whose heading says they hold standards text ("verbatim", "shall" requirements) are dropped whole and unread (2026-10-09,
   after an outside review found ISO requirement text on 8 published pages).
@@ -27,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 VAULT = Path(sys.argv[1]).expanduser() if len(sys.argv) > 1 else Path.home() / 'vault'
-OUT = ROOT / 'scripts' / 'docs'
+OUT = Path(os.environ['IMPORT_OUT']) if os.environ.get('IMPORT_OUT') else ROOT / 'scripts' / 'docs'
 
 STD_CLUSTERS = ['iso-27001', 'iso-42001', 'iso-21434', 'iso-22301', 'nis2', 'dora', 'eu-ai-act', 'cyber-resilience-act', 'gdpr',
                 'soc2', 'tisax', 'bsi-grundschutz', 'nist-csf', 'nist-ai-rmf', 'oecd-ai', 'owasp-llm-top-10', 'mitre', 'pci-dss',
@@ -47,10 +49,14 @@ REDACT = [
     ('public IPv4', re.compile(r'\b(?!(?:0|127|10|100\.64|169\.254|192\.0\.2|198\.51\.100|203\.0\.113)\.)(?:\d{1,3}\.){3}\d{1,3}\b'), '[IP]'),
     ('key path', re.compile(r'~/\.ssh/[\w.-]+'), '[key path]'),
 ]
-# The private SSH user name is not written in this public repository. The import reads it from the environment,
-# where the owner sets VAULT_PRIVATE_USER when the import runs, and the private-terms pre-push hook is the backstop.
+# The private SSH user name is not written in this public repository; the import reads it from VAULT_PRIVATE_USER and
+# redacts it on the way in. The pre-push hook is a backstop, not the control, so the import refuses to run without the
+# variable rather than publish the name silently. Set VAULT_PRIVATE_USER=- to import without that redaction on purpose.
 _priv_user = os.environ.get('VAULT_PRIVATE_USER', '')
-if _priv_user:
+if not _priv_user:
+    sys.exit('import_vault_docs.py: set VAULT_PRIVATE_USER to the private user name to redact on the way in, '
+             'or VAULT_PRIVATE_USER=- to import without that redaction on purpose.')
+if _priv_user != '-':
     _u = re.escape(_priv_user)
     REDACT += [
         ('ssh user', re.compile(r'\b' + _u + r'@'), '[user]@'),

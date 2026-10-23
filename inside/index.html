@@ -444,7 +444,7 @@ getJSON('/conformity/probes/latest.json').then(p => {
     el('span', {textContent: `n = ${p.n} runs per arm, cost USD ${p.cost_usd}; recorded, never blocks a deploy`, style: 'color:var(--dim);font-size:12px;grid-column:1/-1'}));
 }).catch(() => $('probe').replaceChildren(el('span', {class: 'wait', textContent: 'probe record unavailable'})));
 
-// ---- Grafana: the public dashboards from the agent-observability stack on .161, framed here
+// ---- Grafana: the public dashboards from the agent-observability stack, framed here
 const DASHES = window.MB_DASHES;
 let dashKey = 'deploys', dashSeen = false;
 const dashUrl = window.MB_DASH_URL;
