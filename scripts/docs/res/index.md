@@ -4,6 +4,8 @@ labels: research, index
 owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
+created: 2026-10-09
+updated: 2026-10-23
 type: reference
 ---
 Machine Behavior is a public research programme by Stefan Coetzee on the psychology of language models, run with case files, logged relapses and falsifiable claims. This space has one page per study or record published on [machinebehavior.io](/): what it is, its status and numbers, where its files are in the [repo](https://github.com/uncovertechtalent/machinebehavior.io), and how to rerun or check it.
@@ -32,7 +34,7 @@ Working practice on the published pages: predictions and prompt sets are hashed 
 | [Case files](doc:res/case-files) | Case 12 and Running Conjobs for AI | 2 case files |
 | [Predictions and hashes](doc:res/predictions-and-hashes) | Hashing before a run, checked on every push | 8 files, all match |
 | [Conformity self-assessment, run 1](doc:res/conformity-self-assessment) | One AI setup scored against 35 draft requirements | pass 4, partial 16, gap 13, n/a 2 |
-| [Definition draft (public reference)](/continuous-conformity/) | Continuous Conformity for Deployed AI Systems, working draft 0.3: 36 requirements with M/A/H marks and the crosswalk | published 2026-10-09 |
+| [Definition draft (public reference)](/conformity/standard/) | Continuous Conformity for Deployed AI Systems, working draft 0.3: 36 requirements with M/A/H marks and the crosswalk | published 2026-10-09 |
 
 Run 1 and case 12 are labelled self-assessment, not a certification.
 

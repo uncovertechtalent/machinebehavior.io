@@ -5,6 +5,8 @@ labels: conformity, self-assessment, prereg, second-rater
 owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
+created: 2026-10-09
+updated: 2026-10-23
 type: explanation
 ---
 In run 1 the model inside Stefan Coetzee's working AI setup scored the setup against the 35 requirements of the working draft "Continuous Conformity for Deployed AI Systems" (draft 0.2): pass 4, partial 16, gap 13, n/a 2, against a prediction hashed before scoring that matched 29 of 35. Self-assessment, not a certification.
@@ -15,8 +17,8 @@ In run 1 the model inside Stefan Coetzee's working AI setup scored the setup aga
 | grader | Claude (Opus 5.5), inside the setup under test |
 | system under test | Claude Code plus instruction files, hooks, memory and a knowledge vault |
 | n | 35 requirements, CC-4.1 to CC-12.5 |
-| published page | [/continuous-conformity-self-assessment/](/continuous-conformity-self-assessment/) |
-| requirements | [/continuous-conformity/](/continuous-conformity/), working draft 0.3 (run 1 scored draft 0.2; CC-6.6 scored as an addendum) |
+| published page | [/conformity/self-assessment/](/conformity/self-assessment/) |
+| requirements | [/conformity/standard/](/conformity/standard/), working draft 0.3 (run 1 scored draft 0.2; CC-6.6 scored as an addendum) |
 
 ## Result
 
@@ -42,7 +44,7 @@ A model rater on Amazon Bedrock, blind to the run 1 scores and the prediction re
 ## Files
 
 - [predictions/continuous-conformity-self-assessment-2026-10-03.txt](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/predictions/continuous-conformity-self-assessment-2026-10-03.txt): the prediction, sha256 8ed4f766…adf4
-- [continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/](https://github.com/uncovertechtalent/machinebehavior.io/tree/main/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01): rater input, request, raw output, scored form, and the blocked Codex attempt
+- [conformity/self-assessment/second-rater/gpt-oss-120b-01/](https://github.com/uncovertechtalent/machinebehavior.io/tree/main/conformity/self-assessment/second-rater/gpt-oss-120b-01): rater input, request, raw output, scored form, and the blocked Codex attempt
 - [conformity/requirements.json](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/conformity/requirements.json): run 1 result per row, read by the live site tier
 
 ## Rerun

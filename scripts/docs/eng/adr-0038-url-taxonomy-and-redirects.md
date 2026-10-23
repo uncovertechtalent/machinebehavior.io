@@ -23,17 +23,18 @@ Stefan Coetzee, 2026-10-23. The decision is accepted; the moves land in phases 1
 
 1. Adopt a small set of top-level pillars: Research, Conformity, Inside, and Docs, with the CTO page as the action, and Topics, Graph, Search, and AIEO as utilities off the pillar bar.
 2. Nest the flat root registers and reference under their pillar: `/research/{claims,experiments,objections,evidence,slips,terms}/` and `/research/red-team/`.
-3. Consolidate the three conformity routes under one `/conformity/` hub: `/conformity/gate/` for the live runs, `/conformity/standard/` for the working draft and its entries, and `/conformity/self-assessment/`.
+3. Consolidate the three conformity routes under one `/conformity/` hub: the live gate runs stay at `/conformity/` (the page path and its canonical are fixed by the shared gate action that tychat.io and uncovertechtalent.com pin, and `conformity/latest.json` is a data contract across the three sites), `/conformity/standard/` for the working draft and its entries, and `/conformity/self-assessment/`.
 4. Freeze the URLs that carry external or legal weight: the product pages (`/your-next-cto/`, `/cto-powersuit/`, for the hashed answer-engine experiment), the articles and case files (external canonical references and hashed predictions), `/man/`, the legal notices, and the high-fan-in aids `/topics/` and `/map/`. A frozen URL still gets a home: the hub lists it by link.
 5. Record every moved URL in `site/redirects.yml`, the one source for both redirect layers. `scripts/build_redirects.py` writes a GitHub Pages stub at the old path with a canonical link to the target, a meta refresh, and robots noindex; the CloudFront viewer-request function issues the 301 at the edge from the same list.
 6. Add a convenience 301 from `/services/` to `/inside/services/`, so a plausible reader URL resolves instead of returning 404.
 
 ## Consequences
 
-- About 14 redirect pairs, plus the `/services/` convenience redirect.
+- About 14 redirect pairs across the phases (phase 1 adds four, and the gate page keeps `/conformity/` so it needs none), plus the `/services/` convenience redirect.
 - The gate (`.github/actions/conformity/run.py`) and the chrome pass (`scripts/site_chrome.py`) skip a file only when its path is a `from` in `site/redirects.yml` and it carries the stub shape (the `<!-- mb:redirect -->` sentinel, `noindex`, a canonical), so a stub is neither scanned as a page, flagged as an orphan, nor given a top bar, while a sentinel at an unlisted path is still scanned and fails as missing from the sitemap. Both read `site/redirects.yml` through `scripts/mini_yaml.py`, the one parser `scripts/build_redirects.py` uses, so a change to that file changes gate behaviour.
 - Every generated artefact regenerates on a move: the chrome and the JSON-LD breadcrumbs on every page, the managed blocks of `sitemap.xml` and `llms.txt`, the markdown twins and the passage index that the ask-mbio server searches (a moved URL resolves to a dead passage until this is rebuilt), the Inside search index, the map graph, and the topic membership in `site/topics.yml`.
-- The CloudFront rule map lives in the infrastructure repository, which the site's workflow token cannot reach, so the owner applies it per phase from a prepared patch.
+- The CloudFront rule map lives in the infrastructure repository, which the site's workflow token cannot reach, so the owner applies it per phase from a prepared patch, after the deploy that serves the new paths is live, so the edge never 301s to a page that does not exist yet.
+- A move that carries non-page files (phase 1 moved the self-assessment evidence under `second-rater/` with the page) gets no Pages stub, since `scripts/build_redirects.py` writes stubs for page directories only. Those old paths return 404 on Pages and are covered at the edge by a CloudFront prefix rule from the same patch. A `prefix` kind in `site/redirects.yml`, read by both layers, is a tracked follow-up.
 - The redirect stub complements the withdrawn-page pattern of [issue #23](https://github.com/uncovertechtalent/machinebehavior.io/issues/23): the stub redirects a moved page, and the withdrawal notice keeps a retired page at its URL.
 
 ## Alternatives considered

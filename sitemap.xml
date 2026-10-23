@@ -12,10 +12,10 @@
   <url><loc>https://machinebehavior.io/chaos-engineering-for-behaviour/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/case-12-licence-rule-mid-task/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/running-conjobs-for-ai/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://machinebehavior.io/continuous-conformity/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/continuous-conformity/why-test-the-running-system/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/continuous-conformity/the-six-month-problem/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/continuous-conformity-self-assessment/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/conformity/standard/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/conformity/standard/why-test-the-running-system/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/conformity/standard/the-six-month-problem/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/conformity/self-assessment/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/</loc><lastmod>2026-10-07</lastmod></url>
   <url><loc>https://machinebehavior.io/evidence/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/red-team/</loc><lastmod>2026-10-10</lastmod></url>
@@ -54,15 +54,15 @@
   <url><loc>https://machinebehavior.io/inside/status/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- status:end -->
   <!-- hubs:begin (scripts/build_hubs.py) -->
-  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-10</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-21</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/observability/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/finops/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/finops/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/agents-and-harness/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-10</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/ai-search/</loc><lastmod>2026-10-13</lastmod></url>
   <!-- hubs:end -->
   <!-- powersuit:begin (scripts/build_powersuit.py) -->
@@ -136,7 +136,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/cockpit/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/conformity-gate/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/decision-log/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/deploy-pipeline/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/docs-tree/</loc><lastmod>2026-10-23</lastmod></url>
@@ -151,7 +151,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/service-catalog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-architecture/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/status-page/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/top-bar-and-search/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/fin/</loc><lastmod>2026-10-09</lastmod></url>
@@ -175,10 +175,10 @@
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbook-share-a-dashboard/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbook-stat-panel-no-data/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbooks/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/res/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/res/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/case-files/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/claims-ledger/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/res/conformity-self-assessment/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/res/conformity-self-assessment/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/decision-layer-probe/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/exemplar-seeding/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/res/experiment-04-folding-under-pressure/</loc><lastmod>2026-10-09</lastmod></url>

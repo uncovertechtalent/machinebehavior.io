@@ -23,7 +23,7 @@ topics:
   - key: conformity-and-law
     title: Conformity and law
     about: Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.
-    pages: [/continuous-conformity/, /continuous-conformity/why-test-the-running-system/, /continuous-conformity/the-six-month-problem/, /continuous-conformity-self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
+    pages: [/conformity/standard/, /conformity/standard/why-test-the-running-system/, /conformity/standard/the-six-month-problem/, /conformity/self-assessment/, /conformity/, /evidence/, /case-12-licence-rule-mid-task/, /inside/services/conformity-gate/]
     docs_labels: [conformity, gate, self-assessment]
     docs_spaces: [std]
     post_words: [conformity, regulation]
@@ -70,7 +70,7 @@ topics:
   - key: evaluation
     title: Evaluation
     about: Experiments with predictions hashed before the first call, a mechanical grader, red-teaming read as chaos engineering, and a self-assessment with a second rater wanted.
-    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /continuous-conformity-self-assessment/, /red-team/, /red-team/tactics/, /red-team/method/]
+    pages: [/experiments/, /claims/, /evidence/, /objections/, /the-cheating-moved/, /chaos-engineering-for-behaviour/, /conformity/self-assessment/, /red-team/, /red-team/tactics/, /red-team/method/]
     docs_labels: [eval, experiments, prereg, falsification, second-rater]
     map_tags: [Evaluations, Red Teaming, Goodhart Labs]
     post_words: [cheating, chaos engineering, benchmark]

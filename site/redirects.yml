@@ -9,8 +9,8 @@
 #   phase  the migration phase that adds the entry (the phases recorded in ADR-0038)
 #
 # A move leaves the sitemap at its old path and enters it at the new one in the same PR; the stub is noindex and never
-# enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages, so this list is empty until the
-# first move. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
+# enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages; phase 1 (ADR-0038) added the
+# first four. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
 # /impressum/, /privacy/, /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs.
 #
 # Entries are block form, the subset scripts/mini_yaml.py reads; flow mappings ({ from: ..., to: ... }) are not
@@ -20,5 +20,26 @@
 #       to: /new/
 #       kind: move
 #       phase: 2
+#
+# One phase-1 move has no entry here: the self-assessment evidence files under second-rater/ moved with the page, and
+# build_redirects.py writes stubs for page directories only. A CloudFront prefix rule
+# (/continuous-conformity-self-assessment/second-rater/ -> /conformity/self-assessment/second-rater/) covers them,
+# recorded in ADR-0038 Consequences and applied in site-infra. A `prefix` kind here is a tracked follow-up.
 
-redirects: []
+redirects:
+  - from: /continuous-conformity/
+    to: /conformity/standard/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity/why-test-the-running-system/
+    to: /conformity/standard/why-test-the-running-system/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity/the-six-month-problem/
+    to: /conformity/standard/the-six-month-problem/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity-self-assessment/
+    to: /conformity/self-assessment/
+    kind: move
+    phase: 1

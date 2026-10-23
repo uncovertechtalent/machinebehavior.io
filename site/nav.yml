@@ -19,7 +19,7 @@
 #   software     a page about one piece of software: name, description, repository, license, version, languages,
 #                platform, alternate_name; written as a SoftwareSourceCode node, the page's main entity (JSON-LD, #85)
 #
-# Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
+# Rules: a URL changes only with a redirect recorded in site/redirects.yml (ADR-0038); a new page needs an entry here, in sitemap.xml and in llms.txt.
 
 site:
   name: Machine Behavior
@@ -114,18 +114,6 @@ sections:
             url: /man/
           - title: Terms
             url: /terms/
-          - title: Continuous conformity
-            url: /continuous-conformity/
-            published: 2026-10-09
-            pages:
-              - title: Why test the running system
-                url: /continuous-conformity/why-test-the-running-system/
-              - title: The six-month problem
-                url: /continuous-conformity/the-six-month-problem/
-          - title: Self-assessment, run 1
-            url: /continuous-conformity-self-assessment/
-            published: 2026-10-03
-            contributor: Claude (Opus 5.5)
 
   - key: red-team
     title: Red team
@@ -142,7 +130,20 @@ sections:
   - key: conformity
     title: Conformity
     url: /conformity/
-    about: Continuous conformity of this site. The gate runs on every push and publishes an OSCAL-shaped record; the working-draft standard and the self-assessment move here in a later phase.
+    about: Continuous conformity of this site. The gate runs on every push and publishes an OSCAL-shaped record; the working-draft standard and the self-assessment sit here as its reference.
+    pages:
+      - title: The standard
+        url: /conformity/standard/
+        published: 2026-10-09
+        pages:
+          - title: Why test the running system
+            url: /conformity/standard/why-test-the-running-system/
+          - title: The six-month problem
+            url: /conformity/standard/the-six-month-problem/
+      - title: Self-assessment, run 1
+        url: /conformity/self-assessment/
+        published: 2026-10-03
+        contributor: Claude (Opus 5.5)
 
   - key: inside
     title: Inside
