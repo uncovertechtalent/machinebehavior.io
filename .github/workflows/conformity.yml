@@ -448,6 +448,7 @@ jobs:
     # scripts/test_build_llms_full.py checks the HTML to markdown pass, the twins, llms-full.txt, the passage index, and the private-terms scan;
     # scripts/test_conformity_law.py checks the law_asks data and that the law_asks key adds only the table and its CSS, so a requirements file without it renders the rest of the page unchanged (#142).
     # scripts/test_build_redirects.py checks the redirect-stub writer (ADR-0038): the stub shape, the refusal to mask an un-moved page, the missing-target error, --check, and an empty list.
+    # scripts/test_conformity_redirect_skip.py checks that the gate skips a stub only when its path is a `from` in site/redirects.yml and the file is stub-shaped; a rogue sentinel at an unlisted path is still scanned (ADR-0038).
     # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
@@ -464,6 +465,9 @@ jobs:
 
       - name: Redirect stubs (ADR-0038)
         run: python3 scripts/test_build_redirects.py
+
+      - name: Gate skips only listed redirect stubs (ADR-0038)
+        run: python3 scripts/test_conformity_redirect_skip.py
 
       - name: Powersuit page generator
         run: python3 scripts/test_build_powersuit.py

@@ -49,26 +49,39 @@ def excluded(relpath):
     return False
 
 
-REDIRECT_SENTINEL = b"<!-- mb:redirect -->"
+REDIRECT_SENTINEL = "<!-- mb:redirect -->"
 
 
-def is_redirect_stub(p):
-    """A redirect stub written by scripts/build_redirects.py (ADR-0038): noindex, a canonical to the new URL, no
-    content of its own, so the page scan and the sitemap check skip it the way a reader's browser skips past it."""
+def redirect_from_paths():
+    """The `from` URLs in site/redirects.yml (ADR-0038): the only paths a redirect stub may occupy."""
+    f = ROOT / "site" / "redirects.yml"
+    if not f.exists():
+        return set()
+    return set(re.findall(r"\bfrom:\s*(/[^\s,}]+)", f.read_text(encoding="utf-8", errors="replace")))
+
+
+def is_redirect_stub(p, from_paths):
+    """A redirect stub (scripts/build_redirects.py, ADR-0038) is skipped from the page scan only when its path is a
+    `from` in site/redirects.yml AND the file carries the stub shape: the sentinel, robots noindex, and a canonical.
+    A sentinel at a path not listed in redirects.yml is a real page masking itself, so it is NOT skipped and the scan
+    still covers it (and fails it as missing from the sitemap)."""
+    if page_url(p) not in from_paths:
+        return False
     try:
-        with open(p, "rb") as fh:
-            return REDIRECT_SENTINEL in fh.read(200)
+        head = p.read_text(encoding="utf-8", errors="replace")[:400]
     except OSError:
         return False
+    return REDIRECT_SENTINEL in head and "noindex" in head and "canonical" in head
 
 
 def pages():
-    """Published page files: every *.html under root (minus exclusions and redirect stubs) plus llms.txt and
+    """Published page files: every *.html under root (minus exclusions and listed redirect stubs) plus llms.txt and
     configured text files."""
     out = []
+    from_paths = redirect_from_paths()
     for p in sorted(ROOT.rglob("*.html")):
         r = rel(p)
-        if r.startswith(".") or "/." in r or excluded(r) or is_redirect_stub(p):
+        if r.startswith(".") or "/." in r or excluded(r) or is_redirect_stub(p, from_paths):
             continue
         out.append(p)
     for extra in ["llms.txt"] + SITE.get("text_files", []):
