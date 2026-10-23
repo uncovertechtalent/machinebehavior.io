@@ -5,8 +5,8 @@ inside/*search.json ai-tell-to-be-honest generated search index; the term comes 
 inside/*search.json ai-tell-delve generated search index; the term comes from sources already committed on main
 inside/*search.json ai-tell-tapestry generated search index; the term comes from sources already committed on main
 # Published pieces moved under /research/ by ADR-0038 phase 3; the term was already committed on main at the old path, and the piece is not changed here (inbound-only: his posts are not reworded).
-research/articles/the-cheating-moved/* ai-tell-honest moved by ADR-0038 phase 3; term already committed on main
-research/case-files/running-conjobs-for-ai/* ai-tell-honest moved by ADR-0038 phase 3; term already committed on main
+research/articles/the-cheating-moved/index.html* ai-tell-honest moved by ADR-0038 phase 3; term already committed on main
+research/case-files/running-conjobs-for-ai/index.html* ai-tell-honest moved by ADR-0038 phase 3; term already committed on main
 # This file names the labels it scopes, so each label string appears here; allow them in this file only, still label-scoped so a real private term here blocks.
 .private-terms-allow ai-tell-honest the allow file names the label it scopes
 .private-terms-allow ai-tell-honestly the allow file names the label it scopes

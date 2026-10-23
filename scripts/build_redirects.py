@@ -85,6 +85,9 @@ def run(rows, root=".", check=False):
             continue
         frm, to = r["from"], r["to"]
         kind = r.get("kind", "move")
+        if (to.startswith("/research/articles/") or to.startswith("/research/case-files/")) and not r.get("permanent"):
+            problems.append(f"{frm}: an article or case-file redirect must set 'permanent: true' (ADR-0038 decision 7); its old URL is cited off site, so the stub is never retired")
+            continue
         p = path_for(root, frm)
         if not _is_stub_or_absent(p):
             problems.append(f"{frm}: a real page is still here; move it (git mv) before writing the stub")
