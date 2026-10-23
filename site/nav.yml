@@ -19,7 +19,7 @@
 #   software     a page about one piece of software: name, description, repository, license, version, languages,
 #                platform, alternate_name; written as a SoftwareSourceCode node, the page's main entity (JSON-LD, #85)
 #
-# Rules: no URL changes (GitHub Pages has no redirects); a new page needs an entry here, in sitemap.xml and in llms.txt.
+# Rules: a URL changes only with a redirect recorded in site/redirects.yml (ADR-0038); a new page needs an entry here, in sitemap.xml and in llms.txt.
 
 site:
   name: Machine Behavior

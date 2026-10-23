@@ -9,8 +9,8 @@
 #   phase  the migration phase that adds the entry (the phases recorded in ADR-0038)
 #
 # A move leaves the sitemap at its old path and enters it at the new one in the same PR; the stub is noindex and never
-# enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages, so this list is empty until the
-# first move. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
+# enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages; phase 1 (ADR-0038) added the
+# first four. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
 # /impressum/, /privacy/, /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs.
 #
 # Entries are block form, the subset scripts/mini_yaml.py reads; flow mappings ({ from: ..., to: ... }) are not
