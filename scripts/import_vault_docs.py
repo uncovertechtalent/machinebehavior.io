@@ -6,7 +6,7 @@ removes the pages it wrote before (those with an `origin:` line in the front mat
 hand-written pages in the same folders (the SRE principles in practice) survive a re-import. A vault page whose
 slug equals a hand-written file name stops the import. Run from the repo root on the machine that holds the vault:
 
-    python3 scripts/import_vault_docs.py [~/vault]
+    VAULT_PRIVATE_USER=<name> python3 scripts/import_vault_docs.py [~/vault]
 
 What is published and what is changed (decided by Stefan Coetzee, 2026-10-09):
 - In: vault/SRE (minus homelab/, .claude/, CLAUDE.md and the README mirror of Home.md) and the 28
@@ -56,6 +56,9 @@ _priv_user = os.environ.get('VAULT_PRIVATE_USER', '')
 if not _priv_user:
     sys.exit('import_vault_docs.py: set VAULT_PRIVATE_USER to the private user name to redact on the way in, '
              'or VAULT_PRIVATE_USER=- to import without that redaction on purpose.')
+if _priv_user != '-' and not re.fullmatch(r'[A-Za-z0-9._-]+', _priv_user):
+    sys.exit('import_vault_docs.py: VAULT_PRIVATE_USER is not a login name, so a placeholder like "<name>" would not '
+             'redact anything. Set a real user name, or VAULT_PRIVATE_USER=- to import without that redaction.')
 if _priv_user != '-':
     _u = re.escape(_priv_user)
     REDACT += [
