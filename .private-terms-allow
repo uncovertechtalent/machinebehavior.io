@@ -1,0 +1,12 @@
+# <path glob> <label> <reason>, read by the private-terms pre-push hook.
+inside/*search.json ai-tell-honest generated search index; the term comes from sources already committed on main
+inside/*search.json ai-tell-honestly generated search index; the term comes from sources already committed on main
+inside/*search.json ai-tell-to-be-honest generated search index; the term comes from sources already committed on main
+inside/*search.json ai-tell-delve generated search index; the term comes from sources already committed on main
+inside/*search.json ai-tell-tapestry generated search index; the term comes from sources already committed on main
+# This file names the labels it scopes, so each label string appears here; allow them in this file only, still label-scoped so a real private term here blocks.
+.private-terms-allow ai-tell-honest the allow file names the label it scopes
+.private-terms-allow ai-tell-honestly the allow file names the label it scopes
+.private-terms-allow ai-tell-to-be-honest the allow file names the label it scopes
+.private-terms-allow ai-tell-delve the allow file names the label it scopes
+.private-terms-allow ai-tell-tapestry the allow file names the label it scopes
