@@ -20,6 +20,11 @@
 #       to: /new/
 #       kind: move
 #       phase: 2
+#
+# One phase-1 move has no entry here: the self-assessment evidence files under second-rater/ moved with the page, and
+# build_redirects.py writes stubs for page directories only. A CloudFront prefix rule
+# (/continuous-conformity-self-assessment/second-rater/ -> /conformity/self-assessment/second-rater/) covers them,
+# recorded in ADR-0038 Consequences and applied in site-infra. A `prefix` kind here is a tracked follow-up.
 
 redirects:
   - from: /continuous-conformity/

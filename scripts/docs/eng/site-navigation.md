@@ -5,6 +5,8 @@ labels: navigation, frontend, site, breadcrumbs
 owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
+created: 2026-10-09
+updated: 2026-10-23
 type: reference
 ---
 machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the portal within it. Every page carries the same top bar, breadcrumbs from Home to the page, and the same footer. The sections and their pages are defined once, in `site/nav.yml`; `scripts/site_chrome.py` writes the chrome of every page from that file.

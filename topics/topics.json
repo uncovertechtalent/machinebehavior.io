@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17",
+ "generated": "2026-10-23",
  "source": "site/topics.yml",
  "topics": [
   {
@@ -64,7 +64,9 @@
      "date": "2026-07-31"
     }
    ],
-   "tickets": []
+   "tickets": [
+    147
+   ]
   },
   {
    "key": "conformity-and-law",
@@ -72,12 +74,12 @@
    "url": "/topics/conformity-and-law/",
    "about": "Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.",
    "pages": [
+    "/evidence/",
+    "/case-12-licence-rule-mid-task/",
     "/conformity/standard/",
     "/conformity/standard/why-test-the-running-system/",
     "/conformity/standard/the-six-month-problem/",
     "/conformity/self-assessment/",
-    "/evidence/",
-    "/case-12-licence-rule-mid-task/",
     "/conformity/",
     "/inside/services/conformity-gate/",
     "/inside/docs/eng/add-a-page/",
@@ -295,24 +297,29 @@
    ],
    "posts": [],
    "tickets": [
+    144,
     83,
     82,
     79,
     76,
+    63,
+    51,
     40,
     39,
     27,
     26,
     25,
-    12,
     11,
     10,
+    142,
+    105,
     80,
     70,
     61,
     59,
     55,
     17,
+    12,
     5,
     4
    ]
@@ -548,6 +555,7 @@
     "/inside/services/deploy-exporter/",
     "/inside/services/searxng/",
     "/inside/docs/eng/adr-0026-mission-control/",
+    "/inside/docs/eng/adr-0037-alert-routing-discord-board-heartbeat/",
     "/inside/docs/fin/budgets-and-alerts/",
     "/inside/docs/obs/",
     "/inside/docs/obs/alerts-and-slos/",
@@ -582,11 +590,25 @@
     41,
     38,
     37,
-    36,
     29,
     25,
     22,
+    149,
+    145,
+    134,
+    133,
+    132,
+    131,
+    130,
+    129,
+    128,
+    126,
+    125,
+    124,
+    123,
+    122,
     42,
+    36,
     18,
     15,
     6,
@@ -740,10 +762,10 @@
     "/objections/",
     "/the-cheating-moved/",
     "/chaos-engineering-for-behaviour/",
-    "/conformity/self-assessment/",
     "/red-team/",
     "/red-team/tactics/",
     "/red-team/method/",
+    "/conformity/self-assessment/",
     "/inside/docs/res/claims-ledger/",
     "/inside/docs/res/conformity-self-assessment/",
     "/inside/docs/res/exemplar-seeding/",
@@ -768,7 +790,10 @@
      "date": "2026-09-29"
     }
    ],
-   "tickets": []
+   "tickets": [
+    155,
+    147
+   ]
   },
   {
    "key": "ai-search",
@@ -791,6 +816,369 @@
   }
  ],
  "issues": [
+  {
+   "n": 158,
+   "t": "build_docs: a created date alone freezes the updated date",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/158",
+   "labels": [],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 155,
+   "t": "Abliteration probe: blind human pass over the published labels",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/155",
+   "labels": [
+    "type: feature",
+    "P2",
+    "status: ready",
+    "area:ai",
+    "kind:action"
+   ],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 154,
+   "t": "Information architecture: restructure to four pillars (ADR-0038)",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/154",
+   "labels": [
+    "type: feature",
+    "P1",
+    "status: in progress",
+    "area: site",
+    "area:delivery",
+    "kind:action"
+   ],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 149,
+   "t": "Alert: ClaudeCodeSpendSpike",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/149",
+   "labels": [
+    "type: chore",
+    "area:money",
+    "kind:finding"
+   ],
+   "closed": "2026-10-23",
+   "reason": "completed"
+  },
+  {
+   "n": 147,
+   "t": "Publish the stance-versus-censorship abliteration probe as an experiment page",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/147",
+   "labels": [],
+   "closed": "2026-10-23",
+   "reason": "completed"
+  },
+  {
+   "n": 145,
+   "t": "Alert: LocalLLMAvailabilityBudgetBurnSlow",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/145",
+   "labels": [
+    "area:ai",
+    "kind:finding"
+   ],
+   "closed": "2026-10-22",
+   "reason": "completed"
+  },
+  {
+   "n": 144,
+   "t": "Two crosswalk slices name a neighbouring paragraph (CC-7.1 AIA Art 9, CC-5.1 DORA Art 24)",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/144",
+   "labels": [
+    "type: docs",
+    "area: legal",
+    "P2",
+    "kind:finding"
+   ],
+   "closed": "",
+   "reason": "reopened"
+  },
+  {
+   "n": 142,
+   "t": "Conformity page: what each law clause asks, next to what the site does",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/142",
+   "labels": [],
+   "closed": "2026-10-21",
+   "reason": "completed"
+  },
+  {
+   "n": 141,
+   "t": "Renew security.txt Expires before 2027-09-16",
+   "state": "open",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/141",
+   "labels": [
+    "type: chore",
+    "P3",
+    "area:security",
+    "kind:action"
+   ],
+   "closed": "",
+   "reason": ""
+  },
+  {
+   "n": 136,
+   "t": "Full text for language models: markdown twins, llms-full.txt, passage index",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/136",
+   "labels": [
+    "type: feature",
+    "area: search",
+    "P2",
+    "area: site",
+    "area:knowledge",
+    "kind:action"
+   ],
+   "closed": "2026-10-20",
+   "reason": "completed"
+  },
+  {
+   "n": 134,
+   "t": "Alert: PagerFailing",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/134",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-18",
+   "reason": "completed"
+  },
+  {
+   "n": 133,
+   "t": "Alert: SearXNGTunnelDown (aws-socks.service)",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/133",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-18",
+   "reason": "completed"
+  },
+  {
+   "n": 132,
+   "t": "Alert: AlertmanagerNotificationsFailing",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/132",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-18",
+   "reason": "completed"
+  },
+  {
+   "n": 131,
+   "t": "Alert: AlertmanagerNotificationsFailing",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/131",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-18",
+   "reason": "completed"
+  },
+  {
+   "n": 130,
+   "t": "Alert: SearXNGEngineFailing (gmx)",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/130",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-21",
+   "reason": "completed"
+  },
+  {
+   "n": 129,
+   "t": "Alert: SearXNGEngineFailing (duckduckgo)",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/129",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-21",
+   "reason": "completed"
+  },
+  {
+   "n": 128,
+   "t": "Alert: SearXNGDegradedSearches",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/128",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-21",
+   "reason": "completed"
+  },
+  {
+   "n": 126,
+   "t": "Alert: PagerDown",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/126",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 125,
+   "t": "Alert: PagerTestNoAck",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/125",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 124,
+   "t": "Alert: PagerTestTicket",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/124",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 123,
+   "t": "Alert: PagerTestEscalation",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/123",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 122,
+   "t": "Alert: PagerTestAcknowledge",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/122",
+   "labels": [
+    "area:operations",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 120,
+   "t": "Map theme listener throws on Safari before 14",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/120",
+   "labels": [
+    "type: bug",
+    "area: map",
+    "area:delivery"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 118,
+   "t": "Width listeners throw on Safari before 14; docs tree open guard untested",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/118",
+   "labels": [
+    "type: bug",
+    "area: inside",
+    "area: docs",
+    "area:delivery"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 116,
+   "t": "Docs page tree stays closed after widening the window past 820 px",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/116",
+   "labels": [
+    "type: bug",
+    "area: docs",
+    "area:delivery"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 114,
+   "t": "Sidebar stays empty after widening the window past 1100 px",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/114",
+   "labels": [
+    "type: bug",
+    "area: inside",
+    "area:delivery"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 112,
+   "t": "Sidebar overlaps the footer at the end of a page on a wide window",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/112",
+   "labels": [
+    "type: bug",
+    "area: inside",
+    "area:delivery"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 111,
+   "t": "Inside deploy feed: the age runs under the site dot",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/111",
+   "labels": [
+    "type: bug",
+    "area: inside",
+    "area:delivery",
+    "kind:finding"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
+  {
+   "n": 105,
+   "t": "Two entry pages into the continuous conformity draft",
+   "state": "closed",
+   "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/105",
+   "labels": [
+    "type: feature",
+    "area: site"
+   ],
+   "closed": "2026-10-17",
+   "reason": "completed"
+  },
   {
    "n": 99,
    "t": "Masthead and editorial standards at /inside/masthead/",
@@ -935,6 +1323,10 @@
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/76",
    "labels": [
+    "type: chore",
+    "area: gate",
+    "P2",
+    "status: blocked",
     "area:security",
     "kind:action"
    ],
@@ -1007,6 +1399,9 @@
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/63",
    "labels": [
+    "type: feature",
+    "area: gate",
+    "P1",
     "area:security",
     "kind:action"
    ],
@@ -1079,6 +1474,9 @@
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/51",
    "labels": [
+    "type: feature",
+    "area: gate",
+    "P2",
     "area:ai",
     "kind:action"
    ],
@@ -1091,6 +1489,8 @@
    "state": "open",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/48",
    "labels": [
+    "type: chore",
+    "P3",
     "area:ai",
     "kind:action"
    ],
@@ -1228,7 +1628,7 @@
   {
    "n": 36,
    "t": "Alert routing: Alertmanager, a Watchdog and receivers chosen by the operator",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/36",
    "labels": [
     "type: feature",
@@ -1238,8 +1638,8 @@
     "area:operations",
     "kind:decision"
    ],
-   "closed": "",
-   "reason": ""
+   "closed": "2026-10-17",
+   "reason": "completed"
   },
   {
    "n": 35,
@@ -1602,7 +2002,7 @@
   {
    "n": 12,
    "t": "security.txt",
-   "state": "open",
+   "state": "closed",
    "u": "https://github.com/uncovertechtalent/machinebehavior.io/issues/12",
    "labels": [
     "type: feature",
@@ -1612,8 +2012,8 @@
     "area:security",
     "kind:action"
    ],
-   "closed": "",
-   "reason": ""
+   "closed": "2026-10-21",
+   "reason": "completed"
   },
   {
    "n": 11,

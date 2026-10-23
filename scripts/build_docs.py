@@ -241,7 +241,7 @@ def resolve_href(url, ctx):
 # vault notes that are published elsewhere on the sites
 ELSEWHERE = {
     'objections and falsification register': '/objections/',
-    'continuous conformity - definition draft': '/conformity/self-assessment/',
+    'continuous conformity - definition draft': '/conformity/standard/',
     '_series-running-the-golem': 'https://uncovertechtalent.com/blog/',
     'the-trap-file/draft': 'https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/',
 }
