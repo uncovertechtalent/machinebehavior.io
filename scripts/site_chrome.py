@@ -643,23 +643,36 @@ def apply(src, rel):
 
 
 # ---------- the whole site ----------
-def _is_redirect_stub(p):
-    """A redirect stub from scripts/build_redirects.py (ADR-0038): no chrome of its own, skipped here so the
-    chrome pass does not write a top bar into it and report() does not read it as an orphan."""
+def _redirect_from_paths():
+    """The `from` URLs in site/redirects.yml (ADR-0038): the only paths a redirect stub may occupy."""
+    f = ROOT / 'site' / 'redirects.yml'
+    if not f.exists():
+        return set()
+    return set(re.findall(r'\bfrom:\s*(/[^\s,}]+)', f.read_text(encoding='utf-8', errors='replace')))
+
+
+def _is_redirect_stub(rel, p, from_paths):
+    """A redirect stub (scripts/build_redirects.py, ADR-0038) is skipped here, so the chrome pass writes no top bar
+    into it and report() does not read it as an orphan, only when its path is a `from` in site/redirects.yml AND the
+    file carries the stub shape (sentinel, noindex, canonical). A sentinel at an unlisted path is a real page masking
+    itself, so it is not skipped."""
+    if url_of(rel) not in from_paths:
+        return False
     try:
-        with open(p, 'rb') as fh:
-            return b'<!-- mb:redirect -->' in fh.read(200)
+        head = p.read_text(encoding='utf-8', errors='replace')[:400]
     except OSError:
         return False
+    return '<!-- mb:redirect -->' in head and 'noindex' in head and 'canonical' in head
 
 
 def page_files():
     out = []
+    from_paths = _redirect_from_paths()
     for p in sorted(ROOT.rglob('*.html')):
         rel = p.relative_to(ROOT).as_posix()
         if rel.startswith(SKIP_DIRS) or '/.' in rel or '/node_modules/' in rel:
             continue
-        if _is_redirect_stub(p):
+        if _is_redirect_stub(rel, p, from_paths):
             continue
         if rel.endswith('/index.html') or rel in ('index.html', NOT_FOUND):
             out.append((rel, p))

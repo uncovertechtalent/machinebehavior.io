@@ -16,8 +16,9 @@ Rules the build keeps:
 - the target must exist as a page on disk (index.html), unless the entry is kind 'convenience' (its target is a built
   hub that its own build guarantees).
 - stubs are noindex and never enter sitemap.xml or llms.txt; a removed page leaves the sitemap through its own build.
-  The gate (.github/actions/conformity/run.py) and the chrome pass (scripts/site_chrome.py) both skip a file whose
-  first bytes hold the sentinel, so a stub is neither scanned as a page, flagged as an orphan, nor given a top bar.
+  The gate (.github/actions/conformity/run.py) and the chrome pass (scripts/site_chrome.py) skip a stub only when its
+  path is a `from` in this file and the file is stub-shaped (sentinel, noindex, canonical), so a stub is neither
+  scanned as a page, flagged as an orphan, nor given a top bar; a sentinel at an unlisted path is still scanned.
 
 An empty redirects list is valid and writes nothing: Phase 0 ships this script with no entries, and each later phase
 adds its entries when it moves those pages. Stdlib only. Run from the repo root. Tests: scripts/test_build_redirects.py
