@@ -30,7 +30,7 @@ The build writes one `index.html` per page, `inside/docs/search.json` (an input 
 | `parent` | Slug of the parent page in the same space; empty means under the space home |
 | `order` | Sort key among siblings |
 | `labels` | Comma-separated; written as `article:tag` metas and shown as chips that open the search results for the label |
-| `created`, `updated` | Dates; without them the build uses the git date of the source file |
+| `created`, `updated` | Dates. The build uses `updated`, else `created`, else the git date of the source file. A page that pins `created` must also bump `updated` on each edit, or its modified date, the sitemap `lastmod` and its place in "Recently updated" freeze |
 | `owner` | Who keeps the page true. Required on hand-written pages; a vault page without one takes the space owner |
 | `reviewed` | The date the page was last checked against the system or source it describes, or `no`. For a hand-written page, the date it was written from the source counts as the first review. Vault pages start as `no` |
 | `review_by` | The date of the next review; 90 days after `reviewed` by default |
