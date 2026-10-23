@@ -5,6 +5,7 @@ labels: docs, generator, front-matter
 owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
+created: 2026-10-11
 type: reference
 ---
 The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/build_docs.py` from markdown files in `scripts/docs/<space>/`. Four spaces are written by hand in the repository (Engineering, Observability, Research, FinOps); two come from the knowledge vault through `scripts/import_vault_docs.py`. A vault space can also hold hand-written pages: the SRE Handbook carries [Principles in practice](doc:sre/principles-in-practice), written in the repository. A page is hand-written when its front matter has no `origin` line, in any space.
@@ -12,7 +13,7 @@ The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/bu
 ## Build
 
 ```bash
-VAULT_PRIVATE_USER=… python3 scripts/import_vault_docs.py ~/vault   # set the private user name to redact; vault spaces sre, std; only on the machine with the vault
+VAULT_PRIVATE_USER=<name> python3 scripts/import_vault_docs.py ~/vault   # set the private user name to redact; vault spaces sre, std; only on the machine with the vault
 python3 scripts/build_changelog.py             # eng/changelog.md from closed issues and commits (needs the network)
 python3 scripts/build_docs.py                  # all spaces, sitemap block, llms.txt section, docs search index
 python3 scripts/build_inside.py                # bar sync, services, status, the site-wide search index
@@ -70,6 +71,7 @@ Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<l
 - In: `SRE/` without `homelab/`, `.claude/` and `CLAUDE.md`; 28 standards clusters under `pillars/`.
 - Kept (since 2026-10-09): on each run the import removes only the files it wrote before, those with an `origin` line, and leaves hand-written pages in `scripts/docs/sre/` and `scripts/docs/std/` in place. A vault note whose slug equals a hand-written file name stops the import with an error; rename one of the two. Before this change the import deleted both folders.
 - Redacted: private IPv4 addresses and LAN shorthand, e-mail addresses, the former employer's name, home directory paths, private host names. Each change is listed in `scripts/docs/IMPORT-REPORT.md`.
+- The private user name is redacted too, read from the environment variable `VAULT_PRIVATE_USER`; the import refuses to run when it is unset, so the name is never published by a silent miss. Set `VAULT_PRIVATE_USER=-` to import without that redaction on purpose.
 - ISO clause notes: blockquotes are dropped unread, so no standards text is machine-processed.
 - Every vault page carries a label: not reviewed against the source.
 - An alias of a vault note that equals another page's title is dropped on import and listed in the report; the title keeps the name.
