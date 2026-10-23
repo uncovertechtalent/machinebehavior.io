@@ -53,11 +53,27 @@ REDIRECT_SENTINEL = "<!-- mb:redirect -->"
 
 
 def redirect_from_paths():
-    """The `from` URLs in site/redirects.yml (ADR-0038): the only paths a redirect stub may occupy."""
+    """The `from` URLs in site/redirects.yml (ADR-0038), read with the site's own scripts/mini_yaml.py so the gate
+    and scripts/build_redirects.py use one parser and cannot disagree about which paths are redirects. No file: an
+    empty set (every stub is then scanned and fails). File present but mini_yaml missing or the file unparseable: a
+    loud failure, never a silent empty, so a broken or renamed loader cannot quietly change what the gate treats as a
+    redirect. This shared action reads scripts/mini_yaml.py when the site has one, so a change to that file changes
+    gate behaviour."""
     f = ROOT / "site" / "redirects.yml"
     if not f.exists():
         return set()
-    return set(re.findall(r"\bfrom:\s*(/[^\s,}]+)", f.read_text(encoding="utf-8", errors="replace")))
+    scripts_dir = str(ROOT / "scripts")
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    try:
+        import mini_yaml
+    except Exception as e:
+        raise RuntimeError(f"{f} exists but scripts/mini_yaml.py is not importable: {e}")
+    try:
+        doc = mini_yaml.load_file(str(f))
+    except Exception as e:
+        raise RuntimeError(f"{f} did not parse: {e}")
+    return {r["from"] for r in (doc or {}).get("redirects") or [] if isinstance(r, dict) and "from" in r}
 
 
 def is_redirect_stub(p, from_paths):
@@ -68,7 +84,7 @@ def is_redirect_stub(p, from_paths):
     if page_url(p) not in from_paths:
         return False
     try:
-        head = p.read_text(encoding="utf-8", errors="replace")[:400]
+        head = p.read_text(encoding="utf-8", errors="replace")[:2000]
     except OSError:
         return False
     return REDIRECT_SENTINEL in head and "noindex" in head and "canonical" in head

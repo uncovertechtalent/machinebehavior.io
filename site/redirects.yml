@@ -12,5 +12,13 @@
 # enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages, so this list is empty until the
 # first move. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
 # /impressum/, /privacy/, /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs.
+#
+# Entries are block form, the subset scripts/mini_yaml.py reads; flow mappings ({ from: ..., to: ... }) are not
+# supported and fail the gate loudly. One entry looks like:
+#   redirects:
+#     - from: /old/
+#       to: /new/
+#       kind: move
+#       phase: 2
 
 redirects: []
