@@ -7,15 +7,15 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-Four studies are published on [/experiments/](/experiments/): the temporal half-life is refuted, exemplar seeding showed no change at its dose, the fawn-opener benchmark has a pilot only, and experiment 04 found folding under pressure in one of four open-weight models.
+Four studies are published on [/research/experiments/](/research/experiments/): the temporal half-life is refuted, exemplar seeding showed no change at its dose, the fawn-opener benchmark has a pilot only, and experiment 04 found folding under pressure in one of four open-weight models.
 
 | field | value |
 |---|---|
 | status | 01 refuted, 02 no change, 03 pilot only, 04 run; probe record-only |
 | dates | 2026-08-07 (01) to 2026-10-07 (04 and the first probe record) |
 | models | Claude models in the author's harness (01, 02); Haiku 4.5, GPT-5.6 (terra), llama3.1:8b (03 pilot); qwen3-coder-30b, gpt-oss-120b, DeepSeek V3.2, Kimi K2.5 (04) |
-| published page | [/experiments/](/experiments/), probe on [/conformity/](/conformity/) |
-| source file | [experiments/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/experiments/index.html) |
+| published page | [/research/experiments/](/research/experiments/), probe on [/conformity/](/conformity/) |
+| source file | [research/experiments/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/experiments/index.html) |
 
 ## The studies
 

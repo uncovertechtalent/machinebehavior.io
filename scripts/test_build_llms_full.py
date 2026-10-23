@@ -47,11 +47,11 @@ def test_markdown():
              '<pre>line 1\n  line 2</pre><blockquote><p>quoted</p></blockquote>'
              '<table><tr><th>a</th><th>b</th></tr><tr><td>1|2</td><td>3</td></tr></table>'
              '<dl><dt>term</dt><dd>meaning</dd><dt>two</dt><dd>second</dd></dl>'
-             '<p><a href="/claims/">claims</a><a href="#top">top</a> <a href="https://tychat.io/">tychat</a></p>'
+             '<p><a href="/research/claims/">claims</a><a href="#top">top</a> <a href="https://tychat.io/">tychat</a></p>'
              '<p hidden>secret</p><p aria-hidden="true">decor</p><p><span>Owner</span><span>Me</span></p>')
     for want in ('# T', 'One **bold** and *soft* word, `a|b`.', '## Lists', '- first\n  - nested\n- second',
                  '3. three\n4. four', '```\nline 1\n  line 2\n```', '> quoted', '| a | b |\n|---|---|\n| 1\\|2 | 3 |',
-                 '**term**\n: meaning\n\n**two**\n: second', f'[claims]({BASE}/claims/) top [tychat](https://tychat.io/)',
+                 '**term**\n: meaning\n\n**two**\n: second', f'[claims]({BASE}/research/claims/) top [tychat](https://tychat.io/)',
                  'Owner Me'):
         check('markdown has ' + want.split('\n')[0], want in out, repr(out))
     for gone in ('Skip to content', 'Research', 'Home', 'Updated 2026', 'Topics', 'Gate', 'script text', 'secret', 'decor'):
@@ -96,7 +96,7 @@ def test_build_and_write():
     long_section = ' '.join(f'Sentence {i} about fawn response and stance.' for i in range(120))
     pages = {
         '/': page('Machine Behavior', '<h1>Machine Behavior</h1><p>Home text.</p>'),
-        '/claims/': page('Claims ledger', '<header><h1>Claims ledger</h1></header><p>Claim one.</p>'
+        '/research/claims/': page('Claims ledger', '<header><h1>Claims ledger</h1></header><p>Claim one.</p>'
                          f'<h2>Long</h2><p>{long_section}</p><h2>Table</h2><table>'
                          + ''.join(f'<tr><td>row {i}</td><td>cell text. More cell text here.</td></tr>' for i in range(60)) + '</table>',
                          head='<meta property="article:published_time" content="2026-09-01T10:00:00Z">'
@@ -108,24 +108,24 @@ def test_build_and_write():
         root = site(tmp, pages)
         rc, log = quiet(b.main, ['--root', str(root), '--check-only'])
         check('check-only exit', rc == 0, log)
-        check('check-only writes nothing', not (root / b.FULL).exists() and not (root / 'claims' / b.TWIN).exists())
+        check('check-only writes nothing', not (root / b.FULL).exists() and not (root / 'research' / 'claims' / b.TWIN).exists())
         check('missing page reported', 'no page file for https://machinebehavior.io/missing/' in log, log)
         rc, log = quiet(b.main, ['--root', str(root)])
         check('write exit', rc == 0, log)
-        twin = (root / 'claims' / b.TWIN).read_text(encoding='utf-8')
-        check('twin front matter', twin.startswith('---\nurl: https://machinebehavior.io/claims/\ntitle: "Claims ledger"\n'
+        twin = (root / 'research' / 'claims' / b.TWIN).read_text(encoding='utf-8')
+        check('twin front matter', twin.startswith('---\nurl: https://machinebehavior.io/research/claims/\ntitle: "Claims ledger"\n'
                                                    'date: 2026-10-01\npublished: 2026-09-01\n'
                                                    'description: "Every claim with \\"receipts\\"."\n'), twin[:300])
         check('twin has one title heading', twin.count('# Claims ledger') == 1, twin[:400])
         check('home twin path', (root / b.TWIN).is_file())
         check('noindex page skipped', not (root / 'hidden' / b.TWIN).exists())
         full = (root / b.FULL).read_text(encoding='utf-8')
-        check('full text section', '# Claims ledger\n\nURL: https://machinebehavior.io/claims/\nDate: 2026-10-01\n'
-                                   'Published: 2026-09-01\nMarkdown: https://machinebehavior.io/claims/index.html.md' in full, full[:600])
+        check('full text section', '# Claims ledger\n\nURL: https://machinebehavior.io/research/claims/\nDate: 2026-10-01\n'
+                                   'Published: 2026-09-01\nMarkdown: https://machinebehavior.io/research/claims/index.html.md' in full, full[:600])
         check('full text page count', 'Pages: 2.' in full, full[:400])
         idx = json.loads((root / b.PASSAGES).read_text(encoding='utf-8'))
         check('index tokenizer', idx['tokenizer'] == b.TOKENIZER)
-        check('index pages', [p['u'] for p in idx['pages']] == [BASE + '/', BASE + '/claims/'], idx['pages'])
+        check('index pages', [p['u'] for p in idx['pages']] == [BASE + '/', BASE + '/research/claims/'], idx['pages'])
         check('passage length cap', all(len(p['x']) <= b.PASSAGE_MAX for p in idx['passages']),
               max(len(p['x']) for p in idx['passages']))
         check('long section split', sum(1 for p in idx['passages'] if p['h'] == 'Long') >= 4)

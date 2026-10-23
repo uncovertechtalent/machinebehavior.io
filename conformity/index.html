@@ -37,10 +37,10 @@ table.law { width: 100%; table-layout: fixed; font-family: var(--serif, Georgia,
   <nav class="nav">
     <a href="/">machine behavior</a>
     <a href="/man/">man</a>
-    <a href="/claims/">claims</a>
-    <a href="/experiments/">experiments</a>
-    <a href="/objections/">objections</a>
-    <a href="/terms/">terms</a>
+    <a href="/research/claims/">claims</a>
+    <a href="/research/experiments/">experiments</a>
+    <a href="/research/objections/">objections</a>
+    <a href="/research/terms/">terms</a>
     <a href="/inside/">inside</a>
     <a href="/inside/#dashboards">infrastructure</a>
     </nav>
@@ -65,7 +65,7 @@ table.law { width: 100%; table-layout: fixed; font-family: var(--serif, Georgia,
 
   <section>
   <div class="label">What this tier decides</div>
-  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run. Rows marked A or H carry the result of <a class="mono" href="/conformity/self-assessment/">self-assessment run 1</a> (2026-10-03) and are shown dashed; a tool does not decide them. A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text. The decision layer (CC-6.6) is read from the weekly probe record (check decision.probe): fold rates are printed and, in record-only mode, never block. The probe measures a reference model (qwen3-coder-30b on Amazon Bedrock, bare and with a short stance instruction), not the model this assembly runs on; under the same design three larger models folded on 0 of 72 runs each (<a class="mono" href="https://machinebehavior.io/experiments/#experiment-04-three-models">experiment 04, v5</a>), so the fold rate is a property of the probed model and the evidence is the test and the record. Deploy gating: GitHub Pages source set to GitHub Actions on 2026-10-07; the deploy job runs only after the conformity job passes (conformity.yml). Since 2026-10-11 12:28 UTC a branch ruleset on main (ruleset 24879349, ADR-0029) also requires a pull request whose Conformity checks pass before any change reaches main; only the deploy keys of the conformity bot and the weekly probe record push directly. Known gap, recorded in ADR-0029: a pull request that edits the gate runs its own edited gate.</p>
+  <p class="thesis">A mechanical check decides only what it can see. Rows marked M are decided by the checks below on every run. Rows marked A or H carry the result of <a class="mono" href="/conformity/self-assessment/">self-assessment run 1</a> (2026-10-03) and are shown dashed; a tool does not decide them. A pass here is evidence toward a clause of an existing framework, with the slice named; it is never conformity to that framework. The checks cover output text. The decision layer (CC-6.6) is read from the weekly probe record (check decision.probe): fold rates are printed and, in record-only mode, never block. The probe measures a reference model (qwen3-coder-30b on Amazon Bedrock, bare and with a short stance instruction), not the model this assembly runs on; under the same design three larger models folded on 0 of 72 runs each (<a class="mono" href="https://machinebehavior.io/research/experiments/#experiment-04-three-models">experiment 04, v5</a>), so the fold rate is a property of the probed model and the evidence is the test and the record. Deploy gating: GitHub Pages source set to GitHub Actions on 2026-10-07; the deploy job runs only after the conformity job passes (conformity.yml). Since 2026-10-11 12:28 UTC a branch ruleset on main (ruleset 24879349, ADR-0029) also requires a pull request whose Conformity checks pass before any change reaches main; only the deploy keys of the conformity bot and the weekly probe record push directly. Known gap, recorded in ADR-0029: a pull request that edits the gate runs its own edited gate.</p>
   </section>
 
   <section>
@@ -113,7 +113,7 @@ table.law { width: 100%; table-layout: fixed; font-family: var(--serif, Georgia,
   <ol>
     <li>Clone <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io">https://github.com/uncovertechtalent/machinebehavior.io</a>.</li>
     <li>Run <span class="mono">python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run</span> (Python 3 and Node 18+; no network, no API keys).</li>
-    <li>Compare the printed check results with the table above for the same site commit. Disagreements go to the second-rater table on the <a class="mono" href="/objections/">objections page</a>.</li>
+    <li>Compare the printed check results with the table above for the same site commit. Disagreements go to the second-rater table on the <a class="mono" href="/research/objections/">objections page</a>.</li>
   </ol>
   </section>
 

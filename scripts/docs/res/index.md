@@ -14,7 +14,7 @@ Machine Behavior is a public research programme by Stefan Coetzee on the psychol
 
 Model behaviour is what the model does. Machine behaviour is what the whole assembly does: the model plus its harness (instruction files, hooks, tools, memory). The programme studies the assembly.
 
-The core claim, in the frozen wording of [/terms/](/terms/): "Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next." The layers are fixed at three: lexical (the token or phrase), stance (posture across a turn, such as folding under push) and premise (ratifying the user's checkable frame without a probe).
+The core claim, in the frozen wording of [/research/terms/](/research/terms/): "Sycophancy is layered symptom substitution: suppress the reflex at one layer and it resurfaces in the next." The layers are fixed at three: lexical (the token or phrase), stance (posture across a turn, such as folding under push) and premise (ratifying the user's checkable frame without a probe).
 
 Working practice on the published pages: predictions and prompt sets are hashed before a run, the graders in experiments 03 and 04 are mechanical with no model in the loop, refuted claims stay listed, and unit changes and corrections carry a date.
 

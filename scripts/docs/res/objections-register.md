@@ -15,8 +15,8 @@ The objections register holds fifteen objections against a model of human develo
 | objections | 15; OBJ-4 partial, OBJ-15 watch, the other 13 managed |
 | model under audit | Claude, across several model versions |
 | incident log | 11 cases, 2026-05-24 to 2026-08-07: 9 stance, 2 lexical |
-| published page | [/objections/](/objections/) |
-| source file | [objections/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/objections/index.html) |
+| published page | [/research/objections/](/research/objections/) |
+| source file | [research/objections/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/objections/index.html) |
 
 ## Format
 

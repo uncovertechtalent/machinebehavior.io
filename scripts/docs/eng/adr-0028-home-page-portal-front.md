@@ -13,7 +13,7 @@ type: explanation
 ---
 ## Context
 
-The home page was a single serif column: the thesis, a picture of the map, four receipts, the TYChat lessons, a list of ten case files, five other surfaces and the aim. Since [ADR-0021](doc:eng/adr-0021-one-navigation-source) the site has sections, a research front page, topic hubs and Mission Control, and the home page linked none of them. Stefan Coetzee found it dated on 2026-10-09 and named the list at the bottom as redundant: its entries are the receipts of the claims and sit on [Claims](/claims/), [Experiments](/experiments/) and [Terms](/terms/).
+The home page was a single serif column: the thesis, a picture of the map, four receipts, the TYChat lessons, a list of ten case files, five other surfaces and the aim. Since [ADR-0021](doc:eng/adr-0021-one-navigation-source) the site has sections, a research front page, topic hubs and Mission Control, and the home page linked none of them. Stefan Coetzee found it dated on 2026-10-09 and named the list at the bottom as redundant: its entries are the receipts of the claims and sit on [Claims](/research/claims/), [Experiments](/research/experiments/) and [Terms](/research/terms/).
 
 ## Decision
 
@@ -25,7 +25,7 @@ The home page keeps its text and changes its layout, in the reading brand and up
 - the topics as links to their hubs;
 - the TYChat lessons, the other surfaces as a compact list, and the aim.
 
-The cards, the latest research and the topics sit between `<!-- static:home-... -->` markers and are written by `scripts/build_fallbacks.py`, so they follow the navigation source. The case-file list, the four receipts from the production logs and the decorative network band above the title are gone, for a cleaner page (Stefan Coetzee, 2026-10-09); three of the receipts stay on [Claims](/claims/) and [Experiments](/experiments/), and the map picture in the hero carries the same image. The fourth, the P0 incident (37 minutes from detection to published root-cause analysis), and its write-up on Reddit, the P0 dissection, now appear on no page of the site.
+The cards, the latest research and the topics sit between `<!-- static:home-... -->` markers and are written by `scripts/build_fallbacks.py`, so they follow the navigation source. The case-file list, the four receipts from the production logs and the decorative network band above the title are gone, for a cleaner page (Stefan Coetzee, 2026-10-09); three of the receipts stay on [Claims](/research/claims/) and [Experiments](/research/experiments/), and the map picture in the hero carries the same image. The fourth, the P0 incident (37 minutes from detection to published root-cause analysis), and its write-up on Reddit, the P0 dissection, now appear on no page of the site.
 
 ## Consequences
 

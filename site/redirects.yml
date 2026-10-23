@@ -43,3 +43,31 @@ redirects:
     to: /conformity/self-assessment/
     kind: move
     phase: 1
+  - from: /claims/
+    to: /research/claims/
+    kind: move
+    phase: 2
+  - from: /experiments/
+    to: /research/experiments/
+    kind: move
+    phase: 2
+  - from: /experiments/stance-vs-censorship-abliteration/
+    to: /research/experiments/stance-vs-censorship-abliteration/
+    kind: move
+    phase: 2
+  - from: /objections/
+    to: /research/objections/
+    kind: move
+    phase: 2
+  - from: /evidence/
+    to: /research/evidence/
+    kind: move
+    phase: 2
+  - from: /slips/
+    to: /research/slips/
+    kind: move
+    phase: 2
+  - from: /terms/
+    to: /research/terms/
+    kind: move
+    phase: 2

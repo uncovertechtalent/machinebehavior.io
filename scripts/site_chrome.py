@@ -448,9 +448,9 @@ def _text(fragment):
 
 def defined_terms(url, src, set_id):
     """The defined terms a page already shows, as DefinedTerm nodes with the page's own wording.
-    /terms/: each <dt> and its <dd> (the receipt line left out). /conformity/standard/: the entries of clause 3."""
+    /research/terms/: each <dt> and its <dd> (the receipt line left out). /conformity/standard/: the entries of clause 3."""
     terms = []
-    if url == '/terms/':
+    if url == '/research/terms/':
         for name, dd in re.findall(r'<dt>(.*?)</dt>\s*<dd>(.*?)</dd>', src, re.S):
             dd = re.sub(r'<div class="receipt">.*?</div>', '', dd, flags=re.S)
             terms.append((_text(name), _text(dd), re.sub(r'[^a-z0-9]+', '-', _text(name).lower()).strip('-')))
@@ -509,7 +509,7 @@ def page_ld(t, node, trail, url, src, layout):
     terms = defined_terms(url, src, set_id)
     if terms:
         graph.append({'@type': 'DefinedTermSet', '@id': set_id, 'name': title, 'url': base + url, 'hasDefinedTerm': terms})
-        page['mainEntity'] = {'@id': set_id} if url == '/terms/' else page.get('mainEntity')
+        page['mainEntity'] = {'@id': set_id} if url == '/research/terms/' else page.get('mainEntity')
         if page['mainEntity'] is None:
             del page['mainEntity']
     sw = cfg.get('software')

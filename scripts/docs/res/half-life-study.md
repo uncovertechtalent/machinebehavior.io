@@ -16,7 +16,7 @@ The half-life study was a test of whether relapse into banned output patterns gr
 | dates | published 2026-08-07; unit note added 2026-09-22 |
 | dataset | 34 days (2026-07-04 to 2026-08-07), 103 catch events, 224 weighted pattern hits, 62 sessions with full transcripts |
 | model | single operator, single model family |
-| published page | [/experiments/](/experiments/), section 01 |
+| published page | [/research/experiments/](/research/experiments/), section 01 |
 
 ## Method
 
