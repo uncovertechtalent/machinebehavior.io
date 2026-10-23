@@ -62,13 +62,15 @@ def redirect_from_paths():
     f = ROOT / "site" / "redirects.yml"
     if not f.exists():
         return set()
-    scripts_dir = str(ROOT / "scripts")
-    if scripts_dir not in sys.path:
-        sys.path.insert(0, scripts_dir)
+    mp = ROOT / "scripts" / "mini_yaml.py"
+    if not mp.exists():
+        raise RuntimeError(f"{f} exists but {mp} is not importable: no such file")
+    spec = importlib.util.spec_from_file_location("site_mini_yaml", mp)
+    mini_yaml = importlib.util.module_from_spec(spec)
     try:
-        import mini_yaml
+        spec.loader.exec_module(mini_yaml)
     except Exception as e:
-        raise RuntimeError(f"{f} exists but scripts/mini_yaml.py is not importable: {e}")
+        raise RuntimeError(f"{f} exists but {mp} is not importable: {e}")
     try:
         doc = mini_yaml.load_file(str(f))
     except Exception as e:
