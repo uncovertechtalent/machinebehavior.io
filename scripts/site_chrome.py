@@ -19,7 +19,7 @@ a page without them gets them at fixed anchors (after <body>, at the top of <div
 
 Generators (build_docs.py, build_inside.py, slips_page.py, build_hubs.py) call apply() before they write a page. This
 script, run on its own, applies the chrome to every page in the repository, so pages written by generators outside
-this repository (the gate's /conformity/, the definition at /continuous-conformity/) get it too; the deploy job runs
+this repository (the gate's /conformity/, the definition at /conformity/standard/) get it too; the deploy job runs
 it again before the upload.
 
     python3 scripts/site_chrome.py           write every page, then print the report
@@ -38,7 +38,7 @@ import mini_yaml  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 NAV_FILE = ROOT / 'site' / 'nav.yml'
 
-SIDEBARS = {'research', 'red-team', 'inside', 'topics', 'aieo', 'cto'}  # sections whose pages carry the section sidebar
+SIDEBARS = {'research', 'red-team', 'conformity', 'inside', 'topics', 'aieo', 'cto'}  # sections whose pages carry the section sidebar
 TOPICS_FILE = ROOT / 'site' / 'topics.yml'
 TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
 POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
@@ -448,13 +448,13 @@ def _text(fragment):
 
 def defined_terms(url, src, set_id):
     """The defined terms a page already shows, as DefinedTerm nodes with the page's own wording.
-    /terms/: each <dt> and its <dd> (the receipt line left out). /continuous-conformity/: the entries of clause 3."""
+    /terms/: each <dt> and its <dd> (the receipt line left out). /conformity/standard/: the entries of clause 3."""
     terms = []
     if url == '/terms/':
         for name, dd in re.findall(r'<dt>(.*?)</dt>\s*<dd>(.*?)</dd>', src, re.S):
             dd = re.sub(r'<div class="receipt">.*?</div>', '', dd, flags=re.S)
             terms.append((_text(name), _text(dd), re.sub(r'[^a-z0-9]+', '-', _text(name).lower()).strip('-')))
-    elif url == '/continuous-conformity/':
+    elif url == '/conformity/standard/':
         m = re.search(r'<h2 id="3-terms-and-definitions">.*?(?=<h2 )', src, re.S)
         for code, name, rest in re.findall(r'<p class="thesis"><strong>(3\.\d+) ([^<]+)</strong>(.*?)</p>', m.group(0) if m else '', re.S):
             terms.append((_text(name), _text(rest), code))

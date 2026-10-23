@@ -21,4 +21,20 @@
 #       kind: move
 #       phase: 2
 
-redirects: []
+redirects:
+  - from: /continuous-conformity/
+    to: /conformity/standard/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity/why-test-the-running-system/
+    to: /conformity/standard/why-test-the-running-system/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity/the-six-month-problem/
+    to: /conformity/standard/the-six-month-problem/
+    kind: move
+    phase: 1
+  - from: /continuous-conformity-self-assessment/
+    to: /conformity/self-assessment/
+    kind: move
+    phase: 1

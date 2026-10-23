@@ -110,8 +110,8 @@
  "require_root_absolute_links": true,
  "slips_log": "slips/log.csv",
  "links": {
-  "draft": "/continuous-conformity/",
-  "self_assessment": "/continuous-conformity-self-assessment/",
+  "draft": "/conformity/standard/",
+  "self_assessment": "/conformity/self-assessment/",
   "objections": "/objections/"
  },
  "page": {

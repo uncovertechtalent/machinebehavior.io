@@ -14,7 +14,7 @@ type: explanation
 ---
 ## Context
 
-The site had a BreadcrumbList on every page since [ADR-0021](doc:eng/adr-0021-one-navigation-source) and one hand-written WebSite and Person block on the home page; no page said in markup who wrote it, and the canonical definitions on [Terms](/terms/) and in clause 3 of the [definition draft](/continuous-conformity/) were plain text. Stefan Coetzee wants these pages and terms to be found and attributed to him, on the honest side: every claim in the markup true and visible on the page.
+The site had a BreadcrumbList on every page since [ADR-0021](doc:eng/adr-0021-one-navigation-source) and one hand-written WebSite and Person block on the home page; no page said in markup who wrote it, and the canonical definitions on [Terms](/terms/) and in clause 3 of the [definition draft](/conformity/standard/) were plain text. Stefan Coetzee wants these pages and terms to be found and attributed to him, with every claim in the markup true and visible on the page.
 
 Google's guidance on its AI features (developers.google.com/search/docs/fundamentals/ai-optimization-guide) says structured data is not required for them and that no special schema exists for them; it names indexable, snippet-eligible, useful pages, a good page experience and content that can be crawled without JavaScript. Google ignores llms.txt. Schema.org markup still states the author, the page type, the dates and the meaning of a term in a form that search engines and other tools can read, at little cost.
 

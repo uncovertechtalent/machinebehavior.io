@@ -271,7 +271,7 @@
    "date": "2026-10-09"
   },
   {
-   "id": "https://machinebehavior.io/continuous-conformity/",
+   "id": "https://machinebehavior.io/conformity/standard/",
    "title": "Continuous Conformity for Deployed AI Systems (working draft 0.3)",
    "kind": "page",
    "site": "mb",
@@ -301,7 +301,7 @@
    "date": "2026-10-01"
   },
   {
-   "id": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "id": "https://machinebehavior.io/conformity/self-assessment/",
    "title": "Continuous Conformity Self-Assessment, Run 1",
    "kind": "page",
    "site": "mb",
@@ -822,13 +822,13 @@
    "date": "2026-10-09"
   },
   {
-   "id": "https://machinebehavior.io/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/codex-attempt-blocked.md",
+   "id": "https://machinebehavior.io/conformity/self-assessment/second-rater/gpt-oss-120b-01/codex-attempt-blocked.md",
    "title": "codex attempt blocked.md",
    "kind": "page",
    "site": "mb"
   },
   {
-   "id": "https://machinebehavior.io/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/rater-input.md",
+   "id": "https://machinebehavior.io/conformity/self-assessment/second-rater/gpt-oss-120b-01/rater-input.md",
    "title": "rater input.md",
    "kind": "page",
    "site": "mb"
@@ -838,7 +838,7 @@
    "title": "ADR-0019: Publish the definition draft before the committee route",
    "kind": "doc",
    "site": "mb",
-   "desc": "The working draft \"Continuous Conformity for Deployed AI Systems\" (0.3, 36 requirements) is public as a reference at /continuous-conformity/ before any standards committee has seen it, reversing the committee-first order of 2026-10-04.",
+   "desc": "The working draft \"Continuous Conformity for Deployed AI Systems\" (0.3, 36 requirements) is public as a reference at /conformity/standard/ before any standards committee has seen it, reversing the committee-first order of 2026-10-04.",
    "space": "eng",
    "tags": [
     "adr",
@@ -6634,7 +6634,7 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -6654,7 +6654,7 @@
   },
   {
    "source": "https://machinebehavior.io/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -6984,7 +6984,7 @@
   },
   {
    "source": "https://machinebehavior.io/aieo/this-site/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -6994,7 +6994,7 @@
   },
   {
    "source": "https://machinebehavior.io/aieo/this-site/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -7174,7 +7174,7 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -7189,7 +7189,7 @@
   },
   {
    "source": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -7434,7 +7434,7 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -7444,7 +7444,7 @@
   },
   {
    "source": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -7614,7 +7614,7 @@
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -7629,7 +7629,7 @@
   },
   {
    "source": "https://machinebehavior.io/claims/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -7684,7 +7684,7 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -7699,7 +7699,7 @@
   },
   {
    "source": "https://machinebehavior.io/conformity/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -7878,322 +7878,322 @@
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/codex-attempt-blocked.md",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/second-rater/gpt-oss-120b-01/codex-attempt-blocked.md",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/second-rater/gpt-oss-120b-01/rater-input.md",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/second-rater/gpt-oss-120b-01/rater-input.md",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/observability/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/operations-and-sre/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/research/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/evaluation/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/evidence/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/inside/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/aieo/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/the-cheating-moved/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/finops/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/conformity-and-law/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/running-conjobs-for-ai/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/ai-search/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/red-team/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/inside/docs/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/map/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/slips/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/sycophancy-and-stance/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/objections/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/self-assessment/",
    "target": "https://machinebehavior.io/topics/agents-and-harness/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://reddit.com/r/MachineBehavior/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "source": "https://machinebehavior.io/conformity/standard/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/case-12-licence-rule-mid-task/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/conformity/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/objections/",
    "kind": "body"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/observability/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/operations-and-sre/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/research/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/evaluation/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/claims/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/evidence/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/inside/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/aieo/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/the-cheating-moved/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/man/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/finops/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/chaos-engineering-for-behaviour/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/conformity-and-law/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/running-conjobs-for-ai/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/terms/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/ai-search/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/red-team/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/inside/docs/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/map/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/slips/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/sycophancy-and-stance/",
    "kind": "nav"
   },
   {
-   "source": "https://machinebehavior.io/continuous-conformity/",
+   "source": "https://machinebehavior.io/conformity/standard/",
    "target": "https://machinebehavior.io/topics/agents-and-harness/",
    "kind": "nav"
   },
@@ -8249,7 +8249,7 @@
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -8314,7 +8314,7 @@
   },
   {
    "source": "https://machinebehavior.io/evidence/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -8464,7 +8464,7 @@
   },
   {
    "source": "https://machinebehavior.io/experiments/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -8479,7 +8479,7 @@
   },
   {
    "source": "https://machinebehavior.io/experiments/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -8694,7 +8694,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -8724,7 +8724,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -10034,7 +10034,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -10324,7 +10324,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/eng/adr-0027-structured-data/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -10479,7 +10479,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/eng/conformity-gate/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -12499,7 +12499,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/res/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -12659,7 +12659,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/res/conformity-self-assessment/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -12684,7 +12684,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/res/conformity-self-assessment/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -13469,7 +13469,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/docs/sre/apple-silicon-vs-desktop-gpu-for-inference/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -30384,7 +30384,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/tour/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -30734,7 +30734,7 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -30744,7 +30744,7 @@
   },
   {
    "source": "https://machinebehavior.io/man/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -30919,7 +30919,7 @@
   },
   {
    "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -30934,7 +30934,7 @@
   },
   {
    "source": "https://machinebehavior.io/objections/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -31169,7 +31169,7 @@
   },
   {
    "source": "https://machinebehavior.io/red-team/method/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -31429,7 +31429,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -31439,7 +31439,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -31644,7 +31644,7 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -31654,7 +31654,7 @@
   },
   {
    "source": "https://machinebehavior.io/running-conjobs-for-ai/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -31794,7 +31794,7 @@
   },
   {
    "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -31809,7 +31809,7 @@
   },
   {
    "source": "https://machinebehavior.io/slips/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -31939,7 +31939,7 @@
   },
   {
    "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -31954,7 +31954,7 @@
   },
   {
    "source": "https://machinebehavior.io/terms/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -32139,7 +32139,7 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "nav"
   },
   {
@@ -32154,7 +32154,7 @@
   },
   {
    "source": "https://machinebehavior.io/the-cheating-moved/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "nav"
   },
   {
@@ -33509,7 +33509,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/conformity-and-law/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -33794,7 +33794,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/conformity-and-law/",
-   "target": "https://machinebehavior.io/continuous-conformity/",
+   "target": "https://machinebehavior.io/conformity/standard/",
    "kind": "body"
   },
   {
@@ -33989,7 +33989,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {
@@ -35594,7 +35594,7 @@
   },
   {
    "source": "https://tychat.io/conformity/",
-   "target": "https://machinebehavior.io/continuous-conformity-self-assessment/",
+   "target": "https://machinebehavior.io/conformity/self-assessment/",
    "kind": "body"
   },
   {

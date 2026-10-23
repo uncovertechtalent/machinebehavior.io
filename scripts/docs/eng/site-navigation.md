@@ -14,7 +14,8 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 | Section | Front page | Pages |
 |---|---|---|
 | Home | `/` | |
-| Research | `/research/` | claims, experiments, objections, evidence, slips, case files, articles, man pages, terms, the continuous-conformity definition and the self-assessment |
+| Research | `/research/` | claims, experiments, objections, evidence, slips, case files, articles, man pages, terms |
+| Conformity | `/conformity/` | the gate runs, the working-draft standard and the self-assessment |
 | Inside | `/inside/` | Mission Control, services (one page per service, from `services/*.yml`), status, board, gate runs, tour, search |
 | Docs | `/inside/docs/` | the space tree, from `inside/docs/tree.json` (written by `scripts/build_docs.py`) |
 | Topics | `/topics/` | one hub per topic in `site/topics.yml` |
@@ -101,7 +102,7 @@ The home page is the front page of the portal: section cards from `site/nav.yml`
 
 ## Structured data
 
-The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (from `site.person`), the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with headline, description and dates, and DefinedTermSet on `/terms/` and `/continuous-conformity/` with the wording on the page. A research page's publication date sits in `site/nav.yml` as `published`. `--check` fails on a JSON-LD block that does not parse. See [ADR-0027](doc:eng/adr-0027-structured-data).
+The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (from `site.person`), the site as WebSite with its search, the page as Article, TechArticle, CollectionPage or WebPage with headline, description and dates, and DefinedTermSet on `/terms/` and `/conformity/standard/` with the wording on the page. A research page's publication date sits in `site/nav.yml` as `published`. `--check` fails on a JSON-LD block that does not parse. See [ADR-0027](doc:eng/adr-0027-structured-data).
 
 ## Layouts
 
