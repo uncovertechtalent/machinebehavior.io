@@ -644,11 +644,14 @@ def apply(src, rel):
 
 # ---------- the whole site ----------
 def _redirect_from_paths():
-    """The `from` URLs in site/redirects.yml (ADR-0038): the only paths a redirect stub may occupy."""
+    """The `from` URLs in site/redirects.yml (ADR-0038), read with mini_yaml, the one parser build_redirects uses,
+    so the chrome pass and the builder agree on which paths are redirects. No file: an empty set. An unparseable
+    file raises, so the chrome pass fails loudly rather than skip the wrong set of pages."""
     f = ROOT / 'site' / 'redirects.yml'
     if not f.exists():
         return set()
-    return set(re.findall(r'\bfrom:\s*(/[^\s,}]+)', f.read_text(encoding='utf-8', errors='replace')))
+    doc = mini_yaml.load_file(str(f))
+    return {r['from'] for r in (doc or {}).get('redirects') or [] if isinstance(r, dict) and 'from' in r}
 
 
 def _is_redirect_stub(rel, p, from_paths):
@@ -659,7 +662,7 @@ def _is_redirect_stub(rel, p, from_paths):
     if url_of(rel) not in from_paths:
         return False
     try:
-        head = p.read_text(encoding='utf-8', errors='replace')[:400]
+        head = p.read_text(encoding='utf-8', errors='replace')[:2000]
     except OSError:
         return False
     return '<!-- mb:redirect -->' in head and 'noindex' in head and 'canonical' in head
