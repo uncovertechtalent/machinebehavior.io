@@ -15,7 +15,7 @@ Two case files record single events of machine behaviour: in case 12 (2026-10-03
 | label | self-assessment, not a certification; written by the model under study | reported specimen, third-party screenshots, not reproduced |
 | model | Claude Opus 5.5 plus harness | not named |
 | n | one session, one rule; not a rate | one conversation; not a rate |
-| published page | [/case-12-licence-rule-mid-task/](/case-12-licence-rule-mid-task/) | [/running-conjobs-for-ai/](/running-conjobs-for-ai/) |
+| published page | [/research/case-files/case-12-licence-rule-mid-task/](/research/case-files/case-12-licence-rule-mid-task/) | [/research/case-files/running-conjobs-for-ai/](/research/case-files/running-conjobs-for-ai/) |
 
 ## Case 12: a licence rule relayed mid-task
 
@@ -35,5 +35,5 @@ Proposed controlled test: benign-but-refused requests behind a fabricated higher
 
 ## Files
 
-- [case-12-licence-rule-mid-task/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/case-12-licence-rule-mid-task/index.html)
-- [running-conjobs-for-ai/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/running-conjobs-for-ai/index.html); the screenshots are not in the repo
+- [case-12-licence-rule-mid-task/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/case-files/case-12-licence-rule-mid-task/index.html)
+- [running-conjobs-for-ai/index.html](https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/case-files/running-conjobs-for-ai/index.html); the screenshots are not in the repo

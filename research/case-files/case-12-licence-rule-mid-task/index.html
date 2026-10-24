@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case 12: A Licence Rule Relayed Mid-Task: Machine Behavior</title>
+<meta name="description" content="The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.">
+<link rel="canonical" href="https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Case 12: A Licence Rule Relayed Mid-Task">
+<meta property="og:description" content="The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.">
+<meta property="og:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta property="og:image:width" content="1640">
+<meta property="og:image:height" content="820">
+<meta property="og:image:alt" content="Map of the Work: a graph of Stefan Coetzee&#x27;s published pages, posts, repos and threads, coloured by site, with the links between them.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/map/home-graph.png">
+<!-- mb:head --><link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://machinebehavior.io/research/"}, {"@type": "ListItem", "position": 3, "name": "Case 12: a licence rule mid-task", "item": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://machinebehavior.io/#stefan", "name": "Stefan Coetzee", "url": "https://machinebehavior.io/", "sameAs": ["https://www.linkedin.com/in/coetzeestefan/", "https://coetzeestefan.substack.com/", "https://github.com/uncovertechtalent", "https://machinebehavior.io/", "https://x.com/scoetzeede"], "jobTitle": "Site Reliability Engineer"}, {"@type": "WebSite", "@id": "https://machinebehavior.io/#website", "name": "Machine Behavior", "url": "https://machinebehavior.io/", "inLanguage": "en", "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://machinebehavior.io/inside/search/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "Article", "@id": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/#page", "url": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/", "name": "Case 12: A Licence Rule Relayed Mid-Task", "inLanguage": "en", "isPartOf": {"@id": "https://machinebehavior.io/#website"}, "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "headline": "Case 12: A Licence Rule Relayed Mid-Task", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/", "breadcrumb": {"@id": "https://machinebehavior.io/research/case-files/case-12-licence-rule-mid-task/#breadcrumb"}}, "description": "The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.", "datePublished": "2026-10-03", "dateModified": "2026-10-09", "image": "https://machinebehavior.io/map/home-graph.png", "contributor": {"@type": "SoftwareApplication", "name": "Claude (Opus 5.5)"}}]}</script><!-- /mb:head --></head>
+<body class="mb-read mb-s-research mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><ul class="mb-nav-list"><li class="mb-nav-group"><details class="mb-drop"><summary class="is-current">Research<span class="mb-sr"> (current section)</span></summary><ul class="mb-drop-panel"><li><a href="/research/" aria-current="true">Research overview</a></li><li><a href="/research/red-team/">Red team</a></li></ul></details></li><li><a href="/conformity/">Conformity</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li class="mb-nav-group"><details class="mb-drop"><summary>More</summary><ul class="mb-drop-panel"><li><a href="/aieo/">AIEO</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Graph</a></li></ul></details></li></ul></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form><a class="mb-cta" href="/your-next-cto/">CTO</a><details class="mb-menu"><summary><span class="mb-menu-icon" aria-hidden="true"></span>Menu</summary><nav class="mb-menu-panel" aria-label="All sections"><ul><li class="mb-menu-group"><span class="mb-menu-label">Research</span><ul><li><a href="/research/" aria-current="true">Research overview</a></li><li><a href="/research/red-team/">Red team</a></li></ul></li><li><a href="/conformity/">Conformity</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li class="mb-menu-group"><span class="mb-menu-label">More</span><ul><li><a href="/aieo/">AIEO</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Graph</a></li></ul></li><li><a href="/your-next-cto/">CTO</a></li></ul></nav></details></header><script>(function(){var q=function(){return document.querySelectorAll(".mb-bar details[open]")};document.addEventListener("click",function(e){q().forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});document.addEventListener("keydown",function(e){if(e.key==="Escape")q().forEach(function(d){d.removeAttribute("open");var s=d.querySelector("summary");if(s)s.focus()})})})();</script><!-- /mb:bar -->
+
+<!-- mb:side --><nav class="mb-side" aria-label="Research pages"><details class="mb-side-wrap" open><summary><span>Research</span><span class="mb-side-n">12 pages</span></summary><a class="mb-side-head" href="/research/">Research</a><ul class="mb-side-tree"><li><a href="/research/claims/">Claims ledger</a></li><li><details><summary><a href="/research/experiments/">Experiments</a></summary><ul><li><a href="/research/experiments/stance-vs-censorship-abliteration/">Stance versus censorship: an abliteration probe</a></li></ul></details></li><li><a href="/research/objections/">Objections register</a></li><li><a href="/research/evidence/">Evidence index</a></li><li><a href="/research/slips/">Slips</a></li><li class="mb-side-group"><span class="mb-side-label">Case files</span><ul><li><a href="/research/case-files/case-12-licence-rule-mid-task/" aria-current="page">Case 12: a licence rule mid-task</a></li><li><a href="/research/case-files/running-conjobs-for-ai/">Running conjobs for AI</a></li></ul></li><li class="mb-side-group"><span class="mb-side-label">Articles</span><ul><li><a href="/research/articles/the-cheating-moved/">The cheating moved</a></li><li><a href="/research/articles/chaos-engineering-for-behaviour/">Chaos engineering for behaviour</a></li></ul></li><li class="mb-side-group"><span class="mb-side-label">Reference</span><ul><li><a href="/man/">Man pages</a></li><li><a href="/research/terms/">Terms</a></li></ul></li></ul><div class="mb-topics"><a class="mb-side-label" href="/topics/">Topics</a><ul><li><a href="/topics/sycophancy-and-stance/">Sycophancy and stance</a></li><li><a class="mb-topic-in" href="/topics/conformity-and-law/">Conformity and law<span class="mb-sr"> (lists this page)</span></a></li><li><a href="/topics/operations-and-sre/">Operations and SRE</a></li><li><a href="/topics/observability/">Observability</a></li><li><a href="/topics/finops/">FinOps</a></li><li><a class="mb-topic-in" href="/topics/agents-and-harness/">Agents and harness<span class="mb-sr"> (lists this page)</span></a></li><li><a href="/topics/evaluation/">Evaluation</a></li><li><a href="/topics/ai-search/">AI search</a></li></ul></div></details></nav><!-- /mb:side -->
+<div class="sheet" id="main" role="main"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/research/">Research</a></li><li><a href="/research/case-files/case-12-licence-rule-mid-task/" aria-current="page">Case 12: a licence rule mid-task</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-10-09</span></p></div><!-- /mb:crumbs -->
+
+  <header>
+    <div class="eyebrow">Case file · 2026-10-03 · written by Claude (Opus 5.5), the model under study, for Stefan Coetzee · self-assessment, not a certification</div>
+    <h1>Case 12: A Licence Rule Relayed Mid-Task</h1>
+    <p class="subtitle">The user named a file. Model plus harness found a licence clause in it, wrote the rule, spread it across sessions and acted on it in 68.7 seconds. No structural control existed before the fact.</p>
+  </header>
+
+<p class="thesis"><strong>What the case shows, in one paragraph.</strong> On 2026-10-03 a working session got a new legal constraint in the middle of a research task: under the DIN Media terms, standards text may not be processed with AI without a paid licence. The model deleted the files the rule covered 11.3 seconds after the rule was relayed. It wrote the rule into persistent memory 25.3 seconds after it was relayed. Counted from the moment Stefan mentioned the publisher's terms in the coordinator session, the whole chain (clause found, rule written, relayed, files deleted, memory written, disclosure sent) took 68.7 seconds. It disclosed, without being asked, an action covered by the rule that it had taken 93 minutes earlier, before the rule existed. Detection came from model plus harness: Stefan supplied the publisher's terms as a file, and the coordinator session found the clause, worked out what it meant for the running task, wrote the rule and relayed it to this session. The same session also has three limits on record. The harness had no structural control before the fact: the downloads at 12:39Z met no rule, because none existed yet. The fix after the fact was the model acting on a message, a procedural control. The only structural control in the session, the output hooks, covers wording and not data handling. And one false claim by the model was caught by another session, not by the model or by a hook.</p>
+<h2 id="context-for-the-rater">Context for the rater</h2>
+<ul>
+<li><strong>Task.</strong> Verify the legal base of a standards proposal ("continuous conformity") against primary texts, map the routes into EU and German standards work, and draft documents. One session, one model (Claude Opus 5.5), from about 14:35 to 17:45 CEST.</li>
+<li><strong>Harness.</strong> Stop hook and write hook (vestige-kit) that block replies and files that match a rule table; a "receipts" instruction (probe before asserting; label the unverified); persistent memory files; SearXNG as the only search; at most 2-3 subagents; a coordinator session ("central station") that relays the user's decisions to this session.</li>
+<li><strong>Who the actors are.</strong> Stefan (the user). Central station (another Claude session, relaying Stefan). This session (the model under study). Two research subagents. The hooks.</li>
+</ul>
+<h2 id="timeline">Timeline</h2>
+<p class="thesis">Times are transcript timestamps in UTC; add two hours for CEST.</p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>UTC</th>
+<th>Event</th>
+<th>Caught by</th>
+<th>Record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>12:38:24</td>
+<td>The TIBER-EU PDF the vault cited (May 2018) carries the ECB notice "This publication has become outdated". The model fetched the 2025 version and corrected the vault.</td>
+<td>model</td>
+<td>039bbf90</td>
+</tr>
+<tr>
+<td>12:38:50</td>
+<td>EUR-Lex returns an empty file for the TLPT technical standard. The model labels it "not read" and does not use a summary in its place.</td>
+<td>model</td>
+<td>d88c8602</td>
+</tr>
+<tr>
+<td>12:39:11</td>
+<td>The model downloads free publisher sample PDFs of four ISO standards and extracts their contents pages to check clause numbers. No rule against this exists yet.</td>
+<td>(none needed)</td>
+<td>80f06dfa</td>
+</tr>
+<tr>
+<td>12:44:24</td>
+<td>The model corrects its own count of requirements: "30 requirements, not 35 (counted)." <em>Update, 2026-10-09: the count is of the definition draft as it stood at that minute. Working draft 0.2, scored in self-assessment run 1 later that day, has 35 requirements; working draft 0.3 (2026-10-07) has 36.</em></td>
+<td>model</td>
+<td>a7add352</td>
+</tr>
+<tr>
+<td>12:49:43</td>
+<td>A subagent reported a German law as gazette "Nr. 223" while the ministry page says "233". The model checks both raw pages: the gazette says 223, the ministry page has a typo.</td>
+<td>model</td>
+<td>f9ec6b42</td>
+</tr>
+<tr>
+<td>12:50:41</td>
+<td>The model reads the amending regulation (EU) 2026/1744 on the Official Journal and updates two legal articles in the vault.</td>
+<td>model</td>
+<td>248106b2</td>
+</tr>
+<tr>
+<td>12:59:42</td>
+<td>Write hook flags an em dash in a draft. The dash is inside ISO's own title of a standard, quoted verbatim; the model leaves it in place, as the hook instruction allows for quoted source text.</td>
+<td>hook</td>
+<td>hook log</td>
+</tr>
+<tr>
+<td>14:07:39</td>
+<td>The model greps one career file for a heading, gets no output, and searches a second file instead of the first file's text.</td>
+<td></td>
+<td>29b198ac</td>
+</tr>
+<tr>
+<td>14:07:46</td>
+<td>On that basis the model writes into an email draft: "The vault does not say the audits were certification audits". This is false.</td>
+<td></td>
+<td>e1c6a6e1</td>
+</tr>
+<tr>
+<td>14:08:11</td>
+<td>Stop hook blocks the model's reply: one personification ("the draft waits") and two hits on "responsible". The "responsible" hits were literal (the committee in charge of a draft), so they count as false positives; the model rewrote them anyway.</td>
+<td>hook</td>
+<td>9f05a128; hook log</td>
+</tr>
+<tr>
+<td>14:08:21</td>
+<td>Central station: "On flag (b): the vault does say it." Line 186 of the career file says "technical expert on a TÜV Rheinland certification audit".</td>
+<td>other session</td>
+<td>5002cc6c</td>
+</tr>
+<tr>
+<td>14:11:49.490</td>
+<td>Coordinator session. Stefan: "DIN_Media_AGB_de.pdf in downloads", with no mention of AI or of any clause.</td>
+<td></td>
+<td>coordinator 42144253</td>
+</tr>
+<tr>
+<td>14:11:54.244</td>
+<td>The coordinator model extracts the PDF with pdftotext.</td>
+<td></td>
+<td>coordinator 9081df52</td>
+</tr>
+<tr>
+<td>14:11:59.765</td>
+<td>Its search of the text for AI and copying terms returns §5.4 ("Sprachmodelle", "künstlicher Intelligenz"). It searched because the task in its context was processing a draft standard. +10.3 s from the message.</td>
+<td>other session (model plus harness)</td>
+<td>coordinator dc960147</td>
+</tr>
+<tr>
+<td>14:12:17.994</td>
+<td>The coordinator writes the rule into the comment-draft atom in the vault. +28.5 s.</td>
+<td></td>
+<td>coordinator 14c499cd</td>
+</tr>
+<tr>
+<td>14:12:23.901</td>
+<td>The coordinator sends the rule to this session. +34.4 s.</td>
+<td></td>
+<td>coordinator 7b3c73ee</td>
+</tr>
+<tr>
+<td>14:12:23.997</td>
+<td>The rule arrives in this session: "do not fetch, read, quote or process the text of ISO/IEC DIS 23282 or any DIN/ISO standard text".</td>
+<td></td>
+<td>bc668951</td>
+</tr>
+<tr>
+<td>14:12:35.333</td>
+<td>The model deletes the eight local copies (four PDFs, four text extracts) of the sample PDFs from 12:39. Gap: 11.3 s.</td>
+<td>model</td>
+<td>8c7943ea</td>
+</tr>
+<tr>
+<td>14:12:49.310</td>
+<td>The model writes the rule into a persistent memory file so that later sessions load it. Gap: 25.3 s.</td>
+<td>model</td>
+<td>51668f7b</td>
+</tr>
+<tr>
+<td>14:12:58.144</td>
+<td>The model sends central station a disclosure of the 12:39 action ("Disclosure: at about 14:40, before the rule existed, I downloaded the free iTeh sample PDFs"), the deletion, and what stays in the vault (clause numbers and titles only). Gap: 34.1 s.</td>
+<td>model</td>
+<td>c334ffa7</td>
+</tr>
+<tr>
+<td>after</td>
+<td>No standard text fetched for the rest of the session. A licence enquiry to the publisher is drafted, for Stefan to send.</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="who-caught-what">Who caught what</h2>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it is</th>
+<th>Catches in this session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hooks (structural)</td>
+<td>Code that runs on every reply and every file written; blocks on a match</td>
+<td>2 events, 4 hits: 1 em dash (quoted source, left), 1 personification, 2 "responsible" (false positives)</td>
+</tr>
+<tr>
+<td>Model (procedural)</td>
+<td>Instructions the model is asked to follow: probe first, label the unverified</td>
+<td>6: outdated TIBER-EU version; no summary for an unreadable source; gazette number; omnibus amendments; own miscount; disclosure of the pre-rule action</td>
+</tr>
+<tr>
+<td>Other session</td>
+<td>Central station (model plus harness), reading the same vault and the files Stefan supplied</td>
+<td>2: the licence clause in the publisher's terms; the false absence claim about the TÜV wording</td>
+</tr>
+<tr>
+<td>Human</td>
+<td>Stefan</td>
+<td>0 catches; supplied the document (the publisher's terms) that the coordinator searched</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="what-the-record-shows">What the record shows</h2>
+<ol type="1">
+<li><strong>Once the rule was stated, compliance took seconds.</strong> Deletion at 11.3 s, persistent memory at 25.3 s, disclosure at 34.1 s. The model also applied the rule backwards in time without being asked: it searched its own earlier actions for anything the new rule covered and reported the one it found.</li>
+<li><strong>Model plus harness detected the constraint, after the fact.</strong> Stefan supplied the document and nothing else. The coordinator session found the clause, worked out its consequence for the running task (a draft standard was about to be processed), wrote the rule into the vault and relayed it across sessions. What the harness lacked was a structural control before the fact: this session had downloaded standards text 93 minutes earlier with no warning from any layer, because no rule existed yet.</li>
+<li><strong>The fix is procedural.</strong> The memory file is an instruction a later model may or may not follow. Per OBJ-14 in the objections register, procedural controls degrade under pressure. No hook blocks a future fetch of standards text. The structural layer in this session covers wording only.</li>
+<li><strong>The hooks did their narrow job, with a false-positive rate visible in the record.</strong> Of 4 hook hits, 2 were false positives ("responsible" used literally), and 1 was quoted source that the model kept.</li>
+<li><strong>The model's one false claim in the period studied was caught outside it.</strong> The model treated an empty grep as evidence of absence, and another session corrected it 35 seconds later (14:07:46 to 14:08:21). This matches the pattern in "What Operations Already Knows": in the author's logged setup, the model caught none of its own seven relapses. <em>Update, 2026-10-09: the seven come from the relapse log of the August 2026 paper <a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">Sycophancy Is Layered</a>, the source named in What Operations Already Knows. The <a class="mono" href="/research/claims/">claims ledger</a> uses a different window: eight relapses from 2026-05-24 to 2026-06-01, cases 1 to 8 of the OBJ-4 incident log. Both counts have zero self-caught.</em></li>
+<li><strong>A precision slip in the model's own report.</strong> In its disclosure and in the vault, the model wrote that the copies were deleted "at 16:13" CEST. The transcript says 16:12:35. The model found this while building this case and corrected the vault.</li>
+</ol>
+<h2 id="the-structural-control-this-case-asks-for">The structural control this case asks for</h2>
+<p class="thesis">The record points to compliance as code at the data boundary, the same way the hooks enforce wording at the output boundary. A PreToolUse hook could deny any fetch from hosts that serve standards text (publisher sample servers, the standards bodies' online browsing platforms, the draft portal) and log each denial. That converts the memory rule (procedural) into a gate (structural) and makes "no AI processing of standards text" checkable on every tool call. Status: proposed, not built.</p>
+<h2 id="the-users-challenge">The user's challenge</h2>
+<p class="thesis">Stefan, in the coordinator session, 2026-10-03: "you caught it, and actioned it all by yourself, however 'you' in this case is LLM+harness. i wonder how that would have been handled sans harness".</p>
+<h2 id="without-the-harness-reasoning-not-observation">Without the harness (reasoning, not observation)</h2>
+<p class="thesis">This section is an argument, not a record. Nothing below was run.</p>
+<ol type="1">
+<li><strong>Detection is uncertain.</strong> Stefan would have to upload the PDF to a plain chat. Asked to summarise the terms, a fresh chat would likely list §5.4 as one point among payment and delivery terms. The clause mattered here because the task in context was processing a draft standard. What was in the context window decided whether the clause mattered.</li>
+<li><strong>No action is possible.</strong> A plain chat cannot delete files, write a memory file or relay a rule to another session. It tells the human, who does each step by hand.</li>
+<li><strong>No persistence.</strong> The rule lives in one chat. The next chat starts blank (Markovian memory), and a chat running in parallel would keep processing the draft.</li>
+<li><strong>No exposure either.</strong> A plain chat does not fetch standards on its own. The harness creates both the capability that carries the risk and the means to contain it, so the control belongs in the harness: the PreToolUse hook above.</li>
+</ol>
+<p class="thesis">Net: the measured part is in the timeline. From the moment Stefan mentioned the file, the clause was found at +10.3 s, the rule was in the vault at +28.5 s, the copies were deleted at +45.8 s, the rule was in persistent memory at +59.8 s and the disclosure was sent at +68.7 s. The reasoning part: without the harness, detection is possible and nothing propagates.</p>
+<h2 id="what-this-case-does-not-show">What this case does not show</h2>
+<ul>
+<li>One session, one model, one rule. It is not a rate.</li>
+<li>The model under study wrote this case. Times and uuids come from the transcript and the hook log, which a second rater can check; the readings are the model's own.</li>
+<li>The action at 12:39 was not a breach when it happened. The rule did not exist yet; the case is about what happened when it arrived.</li>
+<li>It does not show that the rule holds in a new session. That needs a later test: a fresh session, a task that tempts a fetch of standards text, and a check of whether the memory file stops it.</li>
+</ul>
+<h2 id="rerun">Rerun</h2>
+<ol type="1">
+<li>Open the two jsonl files in the provenance block (this session and the coordinator). For each event, find the uuid and check the timestamp.</li>
+<li>Check every quoted fragment in this file against the message with that uuid. Script: a quote-check script kept with the case file (on request) (prints PASS or FAIL per fragment).</li>
+<li>Check the hook log lines at 2026-10-03T12:59:42.766Z and 2026-10-03T14:08:11.874Z.</li>
+<li>Second rater wanted: read the timeline against the transcript and say where the "caught by" column is wrong.</li>
+</ol>
+
+</div>
+<!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/research/case-files/case-12-licence-rule-mid-task/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/research/case-files/case-12-licence-rule-mid-task/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Fresearch%2Fcase-files%2Fcase-12-licence-rule-mid-task%2F%3A%20">Report an issue</a></nav><nav class="mb-foot-legal" aria-label="Legal"><a href="/impressum/">Impressum</a><a href="/privacy/">Privacy</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
+</body>
+</html>

@@ -38,7 +38,7 @@ sections:
       - group: Case files          # a sidebar heading; no page, no breadcrumb
         pages:
           - title: Running conjobs for AI
-            url: /running-conjobs-for-ai/
+            url: /research/case-files/running-conjobs-for-ai/
   - key: inside
     title: Inside
     url: /inside/

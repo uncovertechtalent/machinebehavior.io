@@ -67,6 +67,17 @@ class WriteStub(unittest.TestCase):
             written, problems = br.run([], root=root)
             self.assertEqual((written, problems), (0, []))
 
+    def test_article_redirect_requires_permanent(self):
+        with tempfile.TemporaryDirectory() as root:
+            page(root, "/research/articles/the-cheating-moved/")
+            rows = [{"from": "/the-cheating-moved/", "to": "/research/articles/the-cheating-moved/", "kind": "move"}]
+            written, problems = br.run(rows, root=root)  # missing permanent
+            self.assertEqual(written, 0)
+            self.assertIn("permanent", problems[0])
+            rows[0]["permanent"] = True
+            written, problems = br.run(rows, root=root)  # now allowed
+            self.assertEqual((written, problems), (1, []))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -33,7 +33,7 @@ Run 1 of the conformity assessment is a self-assessment, not a certification; it
 
 ## What a hash proves
 
-A published hash proves the text has not changed since the hash was published. The 2026-09-21 chess block is taken verbatim from local vault commit f3f39ae (2026-09-21 18:38 +0200), and that history is not public; the diff between the two files shows every amendment. The experiment 04 files were kept in a local repository until publication and are byte-identical to the files hashed then. The chess protocol has not been run; see [/the-cheating-moved/](/the-cheating-moved/).
+A published hash proves the text has not changed since the hash was published. The 2026-09-21 chess block is taken verbatim from local vault commit f3f39ae (2026-09-21 18:38 +0200), and that history is not public; the diff between the two files shows every amendment. The experiment 04 files were kept in a local repository until publication and are byte-identical to the files hashed then. The chess protocol has not been run; see [/research/articles/the-cheating-moved/](/research/articles/the-cheating-moved/).
 
 ## How the gate checks them
 

@@ -84,7 +84,7 @@ areas:
       - name: red-team
         line: "Pressure tests for a team's AI features: scripted multi-turn runs in a world with a known right answer, graded on the decision the system took."
         demo_title: Red team
-        demo_url: /red-team/
+        demo_url: /research/red-team/
   - title: AI
     about: Running AI in the company, and being found by AI.
     modules:

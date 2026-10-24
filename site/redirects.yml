@@ -7,11 +7,15 @@
 #   to     the new root-absolute URL, ending in '/'
 #   kind   'move' (a page relocated by git mv in the same PR) or 'convenience' (a data directory that never had a page)
 #   phase  the migration phase that adds the entry (the phases recorded in ADR-0038)
+#   permanent  true for a redirect that must never be retired (the old URL is cited off site); the issue #23
+#          stub-retirement cadence skips it. The article and case-file redirects are permanent; the others may be
+#          retired once inbound links fade.
 #
 # A move leaves the sitemap at its old path and enters it at the new one in the same PR; the stub is noindex and never
 # enters sitemap.xml or llms.txt. Entries are added by the phase that moves the pages; phase 1 (ADR-0038) added the
-# first four. Frozen URLs are never listed: the article and case-file URLs, /man/, /your-next-cto/, /cto-powersuit/,
-# /impressum/, /privacy/, /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs.
+# first four. Frozen URLs are never listed: /man/, /your-next-cto/, /cto-powersuit/, /impressum/, /privacy/,
+# /topics/, /map/, and /aieo/ keep their paths and are grouped by link in the hubs. (The article and case-file URLs
+# were frozen at first; ADR-0038 decision 7 reversed that, so phase 3 moves them under /research/.)
 #
 # Entries are block form, the subset scripts/mini_yaml.py reads; flow mappings ({ from: ..., to: ... }) are not
 # supported and fail the gate loudly. One entry looks like:
@@ -25,6 +29,10 @@
 # build_redirects.py writes stubs for page directories only. A CloudFront prefix rule
 # (/continuous-conformity-self-assessment/second-rater/ -> /conformity/self-assessment/second-rater/) covers them,
 # recorded in ADR-0038 Consequences and applied in site-infra. A `prefix` kind here is a tracked follow-up.
+#
+# Phase 3 moves /red-team/ and the article and case-file pages; each gets a start-anchored CloudFront prefix rule
+# (matched at the start of the path, never as a substring, so /research/red-team/ and /cto-powersuit/red-team/ are
+# left alone), which also carries the markdown twins. Recorded in ADR-0038 Consequences.
 
 redirects:
   - from: /continuous-conformity/
@@ -71,3 +79,35 @@ redirects:
     to: /research/terms/
     kind: move
     phase: 2
+  - from: /red-team/
+    to: /research/red-team/
+    kind: move
+    phase: 3
+  - from: /red-team/tactics/
+    to: /research/red-team/tactics/
+    kind: move
+    phase: 3
+  - from: /red-team/method/
+    to: /research/red-team/method/
+    kind: move
+    phase: 3
+  - from: /the-cheating-moved/
+    to: /research/articles/the-cheating-moved/
+    kind: move
+    phase: 3
+    permanent: true
+  - from: /chaos-engineering-for-behaviour/
+    to: /research/articles/chaos-engineering-for-behaviour/
+    kind: move
+    phase: 3
+    permanent: true
+  - from: /running-conjobs-for-ai/
+    to: /research/case-files/running-conjobs-for-ai/
+    kind: move
+    phase: 3
+    permanent: true
+  - from: /case-12-licence-rule-mid-task/
+    to: /research/case-files/case-12-licence-rule-mid-task/
+    kind: move
+    phase: 3
+    permanent: true
