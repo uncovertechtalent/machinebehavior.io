@@ -65,7 +65,7 @@ A `principles:` entry that names a page outside that section stops the build. Th
 
 ## In the map
 
-Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<link rel="up">` to its parent. The [map crawler](doc:eng/map-crawler) turns those into `doc` nodes, `tree` links and labels, so the documentation is part of the [map of the work](/map/).
+Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<link rel="up">` to its parent. The [map crawler](doc:eng/map-crawler) turns those into `doc` nodes, `tree` links and labels, so the documentation is part of the [second brain](/map/).
 
 ## Vault import rules (2026-10-09)
 

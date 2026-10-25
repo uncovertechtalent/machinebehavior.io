@@ -6,7 +6,7 @@ reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
 ---
-This space documents the systems behind machinebehavior.io, tychat.io and uncovertechtalent.com: how each site is built, the conformity gate that every push passes before it serves readers, the deploy job, the crawler that draws the [map of the work](/map/), the [Inside](/inside/) front page and this documentation tree.
+This space documents the systems behind machinebehavior.io, tychat.io and uncovertechtalent.com: how each site is built, the conformity gate that every push passes before it serves readers, the deploy job, the crawler that draws the [second brain](/map/), the [Inside](/inside/) front page and this documentation tree.
 
 > [!info] Three static sites, one gate. Each site is static files on GitHub Pages. Each deploy runs the same conformity checks first; a failed check stops the deploy and the previous build stays live.
 

@@ -40,7 +40,7 @@
 <div class="byline"><span>owner Stefan Coetzee</span><span>created 2026-10-09</span><span>updated 2026-10-23</span><span>reviewed 2026-10-09</span><span>review by 2027-01-07</span><span>2 min read</span><span class="type">reference</span></div>
 
 <article class="doc">
-<p>Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the pillars Research, Conformity, Inside, and Docs, a More menu holding AIEO, Topics, and Graph, the CTO action button, and the search box. Research is a menu led by its own overview page, with Red team under it. The current section is marked. The bar comes from one source, so a page cannot show a different menu.</p>
+<p>Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the pillars Research, Conformity, Inside, and Docs, a More menu holding AIEO, Topics, and Second brain, the CTO action button, and the search box. Research is a menu led by its own overview page, with Red team under it. The current section is marked. The bar comes from one source, so a page cannot show a different menu.</p>
 <h2 id="one-source-for-the-bar">One source for the bar</h2>
 <p>The sections come from <code>site/nav.yml</code>; the HTML is the function <code>bar()</code> in <code>scripts/site_chrome.py</code>, which writes it between <code>&lt;!-- mb:bar --&gt;</code> markers on every page, together with the breadcrumbs and the footer. See <a href="/inside/docs/eng/site-navigation/">Site navigation and chrome</a>.</p>
 <pre><code class="lang-bash">python3 scripts/site_chrome.py           # write the chrome on every page
