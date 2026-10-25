@@ -45,7 +45,7 @@ areas:
         demo_title: Board
         demo_url: /inside/board/
       - name: gate
-        line: "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests."
+        line: "A deploy gate: guardrails as rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests."
         demo_title: Conformity gate
         demo_url: /inside/docs/eng/conformity-gate/
       - name: docs
@@ -89,7 +89,7 @@ areas:
     about: Running AI in the company, and being found by AI.
     modules:
       - name: ai-ops
-        line: "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files."
+        line: "Operations for a team's coding agents: a shared governance harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files."
         demo_title: Agent sessions
         demo_url: /inside/services/agent-sessions/
       - name: aieo
