@@ -231,6 +231,7 @@ def main():
     d = base()
     case('eyebrow: names GitHub Issues and the time in UTC', bc.b_eyebrow(d), 'CTO powersuit cockpit · from GitHub Issues · 2026-10-14 14:00 UTC')
     case('lede: installs can use beads or GitHub Issues', 'on beads, a local issue tracker, or on GitHub Issues' in bc.b_lede(d))
+    case('lede: quotes McKinsey on the cockpit and links the article', ('operates as a cockpit' in bc.b_lede(d), 'mckinsey.com' in bc.b_lede(d)), (True, True))
     c = bc.counts(d['items'], bc.today(d))
     case('counts: open, in progress, blocked, done in 7 days', (c['open'], c['in_progress'], c['blocked'], c['closed_7d']), (3, 1, 1, 1))
     case('counts: open by kind, an item without a kind left out', (c['action'], c['finding'], c['decision']), (3, 1, 0))
