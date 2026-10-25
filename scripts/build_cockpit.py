@@ -379,7 +379,8 @@ def b_eyebrow(doc):
 def b_lede(doc):
     return (f'This is the CTO powersuit cockpit running on Stefan Coetzee\'s public work: the issues and pull requests of '
             f'his public repositories on GitHub, by area of the CTO job, as of {stamp(doc)}. An install can run the same '
-            f'cockpit on beads, a local issue tracker, or on GitHub Issues.')
+            f'cockpit on beads, a local issue tracker, or on GitHub Issues. McKinsey\'s AI operating system article describes the same '
+            f'interface: one that "operates as a cockpit so executives can make decisions and act quickly".')
 
 
 def b_totals(doc):

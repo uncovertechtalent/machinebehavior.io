@@ -586,7 +586,7 @@ One page per plugin of the CTO powersuit at release v0.4.0 (2026-10-18), grouped
 ### Delivery
 
 - [sdlc](https://machinebehavior.io/cto-powersuit/sdlc/): The software delivery lifecycle: an audit for repositories built without one, tickets, change review for agent-written code, a local CI run before each push, test strategy, and release with rollback. Version 0.2.4, 8 skills.
-- [gate](https://machinebehavior.io/cto-powersuit/gate/): A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests. Version 0.3.0, 3 skills.
+- [gate](https://machinebehavior.io/cto-powersuit/gate/): A deploy gate: guardrails as rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests. Version 0.3.0, 3 skills.
 - [docs](https://machinebehavior.io/cto-powersuit/docs/): A docs tree where every page has an owner and review dates, runbooks, a sweep for stale pages, and a static docs build. Version 0.1.0, 3 skills.
 
 ### Operations
@@ -606,7 +606,7 @@ One page per plugin of the CTO powersuit at release v0.4.0 (2026-10-18), grouped
 
 ### AI
 
-- [ai-ops](https://machinebehavior.io/cto-powersuit/ai-ops/): Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files. Version 0.2.0, 4 skills.
+- [ai-ops](https://machinebehavior.io/cto-powersuit/ai-ops/): Operations for a team's coding agents: a shared governance harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files. Version 0.2.0, 4 skills.
 - [aieo](https://machinebehavior.io/cto-powersuit/aieo/): Visibility in AI search: llms.txt, structured data, answer probes, and predictions hashed before a page goes live. Version 0.1.0, 4 skills.
 
 ### People

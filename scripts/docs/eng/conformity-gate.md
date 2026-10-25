@@ -6,10 +6,12 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-10-25
 type: reference
 ---
 The conformity gate is a set of mechanical checks run by `.github/actions/conformity/run.py` against every published page. A blocking failure stops the deploy; the previous build stays live. Results are rendered at [/conformity/](/conformity/) (self-assessment, not a certification) and stored in `conformity/latest.json`. The requirements under test come from the working draft published at [/conformity/standard/](/conformity/standard/) ([ADR-0019](doc:eng/adr-0019-definition-published-before-committee)).
+
+In the terms of McKinsey's AI operating system, the gate is a control function running at the speed of change: it manages "continuously, not through checkpoints", and its findings are the "signals, thresholds, and exceptions" a person acts on, in place of a yearly audit. The standard behind it is [Continuous Conformity](/conformity/standard/).
 
 ## Blocking checks
 

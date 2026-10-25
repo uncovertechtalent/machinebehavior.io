@@ -227,7 +227,7 @@
    "software": {
     "name": "gate (CTO powersuit plugin)",
     "alternate_name": "gate@cto-powersuit",
-    "description": "A deploy gate: rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests.",
+    "description": "A deploy gate: guardrails as rules with pass and fail fixtures, run records, findings that close only on a passing rerun, and a workflow whose deploy job waits for the gate and for the repository's own tests.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
     "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.4.0/LICENSE",
     "version": "0.3.0",
@@ -339,7 +339,7 @@
    "software": {
     "name": "ai-ops (CTO powersuit plugin)",
     "alternate_name": "ai-ops@cto-powersuit",
-    "description": "Operations for a team's coding agents: a shared harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files.",
+    "description": "Operations for a team's coding agents: a shared governance harness with narrow permissions, agent spend metered per API request with a budget alert, an audit trail of tool calls, and a coordinator pattern with state in files.",
     "repository": "https://github.com/uncovertechtalent/cto-powersuit",
     "license": "https://github.com/uncovertechtalent/cto-powersuit/blob/v0.4.0/LICENSE",
     "version": "0.2.0",
