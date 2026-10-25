@@ -6,7 +6,7 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-10-25
 type: reference
 ---
 Every page of the site carries the same top bar: the couch mark and "Machine Behavior" (the home page), the pillars Research, Conformity, Inside, and Docs, a More menu holding AIEO, Topics, and Second brain, the CTO action button, and the search box. Research is a menu led by its own overview page, with Red team under it. The current section is marked. The bar comes from one source, so a page cannot show a different menu.
