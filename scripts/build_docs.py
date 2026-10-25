@@ -731,7 +731,7 @@ def docs_home():
 <main id="main">
 {CRUMBS}
 <h1>Docs</h1>
-<p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">map of the work</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label. Owners and review dates: <a href="/inside/docs/health/">Docs health</a>.</p>
+<p class="lede">{total} pages in {len(spaces_present)} spaces, {links_n} links between them, updated {newest}. Each page is a node in the <a href="/map/">second brain</a>; front matter becomes its labels, dates and place in the tree. Hand-written spaces document the systems behind this site; the SRE handbook and the standards clusters come from the knowledge vault and carry a review label. Owners and review dates: <a href="/inside/docs/health/">Docs health</a>.</p>
 <section class="spaces">{cards}</section>
 <section class="home-recent"><h2>Recently updated</h2>{recent(pages.values(), 12)}</section>
 {note()}

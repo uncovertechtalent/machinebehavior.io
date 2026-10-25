@@ -366,7 +366,7 @@
   },
   {
    "id": "https://machinebehavior.io/map/",
-   "title": "Map of the Work",
+   "title": "Second brain",
    "kind": "page",
    "site": "mb",
    "desc": "Every page, post, repo and thread Stefan Coetzee has published, and the links between them, as an interactive graph. Click a node to read it.",
@@ -711,7 +711,7 @@
    "title": "Search Inside",
    "kind": "page",
    "site": "mb",
-   "desc": "One search over the Inside docs, the service catalog and the map of the work.",
+   "desc": "One search over the Inside docs, the service catalog and the second brain map.",
    "date": "2026-10-09"
   },
   {

@@ -198,9 +198,9 @@ sections:
     auto: topics
 
   - key: map
-    title: Graph
+    title: Second brain
     url: /map/
-    about: Every page, post, repository and thread, and the links between them, as one graph.
+    about: "The public part of Stefan Coetzee's second brain: every page, post, repository and thread, and the links between them, as one graph."
 
   - key: cto
     title: CTO

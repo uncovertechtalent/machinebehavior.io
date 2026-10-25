@@ -6,7 +6,7 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-10-25
 type: reference
 ---
 The docs at [/inside/docs/](/inside/docs/) are static pages built by `scripts/build_docs.py` from markdown files in `scripts/docs/<space>/`. Four spaces are written by hand in the repository (Engineering, Observability, Research, FinOps); two come from the knowledge vault through `scripts/import_vault_docs.py`. A vault space can also hold hand-written pages: the SRE Handbook carries [Principles in practice](doc:sre/principles-in-practice), written in the repository. A page is hand-written when its front matter has no `origin` line, in any space.
@@ -65,7 +65,7 @@ A `principles:` entry that names a page outside that section stops the build. Th
 
 ## In the map
 
-Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<link rel="up">` to its parent. The [map crawler](doc:eng/map-crawler) turns those into `doc` nodes, `tree` links and labels, so the documentation is part of the [map of the work](/map/).
+Each page carries `<meta name="docs-space">`, `article:tag` metas, dates and `<link rel="up">` to its parent. The [map crawler](doc:eng/map-crawler) turns those into `doc` nodes, `tree` links and labels, so the documentation is part of the [second brain](/map/).
 
 ## Vault import rules (2026-10-09)
 

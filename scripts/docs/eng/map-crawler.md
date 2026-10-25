@@ -6,8 +6,10 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
+created: 2026-10-09
+updated: 2026-10-25
 ---
-`scripts/crawl_map.py` builds `map/graph.json`, the data behind the [map of the work](/map/) and the front page of [Inside](/inside/). It runs in the deploy job on every push and on the Monday schedule, and by hand.
+`scripts/crawl_map.py` builds `map/graph.json`, the data behind the [second brain](/map/) and the front page of [Inside](/inside/). It runs in the deploy job on every push and on the Monday schedule, and by hand.
 
 ```bash
 python3 scripts/crawl_map.py map/graph.json
