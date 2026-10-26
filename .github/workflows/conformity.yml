@@ -452,6 +452,7 @@ jobs:
     # scripts/test_import_redaction.py checks that scripts/import_vault_docs.py refuses to run without VAULT_PRIVATE_USER, and that VAULT_PRIVATE_USER=- clears the guard, so the private user name is never published by a silent miss (ADR-0009).
     # scripts/test_site_chrome_theme.py checks the theme by URL, the exhibit numbers and references, and the reading time of report pages (ADR-0039, ADR-0040, ADR-0041).
     # scripts/test_site_chrome_side.py checks the section sidebar on the real site/nav.yml: the accordion groups, the open group, the red-team pages on the research sidebar, sidebar-only links, the page count, and no Topics block (ADR-0044); each group's All link, newest-first order, the five-page cap, the date and one-index rules, the breadcrumbs and the generated index pages (ADR-0045).
+    # scripts/test_build_hubs_topics.py checks the posts on the topic hubs: a post with a Substack copy links that canonical copy first and names the blog copy, and no post points at another site's URL with a research path (#192).
     # Runs on every trigger, pull requests included; the deploy does not wait for it.
     runs-on: ubuntu-latest
     timeout-minutes: 5    # the --check step clones from github.com
@@ -508,6 +509,9 @@ jobs:
 
       - name: Section sidebar groups (site_chrome, ADR-0044)
         run: python3 scripts/test_site_chrome_side.py
+
+      - name: Topic hub posts, canonical copy first (build_hubs, #192)
+        run: python3 scripts/test_build_hubs_topics.py
 
       - name: Section sidebar open state (bar.js)
         run: node --test scripts/test_bar.mjs

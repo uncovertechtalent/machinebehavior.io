@@ -6,7 +6,8 @@
 - /research/case-files/ and the other `hub: true` pages: a group's index, every page it holds (ADR-0045).
 - /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research, red team and Inside pages
   (the tag map in site/topics.yml), docs pages by label or space (inside/docs/search.json), posts (uncovertechtalent.com
-  tag pages on the map and Substack titles, map/graph.json) and board issues (GitHub API; on failure the last list
+  tag pages on the map and Substack titles, map/graph.json; a post with a Substack copy links that canonical copy and names
+  the blog copy, #192) and board issues (GitHub API; on failure the last list
   in topics/topics.json stays). /topics/ lists the hubs; /topics/topics.json holds the membership, which the
   Topics block in the sidebars reads to mark the topics of the current page.
 
@@ -273,13 +274,16 @@ def members(topic, t, docs, tag_posts, substack, issues):
             print(f'warning: site/topics.yml: {topic["key"]}: no tag page {tag} on the map', file=sys.stderr)
         for n in tag_posts.get(tag, []):
             if n['id'] not in seen:
-                seen.add(n['id']); posts.append({'t': n['title'], 'u': n['id'], 'date': n.get('date', ''), 'site': 'uncovertechtalent.com', 'd': n.get('desc', '')})
+                seen.add(n['id']); posts.append({'t': n['title'], 'u': n['id'], 'date': n.get('date', ''), 'site': site_chrome.home_of(n['id']) or 'uncovertechtalent.com', 'd': n.get('desc', '')})
     rx = words_rx(topic.get('post_words'))
     by_title = {norm_title(p['t']): p for p in posts}
     for n in substack:
         twin = by_title.get(norm_title(n['title']))
-        if twin is not None:
-            twin['also'] = n['id']
+        if twin is not None and not twin.get('also'):  # the blog copy names the Substack copy canonical (ADR-0046), so it leads; once
+            twin.update(u=n['id'], site=site_chrome.home_of(n['id']) or 'Substack', also=twin['u'], also_site=twin['site'])
+        elif twin is not None:
+            print(f'warning: site/topics.yml: {topic["key"]}: a second Substack post matches {twin["t"]!r} ({n["id"]}); the hub keeps {twin["u"]}', file=sys.stderr)
+            continue
         elif rx and rx.search(n['title']):
             posts.append({'t': n['title'].strip(), 'u': n['id'], 'date': n.get('date', ''), 'site': 'Substack', 'd': n.get('desc', '')})
     m['posts'] = sorted(posts, key=lambda p: (p['date'], p['t']), reverse=True)
@@ -323,7 +327,7 @@ def topic_page(topic, m, all_topics, spaces):
     if m['posts']:
         li = ''
         for p in m['posts']:
-            also = f' · <a href="{esc(p["also"])}">also on Substack</a>' if p.get('also') else ''
+            also = f' · <a href="{esc(p["also"])}">also on {esc(p["also_site"])}</a>' if p.get('also') else ''
             li += (f'<li><a href="{esc(p["u"])}">{esc(p["t"])}</a><span>{esc(p["d"])}</span>'
                    f'<span class="mb-links-meta">{esc(p["date"])} · {esc(p["site"])}{also}</span></li>')
         parts.append(f'<section><h2 class="label">Posts <span class="mb-n">{len(m["posts"])}</span></h2><ul class="mb-links">{li}</ul></section>')
@@ -373,7 +377,7 @@ def topics():
         m = members(topic, t, docs, tag_posts, substack, issues)
         data.append({'key': topic['key'], 'title': topic['title'], 'url': f'/topics/{topic["key"]}/', 'about': topic['about'],
                      'pages': [n.url for n in m['research'] + m['red-team'] + m['inside']] + [p['u'] for p in m['docs']],
-                     'posts': [{'t': p['t'], 'u': p['u'], 'also': p.get('also'), 'date': p['date']} for p in m['posts']],
+                     'posts': [{'t': p['t'], 'u': p['u'], 'site': p['site'], 'also': p.get('also'), 'date': p['date']} for p in m['posts']],
                      'tickets': [i['n'] for i in m['tickets']]})
     TOPICS_JSON.parent.mkdir(exist_ok=True)
     TOPICS_JSON.write_text(json.dumps({'generated': datetime.date.today().isoformat(), 'source': 'site/topics.yml', 'topics': data, 'issues': issues},
