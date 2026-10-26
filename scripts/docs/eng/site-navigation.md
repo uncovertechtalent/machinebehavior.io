@@ -100,7 +100,7 @@ Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chr
 
 ## Home page
 
-The home page is the front page of the portal: section cards from `site/nav.yml` (`about` per section), the four research pages published last (`published`), and the topics, all written between `<!-- static:home-... -->` markers by `scripts/build_fallbacks.py`. See [ADR-0028](doc:eng/adr-0028-home-page-portal-front).
+The front page carries the report theme and one lead finding chosen by hand in `index.html`. `scripts/build_fallbacks.py` writes two blocks between `<!-- static:home-... -->` markers: the doors, one per section in `HOME_DOORS` with its `door:` line from `site/nav.yml`, and `HOME_ROWS` research rows, the newest published pages whose kind pill is in `HOME_KINDS`, leaving out the lead. See [ADR-0041](doc:eng/adr-0041-front-page-in-the-report-theme), which replaces [ADR-0028](doc:eng/adr-0028-home-page-portal-front).
 
 ## Structured data
 

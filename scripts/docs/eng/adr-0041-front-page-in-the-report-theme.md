@@ -4,6 +4,7 @@ parent: decision-log
 order: 41
 adr: 41
 status: accepted
+supersedes: adr-0028-home-page-portal-front
 created: 2026-10-26
 labels: adr, decision, design-system, front-page, site-chrome, research
 owner: Stefan Coetzee
@@ -13,7 +14,7 @@ type: explanation
 ---
 ## Context
 
-On 2026-10-26 the front page held 883 words and 38 links in seven sections: a hero with a long explanatory paragraph, the one-line finding and three buttons beside the second-brain graph; eight section cards; four research cards with descriptions of up to 220 characters; topic chips; a "Use it" block with a paragraph and four cards; five "Elsewhere" cards; and a closing statement. Read the same day, mckinsey.com's home page held about 307 words and 28 links and bcg.com's about 692 words: one message, one lead story, a few ways in. Stefan Coetzee called the front page cluttered, a mockup in the report theme was rendered beside the live page, and he chose it.
+On 2026-10-26 the front page held 883 words and 38 links in seven sections: a hero with a long explanatory paragraph, the one-line finding and three buttons beside the second-brain graph; eight section cards; four research cards with descriptions of up to 220 characters; topic chips; a "Use it" block with a paragraph and four cards; five "Elsewhere" cards; and a closing statement. Read the same day, mckinsey.com's home page held about 307 words and 28 links and bcg.com's about 692 words: one message, one lead story, a few ways in. That was the portal front page of [ADR-0028](doc:eng/adr-0028-home-page-portal-front), which this record replaces. Stefan Coetzee called the front page cluttered, a mockup in the report theme was rendered beside the live page, and he chose it.
 
 ## Decision
 

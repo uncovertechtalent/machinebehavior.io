@@ -4,7 +4,7 @@
    data-mb-theme="report" the light report values of the research section (ADR-0039).
    Every token starts with --mb-. The older page variables (--ink, --line, --card, --amber ...) are mapped onto the
    tokens at the end of this file, so pages written before the design system follow it too.
-   Contrast: text tokens reach 4.5:1 on --mb-surface and --mb-surface-raised in both schemes (WCAG 2.2 AA). */
+   Contrast: text tokens reach 4.5:1 on --mb-surface and --mb-surface-raised (WCAG 2.2 AA). */
 :root {
   color-scheme: light;
 

@@ -150,15 +150,19 @@ def home():
     put('index.html', 'home-sections', ''.join(
         f'<li><a href="{sec.url}"><span class="door-title">{esc(sec.title)}</span>'
         f'<span class="door-line">{esc(sec.cfg.get("door") or sec.cfg.get("about", ""))}</span></a></li>' for sec in doors))
-    lead = re.search(r'class="feature-card" href="([^"]+)"', (ROOT / 'index.html').read_text(encoding='utf-8'))
+    lead = re.search(r'<a class="feature-card" href="([^"]+)"', (ROOT / 'index.html').read_text(encoding='utf-8'))
+    if not lead:
+        raise SystemExit('index.html: no <a class="feature-card" href="..."> lead finding; the rows would repeat it')
     research = [n for n in site_chrome._pages_under(t.section('research')) if getattr(n, 'cfg_page', {}).get('published')
-                and not (lead and n.url == lead.group(1))]
+                and n.url != lead.group(1)]
     research.sort(key=lambda n: (str(n.cfg_page['published']), n.url), reverse=True)
     li, rows = '', 0
     for n in research:
+        if rows == HOME_ROWS:
+            break
         src = (ROOT / n.url.strip('/') / 'index.html').read_text(encoding='utf-8')
         kind = re.search(r'<span class="kind">([^<]+)</span>', src)
-        if rows == HOME_ROWS or not kind or html.unescape(kind.group(1)) not in HOME_KINDS:
+        if not kind or html.unescape(kind.group(1)) not in HOME_KINDS:
             continue
         m = re.search(r'<meta property="og:title" content="([^"]*)"', src) or re.search(r'<title>([^<:]*)', src)
         title = html.unescape(m.group(1)) if m else n.title
