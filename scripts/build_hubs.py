@@ -133,7 +133,7 @@ def hubs():
             rows.sort(key=lambda r: r[0], reverse=True)  # stable: this site's pages first on a tie, then the written order
         note = ('<p class="mb-entries-note">Entries marked ↗ live on another site, named under each; '
                 'the others are pages of this site.</p>' if outside else '')
-        newest = max(changed)
+        newest = max(changed + [e['published'] for e in outside])  # a new piece elsewhere changes the page too
         desc = f'{n.title} in the research on machinebehavior.io. {about}'
         page = f'''{head(f'{n.title}: Research: Machine Behavior', desc, n.url, newest, 'scripts/build_hubs.py')}
 <body>

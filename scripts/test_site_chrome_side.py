@@ -151,7 +151,9 @@ class ResearchSidebar(unittest.TestCase):
         self.assertIn(date, text)
         for old, bad, why in ((url, url.replace('coetzeestefan.substack.com', 'example.com'), 'ELSEWHERE_HOMES'),
                               (url, url.replace('https://', 'http://'), 'ELSEWHERE_HOMES'),
-                              (date, date.replace('2026-09-28', '2026-9-28'), 'YYYY-MM-DD')):
+                              (url, '', 'needs url'),
+                              (date, date.replace('2026-09-28', '2026-9-28'), 'YYYY-MM-DD'),
+                              (date, '                published: 2026-09-28\n', 'needs title and about')):
             with self.assertRaises(SystemExit) as e:
                 tree_from(text.replace(old, bad, 1))
             self.assertIn('Compaction Is the New OOM', str(e.exception))
