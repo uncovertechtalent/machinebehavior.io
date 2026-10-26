@@ -173,7 +173,7 @@ body.mb-read.home > .sheet { max-width: 1160px; }
 :root[data-mb-theme="report"] { --mb-band-bleed: 40px; }
 @media (max-width: 1100px) { :root[data-mb-theme="report"] { --mb-band-bleed: 20px; } }
 @media (max-width: 819px) { :root[data-mb-theme="report"] { --mb-band-bleed: var(--mb-gutter); } }
-[data-mb-theme="report"] .sheet { font-family: var(--mb-font-report); color: var(--ink-soft); max-width: 720px; font-size: 18px; line-height: 1.65; counter-reset: exhibit; }
+[data-mb-theme="report"] .sheet { font-family: var(--mb-font-report); color: var(--ink-soft); max-width: 720px; font-size: 18px; line-height: 1.65; }
 [data-mb-theme="report"] .sheet header:has(> h1) { position: relative; isolation: isolate; padding: 52px 0 44px; margin: 8px 0 44px; }
 [data-mb-theme="report"] .sheet header:has(> h1)::before { content: ""; position: absolute; inset: 0 calc(-1 * var(--mb-band-bleed)); background: var(--mb-band); z-index: -1; }
 [data-mb-theme="report"] .sheet header:has(> h1) .eyebrow { font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.12em; color: var(--mb-band-accent); }
@@ -193,12 +193,45 @@ body.mb-read.home > .sheet { max-width: 1160px; }
 [data-mb-theme="report"] .sheet th, [data-mb-theme="report"] .sheet td { border: 0; border-bottom: 1px solid var(--rule); padding: 10px 14px 10px 0; vertical-align: top; }
 [data-mb-theme="report"] .sheet th { background: none; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); border-bottom-color: var(--ink); }
 [data-mb-theme="report"] .sheet caption { caption-side: top; text-align: left; font: 400 22px/1.3 var(--mb-font-headline); color: var(--ink); padding-bottom: 14px; }
-[data-mb-theme="report"] .sheet caption::before { counter-increment: exhibit; content: "Exhibit " counter(exhibit); display: block; margin-bottom: 6px; font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
-[data-mb-theme="report"] .exhibit-source { font-size: 13px; line-height: 1.5; color: var(--dim); margin: 0 0 36px; }
+[data-mb-theme="report"] .exhibit-n { display: block; margin-bottom: 6px; font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+[data-mb-theme="report"] .exhibit-source, [data-mb-theme="report"] .exhibit-note { font-size: 13px; line-height: 1.5; color: var(--dim); margin: 0 0 36px; }
+[data-mb-theme="report"] .exhibit-source:has(+ .exhibit-note) { margin-bottom: 4px; }
+/* ADR-0040: the page-type pill (first segment of the eyebrow), At a glance, sidebars, the reading time and print button */
+[data-mb-theme="report"] .eyebrow .kind { display: inline-block; margin: 0 10px 6px 0; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; letter-spacing: 0.1em; }
+[data-mb-theme="report"] .glance { margin: 0 0 48px; padding: 24px 28px 8px; background: var(--mb-surface-sunken); border-top: 3px solid var(--teal); }
+[data-mb-theme="report"] .glance h2 { margin: 0 0 14px; font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); }
+[data-mb-theme="report"] .glance h2::before { content: none; }
+[data-mb-theme="report"] .glance ul { margin: 0; padding-left: 1.1em; }
+[data-mb-theme="report"] .glance li { margin: 0 0 14px; font-size: 17px; line-height: 1.55; }
+[data-mb-theme="report"] .glance li em { font-style: italic; color: var(--ink); }
+[data-mb-theme="report"] aside.sidebar { margin: 28px 0; padding: 18px 22px 4px; background: var(--mb-surface-sunken); border-left: 3px solid var(--rule); font-size: 16px; line-height: 1.55; }
+[data-mb-theme="report"] aside.sidebar .thesis { font-size: 16px; }
+[data-mb-theme="report"] .mb-page-meta .mb-print { margin-left: 4px; padding: 1px 10px; border: 1px solid var(--rule); border-radius: 999px; background: none; color: var(--teal); font: inherit; cursor: pointer; }
+[data-mb-theme="report"] .mb-page-meta .mb-print:hover { border-color: var(--teal); }
 @media (max-width: 819px) {
   [data-mb-theme="report"] .sheet { font-size: 17px; }
   [data-mb-theme="report"] .sheet header:has(> h1) { padding: 36px 0 32px; }
   [data-mb-theme="report"] .sheet header:has(> h1) .subtitle { font-size: 18px; }
   /* a wide table scrolls inside its own box here (rule above); the caption stays in the column */
   [data-mb-theme="report"] .sheet caption { display: block; position: sticky; left: 0; max-width: calc(100vw - 2 * var(--mb-gutter)); }
+}
+/* Print (ADR-0040): a report page prints as a document. The site chrome and the band's fill drop out, the title prints in ink,
+   exhibits, sidebars and At a glance stay whole on a page, and links in the text print their address. */
+@media print {
+  @page { margin: 18mm 16mm; }
+  [data-mb-theme="report"] body.mb-read { background: var(--mb-surface); }
+  [data-mb-theme="report"] .mb-bar, [data-mb-theme="report"] .mb-side, [data-mb-theme="report"] .mb-foot, [data-mb-theme="report"] .mb-skip,
+  [data-mb-theme="report"] .mb-crumbs, [data-mb-theme="report"] .mb-print { display: none !important; }
+  [data-mb-theme="report"] body.mb-read > .sheet { max-width: none; padding: 0; font-size: 11pt; }
+  [data-mb-theme="report"] .sheet header:has(> h1) { padding: 0 0 12pt; margin: 0 0 18pt; border-bottom: 2px solid var(--ink); }
+  [data-mb-theme="report"] .sheet header:has(> h1)::before { display: none; }
+  [data-mb-theme="report"] .sheet header:has(> h1) h1 { color: var(--ink); font-size: 26pt; }
+  [data-mb-theme="report"] .sheet header:has(> h1) .eyebrow { color: var(--teal); }
+  [data-mb-theme="report"] .sheet header:has(> h1) .subtitle { color: var(--ink-soft); font-size: 13pt; }
+  [data-mb-theme="report"] h2 { font-size: 18pt; margin-top: 24pt; break-inside: avoid; break-after: avoid; }
+  [data-mb-theme="report"] .sheet .thesis, [data-mb-theme="report"] .glance li, [data-mb-theme="report"] aside.sidebar .thesis { font-size: 10.5pt; }
+  [data-mb-theme="report"] .sheet table, [data-mb-theme="report"] .glance, [data-mb-theme="report"] aside.sidebar { break-inside: avoid; }
+  [data-mb-theme="report"] .sheet table { font-size: 9.5pt; }
+  [data-mb-theme="report"] .glance, [data-mb-theme="report"] aside.sidebar { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  [data-mb-theme="report"] .sheet p a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: var(--dim); overflow-wrap: anywhere; }
 }

@@ -301,6 +301,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0040-report-furniture-on-research-pages/",
+"t": "ADR-0040: Report pages carry the furniture of a consulting report",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
