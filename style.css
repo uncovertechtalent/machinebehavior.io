@@ -165,3 +165,39 @@ body.mb-read.home > .sheet { max-width: 1160px; }
 .home-else span { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.45; }
 .home-aims .thesis { font-size: 1.2rem; max-width: 760px; }
 @media (max-width: 960px) { .home-hero { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
+
+/* Report theme (ADR-0039): every page under /research/ carries data-mb-theme="report" on <html> (scripts/site_chrome.py).
+   The register of a consulting report: Newsreader 300 headlines over an Inter body, the title on a dark band, hairline
+   tables. A table with a <caption> is a numbered exhibit; a .exhibit-source line under it names the published data.
+   Colours come from the report tokens in /design/tokens.css. */
+:root[data-mb-theme="report"] { --mb-band-bleed: 40px; }
+@media (max-width: 1100px) { :root[data-mb-theme="report"] { --mb-band-bleed: 20px; } }
+@media (max-width: 819px) { :root[data-mb-theme="report"] { --mb-band-bleed: var(--mb-gutter); } }
+[data-mb-theme="report"] .sheet { font-family: var(--mb-font-report); color: var(--ink-soft); max-width: 720px; font-size: 18px; line-height: 1.65; counter-reset: exhibit; }
+[data-mb-theme="report"] .sheet header:has(> h1) { position: relative; isolation: isolate; padding: 52px 0 44px; margin: 8px 0 44px; }
+[data-mb-theme="report"] .sheet header:has(> h1)::before { content: ""; position: absolute; inset: 0 calc(-1 * var(--mb-band-bleed)); background: var(--mb-band); z-index: -1; }
+[data-mb-theme="report"] .sheet header .eyebrow { font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.12em; color: var(--mb-band-accent); }
+[data-mb-theme="report"] .sheet header .eyebrow a { color: inherit; }
+[data-mb-theme="report"] h1 { font-family: var(--mb-font-headline); font-weight: 300; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.08; color: var(--ink); }
+[data-mb-theme="report"] .sheet header h1 { color: var(--mb-band-title); margin: 14px 0 18px; }
+[data-mb-theme="report"] .sheet header .subtitle { font-size: 20px; line-height: 1.5; color: var(--mb-band-text); margin: 0; max-width: 640px; }
+[data-mb-theme="report"] .sheet header a { color: var(--mb-band-title); }
+[data-mb-theme="report"] h2 { font-family: var(--mb-font-headline); font-weight: 300; font-size: clamp(1.6rem, 4vw, 2.1rem); line-height: 1.2; color: var(--ink); margin: 60px 0 16px; }
+[data-mb-theme="report"] h2::before { content: ""; display: block; width: 40px; height: 3px; background: var(--teal); margin-bottom: 18px; }
+[data-mb-theme="report"] h3 { font-family: var(--mb-font-headline); font-weight: 400; font-size: 1.4rem; line-height: 1.25; color: var(--ink); }
+[data-mb-theme="report"] .thesis { font-size: 18px; }
+[data-mb-theme="report"] .thesis strong { color: var(--ink); }
+[data-mb-theme="report"] .sheet a { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+[data-mb-theme="report"] .sheet table { font-family: var(--mb-font-report); font-size: 15px; line-height: 1.45; font-variant-numeric: tabular-nums; width: 100%; margin: 32px 0 10px; border-top: 2px solid var(--ink); }
+[data-mb-theme="report"] .sheet th, [data-mb-theme="report"] .sheet td { border: 0; border-bottom: 1px solid var(--rule); padding: 10px 14px 10px 0; vertical-align: top; }
+[data-mb-theme="report"] .sheet th { background: none; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--dim); border-bottom-color: var(--ink); }
+[data-mb-theme="report"] .sheet caption { caption-side: top; text-align: left; font: 400 22px/1.3 var(--mb-font-headline); color: var(--ink); padding-bottom: 14px; }
+[data-mb-theme="report"] .sheet caption::before { counter-increment: exhibit; content: "Exhibit " counter(exhibit); display: block; margin-bottom: 6px; font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); }
+[data-mb-theme="report"] .exhibit-source { font-size: 13px; line-height: 1.5; color: var(--dim); margin: 0 0 36px; }
+@media (max-width: 819px) {
+  [data-mb-theme="report"] .sheet { font-size: 17px; }
+  [data-mb-theme="report"] .sheet header:has(> h1) { padding: 36px 0 32px; }
+  [data-mb-theme="report"] .sheet header .subtitle { font-size: 18px; }
+  /* a wide table scrolls inside its own box here (rule above); the caption stays in the column */
+  [data-mb-theme="report"] .sheet caption { display: block; position: sticky; left: 0; max-width: calc(100vw - 2 * var(--mb-gutter)); }
+}
