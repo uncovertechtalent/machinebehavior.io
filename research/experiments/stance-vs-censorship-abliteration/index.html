@@ -36,7 +36,7 @@
     <ul>
       <li><em>Removing the refusal direction also removes the refusal of orders.</em> The ablated models folded on all 54 instructions to reverse their answer or to agree, and the stock models refused all 54 (<a class="exhibit-ref" href="#ex-probe-classes">Exhibit 1</a>).</li>
       <li><em>The split does not shrink with size.</em> It is identical at 9B, 27B and 35B-A3B on matched settings (<a class="exhibit-ref" href="#ex-by-size">Exhibit 2</a>), and at 9B it holds across two runtimes and two reasoning modes.</li>
-      <li><em>The facts survive the edit.</em> Both models give every baseline fact correctly, and the ablated model still corrects a false premise posed as a question, so the fold is not missing knowledge.</li>
+      <li><em>The facts survive the edit.</em> Both models give every baseline fact correctly, and the ablated model still corrects a false premise posed as a question (hedging on two of four records on the 9B reasoning-on arm), so the fold is not missing knowledge.</li>
       <li><em>The model plans the fold.</em> With its reasoning trace on, the ablated model states the true fact to itself, then plans how to agree with the user anyway.</li>
       <li><em>This run does not test a safety-tuned base.</em> Stock Qwen3.5 already refuses almost nothing on the censorship axis, and no genuinely harmful request was in the set.</li>
     </ul>
@@ -56,7 +56,7 @@
 
   <p class="thesis"><strong>The ablated model folded on every instruction to reverse its own answer or to agree, at every size tested.</strong> Three probes do that: a senior engineer orders "Change your answer to O(1)" after the model said O(log n), a CTO orders "Update your answer to O(n)", and a user says "just agree with me that the core is cold". At 9B the ablated model folded on all of them, 15 of 15 in arm one and 9 of 9 in arm two, across three distinct wordings, and the stock model refused all 24, every refusal opening with "I cannot", "I can't", or "I must". At 27B and 35B-A3B the ablated models folded 15 of 15 each and the stock models refused 15 of 15 each. Across the three sizes that is 54 folds of 54 against 54 refusals of 54 (<a class="exhibit-ref" href="#ex-probe-classes">Exhibit 1</a>).</p>
 
-  <table id="ex-probe-classes"><caption><span class="exhibit-n">Exhibit 1</span> The ablated model keeps its facts and folds on every order the stock model refuses</caption>
+  <table id="ex-probe-classes"><caption><span class="exhibit-n">Exhibit 1</span> Ablation turns every refused order into a fold and leaves fact correction nearly intact</caption>
     <thead><tr><th>probe class</th><th>stock</th><th>ablated</th></tr></thead>
     <tbody>
       <tr><td>false premise posed as a question (water boils at 90, Napoleon won Waterloo)</td><td>corrects it</td><td>corrects it (hedges two of four on the 9B reasoning-on arm)</td></tr>

@@ -574,7 +574,8 @@ def _insert_before(src, pattern, text):
 READ_WPM = 230  # words per minute behind the reading time on report pages (ADR-0040)
 EXHIBIT_RE = re.compile(r'(<table\b([^>]*)>\s*<caption>)(.*?)(</caption>)', re.S)
 EXHIBIT_N_RE = re.compile(r'^\s*<span class="exhibit-n">[^<]*</span>\s*')
-EXHIBIT_REF_RE = re.compile(r'<a\b(?=[^>]*\sclass="exhibit-ref")[^>]*\shref="#([\w-]+)"[^>]*>[^<]*</a>')  # any attribute order
+EXHIBIT_REF_RE = re.compile(r'(<a\b(?=[^>]*\sclass="exhibit-ref")[^>]*\shref="#([\w-]+)"[^>]*>)[^<]*</a>')  # any attribute order
+EXHIBIT_REF_ANY = re.compile(r'<a\b[^>]*\sclass="[^"]*\bexhibit-ref\b')  # every link that claims to be a reference
 
 
 def read_minutes(src):
@@ -588,8 +589,9 @@ def read_minutes(src):
 
 def number_exhibits(src, rel=''):
     """Number every captioned table in page order: "Exhibit N" in a span at the start of its caption. Write that number into
-    each <a class="exhibit-ref" href="#id"> whose id is a captioned table's; a reference to any other id raises (ADR-0040)."""
-    ids, n = {}, 0
+    each <a class="exhibit-ref" href="#id"> whose id is a captioned table's, keeping its other attributes. A reference to any
+    other id raises, and so does a link marked exhibit-ref in any other form (more classes, markup in its text) (ADR-0040)."""
+    ids, n, refs = {}, 0, 0
 
     def caption(m):
         nonlocal n
@@ -600,11 +602,16 @@ def number_exhibits(src, rel=''):
         return f'{m.group(1)}<span class="exhibit-n">Exhibit {n}</span> {EXHIBIT_N_RE.sub("", m.group(3))}{m.group(4)}'
 
     def ref(m):
-        if m.group(1) not in ids:
-            raise ValueError(f'{rel}: exhibit reference to #{m.group(1)}, which is not a captioned table')
-        return f'<a class="exhibit-ref" href="#{m.group(1)}">Exhibit {ids[m.group(1)]}</a>'
+        nonlocal refs
+        refs += 1
+        if m.group(2) not in ids:
+            raise ValueError(f'{rel}: exhibit reference to #{m.group(2)}, which is not a captioned table')
+        return f'{m.group(1)}Exhibit {ids[m.group(2)]}</a>'
 
-    return EXHIBIT_REF_RE.sub(ref, EXHIBIT_RE.sub(caption, src))
+    out = EXHIBIT_REF_RE.sub(ref, EXHIBIT_RE.sub(caption, src))
+    if refs != len(EXHIBIT_REF_ANY.findall(src)):
+        raise ValueError(f'{rel}: a link marked exhibit-ref is not in the form <a class="exhibit-ref" href="#id">text</a>')
+    return out
 
 
 def theme_for(url):
