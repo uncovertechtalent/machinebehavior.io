@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_hubs  # noqa: E402
 import site_chrome  # noqa: E402
 
 PROBE = '/research/experiments/stance-vs-censorship-abliteration/'
@@ -64,6 +65,31 @@ class ResearchSidebar(unittest.TestCase):
                 self.assertIn('no-such-section', str(e.exception))
             finally:
                 site_chrome.NAV_FILE = real
+
+    def test_nested_group_stops_the_build(self):
+        bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace(
+            '            url: /research/experiments/\n            side: All experiments\n            pages:\n',
+            '            url: /research/experiments/\n            side: All experiments\n            pages:\n              - group: Inner\n                pages: []\n', 1)
+        self.assertIn('group: Inner', bad)
+        with tempfile.TemporaryDirectory() as d:
+            nav = Path(d) / 'nav.yml'
+            nav.write_text(bad, encoding='utf-8')
+            real, site_chrome.NAV_FILE = site_chrome.NAV_FILE, nav
+            try:
+                with self.assertRaises(SystemExit) as e:
+                    site_chrome.Tree()
+                self.assertIn('Inner', str(e.exception))
+            finally:
+                site_chrome.NAV_FILE = real
+
+    def test_research_index_follows_the_groups(self):
+        groups = build_hubs.research_groups(self.t)
+        self.assertEqual([h for h, _ in groups], ['Experiments', 'Case files', 'Articles', 'Red team', 'Registers', 'Reference'])
+        urls = [n.url for _, nodes in groups for n in nodes]
+        self.assertEqual(len(urls), 15)
+        self.assertIn(PROBE, urls)                      # a page's child, listed under it
+        self.assertIn('/research/red-team/method/', urls)  # the included section
+        self.assertNotIn('/topics/', urls)               # the sidebar-only link
 
     def test_breadcrumbs_unchanged(self):
         self.assertEqual([n.title for n in self.t.trail(self.t.by_url[PROBE])],

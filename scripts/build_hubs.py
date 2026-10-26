@@ -78,6 +78,25 @@ def head(title, desc, url, modified, src):
 </head>'''
 
 
+def research_groups(t):
+    """The research index's sections as (heading, pages), in the order of the sidebar (ADR-0044): pages outside any group
+    first, then each group with its pages and their children at any depth, or an included section's overview and pages.
+    Sidebar-only links stay out."""
+    sec = t.section('research')
+
+    def down(kids):
+        return [p for k in kids if not k.link for p in [k] + down(k.kids)]
+
+    out = []
+    loose = [k for k in sec.kids if not k.group and not k.link]
+    if loose:
+        out.append(('Registers and logs', loose))
+    for g in (k for k in sec.kids if k.group):
+        inc = t.section(g.cfg_page['include']) if g.cfg_page.get('include') else None
+        out.append((g.title, [inc] + down(inc.kids) if inc else down(g.kids)))
+    return out
+
+
 def research():
     t = site_chrome.tree()
     sec = t.section('research')
@@ -90,21 +109,8 @@ def research():
         return (f'<li class="mb-entry"><a href="{n.url}">{esc(n.title)}</a>'
                 f'<p>{esc(desc)}</p><span class="mb-entry-meta">updated {d}</span></li>')
 
-    def entries(g):
-        """A group's pages for the index, as the sidebar lists them (ADR-0044): an included section's overview and pages,
-        or the group's pages with their children; sidebar-only links stay out."""
-        def down(kids):
-            return [p for k in kids if not k.link for p in [k] + down(k.kids)]
-        if g.cfg_page.get('include'):
-            inc = t.section(g.cfg_page['include'])
-            return [inc] + down(inc.kids)
-        return down(g.kids)
-
-    loose = [k for k in sec.kids if not k.group and not k.link]
-    if loose:
-        rows.append('<section><h2 class="label">Registers and logs</h2><ul class="mb-entries">' + ''.join(item(k) for k in loose) + '</ul></section>')
-    for g in (k for k in sec.kids if k.group):
-        rows.append(f'<section><h2 class="label">{esc(g.title)}</h2><ul class="mb-entries">' + ''.join(item(k) for k in entries(g)) + '</ul></section>')
+    for heading, nodes in research_groups(t):
+        rows.append(f'<section><h2 class="label">{esc(heading)}</h2><ul class="mb-entries">' + ''.join(item(k) for k in nodes) + '</ul></section>')
     about = sec.cfg.get('about', '')
     newest = max(dates)
     n = len(dates)

@@ -105,12 +105,19 @@ class Tree:
                 self._auto(node, s['auto'])
         if self.home is None:
             raise SystemExit('site/nav.yml: no section with key home')
+        # sidebar groups (ADR-0044): only at the top of a section, and an included section has none of its own, because a
+        # group inside a group would put one accordion inside another with the same name
         keys = {s.section for s in self.sections}
+        included = {g.cfg_page['include'] for s in self.sections for g in _groups(s) if g.cfg_page.get('include')}
         for s in self.sections:
             for g in _groups(s):
                 inc = g.cfg_page.get('include')
                 if inc and inc not in keys:
                     raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} includes unknown section {inc!r}')
+                if g.parent is not s:
+                    raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} sits inside another entry; groups belong at the top of a section')
+                if s.section in included:
+                    raise SystemExit(f'site/nav.yml: section {s.section} is included by another and cannot hold the group {g.title!r}')
         sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
         self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 

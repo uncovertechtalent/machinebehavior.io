@@ -808,6 +808,7 @@ def health_page():
 
 
 # ---------- write ----------
+site_chrome.tree(reload=True)  # a bad site/nav.yml stops the build here, before any generated page is deleted
 if OUT.exists():
     for d in OUT.iterdir():
         if d.is_dir() and d.name in SPACE:
