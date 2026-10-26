@@ -279,8 +279,10 @@ def members(topic, t, docs, tag_posts, substack, issues):
     by_title = {norm_title(p['t']): p for p in posts}
     for n in substack:
         twin = by_title.get(norm_title(n['title']))
-        if twin is not None:  # the blog copy names the Substack copy canonical (ADR-0046), so the Substack copy leads
+        if twin is not None and twin['site'] != 'Substack':  # the blog copy names the Substack copy canonical (ADR-0046), so it leads; once
             twin.update(u=n['id'], site='Substack', also=twin['u'], also_site=twin['site'])
+        elif twin is not None:
+            continue
         elif rx and rx.search(n['title']):
             posts.append({'t': n['title'].strip(), 'u': n['id'], 'date': n.get('date', ''), 'site': 'Substack', 'd': n.get('desc', '')})
     m['posts'] = sorted(posts, key=lambda p: (p['date'], p['t']), reverse=True)
@@ -374,7 +376,7 @@ def topics():
         m = members(topic, t, docs, tag_posts, substack, issues)
         data.append({'key': topic['key'], 'title': topic['title'], 'url': f'/topics/{topic["key"]}/', 'about': topic['about'],
                      'pages': [n.url for n in m['research'] + m['red-team'] + m['inside']] + [p['u'] for p in m['docs']],
-                     'posts': [{'t': p['t'], 'u': p['u'], 'also': p.get('also'), 'date': p['date']} for p in m['posts']],
+                     'posts': [{'t': p['t'], 'u': p['u'], 'site': p['site'], 'also': p.get('also'), 'date': p['date']} for p in m['posts']],
                      'tickets': [i['n'] for i in m['tickets']]})
     TOPICS_JSON.parent.mkdir(exist_ok=True)
     TOPICS_JSON.write_text(json.dumps({'generated': datetime.date.today().isoformat(), 'source': 'site/topics.yml', 'topics': data, 'issues': issues},

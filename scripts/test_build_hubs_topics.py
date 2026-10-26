@@ -15,7 +15,7 @@ import mini_yaml  # noqa: E402
 import site_chrome  # noqa: E402
 
 ROOT = site_chrome.ROOT
-FOREIGN_RESEARCH = re.compile(r'https://(?!machinebehavior\.io/|github\.com/)[^/"\s]+/[^"\s]*research/')
+FOREIGN_RESEARCH = re.compile(r'https://(?:uncovertechtalent\.com/blog|coetzeestefan\.substack\.com/p)/research/')  # the form #164 wrote
 
 
 class TopicPosts(unittest.TestCase):
@@ -39,6 +39,15 @@ class TopicPosts(unittest.TestCase):
         for p in twins:
             self.assertIn('substack.com/', p['u'], p['t'])
             self.assertIn('uncovertechtalent.com/', p['also'], p['t'])
+
+    def test_a_second_substack_match_keeps_the_blog_copy(self):
+        tag_posts = {'tag': [{'id': 'https://uncovertechtalent.com/blog/a/', 'title': 'A Post', 'date': '2026-10-01'}]}
+        substack = [{'id': 'https://coetzeestefan.substack.com/p/a/', 'title': 'A Post', 'date': '2026-10-01'},
+                    {'id': 'https://coetzeestefan.substack.com/p/a-old/', 'title': 'A Post', 'date': '2026-10-01'}]
+        topic = {'key': 'k', 'map_tags': ['tag']}
+        (p,) = build_hubs.members(topic, self.t, {'pages': []}, tag_posts, substack, [])['posts']
+        self.assertEqual((p['u'], p['also'], p['also_site']),
+                         ('https://coetzeestefan.substack.com/p/a/', 'https://uncovertechtalent.com/blog/a/', 'uncovertechtalent.com'))
 
     def test_no_post_points_at_a_moved_path_on_another_site(self):
         bad = [u for p in self.posts.values() for u in (p['u'], p.get('also') or '') if FOREIGN_RESEARCH.match(u)]
