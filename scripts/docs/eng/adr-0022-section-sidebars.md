@@ -5,6 +5,7 @@ order: 22
 adr: 22
 status: accepted
 created: 2026-10-09
+updated: 2026-10-26
 labels: adr, decision, navigation
 owner: Stefan Coetzee
 reviewed: 2026-10-09
@@ -16,6 +17,8 @@ type: explanation
 The docs had a page tree beside every page; the research pages and the Inside pages had none. A reader on a claims page could not see that experiments, registers, case files and reference texts sit next to it, and an Inside page showed its siblings only in the top bar. Backlog issue [#28](https://github.com/uncovertechtalent/machinebehavior.io/issues/28) asked for a sidebar on Inside pages; Stefan Coetzee asked on 2026-10-09 for a sidebar by section across the site.
 
 ## Decision
+
+*Replaced in part by [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups): groups fold out one at a time, and a group can include another section.*
 
 `side()` in `scripts/site_chrome.py` writes the sidebar of the Research and Inside sections (`SIDEBARS`) from `site/nav.yml`, between `<!-- mb:side -->` markers, before the reading column or `<main>`. It lists every page of the section: groups (Case files, Articles, Reference) as headings, a page with children (Services) as a disclosure that is open when the current page is inside it, and the current page marked with `aria-current="page"`. The Docs section keeps its own space tree from `scripts/build_docs.py`; Home and Map have no sidebar.
 

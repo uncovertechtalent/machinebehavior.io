@@ -90,11 +90,19 @@ def research():
         return (f'<li class="mb-entry"><a href="{n.url}">{esc(n.title)}</a>'
                 f'<p>{esc(desc)}</p><span class="mb-entry-meta">updated {d}</span></li>')
 
-    loose = [k for k in sec.kids if not k.group]
+    def entries(g):
+        """A group's pages for the index, as the sidebar lists them (ADR-0044): an included section's overview and pages,
+        or the group's pages with their children; sidebar-only links stay out."""
+        if g.cfg_page.get('include'):
+            inc = t.section(g.cfg_page['include'])
+            return [inc] + [k for k in inc.kids if not k.link]
+        return [p for k in g.kids if not k.link for p in [k] + [c for c in k.kids if not c.link]]
+
+    loose = [k for k in sec.kids if not k.group and not k.link]
     if loose:
         rows.append('<section><h2 class="label">Registers and logs</h2><ul class="mb-entries">' + ''.join(item(k) for k in loose) + '</ul></section>')
     for g in (k for k in sec.kids if k.group):
-        rows.append(f'<section><h2 class="label">{esc(g.title)}</h2><ul class="mb-entries">' + ''.join(item(k) for k in g.kids) + '</ul></section>')
+        rows.append(f'<section><h2 class="label">{esc(g.title)}</h2><ul class="mb-entries">' + ''.join(item(k) for k in entries(g)) + '</ul></section>')
     about = sec.cfg.get('about', '')
     newest = max(dates)
     n = len(dates)
@@ -303,7 +311,6 @@ def topics():
     TOPICS_JSON.parent.mkdir(exist_ok=True)
     TOPICS_JSON.write_text(json.dumps({'generated': datetime.date.today().isoformat(), 'source': 'site/topics.yml', 'topics': data, 'issues': issues},
                                       ensure_ascii=False, indent=1), encoding='utf-8')
-    site_chrome.reload_topics()
     for topic in cfg:
         m = members(topic, t, docs, tag_posts, substack, issues)
         url, newest, total, counts = topic_page(topic, m, cfg, spaces)

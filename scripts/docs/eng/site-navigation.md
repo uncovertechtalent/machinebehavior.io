@@ -33,12 +33,17 @@ sections:
     title: Research
     url: /research/
     pages:
-      - title: Claims ledger
-        url: /research/claims/
-      - group: Case files          # a sidebar heading; no page, no breadcrumb
+      - group: Experiments         # a sidebar heading that folds out; no page, no breadcrumb
         pages:
-          - title: Running conjobs for AI
-            url: /research/case-files/running-conjobs-for-ai/
+          - title: Experiments
+            url: /research/experiments/
+            side: All experiments  # the sidebar's name for the page, when it differs from the title
+      - group: Red team
+        include: red-team          # another section's overview and pages; that section's pages show this sidebar
+      - group: Reference
+        pages:
+          - link: Topics           # a link in the sidebar only, not a page of this section
+            url: /topics/
   - key: inside
     title: Inside
     url: /inside/
@@ -90,11 +95,11 @@ The report lists orphans (an `index.html` outside the tree), pages in the tree w
 
 ## Sidebars
 
-Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, groups as headings, Services as a disclosure open on a service page, the current page marked. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars).
+Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, the current page marked, Services as a disclosure open on a service page. Groups are headings that fold out one at a time: each is a `<details name="mb-side">`, so opening one closes the others with no script, and the group holding the current page is open on load. A group with `include:` lists another section, whose pages then show this sidebar (`SIDEBAR_HOST`): the red-team pages show the research sidebar. Sidebars do not list the topics; Topics is in the top bar's More menu and a link in the research sidebar's Reference group. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars) and [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups).
 
 ## Topics
 
-`site/topics.yml` holds the topics and the rules that select their members: hand-written and Inside pages, docs labels and spaces, tag pages on the map, words in Substack titles, and board labels or words. `scripts/build_hubs.py` builds the hubs at `/topics/<key>/`, the index at `/topics/` and `/topics/topics.json`, then writes the chrome of every page again so the Topics block in each sidebar marks the topics that list the page. The docs sidebar holds the block as `<!-- mb:topics --><!-- /mb:topics -->`. See [ADR-0023](doc:eng/adr-0023-topic-hubs).
+`site/topics.yml` holds the topics and the rules that select their members: hand-written and Inside pages, docs labels and spaces, tag pages on the map, words in Substack titles, and board labels or words. `scripts/build_hubs.py` builds the hubs at `/topics/<key>/`, the index at `/topics/` and `/topics/topics.json`, then writes the chrome of every page again. See [ADR-0023](doc:eng/adr-0023-topic-hubs).
 
 Build order: `build_docs.py`, `build_inside.py`, `build_hubs.py`; then `site_chrome.py --check`. `build_hubs.py` also runs `build_fallbacks.py`, which writes static versions of the lists that Inside, the board and Mission Control fill in the browser (between `<!-- static:NAME -->` markers), so the pages read the same without JavaScript.
 
