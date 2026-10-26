@@ -316,6 +316,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0043-map-draws-on-a-dark-canvas/",
+"t": "ADR-0043: The second-brain map draws its graph on a dark canvas",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
