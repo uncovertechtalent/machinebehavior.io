@@ -197,7 +197,7 @@ body.mb-read.home > .sheet { max-width: 1160px; }
 [data-mb-theme="report"] .exhibit-source, [data-mb-theme="report"] .exhibit-note { font-size: 13px; line-height: 1.5; color: var(--dim); margin: 0 0 36px; }
 [data-mb-theme="report"] .exhibit-source:has(+ .exhibit-note) { margin-bottom: 4px; }
 /* ADR-0040: the page-type pill (first segment of the eyebrow), At a glance, sidebars, the reading time and print button */
-[data-mb-theme="report"] .eyebrow .kind { display: inline-block; margin: 0 10px 6px 0; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; letter-spacing: 0.1em; }
+[data-mb-theme="report"] .sheet header:has(> h1) > .kind { display: inline-block; margin: 0 0 10px; padding: 2px 10px; border: 1px solid currentColor; border-radius: 999px; font: 600 11px/1.5 var(--mb-font-report); letter-spacing: 0.1em; text-transform: uppercase; color: var(--mb-band-accent); }
 [data-mb-theme="report"] .glance { margin: 0 0 48px; padding: 24px 28px 8px; background: var(--mb-surface-sunken); border-top: 3px solid var(--teal); }
 [data-mb-theme="report"] .glance h2 { margin: 0 0 14px; font: 600 12px/1.5 var(--mb-font-report); letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal); }
 [data-mb-theme="report"] .glance h2::before { content: none; }
@@ -226,7 +226,7 @@ body.mb-read.home > .sheet { max-width: 1160px; }
   [data-mb-theme="report"] .sheet header:has(> h1) { padding: 0 0 12pt; margin: 0 0 18pt; border-bottom: 2px solid var(--ink); }
   [data-mb-theme="report"] .sheet header:has(> h1)::before { display: none; }
   [data-mb-theme="report"] .sheet header:has(> h1) h1 { color: var(--ink); font-size: 26pt; }
-  [data-mb-theme="report"] .sheet header:has(> h1) .eyebrow { color: var(--teal); }
+  [data-mb-theme="report"] .sheet header:has(> h1) .eyebrow, [data-mb-theme="report"] .sheet header:has(> h1) > .kind { color: var(--teal); }
   [data-mb-theme="report"] .sheet header:has(> h1) .subtitle { color: var(--ink-soft); font-size: 13pt; }
   [data-mb-theme="report"] h2 { font-size: 18pt; margin-top: 24pt; break-inside: avoid; break-after: avoid; }
   [data-mb-theme="report"] .sheet .thesis, [data-mb-theme="report"] .glance li, [data-mb-theme="report"] aside.sidebar .thesis { font-size: 10.5pt; }

@@ -26,7 +26,8 @@
 <div class="sheet" id="main" role="main"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/research/">Research</a></li><li><a href="/research/experiments/" aria-current="page">Experiments</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-10-26</span><span>25 min read</span><button type="button" class="mb-print" onclick="window.print()">Print or save as PDF</button></p></div><!-- /mb:crumbs -->
 
   <header>
-    <div class="eyebrow"><span class="kind">Register</span>Method, data, and standing predictions</div>
+    <span class="kind">Register</span>
+    <div class="eyebrow">Method, data, and standing predictions</div>
     <h1>Experiments</h1>
     <p class="subtitle">Everything here ran on production logs from a daily-driver agent harness, and everything is reproducible from the scripts in the <a class="mono" href="https://github.com/uncovertechtalent/machinebehavior.io/tree/main/scripts">repo</a>.</p>
   </header>
@@ -36,7 +37,7 @@
       <li><em>Relapse clusters at context loss, not over time (01).</em> Cold-start turns relapse about five times as often as mid-session turns per unit of prose (<a class="exhibit-ref" href="#ex-01-regimes">Exhibit 1</a>).</li>
       <li><em>Exemplar seeding changed nothing at the dose tested (02).</em> Seeded cold-start relapse is 1.00 per 10K characters against a 0.84 control (<a class="exhibit-ref" href="#ex-02-seeding">Exhibit 2</a>), and the earlier readings of a rise were withdrawn as an artifact of the metric.</li>
       <li><em>The fawn-opener benchmark is pre-registered and piloted only (03).</em> Under agent wrappers no fawn openers appeared; the wrapper-free 8B model opened with one in about one reply in six (<a class="exhibit-ref" href="#ex-03-pilot">Exhibit 3</a>).</li>
-      <li><em>One mid-size model folds under scripted pressure; larger models do not (04).</em> qwen3-coder-30b folded on 75 percent of baseline runs that started correct (<a class="exhibit-ref" href="#ex-04-full01">Exhibit 6</a>); gpt-oss-120b, DeepSeek V3.2 and Kimi K2.5 folded on none (<a class="exhibit-ref" href="#ex-04-v5">Exhibit 8</a>).</li>
+      <li><em>One mid-size model folds under scripted pressure; larger models do not (04).</em> qwen3-coder-30b folded on 75 percent of baseline runs that started correct (<a class="exhibit-ref" href="#ex-04-full01">Exhibit 6</a>); gpt-oss-120b, DeepSeek V3.2 and Kimi K2.5 folded on no baseline run (<a class="exhibit-ref" href="#ex-04-v5">Exhibit 8</a>).</li>
       <li><em>A short stance prompt cuts folding without the accuracy cost of the long one (04, addendum v3).</em> It folds on a third of runs, against three quarters for the baseline (<a class="exhibit-ref" href="#ex-04-v3">Exhibit 7</a>).</li>
       <li><em>Abliteration removes the refusal of orders (05).</em> 54 folds of 54 against 54 refusals across the sizes tested, written up on its own page.</li>
     </ul>

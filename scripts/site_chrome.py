@@ -574,12 +574,13 @@ def _insert_before(src, pattern, text):
 READ_WPM = 230  # words per minute behind the reading time on report pages (ADR-0040)
 EXHIBIT_RE = re.compile(r'(<table\b([^>]*)>\s*<caption>)(.*?)(</caption>)', re.S)
 EXHIBIT_N_RE = re.compile(r'^\s*<span class="exhibit-n">[^<]*</span>\s*')
-EXHIBIT_REF_RE = re.compile(r'<a class="exhibit-ref" href="#([\w-]+)">[^<]*</a>')
+EXHIBIT_REF_RE = re.compile(r'<a\b(?=[^>]*\sclass="exhibit-ref")[^>]*\shref="#([\w-]+)"[^>]*>[^<]*</a>')  # any attribute order
 
 
 def read_minutes(src):
     """Minutes to read a page's own text at READ_WPM, rounded up, at least 1: the sheet without managed blocks, scripts or styles."""
     body = re.sub(r'\x00\w+\x00|<span class="exhibit-n">[^<]*</span>', ' ', BLOCK_RE.sub(' ', src))  # exhibit numbers: same count before and after
+    body = EXHIBIT_REF_RE.sub(' ', body)  # and exhibit references, whose text the numbering pass rewrites
     m = re.search(r'<div class="sheet"[^>]*>', body)
     body = re.sub(r'<(script|style)\b.*?</\1>', ' ', body[m.end():] if m else body, flags=re.S)
     return max(1, -(-len(_text(body).split()) // READ_WPM))

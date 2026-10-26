@@ -68,8 +68,19 @@ class ReadMinutes(unittest.TestCase):
         self.assertEqual(site_chrome.read_minutes('<div class="sheet"><p>short</p></div>'), 1)
 
     def test_same_before_and_after_numbering(self):
-        page = PAGE.replace('<p>See', '<p>' + ' '.join(['w'] * 228) + ' See')
-        self.assertEqual(site_chrome.read_minutes(page), site_chrome.read_minutes(site_chrome.number_exhibits(page)))
+        # PAGE's own text is 6 words (See, ., First finding, a ledger table, no caption, Second finding) besides the reference;
+        # padding to exactly 230 puts the page on a minute boundary, where one extra counted word would show
+        base = site_chrome.number_exhibits(PAGE)
+        own = len(site_chrome._text(site_chrome.EXHIBIT_REF_RE.sub(' ', base.replace('<span class="exhibit-n">Exhibit 1</span>', '').replace('<span class="exhibit-n">Exhibit 2</span>', ''))).split())
+        page = PAGE.replace('<p>See', '<p>' + ' '.join(['w'] * (230 - own)) + ' See')
+        self.assertEqual(site_chrome.read_minutes(page), 1)
+        self.assertEqual(site_chrome.read_minutes(site_chrome.number_exhibits(page)), 1)
+
+    def test_reference_in_any_attribute_order(self):
+        out = site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">', '<a href="#b" class="exhibit-ref" title="x">'))
+        self.assertIn('Exhibit 2</a>', out.split('</p>')[0])
+        with self.assertRaises(ValueError):
+            site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">', '<a href="#nope" class="exhibit-ref">'))
 
 
 if __name__ == '__main__':
