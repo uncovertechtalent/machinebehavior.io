@@ -55,6 +55,10 @@
   <!-- status:end -->
   <!-- hubs:begin (scripts/build_hubs.py) -->
   <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/case-files/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/articles/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/registers/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/reference/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-26</lastmod></url>
@@ -138,6 +142,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0042-one-light-scheme/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0043-map-draws-on-a-dark-canvas/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0044-sidebar-accordion-groups/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0045-sidebar-groups-open-with-an-index/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>

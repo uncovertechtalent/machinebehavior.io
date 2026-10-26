@@ -104,7 +104,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (416 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (417 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -155,6 +155,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (416 pages). S
 - [ADR-0042: The site has one light colour scheme](https://machinebehavior.io/inside/docs/eng/adr-0042-one-light-scheme/)
 - [ADR-0043: The second-brain map draws its graph on a dark canvas](https://machinebehavior.io/inside/docs/eng/adr-0043-map-draws-on-a-dark-canvas/)
 - [ADR-0044: Sidebar groups fold out one at a time, the research sidebar includes the red team, and no sidebar lists the topics](https://machinebehavior.io/inside/docs/eng/adr-0044-sidebar-accordion-groups/)
+- [ADR-0045: Every sidebar group opens with its index page and lists its five newest pages](https://machinebehavior.io/inside/docs/eng/adr-0045-sidebar-groups-open-with-an-index/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
@@ -569,6 +570,10 @@ The status page at https://machinebehavior.io/inside/status/: the state of each 
 ## Site sections
 
 - [Research](https://machinebehavior.io/research/): the Research section front page: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
+- [Research: Case files](https://machinebehavior.io/research/case-files/): Single incidents, each written up from its record, with what the model and its harness did in order and which control was there or missing.
+- [Research: Articles](https://machinebehavior.io/research/articles/): Longer arguments from the research programme, with their sources.
+- [Research: Registers](https://machinebehavior.io/research/registers/): The lists the programme keeps current, with claims and what would refute them, the objections, the evidence and the slips.
+- [Research: Reference](https://machinebehavior.io/research/reference/): Terms, man pages and topics for reading the research.
 - [Topics](https://machinebehavior.io/topics/): Topics on machinebehavior.io: 8 hubs, each listing the research pages, Inside pages, docs, posts and tickets on one subject.
 - [Sycophancy and stance](https://machinebehavior.io/topics/sycophancy-and-stance/): topic hub, 7 research pages, 3 red team pages, 7 docs pages, 6 posts, 1 ticket. The fawn response in language models, where it moves when one layer is suppressed, and the stance layer that decides whether a model holds a correct answer under pressure.
 - [Conformity and law](https://machinebehavior.io/topics/conformity-and-law/): topic hub, 2 research pages, 6 Inside pages, 212 docs pages, 26 tickets. Continuous conformity for deployed AI systems, the gate that checks this site on every push, and the standards and regulations the requirements map to, from the EU AI Act to ISO 42001.

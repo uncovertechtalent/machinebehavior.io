@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""The section sidebar from site/nav.yml (ADR-0044): research groups as an accordion of <details name="mb-side">, the group
-holding the current page open, the red-team pages on the research sidebar, sidebar-only links kept out of the page tree,
-breadcrumbs unchanged, and no Topics block. Reads the real site/nav.yml. Stdlib only.
+"""The section sidebar from site/nav.yml (ADR-0044, ADR-0045): research groups as an accordion of <details name="mb-side">,
+the group holding the current page open, each group opening with its index page (All case files) and at most five of its
+pages under it, newest first where nav.yml asks, the red-team pages on the research sidebar, sidebar-only links kept out
+of the page tree, the group index in the breadcrumbs, and no Topics block. Reads the real site/nav.yml. Stdlib only.
 Run from the repo root: python3 scripts/test_site_chrome_side.py"""
 import re
 import sys
@@ -14,6 +15,25 @@ import build_hubs  # noqa: E402
 import site_chrome  # noqa: E402
 
 PROBE = '/research/experiments/stance-vs-censorship-abliteration/'
+CASE12 = '/research/case-files/case-12-licence-rule-mid-task/'
+
+
+def tree_from(text):
+    """A Tree built from a changed copy of site/nav.yml."""
+    with tempfile.TemporaryDirectory() as d:
+        nav = Path(d) / 'nav.yml'
+        nav.write_text(text, encoding='utf-8')
+        real, site_chrome.NAV_FILE = site_chrome.NAV_FILE, nav
+        try:
+            return site_chrome.Tree()
+        finally:
+            site_chrome.NAV_FILE = real
+
+
+def sub(html, label):
+    """The links listed under the All link `label`, in order."""
+    m = re.search(rf'>{re.escape(label)}</a><ul class="mb-side-sub">(.*?)</ul></li>', html)
+    return re.findall(r'<a href="([^"]+)"', m.group(1)) if m else None
 
 
 def groups(html):
@@ -42,7 +62,49 @@ class ResearchSidebar(unittest.TestCase):
         h = self.side('/research/red-team/method/')
         self.assertIn('aria-label="Research pages"', h)
         self.assertEqual([g for g, op in groups(h) if op], ['Red team'])
-        self.assertIn('<a href="/research/red-team/">Overview</a>', h)
+        self.assertIn('<a href="/research/red-team/">All red-team pages</a>', h)
+        self.assertEqual(sub(h, 'All red-team pages'), ['/research/red-team/tactics/', '/research/red-team/method/'])
+
+    def test_every_group_opens_with_its_all_link(self):
+        h = self.side(CASE12)
+        alls = re.findall(r'<summary>[^<]+</summary><ul><li><a href="([^"]+)"[^>]*>([^<]+)</a><ul class="mb-side-sub">', h)
+        self.assertEqual(alls, [('/research/experiments/', 'All experiments'), ('/research/case-files/', 'All case files'),
+                                ('/research/articles/', 'All articles'), ('/research/red-team/', 'All red-team pages'),
+                                ('/research/registers/', 'All registers'), ('/research/reference/', 'All reference texts')])
+
+    def test_newest_first_where_asked_written_order_elsewhere(self):
+        h = self.side(CASE12)
+        self.assertEqual(sub(h, 'All case files'), ['/research/case-files/running-conjobs-for-ai/', CASE12])
+        self.assertEqual(sub(h, 'All articles'), ['/research/articles/chaos-engineering-for-behaviour/',
+                                                  '/research/articles/the-cheating-moved/'])
+        self.assertEqual(sub(h, 'All registers'), ['/research/claims/', '/research/objections/', '/research/evidence/', '/research/slips/'])
+
+    def test_five_newest_and_the_current_page_when_older(self):
+        extra = ''.join(f'              - title: Extra {i}\n                url: /research/case-files/extra-{i}/\n'
+                        f'                published: 2026-10-1{i}\n' for i in range(6))
+        anchor = '                published: 2026-10-06\n'
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        self.assertIn(anchor, text)
+        t = tree_from(text.replace(anchor, anchor + extra, 1))
+        newest = [f'/research/case-files/extra-{i}/' for i in range(5, 0, -1)]
+        self.assertEqual(sub(site_chrome.side(t, t.by_url['/research/case-files/extra-5/']), 'All case files'), newest)
+        self.assertEqual(sub(site_chrome.side(t, t.by_url[CASE12]), 'All case files'), newest + [CASE12])
+
+    def test_newest_first_needs_a_date_on_every_page(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        anchor = '                url: /research/case-files/running-conjobs-for-ai/\n                published: 2026-10-06\n'
+        self.assertIn(anchor, text)
+        with self.assertRaises(SystemExit) as e:
+            tree_from(text.replace(anchor, '                url: /research/case-files/running-conjobs-for-ai/\n', 1))
+        self.assertIn('Running conjobs for AI', str(e.exception))
+
+    def test_a_group_holds_one_index_page(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        anchor = '      - group: Articles\n        pages:\n'
+        self.assertIn(anchor, text)
+        with self.assertRaises(SystemExit) as e:
+            tree_from(text.replace(anchor, anchor + '          - title: Loose\n            url: /research/loose/\n', 1))
+        self.assertIn('Articles', str(e.exception))
 
     def test_topics_is_a_link_not_a_research_page(self):
         self.assertIn('<a href="/topics/">Topics</a>', self.side(PROBE))
@@ -50,8 +112,8 @@ class ResearchSidebar(unittest.TestCase):
         self.assertNotIn('/topics/', [n.url for n in site_chrome._pages_under(self.t.section('research'))])
 
     def test_count_includes_the_red_team_and_skips_links(self):
-        # 12 research pages, the red-team overview and its 2 pages; the Topics link is not a page
-        self.assertIn('<span class="mb-side-n">15 pages</span>', self.side(PROBE))
+        # 12 research pages, 4 group index pages, the red-team overview and its 2 pages; the Topics link is not a page
+        self.assertIn('<span class="mb-side-n">19 pages</span>', self.side(PROBE))
 
     def test_unknown_include_stops_the_build(self):
         bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace('include: red-team', 'include: no-such-section', 1)
@@ -68,8 +130,8 @@ class ResearchSidebar(unittest.TestCase):
 
     def test_nested_group_stops_the_build(self):
         bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace(
-            '            url: /research/experiments/\n            side: All experiments\n            pages:\n',
-            '            url: /research/experiments/\n            side: All experiments\n            pages:\n              - group: Inner\n                pages: []\n', 1)
+            '            side: All experiments\n            order: newest\n            pages:\n',
+            '            side: All experiments\n            order: newest\n            pages:\n              - group: Inner\n                pages: []\n', 1)
         self.assertIn('group: Inner', bad)
         with tempfile.TemporaryDirectory() as d:
             nav = Path(d) / 'nav.yml'
@@ -90,10 +152,22 @@ class ResearchSidebar(unittest.TestCase):
         self.assertIn(PROBE, urls)                      # a page's child, listed under it
         self.assertIn('/research/red-team/method/', urls)  # the included section
         self.assertNotIn('/topics/', urls)               # the sidebar-only link
+        self.assertNotIn('/research/case-files/', urls)  # a generated group index lists the same pages
+        self.assertLess(urls.index('/research/case-files/running-conjobs-for-ai/'), urls.index(CASE12))
 
-    def test_breadcrumbs_unchanged(self):
+    def test_breadcrumbs_pass_through_the_group_index(self):
         self.assertEqual([n.title for n in self.t.trail(self.t.by_url[PROBE])],
                          ['Home', 'Research', 'Experiments', 'Stance versus censorship: an abliteration probe'])
+        self.assertEqual([n.title for n in self.t.trail(self.t.by_url[CASE12])],
+                         ['Home', 'Research', 'Case files', 'Case 12: a licence rule mid-task'])
+        self.assertEqual([n.title for n in self.t.trail(self.t.by_url['/research/claims/'])],
+                         ['Home', 'Research', 'Registers', 'Claims ledger'])
+
+    def test_group_index_pages_are_generated(self):
+        hubs = [n.url for n in site_chrome._all_under(self.t.section('research')) if build_hubs.is_hub(n)]
+        self.assertEqual(hubs, ['/research/case-files/', '/research/articles/', '/research/registers/', '/research/reference/'])
+        for url in hubs:
+            self.assertTrue((site_chrome.ROOT / url.lstrip('/') / 'index.html').exists(), url)
 
     def test_no_sidebar_lists_the_topics(self):
         for url in (PROBE, '/research/red-team/', '/conformity/', '/your-next-cto/', '/topics/'):

@@ -23,7 +23,7 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 | Topics | `/topics/` | one hub per topic in `site/topics.yml` |
 | Map | `/map/` | |
 
-`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. The same script builds the topic hubs.
+`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. It also writes each `hub: true` page, a group's index (/research/case-files/, /research/articles/, /research/registers/ and /research/reference/), and the topic hubs.
 
 ## site/nav.yml
 
@@ -33,17 +33,29 @@ sections:
     title: Research
     url: /research/
     pages:
-      - group: Experiments         # a sidebar heading that folds out; no page, no breadcrumb
-        pages:
-          - title: Experiments
-            url: /research/experiments/
-            side: All experiments  # the sidebar's name for the page, when it differs from the title
+      - group: Case files          # a sidebar heading that folds out; no page, no breadcrumb
+        pages:                     # one page, the group's index, with the group's pages under it
+          - title: Case files
+            url: /research/case-files/
+            side: All case files   # the sidebar's name for the page, when it differs from the title
+            hub: true              # a list of its pages, written by scripts/build_hubs.py
+            order: newest          # its pages newest first by published; each needs a date
+            about: Single incidents, each written up from its record.
+            pages:
+              - title: "Case 12: a licence rule mid-task"
+                url: /research/case-files/case-12-licence-rule-mid-task/
+                published: 2026-10-03
       - group: Red team
         include: red-team          # another section's overview and pages; that section's pages show this sidebar
       - group: Reference
         pages:
-          - link: Topics           # a link in the sidebar only, not a page of this section
-            url: /topics/
+          - title: Reference
+            url: /research/reference/
+            side: All reference texts
+            hub: true
+            pages:
+              - link: Topics       # a link in the sidebar only, not a page of this section
+                url: /topics/
   - key: inside
     title: Inside
     url: /inside/
@@ -95,7 +107,7 @@ The report lists orphans (an `index.html` outside the tree), pages in the tree w
 
 ## Sidebars
 
-Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, the current page marked, Services as a disclosure open on a service page. Groups are headings that fold out one at a time: each is a `<details name="mb-side">`, so opening one closes the others with no script, and the group holding the current page is open on load. A group with `include:` lists another section, whose pages then show this sidebar (`SIDEBAR_HOST`): the red-team pages show the research sidebar. Sidebars do not list the topics; Topics is in the top bar's More menu and a link in the research sidebar's Reference group. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars) and [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups).
+Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, the current page marked, Services as a disclosure open on a service page. Groups are headings that fold out one at a time: each is a `<details name="mb-side">`, so opening one closes the others with no script, and the group holding the current page is open on load. Each group opens with its index page ("All case files"), then at most five of the index's pages (`SIDE_RECENT`), newest first where the index says `order: newest`, plus the current page when it is older; the rest are on the index page. A group with `include:` lists another section, whose pages then show this sidebar (`SIDEBAR_HOST`): the red-team pages show the research sidebar. Sidebars do not list the topics; Topics is in the top bar's More menu and a link in the research sidebar's Reference group. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars), [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups) and [ADR-0045](doc:eng/adr-0045-sidebar-groups-open-with-an-index).
 
 ## Topics
 
