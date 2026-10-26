@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://machinebehavior.io/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/claims/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/</loc><lastmod>2026-10-26</lastmod></url>
@@ -54,16 +54,16 @@
   <url><loc>https://machinebehavior.io/inside/status/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- status:end -->
   <!-- hubs:begin (scripts/build_hubs.py) -->
-  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/observability/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/finops/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/agents-and-harness/</loc><lastmod>2026-10-13</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-24</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/ai-search/</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/agents-and-harness/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/ai-search/</loc><lastmod>2026-10-26</lastmod></url>
   <!-- hubs:end -->
   <!-- powersuit:begin (scripts/build_powersuit.py) -->
   <url><loc>https://machinebehavior.io/cto-powersuit/fit/</loc><lastmod>2026-10-24</lastmod></url>
@@ -128,12 +128,14 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0032-masthead-from-a-seats-file/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0033-s3-and-cloudfront-next-to-pages/</loc><lastmod>2026-10-15</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0034-inside-intranet-theme-and-seat-tabs/</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0035-intranet-theme-on-every-inside-page/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0035-intranet-theme-on-every-inside-page/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0036-inside-seat-tabs-as-folder-tabs/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0037-alert-routing-discord-board-heartbeat/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0038-url-taxonomy-and-redirects/</loc><lastmod>2026-10-23</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0039-research-report-theme/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0040-report-furniture-on-research-pages/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0041-front-page-in-the-report-theme/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0042-one-light-scheme/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
@@ -153,7 +155,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/service-catalog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-architecture/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-23</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/status-page/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/top-bar-and-search/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/fin/</loc><lastmod>2026-10-09</lastmod></url>

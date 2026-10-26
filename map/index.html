@@ -130,28 +130,25 @@
 <noscript><p style="padding:24px;max-width:640px">The second brain is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
 </main>
 <script>
-// color on the dark canvas, light on the light one (darker, so the nodes hold on a light surface)
+// node colour per kind, dark enough to hold on the light canvas (ADR-0042)
 const KINDS = [
-  {key: 'mb', label: 'machinebehavior.io', color: '#FFB547', light: '#C77D00'},
-  {key: 'tychat', label: 'tychat.io', color: '#3DDC97', light: '#12925F'},
-  {key: 'utt', label: 'uncovertechtalent', color: '#6FA8FF', light: '#2F6FD6'},
-  {key: 'substack', label: 'Substack', color: '#FF8FD8', light: '#C63E92'},
-  {key: 'github', label: 'GitHub', color: '#EFE6D2', light: '#8E7A55'},
-  {key: 'reddit', label: 'Reddit', color: '#FF4D5E', light: '#D93445'},
-  {key: 'docs', label: 'Inside docs', color: '#B79CFF', light: '#7353D6'},
-  {key: 'services', label: 'Services', color: '#E8E26A', light: '#9A8C00'},
-  {key: 'dashboard', label: 'Dashboards', color: '#5EEAD4', light: '#138C80'},
-  {key: 'topics', label: 'Topic hubs', color: '#FF7A45', light: '#D9531E'},
-  {key: 'tag', label: 'Tags', color: '#7D8792', light: '#6C7680'},
+  {key: 'mb', label: 'machinebehavior.io', color: '#C77D00'},
+  {key: 'tychat', label: 'tychat.io', color: '#12925F'},
+  {key: 'utt', label: 'uncovertechtalent', color: '#2F6FD6'},
+  {key: 'substack', label: 'Substack', color: '#C63E92'},
+  {key: 'github', label: 'GitHub', color: '#8E7A55'},
+  {key: 'reddit', label: 'Reddit', color: '#D93445'},
+  {key: 'docs', label: 'Inside docs', color: '#7353D6'},
+  {key: 'services', label: 'Services', color: '#9A8C00'},
+  {key: 'dashboard', label: 'Dashboards', color: '#138C80'},
+  {key: 'topics', label: 'Topic hubs', color: '#D9531E'},
+  {key: 'tag', label: 'Tags', color: '#6C7680'},
 ];
-// The canvas follows the system colour scheme; nothing is stored on the device.
-const DARK = window.matchMedia('(prefers-color-scheme: dark)');
+// One light palette, as on every page of the site (ADR-0042).
 let COLOR = {}, INK = {};
 function palette() {
-  const d = DARK.matches;
-  COLOR = Object.fromEntries(KINDS.map(k => [k.key, d ? k.color : k.light]));
-  INK = d ? {bg: '#0C0F12', nav: 'rgba(150,160,172,0.20)', body: 'rgba(196,204,214,0.36)', sel: '#FFB547', hover: '#EEEDE8', halo: '#0C0F12', label: 'rgba(238,237,232,0.84)', focus: '#EEEDE8'}
-          : {bg: '#F6F7F4', nav: 'rgba(63,73,69,0.16)', body: 'rgba(63,73,69,0.34)', sel: '#8A5200', hover: '#1B2120', halo: '#F6F7F4', label: 'rgba(27,33,32,0.86)', focus: '#1B2120'};
+  COLOR = Object.fromEntries(KINDS.map(k => [k.key, k.color]));
+  INK = {bg: '#F6F7F4', nav: 'rgba(63,73,69,0.16)', body: 'rgba(63,73,69,0.34)', sel: '#8A5200', hover: '#1B2120', halo: '#F6F7F4', label: 'rgba(27,33,32,0.86)', focus: '#1B2120'};
   document.querySelectorAll('[data-kind]').forEach(e => { e.style.background = COLOR[e.dataset.kind]; });
 }
 palette();
@@ -250,11 +247,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     return best;
   }
 
-  // Safari 13.1 to 13.x has addListener only; a call to a missing addEventListener would end this callback before the map starts
-  // (#120). Older Safari cannot parse this script at all (the ?. below needs 13.1).
-  const recolour = () => { palette(); draw(); };
-  if (DARK.addEventListener) DARK.addEventListener('change', recolour);
-  else if (DARK.addListener) DARK.addListener(recolour);
+  // Older Safari cannot parse this script at all (the ?. below needs 13.1).
   function draw() {
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
     ctx.fillStyle = INK.bg; ctx.fillRect(0, 0, W, H);

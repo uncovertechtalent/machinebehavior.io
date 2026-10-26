@@ -25,6 +25,14 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = 'https://machinebehavior.io'
 ICON = '<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">'
 
+# The programme's premise, moved here from the front page (ADR-0041)
+RESEARCH_INTRO = ('Language models were trained to predict human text and then trained to please human raters, so the vocabulary '
+                  'psychology built for humans describes them with uncomfortable precision. The approval training produces a '
+                  '<strong>fawn response</strong>. Suppressing it produces <strong>symptom substitution</strong>. And the case '
+                  'history is readable, because the formative corpus, the socialization stage, and the assigned persona are all '
+                  'inspectable layers. Model behavior is what the model does; machine behavior is what the whole assembly does, '
+                  'model plus harness, and the assembly is where the findings live.')
+
 
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -95,10 +103,12 @@ def research():
 <body>
 <div class="sheet">
   <header>
-    <div class="eyebrow">Section · {n} pages · updated {newest}</div>
+    <span class="kind">Section</span>
+    <div class="eyebrow">{n} pages · updated {newest}</div>
     <h1>Research</h1>
     <p class="subtitle">{esc(about)}</p>
   </header>
+  <p class="thesis">{RESEARCH_INTRO}</p>
   {''.join(rows)}
   <p class="thesis">The same programme as an internal wiki, with data and rerun steps: <a class="mono" href="/inside/docs/res/">Research docs</a>. Every page and the links between them: <a class="mono" href="/map/">the map</a>.</p>
 </div>

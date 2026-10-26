@@ -306,6 +306,16 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0041-front-page-in-the-report-theme/",
+"t": "ADR-0041: The front page uses the report theme, with one message and one lead finding",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
+"u": "/inside/docs/eng/adr-0042-one-light-scheme/",
+"t": "ADR-0042: The site has one light colour scheme",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

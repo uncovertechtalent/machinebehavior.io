@@ -37,7 +37,7 @@ Three registers were built on the abliteration experiment page and compared on s
 
 **The chrome sets the theme by URL.** `THEMED` in `scripts/site_chrome.py` becomes a list of URL prefixes and themes: `/inside/` gets `intranet` ([ADR-0035](doc:eng/adr-0035-intranet-theme-on-every-inside-page)), `/research/` gets `report`, every other page gets no attribute. `python3 scripts/site_chrome.py --check` holds it in the required job, and a new research page gets the theme from the chrome with no step of its own. The theme is fixed: there is no switch for the reader.
 
-**Light in both system settings.** The dark values in `design/tokens.css` skip the report theme, as they skip the intranet theme. Every consulting and research publisher read above serves a light page. The rest of the public site keeps light and dark from the visitor's setting, and the top bar stays dark.
+**Light in both system settings.** The dark values in `design/tokens.css` skip the report theme, as they skip the intranet theme. Every consulting and research publisher read above serves a light page. The rest of the public site keeps light and dark from the visitor's setting, and the top bar stays dark. Replaced by [ADR-0042](doc:eng/adr-0042-one-light-scheme): every page is light.
 
 **Our colours, their register.** The tokens keep the site's teal as the one accent (#1F6B5E on white) and use a deep teal ink (#0F1E22) and a dark teal title band (#0E2A2B). No other publisher's colour or typeface is used, and nothing on the pages claims an affiliation.
 

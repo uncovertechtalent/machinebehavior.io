@@ -5,6 +5,7 @@ order: 35
 adr: 35
 status: accepted
 created: 2026-10-17
+updated: 2026-10-26
 labels: adr, decision, design-system, inside, docs, site-chrome, accessibility
 owner: Stefan Coetzee
 reviewed: 2026-10-17
@@ -27,4 +28,4 @@ type: explanation
 
 ## Consequences
 
-All of Inside reads as one intranet in the light look, in both system settings; the public site keeps light and dark from the visitor's setting. The change touches every page under /inside/ by one attribute, which a word diff of the generated pages shows. A page under /inside/ cannot leave the theme without a change to `site_chrome.py` and a record that says why. The social preview images of the Inside pages still show the dark pages until they are taken again.
+All of Inside reads as one intranet in the light look, in both system settings; the public site keeps light and dark from the visitor's setting. Replaced by [ADR-0042](doc:eng/adr-0042-one-light-scheme): every page is light. The change touches every page under /inside/ by one attribute, which a word diff of the generated pages shows. A page under /inside/ cannot leave the theme without a change to `site_chrome.py` and a record that says why. The social preview images of the Inside pages still show the dark pages until they are taken again.

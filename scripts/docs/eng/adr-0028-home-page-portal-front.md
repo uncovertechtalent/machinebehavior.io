@@ -3,7 +3,8 @@ summary: The home page leads into the sections of the portal: a hero with the ma
 parent: decision-log
 order: 28
 adr: 28
-status: accepted
+status: superseded
+superseded_by: adr-0041-front-page-in-the-report-theme
 created: 2026-10-09
 labels: adr, decision, navigation, home
 owner: Stefan Coetzee

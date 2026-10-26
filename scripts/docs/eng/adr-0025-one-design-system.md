@@ -1,5 +1,5 @@
 title: ADR-0025: One design system, two layouts, light and dark from the system setting
-summary: One token file for colour, type and spacing, component CSS for the chrome and the shared components, a reading layout and an app layout under one brand, light and dark from prefers-color-scheme with nothing stored on the device.
+summary: One token file for colour, type and spacing, component CSS for the chrome and the shared components, a reading layout and an app layout under one brand, light and dark from prefers-color-scheme with nothing stored on the device. (Dark scheme replaced by ADR-0042.)
 parent: decision-log
 order: 25
 adr: 25
@@ -17,6 +17,8 @@ type: explanation
 The research pages had their own palette in `/style.css` (light and dark, serif, teal). Inside, the docs, the board, the tour and the map each defined a dark palette of their own, inline or in `/inside/docs/docs.css`, with about 170 colour values written into the pages and scripts. Inside had no light mode. A change of colour meant edits in eight places, and nothing checked contrast. Stefan Coetzee decided on 2026-10-09: shared navigation and a reading layout, and the couch stays as the mark.
 
 ## Decision
+
+*Replaced in part by [ADR-0042](doc:eng/adr-0042-one-light-scheme): the site has one light scheme, so the dark values, the map's dark set and "both schemes" below no longer apply.*
 
 `/design/tokens.css` holds every colour, the type scale, spacing, radii and the layout widths, as custom properties starting with `--mb-`, with light values and dark values under `prefers-color-scheme`. Every page loads it through the chrome block of [ADR-0021](doc:eng/adr-0021-one-navigation-source), and `/style.css` and `docs.css` import it, so a page without the block keeps its colours. The older variables (`--ink`, `--paper`, `--line`, `--amber` ...) are mapped onto the tokens in the same file, so pages and generators written before this change follow it without edits, including the gate's `/conformity/` page.
 

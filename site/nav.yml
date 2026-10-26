@@ -73,6 +73,7 @@ sections:
     title: Research
     url: /research/
     about: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
+    door: "Claims with what would refute them, experiments with hashed predictions, case files."  # the one line on the front page (ADR-0041)
     pages:
       - title: Claims ledger
         url: /research/claims/
@@ -119,6 +120,7 @@ sections:
     title: Red team
     url: /research/red-team/
     about: Psychological red-teaming of language models. Tests of whether a model drops a correct answer, a rule or a task boundary under social pressure alone, with a catalogue of tactics, the method of a run and the results so far.
+    door: "Whether a model drops a correct answer under social pressure alone."  # the one line on the front page (ADR-0041)
     pages:
       - title: Tactics catalogue
         url: /research/red-team/tactics/
@@ -150,6 +152,7 @@ sections:
     url: /inside/
     banner: true
     about: The portal behind the research. Services with owners and SLOs, a status page, the board, the tour and the tools that run the work.
+    door: "The portal behind the research: services, status, the board and Mission Control."  # the one line on the front page (ADR-0041)
     pages:
       - title: Mission Control
         url: /inside/mission-control/
@@ -177,6 +180,7 @@ sections:
     url: /inside/docs/
     banner: true
     about: The documentation tree in six spaces. Engineering, observability, research, FinOps, an SRE handbook and standards, each page with an owner and a review date.
+    door: "The documentation tree, with an owner and a review date on every page."  # the one line on the front page (ADR-0041)
     auto: docs
 
   - key: aieo
@@ -195,6 +199,7 @@ sections:
     title: Topics
     url: /topics/
     about: Hubs that gather one subject across research pages, Inside, the docs, posts and the board.
+    door: "One subject gathered across research, Inside, the docs and posts."  # the one line on the front page (ADR-0041)
     auto: topics
 
   - key: map
@@ -206,6 +211,7 @@ sections:
     title: CTO
     url: /your-next-cto/
     about: What Stefan Coetzee builds for a company of 10 to 200 people as a fractional CTO, the engagement shapes, the CTO powersuit, and the live pages that show each part.
+    door: "Fractional CTO for companies of 10 to 200 people, with the CTO powersuit."  # the one line on the front page (ADR-0041)
     pages:
       - title: CTO powersuit
         url: /cto-powersuit/
