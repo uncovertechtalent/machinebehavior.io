@@ -46,6 +46,9 @@
 .mb-entry > a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; border-radius: 3px; }
 .mb-entry p { margin: 4px 0 6px; color: var(--mb-text-soft); font-size: 0.93rem; line-height: 1.5; }
 .mb-entry-meta { font: var(--mb-text-xs)/1.4 var(--mb-font-mono); color: var(--mb-text-dim); }
+/* An entry that lives on another site (ADR-0046): an arrow after its title; the meta line names the site */
+.mb-entry-out > a::after { content: " \2197"; content: " \2197" / ""; font-weight: 400; color: var(--mb-text-dim); }
+.mb-entries-note { margin: 0 0 12px; color: var(--mb-text-soft); font-size: 0.93rem; }
 
 /* compact link list: title, one line of summary, meta (topic hubs: docs, posts, tickets) */
 .mb-links { list-style: none; margin: 0 0 6px; padding: 0; }

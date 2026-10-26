@@ -23,7 +23,7 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 | Topics | `/topics/` | one hub per topic in `site/topics.yml` |
 | Map | `/map/` | |
 
-`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. It also writes each `hub: true` page, a group's index (/research/case-files/, /research/articles/, /research/registers/ and /research/reference/), and the topic hubs.
+`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. It also writes each `hub: true` page, a group's index (/research/case-files/, /research/articles/, /research/registers/ and /research/reference/), and the topic hubs. An index with `elsewhere:` also lists pieces that live on another site, merged by date and marked with where they live; the Articles index lists the research pieces on Substack this way ([ADR-0046](doc:eng/adr-0046-articles-index-lists-pieces-elsewhere)).
 
 ## site/nav.yml
 
@@ -33,18 +33,24 @@ sections:
     title: Research
     url: /research/
     pages:
-      - group: Case files          # a sidebar heading that folds out; no page, no breadcrumb
+      - group: Articles            # a sidebar heading that folds out; no page, no breadcrumb
         pages:                     # one page, the group's index, with the group's pages under it
-          - title: Case files
-            url: /research/case-files/
-            side: All case files   # the sidebar's name for the page, when it differs from the title
+          - title: Articles
+            url: /research/articles/
+            side: All articles     # the sidebar's name for the page, when it differs from the title
             hub: true              # a list of its pages, written by scripts/build_hubs.py
             order: newest          # its pages newest first by published; each needs a date
-            about: Single incidents, each written up from its record.
+            about: Longer arguments from the research programme, with their sources.
+            elsewhere:             # pieces that live on another site, on this index only
+              - title: Compaction Is the New OOM
+                url: https://coetzeestefan.substack.com/p/compaction-is-the-new-oom   # the canonical copy
+                also: https://uncovertechtalent.com/blog/compaction-is-the-new-oom/  # another copy, optional
+                published: 2026-09-28  # first publication, on whichever copy came first
+                about: Most agent harnesses ship without swap.
             pages:
-              - title: "Case 12: a licence rule mid-task"
-                url: /research/case-files/case-12-licence-rule-mid-task/
-                published: 2026-10-03
+              - title: The cheating moved
+                url: /research/articles/the-cheating-moved/
+                published: 2026-09-29
       - group: Red team
         include: red-team          # another section's overview and pages; that section's pages show this sidebar
       - group: Reference

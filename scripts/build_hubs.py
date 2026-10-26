@@ -107,7 +107,8 @@ def research_groups(t):
 def hubs():
     """One page per `hub: true` entry under /research/ (ADR-0045): the group's name, its `about`, and every page it holds in
     the order of site_chrome.ordered(), sidebar-only links included, each with its description and its publication date,
-    or the date of its last change when it gives none. The sidebar's All link points here."""
+    or the date of its last change when it gives none. Pieces listed `elsewhere` join the list by date, after this site's
+    pages of the same day, each marked with the site it lives on and any copy (ADR-0046). The sidebar's All link points here."""
     t = site_chrome.tree()
     out = []
     for n in site_chrome._all_under(t.section('research')):
@@ -120,9 +121,19 @@ def hubs():
             changed.append(d)
             pub = site_chrome._cfg(k).get('published')
             when = f'published {pub}' if pub else f'updated {d}'
-            rows.append(f'<li class="mb-entry"><a href="{k.url}">{esc(k.title)}</a>'
-                        f'<p>{esc(desc)}</p><span class="mb-entry-meta">{when}</span></li>')
-        newest = max(changed)
+            rows.append((pub or d, f'<li class="mb-entry"><a href="{k.url}">{esc(k.title)}</a>'
+                                   f'<p>{esc(desc)}</p><span class="mb-entry-meta">{when}</span></li>'))
+        outside = n.cfg_page.get('elsewhere') or []  # Tree allows it only with order newest, so the merge keeps that order
+        for e in outside:
+            also = (f', also on <a href="{esc(e["also"])}">{esc(site_chrome.home_of(e["also"]))}</a>' if e.get('also') else '')
+            rows.append((e['published'], f'<li class="mb-entry mb-entry-out"><a href="{esc(e["url"])}">{esc(e["title"])}</a>'
+                                         f'<p>{esc(e["about"])}</p><span class="mb-entry-meta">published {e["published"]} · '
+                                         f'on {esc(site_chrome.home_of(e["url"]))}{also}</span></li>'))
+        if outside:
+            rows.sort(key=lambda r: r[0], reverse=True)  # stable: this site's pages first on a tie, then the written order
+        note = ('<p class="mb-entries-note">Entries marked ↗ live on another site, named under each; '
+                'the others are pages of this site.</p>' if outside else '')
+        newest = max(changed + [e['published'] for e in outside])  # a new piece elsewhere changes the page too
         desc = f'{n.title} in the research on machinebehavior.io. {about}'
         page = f'''{head(f'{n.title}: Research: Machine Behavior', desc, n.url, newest, 'scripts/build_hubs.py')}
 <body>
@@ -133,7 +144,7 @@ def hubs():
     <h1>{esc(n.title)}</h1>
     <p class="subtitle">{esc(about)}</p>
   </header>
-  <ul class="mb-entries">{''.join(rows)}</ul>
+  {note}<ul class="mb-entries">{''.join(r for _, r in rows)}</ul>
 </div>
 </body>
 </html>
