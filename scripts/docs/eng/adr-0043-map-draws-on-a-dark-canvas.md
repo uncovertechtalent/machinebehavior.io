@@ -19,7 +19,7 @@ type: explanation
 
 **The canvas is dark graph art.** The script draws the canvas on the top bar's colour, read from `--mb-bar-bg` in `design/tokens.css`, so the bar and the graph read as one dark field and the colour lives in one place. The nodes take the bright colours and the labels the light ink they had on the dark canvas before ADR-0042. The page's own background behind the canvas is the same colour, so nothing light shows before the canvas draws.
 
-**Everything a person reads in a box stays light.** The panel, the hover tip and the preview sheet keep the light tokens, as on every page. The legend dots in the panel carry a thin dark outline, because the bright node colours alone are faint on white. The stamp at the bottom right sits on the canvas and uses the bar's text colours (`--mb-bar-dim`, `--mb-bar-soft`).
+**Everything a person reads in a box stays light.** The panel, the hover tip and the preview sheet are solid light boxes (`--mb-surface-raised` with `--ink`), as on every page; text that sits on the dark background itself, such as the page's no-script note, takes the bar's text colours. The legend dots in the panel carry a thin outline mixed from `--mb-bar-bg`, because the bright node colours alone are faint on white. The stamp at the bottom right sits on the canvas and uses the bar's text colours (`--mb-bar-dim`, `--mb-bar-soft`).
 
 **The contrast floor holds on the canvas.** The stamp reaches 6.3:1, its link 11.8:1, the node labels about 11.6:1 against the canvas, and every node colour 5.1:1 or more.
 

@@ -21,14 +21,15 @@
 <link rel="stylesheet" href="/fonts/fonts.css">
 <script src="/vendor/d3-7.9.0.min.js"></script>
 <style>
-  /* colours from /design/tokens.css; the page is light and the canvas behind the graph is dark (ADR-0043), drawn in the script below */
+  /* colours from /design/tokens.css; the page background and the canvas behind the graph are dark (ADR-0043, drawn in the script
+     below), and the boxes on top (panel, tip, preview sheet) are light */
   * { box-sizing: border-box; }
-  html, body { margin: 0; height: 100%; background: var(--mb-bar-bg); color: var(--ink); overflow: hidden;
+  html, body { margin: 0; height: 100%; background: var(--mb-bar-bg); color: var(--mb-bar-text); overflow: hidden;
     font-family: 'Space Grotesk', system-ui, sans-serif; }
   canvas { display: block; cursor: grab; }
   canvas.dragging { cursor: grabbing; }
   .mb-bar { position: fixed; left: 0; right: 0; top: 0; }
-  .panel { position: fixed; left: 16px; top: calc(var(--ib-h) + 14px); max-height: calc(100vh - var(--ib-h) - 28px); overflow: auto; width: 300px; max-width: calc(100vw - 32px); background: var(--panel);
+  .panel { position: fixed; left: 16px; top: calc(var(--ib-h) + 14px); max-height: calc(100vh - var(--ib-h) - 28px); overflow: auto; width: 300px; max-width: calc(100vw - 32px); background: var(--mb-surface-raised); color: var(--ink);
     border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; backdrop-filter: blur(6px); }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
   h1 { margin: 6px 0 4px; font-size: 26px; line-height: 1.05; letter-spacing: -0.5px; }
@@ -41,21 +42,21 @@
   .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; margin-bottom: 10px; }
   label.f { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; user-select: none; }
   label.f input { display: none; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(14, 18, 22, 0.55); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--mb-bar-bg) 55%, transparent); }
   label.f.off { color: var(--dim); }
   label.f.off .dot { background: transparent !important; border: 1px solid var(--dim); }
   .toggle { display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; color: var(--dim); }
   .toggle input { accent-color: var(--amber); }
   .collapse { position: absolute; right: 12px; top: 12px; background: none; border: 0; color: var(--dim); font-size: 18px; cursor: pointer; }
   .panel.min .body { display: none; }
-  .tip { position: fixed; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  .tip { position: fixed; pointer-events: none; background: var(--mb-surface-raised); color: var(--ink); border: 1px solid var(--line); border-radius: 10px;
     padding: 10px 12px; max-width: 320px; font-size: 14px; line-height: 1.3; display: none; }
   .k { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--dim); text-transform: uppercase; margin-top: 4px; }
-  .foot a { color: var(--mb-bar-soft); }
+  .foot a, noscript a { color: var(--mb-bar-soft); }
   .foot { position: fixed; right: 16px; bottom: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--mb-bar-dim); text-align: right; }
   /* preview sheet */
   .sheet { position: fixed; left: 50%; bottom: 0; z-index: 10; width: min(1120px, calc(100vw - 32px)); height: 74vh;
-    display: flex; flex-direction: column; background: var(--mb-surface-raised); border: 1px solid var(--line); border-bottom: 0;
+    display: flex; flex-direction: column; background: var(--mb-surface-raised); color: var(--ink); border: 1px solid var(--line); border-bottom: 0;
     border-radius: 14px 14px 0 0; box-shadow: var(--mb-shadow); visibility: hidden;
     transform: translate(-50%, 104%); transition: transform .42s cubic-bezier(.2,.8,.2,1), visibility 0s linear .42s; }
   .sheet.open { transform: translate(-50%, 0); visibility: visible; transition: transform .42s cubic-bezier(.2,.8,.2,1); }
@@ -126,8 +127,8 @@
     <div class="s-card" id="s-card"></div>
   </div>
 </section>
-<div class="foot"><span id="foot"></span> · <a href="/map/graph.json" style="color:inherit">graph.json</a></div>
-<noscript><p style="padding:24px;max-width:640px">The second brain is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
+<div class="foot"><span id="foot"></span> · <a href="/map/graph.json">graph.json</a></div>
+<noscript><p style="padding:24px;max-width:640px;color:var(--mb-bar-text)">The second brain is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
 </main>
 <script>
 // node colour per kind, bright enough to hold on the dark canvas (ADR-0043)

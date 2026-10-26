@@ -4,6 +4,7 @@ order: 80
 labels: adr, decisions, governance
 aliases: Decision log
 owner: Stefan Coetzee
+updated: 2026-10-26
 reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
@@ -22,5 +23,5 @@ Each record states one decision: its number, date and status, the context that f
 
 1. Copy the newest record in `scripts/docs/eng/` to `adr-NNNN-short-name.md` with the next number.
 2. Fill in context, decision and consequences; set `status`.
-3. If it replaces an earlier record, add `supersedes:` here and `superseded_by:` there, and set the old one to `superseded`. The build stops when the two sides disagree.
+3. If it replaces an earlier record, add `supersedes:` here and `superseded_by:` there, and set the old one to `superseded`. The build stops when the two sides disagree. If it replaces only part of an earlier record, write that in a sentence in both records (`Replaced by ADR-NNNN for ...` in the old one, with a link to the new record, and `This replaces the ... paragraph of ADR-NNNN` in the new one) and leave the old record `accepted`.
 4. Run the docs build, the gate dry run, and push. The change also appears in the [changelog](doc:eng/changelog).
