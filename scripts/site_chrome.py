@@ -105,6 +105,12 @@ class Tree:
                 self._auto(node, s['auto'])
         if self.home is None:
             raise SystemExit('site/nav.yml: no section with key home')
+        keys = {s.section for s in self.sections}
+        for s in self.sections:
+            for g in _groups(s):
+                inc = g.cfg_page.get('include')
+                if inc and inc not in keys:
+                    raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} includes unknown section {inc!r}')
         sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
         self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 
@@ -395,6 +401,14 @@ def side(t, node):
             f'<summary><span>{esc(sec.title)}</span><span class="mb-side-n">{count} pages</span></summary>'
             f'<a class="mb-side-head" href="{sec.url}"{head_cur}>{esc(sec.title)}</a>'
             f'<ul class="mb-side-tree">{items(sec.kids)}</ul></details></nav>')
+
+
+def _groups(n):
+    """Every group node under n."""
+    for k in n.kids:
+        if k.group:
+            yield k
+        yield from _groups(k)
 
 
 def _pages_under(n):

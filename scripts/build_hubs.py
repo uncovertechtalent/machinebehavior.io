@@ -93,10 +93,12 @@ def research():
     def entries(g):
         """A group's pages for the index, as the sidebar lists them (ADR-0044): an included section's overview and pages,
         or the group's pages with their children; sidebar-only links stay out."""
+        def down(kids):
+            return [p for k in kids if not k.link for p in [k] + down(k.kids)]
         if g.cfg_page.get('include'):
             inc = t.section(g.cfg_page['include'])
-            return [inc] + [k for k in inc.kids if not k.link]
-        return [p for k in g.kids if not k.link for p in [k] + [c for c in k.kids if not c.link]]
+            return [inc] + down(inc.kids)
+        return down(g.kids)
 
     loose = [k for k in sec.kids if not k.group and not k.link]
     if loose:

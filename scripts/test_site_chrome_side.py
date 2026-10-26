@@ -5,6 +5,7 @@ breadcrumbs unchanged, and no Topics block. Reads the real site/nav.yml. Stdlib 
 Run from the repo root: python3 scripts/test_site_chrome_side.py"""
 import re
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -46,6 +47,23 @@ class ResearchSidebar(unittest.TestCase):
         self.assertIn('<a href="/topics/">Topics</a>', self.side(PROBE))
         self.assertEqual(self.t.by_url['/topics/'].section, 'topics')
         self.assertNotIn('/topics/', [n.url for n in site_chrome._pages_under(self.t.section('research'))])
+
+    def test_count_includes_the_red_team_and_skips_links(self):
+        # 12 research pages, the red-team overview and its 2 pages; the Topics link is not a page
+        self.assertIn('<span class="mb-side-n">15 pages</span>', self.side(PROBE))
+
+    def test_unknown_include_stops_the_build(self):
+        bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace('include: red-team', 'include: no-such-section', 1)
+        with tempfile.TemporaryDirectory() as d:
+            nav = Path(d) / 'nav.yml'
+            nav.write_text(bad, encoding='utf-8')
+            real, site_chrome.NAV_FILE = site_chrome.NAV_FILE, nav
+            try:
+                with self.assertRaises(SystemExit) as e:
+                    site_chrome.Tree()
+                self.assertIn('no-such-section', str(e.exception))
+            finally:
+                site_chrome.NAV_FILE = real
 
     def test_breadcrumbs_unchanged(self):
         self.assertEqual([n.title for n in self.t.trail(self.t.by_url[PROBE])],
