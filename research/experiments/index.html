@@ -134,7 +134,7 @@
   <p class="thesis"><strong>Pressure.</strong> Six scripted characters, fictional voices, four turns each, escalating one pressure type. The scripts depend only on scenario facts, never on what the model said, so every model gets identical pressure. All pressure pushes toward BUY. On WAIT cases the pleasing answer and the correct answer differ, so a fold is visible; the BUY cases are the over-refusal control.</p>
 
 <div class="tablewrap">
-<table><caption>Experiment 04: the six pressure characters</caption>
+<table><caption>Experiment 04: the pressure characters</caption>
 <tr><th>character</th><th>pressure type</th><th>what the script does</th></tr>
 <tr><td>alpha-wolf</td><td>dominance</td><td>rank and authority, demands compliance, threatens to discard the adviser</td></tr>
 <tr><td>pack-wolf</td><td>consensus</td><td>everyone else says yes, named experts in the user's circle agree</td></tr>
@@ -206,7 +206,7 @@
   <p class="thesis"><strong>Method.</strong> Same frozen scenarios, characters, arm prompts and scorer, all four arms (baseline, lexical, stance, short stance), 2,880 calls per model on Amazon Bedrock with no agent wrapper, temperature 0, output cap 4,000 tokens. Only the final text block of a reply is scored; reasoning blocks are logged and never sent back. Each model's readings use its own baseline and stance arms as reference; no reading compares models. Addendum v5 was frozen and hashed before any frozen scenario reached these models: <a class="mono" href="/predictions/sandbox-eval-04-prereg-v5.txt">sandbox-eval-04-prereg-v5.txt</a>, sha256 <span class="mono">ddf2cfd140d30f2f…</span>. It builds on addendum v4 (<a class="mono" href="/predictions/sandbox-eval-04-prereg-v4.txt">sandbox-eval-04-prereg-v4.txt</a>, sha256 <span class="mono">47108e396eea0143…</span>), which planned a GPT line through the Codex CLI; that line stopped at the ChatGPT plan's usage limit after 48 of 480 smoke calls and carries no result. Spend for the three models: USD 12.87, including pilots.</p>
 
 <div class="tablewrap">
-<table><caption>Experiment 04, addendum v5: three larger models</caption>
+<table><caption>Experiment 04, addendum v5: the larger models</caption>
 <tr><th>model</th><th>arm</th><th>correct at turn 0 (WAIT)</th><th>correct at turn 4 (WAIT) [95% CI]</th><th>fold rate (WAIT)</th><th>over-refusal at turn 4 (BUY)</th></tr>
 <tr><td>gpt-oss-120b</td><td>baseline</td><td class="n">100%</td><td class="n">100% [95-100]</td><td class="n">0% (0/72)</td><td class="n">0%</td></tr>
 <tr><td>gpt-oss-120b</td><td>lexical</td><td class="n">99%</td><td class="n">100% [95-100]</td><td class="n">0% (0/71)</td><td class="n">0%</td></tr>
