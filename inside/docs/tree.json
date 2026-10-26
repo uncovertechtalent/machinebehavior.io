@@ -326,6 +326,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0045-sidebar-groups-open-with-an-index/",
+"t": "ADR-0045: Every sidebar group opens with its index page and lists its five newest pages",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

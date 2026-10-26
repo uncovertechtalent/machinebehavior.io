@@ -118,6 +118,23 @@ class Tree:
                     raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} sits inside another entry; groups belong at the top of a section')
                 if s.section in included:
                     raise SystemExit(f'site/nav.yml: section {s.section} is included by another and cannot hold the group {g.title!r}')
+                if bool(inc) == bool(g.kids) or (g.kids and (len(g.kids) != 1 or g.kids[0].link)):
+                    raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} holds one page, its index, or includes a section (ADR-0045)')
+        for s in self.sections:
+            for n in [s] + list(_all_under(s)):
+                if _cfg(n).get('hub') is True:
+                    if s.section != 'research':
+                        raise SystemExit(f'site/nav.yml: {n.title!r} is a hub page in {s.section}; scripts/build_hubs.py writes them under research only')
+                    if not _cfg(n).get('about') or not n.kids:
+                        raise SystemExit(f'site/nav.yml: the index page {n.title!r} needs about, its one line, and pages to list')
+                order = _cfg(n).get('order')
+                if order is None:
+                    continue
+                if order != 'newest':
+                    raise SystemExit(f'site/nav.yml: {n.title!r} has order {order!r}; the one order is newest')
+                undated = [k.title for k in n.kids if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(_cfg(k).get('published', '')))]
+                if undated:
+                    raise SystemExit(f'site/nav.yml: {n.title!r} lists its pages newest first, so each needs published as YYYY-MM-DD; missing or malformed on {", ".join(undated)}')
         sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
         self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 
@@ -354,14 +371,25 @@ def powersuit_side(t, node):
 
 
 SIDEBAR_HOST = {'red-team': 'research'}  # sections whose pages show another section's sidebar, which includes them (ADR-0044)
+SIDE_RECENT = 5  # pages a group lists under its index in the sidebar; the rest are on the index (ADR-0045)
+
+
+def ordered(n):
+    """n's pages in the order site/nav.yml asks for: newest first by published with `order: newest` (ties keep the written
+    order), else as written. The sidebar, the group index pages and the research index all list pages this way."""
+    if _cfg(n).get('order') == 'newest':
+        return sorted(n.kids, key=lambda k: _cfg(k)['published'], reverse=True)
+    return list(n.kids)
 
 
 def side(t, node):
     """The section sidebar: every page of the section, the current one marked. A group is a heading that folds out, and
     the groups of one sidebar form an accordion (<details name="mb-side">): opening one closes the others, and the group
-    holding the current page is open on load. A group with `include:` lists another section's overview and pages, and
-    that section's pages show this sidebar (SIDEBAR_HOST). Inside a group a page's children are listed under it;
-    outside groups a page with children is a disclosure, open when the current page is inside it (ADR-0044). Open by
+    holding the current page is open on load. A group opens with its index page, named by `side:` (All case files), and
+    lists the index's pages under it, at most SIDE_RECENT in the order of ordered(), plus the current page when it is
+    older; a group with `include:` does the same with another section's overview and pages, and that section's pages
+    show this sidebar (SIDEBAR_HOST). Outside groups a page with children is a disclosure, open when the current page is
+    inside it (ADR-0044, ADR-0045). Open by
     default; /inside/bar.js closes it on narrow screens, where it sits above the content. /cto-powersuit/ and its plugin
     pages get the powersuit sidebar instead (powersuit_side)."""
     if node is None or node.section not in SIDEBARS:
@@ -373,12 +401,16 @@ def side(t, node):
 
     def link(n, label=None):
         cur = ' aria-current="page"' if n is node else ''
-        return f'<a href="{n.url}"{cur}>{esc(label or getattr(n, "cfg_page", {}).get("side") or n.title)}</a>'
+        return f'<a href="{n.url}"{cur}>{esc(label or _cfg(n).get("side") or n.title)}</a>'
 
     def holds(nodes):
         return any(id(n) in here or holds(n.kids) for n in nodes)
 
     ps = t.powersuit[0] if t.powersuit else None
+
+    def recent(n):
+        kids = ordered(n)
+        return kids[:SIDE_RECENT] + [k for k in kids[SIDE_RECENT:] if holds([k])]
 
     def items(kids, inner=False):
         h = ''
@@ -387,15 +419,15 @@ def side(t, node):
                 h += f'<li>{link(k)}</li>'
             elif k.group:
                 inc = t.section(k.cfg_page['include']) if k.cfg_page.get('include') else None
-                body = f'<li>{link(inc, "Overview")}</li>{items(inc.kids, True)}' if inc else items(k.kids, True)
+                body = f'<li>{link(inc)}<ul class="mb-side-sub">{items(recent(inc), True)}</ul></li>' if inc else items(k.kids, True)
                 op = ' open' if holds([inc] if inc else k.kids) else ''
                 h += (f'<li><details class="mb-side-acc" name="mb-side"{op}><summary>{esc(k.title)}</summary>'
                       f'<ul>{body}</ul></details></li>')
             elif k.kids and inner:
-                h += f'<li>{link(k)}<ul class="mb-side-sub">{items(k.kids, True)}</ul></li>'
+                h += f'<li>{link(k)}<ul class="mb-side-sub">{items(recent(k), True)}</ul></li>'
             elif k.kids:
                 op = ' open' if id(k) in here else ''
-                h += f'<li><details{op}><summary>{link(k)}</summary><ul>{items(k.kids)}</ul></details></li>'
+                h += f'<li><details{op}><summary>{link(k)}</summary><ul>{items(ordered(k))}</ul></details></li>'
             else:
                 h += f'<li>{link(k)}</li>'
         return h
@@ -407,7 +439,7 @@ def side(t, node):
     return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
             f'<summary><span>{esc(sec.title)}</span><span class="mb-side-n">{count} pages</span></summary>'
             f'<a class="mb-side-head" href="{sec.url}"{head_cur}>{esc(sec.title)}</a>'
-            f'<ul class="mb-side-tree">{items(sec.kids)}</ul></details></nav>')
+            f'<ul class="mb-side-tree">{items(ordered(sec))}</ul></details></nav>')
 
 
 def _groups(n):
@@ -416,6 +448,17 @@ def _groups(n):
         if k.group:
             yield k
         yield from _groups(k)
+
+
+def _cfg(n):
+    """The site/nav.yml entry of a page or group (cfg_page) or a section (cfg); empty for links and pages added by a build."""
+    return getattr(n, 'cfg_page', None) or getattr(n, 'cfg', None) or {}
+
+
+def _all_under(n):
+    for k in n.kids:
+        yield k
+        yield from _all_under(k)
 
 
 def _pages_under(n):

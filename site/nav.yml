@@ -7,7 +7,12 @@
 # Entries:
 #   title  the name in the breadcrumbs and the sidebar
 #   url    a root-absolute page path ending in /, or an anchor on a page (/inside/#dashboards)
-#   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb
+#   group  a heading in the sidebar with pages under it; it has no page of its own and no breadcrumb. It holds one page,
+#          the group's index, with the group's pages under it, or `include:` another section (ADR-0044, ADR-0045)
+#   side   the sidebar's name for a page or an included section, when it differs from the title (All case files)
+#   order  newest: its pages list newest first by `published`, in the sidebar, on its page and on the research index;
+#          every one of them needs a date (YYYY-MM-DD). Without it they keep the order written here
+#   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
 #   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py),
@@ -80,6 +85,7 @@ sections:
           - title: Experiments
             url: /research/experiments/
             side: All experiments
+            order: newest
             pages:
               - title: "Stance versus censorship: an abliteration probe"
                 url: /research/experiments/stance-vs-censorship-abliteration/
@@ -87,48 +93,76 @@ sections:
                 contributor: Claude (Opus 4.8)
       - group: Case files
         pages:
-          - title: "Case 12: a licence rule mid-task"
-            url: /research/case-files/case-12-licence-rule-mid-task/
-            published: 2026-10-03
-            contributor: Claude (Opus 5.5)
-          - title: Running conjobs for AI
-            url: /research/case-files/running-conjobs-for-ai/
-            published: 2026-10-06
+          - title: Case files
+            url: /research/case-files/
+            side: All case files
+            hub: true
+            order: newest
+            about: Single incidents, each written up from its record, with what the model and its harness did in order and which control was there or missing.
+            pages:
+              - title: "Case 12: a licence rule mid-task"
+                url: /research/case-files/case-12-licence-rule-mid-task/
+                published: 2026-10-03
+                contributor: Claude (Opus 5.5)
+              - title: Running conjobs for AI
+                url: /research/case-files/running-conjobs-for-ai/
+                published: 2026-10-06
       - group: Articles
         pages:
-          - title: The cheating moved
-            url: /research/articles/the-cheating-moved/
-            published: 2026-09-29
-          - title: Chaos engineering for behaviour
-            url: /research/articles/chaos-engineering-for-behaviour/
-            published: 2026-10-03
+          - title: Articles
+            url: /research/articles/
+            side: All articles
+            hub: true
+            order: newest
+            about: Longer arguments from the research programme, with their sources.
+            pages:
+              - title: The cheating moved
+                url: /research/articles/the-cheating-moved/
+                published: 2026-09-29
+              - title: Chaos engineering for behaviour
+                url: /research/articles/chaos-engineering-for-behaviour/
+                published: 2026-10-03
       - group: Red team
         include: red-team  # the red-team section's overview and pages; its pages show this sidebar
       - group: Registers
         pages:
-          - title: Claims ledger
-            url: /research/claims/
-          - title: Objections register
-            url: /research/objections/
-            published: 2026-05-16
-          - title: Evidence index
-            url: /research/evidence/
-            published: 2026-10-07
-          - title: Slips
-            url: /research/slips/
+          - title: Registers
+            url: /research/registers/
+            side: All registers
+            hub: true
+            about: The lists the programme keeps current, with claims and what would refute them, the objections, the evidence and the slips.
+            pages:
+              - title: Claims ledger
+                url: /research/claims/
+              - title: Objections register
+                url: /research/objections/
+                published: 2026-05-16
+              - title: Evidence index
+                url: /research/evidence/
+                published: 2026-10-07
+              - title: Slips
+                url: /research/slips/
       - group: Reference
         pages:
-          - title: Terms
-            url: /research/terms/
-          - title: Man pages
-            url: /man/
-          - link: Topics  # a sidebar link, not a page of this section
-            url: /topics/
+          - title: Reference
+            url: /research/reference/
+            side: All reference texts
+            hub: true
+            about: Terms, man pages and topics for reading the research.
+            pages:
+              - title: Terms
+                url: /research/terms/
+              - title: Man pages
+                url: /man/
+              - link: Topics  # a sidebar link, not a page of this section
+                url: /topics/
   - key: red-team
     title: Red team
     url: /research/red-team/
     about: Psychological red-teaming of language models. Tests of whether a model drops a correct answer, a rule or a task boundary under social pressure alone, with a catalogue of tactics, the method of a run and the results so far.
     door: "Whether a model drops a correct answer under social pressure alone."  # the one line on the front page (ADR-0041)
+    side: All red-team pages  # its name in the research sidebar, which includes it
+    order: newest
     pages:
       - title: Tactics catalogue
         url: /research/red-team/tactics/

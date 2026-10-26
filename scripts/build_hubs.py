@@ -3,6 +3,7 @@
 
 - /research/: the Research section front page, every research page in the order and groups of site/nav.yml,
   with the description each page gives itself (<meta name="description">).
+- /research/case-files/ and the other `hub: true` pages: a group's index, every page it holds (ADR-0045).
 - /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research, red team and Inside pages
   (the tag map in site/topics.yml), docs pages by label or space (inside/docs/search.json), posts (uncovertechtalent.com
   tag pages on the map and Substack titles, map/graph.json) and board issues (GitHub API; on failure the last list
@@ -78,14 +79,20 @@ def head(title, desc, url, modified, src):
 </head>'''
 
 
+def is_hub(n):
+    """A page that lists its pages, written here (`hub: true` in site/nav.yml, ADR-0045)."""
+    return site_chrome._cfg(n).get('hub') is True
+
+
 def research_groups(t):
     """The research index's sections as (heading, pages), in the order of the sidebar (ADR-0044): pages outside any group
-    first, then each group with its pages and their children at any depth, or an included section's overview and pages.
-    Sidebar-only links stay out."""
+    first, then each group with its pages and their children at any depth, or an included section's overview and pages,
+    each list in the order of site_chrome.ordered(). A group's generated index page and sidebar-only links stay out: the
+    index lists the same pages (ADR-0045)."""
     sec = t.section('research')
 
     def down(kids):
-        return [p for k in kids if not k.link for p in [k] + down(k.kids)]
+        return [p for k in kids if not k.link for p in ([] if is_hub(k) else [k]) + down(site_chrome.ordered(k))]
 
     out = []
     loose = [k for k in sec.kids if not k.group and not k.link]
@@ -93,7 +100,48 @@ def research_groups(t):
         out.append(('Registers and logs', loose))
     for g in (k for k in sec.kids if k.group):
         inc = t.section(g.cfg_page['include']) if g.cfg_page.get('include') else None
-        out.append((g.title, [inc] + down(inc.kids) if inc else down(g.kids)))
+        out.append((g.title, [inc] + down(site_chrome.ordered(inc)) if inc else down(g.kids)))
+    return out
+
+
+def hubs():
+    """One page per `hub: true` entry under /research/ (ADR-0045): the group's name, its `about`, and every page it holds in
+    the order of site_chrome.ordered(), sidebar-only links included, each with its description and its publication date,
+    or the date of its last change when it gives none. The sidebar's All link points here."""
+    t = site_chrome.tree()
+    out = []
+    for n in site_chrome._all_under(t.section('research')):
+        if not is_hub(n):
+            continue
+        about = n.cfg_page['about']  # Tree checks that a hub page has about and pages
+        rows, changed = [], []
+        for k in site_chrome.ordered(n):
+            desc, d = page_meta(k.url)
+            changed.append(d)
+            pub = site_chrome._cfg(k).get('published')
+            when = f'published {pub}' if pub else f'updated {d}'
+            rows.append(f'<li class="mb-entry"><a href="{k.url}">{esc(k.title)}</a>'
+                        f'<p>{esc(desc)}</p><span class="mb-entry-meta">{when}</span></li>')
+        newest = max(changed)
+        desc = f'{n.title} in the research on machinebehavior.io. {about}'
+        page = f'''{head(f'{n.title}: Research: Machine Behavior', desc, n.url, newest, 'scripts/build_hubs.py')}
+<body>
+<div class="sheet">
+  <header>
+    <span class="kind">Index</span>
+    <div class="eyebrow">Research · updated {newest}</div>
+    <h1>{esc(n.title)}</h1>
+    <p class="subtitle">{esc(about)}</p>
+  </header>
+  <ul class="mb-entries">{''.join(rows)}</ul>
+</div>
+</body>
+</html>
+'''
+        rel = n.url.lstrip('/') + 'index.html'
+        (ROOT / rel).parent.mkdir(parents=True, exist_ok=True)
+        (ROOT / rel).write_text(site_chrome.apply(page, rel), encoding='utf-8')
+        out.append((n.url, newest, f'Research: {n.title}', about))
     return out
 
 
@@ -346,7 +394,7 @@ def topics():
 
 
 def main():
-    entries = research() + topics()
+    entries = research() + hubs() + topics()
     import build_fallbacks  # static text for the pages that fill their lists in the browser
     build_fallbacks.main(json.loads(TOPICS_JSON.read_text(encoding='utf-8')).get('issues', []))
     inside_chrome.sitemap_block('hubs', [(u, d) for u, d, _, _ in entries], source='scripts/build_hubs.py')
