@@ -11,7 +11,7 @@ One function, apply(html, rel), writes the managed blocks of a page:
 
 It also sets the theme attribute on <html>: every page under /inside/ (Inside and Docs) gets data-mb-theme="intranet",
 the light intranet theme of the design system (ADR-0034, ADR-0035); every page under /research/ gets data-mb-theme="report",
-the light report theme (ADR-0039); every other page loses it.
+the light report theme (ADR-0039), and so does the front page (ADR-0041); every other page loses it.
 
 Each block sits between <!-- mb:NAME --> and <!-- /mb:NAME -->. A page that has the markers keeps them where they are;
 a page without them gets them at fixed anchors (after <body>, at the top of <div class="sheet"> or <main>, before
@@ -46,6 +46,7 @@ POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pag
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
 THEMED = (('/inside/', 'intranet'), ('/research/', 'report'))  # URL prefix, data-mb-theme on <html> (ADR-0035, ADR-0039)
+THEMED_PAGES = {'/': 'report'}  # exact URLs: the front page (ADR-0041)
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
 
 BLOCK_RE = re.compile(r'<!-- mb:(\w+) -->.*?<!-- /mb:\1 -->', re.S)
@@ -615,8 +616,9 @@ def number_exhibits(src, rel=''):
 
 
 def theme_for(url):
-    """The data-mb-theme value for a page URL: the theme of the first THEMED prefix it starts with, else None."""
-    return next((theme for prefix, theme in THEMED if url.startswith(prefix)), None)
+    """The data-mb-theme value for a page URL: its THEMED_PAGES entry, else the theme of the first THEMED prefix it starts with,
+    else None."""
+    return THEMED_PAGES.get(url) or next((theme for prefix, theme in THEMED if url.startswith(prefix)), None)
 
 
 def _html_theme(src, theme):

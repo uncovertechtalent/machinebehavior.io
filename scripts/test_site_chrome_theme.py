@@ -19,8 +19,11 @@ class ThemeFor(unittest.TestCase):
     def test_inside_gets_intranet(self):
         self.assertEqual(site_chrome.theme_for('/inside/docs/eng/'), 'intranet')
 
+    def test_front_page_gets_report(self):
+        self.assertEqual(site_chrome.theme_for('/'), 'report')
+
     def test_other_pages_get_none(self):
-        for url in ('/', '/researchers/', '/cto-powersuit/', '/conformity/'):
+        for url in ('/researchers/', '/cto-powersuit/', '/conformity/', '/impressum/'):
             self.assertIsNone(site_chrome.theme_for(url), url)
 
     def test_html_theme_sets_and_removes(self):

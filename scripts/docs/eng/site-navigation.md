@@ -6,7 +6,7 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 created: 2026-10-09
-updated: 2026-10-23
+updated: 2026-10-26
 type: reference
 ---
 machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the portal within it. Every page carries the same top bar, breadcrumbs from Home to the page, and the same footer. The sections and their pages are defined once, in `site/nav.yml`; `scripts/site_chrome.py` writes the chrome of every page from that file.
@@ -108,7 +108,7 @@ The head block also holds one JSON-LD graph per page: Stefan Coetzee as Person (
 
 ## Layouts
 
-Two layouts under one brand. The reading layout keeps the serif column of the research pages (`/style.css`, `<div class="sheet">`, teal accent). The app layout keeps the portal look of Inside, Docs and the map (amber accent). `apply()` picks the layout from the stylesheet the page loads and sets `mb-read` or `mb-app` and `mb-s-<section>` on `<body>`. Light and dark follow the system setting in both layouts. The styles are in `/design/`: `tokens.css` (colour, type, spacing; the older page variables map onto it), `chrome.css` (bar, breadcrumbs, sidebars, footer, layouts) and `components.css` (page header, pills, cards, panels, tables, lists). See [ADR-0025](doc:eng/adr-0025-one-design-system).
+Two layouts under one brand. The reading layout keeps the serif column of the research pages (`/style.css`, `<div class="sheet">`, teal accent). The app layout keeps the portal look of Inside, Docs and the map (amber accent). `apply()` picks the layout from the stylesheet the page loads and sets `mb-read` or `mb-app` and `mb-s-<section>` on `<body>`. Every page is light, whatever the system setting ([ADR-0042](doc:eng/adr-0042-one-light-scheme)); the research section and the front page carry the report theme ([ADR-0039](doc:eng/adr-0039-research-report-theme), [ADR-0041](doc:eng/adr-0041-front-page-in-the-report-theme)) and Inside the intranet theme ([ADR-0035](doc:eng/adr-0035-intranet-theme-on-every-inside-page)). The styles are in `/design/`: `tokens.css` (colour, type, spacing; the older page variables map onto it), `chrome.css` (bar, breadcrumbs, sidebars, footer, layouts) and `components.css` (page header, pills, cards, panels, tables, lists). See [ADR-0025](doc:eng/adr-0025-one-design-system).
 
 Hand-written pages show their owner and the date from `sitemap.xml` beside the breadcrumbs; generated pages carry their own byline.
 

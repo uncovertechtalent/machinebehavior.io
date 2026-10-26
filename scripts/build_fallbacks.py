@@ -6,7 +6,7 @@ the page script fills; the script replaces it on load with the live version.
 - /inside/: the three sites, the latest pieces, the living documents and the repositories (map/graph.json);
 - /inside/board/: the open issues by column and the issues closed in the last 30 days (GitHub Issues, as of the build);
 - /inside/mission-control/: the three sites, the open incidents (inside/status/incidents.json), the gate and the feed;
-- /: the section cards, the latest research pages and the topics (site/nav.yml, site/topics.yml, topics/topics.json).
+- /: the doors into the site and the research rows under the lead finding (site/nav.yml, the research pages; ADR-0041).
 
 Called by scripts/build_hubs.py with the board issues it read; run on its own it uses topics/topics.json.
 """
@@ -134,42 +134,39 @@ def mission_control():
     return len(open_)
 
 
+HOME_DOORS = ('research', 'red-team', 'inside', 'docs', 'topics', 'cto')  # each with its `door:` line from site/nav.yml
+HOME_ROWS = 3  # research rows under the lead finding
+HOME_KINDS = ('Experiment', 'Case file', 'Article', 'Method')  # findings, not ledgers or indexes (the page's own kind pill)
+
+
 def home():
+    """The front page (ADR-0041): one door per section in HOME_DOORS, and the newest published research pages as rows,
+    leaving out the lead finding the page itself names (the feature card's link, chosen by hand) and any page whose kind pill
+    is not in HOME_KINDS."""
     sys.path.insert(0, str(ROOT / 'scripts'))
     import site_chrome
     t = site_chrome.tree(reload=True)
-    def count(n):
-        return sum(1 for _ in site_chrome._pages_under(n))
-    cards = []
-    for key in ('research', 'red-team', 'inside', 'docs', 'topics', 'map', 'cto'):
-        sec = t.section(key)
-        n = count(sec)
-        meta = f'{n} pages' if key in ('research', 'red-team', 'docs') else f'{n} hubs' if key == 'topics' else ''
-        cards.append((sec.title, sec.url, sec.cfg.get('about', ''), meta))
-        if key == 'inside':
-            mc = t.by_url['/inside/mission-control/']
-            cards.append((mc.title, mc.url, mc.cfg_page.get('about', ''), 'live'))
+    doors = [t.section(k) for k in HOME_DOORS]
     put('index.html', 'home-sections', ''.join(
-        f'<li class="mb-entry"><a href="{u}">{esc(ti)}</a><p>{esc(a)}</p>' + (f'<span class="mb-entry-meta">{esc(m)}</span>' if m else '') + '</li>'
-        for ti, u, a, m in cards))
-    research = [n for n in site_chrome._pages_under(t.section('research')) if getattr(n, 'cfg_page', {}).get('published')]
+        f'<li><a href="{sec.url}"><span class="door-title">{esc(sec.title)}</span>'
+        f'<span class="door-line">{esc(sec.cfg.get("door") or sec.cfg.get("about", ""))}</span></a></li>' for sec in doors))
+    lead = re.search(r'class="feature-card" href="([^"]+)"', (ROOT / 'index.html').read_text(encoding='utf-8'))
+    research = [n for n in site_chrome._pages_under(t.section('research')) if getattr(n, 'cfg_page', {}).get('published')
+                and not (lead and n.url == lead.group(1))]
     research.sort(key=lambda n: (str(n.cfg_page['published']), n.url), reverse=True)
-    li = ''
-    for n in research[:4]:
+    li, rows = '', 0
+    for n in research:
         src = (ROOT / n.url.strip('/') / 'index.html').read_text(encoding='utf-8')
+        kind = re.search(r'<span class="kind">([^<]+)</span>', src)
+        if rows == HOME_ROWS or not kind or html.unescape(kind.group(1)) not in HOME_KINDS:
+            continue
         m = re.search(r'<meta property="og:title" content="([^"]*)"', src) or re.search(r'<title>([^<:]*)', src)
-        d = re.search(r'<meta name="description" content="([^"]*)"', src)
         title = html.unescape(m.group(1)) if m else n.title
-        desc = html.unescape(d.group(1)) if d else ''
-        desc = desc if len(desc) <= 220 else desc[:217].rsplit(' ', 1)[0] + '…'
-        li += (f'<li class="mb-entry"><a href="{n.url}">{esc(title)}</a><p>{esc(desc)}</p>'
-               f'<span class="mb-entry-meta">published {n.cfg_page["published"]}</span></li>')
+        li += (f'<li><a href="{n.url}"><span class="kind kind-ink">{esc(html.unescape(kind.group(1)))}</span>'
+               f'<span class="row-title">{esc(title)}</span><span class="row-date">{n.cfg_page["published"]}</span></a></li>')
+        rows += 1
     put('index.html', 'home-latest', li)
-    tj = ROOT / 'topics' / 'topics.json'
-    sizes = {tp['key']: len(tp['pages']) + len(tp['posts']) + len(tp['tickets']) for tp in json.loads(tj.read_text(encoding='utf-8'))['topics']} if tj.exists() else {}
-    put('index.html', 'home-topics', ''.join(
-        f'<li><a href="{k.url}">{esc(k.title)}</a><span>{sizes.get(k.url.strip("/").split("/")[-1], "")}</span></li>' for k in t.section('topics').kids))
-    return len(cards)
+    return len(doors)
 
 
 def main(issues=None):
@@ -180,7 +177,7 @@ def main(issues=None):
     n_issues = board(issues)
     n_inc = mission_control()
     n_home = home()
-    print(f'fallbacks: Inside {n_items} pieces, board {n_issues} issues, Mission Control {n_inc} open incidents, home {n_home} section cards')
+    print(f'fallbacks: Inside {n_items} pieces, board {n_issues} issues, Mission Control {n_inc} open incidents, home {n_home} doors')
 
 
 if __name__ == '__main__':
