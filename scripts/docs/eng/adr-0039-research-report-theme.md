@@ -46,7 +46,7 @@ Three registers were built on the abliteration experiment page and compared on s
 
 **Exhibits.** A table with a `<caption>` is an exhibit: the theme numbers it ("Exhibit 1", "Exhibit 2" in page order) above its caption. Report pages caption their tables: the experiments, the experiment pages, the red-team method, the case files and the articles. Ledgers and indexes (the claims ledger, objections, evidence, slips, the red-team catalogue) keep plain tables. A `<p class="exhibit-source">` under an exhibit names the published data behind it and links the file; an exhibit whose data is not published has no source line rather than an unchecked one. In this change the abliteration page has source lines; the other exhibits get them when their run records are published.
 
-**Contrast.** On white the text tokens reach 17.1:1, 10.0:1 and 6.9:1 and the teal 6.3:1; on the sunken surface the lowest pair is the teal at 5.7:1. On the band the title reaches 15.2:1, the subtitle 11.6:1 and the eyebrow 8.6:1. Every pair meets WCAG 2.2 AA.
+**Contrast.** On white the text tokens reach 17.1:1, 10.0:1 and 6.9:1 and the teal 6.3:1; on the sunken surface the lowest pair is the teal at 5.7:1. On the band the title reaches 15.2:1, the subtitle 11.6:1 and the eyebrow 8.6:1. The focus ring of a link on the band takes the eyebrow colour (8.6:1), because the teal ring of the rest of the page would reach only 2.4:1 there. Every pair meets WCAG 2.2 AA, the ring the 3:1 of SC 1.4.11.
 
 ## Consequences
 
