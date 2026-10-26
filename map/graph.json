@@ -2,7 +2,7 @@
  "generated": "2026-10-09T15:25Z",
  "nodes": [
   {
-   "id": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "id": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "title": "Running Conjobs for AI",
    "kind": "substack",
    "site": "substack",
@@ -18,7 +18,7 @@
    "date": "2026-10-03"
   },
   {
-   "id": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "id": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "title": "Chaos Engineering for Behaviour ",
    "kind": "substack",
    "site": "substack",
@@ -542,7 +542,7 @@
    "date": "2026-09-21"
   },
   {
-   "id": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "id": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "title": "They Trained Out the Board Edit. The Cheating Moved.",
    "kind": "page",
    "site": "utt",
@@ -892,7 +892,7 @@
    "site": "github"
   },
   {
-   "id": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "id": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "title": "Chaos Engineering for Behaviour",
    "kind": "page",
    "site": "utt",
@@ -7269,12 +7269,12 @@
   },
   {
    "source": "https://machinebehavior.io/research/articles/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
    "source": "https://machinebehavior.io/research/articles/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -8554,7 +8554,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -8569,7 +8569,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -8589,7 +8589,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -8749,7 +8749,7 @@
   },
   {
    "source": "https://machinebehavior.io/inside/",
-   "target": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "target": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "kind": "body"
   },
   {
@@ -31574,7 +31574,7 @@
   },
   {
    "source": "https://machinebehavior.io/research/case-files/running-conjobs-for-ai/",
-   "target": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "target": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "kind": "body"
   },
   {
@@ -33914,7 +33914,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -33924,7 +33924,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -33939,7 +33939,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/evaluation/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -34694,7 +34694,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/operations-and-sre/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -34704,7 +34704,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/operations-and-sre/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -34719,7 +34719,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/operations-and-sre/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -35324,7 +35324,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -35339,7 +35339,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -35354,7 +35354,7 @@
   },
   {
    "source": "https://machinebehavior.io/topics/sycophancy-and-stance/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -35719,7 +35719,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -35739,7 +35739,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -36013,172 +36013,172 @@
    "kind": "nav"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
-   "target": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
+   "target": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/ai/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/sre/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/red-teaming/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/alignment/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/ai-safety/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/evaluations/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/man/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/tags/chaos-engineering/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/which-llm-user/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/slips/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/objections/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/",
    "kind": "nav"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/",
    "kind": "nav"
   },
@@ -36279,7 +36279,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -36294,7 +36294,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -36523,117 +36523,117 @@
    "kind": "nav"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/sycophancy/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/ai/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/goodhart-labs/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/sre/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/alignment/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://machinebehavior.io/research/articles/the-cheating-moved/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/ai-safety/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/tags/evaluations/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://machinebehavior.io/research/slips/",
    "kind": "body"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/blog/",
    "kind": "nav"
   },
   {
-   "source": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "target": "https://uncovertechtalent.com/",
    "kind": "nav"
   },
@@ -36724,7 +36724,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -37199,7 +37199,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/blog/which-llm-user/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -37629,7 +37629,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/ai-safety/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -37639,7 +37639,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/ai-safety/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -37669,7 +37669,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/ai/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -37684,7 +37684,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/ai/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -37764,7 +37764,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/alignment/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -37779,7 +37779,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/alignment/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -37834,7 +37834,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/chaos-engineering/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -38009,7 +38009,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/evaluations/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38019,7 +38019,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/evaluations/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -38034,7 +38034,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/goodhart-labs/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38344,7 +38344,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/red-teaming/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -38409,7 +38409,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/sre/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38424,7 +38424,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/sre/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -38479,7 +38479,7 @@
   },
   {
    "source": "https://uncovertechtalent.com/tags/sycophancy/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38568,17 +38568,17 @@
    "kind": "nav"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "source": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "source": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "target": "https://machinebehavior.io/research/articles/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/case-files/running-conjobs-for-ai/",
+   "source": "https://coetzeestefan.substack.com/p/running-conjobs-for-ai/",
    "target": "https://machinebehavior.io/research/slips/",
    "kind": "body"
   },
@@ -38594,7 +38594,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38604,7 +38604,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
@@ -38673,127 +38673,127 @@
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/write-for-the-codec/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/experiments/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/man/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/which-llm-user/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/articles/chaos-engineering-for-behaviour/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://uncovertechtalent.com/blog/the-track/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://github.com/uncovertechtalent/machinebehavior.io/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/slips/",
    "kind": "body"
   },
   {
-   "source": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+   "source": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
    "target": "https://machinebehavior.io/research/objections/",
    "kind": "body"
   },
@@ -38809,7 +38809,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {
@@ -38904,7 +38904,7 @@
   },
   {
    "source": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
-   "target": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
+   "target": "https://uncovertechtalent.com/blog/the-cheating-moved/",
    "kind": "body"
   },
   {

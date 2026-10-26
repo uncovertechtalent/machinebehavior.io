@@ -6,7 +6,8 @@
 - /research/case-files/ and the other `hub: true` pages: a group's index, every page it holds (ADR-0045).
 - /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research, red team and Inside pages
   (the tag map in site/topics.yml), docs pages by label or space (inside/docs/search.json), posts (uncovertechtalent.com
-  tag pages on the map and Substack titles, map/graph.json) and board issues (GitHub API; on failure the last list
+  tag pages on the map and Substack titles, map/graph.json; a post with a Substack copy links that canonical copy and names
+  the blog copy, #192) and board issues (GitHub API; on failure the last list
   in topics/topics.json stays). /topics/ lists the hubs; /topics/topics.json holds the membership, which the
   Topics block in the sidebars reads to mark the topics of the current page.
 
@@ -278,8 +279,8 @@ def members(topic, t, docs, tag_posts, substack, issues):
     by_title = {norm_title(p['t']): p for p in posts}
     for n in substack:
         twin = by_title.get(norm_title(n['title']))
-        if twin is not None:
-            twin['also'] = n['id']
+        if twin is not None:  # the blog copy names the Substack copy canonical (ADR-0046), so the Substack copy leads
+            twin.update(u=n['id'], site='Substack', also=twin['u'], also_site=twin['site'])
         elif rx and rx.search(n['title']):
             posts.append({'t': n['title'].strip(), 'u': n['id'], 'date': n.get('date', ''), 'site': 'Substack', 'd': n.get('desc', '')})
     m['posts'] = sorted(posts, key=lambda p: (p['date'], p['t']), reverse=True)
@@ -323,7 +324,7 @@ def topic_page(topic, m, all_topics, spaces):
     if m['posts']:
         li = ''
         for p in m['posts']:
-            also = f' · <a href="{esc(p["also"])}">also on Substack</a>' if p.get('also') else ''
+            also = f' · <a href="{esc(p["also"])}">also on {esc(p["also_site"])}</a>' if p.get('also') else ''
             li += (f'<li><a href="{esc(p["u"])}">{esc(p["t"])}</a><span>{esc(p["d"])}</span>'
                    f'<span class="mb-links-meta">{esc(p["date"])} · {esc(p["site"])}{also}</span></li>')
         parts.append(f'<section><h2 class="label">Posts <span class="mb-n">{len(m["posts"])}</span></h2><ul class="mb-links">{li}</ul></section>')

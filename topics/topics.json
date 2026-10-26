@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23",
+ "generated": "2026-10-26",
  "source": "site/topics.yml",
  "topics": [
   {
@@ -29,32 +29,32 @@
    "posts": [
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+     "u": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "also": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
      "t": "The Stance Layer Is Still Toil",
-     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "u": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "also": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
      "date": "2026-10-01"
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
-     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "u": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "also": "https://uncovertechtalent.com/blog/the-cheating-moved/",
      "date": "2026-09-29"
     },
     {
      "t": "What Operations Already Knows About Running Agents",
-     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "u": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "also": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
      "date": "2026-09-25"
     },
     {
      "t": "The Golem Made of English and the Horizon of Consequences",
-     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "u": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "also": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
      "date": "2026-09-21"
     },
     {
@@ -463,74 +463,74 @@
    "posts": [
     {
      "t": "Knowledge Infrastructure for LLMs",
-     "u": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-     "also": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "u": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "also": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
      "date": "2026-10-03"
     },
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+     "u": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "also": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
      "t": "The Stance Layer Is Still Toil",
-     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "u": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "also": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
      "date": "2026-10-01"
     },
     {
      "t": "Which LLM User Are We Talking About?",
-     "u": "https://uncovertechtalent.com/blog/which-llm-user/",
-     "also": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "u": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "also": "https://uncovertechtalent.com/blog/which-llm-user/",
      "date": "2026-09-29"
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
-     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "u": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "also": "https://uncovertechtalent.com/blog/the-cheating-moved/",
      "date": "2026-09-29"
     },
     {
      "t": "An RCA on Claudish",
-     "u": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-     "also": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "u": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "also": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
      "date": "2026-09-29"
     },
     {
      "t": "Compaction Is the New OOM",
-     "u": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-     "also": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "u": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "also": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
      "date": "2026-09-28"
     },
     {
      "t": "The Track: The Drivers Never Buy It",
-     "u": "https://uncovertechtalent.com/blog/the-track/",
-     "also": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "u": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "also": "https://uncovertechtalent.com/blog/the-track/",
      "date": "2026-09-27"
     },
     {
      "t": "Success Is the Engine Running",
-     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "u": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "also": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
      "date": "2026-09-26"
     },
     {
      "t": "What Operations Already Knows About Running Agents",
-     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "u": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "also": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
      "date": "2026-09-25"
     },
     {
      "t": "The Trap File Is Longer Than the Instruction File",
-     "u": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-     "also": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "u": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "also": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
      "date": "2026-09-21"
     },
     {
      "t": "The Golem Made of English and the Horizon of Consequences",
-     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "u": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "also": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
      "date": "2026-09-21"
     }
    ],
@@ -581,8 +581,8 @@
    "posts": [
     {
      "t": "Success Is the Engine Running",
-     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "u": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "also": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
      "date": "2026-09-26"
     }
    ],
@@ -673,68 +673,68 @@
    "posts": [
     {
      "t": "Knowledge Infrastructure for LLMs",
-     "u": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
-     "also": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "u": "https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms/",
+     "also": "https://uncovertechtalent.com/blog/knowledge-infrastructure/",
      "date": "2026-10-03"
     },
     {
      "t": "The Stance Layer Is Still Toil",
-     "u": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
-     "also": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "u": "https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/",
+     "also": "https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/",
      "date": "2026-10-01"
     },
     {
      "t": "Which LLM User Are We Talking About?",
-     "u": "https://uncovertechtalent.com/blog/which-llm-user/",
-     "also": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "u": "https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about/",
+     "also": "https://uncovertechtalent.com/blog/which-llm-user/",
      "date": "2026-09-29"
     },
     {
      "t": "An RCA on Claudish",
-     "u": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
-     "also": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "u": "https://coetzeestefan.substack.com/p/an-rca-on-claudish/",
+     "also": "https://uncovertechtalent.com/blog/where-did-claudish-come-from/",
      "date": "2026-09-29"
     },
     {
      "t": "Compaction Is the New OOM",
-     "u": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
-     "also": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "u": "https://coetzeestefan.substack.com/p/compaction-is-the-new-oom/",
+     "also": "https://uncovertechtalent.com/blog/compaction-is-the-new-oom/",
      "date": "2026-09-28"
     },
     {
      "t": "The Track: The Drivers Never Buy It",
-     "u": "https://uncovertechtalent.com/blog/the-track/",
-     "also": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "u": "https://coetzeestefan.substack.com/p/the-racetrack-the-racingcar-drivers/",
+     "also": "https://uncovertechtalent.com/blog/the-track/",
      "date": "2026-09-27"
     },
     {
      "t": "Success Is the Engine Running",
-     "u": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
-     "also": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "u": "https://coetzeestefan.substack.com/p/success-is-the-engine-running/",
+     "also": "https://uncovertechtalent.com/blog/success-is-the-engine-running/",
      "date": "2026-09-26"
     },
     {
      "t": "What Operations Already Knows About Running Agents",
-     "u": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
-     "also": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "u": "https://coetzeestefan.substack.com/p/what-operations-already-knows-about/",
+     "also": "https://uncovertechtalent.com/blog/what-operations-already-knows/",
      "date": "2026-09-25"
     },
     {
      "t": "Write for the Codec",
-     "u": "https://uncovertechtalent.com/blog/write-for-the-codec/",
-     "also": "https://coetzeestefan.substack.com/p/write-for-the-codec/",
+     "u": "https://coetzeestefan.substack.com/p/write-for-the-codec/",
+     "also": "https://uncovertechtalent.com/blog/write-for-the-codec/",
      "date": "2026-09-21"
     },
     {
      "t": "The Trap File Is Longer Than the Instruction File",
-     "u": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
-     "also": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "u": "https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the/",
+     "also": "https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/",
      "date": "2026-09-21"
     },
     {
      "t": "The Golem Made of English and the Horizon of Consequences",
-     "u": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
-     "also": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "u": "https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the/",
+     "also": "https://uncovertechtalent.com/blog/the-golem-made-of-english/",
      "date": "2026-09-21"
     },
     {
@@ -780,14 +780,14 @@
    "posts": [
     {
      "t": "Chaos Engineering for Behaviour",
-     "u": "https://uncovertechtalent.com/blog/research/articles/chaos-engineering-for-behaviour/",
-     "also": "https://coetzeestefan.substack.com/p/research/articles/chaos-engineering-for-behaviour/",
+     "u": "https://coetzeestefan.substack.com/p/chaos-engineering-for-behaviour/",
+     "also": "https://uncovertechtalent.com/blog/chaos-engineering-for-behaviour/",
      "date": "2026-10-03"
     },
     {
      "t": "They Trained Out the Board Edit. The Cheating Moved.",
-     "u": "https://uncovertechtalent.com/blog/research/articles/the-cheating-moved/",
-     "also": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "u": "https://coetzeestefan.substack.com/p/they-trained-out-the-board-edit-the/",
+     "also": "https://uncovertechtalent.com/blog/the-cheating-moved/",
      "date": "2026-09-29"
     }
    ],
