@@ -21,10 +21,10 @@ type: explanation
 
 **Everything a person reads in a box stays light.** The panel, the hover tip and the preview sheet are solid light boxes (`--mb-surface-raised` with `--ink`), as on every page; text that sits on the dark background itself, such as the page's no-script note, takes the bar's text colours. The legend dots in the panel carry a thin outline mixed from `--mb-bar-bg`, because the bright node colours alone are faint on white. The stamp at the bottom right sits on the canvas and uses the bar's text colours (`--mb-bar-dim`, `--mb-bar-soft`).
 
-**The contrast floor holds on the canvas.** The stamp reaches 6.3:1, its link 11.8:1, the node labels about 11.6:1 against the canvas, and every node colour 5.1:1 or more.
+**The contrast floor holds on the canvas.** The stamp reaches 6.3:1, its link 11.6:1, the node labels about 11.6:1 against the canvas, and every node colour 5.1:1 or more.
 
 This replaces the map paragraph of ADR-0042; the rest of ADR-0042 stands. The dark canvas joins the top bar and the report theme's title band as dark chrome on a light site.
 
 ## Consequences
 
-The map looks the same in every system setting, with the graph on dark and the controls on light. A change to the top bar's colour changes the canvas with it. The second-brain image in the front page's title band was already a dark rendering of the same graph, so the front page and the map now agree.
+The map looks the same in every system setting, with the graph on dark and the controls on light. A change to the top bar's colour changes the canvas with it; the inks drawn on it (labels, hover, focus, selection) are fixed values chosen for this dark, so such a change needs them rechecked. The second-brain image in the front page's title band was already a dark rendering of the same graph, so the front page and the map now agree.

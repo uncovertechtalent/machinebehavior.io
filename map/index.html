@@ -30,7 +30,7 @@
   canvas.dragging { cursor: grabbing; }
   .mb-bar { position: fixed; left: 0; right: 0; top: 0; }
   .panel { position: fixed; left: 16px; top: calc(var(--ib-h) + 14px); max-height: calc(100vh - var(--ib-h) - 28px); overflow: auto; width: 300px; max-width: calc(100vw - 32px); background: var(--mb-surface-raised); color: var(--ink);
-    border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; backdrop-filter: blur(6px); }
+    border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
   .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; color: var(--dim); text-transform: uppercase; }
   h1 { margin: 6px 0 4px; font-size: 26px; line-height: 1.05; letter-spacing: -0.5px; }
   .sub { font-size: 13px; color: var(--dim); line-height: 1.4; margin-bottom: 12px; }
@@ -128,7 +128,7 @@
   </div>
 </section>
 <div class="foot"><span id="foot"></span> · <a href="/map/graph.json">graph.json</a></div>
-<noscript><p style="padding:24px;max-width:640px;color:var(--mb-bar-text)">The second brain is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
+<noscript><p style="padding:24px;max-width:640px">The second brain is an interactive graph of Stefan Coetzee's published work across machinebehavior.io, tychat.io, uncovertechtalent.com, Substack, GitHub and Reddit. The data is at <a href="/map/graph.json">/map/graph.json</a>; the index for models is at <a href="/llms.txt">/llms.txt</a>.</p></noscript>
 </main>
 <script>
 // node colour per kind, bright enough to hold on the dark canvas (ADR-0043)
@@ -310,7 +310,7 @@ fetch('/map/graph.json').then(r => r.json()).then(g => {
     if (n !== hover) { hover = n; draw(); }
     if (n) {
       tip.style.display = 'block';
-      tip.innerHTML = `<div>${n.title}</div><div class="k">${kindLabel[groupOf(n)]} · ${neigh.get(n.id).size} linked</div>`;
+      tip.innerHTML = `<div>${esc(n.title)}</div><div class="k">${kindLabel[groupOf(n)]} · ${neigh.get(n.id).size} linked</div>`;
       const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
       tip.style.left = x + 'px'; tip.style.top = (e.clientY + 14) + 'px';
       canvas.style.cursor = 'pointer';

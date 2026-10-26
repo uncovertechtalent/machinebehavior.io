@@ -1,5 +1,5 @@
 title: ADR-0042: The site has one light colour scheme
-summary: The dark values that followed the visitor's system setting are removed from design/tokens.css, color-scheme becomes light, and the second-brain map draws its light palette only (its canvas is dark again under ADR-0043). The top bar and the report theme's title band stay dark as chrome. The /conformity/ page, written by the shared gate action, keeps its own dark block until that action changes.
+summary: The dark values that followed the visitor's system setting are removed from design/tokens.css, color-scheme becomes light, and the second-brain map drew its light palette (its canvas is dark under ADR-0043). The top bar and the report theme's title band stay dark as chrome. The /conformity/ page, written by the shared gate action, keeps its own dark block until that action changes.
 parent: decision-log
 order: 42
 adr: 42
