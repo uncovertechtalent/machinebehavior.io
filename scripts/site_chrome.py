@@ -568,6 +568,11 @@ def _insert_before(src, pattern, text):
     return src[:m.start()] + text + src[m.start():]
 
 
+def theme_for(url):
+    """The data-mb-theme value for a page URL: the theme of the first THEMED prefix it starts with, else None."""
+    return next((theme for prefix, theme in THEMED if url.startswith(prefix)), None)
+
+
 def _html_theme(src, theme):
     """Set data-mb-theme on the <html> element to theme, or remove it when theme is None."""
     m = re.search(r'<html([^>]*)>', src)
@@ -642,7 +647,7 @@ def apply(src, rel):
     # 4. body classes and the skip-link target
     sec = node.section if node else 'none'
     src = _body_class(src, [f'mb-{layout}', f'mb-s-{sec}'] + (['mb-has-side'] if has_side else []))
-    src = _html_theme(src, next((theme for prefix, theme in THEMED if url.startswith(prefix)), None))
+    src = _html_theme(src, theme_for(url))
     if 'id="main"' not in src:
         if layout == 'read':
             src = re.sub(r'<div class="sheet"', '<div class="sheet" id="main" role="main"', src, count=1)
