@@ -104,7 +104,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (414 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (415 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -153,6 +153,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (414 pages). S
 - [ADR-0040: Report pages carry the furniture of a consulting report](https://machinebehavior.io/inside/docs/eng/adr-0040-report-furniture-on-research-pages/)
 - [ADR-0041: The front page uses the report theme, with one message and one lead finding](https://machinebehavior.io/inside/docs/eng/adr-0041-front-page-in-the-report-theme/)
 - [ADR-0042: The site has one light colour scheme](https://machinebehavior.io/inside/docs/eng/adr-0042-one-light-scheme/)
+- [ADR-0043: The second-brain map draws its graph on a dark canvas](https://machinebehavior.io/inside/docs/eng/adr-0043-map-draws-on-a-dark-canvas/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)
