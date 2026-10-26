@@ -5,6 +5,7 @@ order: 39
 adr: 39
 status: accepted
 created: 2026-10-26
+updated: 2026-10-26
 labels: adr, decision, design-system, research, site-chrome, typography, accessibility
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -44,7 +45,7 @@ Three registers were built on the abliteration experiment page and compared on s
 
 **Layout.** The eyebrow, title and subtitle sit on the dark band. The band and its light text share one selector, `header:has(> h1)`, so a browser without `:has()` (Firefox before 121, Safari before 15.4) shows the title in the page colours with no band, never light text on white; `h2` headings are Newsreader 300 with a short teal rule above; tables lose their vertical rules and get a dark top rule, uppercase column heads and hairlines between rows.
 
-**Exhibits.** A table with a `<caption>` is an exhibit: the theme numbers it ("Exhibit 1", "Exhibit 2" in page order) above its caption. Report pages caption their tables: the experiments, the experiment pages, the red-team method, the case files and the articles. Ledgers and indexes (the claims ledger, objections, evidence, slips, the red-team catalogue) keep plain tables. A `<p class="exhibit-source">` under an exhibit names the published data behind it and links the file; an exhibit whose data is not published has no source line rather than an unchecked one. In this change the abliteration page has source lines; the other exhibits get them when their run records are published.
+**Exhibits.** A table with a `<caption>` is an exhibit: the theme numbers it ("Exhibit 1", "Exhibit 2" in page order) above its caption. Replaced by [ADR-0040](doc:eng/adr-0040-report-furniture-on-research-pages) for the numbering: the site chrome now writes the number into the HTML. Report pages caption their tables: the experiments, the experiment pages, the red-team method, the case files and the articles. Ledgers and indexes (the claims ledger, objections, evidence, slips, the red-team catalogue) keep plain tables. A `<p class="exhibit-source">` under an exhibit names the published data behind it and links the file; an exhibit whose data is not published has no source line rather than an unchecked one. In this change the abliteration page has source lines; the other exhibits get them when their run records are published.
 
 **Contrast.** On white the text tokens reach 17.1:1, 10.0:1 and 6.9:1 and the teal 6.3:1; on the sunken surface the lowest pair is the teal at 5.7:1. On the band the title reaches 15.2:1, the subtitle 11.6:1 and the eyebrow 8.6:1. The focus ring of a link on the band takes the eyebrow colour (8.6:1), because the teal ring of the rest of the page would reach only 2.4:1 there. Every pair meets WCAG 2.2 AA, the ring the 3:1 of SC 1.4.11.
 

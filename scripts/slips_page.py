@@ -54,7 +54,8 @@ page = f'''<!doctype html>
 <div class="sheet">
 
   <header>
-    <div class="eyebrow">Running log · generated from research/slips/log.csv</div>
+    <span class="kind">Running log</span>
+    <div class="eyebrow">generated from research/slips/log.csv</div>
     <h1>Slips caught while drafting</h1>
     <p class="subtitle">Every published piece is drafted with a language model. This page logs the register and stance slips caught before publication, and who caught each one.</p>
   </header>

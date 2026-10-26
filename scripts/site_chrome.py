@@ -283,11 +283,14 @@ def banner():
             '<a href="/inside/tour/">Five-minute tour</a></aside>')
 
 
-def page_meta(t, url):
-    """Owner and last update of a hand-written page (the sitemap date the author set), shown beside the breadcrumbs."""
+def page_meta(t, url, minutes=None):
+    """Owner and last update of a hand-written page (the sitemap date the author set), shown beside the breadcrumbs.
+    On report pages also the reading time and a print button (ADR-0040)."""
     d = t.lastmod.get(url)
     return (f'<p class="mb-page-meta"><span>Owner {esc(t.site["owner"])}</span>'
-            + (f'<span>Updated {d}</span>' if d else '') + '</p>')  # no <time>: the map crawler reads the first <time> as the publish date
+            + (f'<span>Updated {d}</span>' if d else '')  # no <time>: the map crawler reads the first <time> as the publish date
+            + (f'<span>{minutes} min read</span><button type="button" class="mb-print" onclick="window.print()">Print or save as PDF</button>'
+               if minutes else '') + '</p>')
 
 
 def crumbs(trail, meta=''):
@@ -568,6 +571,49 @@ def _insert_before(src, pattern, text):
     return src[:m.start()] + text + src[m.start():]
 
 
+READ_WPM = 230  # words per minute behind the reading time on report pages (ADR-0040)
+EXHIBIT_RE = re.compile(r'(<table\b([^>]*)>\s*<caption>)(.*?)(</caption>)', re.S)
+EXHIBIT_N_RE = re.compile(r'^\s*<span class="exhibit-n">[^<]*</span>\s*')
+EXHIBIT_REF_RE = re.compile(r'(<a\b(?=[^>]*\sclass="exhibit-ref")[^>]*\shref="#([\w-]+)"[^>]*>)[^<]*</a>')  # any attribute order
+EXHIBIT_REF_ANY = re.compile(r'<a\b[^>]*\sclass="[^"]*\bexhibit-ref\b')  # every link that claims to be a reference
+
+
+def read_minutes(src):
+    """Minutes to read a page's own text at READ_WPM, rounded up, at least 1: the sheet without managed blocks, scripts or styles."""
+    body = re.sub(r'\x00\w+\x00|<span class="exhibit-n">[^<]*</span>', ' ', BLOCK_RE.sub(' ', src))  # exhibit numbers: same count before and after
+    body = EXHIBIT_REF_RE.sub(' ', body)  # and exhibit references, whose text the numbering pass rewrites
+    m = re.search(r'<div class="sheet"[^>]*>', body)
+    body = re.sub(r'<(script|style)\b.*?</\1>', ' ', body[m.end():] if m else body, flags=re.S)
+    return max(1, -(-len(_text(body).split()) // READ_WPM))
+
+
+def number_exhibits(src, rel=''):
+    """Number every captioned table in page order: "Exhibit N" in a span at the start of its caption. Write that number into
+    each <a class="exhibit-ref" href="#id"> whose id is a captioned table's, keeping its other attributes. A reference to any
+    other id raises, and so does a link marked exhibit-ref in any other form (more classes, markup in its text) (ADR-0040)."""
+    ids, n, refs = {}, 0, 0
+
+    def caption(m):
+        nonlocal n
+        n += 1
+        tid = re.search(r'\sid="([^"]+)"', m.group(2))
+        if tid:
+            ids[tid.group(1)] = n
+        return f'{m.group(1)}<span class="exhibit-n">Exhibit {n}</span> {EXHIBIT_N_RE.sub("", m.group(3))}{m.group(4)}'
+
+    def ref(m):
+        nonlocal refs
+        refs += 1
+        if m.group(2) not in ids:
+            raise ValueError(f'{rel}: exhibit reference to #{m.group(2)}, which is not a captioned table')
+        return f'{m.group(1)}Exhibit {ids[m.group(2)]}</a>'
+
+    out = EXHIBIT_REF_RE.sub(ref, EXHIBIT_RE.sub(caption, src))
+    if refs != len(EXHIBIT_REF_ANY.findall(src)):
+        raise ValueError(f'{rel}: a link marked exhibit-ref is not in the form <a class="exhibit-ref" href="#id">text</a>')
+    return out
+
+
 def theme_for(url):
     """The data-mb-theme value for a page URL: the theme of the first THEMED prefix it starts with, else None."""
     return next((theme for prefix, theme in THEMED if url.startswith(prefix)), None)
@@ -607,11 +653,12 @@ def apply(src, rel):
     has_side = bool(node is not None and node.section in SIDEBARS and side(t, node))
     # page facts beside the breadcrumbs: hand-written pages only (generated pages carry their own byline)
     hand = ms is None and node is not None and node.url not in ('/', '/map/') and rel not in DEPLOY_ONLY and 'class="byline"' not in src
+    report = theme_for(url) == 'report'
 
     blocks = {
         'head': head(t, trail, has_fonts, page_ld(t, node, trail, url, src, layout)),
         'bar': bar(t, node, layout),
-        'crumbs': crumbs(trail, page_meta(t, url) if hand else ''),
+        'crumbs': crumbs(trail, page_meta(t, url, read_minutes(src) if report else None) if hand else ''),
         'side': side(t, node) if has_side else '',
         'foot': foot(t, url, source, trail[-1].title),
         'topics': topics_block(t, url),  # only where a page holds the marker (the docs sidebar)
@@ -648,6 +695,8 @@ def apply(src, rel):
     sec = node.section if node else 'none'
     src = _body_class(src, [f'mb-{layout}', f'mb-s-{sec}'] + (['mb-has-side'] if has_side else []))
     src = _html_theme(src, theme_for(url))
+    if report:
+        src = number_exhibits(src, rel)
     if 'id="main"' not in src:
         if layout == 'read':
             src = re.sub(r'<div class="sheet"', '<div class="sheet" id="main" role="main"', src, count=1)
