@@ -122,8 +122,11 @@ class Tree:
                     raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} holds one page, its index, or includes a section (ADR-0045)')
         for s in self.sections:
             for n in [s] + list(_all_under(s)):
-                if _cfg(n).get('hub') is True and s.section != 'research':
-                    raise SystemExit(f'site/nav.yml: {n.title!r} is a hub page in {s.section}; scripts/build_hubs.py writes them under research only')
+                if _cfg(n).get('hub') is True:
+                    if s.section != 'research':
+                        raise SystemExit(f'site/nav.yml: {n.title!r} is a hub page in {s.section}; scripts/build_hubs.py writes them under research only')
+                    if not _cfg(n).get('about') or not n.kids:
+                        raise SystemExit(f'site/nav.yml: the index page {n.title!r} needs about, its one line, and pages to list')
                 order = _cfg(n).get('order')
                 if order is None:
                     continue

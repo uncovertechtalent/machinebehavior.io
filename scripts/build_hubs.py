@@ -81,7 +81,7 @@ def head(title, desc, url, modified, src):
 
 def is_hub(n):
     """A page that lists its pages, written here (`hub: true` in site/nav.yml, ADR-0045)."""
-    return getattr(n, 'cfg_page', {}).get('hub') is True
+    return site_chrome._cfg(n).get('hub') is True
 
 
 def research_groups(t):
@@ -113,16 +113,12 @@ def hubs():
     for n in site_chrome._all_under(t.section('research')):
         if not is_hub(n):
             continue
-        about = n.cfg_page.get('about')
-        if not about:
-            raise SystemExit(f'site/nav.yml: the index page {n.title!r} needs about, its one line')
-        if not n.kids:
-            raise SystemExit(f'site/nav.yml: the index page {n.title!r} lists no pages')
+        about = n.cfg_page['about']  # Tree checks that a hub page has about and pages
         rows, changed = [], []
         for k in site_chrome.ordered(n):
             desc, d = page_meta(k.url)
             changed.append(d)
-            pub = getattr(k, 'cfg_page', {}).get('published')
+            pub = site_chrome._cfg(k).get('published')
             when = f'published {pub}' if pub else f'updated {d}'
             rows.append(f'<li class="mb-entry"><a href="{k.url}">{esc(k.title)}</a>'
                         f'<p>{esc(desc)}</p><span class="mb-entry-meta">{when}</span></li>')

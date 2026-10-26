@@ -101,6 +101,25 @@ class ResearchSidebar(unittest.TestCase):
             tree_from(text.replace(anchor, anchor.replace('2026-10-06', '2026-9-6'), 1))
         self.assertIn('Running conjobs for AI', str(e.exception))
 
+    def test_a_hub_page_needs_about_and_pages(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        about = '            about: Longer arguments from the research programme, with their sources.\n'
+        self.assertIn(about, text)
+        with self.assertRaises(SystemExit) as e:
+            tree_from(text.replace(about, '', 1))
+        self.assertIn('Articles', str(e.exception))
+        start = text.index('            pages:\n              - title: Terms\n')  # the Reference index without its pages
+        end = text.index('  - key: red-team')
+        with self.assertRaises(SystemExit) as e:
+            tree_from(text[:start] + text[end:])
+        self.assertIn('Reference', str(e.exception))
+
+    def test_index_page_rows_follow_the_order(self):
+        src = (site_chrome.ROOT / 'research' / 'case-files' / 'index.html').read_text(encoding='utf-8')
+        rows = re.findall(r'<li class="mb-entry"><a href="([^"]+)">.*?<span class="mb-entry-meta">([^<]+)</span>', src)
+        self.assertEqual([u for u, _ in rows], [k.url for k in site_chrome.ordered(self.t.by_url['/research/case-files/'])])
+        self.assertEqual([m for _, m in rows], ['published 2026-10-06', 'published 2026-10-03'])
+
     def test_hub_pages_only_under_research(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
         anchor = '        url: /aieo/this-site/\n'
