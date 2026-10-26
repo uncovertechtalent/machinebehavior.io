@@ -120,15 +120,18 @@ class Tree:
                     raise SystemExit(f'site/nav.yml: section {s.section} is included by another and cannot hold the group {g.title!r}')
                 if bool(inc) == bool(g.kids) or (g.kids and (len(g.kids) != 1 or g.kids[0].link)):
                     raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} holds one page, its index, or includes a section (ADR-0045)')
-        for n in self.sections + [k for s in self.sections for k in _all_under(s)]:
-            order = _cfg(n).get('order')
-            if order is None:
-                continue
-            if order != 'newest':
-                raise SystemExit(f'site/nav.yml: {n.title!r} has order {order!r}; the one order is newest')
-            undated = [k.title for k in n.kids if not _cfg(k).get('published')]
-            if undated:
-                raise SystemExit(f'site/nav.yml: {n.title!r} lists its pages newest first, so each needs published; missing on {", ".join(undated)}')
+        for s in self.sections:
+            for n in [s] + list(_all_under(s)):
+                if _cfg(n).get('hub') is True and s.section != 'research':
+                    raise SystemExit(f'site/nav.yml: {n.title!r} is a hub page in {s.section}; scripts/build_hubs.py writes them under research only')
+                order = _cfg(n).get('order')
+                if order is None:
+                    continue
+                if order != 'newest':
+                    raise SystemExit(f'site/nav.yml: {n.title!r} has order {order!r}; the one order is newest')
+                undated = [k.title for k in n.kids if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(_cfg(k).get('published', '')))]
+                if undated:
+                    raise SystemExit(f'site/nav.yml: {n.title!r} lists its pages newest first, so each needs published as YYYY-MM-DD; missing or malformed on {", ".join(undated)}')
         sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
         self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 

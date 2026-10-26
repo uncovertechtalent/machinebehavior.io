@@ -116,6 +116,8 @@ def hubs():
         about = n.cfg_page.get('about')
         if not about:
             raise SystemExit(f'site/nav.yml: the index page {n.title!r} needs about, its one line')
+        if not n.kids:
+            raise SystemExit(f'site/nav.yml: the index page {n.title!r} lists no pages')
         rows, changed = [], []
         for k in site_chrome.ordered(n):
             desc, d = page_meta(k.url)

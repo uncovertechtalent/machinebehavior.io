@@ -97,6 +97,17 @@ class ResearchSidebar(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             tree_from(text.replace(anchor, '                url: /research/case-files/running-conjobs-for-ai/\n', 1))
         self.assertIn('Running conjobs for AI', str(e.exception))
+        with self.assertRaises(SystemExit) as e:  # a date that would sort as text in the wrong place
+            tree_from(text.replace(anchor, anchor.replace('2026-10-06', '2026-9-6'), 1))
+        self.assertIn('Running conjobs for AI', str(e.exception))
+
+    def test_hub_pages_only_under_research(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        anchor = '        url: /aieo/this-site/\n'
+        self.assertIn(anchor, text)
+        with self.assertRaises(SystemExit) as e:
+            tree_from(text.replace(anchor, anchor + '        hub: true\n', 1))
+        self.assertIn('This site', str(e.exception))
 
     def test_a_group_holds_one_index_page(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')

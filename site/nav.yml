@@ -11,8 +11,8 @@
 #          the group's index, with the group's pages under it, or `include:` another section (ADR-0044, ADR-0045)
 #   side   the sidebar's name for a page or an included section, when it differs from the title (All case files)
 #   order  newest: its pages list newest first by `published`, in the sidebar, on its page and on the research index;
-#          every one of them needs a date. Without it they keep the order written here
-#   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045)
+#          every one of them needs a date (YYYY-MM-DD). Without it they keep the order written here
+#   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
 #   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py),
