@@ -10,7 +10,8 @@ One function, apply(html, rel), writes the managed blocks of a page:
     <!-- mb:foot -->    the footer: conformity line, page source and history, report an issue, legal links
 
 It also sets the theme attribute on <html>: every page under /inside/ (Inside and Docs) gets data-mb-theme="intranet",
-the light intranet theme of the design system, and every other page loses it (ADR-0034, ADR-0035).
+the light intranet theme of the design system (ADR-0034, ADR-0035); every page under /research/ gets data-mb-theme="report",
+the light report theme (ADR-0039); every other page loses it.
 
 Each block sits between <!-- mb:NAME --> and <!-- /mb:NAME -->. A page that has the markers keeps them where they are;
 a page without them gets them at fixed anchors (after <body>, at the top of <div class="sheet"> or <main>, before
@@ -44,7 +45,7 @@ TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/
 POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
-THEMED = ('/inside/', 'intranet')  # pages under this URL prefix get data-mb-theme on <html> (ADR-0035)
+THEMED = (('/inside/', 'intranet'), ('/research/', 'report'))  # URL prefix, data-mb-theme on <html> (ADR-0035, ADR-0039)
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
 
 BLOCK_RE = re.compile(r'<!-- mb:(\w+) -->.*?<!-- /mb:\1 -->', re.S)
@@ -567,6 +568,11 @@ def _insert_before(src, pattern, text):
     return src[:m.start()] + text + src[m.start():]
 
 
+def theme_for(url):
+    """The data-mb-theme value for a page URL: the theme of the first THEMED prefix it starts with, else None."""
+    return next((theme for prefix, theme in THEMED if url.startswith(prefix)), None)
+
+
 def _html_theme(src, theme):
     """Set data-mb-theme on the <html> element to theme, or remove it when theme is None."""
     m = re.search(r'<html([^>]*)>', src)
@@ -641,7 +647,7 @@ def apply(src, rel):
     # 4. body classes and the skip-link target
     sec = node.section if node else 'none'
     src = _body_class(src, [f'mb-{layout}', f'mb-s-{sec}'] + (['mb-has-side'] if has_side else []))
-    src = _html_theme(src, THEMED[1] if url.startswith(THEMED[0]) else None)
+    src = _html_theme(src, theme_for(url))
     if 'id="main"' not in src:
         if layout == 'read':
             src = re.sub(r'<div class="sheet"', '<div class="sheet" id="main" role="main"', src, count=1)

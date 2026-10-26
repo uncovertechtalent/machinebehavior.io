@@ -1,6 +1,7 @@
 /* Design tokens of machinebehavior.io: colour, type, spacing. One file; every page loads it.
    Light and dark follow the visitor's system setting (prefers-color-scheme). Nothing is stored on the device.
-   One theme: a page that sets data-mb-theme="intranet" on <html> gets the light intranet values (ADR-0034).
+   Two fixed themes, set on <html> by scripts/site_chrome.py: data-mb-theme="intranet" gets the light intranet values (ADR-0034),
+   data-mb-theme="report" the light report values of the research section (ADR-0039).
    Every token starts with --mb-. The older page variables (--ink, --line, --card, --amber ...) are mapped onto the
    tokens at the end of this file, so pages written before the design system follow it too.
    Contrast: text tokens reach 4.5:1 on --mb-surface and --mb-surface-raised in both schemes (WCAG 2.2 AA). */
@@ -99,7 +100,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-mb-theme="intranet"]) {
+  :root:not([data-mb-theme="intranet"]):not([data-mb-theme="report"]) {
     --mb-surface: #0C0F12;
     --mb-surface-raised: #13181D;
     --mb-surface-sunken: #090B0E;
@@ -161,6 +162,28 @@ body.mb-app { --mb-accent: var(--mb-amber); --mb-focus: var(--mb-amber); }
   --mb-focus: var(--mb-info);
 }
 :root[data-mb-theme="intranet"] body.mb-app { --mb-accent: var(--mb-info); --mb-focus: var(--mb-info); }
+
+/* Report theme (ADR-0039): the research section in the register of a consulting report. Light in both system settings
+   (the dark values above skip it): white pages, deep teal ink, the site's teal as the one accent. Type and the title
+   band are in style.css. Text tokens and the teal reach 5.6:1 or more on both surfaces; band text 8.6:1 or more on the band. */
+:root[data-mb-theme="report"] {
+  color-scheme: light;
+  --mb-font-headline: 'Newsreader', "Iowan Old Style", Georgia, serif;
+  --mb-font-report: 'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mb-surface: #FFFFFF;
+  --mb-surface-raised: #FFFFFF;
+  --mb-surface-sunken: #F1F3F2;
+  --mb-surface-hover: #E8ECEA;
+  --mb-text: #0F1E22;
+  --mb-text-soft: #36454A;
+  --mb-text-dim: #4E5C61;
+  --mb-line: #D9DEDC;
+  --mb-teal: #1F6B5E;
+  --mb-band: #0E2A2B;
+  --mb-band-title: #FFFFFF;
+  --mb-band-text: #D6E4E0;
+  --mb-band-accent: #86D2BF;
+}
 
 :root, body.mb-app { --mb-accent-tint: color-mix(in srgb, var(--mb-accent) 13%, transparent); }
 
