@@ -15,7 +15,8 @@
 #   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
 #   elsewhere  on a hub page with order newest: pieces that live on another site, listed on that page only and merged
 #          by date with its pages. Each has title, url (its home, a host in ELSEWHERE_HOMES in scripts/site_chrome.py),
-#          optional also (a copy on another such host), published and about (ADR-0046)
+#          optional also (a copy on another such host), published (the piece's first publication, on whichever copy
+#          came first) and about (ADR-0046)
 #   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py),
