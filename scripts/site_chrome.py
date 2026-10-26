@@ -127,6 +127,14 @@ class Tree:
                         raise SystemExit(f'site/nav.yml: {n.title!r} is a hub page in {s.section}; scripts/build_hubs.py writes them under research only')
                     if not _cfg(n).get('about') or not n.kids:
                         raise SystemExit(f'site/nav.yml: the index page {n.title!r} needs about, its one line, and pages to list')
+                out = _cfg(n).get('elsewhere')
+                if out is not None:
+                    if _cfg(n).get('hub') is not True or _cfg(n).get('order') != 'newest':
+                        raise SystemExit(f'site/nav.yml: {n.title!r} lists pieces elsewhere, so it must be a hub page with order newest')
+                    for e in out:
+                        bad = _elsewhere_problem(e)
+                        if bad:
+                            raise SystemExit(f'site/nav.yml: the piece {e.get("title")!r} listed elsewhere on {n.title!r}: {bad}')
                 order = _cfg(n).get('order')
                 if order is None:
                     continue
@@ -372,6 +380,7 @@ def powersuit_side(t, node):
 
 SIDEBAR_HOST = {'red-team': 'research'}  # sections whose pages show another section's sidebar, which includes them (ADR-0044)
 SIDE_RECENT = 5  # pages a group lists under its index in the sidebar; the rest are on the index (ADR-0045)
+ELSEWHERE_HOMES = {'coetzeestefan.substack.com': 'Substack', 'uncovertechtalent.com': 'the Uncover Tech Talent blog'}  # hosts an `elsewhere` entry may live on, and their names (ADR-0046)
 
 
 def ordered(n):
@@ -448,6 +457,25 @@ def _groups(n):
         if k.group:
             yield k
         yield from _groups(k)
+
+
+def home_of(url):
+    """The name of the site an `elsewhere` URL lives on, or None when its host is not in ELSEWHERE_HOMES."""
+    m = re.match(r'https://([^/]+)/', str(url))
+    return ELSEWHERE_HOMES.get(m.group(1)) if m else None
+
+
+def _elsewhere_problem(e):
+    if not isinstance(e, dict) or not e.get('title') or not e.get('about'):
+        return 'it needs title and about'
+    for key in ('url', 'also'):
+        if key in e and not home_of(e[key]):
+            return f'{key} {e[key]!r} is not an https URL on a host in ELSEWHERE_HOMES'
+    if 'url' not in e:
+        return 'it needs url'
+    if not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(e.get('published', ''))):
+        return 'it needs published as YYYY-MM-DD'
+    return None
 
 
 def _cfg(n):

@@ -331,6 +331,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0046-articles-index-lists-pieces-elsewhere/",
+"t": "ADR-0046: The articles index lists the research pieces that live on Substack",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

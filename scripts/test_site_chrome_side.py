@@ -2,7 +2,8 @@
 """The section sidebar from site/nav.yml (ADR-0044, ADR-0045): research groups as an accordion of <details name="mb-side">,
 the group holding the current page open, each group opening with its index page (All case files) and at most five of its
 pages under it, newest first where nav.yml asks, the red-team pages on the research sidebar, sidebar-only links kept out
-of the page tree, the group index in the breadcrumbs, and no Topics block. Reads the real site/nav.yml. Stdlib only.
+of the page tree, the group index in the breadcrumbs, pieces listed elsewhere on the Articles index only (ADR-0046),
+and no Topics block. Reads the real site/nav.yml. Stdlib only.
 Run from the repo root: python3 scripts/test_site_chrome_side.py"""
 import re
 import sys
@@ -119,6 +120,48 @@ class ResearchSidebar(unittest.TestCase):
         rows = re.findall(r'<li class="mb-entry"><a href="([^"]+)">.*?<span class="mb-entry-meta">([^<]+)</span>', src)
         self.assertEqual([u for u, _ in rows], [k.url for k in site_chrome.ordered(self.t.by_url['/research/case-files/'])])
         self.assertEqual([m for _, m in rows], ['published 2026-10-06', 'published 2026-10-03'])
+
+    def test_articles_index_lists_pieces_elsewhere_by_date(self):
+        src = (site_chrome.ROOT / 'research' / 'articles' / 'index.html').read_text(encoding='utf-8')
+        rows = re.findall(r'<li class="mb-entry[^"]*"><a href="([^"]+)">.*?<span class="mb-entry-meta">(.*?)</span>', src)
+        urls = [u for u, _ in rows]
+        self.assertEqual(urls[:4], ['/research/articles/chaos-engineering-for-behaviour/',
+                                    'https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms',
+                                    'https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil',
+                                    '/research/articles/the-cheating-moved/'])  # same day: this site's page first
+        self.assertEqual(len(urls), 2 + len(self.t.by_url['/research/articles/'].cfg_page['elsewhere']))
+        meta = dict(rows)
+        self.assertIn('on Substack, also on <a href="https://uncovertechtalent.com/blog/write-for-the-codec/">the Uncover Tech Talent blog</a>',
+                      meta['https://coetzeestefan.substack.com/p/write-for-the-codec'])
+        self.assertTrue(meta['https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution'].endswith('on Substack'))
+        self.assertIn('mb-entries-note', src)
+
+    def test_pieces_elsewhere_stay_out_of_the_sidebar_and_the_research_index(self):
+        self.assertEqual(sub(self.side(CASE12), 'All articles'), ['/research/articles/chaos-engineering-for-behaviour/',
+                                                                 '/research/articles/the-cheating-moved/'])
+        urls = [n.url for _, nodes in build_hubs.research_groups(self.t) for n in nodes]
+        self.assertFalse([u for u in urls if u.startswith('https://')])
+        self.assertNotIn('mb-entries-note', (site_chrome.ROOT / 'research' / 'registers' / 'index.html').read_text(encoding='utf-8'))
+
+    def test_a_piece_elsewhere_is_checked(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        url = '                url: https://coetzeestefan.substack.com/p/compaction-is-the-new-oom\n'
+        date = '                published: 2026-09-28\n                about: Most agent harnesses ship without swap.\n'
+        self.assertIn(url, text)
+        self.assertIn(date, text)
+        for old, bad, why in ((url, url.replace('coetzeestefan.substack.com', 'example.com'), 'ELSEWHERE_HOMES'),
+                              (url, url.replace('https://', 'http://'), 'ELSEWHERE_HOMES'),
+                              (date, date.replace('2026-09-28', '2026-9-28'), 'YYYY-MM-DD')):
+            with self.assertRaises(SystemExit) as e:
+                tree_from(text.replace(old, bad, 1))
+            self.assertIn('Compaction Is the New OOM', str(e.exception))
+            self.assertIn(why, str(e.exception))
+        anchor = '            about: Terms, man pages and topics for reading the research.\n'
+        self.assertIn(anchor, text)
+        with self.assertRaises(SystemExit) as e:  # the Reference index lists in written order, so nothing can merge by date
+            tree_from(text.replace(anchor, anchor + '            elsewhere:\n              - title: X\n                url: https://coetzeestefan.substack.com/p/x\n'
+                                                    '                published: 2026-10-01\n                about: X.\n', 1))
+        self.assertIn('Reference', str(e.exception))
 
     def test_hub_pages_only_under_research(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')

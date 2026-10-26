@@ -23,7 +23,7 @@ machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the 
 | Topics | `/topics/` | one hub per topic in `site/topics.yml` |
 | Map | `/map/` | |
 
-`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. It also writes each `hub: true` page, a group's index (/research/case-files/, /research/articles/, /research/registers/ and /research/reference/), and the topic hubs.
+`/research/` is built by `scripts/build_hubs.py` from the same file: every research page in its group, with the description the page gives itself. It also writes each `hub: true` page, a group's index (/research/case-files/, /research/articles/, /research/registers/ and /research/reference/), and the topic hubs. An index with `elsewhere:` also lists pieces that live on another site, merged by date and marked with where they live; the Articles index lists the research pieces on Substack this way ([ADR-0046](doc:eng/adr-0046-articles-index-lists-pieces-elsewhere)).
 
 ## site/nav.yml
 
@@ -41,6 +41,12 @@ sections:
             hub: true              # a list of its pages, written by scripts/build_hubs.py
             order: newest          # its pages newest first by published; each needs a date
             about: Single incidents, each written up from its record.
+            elsewhere:             # pieces that live on another site, on this index only (Articles uses it)
+              - title: Compaction Is the New OOM
+                url: https://coetzeestefan.substack.com/p/compaction-is-the-new-oom   # the canonical copy
+                also: https://uncovertechtalent.com/blog/compaction-is-the-new-oom/  # another copy, optional
+                published: 2026-09-28
+                about: Most agent harnesses ship without swap.
             pages:
               - title: "Case 12: a licence rule mid-task"
                 url: /research/case-files/case-12-licence-rule-mid-task/

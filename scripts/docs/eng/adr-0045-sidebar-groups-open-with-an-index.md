@@ -5,6 +5,7 @@ order: 45
 adr: 45
 status: accepted
 created: 2026-10-26
+updated: 2026-10-26
 labels: adr, decision, site-chrome, navigation, research
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -19,7 +20,7 @@ type: explanation
 
 **A group holds one page, its index.** In `site/nav.yml` each group holds exactly one page with the group's pages under it, or `include:`s a section, as Red team does. `side:` names the index in the sidebar: All experiments, All case files, All articles, All red-team pages, All registers, All reference texts. The red-team section carries its own `side:`, so "All red-team pages" replaces "Overview". `scripts/site_chrome.py` stops the build when a group holds anything else.
 
-**The new index pages are generated.** A `hub: true` page is written by `scripts/build_hubs.py`: the group's name, its `about` line, and every page it holds with the page's own description and its publication date, or its last change when it gives none, under the report theme with an Index pill. Case files, Articles, Registers and Reference are hub pages; Experiments and Red team keep their written pages. The research index leaves the hub pages out of its lists, which already show the same pages.
+**The new index pages are generated.** A `hub: true` page is written by `scripts/build_hubs.py`: the group's name, its `about` line, and every page it holds with the page's own description and its publication date, or its last change when it gives none, under the report theme with an Index pill. Case files, Articles, Registers and Reference are hub pages; Experiments and Red team keep their written pages. Extended by [ADR-0046](doc:eng/adr-0046-articles-index-lists-pieces-elsewhere): the Articles index also lists the research pieces that live on Substack. The research index leaves the hub pages out of its lists, which already show the same pages.
 
 **Newest first where a list asks for it.** `order: newest` on a page or section lists its pages newest first by `published`, ties in the written order, in the sidebar, on its index page and on the research index. Every page in such a list needs a date, and the build stops on one without. Experiments, Case files, Articles and Red team are ordered this way. Registers and Reference keep their written order, because most of their pages carry no publication date and the sitemap dates move with every rebuild.
 

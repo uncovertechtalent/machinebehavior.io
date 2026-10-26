@@ -13,6 +13,9 @@
 #   order  newest: its pages list newest first by `published`, in the sidebar, on its page and on the research index;
 #          every one of them needs a date (YYYY-MM-DD). Without it they keep the order written here
 #   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
+#   elsewhere  on a hub page with order newest: pieces that live on another site, listed on that page only and merged
+#          by date with its pages. Each has title, url (its home, a host in ELSEWHERE_HOMES in scripts/site_chrome.py),
+#          optional also (a copy on another such host), published and about (ADR-0046)
 #   about  one sentence on a section or page, for the cards on the home page
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py),
@@ -115,6 +118,56 @@ sections:
             hub: true
             order: newest
             about: Longer arguments from the research programme, with their sources.
+            elsewhere:  # research pieces that live on another site, listed on this index only (ADR-0046)
+              - title: Knowledge Infrastructure for LLMs
+                url: https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms
+                also: https://uncovertechtalent.com/blog/knowledge-infrastructure/
+                published: 2026-10-03
+                about: A language model can only work from what someone wrote down and put in front of it. Most companies that bought AI maintain their code and little else.
+              - title: The Stance Layer Is Still Toil
+                url: https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil
+                also: https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/
+                published: 2026-10-01
+                about: A hook can block a word on every reply. Nothing I run can yet catch a model before it folds, only after.
+              - title: An RCA on Claudish
+                url: https://coetzeestefan.substack.com/p/an-rca-on-claudish
+                also: https://uncovertechtalent.com/blog/where-did-claudish-come-from/
+                published: 2026-09-29
+                about: "Where Claude's writing style came from: text written to be heard, read in silence."
+              - title: "Which LLM User Are We Talking About?"
+                url: https://coetzeestefan.substack.com/p/which-llm-user-are-we-talking-about
+                also: https://uncovertechtalent.com/blog/which-llm-user/
+                published: 2026-09-29
+                about: Advice about language models depends on which model, on whose hardware, inside how much harness.
+              - title: Compaction Is the New OOM
+                url: https://coetzeestefan.substack.com/p/compaction-is-the-new-oom
+                also: https://uncovertechtalent.com/blog/compaction-is-the-new-oom/
+                published: 2026-09-28
+                about: Most agent harnesses ship without swap.
+              - title: What Operations Already Knows About Running Agents
+                url: https://coetzeestefan.substack.com/p/what-operations-already-knows-about
+                also: https://uncovertechtalent.com/blog/what-operations-already-knows/
+                published: 2026-09-25
+                about: "Error budgets, reconciliation loops, separation of duties and recovery over prevention: four operations practices that fit agent work almost line for line."
+              - title: Write for the Codec
+                url: https://coetzeestefan.substack.com/p/write-for-the-codec
+                also: https://uncovertechtalent.com/blog/write-for-the-codec/
+                published: 2026-09-21
+                about: Nobody reads your documentation. Both ends are a model now, and the file between them is a wire format.
+              - title: The Golem Made of English and the Horizon of Consequences
+                url: https://coetzeestefan.substack.com/p/the-golem-made-of-english-and-the
+                also: https://uncovertechtalent.com/blog/the-golem-made-of-english/
+                published: 2026-09-21
+                about: A language model is a golem made of English. It behaves well only where it can see what its act will cost, and infrastructure is the craft of bringing that cost into view.
+              - title: The Trap File Is Longer Than the Instruction File
+                url: https://coetzeestefan.substack.com/p/the-trap-file-is-longer-than-the
+                also: https://uncovertechtalent.com/blog/the-trap-file-is-longer-than-the-instruction-file/
+                published: 2026-09-21
+                about: Seven months of running an agent-built pipeline unattended, 308 lines of recorded failures next to 208 lines of instructions.
+              - title: Sycophancy Is Layered
+                url: https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution
+                published: 2026-07-31
+                about: A longitudinal single-user case study, with operationalized artifacts.
             pages:
               - title: The cheating moved
                 url: /research/articles/the-cheating-moved/
