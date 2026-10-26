@@ -33,7 +33,7 @@ class TopicPosts(unittest.TestCase):
         p = self.posts['The Stance Layer Is Still Toil']
         self.assertEqual(p['u'], 'https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/')
         self.assertEqual((p['site'], p['also'], p['also_site']),
-                         ('Substack', 'https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/', 'uncovertechtalent.com'))
+                         ('Substack', 'https://uncovertechtalent.com/blog/the-stance-layer-is-still-toil/', 'the Uncover Tech Talent blog'))
         twins = [p for p in self.posts.values() if p.get('also')]
         self.assertTrue(twins)
         for p in twins:
@@ -47,7 +47,7 @@ class TopicPosts(unittest.TestCase):
         topic = {'key': 'k', 'map_tags': ['tag']}
         (p,) = build_hubs.members(topic, self.t, {'pages': []}, tag_posts, substack, [])['posts']
         self.assertEqual((p['u'], p['also'], p['also_site']),
-                         ('https://coetzeestefan.substack.com/p/a/', 'https://uncovertechtalent.com/blog/a/', 'uncovertechtalent.com'))
+                         ('https://coetzeestefan.substack.com/p/a/', 'https://uncovertechtalent.com/blog/a/', 'the Uncover Tech Talent blog'))
 
     def test_no_post_points_at_a_moved_path_on_another_site(self):
         bad = [u for p in self.posts.values() for u in (p['u'], p.get('also') or '') if FOREIGN_RESEARCH.match(u)]
@@ -60,7 +60,7 @@ class TopicPosts(unittest.TestCase):
     def test_the_hub_page_names_the_blog_copy(self):
         src = (ROOT / 'topics' / 'sycophancy-and-stance' / 'index.html').read_text(encoding='utf-8')
         self.assertIn('<a href="https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil/">The Stance Layer Is Still Toil</a>', src)
-        self.assertIn('also on uncovertechtalent.com</a>', src)
+        self.assertIn('also on the Uncover Tech Talent blog</a>', src)  # the names /research/articles/ uses (ELSEWHERE_HOMES)
         self.assertNotIn('also on Substack', src)
 
 

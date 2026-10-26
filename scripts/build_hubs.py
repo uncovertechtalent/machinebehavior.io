@@ -274,14 +274,15 @@ def members(topic, t, docs, tag_posts, substack, issues):
             print(f'warning: site/topics.yml: {topic["key"]}: no tag page {tag} on the map', file=sys.stderr)
         for n in tag_posts.get(tag, []):
             if n['id'] not in seen:
-                seen.add(n['id']); posts.append({'t': n['title'], 'u': n['id'], 'date': n.get('date', ''), 'site': 'uncovertechtalent.com', 'd': n.get('desc', '')})
+                seen.add(n['id']); posts.append({'t': n['title'], 'u': n['id'], 'date': n.get('date', ''), 'site': site_chrome.home_of(n['id']) or 'uncovertechtalent.com', 'd': n.get('desc', '')})
     rx = words_rx(topic.get('post_words'))
     by_title = {norm_title(p['t']): p for p in posts}
     for n in substack:
         twin = by_title.get(norm_title(n['title']))
-        if twin is not None and twin['site'] != 'Substack':  # the blog copy names the Substack copy canonical (ADR-0046), so it leads; once
-            twin.update(u=n['id'], site='Substack', also=twin['u'], also_site=twin['site'])
+        if twin is not None and not twin.get('also'):  # the blog copy names the Substack copy canonical (ADR-0046), so it leads; once
+            twin.update(u=n['id'], site=site_chrome.home_of(n['id']) or 'Substack', also=twin['u'], also_site=twin['site'])
         elif twin is not None:
+            print(f'warning: site/topics.yml: {topic["key"]}: a second Substack post matches {twin["t"]!r} ({n["id"]}); the hub keeps {twin["u"]}', file=sys.stderr)
             continue
         elif rx and rx.search(n['title']):
             posts.append({'t': n['title'].strip(), 'u': n['id'], 'date': n.get('date', ''), 'site': 'Substack', 'd': n.get('desc', '')})
