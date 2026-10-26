@@ -321,6 +321,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0044-sidebar-accordion-groups/",
+"t": "ADR-0044: Sidebar groups fold out one at a time, the research sidebar includes the red team, and no sidebar lists the topics",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

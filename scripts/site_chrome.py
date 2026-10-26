@@ -41,7 +41,6 @@ NAV_FILE = ROOT / 'site' / 'nav.yml'
 
 SIDEBARS = {'research', 'red-team', 'conformity', 'inside', 'topics', 'aieo', 'cto'}  # sections whose pages carry the section sidebar
 TOPICS_FILE = ROOT / 'site' / 'topics.yml'
-TOPICS_JSON = ROOT / 'topics' / 'topics.json'  # membership, written by scripts/build_hubs.py
 POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
@@ -73,6 +72,7 @@ class Node:
     def __init__(self, title, url=None, section=None, parent=None, group=False):
         self.title, self.url, self.section, self.parent, self.group = title, url, section, parent, group
         self.kids = []
+        self.link = False  # a sidebar-only link (`link:` in site/nav.yml): not a page of this section, never indexed
 
     def add(self, node):
         node.parent = self
@@ -105,6 +105,19 @@ class Tree:
                 self._auto(node, s['auto'])
         if self.home is None:
             raise SystemExit('site/nav.yml: no section with key home')
+        # sidebar groups (ADR-0044): only at the top of a section, and an included section has none of its own, because a
+        # group inside a group would put one accordion inside another with the same name
+        keys = {s.section for s in self.sections}
+        included = {g.cfg_page['include'] for s in self.sections for g in _groups(s) if g.cfg_page.get('include')}
+        for s in self.sections:
+            for g in _groups(s):
+                inc = g.cfg_page.get('include')
+                if inc and inc not in keys:
+                    raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} includes unknown section {inc!r}')
+                if g.parent is not s:
+                    raise SystemExit(f'site/nav.yml: group {g.title!r} in {s.section} sits inside another entry; groups belong at the top of a section')
+                if s.section in included:
+                    raise SystemExit(f'site/nav.yml: section {s.section} is included by another and cannot hold the group {g.title!r}')
         sm = (ROOT / 'sitemap.xml').read_text(encoding='utf-8')
         self.lastmod = {u[len(self.base):]: d for u, d in re.findall(r'<loc>([^<]+)</loc><lastmod>(\d{4}-\d{2}-\d{2})', sm)}
 
@@ -116,7 +129,11 @@ class Tree:
         for it in items:
             if 'group' in it:
                 g = parent.add(Node(it['group'], None, section, group=True))
+                g.cfg_page = it
                 self._pages(g, it.get('pages') or [], section)
+                continue
+            if 'link' in it:
+                parent.add(Node(it['link'], it['url'], section)).link = True
                 continue
             node = parent.add(Node(it['title'], it['url'], section))
             node.cfg_page = it
@@ -309,41 +326,6 @@ def crumbs_ld(t, trail):
     return '<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace('</', '<\\/') + '</script>'
 
 
-_MEMBERS = None
-
-
-def reload_topics():
-    global _MEMBERS
-    _MEMBERS = None
-
-
-def topic_members():
-    """{topic url: set of page urls}, from topics/topics.json; empty before the first build of the hubs."""
-    global _MEMBERS
-    if _MEMBERS is None:
-        _MEMBERS = {}
-        if TOPICS_JSON.exists():
-            for tp in json.loads(TOPICS_JSON.read_text(encoding='utf-8'))['topics']:
-                _MEMBERS[tp['url']] = set(tp['pages'])
-    return _MEMBERS
-
-
-def topics_block(t, url):
-    """The Topics block of a sidebar: every topic hub; a mark on each topic that lists the current page."""
-    sec = t.section('topics')
-    if sec is None or not sec.kids:
-        return ''
-    mem = topic_members()
-    li = ''
-    for k in sec.kids:
-        if url in mem.get(k.url, ()):
-            li += f'<li><a class="mb-topic-in" href="{k.url}">{esc(k.title)}<span class="mb-sr"> (lists this page)</span></a></li>'
-        else:
-            li += f'<li><a href="{k.url}">{esc(k.title)}</a></li>'
-    return (f'<div class="mb-topics"><a class="mb-side-label" href="{sec.url}">Topics</a>'
-            f'<ul>{li}</ul></div>')
-
-
 def powersuit_side(t, node):
     """The sidebar of /cto-powersuit/ and its plugin pages, in place of the section sidebar: the overview's sections,
     the plugins by area under Modules and the knowledge layer under its own section, the current page marked."""
@@ -371,31 +353,46 @@ def powersuit_side(t, node):
             f'<ul class="mb-side-tree">{secs}</ul></details></nav>')
 
 
+SIDEBAR_HOST = {'red-team': 'research'}  # sections whose pages show another section's sidebar, which includes them (ADR-0044)
+
+
 def side(t, node):
-    """The section sidebar: every page of the section, the current one marked; groups as headings, a page with
-    children as a disclosure that is open when the current page is inside it. Open by default; /inside/bar.js
-    closes it on narrow screens, where it sits above the content. /cto-powersuit/ and its plugin pages get the
-    powersuit sidebar instead (powersuit_side)."""
+    """The section sidebar: every page of the section, the current one marked. A group is a heading that folds out, and
+    the groups of one sidebar form an accordion (<details name="mb-side">): opening one closes the others, and the group
+    holding the current page is open on load. A group with `include:` lists another section's overview and pages, and
+    that section's pages show this sidebar (SIDEBAR_HOST). Inside a group a page's children are listed under it;
+    outside groups a page with children is a disclosure, open when the current page is inside it (ADR-0044). Open by
+    default; /inside/bar.js closes it on narrow screens, where it sits above the content. /cto-powersuit/ and its plugin
+    pages get the powersuit sidebar instead (powersuit_side)."""
     if node is None or node.section not in SIDEBARS:
         return ''
     if t.powersuit and (node is t.powersuit[0] or node.parent is t.powersuit[0]):
         return powersuit_side(t, node)
-    sec = t.section(node.section)
+    sec = t.section(SIDEBAR_HOST.get(node.section, node.section))
     here = {id(n) for n in t.trail(node)}
 
-    def link(n):
+    def link(n, label=None):
         cur = ' aria-current="page"' if n is node else ''
-        return f'<a href="{n.url}"{cur}>{esc(n.title)}</a>'
+        return f'<a href="{n.url}"{cur}>{esc(label or getattr(n, "cfg_page", {}).get("side") or n.title)}</a>'
+
+    def holds(nodes):
+        return any(id(n) in here or holds(n.kids) for n in nodes)
 
     ps = t.powersuit[0] if t.powersuit else None
 
-    def items(kids):
+    def items(kids, inner=False):
         h = ''
         for k in kids:
             if k is ps:  # the plugin pages stay in the powersuit sidebar; elsewhere the overview is one link
                 h += f'<li>{link(k)}</li>'
             elif k.group:
-                h += f'<li class="mb-side-group"><span class="mb-side-label">{esc(k.title)}</span><ul>{items(k.kids)}</ul></li>'
+                inc = t.section(k.cfg_page['include']) if k.cfg_page.get('include') else None
+                body = f'<li>{link(inc, "Overview")}</li>{items(inc.kids, True)}' if inc else items(k.kids, True)
+                op = ' open' if holds([inc] if inc else k.kids) else ''
+                h += (f'<li><details class="mb-side-acc" name="mb-side"{op}><summary>{esc(k.title)}</summary>'
+                      f'<ul>{body}</ul></details></li>')
+            elif k.kids and inner:
+                h += f'<li>{link(k)}<ul class="mb-side-sub">{items(k.kids, True)}</ul></li>'
             elif k.kids:
                 op = ' open' if id(k) in here else ''
                 h += f'<li><details{op}><summary>{link(k)}</summary><ul>{items(k.kids)}</ul></details></li>'
@@ -403,18 +400,27 @@ def side(t, node):
                 h += f'<li>{link(k)}</li>'
         return h
 
-    count = sum(1 for _ in _pages_under(sec)) - (sum(1 for _ in _pages_under(ps)) if ps is not None and ps.section == sec.section else 0)
+    included = [t.section(g.cfg_page['include']) for g in sec.kids if g.group and g.cfg_page.get('include')]
+    count = (sum(1 for _ in _pages_under(sec)) + sum(1 + sum(1 for _ in _pages_under(i)) for i in included)
+             - (sum(1 for _ in _pages_under(ps)) if ps is not None and ps.section == sec.section else 0))
     head_cur = ' aria-current="page"' if node is sec else ''
-    topics = topics_block(t, node.url) if node.section != 'topics' else ''
     return (f'<nav class="mb-side" aria-label="{esc(sec.title)} pages"><details class="mb-side-wrap" open>'
             f'<summary><span>{esc(sec.title)}</span><span class="mb-side-n">{count} pages</span></summary>'
             f'<a class="mb-side-head" href="{sec.url}"{head_cur}>{esc(sec.title)}</a>'
-            f'<ul class="mb-side-tree">{items(sec.kids)}</ul>{topics}</details></nav>')
+            f'<ul class="mb-side-tree">{items(sec.kids)}</ul></details></nav>')
+
+
+def _groups(n):
+    """Every group node under n."""
+    for k in n.kids:
+        if k.group:
+            yield k
+        yield from _groups(k)
 
 
 def _pages_under(n):
     for k in n.kids:
-        if k.url and '#' not in k.url:
+        if k.url and '#' not in k.url and not k.link:
             yield k
         yield from _pages_under(k)
 
@@ -663,7 +669,6 @@ def apply(src, rel):
         'crumbs': crumbs(trail, page_meta(t, url, read_minutes(src) if report else None) if hand else ''),
         'side': side(t, node) if has_side else '',
         'foot': foot(t, url, source, trail[-1].title),
-        'topics': topics_block(t, url),  # only where a page holds the marker (the docs sidebar)
     }
     main_open = r'<div class="sheet"[^>]*>' if layout == 'read' else r'<main\b[^>]*>'
     main_before = r'<div class="sheet"' if layout == 'read' else r'<main\b'
@@ -681,7 +686,7 @@ def apply(src, rel):
         if sentinel in src:
             src = src.replace(sentinel, block, 1)
             continue
-        if (name == 'side' and not body) or name == 'topics':
+        if name == 'side' and not body:
             continue
         fn, pat = anchors[name]
         nl = '\n' if name in ('bar', 'side', 'foot') else ''

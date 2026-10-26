@@ -74,24 +74,17 @@ sections:
     url: /research/
     about: The research programme in public. Claims with what would refute them, experiments with hashed predictions, registers, logs, case files, articles and reference texts.
     door: "Claims with what would refute them, experiments with hashed predictions, case files."  # the one line on the front page (ADR-0041)
-    pages:
-      - title: Claims ledger
-        url: /research/claims/
-      - title: Experiments
-        url: /research/experiments/
+    pages:  # groups in reading order; each folds out in the sidebar, one at a time (ADR-0044)
+      - group: Experiments
         pages:
-          - title: "Stance versus censorship: an abliteration probe"
-            url: /research/experiments/stance-vs-censorship-abliteration/
-            published: 2026-10-23
-            contributor: Claude (Opus 4.8)
-      - title: Objections register
-        url: /research/objections/
-        published: 2026-05-16
-      - title: Evidence index
-        url: /research/evidence/
-        published: 2026-10-07
-      - title: Slips
-        url: /research/slips/
+          - title: Experiments
+            url: /research/experiments/
+            side: All experiments
+            pages:
+              - title: "Stance versus censorship: an abliteration probe"
+                url: /research/experiments/stance-vs-censorship-abliteration/
+                published: 2026-10-23
+                contributor: Claude (Opus 4.8)
       - group: Case files
         pages:
           - title: "Case 12: a licence rule mid-task"
@@ -109,13 +102,28 @@ sections:
           - title: Chaos engineering for behaviour
             url: /research/articles/chaos-engineering-for-behaviour/
             published: 2026-10-03
+      - group: Red team
+        include: red-team  # the red-team section's overview and pages; its pages show this sidebar
+      - group: Registers
+        pages:
+          - title: Claims ledger
+            url: /research/claims/
+          - title: Objections register
+            url: /research/objections/
+            published: 2026-05-16
+          - title: Evidence index
+            url: /research/evidence/
+            published: 2026-10-07
+          - title: Slips
+            url: /research/slips/
       - group: Reference
         pages:
-          - title: Man pages
-            url: /man/
           - title: Terms
             url: /research/terms/
-
+          - title: Man pages
+            url: /man/
+          - link: Topics  # a sidebar link, not a page of this section
+            url: /topics/
   - key: red-team
     title: Red team
     url: /research/red-team/

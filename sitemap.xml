@@ -115,8 +115,8 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0019-definition-published-before-committee/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0020-founder-tour/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0021-one-navigation-source/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0022-section-sidebars/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0023-topic-hubs/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0024-sre-principles-in-practice/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0025-one-design-system/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0026-mission-control/</loc><lastmod>2026-10-09</lastmod></url>
@@ -137,6 +137,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0041-front-page-in-the-report-theme/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0042-one-light-scheme/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0043-map-draws-on-a-dark-canvas/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/adr-0044-sidebar-accordion-groups/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/agents/</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/board/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/changelog/</loc><lastmod>2026-10-09</lastmod></url>
