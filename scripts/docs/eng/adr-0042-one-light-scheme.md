@@ -5,7 +5,7 @@ order: 42
 adr: 42
 status: accepted
 created: 2026-10-26
-updated: 2026-10-26
+updated: 2026-10-27
 labels: adr, decision, design-system, accessibility, map
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -22,7 +22,7 @@ type: explanation
 
 **The map draws the light palette.** `map/index.html` drew its canvas from a dark or a light set by the system setting and redrew on a change. It now draws the light set only, and the dark colours are removed from its kinds. Replaced by [ADR-0043](doc:eng/adr-0043-map-draws-on-a-dark-canvas): the canvas behind the graph is dark again; the panel stays light.
 
-**Dark stays where it is chrome.** The top bar (`--mb-bar-*`) and the report theme's title band (`--mb-band`) are dark in every page; they mark the frame and the title, not a scheme.
+**Dark stays where it is chrome.** The top bar (`--mb-bar-*`) and the report theme's title band (`--mb-band`) are dark in every page; they mark the frame and the title, not a scheme. Replaced by [ADR-0047](doc:eng/adr-0047-research-and-front-page-in-the-paper-theme) for the band: there is no title band, and the `--mb-band` tokens are gone.
 
 **The dead hero styles go.** `/style.css` held a `.hero` band with a light and a dark map image for the old front page; no page used it.
 

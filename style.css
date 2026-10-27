@@ -187,9 +187,10 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 [data-mb-theme="paper"] .sheet header:has(> h1) .eyebrow a { color: inherit; }
 [data-mb-theme="paper"] h1 { font-family: var(--mb-font-paper); font-weight: 400; font-size: clamp(2.2rem, 5.5vw, 2.9rem); line-height: 1.12; letter-spacing: 0; color: var(--mb-text); margin: 10px 0 18px; text-wrap: balance; }
 [data-mb-theme="paper"] .sheet header:has(> h1) .subtitle { font-style: italic; font-size: 21px; line-height: 1.45; color: var(--mb-text-soft); margin: 0 auto; max-width: 560px; }
-/* section numbers: a CSS counter on the h2 headings of a reading page, not on small-caps labels, At a glance or the front page */
+/* section numbers: a CSS counter on the h2 headings of a reading page, not on small-caps labels, At a glance, the front page,
+   or a page whose headings carry their own numbers (data-own-numbering on its .sheet) */
 [data-mb-theme="paper"] h2 { font-family: var(--mb-font-paper); font-weight: 500; font-size: 26px; line-height: 1.25; color: var(--mb-text); margin: 44px 0 12px; }
-[data-mb-theme="paper"] body.mb-read:not(.home) .sheet > h2:not(.label)::before, [data-mb-theme="paper"] body.mb-read:not(.home) .sheet > section:not(.glance) > h2:not(.label)::before { counter-increment: pp-sec; content: counter(pp-sec) "\2003"; }
+[data-mb-theme="paper"] body.mb-read:not(.home) .sheet:not([data-own-numbering]) > h2:not(.label)::before, [data-mb-theme="paper"] body.mb-read:not(.home) .sheet:not([data-own-numbering]) > section:not(.glance) > h2:not(.label)::before { counter-increment: pp-sec; content: counter(pp-sec) "\2003"; }
 [data-mb-theme="paper"] .sheet h2.label { font: 500 16px/1.5 var(--mb-font-paper); font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.08em; color: var(--mb-text); border: 0; border-bottom: 1px solid var(--mb-text); padding: 0 0 4px; margin: 48px 0 14px; }
 [data-mb-theme="paper"] .sheet h2.label::before { content: none; }
 [data-mb-theme="paper"] h3 { font-family: var(--mb-font-paper); font-weight: 500; font-style: italic; font-size: 21px; color: var(--mb-text); }

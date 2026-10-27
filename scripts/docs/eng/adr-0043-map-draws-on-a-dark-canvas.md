@@ -5,6 +5,7 @@ order: 43
 adr: 43
 status: accepted
 created: 2026-10-26
+updated: 2026-10-27
 labels: adr, decision, design-system, map, accessibility
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -23,7 +24,7 @@ type: explanation
 
 **The contrast floor holds on the canvas.** The stamp reaches 6.3:1, its link 11.6:1, the node labels about 11.6:1 against the canvas, and every node colour 5.1:1 or more.
 
-This replaces the map paragraph of ADR-0042; the rest of ADR-0042 stands. The dark canvas joins the top bar and the report theme's title band as dark chrome on a light site.
+This replaces the map paragraph of ADR-0042; the rest of ADR-0042 stands. The dark canvas joins the top bar and the report theme's title band as dark chrome on a light site. [ADR-0047](doc:eng/adr-0047-research-and-front-page-in-the-paper-theme) removes the band; the canvas and the top bar stay dark.
 
 ## Consequences
 
