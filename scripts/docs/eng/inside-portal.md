@@ -39,6 +39,7 @@ The live operations view sits on its own page, [Mission Control](/inside/mission
 - Build links in script with `a.href = ...`, never with an interpolated `href` attribute in a template string; the gate reads those as relative links.
 - Pages under `/inside/` are the platform, not pieces: the front page list skips them.
 - The page has no search box of its own; the one in the top bar covers everything the old box did, plus the docs and services.
+- The landing page has five top-level sections with fixed ids: `#sites`, `#seats`, `#work`, `#dashboards`, `#sources`. An "In this area" nav after the header links to them, and a "Leave Inside" nav at the foot links back to the public site. `main` carries `data-area="inside"` as the hook for scoping the area.
 - Without JavaScript the page points to `/llms.txt`, `/map/graph.json` and `/conformity/`.
 - Grafana frames only because Grafana runs with embedding allowed; see [Public dashboards](doc:obs/public-dashboards).
 
