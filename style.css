@@ -121,7 +121,7 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 /* Front page in the paper theme (ADR-0041, ADR-0047): a centred title with the second-brain graph beneath it as Figure 1, the
    programme's finding, the lead finding with its number, research rows, the doors into the site, Use it, and where it aims.
    The rows and the doors between static: markers are written by scripts/build_fallbacks.py; the lead finding is chosen by hand. */
-[data-mb-theme="paper"] body.home > .sheet { font-family: var(--mb-font-paper); max-width: 980px; color: var(--mb-text-soft); }
+[data-mb-theme="paper"] body.home > .sheet { font-family: var(--mb-font-paper); font-size: 20px; line-height: 1.5; max-width: 980px; color: var(--mb-text-soft); }
 [data-mb-theme="paper"] body.home .home-lead { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 40px 0 36px; margin: 0; text-align: center; border-bottom: 1px solid var(--mb-line); }
 [data-mb-theme="paper"] body.home .home-lead-text { max-width: 760px; margin: 0 auto; }
 [data-mb-theme="paper"] body.home .home-lead .kind { display: inline-block; margin: 0 0 12px; padding: 1px 10px 2px; border: 1px solid var(--mb-text-dim); font: 500 15px/1.5 var(--mb-font-paper); font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.08em; color: var(--mb-text-dim); }
@@ -179,7 +179,7 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
    (scripts/site_chrome.py). The register of a paper: EB Garamond throughout, a centred title, numbered sections, tables with
    three rules and "Table N." above the caption, italic source and note lines, At a glance as an abstract between rules.
    Colours come from the paper tokens in /design/tokens.css. */
-[data-mb-theme="paper"] body.mb-read > .sheet { font-family: var(--mb-font-paper); font-size: 20px; line-height: 1.5; color: var(--mb-text-soft); max-width: 680px; counter-reset: pp-sec; }
+[data-mb-theme="paper"] body.mb-read:not(.home) > .sheet { font-family: var(--mb-font-paper); font-size: 20px; line-height: 1.5; color: var(--mb-text-soft); max-width: 680px; counter-reset: pp-sec; }
 [data-mb-theme="paper"] .sheet header:has(> h1) { text-align: center; margin: 28px 0 40px; padding-bottom: 28px; border-bottom: 1px solid var(--mb-line); }
 [data-mb-theme="paper"] .sheet header:has(> h1):has(+ .glance) { border-bottom: 0; padding-bottom: 8px; margin-bottom: 24px; }
 [data-mb-theme="paper"] .sheet header:has(> h1) > .kind { display: inline-block; margin: 0 0 12px; padding: 1px 10px 2px; border: 1px solid var(--mb-text-dim); font: 500 15px/1.5 var(--mb-font-paper); font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.08em; color: var(--mb-text-dim); }
@@ -195,9 +195,10 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 [data-mb-theme="paper"] .sheet h2.label::before { content: none; }
 [data-mb-theme="paper"] h3 { font-family: var(--mb-font-paper); font-weight: 500; font-style: italic; font-size: 21px; color: var(--mb-text); }
 [data-mb-theme="paper"] .thesis { font-size: 20px; margin: 0 0 1em; text-align: justify; hyphens: auto; }
-[data-mb-theme="paper"] .thesis strong { color: var(--mb-text); font-weight: 600; font-variant: small-caps; text-transform: lowercase; letter-spacing: 0.03em; }
-[data-mb-theme="paper"] .sheet a { color: var(--mb-teal); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--mb-teal) 50%, transparent); }
-[data-mb-theme="paper"] .sheet a:hover { border-bottom-color: currentColor; }
+[data-mb-theme="paper"] .thesis strong { color: var(--mb-text); font-weight: 600; font-variant: small-caps; letter-spacing: 0.03em; }  /* no lowercase step: an acronym in a lead-in keeps its capitals */
+/* links in the text: a hairline in the teal; the breadcrumbs inside the sheet keep the chrome's look */
+[data-mb-theme="paper"] .sheet a:not(.mb-crumbs a) { color: var(--mb-teal); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--mb-teal) 50%, transparent); }
+[data-mb-theme="paper"] .sheet a:not(.mb-crumbs a):hover { border-bottom-color: currentColor; }
 [data-mb-theme="paper"] .sheet a.mono, [data-mb-theme="paper"] .sheet code { font-size: 0.82em; }
 /* tables: three rules, the caption above as "Table N." (the number is written by the chrome, ADR-0040) */
 [data-mb-theme="paper"] .sheet table { font-family: var(--mb-font-paper); font-size: 17px; line-height: 1.4; font-variant-numeric: lining-nums tabular-nums; width: 100%; margin: 30px 0 8px; border-top: 1.5px solid var(--mb-text); border-bottom: 1.5px solid var(--mb-text); }
