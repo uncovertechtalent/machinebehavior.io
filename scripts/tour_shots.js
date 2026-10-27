@@ -4,8 +4,9 @@
 //   npm install puppeteer-core@23.11.1
 //   node /path/to/scripts/tour_shots.js shots
 // then crop and compress each PNG into inside/tour/ (1600 px wide, WebP quality 80), for example:
-//   magick shots/4-incident.png -crop 1920x830+0+0 +repage -resize 1600x 4-incident.png && cwebp -q 80 -m 6 4-incident.png -o inside/tour/4-incident.webp
-//   magick shots/5-gate.png -crop 1920x665+0+280 +repage -resize 1600x 5-gate.png && cwebp -q 80 -m 6 5-gate.png -o inside/tour/5-gate.webp
+//   magick shots/4-incident.png -crop 1920x850+0+0 +repage -resize 1600x 4-incident.png && cwebp -q 80 -m 6 4-incident.png -o inside/tour/4-incident.webp
+//   magick shots/5-gate.png -crop 1920x680+0+270 +repage -resize 1600x 5-gate.png && cwebp -q 80 -m 6 5-gate.png -o inside/tour/5-gate.webp
+//   magick shots/2-service.png -crop 1560x2010+0+0 +repage -resize 1400x 2-service.png && cwebp -q 80 -m 6 2-service.png -o inside/tour/2-service.webp
 // and set width and height on each <img> to the new size. Check every line of the tour against the live page before the push.
 const puppeteer = require('puppeteer-core');
 const out = process.argv[2] || 'shots';
@@ -17,7 +18,7 @@ const openAndScroll = id => `(()=>{const a=document.getElementById('${id}');a.qu
 // w x h is the viewport in CSS pixels; the shot is taken at 1.5x. wait is real time for fetches, d3 layout and frames.
 const JOBS = [
   {name: '1-inside', url: SITE + '/inside/', h: 820, wait: 7000},
-  {name: '2-service', url: SITE + '/inside/services/local-llm/', w: 1040, h: 1080, wait: 2500},
+  {name: '2-service', url: SITE + '/inside/services/local-llm/', w: 1040, h: 1340, wait: 2500},
   {name: '3-adr', url: SITE + '/inside/docs/eng/adr-0002-deploy-is-gated/', h: 780, wait: 2500},
   {name: '4-incident', url: SITE + '/inside/status/', h: 780, wait: 4000, js: openAndScroll('2026-10-09-phantom-spend-counters')},
   {name: '5-gate', url: 'https://github.com/uncovertechtalent/machinebehavior.io/actions/runs/37789638737', h: 800, wait: 4000},
@@ -31,6 +32,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
   const browser = await puppeteer.launch({executablePath: CHROME, headless: 'new', args: ['--hide-scrollbars', '--force-color-profile=srgb']});
   for (const j of JOBS) {
     const page = await browser.newPage();
+    await page.emulateMediaFeatures([{name: 'prefers-color-scheme', value: 'light'}]);
     await page.setViewport({width: j.w || 1280, height: j.h || 800, deviceScaleFactor: 1.5});
     await page.goto(j.url, {waitUntil: 'networkidle0', timeout: 90000}).catch(e => console.log(j.name, 'load:', e.message));
     await sleep(j.wait);
