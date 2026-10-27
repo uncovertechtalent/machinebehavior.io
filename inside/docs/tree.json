@@ -341,6 +341,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0048-research-index-and-group-indexes-as-contents-lists/",
+"t": "ADR-0048: The research index and the group index pages are contents lists",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

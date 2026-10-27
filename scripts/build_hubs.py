@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Build the section and topic hub pages from site/nav.yml and site/topics.yml.
 
-- /research/: the Research section front page, every research page in the order and groups of site/nav.yml,
-  with the description each page gives itself (<meta name="description">).
-- /research/case-files/ and the other `hub: true` pages: a group's index, every page it holds (ADR-0045).
+- /research/: the Research section front page, a contents list of every research page in the order and groups of
+  site/nav.yml: each group's label links to its index page, each page is a line with its publication date (ADR-0048).
+- /research/case-files/ and the other `hub: true` pages: a group's index, the same list of every page it holds
+  (ADR-0045, ADR-0048).
 - /topics/<key>/: one hub per topic in site/topics.yml, listing what carries the topic: research, red team and Inside pages
   (the tag map in site/topics.yml), docs pages by label or space (inside/docs/search.json), posts (uncovertechtalent.com
   tag pages on the map and Substack titles, map/graph.json; a post with a Substack copy links that canonical copy and names
@@ -85,11 +86,19 @@ def is_hub(n):
     return site_chrome._cfg(n).get('hub') is True
 
 
+def toc_row(url, title, when='', out=False):
+    """One line of a contents list (ADR-0048): the title, then a leader and `when` at the end of the line when there is one
+    (a date, or a date and the site a piece lives on; HTML allowed). `out` marks a piece that lives on another site."""
+    cls = ' class="toc-out"' if out else ''
+    tail = f'<span class="toc-fill"></span><span class="toc-when">{when}</span>' if when else ''
+    return f'<li{cls}><a href="{esc(url)}">{esc(title)}</a>{tail}</li>'
+
+
 def research_groups(t):
-    """The research index's sections as (heading, pages), in the order of the sidebar (ADR-0044): pages outside any group
-    first, then each group with its pages and their children at any depth, or an included section's overview and pages,
-    each list in the order of site_chrome.ordered(). A group's generated index page and sidebar-only links stay out: the
-    index lists the same pages (ADR-0045)."""
+    """The research index's groups as (heading, index, pages), in the order of the sidebar (ADR-0044): the group's index
+    page (its one page, or an included section's overview; None for pages outside any group) and the pages under it at
+    any depth, in the order of site_chrome.ordered(). The index itself, written or generated, and sidebar-only links stay
+    out of the pages: the index is the group's label (ADR-0045, ADR-0048)."""
     sec = t.section('research')
 
     def down(kids):
@@ -98,17 +107,18 @@ def research_groups(t):
     out = []
     loose = [k for k in sec.kids if not k.group and not k.link]
     if loose:
-        out.append(('Registers and logs', loose))
+        out.append(('Registers and logs', None, loose))
     for g in (k for k in sec.kids if k.group):
         inc = t.section(g.cfg_page['include']) if g.cfg_page.get('include') else None
-        out.append((g.title, [inc] + down(site_chrome.ordered(inc)) if inc else down(g.kids)))
+        index = inc or next(k for k in g.kids if not k.link)  # a group holds one page, its index (ADR-0045)
+        out.append((g.title, index.url, down(site_chrome.ordered(index))))
     return out
 
 
 def hubs():
-    """One page per `hub: true` entry under /research/ (ADR-0045): the group's name, its `about`, and every page it holds in
-    the order of site_chrome.ordered(), sidebar-only links included, each with its description and its publication date,
-    or the date of its last change when it gives none. Pieces listed `elsewhere` join the list by date, after this site's
+    """One page per `hub: true` entry under /research/ (ADR-0045): the group's name, its `about` as the subtitle, and every
+    page it holds as a contents list in the order of site_chrome.ordered(), sidebar-only links included, each a title with
+    its publication date when it gives one (ADR-0048). Pieces listed `elsewhere` join the list by date, after this site's
     pages of the same day, each marked with the site it lives on and any copy (ADR-0046). The sidebar's All link points here."""
     t = site_chrome.tree()
     out = []
@@ -118,21 +128,16 @@ def hubs():
         about = n.cfg_page['about']  # Tree checks that a hub page has about and pages
         rows, changed = [], []
         for k in site_chrome.ordered(n):
-            desc, d = page_meta(k.url)
-            changed.append(d)
-            pub = site_chrome._cfg(k).get('published')
-            when = f'published {pub}' if pub else f'updated {d}'
-            rows.append((pub or d, f'<li class="mb-entry"><a href="{k.url}">{esc(k.title)}</a>'
-                                   f'<p>{esc(desc)}</p><span class="mb-entry-meta">{when}</span></li>'))
+            changed.append(page_meta(k.url)[1])
+            pub = site_chrome._cfg(k).get('published', '')
+            rows.append((pub or changed[-1], toc_row(k.url, k.title, pub)))
         outside = n.cfg_page.get('elsewhere') or []  # Tree allows it only with order newest, so the merge keeps that order
         for e in outside:
             also = (f', also on <a href="{esc(e["also"])}">{esc(site_chrome.home_of(e["also"]))}</a>' if e.get('also') else '')
-            rows.append((e['published'], f'<li class="mb-entry mb-entry-out"><a href="{esc(e["url"])}">{esc(e["title"])}</a>'
-                                         f'<p>{esc(e["about"])}</p><span class="mb-entry-meta">published {e["published"]} · '
-                                         f'on {esc(site_chrome.home_of(e["url"]))}{also}</span></li>'))
+            rows.append((e['published'], toc_row(e['url'], e['title'], f'{e["published"]} · on {esc(site_chrome.home_of(e["url"]))}{also}', out=True)))
         if outside:
             rows.sort(key=lambda r: r[0], reverse=True)  # stable: this site's pages first on a tie, then the written order
-        note = ('<p class="mb-entries-note">Entries marked ↗ live on another site, named under each; '
+        note = ('<p class="mb-entries-note">Entries marked ↗ live on another site, named at the end of the line; '
                 'the others are pages of this site.</p>' if outside else '')
         newest = max(changed + [e['published'] for e in outside])  # a new piece elsewhere changes the page too
         desc = f'{n.title} in the research on machinebehavior.io. {about}'
@@ -140,12 +145,10 @@ def hubs():
 <body>
 <div class="sheet">
   <header>
-    <span class="kind">Index</span>
-    <div class="eyebrow">Research · updated {newest}</div>
     <h1>{esc(n.title)}</h1>
     <p class="subtitle">{esc(about)}</p>
   </header>
-  {note}<ul class="mb-entries">{''.join(r for _, r in rows)}</ul>
+  {note}<ol class="toc">{''.join(r for _, r in rows)}</ol>
 </div>
 </body>
 </html>
@@ -161,16 +164,14 @@ def research():
     t = site_chrome.tree()
     sec = t.section('research')
     url = sec.url
-    rows, dates = [], []
-
-    def item(n):
-        desc, d = page_meta(n.url)
-        dates.append(d)
-        return (f'<li class="mb-entry"><a href="{n.url}">{esc(n.title)}</a>'
-                f'<p>{esc(desc)}</p><span class="mb-entry-meta">updated {d}</span></li>')
-
-    for heading, nodes in research_groups(t):
-        rows.append(f'<section><h2 class="label">{esc(heading)}</h2><ul class="mb-entries">' + ''.join(item(k) for k in nodes) + '</ul></section>')
+    blocks, dates = [], []
+    for heading, index, nodes in research_groups(t):
+        idx = t.by_url.get(index) if index else None
+        for k in ([idx] if idx and not is_hub(idx) else []) + nodes:
+            dates.append(page_meta(k.url)[1])  # the page's last change: the index changes with its pages
+        label = f'<a href="{index}">{esc(heading)}</a>' if index else esc(heading)
+        blocks.append(f'<div class="toc-group"><h2 class="label">{label}</h2><ol class="toc">'
+                      + ''.join(toc_row(k.url, k.title, site_chrome._cfg(k).get('published', '')) for k in nodes) + '</ol></div>')
     about = sec.cfg.get('about', '')
     newest = max(dates)
     n = len(dates)
@@ -179,13 +180,11 @@ def research():
 <body>
 <div class="sheet">
   <header>
-    <span class="kind">Section</span>
-    <div class="eyebrow">{n} pages · updated {newest}</div>
     <h1>Research</h1>
     <p class="subtitle">{esc(about)}</p>
   </header>
   <p class="thesis">{RESEARCH_INTRO}</p>
-  {''.join(rows)}
+  {''.join(blocks)}
   <p class="thesis">The same programme as an internal wiki, with data and rerun steps: <a class="mono" href="/inside/docs/res/">Research docs</a>. Every page and the links between them: <a class="mono" href="/map/">the map</a>.</p>
 </div>
 </body>

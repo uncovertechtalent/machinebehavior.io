@@ -17,6 +17,13 @@ import site_chrome  # noqa: E402
 
 PROBE = '/research/experiments/stance-vs-censorship-abliteration/'
 CASE12 = '/research/case-files/case-12-licence-rule-mid-task/'
+TOC_LINE = re.compile(r'<li(?: class="toc-out")?><a href="([^"]+)">[^<]*</a>(?:<span class="toc-fill"></span><span class="toc-when">(.*?)</span>)?</li>')  # one line of a contents list (ADR-0048): url, what follows the leader
+
+
+def toc_lines(src):
+    """The lines of a page's first contents list (ADR-0048) as (url, what follows the leader); the chrome's lists stay out."""
+    block = src[src.index('<ol class="toc">'):]
+    return TOC_LINE.findall(block[:block.index('</ol>')])
 
 
 def tree_from(text):
@@ -117,13 +124,30 @@ class ResearchSidebar(unittest.TestCase):
 
     def test_index_page_rows_follow_the_order(self):
         src = (site_chrome.ROOT / 'research' / 'case-files' / 'index.html').read_text(encoding='utf-8')
-        rows = re.findall(r'<li class="mb-entry"><a href="([^"]+)">.*?<span class="mb-entry-meta">([^<]+)</span>', src)
+        rows = toc_lines(src)
         self.assertEqual([u for u, _ in rows], [k.url for k in site_chrome.ordered(self.t.by_url['/research/case-files/'])])
-        self.assertEqual([m for _, m in rows], ['published 2026-10-06', 'published 2026-10-03'])
+        self.assertEqual([m for _, m in rows], ['2026-10-06', '2026-10-03'])
+        self.assertNotIn('mb-entry', src)  # a contents list, not cards (ADR-0048)
+        self.assertNotIn('<span class="kind">', src)
+
+    def test_research_index_is_a_contents_list(self):
+        src = (site_chrome.ROOT / 'research' / 'index.html').read_text(encoding='utf-8')
+        labels = re.findall(r'<h2 class="label"><a href="([^"]+)">([^<]+)</a></h2>', src)
+        self.assertEqual(labels, [('/research/experiments/', 'Experiments'), ('/research/case-files/', 'Case files'),
+                                  ('/research/articles/', 'Articles'), ('/research/red-team/', 'Red team'),
+                                  ('/research/registers/', 'Registers'), ('/research/reference/', 'Reference')])
+        self.assertNotIn('mb-entry', src)
+        self.assertNotIn('<span class="kind">', src)
+        toc = src[src.index('<div class="toc-group">'):src.index('<p class="thesis">The same programme')]
+        self.assertNotIn('<li><a href="/research/experiments/">', toc)  # a group's index is its label, never a line
+        self.assertIn('<li><a href="/research/experiments/stance-vs-censorship-abliteration/">Stance versus censorship: an abliteration probe</a>'
+                      '<span class="toc-fill"></span><span class="toc-when">2026-10-23</span></li>', toc)
+        self.assertIn('<li><a href="/research/claims/">Claims ledger</a></li>', toc)  # no publication date, so no date
+        self.assertEqual(len(re.findall(r'<li[ >]', toc)), sum(len(nodes) for _, _, nodes in build_hubs.research_groups(self.t)))
 
     def test_articles_index_lists_pieces_elsewhere_by_date(self):
         src = (site_chrome.ROOT / 'research' / 'articles' / 'index.html').read_text(encoding='utf-8')
-        rows = re.findall(r'<li class="mb-entry[^"]*"><a href="([^"]+)">.*?<span class="mb-entry-meta">(.*?)</span>', src)
+        rows = toc_lines(src)
         urls = [u for u, _ in rows]
         self.assertEqual(urls[:4], ['/research/articles/chaos-engineering-for-behaviour/',
                                     'https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms',
@@ -139,7 +163,7 @@ class ResearchSidebar(unittest.TestCase):
     def test_pieces_elsewhere_stay_out_of_the_sidebar_and_the_research_index(self):
         self.assertEqual(sub(self.side(CASE12), 'All articles'), ['/research/articles/chaos-engineering-for-behaviour/',
                                                                  '/research/articles/the-cheating-moved/'])
-        urls = [n.url for _, nodes in build_hubs.research_groups(self.t) for n in nodes]
+        urls = [n.url for _, _, nodes in build_hubs.research_groups(self.t) for n in nodes]
         self.assertFalse([u for u in urls if u.startswith('https://')])
         self.assertNotIn('mb-entries-note', (site_chrome.ROOT / 'research' / 'registers' / 'index.html').read_text(encoding='utf-8'))
 
@@ -221,9 +245,12 @@ class ResearchSidebar(unittest.TestCase):
 
     def test_research_index_follows_the_groups(self):
         groups = build_hubs.research_groups(self.t)
-        self.assertEqual([h for h, _ in groups], ['Experiments', 'Case files', 'Articles', 'Red team', 'Registers', 'Reference'])
-        urls = [n.url for _, nodes in groups for n in nodes]
-        self.assertEqual(len(urls), 15)
+        self.assertEqual([h for h, _, _ in groups], ['Experiments', 'Case files', 'Articles', 'Red team', 'Registers', 'Reference'])
+        self.assertEqual([i for _, i, _ in groups], ['/research/experiments/', '/research/case-files/', '/research/articles/',
+                                                     '/research/red-team/', '/research/registers/', '/research/reference/'])
+        urls = [n.url for _, _, nodes in groups for n in nodes]
+        self.assertEqual(len(urls), 13)                  # the two written indexes are labels now, not lines (ADR-0048)
+        self.assertNotIn('/research/experiments/', urls)
         self.assertIn(PROBE, urls)                      # a page's child, listed under it
         self.assertIn('/research/red-team/method/', urls)  # the included section
         self.assertNotIn('/topics/', urls)               # the sidebar-only link
