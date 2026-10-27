@@ -1,5 +1,5 @@
 title: ADR-0046: The articles index lists the research pieces that live on Substack
-summary: The Articles index page also lists research-facing pieces whose home is another site, from an `elsewhere` list on its entry in site/nav.yml, merged by date with the site's own articles. Each links to its canonical copy and names where it lives and any copy. The sidebar and the research index keep listing this site's pages only.
+summary: The Articles index page also lists research-facing pieces whose home is another site, from an `elsewhere` list on its entry in site/nav.yml, merged by date with the site's own articles. Each links to its canonical copy and names where it lives and any copy. The sidebar keeps listing this site's pages only; the research index lists the pieces too since ADR-0048.
 parent: decision-log
 order: 46
 adr: 46
@@ -22,7 +22,7 @@ type: explanation
 
 **Checked by the build.** `scripts/site_chrome.py` stops the build when an `elsewhere` item lacks a title, a line or a date in YYYY-MM-DD form, or when a URL is not https on a host in `ELSEWHERE_HOMES`, which also names each host on the page (Substack, the Uncover Tech Talent blog). Only a hub page with `order: newest` may hold the list, so the merge has an order to keep.
 
-**Only the index lists them.** The sidebar keeps its five newest pages of this site, and the research index lists this site's pages, so neither depends on another site staying up.
+**Only the index lists them.** The sidebar keeps its five newest pages of this site, and the research index lists this site's pages, so neither depends on another site staying up. Replaced in part by [ADR-0048](doc:eng/adr-0048-research-index-and-group-indexes-as-contents-lists): the research index lists the pieces as well, as one line each; the sidebar still does not.
 
 **Which pieces.** The research-facing pieces of the series and the earlier Substack case study: Knowledge Infrastructure for LLMs, The Stance Layer Is Still Toil, An RCA on Claudish, Which LLM User Are We Talking About?, Compaction Is the New OOM, What Operations Already Knows About Running Agents, Write for the Codec, The Golem Made of English and the Horizon of Consequences, The Trap File Is Longer Than the Instruction File, and Sycophancy Is Layered. Left out: Success Is the Engine Running and The Track, written for buyers, and the Substack copies of pages that live here.
 

@@ -202,12 +202,16 @@ def research():
     t = site_chrome.tree()
     sec = t.section('research')
     url = sec.url
-    blocks, dates, outside = [], [], False
+    blocks, dates, n, outside = [], [], 0, False
     for heading, index, nodes in research_groups(t):
         idx = t.by_url.get(index) if index else None
-        for k in ([idx] if idx and not is_hub(idx) else []) + nodes:
-            dates.append(page_meta(k.url)[1])  # the page's last change: the index changes with its pages
-        outside = outside or bool(site_chrome._cfg(idx).get('elsewhere')) if idx else outside
+        counted = ([idx] if idx and not is_hub(idx) else []) + nodes
+        n += len(counted)
+        dates += [page_meta(k.url)[1] for k in counted]  # the page's last change: the index changes with its pages
+        cfg = site_chrome._cfg(idx) if idx else {}
+        dates += [x['published'] for x in (cfg.get('sections') or []) + (cfg.get('elsewhere') or [])]  # and with a new line
+        if cfg.get('elsewhere'):
+            outside = True
         label = f'<a href="{index}">{esc(heading)}</a>' if index else esc(heading)
         blocks.append(f'<div class="toc-group"><h2 class="label">{label}</h2><ol class="toc" role="list">'
                       + ''.join(r for _, r in lines(idx, nodes)) + '</ol></div>')
@@ -215,7 +219,6 @@ def research():
         blocks.append(NOTE_OUT)
     about = sec.cfg.get('about', '')
     newest = max(dates)
-    n = len(dates)
     desc = f'Research on machinebehavior.io: {n} pages. {about}'
     page = f'''{head('Research: Machine Behavior', desc, url, newest, 'scripts/build_hubs.py')}
 <body>

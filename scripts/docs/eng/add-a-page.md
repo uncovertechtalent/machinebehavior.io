@@ -17,7 +17,7 @@ A new page passes the gate when it has a directory URL, a self canonical, a site
 4. Add `<url><loc>https://machinebehavior.io/<name>/</loc><lastmod>YYYY-MM-DD</lastmod></url>` to `sitemap.xml`.
 5. Add a line with the title, URL and a one-line summary to `llms.txt`.
 6. Put at least one ISO date on the page; the freshness check reads the newest one.
-7. Add the page to its section in `site/nav.yml` and run `python3 scripts/site_chrome.py`. It writes the top bar, the breadcrumbs, the sidebar and the footer, and reports the page as an orphan if the entry is missing.
+7. Add the page to its section in `site/nav.yml` and run `python3 scripts/site_chrome.py`. It writes the top bar, the breadcrumbs, the sidebar and the footer, and reports the page as an orphan if the entry is missing. A research page shows a date on the index and on its group's index only with `published`; a study that lives on a written page (the Experiments page) becomes a line on the index through a `sections` entry on that page, with an `id` on its heading ([ADR-0048](doc:eng/adr-0048-research-index-and-group-indexes-as-contents-lists)).
 8. Run the dry run (see [Deploy pipeline](doc:eng/deploy-pipeline)), then pull, commit and push.
 
 ## Links built in script

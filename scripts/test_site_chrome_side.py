@@ -159,7 +159,11 @@ class ResearchSidebar(unittest.TestCase):
         self.assertIn('<li><a href="/research/red-team/#what-has-run">Weekly decision-layer probe</a>', toc)
         self.assertLess(toc.index('/research/experiments/stance-vs-censorship-abliteration/'), toc.index('#experiment-04'))  # newest first
         self.assertLess(toc.index('#experiment-04'), toc.index('#experiment-01'))
-        self.assertEqual(len(re.findall(r'<li[ >]', toc)), 28)  # 13 pages, 5 parts of pages, 10 pieces elsewhere (2026-10-27)
+        expected = 0
+        for _, index, nodes in build_hubs.research_groups(self.t):  # the pages, the parts of the index's page, the pieces elsewhere
+            cfg = site_chrome._cfg(self.t.by_url[index]) if index else {}
+            expected += len(nodes) + len(cfg.get('sections') or []) + len(cfg.get('elsewhere') or [])
+        self.assertEqual(len(re.findall(r'<li[ >]', toc)), expected)
 
     def test_articles_index_lists_pieces_elsewhere_by_date(self):
         src = (site_chrome.ROOT / 'research' / 'articles' / 'index.html').read_text(encoding='utf-8')
@@ -271,8 +275,9 @@ class ResearchSidebar(unittest.TestCase):
         self.assertEqual([i for _, i, _ in groups], ['/research/experiments/', '/research/case-files/', '/research/articles/',
                                                      '/research/red-team/', '/research/registers/', '/research/reference/'])
         urls = [n.url for _, _, nodes in groups for n in nodes]
-        self.assertEqual(len(urls), 13)                  # the two written indexes are labels now, not lines (ADR-0048)
-        self.assertNotIn('/research/experiments/', urls)
+        self.assertEqual(len(urls), len(set(urls)))      # each page once
+        self.assertFalse({i for _, i, _ in groups} & set(urls))  # an index is a label, never a line (ADR-0048)
+        self.assertFalse([u for u in urls if '#' in u])  # parts of a page come from `sections`, not from the tree
         self.assertIn(PROBE, urls)                      # a page's child, listed under it
         self.assertIn('/research/red-team/method/', urls)  # the included section
         self.assertNotIn('/topics/', urls)               # the sidebar-only link
