@@ -1,6 +1,8 @@
 title: Inside portal
 summary: Inside is one static page that reads live data in the browser: site status, the deploy feed, the latest work, experiments and the Grafana dashboards.
 order: 60
+created: 2026-10-14
+updated: 2026-10-27
 labels: inside, portal, frontend
 owner: Stefan Coetzee
 reviewed: 2026-10-09
@@ -39,7 +41,7 @@ The live operations view sits on its own page, [Mission Control](/inside/mission
 - Build links in script with `a.href = ...`, never with an interpolated `href` attribute in a template string; the gate reads those as relative links.
 - Pages under `/inside/` are the platform, not pieces: the front page list skips them.
 - The page has no search box of its own; the one in the top bar covers everything the old box did, plus the docs and services.
-- The landing page has five top-level sections with fixed ids: `#sites`, `#seats`, `#work`, `#dashboards`, `#sources`. An "In this area" nav after the header links to them, and a "Leave Inside" nav at the foot links back to the public site. `main` carries `data-area="inside"` as the hook for scoping the area.
+- The landing page has five top-level sections with fixed ids: `#sites`, `#seats`, `#work`, `#dashboards`, `#sources`. An "In this area" nav after the header links to them, and a "Leave Inside" nav at the foot links back to the public site. `main` carries `data-area="inside"` as the hook for scoping the area. The exit nav is hand-written, outside the chrome markers, so touch it when a section URL moves.
 - Without JavaScript the page points to `/llms.txt`, `/map/graph.json` and `/conformity/`.
 - Grafana frames only because Grafana runs with embedding allowed; see [Public dashboards](doc:obs/public-dashboards).
 
