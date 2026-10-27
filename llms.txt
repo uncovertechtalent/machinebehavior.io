@@ -104,7 +104,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (419 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (420 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -158,6 +158,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (419 pages). S
 - [ADR-0045: Every sidebar group opens with its index page and lists its five newest pages](https://machinebehavior.io/inside/docs/eng/adr-0045-sidebar-groups-open-with-an-index/)
 - [ADR-0046: The articles index lists the research pieces that live on Substack](https://machinebehavior.io/inside/docs/eng/adr-0046-articles-index-lists-pieces-elsewhere/)
 - [ADR-0047: The research section and the front page use a paper theme](https://machinebehavior.io/inside/docs/eng/adr-0047-research-and-front-page-in-the-paper-theme/)
+- [ADR-0048: The research index and the group index pages are contents lists](https://machinebehavior.io/inside/docs/eng/adr-0048-research-index-and-group-indexes-as-contents-lists/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

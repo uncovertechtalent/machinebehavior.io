@@ -200,6 +200,24 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 [data-mb-theme="paper"] .sheet a:not(.mb-crumbs a) { color: var(--mb-teal); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--mb-teal) 50%, transparent); }
 [data-mb-theme="paper"] .sheet a:not(.mb-crumbs a):hover { border-bottom-color: currentColor; }
 [data-mb-theme="paper"] .sheet a.mono, [data-mb-theme="paper"] .sheet code { font-size: 0.82em; }
+/* contents lists (ADR-0048): the research index and the group index pages list pages as lines, no boxes and no copied
+   descriptions; a group's label on the left links to its index, a dotted leader runs to the date or the site at the end */
+[data-mb-theme="paper"] .toc-group { display: grid; grid-template-columns: 168px minmax(0, 1fr); column-gap: 28px; padding: 14px 0 12px; border-top: 1px solid var(--mb-line); }
+[data-mb-theme="paper"] .toc-group:last-of-type { border-bottom: 1px solid var(--mb-line); margin-bottom: 36px; }
+[data-mb-theme="paper"] .sheet .toc-group > h2.label { margin: 0; padding: 3px 0 0; border: 0; }
+[data-mb-theme="paper"] .sheet .toc-group > h2.label a { color: inherit; border: 0; }
+[data-mb-theme="paper"] .sheet .toc { list-style: none; margin: 0; padding: 0; }
+[data-mb-theme="paper"] .sheet > .toc { padding: 0 0 12px; margin: 0 0 36px; border-bottom: 1px solid var(--mb-line); }
+[data-mb-theme="paper"] .sheet .toc li { display: grid; grid-template-columns: auto minmax(24px, 1fr) auto; column-gap: 12px; align-items: baseline; margin: 0; padding: 2px 0; line-height: 1.4; }
+[data-mb-theme="paper"] .sheet .toc li > a { min-width: 0; }
+[data-mb-theme="paper"] .sheet .toc li a { border: 0; }
+[data-mb-theme="paper"] .sheet .toc li a:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+[data-mb-theme="paper"] .toc-fill { border-bottom: 1px dotted var(--mb-line); transform: translateY(-6px); }
+[data-mb-theme="paper"] .toc-when { font-size: 15px; line-height: 1.4; color: var(--mb-text-dim); font-variant-numeric: lining-nums tabular-nums; }
+[data-mb-theme="paper"] .toc-note { grid-column: 1 / -1; margin-top: -2px; font-size: 15px; line-height: 1.4; font-style: italic; color: var(--mb-text-dim); }
+[data-mb-theme="paper"] .sheet .toc li .toc-note a { color: inherit; border: 0; }
+[data-mb-theme="paper"] .toc-out > a::after { content: "\00a0\2197"; content: "\00a0\2197" / ""; color: var(--mb-text-dim); }
+[data-mb-theme="paper"] .sheet .mb-entries-note { font-size: 17px; font-style: italic; color: var(--mb-text-dim); margin: 0 0 10px; }
 /* tables: three rules, the caption above as "Table N." (the number is written by the chrome, ADR-0040) */
 [data-mb-theme="paper"] .sheet table { font-family: var(--mb-font-paper); font-size: 17px; line-height: 1.4; font-variant-numeric: lining-nums tabular-nums; width: 100%; margin: 30px 0 8px; border-top: 1.5px solid var(--mb-text); border-bottom: 1.5px solid var(--mb-text); }
 [data-mb-theme="paper"] .sheet caption { caption-side: top; text-align: left; font: 400 17px/1.45 var(--mb-font-paper); color: var(--mb-text); padding: 0 0 8px; }
@@ -226,6 +244,7 @@ a:focus-visible { outline: 2px solid var(--mb-focus); outline-offset: 2px; borde
 @media (max-width: 819px) {
   [data-mb-theme="paper"] body.mb-read > .sheet { font-size: 18px; }
   [data-mb-theme="paper"] .thesis { text-align: left; hyphens: manual; }
+  [data-mb-theme="paper"] .toc-group { grid-template-columns: minmax(0, 1fr); row-gap: 6px; }
   /* a wide table scrolls inside its own box here (rule above); the caption stays in the column */
   [data-mb-theme="paper"] .sheet caption { display: block; position: sticky; left: 0; max-width: calc(100vw - 2 * var(--mb-gutter)); }
 }

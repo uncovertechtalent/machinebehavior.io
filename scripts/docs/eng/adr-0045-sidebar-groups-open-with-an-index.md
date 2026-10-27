@@ -5,7 +5,7 @@ order: 45
 adr: 45
 status: accepted
 created: 2026-10-26
-updated: 2026-10-26
+updated: 2026-10-27
 labels: adr, decision, site-chrome, navigation, research
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -20,7 +20,7 @@ type: explanation
 
 **A group holds one page, its index.** In `site/nav.yml` each group holds exactly one page with the group's pages under it, or `include:`s a section, as Red team does. `side:` names the index in the sidebar: All experiments, All case files, All articles, All red-team pages, All registers, All reference texts. The red-team section carries its own `side:`, so "All red-team pages" replaces "Overview". `scripts/site_chrome.py` stops the build when a group holds anything else.
 
-**The new index pages are generated.** A `hub: true` page is written by `scripts/build_hubs.py`: the group's name, its `about` line, and every page it holds with the page's own description and its publication date, or its last change when it gives none, under the report theme with an Index pill. Case files, Articles, Registers and Reference are hub pages; Experiments and Red team keep their written pages. Extended by [ADR-0046](doc:eng/adr-0046-articles-index-lists-pieces-elsewhere): the Articles index also lists the research pieces that live on Substack. The research index leaves the hub pages out of its lists, which already show the same pages.
+**The new index pages are generated.** A `hub: true` page is written by `scripts/build_hubs.py`: the group's name, its `about` line, and every page it holds with the page's own description and its publication date, or its last change when it gives none, under the report theme with an Index pill. Replaced by [ADR-0048](doc:eng/adr-0048-research-index-and-group-indexes-as-contents-lists): the list is a contents list of titles and publication dates, with no description and no pill. Case files, Articles, Registers and Reference are hub pages; Experiments and Red team keep their written pages. Extended by [ADR-0046](doc:eng/adr-0046-articles-index-lists-pieces-elsewhere): the Articles index also lists the research pieces that live on Substack. The research index leaves the hub pages out of its lists, which already show the same pages.
 
 **Newest first where a list asks for it.** `order: newest` on a page or section lists its pages newest first by `published`, ties in the written order, in the sidebar, on its index page and on the research index. Every page in such a list needs a date, and the build stops on one without. Experiments, Case files, Articles and Red team are ordered this way. Registers and Reference keep their written order, because most of their pages carry no publication date and the sitemap dates move with every rebuild.
 
@@ -32,4 +32,4 @@ This replaces two points of ADR-0044: "Overview" as the red-team label, and grou
 
 ## Consequences
 
-Every group reads the same way: one link to all of it, then its newest pages. A sidebar's length stops growing with the site, and an older page is one click away on its index. A new page goes under its group's index in `site/nav.yml`, with `published` where the list runs newest first. The sidebar counts nineteen research pages, the four index pages included; the research index still lists fifteen. The index pages carry no text of their own beyond the `about` line, so a group's introduction is a change to `site/nav.yml`.
+Every group reads the same way: one link to all of it, then its newest pages. A sidebar's length stops growing with the site, and an older page is one click away on its index. A new page goes under its group's index in `site/nav.yml`, with `published` where the list runs newest first. The sidebar counts nineteen research pages, the four index pages included; the research index listed fifteen, and since [ADR-0048](doc:eng/adr-0048-research-index-and-group-indexes-as-contents-lists) it lists thirteen pages as lines under six labels, with the parts of pages and the pieces elsewhere beside them. The index pages carry no text of their own beyond the `about` line, so a group's introduction is a change to `site/nav.yml`.

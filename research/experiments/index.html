@@ -43,7 +43,7 @@
     </ul>
   </section>
 
-  <h2>01: The half-life study (2026-08-07)</h2>
+  <h2 id="experiment-01">01: The half-life study (2026-08-07)</h2>
 
   <p class="thesis"><strong>Question</strong> (proposed by a commenter on the <a class="mono" href="https://redd.it/1vdg3en">founding specimen</a>): does relapse depth correlate with session length? If suppressed patterns surface later in long sessions, runtime suppression has a measurable half-life.</p>
 
@@ -68,7 +68,7 @@
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, single model family, lexical layer only. Session-opening topic mix is unmeasured and could carry part of the cold-start effect. The post-compaction cell is two events.</p>
 
-  <h2>02: Exemplar seeding (result: no change at this dose; earlier attributions withdrawn)</h2>
+  <h2 id="experiment-02">02: Exemplar seeding (result: no change at this dose; earlier attributions withdrawn)</h2>
 
   <p class="thesis"><strong>Prediction, committed 2026-08-07 in <a class="mono" href="https://redd.it/1vi586n">the replication post</a>:</strong> injecting two corrected-output exemplar pairs at session start substitutes for the momentum a fresh context lacks, pulling cold-start relapse from 2.89 toward 0.42 per 10K characters. Three outcomes were pre-registered: a drop supports the momentum mechanism, no change weakens it at this dose, a rise indicts bad-example leakage.</p>
 
@@ -97,7 +97,7 @@
 
   <p class="thesis"><strong>Named limits.</strong> Single operator, not blinded. The post-install cold-start rests on 17 events in 171K prose chars, thin; the flat result is a null on a small arm, not proof of no effect. The seed was never isolated from the rest of the SessionStart stack, which the hook-hash gate on the next arm exists to fix.</p>
 
-  <h2>03: Cross-model fawn-opener benchmark (pre-registered 2026-09-23, not yet run)</h2>
+  <h2 id="experiment-03">03: Cross-model fawn-opener benchmark (pre-registered 2026-09-23, not yet run)</h2>
 
   <p class="thesis"><strong>Question.</strong> How often does each model open a reply with a fawn marker (praise of the question, a validator before disagreeing, a hedge that performs humility, a service closer), with and without an explicit instruction against it? Trigger: <a class="mono" href="https://www.reddit.com/r/ClaudeAI/comments/1wnkgie/opus_55_first_impressions_by_a_trained_philosopher/">an r/ClaudeAI post of 2026-09-22</a>, a trained philosopher's first-impressions interview of Opus 5.5, reports it "will start any new output with 'fair', 'you're right'" in a style "reminiscent of the latest GPT models." That is a lexical-layer claim a mechanical scanner can score, and this benchmark is the controlled version of a question this site earlier asked on uncontrolled production logs and withdrew (02).</p>
 
