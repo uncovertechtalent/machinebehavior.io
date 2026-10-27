@@ -176,8 +176,10 @@
   .in-panel .in-sub > h3 { margin: 0 0 12px; }
   .in-panel .dash { margin-top: 0; }
   #map-embed .frame { height: 560px; }
-  .frame-go { position: absolute; inset: 0; width: 100%; background: transparent; border: 0; cursor: pointer; color: var(--dim); font: 12px 'JetBrains Mono', monospace; }
-  .frame-go:hover { background: color-mix(in srgb, var(--mb-surface-hover) 40%, transparent); }
+  .frame-go { position: absolute; inset: 0; width: 100%; display: grid; place-items: center; background: transparent; border: 0; cursor: pointer; font: 12px 'JetBrains Mono', monospace; }
+  .frame-go span { background: var(--mb-surface-raised); color: var(--ink); border: 1px solid var(--line); padding: 6px 12px; border-radius: 999px; }
+  .frame-go:hover span { border-color: var(--mb-accent); }
+  .frame-go:focus-visible { outline: 2px solid var(--mb-accent); outline-offset: -4px; }
   @media (max-width: 600px) { #map-embed .frame { height: 440px; } }
   .in-panel .tabs button { font-size: 12px; }
   .in-toc, .in-exit { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: 0 0 24px; font: 12px var(--mb-font-mono); }
@@ -516,7 +518,7 @@ document.querySelectorAll('.card.dash[data-src]').forEach(card => {
     o.disconnect();
     const f = el('iframe', {title: card.dataset.title, loading: 'lazy', style: 'pointer-events:none'});
     f.src = card.dataset.src;
-    const go = el('button', {type: 'button', class: 'frame-go', textContent: 'Click to explore'});
+    const go = el('button', {type: 'button', class: 'frame-go'}, el('span', {textContent: 'Click to explore'}));
     go.onclick = () => { f.style.pointerEvents = ''; go.remove(); f.focus(); };
     frame.replaceChildren(f, go);
   }, {rootMargin: '200px'}).observe(frame);
