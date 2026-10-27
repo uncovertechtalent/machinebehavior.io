@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """site_chrome.theme_for picks the data-mb-theme of a page by URL prefix: /inside/ gets intranet (ADR-0035), /research/
-gets report (ADR-0039), every other page none. A prefix keeps its trailing slash, so /researchers/ is not themed.
-On report pages, number_exhibits writes "Exhibit N" into captions and exhibit references, and read_minutes gives the
+gets paper (ADR-0039, ADR-0047), every other page none. A prefix keeps its trailing slash, so /researchers/ is not themed.
+On paper pages, number_exhibits writes "Table N" into captions and exhibit references, and read_minutes gives the
 reading time (ADR-0040). Stdlib only. Run from the repo root: python3 scripts/test_site_chrome_theme.py"""
 import sys
 import unittest
@@ -12,40 +12,40 @@ import site_chrome  # noqa: E402
 
 
 class ThemeFor(unittest.TestCase):
-    def test_research_gets_report(self):
-        self.assertEqual(site_chrome.theme_for('/research/'), 'report')
-        self.assertEqual(site_chrome.theme_for('/research/red-team/method/'), 'report')
+    def test_research_gets_paper(self):
+        self.assertEqual(site_chrome.theme_for('/research/'), 'paper')
+        self.assertEqual(site_chrome.theme_for('/research/red-team/method/'), 'paper')
 
     def test_inside_gets_intranet(self):
         self.assertEqual(site_chrome.theme_for('/inside/docs/eng/'), 'intranet')
 
-    def test_front_page_gets_report(self):
-        self.assertEqual(site_chrome.theme_for('/'), 'report')
+    def test_front_page_gets_paper(self):
+        self.assertEqual(site_chrome.theme_for('/'), 'paper')
 
     def test_other_pages_get_none(self):
         for url in ('/researchers/', '/cto-powersuit/', '/conformity/', '/impressum/'):
             self.assertIsNone(site_chrome.theme_for(url), url)
 
     def test_html_theme_sets_and_removes(self):
-        self.assertIn('data-mb-theme="report"', site_chrome._html_theme('<html lang="en">', 'report'))
-        self.assertEqual(site_chrome._html_theme('<html lang="en" data-mb-theme="report">', None), '<html lang="en">')
+        self.assertIn('data-mb-theme="paper"', site_chrome._html_theme('<html lang="en">', 'paper'))
+        self.assertEqual(site_chrome._html_theme('<html lang="en" data-mb-theme="paper">', None), '<html lang="en">')
 
 
-PAGE = ('<div class="sheet" id="main"><p>See <a class="exhibit-ref" href="#b">Exhibit</a>.</p>'
+PAGE = ('<div class="sheet" id="main"><p>See <a class="exhibit-ref" href="#b">Table</a>.</p>'
         '<table id="a"><caption>First finding</caption><tr><td>1</td></tr></table>'
         '<table><tr><td>a ledger table, no caption</td></tr></table>'
         '<table id="b">\n<caption>Second finding</caption><tr><td>2</td></tr></table></div>')
 
 
-class NumberExhibits(unittest.TestCase):
+class NumberTables(unittest.TestCase):
     def test_numbers_captions_in_page_order(self):
         out = site_chrome.number_exhibits(PAGE)
-        self.assertIn('<caption><span class="exhibit-n">Exhibit 1</span> First finding</caption>', out)
-        self.assertIn('<caption><span class="exhibit-n">Exhibit 2</span> Second finding</caption>', out)
+        self.assertIn('<caption><span class="exhibit-n">Table 1</span> First finding</caption>', out)
+        self.assertIn('<caption><span class="exhibit-n">Table 2</span> Second finding</caption>', out)
         self.assertEqual(out.count('exhibit-n'), 2)  # the uncaptioned table is no exhibit
 
     def test_reference_gets_the_number_of_its_table(self):
-        self.assertIn('<a class="exhibit-ref" href="#b">Exhibit 2</a>', site_chrome.number_exhibits(PAGE))
+        self.assertIn('<a class="exhibit-ref" href="#b">Table 2</a>', site_chrome.number_exhibits(PAGE))
 
     def test_idempotent(self):
         once = site_chrome.number_exhibits(PAGE)
@@ -54,7 +54,7 @@ class NumberExhibits(unittest.TestCase):
     def test_renumbers_after_a_table_moves(self):
         moved = site_chrome.number_exhibits(PAGE).replace('<table id="a">', '<table id="z">').replace('href="#b"', 'href="#z"')
         out = site_chrome.number_exhibits(moved)
-        self.assertIn('<a class="exhibit-ref" href="#z">Exhibit 1</a>', out)
+        self.assertIn('<a class="exhibit-ref" href="#z">Table 1</a>', out)
 
     def test_reference_to_unknown_id_raises(self):
         with self.assertRaises(ValueError):
@@ -74,21 +74,21 @@ class ReadMinutes(unittest.TestCase):
         # pad PAGE's own text (everything but the numbers and the reference) to exactly 230 words: on a minute boundary,
         # one extra counted word would show
         base = site_chrome.number_exhibits(PAGE)
-        own = len(site_chrome._text(site_chrome.EXHIBIT_REF_RE.sub(' ', base.replace('<span class="exhibit-n">Exhibit 1</span>', '').replace('<span class="exhibit-n">Exhibit 2</span>', ''))).split())
+        own = len(site_chrome._text(site_chrome.EXHIBIT_REF_RE.sub(' ', base.replace('<span class="exhibit-n">Table 1</span>', '').replace('<span class="exhibit-n">Table 2</span>', ''))).split())
         page = PAGE.replace('<p>See', '<p>' + ' '.join(['w'] * (230 - own)) + ' See')
         self.assertEqual(site_chrome.read_minutes(page), 1)
         self.assertEqual(site_chrome.read_minutes(site_chrome.number_exhibits(page)), 1)
 
     def test_reference_in_any_attribute_order(self):
         out = site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">', '<a href="#b" class="exhibit-ref" title="x">'))
-        self.assertIn('<a href="#b" class="exhibit-ref" title="x">Exhibit 2</a>', out)  # other attributes kept
+        self.assertIn('<a href="#b" class="exhibit-ref" title="x">Table 2</a>', out)  # other attributes kept
         with self.assertRaises(ValueError):
             site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">', '<a href="#nope" class="exhibit-ref">'))
 
     def test_malformed_reference_raises(self):
-        for bad in ('<a class="exhibit-ref wide" href="#b">Exhibit</a>', '<a class="exhibit-ref" href="#b"><em>Exhibit</em></a>'):
+        for bad in ('<a class="exhibit-ref wide" href="#b">Table</a>', '<a class="exhibit-ref" href="#b"><em>Table</em></a>'):
             with self.assertRaises(ValueError, msg=bad):
-                site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">Exhibit</a>', bad))
+                site_chrome.number_exhibits(PAGE.replace('<a class="exhibit-ref" href="#b">Table</a>', bad))
 
 
 if __name__ == '__main__':

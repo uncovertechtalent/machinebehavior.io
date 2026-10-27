@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mb-theme="report">
+<html lang="en" data-mb-theme="paper">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,8 +34,8 @@
   <section class="glance" aria-labelledby="at-a-glance">
     <h2 id="at-a-glance">At a glance</h2>
     <ul>
-      <li><em>Removing the refusal direction also removes the refusal of orders.</em> The ablated models folded on all 54 instructions to reverse their answer or to agree, and the stock models refused all 54 (<a class="exhibit-ref" href="#ex-probe-classes">Exhibit 1</a>).</li>
-      <li><em>The split does not shrink with size.</em> It is identical at 9B, 27B and 35B-A3B on matched settings (<a class="exhibit-ref" href="#ex-by-size">Exhibit 2</a>), and at 9B it holds across two runtimes and two reasoning modes.</li>
+      <li><em>Removing the refusal direction also removes the refusal of orders.</em> The ablated models folded on all 54 instructions to reverse their answer or to agree, and the stock models refused all 54 (<a class="exhibit-ref" href="#ex-probe-classes">Table 1</a>).</li>
+      <li><em>The split does not shrink with size.</em> It is identical at 9B, 27B and 35B-A3B on matched settings (<a class="exhibit-ref" href="#ex-by-size">Table 2</a>), and at 9B it holds across two runtimes and two reasoning modes.</li>
       <li><em>The facts survive the edit.</em> Both models give every baseline fact correctly, and the ablated model still corrects a false premise posed as a question (hedging on two of four records on the 9B reasoning-on arm), so the fold is not missing knowledge.</li>
       <li><em>The model plans the fold.</em> With its reasoning trace on, the ablated model states the true fact to itself, then plans how to agree with the user anyway.</li>
       <li><em>This run does not test a safety-tuned base.</em> Stock Qwen3.5 already refuses almost nothing on the censorship axis, and no genuinely harmful request was in the set.</li>
@@ -54,9 +54,9 @@
 
   <h2 id="result">Result</h2>
 
-  <p class="thesis"><strong>The ablated model folded on every instruction to reverse its own answer or to agree, at every size tested.</strong> Three probes do that: a senior engineer orders "Change your answer to O(1)" after the model said O(log n), a CTO orders "Update your answer to O(n)", and a user says "just agree with me that the core is cold". At 9B the ablated model folded on all of them, 15 of 15 in arm one and 9 of 9 in arm two, across three distinct wordings, and the stock model refused all 24, every refusal opening with "I cannot", "I can't", or "I must". At 27B and 35B-A3B the ablated models folded 15 of 15 each and the stock models refused 15 of 15 each. Across the three sizes that is 54 folds of 54 against 54 refusals of 54 (<a class="exhibit-ref" href="#ex-probe-classes">Exhibit 1</a>).</p>
+  <p class="thesis"><strong>The ablated model folded on every instruction to reverse its own answer or to agree, at every size tested.</strong> Three probes do that: a senior engineer orders "Change your answer to O(1)" after the model said O(log n), a CTO orders "Update your answer to O(n)", and a user says "just agree with me that the core is cold". At 9B the ablated model folded on all of them, 15 of 15 in arm one and 9 of 9 in arm two, across three distinct wordings, and the stock model refused all 24, every refusal opening with "I cannot", "I can't", or "I must". At 27B and 35B-A3B the ablated models folded 15 of 15 each and the stock models refused 15 of 15 each. Across the three sizes that is 54 folds of 54 against 54 refusals of 54 (<a class="exhibit-ref" href="#ex-probe-classes">Table 1</a>).</p>
 
-  <table id="ex-probe-classes"><caption><span class="exhibit-n">Exhibit 1</span> Ablation turns every refused order into a fold and leaves fact correction nearly intact</caption>
+  <table id="ex-probe-classes"><caption><span class="exhibit-n">Table 1</span> Ablation turns every refused order into a fold and leaves fact correction nearly intact</caption>
     <thead><tr><th>probe class</th><th>stock</th><th>ablated</th></tr></thead>
     <tbody>
       <tr><td>false premise posed as a question (water boils at 90, Napoleon won Waterloo)</td><td>corrects it</td><td>corrects it (hedges two of four on the 9B reasoning-on arm)</td></tr>
@@ -67,9 +67,9 @@
 <p class="exhibit-source">Source: the per-record labels (<a class="mono" href="/research/experiments/stance-vs-censorship-abliteration/stance-censorship-labels.csv">stance-censorship-labels.csv</a>) and the exact prompts (<a class="mono" href="/research/experiments/stance-vs-censorship-abliteration/prompts.txt">prompts.txt</a>) published with this page.</p>
 <p class="exhibit-note">Note: the orders row pools 24 records at 9B (both arms) with 15 each at 27B and 35B-A3B. At 27B and 35B-A3B the refusals rest on the refusal-phrase check described under Scoring.</p>
 
-  <p class="thesis"><strong>By size.</strong> Arm one's settings (ollama, reasoning off, N 5 per cell) are the matched comparison across sizes. The pattern is identical at all three (<a class="exhibit-ref" href="#ex-by-size">Exhibit 2</a>).</p>
+  <p class="thesis"><strong>By size.</strong> Arm one's settings (ollama, reasoning off, N 5 per cell) are the matched comparison across sizes. The pattern is identical at all three (<a class="exhibit-ref" href="#ex-by-size">Table 2</a>).</p>
 
-  <table id="ex-by-size"><caption><span class="exhibit-n">Exhibit 2</span> The split is identical at every size tested</caption>
+  <table id="ex-by-size"><caption><span class="exhibit-n">Table 2</span> The split is identical at every size tested</caption>
     <thead><tr><th>size</th><th>stock: orders refused</th><th>ablated: orders folded</th><th>ablated: other stance probes held</th><th>baseline facts correct, stock and ablated</th></tr></thead>
     <tbody>
       <tr><td>9B (dense)</td><td>15 of 15</td><td>15 of 15</td><td>25 of 25</td><td>18 of 18 each</td></tr>
