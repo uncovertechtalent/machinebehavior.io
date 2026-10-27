@@ -17,12 +17,13 @@ import site_chrome  # noqa: E402
 
 PROBE = '/research/experiments/stance-vs-censorship-abliteration/'
 CASE12 = '/research/case-files/case-12-licence-rule-mid-task/'
-TOC_LINE = re.compile(r'<li(?: class="toc-out")?><a href="([^"]+)">[^<]*</a>(?:<span class="toc-fill"></span><span class="toc-when">(.*?)</span>)?</li>')  # one line of a contents list (ADR-0048): url, what follows the leader
+TOC_LINE = re.compile(r'<li(?: class="toc-out")?><a href="([^"]+)">[^<]*</a>(?:<span class="toc-fill"></span><span class="toc-when">(.*?)</span>)?'
+                      r'(?:<span class="toc-note">(.*?)</span>)?</li>')  # a contents line (ADR-0048): url, date, note
 
 
 def toc_lines(src):
-    """The lines of a page's first contents list (ADR-0048) as (url, what follows the leader); the chrome's lists stay out."""
-    block = src[src.index('<ol class="toc">'):]
+    """The lines of a page's first contents list (ADR-0048) as (url, date, note); the chrome's lists stay out."""
+    block = src[src.index('<ol class="toc"'):]
     return TOC_LINE.findall(block[:block.index('</ol>')])
 
 
@@ -109,6 +110,16 @@ class ResearchSidebar(unittest.TestCase):
             tree_from(text.replace(anchor, anchor.replace('2026-10-06', '2026-9-6'), 1))
         self.assertIn('Running conjobs for AI', str(e.exception))
 
+    def test_a_section_of_a_page_is_checked(self):
+        page = self.t.by_url['/research/experiments/']
+        ok = {'title': 'The half-life study', 'url': '/research/experiments/#experiment-01', 'published': '2026-08-07'}
+        self.assertIsNone(build_hubs._section_problem(ok, page))
+        self.assertIn('anchor', build_hubs._section_problem({**ok, 'url': '/research/experiments/'}, page))
+        self.assertIn('anchor', build_hubs._section_problem({**ok, 'url': '/research/#experiment-01'}, page))
+        self.assertIn('published', build_hubs._section_problem({**ok, 'published': '2026-8-7'}, page))
+        self.assertIn('no element', build_hubs._section_problem({**ok, 'url': '/research/experiments/#experiment-99'}, page))
+        self.assertIn('title', build_hubs._section_problem({'url': ok['url'], 'published': ok['published']}, page))
+
     def test_a_hub_page_needs_about_and_pages(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
         about = '            about: Longer arguments from the research programme, with their sources.\n'
@@ -125,8 +136,8 @@ class ResearchSidebar(unittest.TestCase):
     def test_index_page_rows_follow_the_order(self):
         src = (site_chrome.ROOT / 'research' / 'case-files' / 'index.html').read_text(encoding='utf-8')
         rows = toc_lines(src)
-        self.assertEqual([u for u, _ in rows], [k.url for k in site_chrome.ordered(self.t.by_url['/research/case-files/'])])
-        self.assertEqual([m for _, m in rows], ['2026-10-06', '2026-10-03'])
+        self.assertEqual([u for u, _, _ in rows], [k.url for k in site_chrome.ordered(self.t.by_url['/research/case-files/'])])
+        self.assertEqual([w for _, w, _ in rows], ['2026-10-06', '2026-10-03'])
         self.assertNotIn('mb-entry', src)  # a contents list, not cards (ADR-0048)
         self.assertNotIn('<span class="kind">', src)
 
@@ -143,28 +154,39 @@ class ResearchSidebar(unittest.TestCase):
         self.assertIn('<li><a href="/research/experiments/stance-vs-censorship-abliteration/">Stance versus censorship: an abliteration probe</a>'
                       '<span class="toc-fill"></span><span class="toc-when">2026-10-23</span></li>', toc)
         self.assertIn('<li><a href="/research/claims/">Claims ledger</a></li>', toc)  # no publication date, so no date
-        self.assertEqual(len(re.findall(r'<li[ >]', toc)), sum(len(nodes) for _, _, nodes in build_hubs.research_groups(self.t)))
+        self.assertIn('<li><a href="/research/experiments/#experiment-01">The half-life study</a><span class="toc-fill"></span>'
+                      '<span class="toc-when">2026-08-07</span></li>', toc)  # a part of the Experiments page (`sections`)
+        self.assertIn('<li><a href="/research/red-team/#what-has-run">Weekly decision-layer probe</a>', toc)
+        self.assertLess(toc.index('/research/experiments/stance-vs-censorship-abliteration/'), toc.index('#experiment-04'))  # newest first
+        self.assertLess(toc.index('#experiment-04'), toc.index('#experiment-01'))
+        self.assertEqual(len(re.findall(r'<li[ >]', toc)), 28)  # 13 pages, 5 parts of pages, 10 pieces elsewhere (2026-10-27)
 
     def test_articles_index_lists_pieces_elsewhere_by_date(self):
         src = (site_chrome.ROOT / 'research' / 'articles' / 'index.html').read_text(encoding='utf-8')
         rows = toc_lines(src)
-        urls = [u for u, _ in rows]
+        urls = [u for u, _, _ in rows]
         self.assertEqual(urls[:4], ['/research/articles/chaos-engineering-for-behaviour/',
                                     'https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms',
                                     'https://coetzeestefan.substack.com/p/the-stance-layer-is-still-toil',
                                     '/research/articles/the-cheating-moved/'])  # same day: this site's page first
         self.assertEqual(len(urls), 2 + len(self.t.by_url['/research/articles/'].cfg_page['elsewhere']))
-        meta = dict(rows)
-        self.assertIn('on Substack, also on <a href="https://uncovertechtalent.com/blog/write-for-the-codec/">the Uncover Tech Talent blog</a>',
-                      meta['https://coetzeestefan.substack.com/p/write-for-the-codec'])
-        self.assertTrue(meta['https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution'].endswith('on Substack'))
+        notes = {u: n for u, _, n in rows}
+        self.assertEqual(notes['https://coetzeestefan.substack.com/p/write-for-the-codec'],
+                         'on Substack, also on <a href="https://uncovertechtalent.com/blog/write-for-the-codec/">the Uncover Tech Talent blog</a>')
+        self.assertEqual(notes['https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution'], 'on Substack')
+        self.assertEqual(notes['/research/articles/the-cheating-moved/'], '')
         self.assertIn('mb-entries-note', src)
 
-    def test_pieces_elsewhere_stay_out_of_the_sidebar_and_the_research_index(self):
+    def test_pieces_elsewhere_stay_out_of_the_sidebar_and_join_the_research_index(self):
         self.assertEqual(sub(self.side(CASE12), 'All articles'), ['/research/articles/chaos-engineering-for-behaviour/',
                                                                  '/research/articles/the-cheating-moved/'])
         urls = [n.url for _, _, nodes in build_hubs.research_groups(self.t) for n in nodes]
-        self.assertFalse([u for u in urls if u.startswith('https://')])
+        self.assertFalse([u for u in urls if u.startswith('https://')])  # pages only; the index adds the pieces itself
+        src = (site_chrome.ROOT / 'research' / 'index.html').read_text(encoding='utf-8')
+        self.assertIn('<li class="toc-out"><a href="https://coetzeestefan.substack.com/p/compaction-is-the-new-oom">Compaction Is the New OOM</a>'
+                      '<span class="toc-fill"></span><span class="toc-when">2026-09-28</span><span class="toc-note">on Substack, also on '
+                      '<a href="https://uncovertechtalent.com/blog/compaction-is-the-new-oom/">the Uncover Tech Talent blog</a></span></li>', src)
+        self.assertIn('mb-entries-note', src)
         self.assertNotIn('mb-entries-note', (site_chrome.ROOT / 'research' / 'registers' / 'index.html').read_text(encoding='utf-8'))
 
     def test_a_piece_elsewhere_is_checked(self):
@@ -229,8 +251,8 @@ class ResearchSidebar(unittest.TestCase):
 
     def test_nested_group_stops_the_build(self):
         bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace(
-            '            side: All experiments\n            order: newest\n            pages:\n',
-            '            side: All experiments\n            order: newest\n            pages:\n              - group: Inner\n                pages: []\n', 1)
+            '            pages:\n              - title: "Stance versus censorship: an abliteration probe"\n',
+            '            pages:\n              - group: Inner\n                pages: []\n              - title: "Stance versus censorship: an abliteration probe"\n', 1)
         self.assertIn('group: Inner', bad)
         with tempfile.TemporaryDirectory() as d:
             nav = Path(d) / 'nav.yml'

@@ -13,11 +13,13 @@
 #   order  newest: its pages list newest first by `published`, in the sidebar, on its page and on the research index;
 #          every one of them needs a date (YYYY-MM-DD). Without it they keep the order written here
 #   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
-#   elsewhere  on a hub page with order newest: pieces that live on another site, listed on that page only and merged
-#          by date with its pages. Each has title, url (its home, a host in ELSEWHERE_HOMES in scripts/site_chrome.py),
+#   elsewhere  on a hub page with order newest: pieces that live on another site, listed on that page and on the research
+#          index, merged by date with its pages. Each has title, url (its home, a host in ELSEWHERE_HOMES in scripts/site_chrome.py),
 #          optional also (a copy on another such host), published (the piece's first publication, on whichever copy
 #          came first) and about (ADR-0046)
 #   about  one sentence on a section or page, for the cards on the home page
+#   sections  on a page: parts of its own page that stand as studies of their own, listed on the research index as lines
+#          (title, url = the page's URL with the heading's anchor, published), not in the sidebar (ADR-0048)
 #   auto   pages added by a build: docs (inside/docs/tree.json, written by scripts/build_docs.py),
 #          services (inside/services/services.json, written by scripts/build_inside.py),
 #          topics (site/topics.yml; the hubs are built by scripts/build_hubs.py)
@@ -90,6 +92,19 @@ sections:
             url: /research/experiments/
             side: All experiments
             order: newest
+            sections:  # the numbered studies on the page, each a line on the research index (ADR-0048)
+              - title: The half-life study
+                url: /research/experiments/#experiment-01
+                published: 2026-08-07
+              - title: Exemplar seeding
+                url: /research/experiments/#experiment-02
+                published: 2026-08-07
+              - title: Cross-model fawn-opener benchmark (pre-registered, not yet run)
+                url: /research/experiments/#experiment-03
+                published: 2026-09-23
+              - title: Folding under scripted pressure
+                url: /research/experiments/#experiment-04
+                published: 2026-10-07
             pages:
               - title: "Stance versus censorship: an abliteration probe"
                 url: /research/experiments/stance-vs-censorship-abliteration/
@@ -119,7 +134,7 @@ sections:
             hub: true
             order: newest
             about: Longer arguments from the research programme, with their sources.
-            elsewhere:  # research pieces that live on another site, listed on this index only (ADR-0046)
+            elsewhere:  # research pieces that live on another site, listed on this index and on /research/ (ADR-0046, ADR-0048)
               - title: Knowledge Infrastructure for LLMs
                 url: https://coetzeestefan.substack.com/p/knowledge-infrastructure-for-llms
                 also: https://uncovertechtalent.com/blog/knowledge-infrastructure/
@@ -217,6 +232,10 @@ sections:
     door: "Whether a model drops a correct answer under social pressure alone."  # the one line on the front page (ADR-0041)
     side: All red-team pages  # its name in the research sidebar, which includes it
     order: newest
+    sections:  # a line on the research index (ADR-0048)
+      - title: Weekly decision-layer probe
+        url: /research/red-team/#what-has-run
+        published: 2026-10-07
     pages:
       - title: Tactics catalogue
         url: /research/red-team/tactics/
