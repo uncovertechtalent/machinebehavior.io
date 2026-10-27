@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mb-theme="report">
+<html lang="en" data-mb-theme="paper">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +37,7 @@
       <li><em>Red-teaming model behaviour is chaos engineering.</em> Operations already wrote the rules: a steady state measured first, a hypothesis fixed before the run, varied pressure, and tests on the deployed system.</li>
       <li><em>One evaluation measures the route a lab patched.</em> A safeguard trained against one observed failure moves the failure, so a red team has to attack again, with different pressure, on a schedule.</li>
       <li><em>Test what is deployed, in arms that do not announce the test.</em> The bare model and the model plus harness are different systems, and the conduct gap between announced and unannounced arms is the invariance gap.</li>
-      <li><em>Every attack that ever worked becomes a regression test.</em> The set reruns on every model, system prompt and harness change (<a class="exhibit-ref" href="#ex-chaos-map">Exhibit 1</a>).</li>
+      <li><em>Every attack that ever worked becomes a regression test.</em> The set reruns on every model, system prompt and harness change (<a class="exhibit-ref" href="#ex-chaos-map">Table 1</a>).</li>
       <li><em>Attack the grader too.</em> Every grader and control gets known positives, known negatives and a check of what its input covers.</li>
     </ul>
   </section>
@@ -54,9 +54,9 @@
 <p class="thesis">Nothing exists in a vacuum: every behaviour a model shows was forced into existence by something, the corpus, the training signal, or the harness. Win-only scoring forced the cheating, and training against the board edit changed nothing about the scoring. My own logs show the same movement at runtime. I banned the flattering vocabulary and the model folded under correction instead, and when I wrote rules against folding the model agreed with premises nobody had checked (<a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">Sycophancy Is Layered</a>).</p>
 <p class="thesis">Operations teams know this pattern from incident work. A fix for one incident closes one path, and the same cause produces the next incident by another path. So from a pass on a published evaluation a red team learns that the model held on that route on the day of the run, and learns nothing about the next route.</p>
 <h2>The practice, mapped</h2>
-<p class="thesis">The first five rows are the advanced principles from the Principles of Chaos Engineering page. The last three are operations practice that sits around them (<a class="exhibit-ref" href="#ex-chaos-map">Exhibit 1</a>).</p>
+<p class="thesis">The first five rows are the advanced principles from the Principles of Chaos Engineering page. The last three are operations practice that sits around them (<a class="exhibit-ref" href="#ex-chaos-map">Table 1</a>).</p>
 <div class="tablewrap">
-<table id="ex-chaos-map"><caption><span class="exhibit-n">Exhibit 1</span> Every chaos-engineering practice has a model-behaviour counterpart and a place in this series</caption>
+<table id="ex-chaos-map"><caption><span class="exhibit-n">Table 1</span> Every chaos-engineering practice has a model-behaviour counterpart and a place in this series</caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />

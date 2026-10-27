@@ -10,8 +10,8 @@ One function, apply(html, rel), writes the managed blocks of a page:
     <!-- mb:foot -->    the footer: conformity line, page source and history, report an issue, legal links
 
 It also sets the theme attribute on <html>: every page under /inside/ (Inside and Docs) gets data-mb-theme="intranet",
-the light intranet theme of the design system (ADR-0034, ADR-0035); every page under /research/ gets data-mb-theme="report",
-the light report theme (ADR-0039), and so does the front page (ADR-0041); every other page loses it.
+the light intranet theme of the design system (ADR-0034, ADR-0035); every page under /research/ gets data-mb-theme="paper",
+the paper theme (ADR-0039, ADR-0047), and so does the front page (ADR-0041); every other page loses it.
 
 Each block sits between <!-- mb:NAME --> and <!-- /mb:NAME -->. A page that has the markers keeps them where they are;
 a page without them gets them at fixed anchors (after <body>, at the top of <div class="sheet"> or <main>, before
@@ -44,8 +44,8 @@ TOPICS_FILE = ROOT / 'site' / 'topics.yml'
 POWERSUIT_JSON = ROOT / 'cto-powersuit' / 'modules.json'  # areas and plugin pages, written by scripts/build_powersuit.py
 SKIP_DIRS = ('.', 'scripts/', 'bench/', 'predictions/', 'node_modules/', 'vendor/', 'fonts/', 'site/', 'design/')
 NOT_FOUND = '404.html'     # not in the tree: bar, crumbs (Home, Not found) and footer only
-THEMED = (('/inside/', 'intranet'), ('/research/', 'report'))  # URL prefix, data-mb-theme on <html> (ADR-0035, ADR-0039)
-THEMED_PAGES = {'/': 'report'}  # exact URLs: the front page (ADR-0041)
+THEMED = (('/inside/', 'intranet'), ('/research/', 'paper'))  # URL prefix, data-mb-theme on <html> (ADR-0035, ADR-0039, ADR-0047)
+THEMED_PAGES = {'/': 'paper'}  # exact URLs: the front page (ADR-0041)
 DEPLOY_ONLY = {'conformity/index.html'}  # rewritten by the gate on every run; the deploy job applies the chrome before upload
 
 BLOCK_RE = re.compile(r'<!-- mb:(\w+) -->.*?<!-- /mb:\1 -->', re.S)
@@ -328,7 +328,7 @@ def banner():
 
 def page_meta(t, url, minutes=None):
     """Owner and last update of a hand-written page (the sitemap date the author set), shown beside the breadcrumbs.
-    On report pages also the reading time and a print button (ADR-0040)."""
+    On paper pages also the reading time and a print button (ADR-0040)."""
     d = t.lastmod.get(url)
     return (f'<p class="mb-page-meta"><span>Owner {esc(t.site["owner"])}</span>'
             + (f'<span>Updated {d}</span>' if d else '')  # no <time>: the map crawler reads the first <time> as the publish date
@@ -649,7 +649,7 @@ def _insert_before(src, pattern, text):
     return src[:m.start()] + text + src[m.start():]
 
 
-READ_WPM = 230  # words per minute behind the reading time on report pages (ADR-0040)
+READ_WPM = 230  # words per minute behind the reading time on paper pages (ADR-0040)
 EXHIBIT_RE = re.compile(r'(<table\b([^>]*)>\s*<caption>)(.*?)(</caption>)', re.S)
 EXHIBIT_N_RE = re.compile(r'^\s*<span class="exhibit-n">[^<]*</span>\s*')
 EXHIBIT_REF_RE = re.compile(r'(<a\b(?=[^>]*\sclass="exhibit-ref")[^>]*\shref="#([\w-]+)"[^>]*>)[^<]*</a>')  # any attribute order
@@ -666,9 +666,10 @@ def read_minutes(src):
 
 
 def number_exhibits(src, rel=''):
-    """Number every captioned table in page order: "Exhibit N" in a span at the start of its caption. Write that number into
-    each <a class="exhibit-ref" href="#id"> whose id is a captioned table's, keeping its other attributes. A reference to any
-    other id raises, and so does a link marked exhibit-ref in any other form (more classes, markup in its text) (ADR-0040)."""
+    """Number every captioned table in page order: "Table N" in a span at the start of its caption (ADR-0047; the class names
+    keep ADR-0040's word, exhibit). Write that number into each <a class="exhibit-ref" href="#id"> whose id is a captioned
+    table's, keeping its other attributes. A reference to any other id raises, and so does a link marked exhibit-ref in any
+    other form (more classes, markup in its text) (ADR-0040)."""
     ids, n, refs = {}, 0, 0
 
     def caption(m):
@@ -677,14 +678,14 @@ def number_exhibits(src, rel=''):
         tid = re.search(r'\sid="([^"]+)"', m.group(2))
         if tid:
             ids[tid.group(1)] = n
-        return f'{m.group(1)}<span class="exhibit-n">Exhibit {n}</span> {EXHIBIT_N_RE.sub("", m.group(3))}{m.group(4)}'
+        return f'{m.group(1)}<span class="exhibit-n">Table {n}</span> {EXHIBIT_N_RE.sub("", m.group(3))}{m.group(4)}'
 
     def ref(m):
         nonlocal refs
         refs += 1
         if m.group(2) not in ids:
             raise ValueError(f'{rel}: exhibit reference to #{m.group(2)}, which is not a captioned table')
-        return f'{m.group(1)}Exhibit {ids[m.group(2)]}</a>'
+        return f'{m.group(1)}Table {ids[m.group(2)]}</a>'
 
     out = EXHIBIT_REF_RE.sub(ref, EXHIBIT_RE.sub(caption, src))
     if refs != len(EXHIBIT_REF_ANY.findall(src)):
@@ -732,12 +733,12 @@ def apply(src, rel):
     has_side = bool(node is not None and node.section in SIDEBARS and side(t, node))
     # page facts beside the breadcrumbs: hand-written pages only (generated pages carry their own byline)
     hand = ms is None and node is not None and node.url not in ('/', '/map/') and rel not in DEPLOY_ONLY and 'class="byline"' not in src
-    report = theme_for(url) == 'report'
+    paper = theme_for(url) == 'paper'
 
     blocks = {
         'head': head(t, trail, has_fonts, page_ld(t, node, trail, url, src, layout)),
         'bar': bar(t, node, layout),
-        'crumbs': crumbs(trail, page_meta(t, url, read_minutes(src) if report else None) if hand else ''),
+        'crumbs': crumbs(trail, page_meta(t, url, read_minutes(src) if paper else None) if hand else ''),
         'side': side(t, node) if has_side else '',
         'foot': foot(t, url, source, trail[-1].title),
     }
@@ -773,7 +774,7 @@ def apply(src, rel):
     sec = node.section if node else 'none'
     src = _body_class(src, [f'mb-{layout}', f'mb-s-{sec}'] + (['mb-has-side'] if has_side else []))
     src = _html_theme(src, theme_for(url))
-    if report:
+    if paper:
         src = number_exhibits(src, rel)
     if 'id="main"' not in src:
         if layout == 'read':

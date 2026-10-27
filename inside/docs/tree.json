@@ -336,6 +336,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0047-research-and-front-page-in-the-paper-theme/",
+"t": "ADR-0047: The research section and the front page use a paper theme",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

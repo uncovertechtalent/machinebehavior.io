@@ -6,6 +6,7 @@ adr: 41
 status: accepted
 supersedes: adr-0028-home-page-portal-front
 created: 2026-10-26
+updated: 2026-10-27
 labels: adr, decision, design-system, front-page, site-chrome, research
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -18,9 +19,9 @@ On 2026-10-26 the front page held 883 words and 38 links in seven sections: a he
 
 ## Decision
 
-**The front page carries the report theme.** `THEMED_PAGES` in `scripts/site_chrome.py` gives the exact URL `/` the report theme of [ADR-0039](doc:eng/adr-0039-research-report-theme); a prefix entry cannot, because every URL starts with `/`. The title band, the type and the colours are the research section's.
+**The front page carries the report theme.** `THEMED_PAGES` in `scripts/site_chrome.py` gives the exact URL `/` the report theme of [ADR-0039](doc:eng/adr-0039-research-report-theme); a prefix entry cannot, because every URL starts with `/`. The title band, the type and the colours are the research section's. Replaced by [ADR-0047](doc:eng/adr-0047-research-and-front-page-in-the-paper-theme): the front page carries the paper theme, under the same `THEMED_PAGES` entry.
 
-**One message, then one lead.** The title band holds the page-type pill, the eyebrow, the name, the "Fix your models" line and two buttons, with the second-brain graph as its art (it links to the map). Under it the programme's finding stands alone: "Sycophancy is layered symptom substitution". Then the lead finding: one research page, chosen by hand in `index.html`, with its headline number set large in the way consulting exhibits call out a figure ("54 of 54").
+**One message, then one lead.** The title band holds the page-type pill, the eyebrow, the name, the "Fix your models" line and two buttons, with the second-brain graph as its art (it links to the map). ADR-0047 centres the title with no band and sets the graph beneath it as Figure 1, with its caption in the HTML. Under it the programme's finding stands alone: "Sycophancy is layered symptom substitution". Then the lead finding: one research page, chosen by hand in `index.html`, with its headline number set large in the way consulting exhibits call out a figure ("54 of 54").
 
 **Generated lists stay generated.** `home()` in `scripts/build_fallbacks.py` writes two blocks. The research rows are the newest published research pages whose kind pill is a finding (Experiment, Case file, Article, Method), leaving out the lead; each row shows its pill, title and date. The doors are six sections (Research, Red team, Inside, Docs, Topics, CTO), each with its one-line `door:` text from `site/nav.yml`. Mission Control is reached through Inside, and the second brain through the graph in the band.
 

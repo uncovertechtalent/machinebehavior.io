@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-mb-theme="report">
+<html lang="en" data-mb-theme="paper">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,8 +34,8 @@
   <section class="glance" aria-labelledby="at-a-glance">
     <h2 id="at-a-glance">At a glance</h2>
     <ul>
-      <li><em>Once the rule arrived, the model complied in seconds.</em> It deleted the covered files 11.3 seconds after the rule was relayed, wrote the rule to persistent memory at 25.3 seconds and disclosed an earlier covered action at 34.1 seconds (<a class="exhibit-ref" href="#ex-c12-timeline">Exhibit 1</a>).</li>
-      <li><em>Model plus harness found the clause; the human supplied the file.</em> The coordinator session found the licence clause 10.3 seconds after Stefan named the publisher's terms (<a class="exhibit-ref" href="#ex-c12-layers">Exhibit 2</a>).</li>
+      <li><em>Once the rule arrived, the model complied in seconds.</em> It deleted the covered files 11.3 seconds after the rule was relayed, wrote the rule to persistent memory at 25.3 seconds and disclosed an earlier covered action at 34.1 seconds (<a class="exhibit-ref" href="#ex-c12-timeline">Table 1</a>).</li>
+      <li><em>Model plus harness found the clause; the human supplied the file.</em> The coordinator session found the licence clause 10.3 seconds after Stefan named the publisher's terms (<a class="exhibit-ref" href="#ex-c12-layers">Table 2</a>).</li>
       <li><em>No structural control existed before the fact.</em> The session had downloaded standards text 93 minutes earlier with no warning from any layer, because no rule existed yet.</li>
       <li><em>The fix so far is procedural.</em> The rule lives in a memory file; a hook that denies fetches of standards text is proposed and not built.</li>
       <li><em>One session, one model, one rule.</em> The model under study wrote the case, and a second rater can check every time against the transcript.</li>
@@ -51,7 +51,7 @@
 </ul>
 <h2 id="timeline">Timeline</h2>
 <p class="thesis">Times are transcript timestamps in UTC; add two hours for CEST.</p>
-<div class="tablewrap"><table id="ex-c12-timeline"><caption><span class="exhibit-n">Exhibit 1</span> From the file named to the disclosure sent, the chain took 68.7 seconds</caption>
+<div class="tablewrap"><table id="ex-c12-timeline"><caption><span class="exhibit-n">Table 1</span> From the file named to the disclosure sent, the chain took 68.7 seconds</caption>
 <thead>
 <tr>
 <th>UTC</th>
@@ -191,7 +191,7 @@
 </table>
 <p class="exhibit-note">Note: transcript timestamps in UTC; the record column holds the message uuids a second rater can check.</p></div>
 <h2 id="who-caught-what">Who caught what</h2>
-<div class="tablewrap"><table id="ex-c12-layers"><caption><span class="exhibit-n">Exhibit 2</span> The model and the other session made the substantive catches; the hooks caught wording only</caption>
+<div class="tablewrap"><table id="ex-c12-layers"><caption><span class="exhibit-n">Table 2</span> The model and the other session made the substantive catches; the hooks caught wording only</caption>
 <thead>
 <tr>
 <th>Layer</th>
@@ -225,10 +225,10 @@
 <p class="exhibit-note">Note: one session, one model, one rule; a description, not a rate.</p></div>
 <h2 id="what-the-record-shows">What the record shows</h2>
 <ol type="1">
-<li><strong>Once the rule was stated, compliance took seconds (<a class="exhibit-ref" href="#ex-c12-timeline">Exhibit 1</a>).</strong> Deletion at 11.3 s, persistent memory at 25.3 s, disclosure at 34.1 s. The model also applied the rule backwards in time without being asked: it searched its own earlier actions for anything the new rule covered and reported the one it found.</li>
+<li><strong>Once the rule was stated, compliance took seconds (<a class="exhibit-ref" href="#ex-c12-timeline">Table 1</a>).</strong> Deletion at 11.3 s, persistent memory at 25.3 s, disclosure at 34.1 s. The model also applied the rule backwards in time without being asked: it searched its own earlier actions for anything the new rule covered and reported the one it found.</li>
 <li><strong>Model plus harness detected the constraint, after the fact.</strong> Stefan supplied the document and nothing else. The coordinator session found the clause, worked out its consequence for the running task (a draft standard was about to be processed), wrote the rule into the vault and relayed it across sessions. What the harness lacked was a structural control before the fact: this session had downloaded standards text 93 minutes earlier with no warning from any layer, because no rule existed yet.</li>
 <li><strong>The fix is procedural.</strong> The memory file is an instruction a later model may or may not follow. Per OBJ-14 in the objections register, procedural controls degrade under pressure. No hook blocks a future fetch of standards text. The structural layer in this session covers wording only.</li>
-<li><strong>The hooks did their narrow job, with a false-positive rate visible in the record (<a class="exhibit-ref" href="#ex-c12-layers">Exhibit 2</a>).</strong> Of 4 hook hits, 2 were false positives ("responsible" used literally), and 1 was quoted source that the model kept.</li>
+<li><strong>The hooks did their narrow job, with a false-positive rate visible in the record (<a class="exhibit-ref" href="#ex-c12-layers">Table 2</a>).</strong> Of 4 hook hits, 2 were false positives ("responsible" used literally), and 1 was quoted source that the model kept.</li>
 <li><strong>The model's one false claim in the period studied was caught outside it.</strong> The model treated an empty grep as evidence of absence, and another session corrected it 35 seconds later (14:07:46 to 14:08:21). This matches the pattern in "What Operations Already Knows": in the author's logged setup, the model caught none of its own seven relapses. <em>Update, 2026-10-09: the seven come from the relapse log of the August 2026 paper <a class="mono" href="https://coetzeestefan.substack.com/p/sycophancy-is-layered-symptom-substitution">Sycophancy Is Layered</a>, the source named in What Operations Already Knows. The <a class="mono" href="/research/claims/">claims ledger</a> uses a different window: eight relapses from 2026-05-24 to 2026-06-01, cases 1 to 8 of the OBJ-4 incident log. Both counts have zero self-caught.</em></li>
 <li><strong>A precision slip in the model's own report.</strong> In its disclosure and in the vault, the model wrote that the copies were deleted "at 16:13" CEST. The transcript says 16:12:35. The model found this while building this case and corrected the vault.</li>
 </ol>
