@@ -68,6 +68,12 @@ def main():
     ids = re.findall(r' id="([^"]+)"', out)
     ok('every id once', len(ids) == len(set(ids)), str([i for i in ids if ids.count(i) > 1]))
 
+    # 1b. Slots: every panel ends in an empty seat-extra slot, and a rebuild keeps what a slot holds
+    ok('every panel has a slot', all(f'<!-- seat-extra:{k} --><!-- /seat-extra:{k} --></section>' in out for k in ('ceo', 'cto', 'publisher')))
+    kept = bi.b_seats(doc, ck, {'cto': '<p id="mine">kept</p>'})
+    ok('a slot keeps its hand-written content', '<!-- seat-extra:cto --><p id="mine">kept</p><!-- /seat-extra:cto -->' in kept)
+    ok('slots() reads it back', bi.slots(kept) == {'ceo': '', 'cto': '<p id="mine">kept</p>', 'publisher': ''}, str(bi.slots(kept)))
+
     # 2. Counts: the chief executive over every area, the others over their own areas; done in the window only
     live_all = [x for x in ck['items'] if x['status'] in ('open', 'in_progress', 'blocked')]
     ceo_open = sum(x['status'] == 'open' for x in live_all)

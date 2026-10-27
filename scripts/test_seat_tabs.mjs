@@ -50,6 +50,9 @@ function build() {
     panels[k] = panel;
   }
   const byId = {};
+  const inner = { id: 'dashboards' };
+  panels.cto.contains = el => el === inner;
+  byId.dashboards = inner;
   for (const k of SEATS) { byId['in-tab-' + k] = tabs[k]; byId['seat-' + k] = panels[k]; }
   win = {
     innerHeight: 800,
@@ -139,15 +142,18 @@ test('a click selects a seat and pushes a history entry', () => {
   assert.deepEqual(win.history.calls.at(-1), ['push', '#seat-cfo']);
 });
 
-test('a seat hash selects that seat; a foreign hash leaves the choice alone', () => {
+test('a seat hash selects that seat; a hash inside a panel selects its seat; an unknown hash leaves the choice alone', () => {
   const { tabs, panels } = build();
   win.location.hash = '#seat-cko';
   win.fire('hashchange', {});
   assert.deepEqual(sel(tabs), ['cko']);
   win.location.hash = '#dashboards/deploys';
   win.fire('hashchange', {});
-  assert.deepEqual(sel(tabs), ['cko'], 'a Grafana hash does not change the seat');
-  assert.deepEqual(shown(panels), ['cko']);
+  assert.deepEqual(sel(tabs), ['cto'], 'a hash inside a seat panel selects that seat');
+  assert.deepEqual(shown(panels), ['cto']);
+  win.location.hash = '#nowhere';
+  win.fire('hashchange', {});
+  assert.deepEqual(sel(tabs), ['cto'], 'an unknown hash leaves the choice alone');
 });
 
 test('exactly one seat is selected after every move', () => {
