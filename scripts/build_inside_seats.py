@@ -17,6 +17,10 @@ No new data source: the seats, holders, areas, and lens come from the seats cont
 titles from the cockpit's (ADR-0031), each read through its own loader and check. A panel whose data source does not
 exist yet (the publisher's pipeline) is a labelled placeholder with no number.
 
+Each dashboard ends with a hand-written slot, <!-- seat-extra:SEAT --> ... <!-- /seat-extra:SEAT -->: the cards and tools
+that belong to the seat (deploy feed, apps, front page and the like). The build writes everything else in the block and
+carries each slot's content over from the page unchanged, so the slots are edited by hand in inside/index.html.
+
 Without a script the cards are a plain list of links and every dashboard follows in order; the page script turns the
 list into tabs. The Conformity checks job runs --check; the deploy job runs the build after the cockpit's fetch,
 artifact only, so the tabs are as fresh as the cockpit. Stdlib only. Tests: python3 scripts/test_build_inside_seats.py.
@@ -140,7 +144,7 @@ def area_tiles(ck, titles):
     return f'<ul class="in-areas">{out}</ul>'
 
 
-def panel(s, ck, titles):
+def panel(s, ck, titles, extra=''):
     k = esc(s['seat'])
     own = [x for x in ck['items'] if x['area'] in s['areas']]
     body = (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
@@ -165,10 +169,11 @@ def panel(s, ck, titles):
             f'<div class="in-panel-head"><div><p class="in-label in-accent">{esc(code(s))} dashboard</p>'
             f'<h2 id="seat-{k}-h">{esc(s["title"])}</h2></div>'
             f'<p class="in-panel-meta">holder {esc(s["holder"])} · {areas_label(s, titles)}</p></div>'
-            f'{body}</section>')
+            f'{body}<!-- seat-extra:{k} -->{extra}<!-- /seat-extra:{k} --></section>')
 
 
-def b_seats(doc, ck):
+def b_seats(doc, ck, extras=None):
+    extras = extras or {}
     titles, who = bm.area_titles(), bm.holders(doc)
     if len(who) == 1:
         sub = f'One holder in every seat today: {esc(who[0])}.'
@@ -179,7 +184,7 @@ def b_seats(doc, ck):
             f'<div class="in-sec-head"><h2 id="in-seats-h">Seats</h2><p>{sub}</p></div>'
             f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck) for s in doc["seats"])}</ul>'
             f'</section>'
-            f'<div class="in-panels">{"".join(panel(s, ck, titles) for s in doc["seats"])}</div>'
+            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras.get(s["seat"], "")) for s in doc["seats"])}</div>'
             f'<p class="in-note">Counts and items: the issues and pull requests with an area label in the public '
             f'<a href="/inside/cockpit/">cockpit</a> data as of {bc.stamp(ck)}; done counts those closed as completed or '
             f'merged in the {bc.WINDOW_DAYS} days to then. Seats, holders, areas, and lens questions: the '
@@ -197,9 +202,13 @@ def block(src):
     return found[0]
 
 
+def slots(text):
+    """The hand-written content of each seat slot in a block, by seat key."""
+    return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
+
+
 def put_block(src, doc, ck):
-    block(src)
-    body = b_seats(doc, ck)
+    body = b_seats(doc, ck, slots(block(src)))
     return block_rx().sub(lambda _: f'<!-- static:{BLOCK} -->{body}<!-- /static:{BLOCK} -->', src, count=1)
 
 

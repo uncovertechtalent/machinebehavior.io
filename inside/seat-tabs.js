@@ -39,7 +39,14 @@ export function initSeatTabs(list, env = {}) {
     e.preventDefault();
     pick((to + tabs.length) % tabs.length, true, 'replace');
   });
-  const fromHash = () => panels.findIndex(p => '#' + p.id === win.location.hash);
+  // a hash names a seat, or an element inside one (#dashboards/deploys is in the CTO seat's panel)
+  const fromHash = () => {
+    const h = win.location.hash;
+    let i = panels.findIndex(p => '#' + p.id === h);
+    if (i >= 0 || h.length < 2) return i;
+    const el = doc.getElementById(h.slice(1).split('/')[0]);
+    return el ? panels.findIndex(p => typeof p.contains === 'function' && p.contains(el)) : -1;
+  };
   // later hash moves: a seat hash or no hash selects; another hash (a Grafana tab) leaves the seat choice alone
   const sync = () => { const i = fromHash(); if (i >= 0 || !win.location.hash) pick(Math.max(i, 0), false, false); };
   win.addEventListener('hashchange', sync);
