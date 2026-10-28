@@ -112,7 +112,9 @@ class ContractTest(unittest.TestCase):
 
     def test_a_good_snapshot_passes_and_renders_the_rows(self):
         bo.check(self.data)
-        self.assertIn('Stefan Coetzee', self.data['html'])
+        self.assertNotIn('Stefan Coetzee', self.data['html'])
+        self.assertIn('<td>Operator</td>', self.data['html'])
+        self.assertIn('Waking hours: operator, ', self.data['html'])
         self.assertIn('<code>OllamaDown</code>', self.data['html'])
         self.assertIn('After 15 minutes: responder', self.data['html'])
 
@@ -121,7 +123,7 @@ class ContractTest(unittest.TestCase):
         d = copy.deepcopy(self.data); d['pages'][0]['channel'] = 'pager'; cases.append(d)
         d = copy.deepcopy(self.data); d['on_call'][0]['description'] = 'ping 123456789012345678'; cases.append(d)
         d = copy.deepcopy(self.data); d['on_call'][0]['description'] = 'see https://discord.com/x'; cases.append(d)
-        d = copy.deepcopy(self.data); d['html'] = d['html'].replace('Stefan', 'Someone'); cases.append(d)
+        d = copy.deepcopy(self.data); d['html'] = d['html'].replace('Operator', 'Someone'); cases.append(d)
         d = copy.deepcopy(self.data); d['weeks'][0]['pages'] = -1; cases.append(d)
         d = copy.deepcopy(self.data); d['pages'][0]['acknowledged_by'] = '123456789012345678'; cases.append(d)
         for d in cases:

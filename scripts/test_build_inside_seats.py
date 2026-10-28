@@ -187,6 +187,13 @@ def main():
     for s in solo['seats']:
         s['holder'] = 'A. Holder'
     ok('one holder line', 'One holder in every seat today: A. Holder.' in bi.b_seats(solo, ck))
+    one = bi.b_seats(solo, ck)
+    metas = re.findall(r'<p class="in-panel-meta">(.*?)</p>', one)
+    ok('one holder: no seat line names the holder', len(metas) == 3 and not any('holder' in m or 'A. Holder' in m for m in metas), str(metas))
+    ok('one holder: the seat line keeps the areas', metas[0] == 'Direction · reads every area' and metas[1].startswith('Delivery'), str(metas))
+    ok('one holder: the name is on the page once', one.count('A. Holder') == 1)
+    ok('two holders: each seat line names its holder', '<p class="in-panel-meta">holder A. Holder · Direction · reads every area</p>' in out
+       and '<p class="in-panel-meta">holder B. Holder · ' in out)
 
     # 5. put_block needs the block exactly once
     for name, page in (('missing', '<main></main>'), ('twice', f'<!-- static:{bi.BLOCK} --><!-- /static:{bi.BLOCK} -->' * 2)):

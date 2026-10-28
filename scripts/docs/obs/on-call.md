@@ -1,6 +1,8 @@
 title: On-call and escalation
 summary: The on-call model as it runs: a PagerDuty-style pager on a private Discord server with a rotation, an escalation policy and a read-only responder agent; one Alertmanager for both Prometheus servers; every page and ticket as an issue on the board; an outside heartbeat on the alerting path; and the rotation, last pages and pager load from a public snapshot.
 order: 15
+created: 2026-10-09
+updated: 2026-10-28
 labels: on-call, alerts, alertmanager, pager, rotation, escalation, incidents, discord, heartbeat
 owner: Stefan Coetzee
 reviewed: 2026-10-17
@@ -19,7 +21,7 @@ The tables below are a snapshot, as of the time in its last line: the rotation f
 
 | Role | Who | What they do |
 |---|---|---|
-| Primary | Stefan Coetzee, 08:00 to 22:00 Berlin time | Acknowledges a page, owns the incident, decides, holds the credentials |
+| Primary | The operator, 08:00 to 22:00 Berlin time | Acknowledges a page, owns the incident, decides, holds the credentials |
 | Responder agent | The pager's responder layer, at all hours | Posts the alert's runbook link and a read-only diagnosis in the incident thread. Changes nothing and never acknowledges |
 | Responder sessions | Claude Code sessions, one per track of work | Pick up an acknowledged incident from its board issue, follow the runbooks, fix through the gate, write the incident record |
 | Gate owner | The legislation-track session | Owns the conformity checks; tier changes are the operator's decision |

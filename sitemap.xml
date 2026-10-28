@@ -163,7 +163,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-rollback/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-template-href/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbooks/</loc><lastmod>2026-10-11</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/service-catalog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-architecture/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-navigation/</loc><lastmod>2026-10-26</lastmod></url>
@@ -183,7 +183,7 @@
   <url><loc>https://machinebehavior.io/inside/docs/obs/deploy-exporter/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/loki-streams/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/metrics-reference/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/obs/on-call/</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/obs/on-call/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/public-dashboards/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbook-counter-resets-parallel-sessions/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/obs/runbook-loki-backfill-missing/</loc><lastmod>2026-10-09</lastmod></url>

@@ -116,6 +116,11 @@ def main():
     ok('machinery renders', '<b>direction</b> The weekly review.' in seats)
     ok('gates render with where', '<code>direction.review-memo</code> <span class="mh-where-chip">module</span> Every memo has a date.' in seats)
     ok('bundle none yet', 'bundle: <span class="mono">none yet</span>' in seats)
+    ok('two holders: each seat names its holder', '<p class="mh-holder">Holder: <b>A. Holder</b> · bundle:' in seats and '<b>B. Holder</b>' in seats)
+    solo = variant(lambda d: d['seats'][1].__setitem__('holder', 'A. Holder'))
+    solo_seats = bm.b_seats(solo)
+    ok('one holder: no seat line names the holder', 'Holder:' not in solo_seats and 'A. Holder' not in solo_seats)
+    ok('one holder: the seat line keeps the bundle', '<p class="mh-holder">Bundle: <span class="mono">none yet</span></p>' in solo_seats)
     esc = variant(lambda d: d['seats'][0]['machinery'][0].__setitem__('what', 'Tags & "names"'))
     ok('free text is escaped', 'Tags &amp; &quot;names&quot;' in bm.b_seats(esc))
 
@@ -126,6 +131,9 @@ def main():
     ok('tabs: one radio input per seat plus the seats tab', tabs.count('type="radio"') == 3 and 'id="mh-tab-seats"' in tabs and 'checked' in tabs)
     ok('tabs: one label per seat', '<label for="mh-tab-ceo">Chief executive</label>' in tabs and '<label for="mh-tab-cto">Chief technology officer</label>' in tabs)
     ok('tabs: lens questions render', '<li>Does it move the goal?</li>' in tabs)
+    ok('tabs: two holders, the heading names the holder', '>Chief executive · A. Holder</h3>' in tabs and '>Chief technology officer · B. Holder</h3>' in tabs)
+    solo_tabs = bm.b_tabs(solo, ck)
+    ok('tabs: one holder, the heading is the seat title', '>Chief executive</h3>' in solo_tabs and 'A. Holder' not in solo_tabs)
     cto = tabs[tabs.index('id="mh-panel-cto"'):]
     ok('cto tab holds its areas only', 'id="mh-cto-delivery"' in cto and 'id="mh-cto-operations"' in cto and 'id="mh-cto-security"' not in cto and 'id="mh-cto-money"' not in cto)
     ok('cto tab lists the item of its area', 'Item 41' in cto and 'Item 83' not in cto)
