@@ -227,8 +227,14 @@ def slots(text):
     return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+(?:/\w+)?) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
 
 
-def put_block(src, doc, ck):
-    body = b_seats(doc, ck, slots(block(src)))
+def put_block(src, doc, ck, layout=None):
+    found = slots(block(src))
+    named = {n for v in (LAYOUT if layout is None else layout).values() for n in v}
+    lost = sorted(k for k, v in found.items() if '/' in k and v.strip() and k not in named)
+    if lost:
+        raise SystemExit(f'build_inside_seats: {PAGE_REL} holds content in slot {", ".join(lost)} that LAYOUT does not name; '
+                         f'a rebuild would drop it. Move the content, or name the slot in LAYOUT')
+    body = b_seats(doc, ck, found, layout)
     return block_rx().sub(lambda _: f'<!-- static:{BLOCK} -->{body}<!-- /static:{BLOCK} -->', src, count=1)
 
 

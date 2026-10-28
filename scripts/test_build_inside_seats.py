@@ -84,6 +84,16 @@ def main():
     ok('layout: a seat without one keeps the default order', panel(lay, 'ceo') == panel(out, 'ceo') and panel(lay, 'publisher') == panel(out, 'publisher'))
     ok('the real layout orders cko map, work, dashboards and cfo dashboards first',
        bi.LAYOUT['cko'] == ['cko/map', 'work', 'cko/dash'] and bi.LAYOUT['cfo'] == ['cfo/dash'])
+    src = f'<!-- static:{bi.BLOCK} -->{lay}<!-- /static:{bi.BLOCK} -->'
+    ok('a layout that still names the part slot rebuilds and keeps it', '<p id="top">first</p>' in bi.put_block(src, doc, ck, {'cto': ['cto/top', 'work']}))
+    try:
+        bi.put_block(src, doc, ck, {})
+        refused = ''
+    except SystemExit as e:
+        refused = str(e)
+    ok('a layout that omits a part slot holding content fails the build, naming the slot', 'cto/top' in refused, refused)
+    empty = f'<!-- static:{bi.BLOCK} -->{bi.b_seats(doc, ck, None, {"cto": ["cto/top"]})}<!-- /static:{bi.BLOCK} -->'
+    ok('an empty part slot the layout drops is not an error', bi.put_block(empty, doc, ck, {}) is not None)
     page = bi.PAGE.read_text(encoding='utf-8')
     cko, cfo = (page[page.index(f'id="seat-{k}"'):] for k in ('cko', 'cfo'))
     at = lambda t, x: t.index(x)
