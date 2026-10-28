@@ -1,6 +1,8 @@
 title: On-call and escalation
 summary: The on-call model as it runs: a PagerDuty-style pager on a private Discord server with a rotation, an escalation policy and a read-only responder agent; one Alertmanager for both Prometheus servers; every page and ticket as an issue on the board; an outside heartbeat on the alerting path; and the rotation, last pages and pager load from a public snapshot.
 order: 15
+created: 2026-10-09
+updated: 2026-10-28
 labels: on-call, alerts, alertmanager, pager, rotation, escalation, incidents, discord, heartbeat
 owner: Stefan Coetzee
 reviewed: 2026-10-17

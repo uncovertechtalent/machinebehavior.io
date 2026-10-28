@@ -1,6 +1,8 @@
 title: Software delivery lifecycle
 summary: The stages a change moves through on machinebehavior.io, from request to a live page and back, with the entry and exit criteria, the owner and the record of each stage, and the stages with no practice yet.
 order: 15
+created: 2026-10-11
+updated: 2026-10-28
 labels: sdlc, process, delivery
 owner: Stefan Coetzee
 reviewed: 2026-10-12
