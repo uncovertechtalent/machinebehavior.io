@@ -3,7 +3,9 @@
 document (the chief executive counts every area, another seat its own areas only; blocked before in progress before
 open; done and dropped items stay off the lists; decisions waiting are open decisions only; the empty state and the
 publisher's placeholder show no invented number; titles are escaped; no panel is hidden in the markup, so the page reads
-as a plain list without a script; every id once), the tab's pill rule and short code (ADR-0036), a page with the block
+as a plain list without a script; every id once), the pane grammar and the chief executive's roll-up (ADR-0049: the band
+order on a synthetic seat, the signal slot, the roll-up's tiles, pills, links and freshness line, the refusal of a stray
+or orphaned part slot, the order on the real page), the tab's pill rule and short code (ADR-0036), a page with the block
 missing or twice, --check on the committed files, and --check on a copy with an edited block or a seats file outside its
 contract. Stdlib only. The tab script in inside/seat-tabs.js (roles, roving tabindex, arrow keys, hidden panels, the
 hash, Back and Forward, a first load under a Grafana hash such as /inside/#dashboards) is tested in
@@ -72,36 +74,55 @@ def main():
     ok('every panel has a slot', all(f'<!-- seat-extra:{k} --><!-- /seat-extra:{k} --></section>' in out for k in ('ceo', 'cto', 'publisher')))
     kept = bi.b_seats(doc, ck, {'cto': '<p id="mine">kept</p>'})
     ok('a slot keeps its hand-written content', '<!-- seat-extra:cto --><p id="mine">kept</p><!-- /seat-extra:cto -->' in kept)
-    ok('slots() reads it back', bi.slots(kept) == {'ceo': '', 'cto': '<p id="mine">kept</p>', 'publisher': ''}, str(bi.slots(kept)))
+    ok('slots() reads it back, the signal slots included', bi.slots(kept) == {'ceo/signal': '', 'ceo': '', 'cto/signal': '', 'cto': '<p id="mine">kept</p>', 'publisher/signal': '', 'publisher': ''}, str(bi.slots(kept)))
 
-    # 1c. Layout: a seat that names its order puts a part slot and a generated block first; a seat without one keeps the default
-    lay = bi.b_seats(doc, ck, {'cto/top': '<p id="top">first</p>'}, {'cto': ['cto/top', 'work']})
-    seg = panel(lay, 'cto')
-    pos = [seg.find(x) for x in ('in-panel-head', '<!-- seat-extra:cto/top -->', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"', '<!-- seat-extra:cto -->')]
-    ok('layout: head, part slot, work, then lens, kpis, the seat slot', -1 not in pos and pos == sorted(pos), str(pos))
-    ok('layout: a part slot keeps its content and reads back', '<!-- seat-extra:cto/top --><p id="top">first</p><!-- /seat-extra:cto/top -->' in lay and bi.slots(lay)['cto/top'] == '<p id="top">first</p>')
-    ok('layout: the seat slot is still last', seg.rstrip().endswith('<!-- seat-extra:cto --><!-- /seat-extra:cto --></section>'))
-    ok('layout: a seat without one keeps the default order', panel(lay, 'ceo') == panel(out, 'ceo') and panel(lay, 'publisher') == panel(out, 'publisher'))
-    ok('the real layout orders cko map, work, dashboards and cfo dashboards first',
-       bi.LAYOUT['cko'] == ['cko/map', 'work', 'cko/dash'] and bi.LAYOUT['cfo'] == ['cfo/dash'])
-    src = f'<!-- static:{bi.BLOCK} -->{lay}<!-- /static:{bi.BLOCK} -->'
-    ok('a layout that still names the part slot rebuilds and keeps it', '<p id="top">first</p>' in bi.put_block(src, doc, ck, {'cto': ['cto/top', 'work']}))
-    try:
-        bi.put_block(src, doc, ck, {})
-        refused = ''
-    except SystemExit as e:
-        refused = str(e)
-    ok('a layout that omits a part slot holding content fails the build, naming the slot', 'cto/top' in refused, refused)
-    empty = f'<!-- static:{bi.BLOCK} -->{bi.b_seats(doc, ck, None, {"cto": ["cto/top"]})}<!-- /static:{bi.BLOCK} -->'
-    ok('an empty part slot the layout drops is not an error', bi.put_block(empty, doc, ck, {}) is not None)
+    # 1c. The pane grammar (ADR-0049): signal, queue, state, tools in that order on every seat; the signal slot is the one
+    # part slot a seat may fill; the chief executive opens with a roll-up of the seats
+    ok('the order is signal, queue, state, by band', bi.ORDER == ['rollup', '/signal', 'decisions', 'work', 'pending', 'lens', 'kpis', 'areas'] and bi.PARTS == ('signal',), str(bi.ORDER))
+    sig = bi.b_seats(doc, ck, {'cto/signal': '<p id="top">first</p>'})
+    seg = panel(sig, 'cto')
+    pos = [seg.find(x) for x in ('in-panel-head', '<!-- seat-extra:cto/signal -->', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"', '<!-- seat-extra:cto -->')]
+    ok('a seat: head, signal slot, work, lens, kpis, then the seat slot', -1 not in pos and pos == sorted(pos), str(pos))
+    ok('the signal slot keeps its content and reads back', '<!-- seat-extra:cto/signal --><p id="top">first</p><!-- /seat-extra:cto/signal -->' in sig and bi.slots(sig)['cto/signal'] == '<p id="top">first</p>')
+    ok('every seat has an empty signal slot by default', all(f'<!-- seat-extra:{k}/signal --><!-- /seat-extra:{k}/signal -->' in out for k in ('ceo', 'cto', 'publisher')))
+    ok('the seat slot is still last', seg.rstrip().endswith('<!-- seat-extra:cto --><!-- /seat-extra:cto --></section>'))
+    ok("another seat's slot leaves a seat unchanged", panel(sig, 'ceo') == panel(out, 'ceo') and panel(sig, 'publisher') == panel(out, 'publisher'))
+    ceo = panel(out, 'ceo')
+    pos = [ceo.find(x) for x in ('in-panel-head', '<ul class="in-rollup">', '<!-- seat-extra:ceo/signal -->', 'Decisions waiting', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"', '<ul class="in-areas">', '<!-- seat-extra:ceo -->')]
+    ok('ceo: head, roll-up, signal slot, decisions, work, lens, kpis, area tiles, seat slot', -1 not in pos and pos == sorted(pos), str(pos))
+    roll = ceo[ceo.index('<ul class="in-rollup">'):ceo.index('</ul>', ceo.index('<ul class="in-rollup">'))]
+    blocked_all = sum(x['status'] == 'blocked' for x in ck['items'])
+    ok('roll-up: one tile per seat in masthead order, each linking to its dashboard', re.findall(r'<a href="#seat-([a-z]+)">', roll) == ['ceo', 'cto', 'publisher'], roll)
+    ok("roll-up: a tile carries the seat's code, title and the tab's state in the pill rule",
+       f'<span class="in-rollup-code">CEO</span><span class="in-rollup-title">Chief executive</span><span class="in-pill is-bad">{blocked_all} blocked</span>' in roll
+       and '<span class="in-rollup-code">CTO</span><span class="in-rollup-title">Chief technology officer</span><span class="in-pill is-bad">1 blocked</span>' in roll
+       and '<span class="in-rollup-code">PUBLISHER</span><span class="in-rollup-title">Publisher</span><span class="in-pill is-ok">clear</span>' in roll, roll)
+    ok('roll-up: the counts line names open, in progress, blocked, and done', re.search(r'<span>\d+ open · \d+ in progress · \d+ blocked · \d+ done in 14 days</span></li>', roll) is not None, roll)
+    ok('roll-up: a tile with a blocked item is marked', '<li class="is-bad"><a href="#seat-cto">' in roll and '<li><a href="#seat-publisher">' in roll)
+    ok('roll-up: the heading says how fresh the counts are', re.search(r'<h3>Seats <span class="in-h-meta">one tile per seat · counts as of \d{4}-\d\d-\d\d \d\d:\d\d UTC</span></h3><ul class="in-rollup">', ceo) is not None)
+    ok('roll-up: only on the chief executive', out.count('<ul class="in-rollup">') == 1)
+    ok('roll-up: carries no id', ' id=' not in roll)
+    src = f'<!-- static:{bi.BLOCK} -->{sig}<!-- /static:{bi.BLOCK} -->'
+    ok('a rebuild keeps the signal slot', '<p id="top">first</p>' in bi.put_block(src, doc, ck))
+    for name, stray in (('a part slot the grammar has no place for', 'cto/top'), ('a part slot of a seat the file does not have', 'cmo/signal')):
+        bad = f'<!-- static:{bi.BLOCK} -->{out}<!-- seat-extra:{stray} --><p>x</p><!-- /seat-extra:{stray} --><!-- /static:{bi.BLOCK} -->'
+        try:
+            bi.put_block(bad, doc, ck)
+            refused = ''
+        except SystemExit as e:
+            refused = str(e)
+        ok(f'{name} holding content stops the build, naming the slot and the way out', stray in refused and 'SEAT/signal' in refused, refused)
+    empty = f'<!-- static:{bi.BLOCK} -->{out}<!-- seat-extra:cto/top --><!-- /seat-extra:cto/top --><!-- /static:{bi.BLOCK} -->'
+    ok('an empty stray slot is not an error', bi.put_block(empty, doc, ck) is not None)
     page = bi.PAGE.read_text(encoding='utf-8')
-    cko, cfo = (page[page.index(f'id="seat-{k}"'):] for k in ('cko', 'cfo'))
-    at = lambda t, x: t.index(x)
-    ok('page: cko map, work, dashboards, then lens, kpis, living documents, repos',
-       [at(cko, x) for x in ('id="map-embed"', 'class="in-empty"', 'id="dash-cko"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')] == sorted(at(cko, x) for x in ('id="map-embed"', 'class="in-empty"', 'id="dash-cko"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')))
-    ok('page: cfo dashboards, then lens, kpis, work', at(cfo, 'id="dash-cfo"') < at(cfo, 'class="in-lens"') < at(cfo, 'class="in-kpis"') < at(cfo, 'Not done, blocked first'))
-    ids2 = re.findall(r' id="([^"]+)"', lay)
-    ok('layout: every id once', len(ids2) == len(set(ids2)))
+    pceo, pcko, pcfo = (page[page.index(f'id="seat-{k}"'):] for k in ('ceo', 'cko', 'cfo'))
+    ordered = lambda t, marks: all(x in t for x in marks) and [t.index(x) for x in marks] == sorted(t.index(x) for x in marks)
+    ok('page: ceo roll-up, site cards, decisions, lens, kpis, area tiles', ordered(pceo, ('<ul class="in-rollup">', 'id="sites"', 'Decisions waiting', 'class="in-lens"', 'class="in-kpis"', '<ul class="in-areas">')))
+    ok('page: cko second brain, search dashboard, work, lens, kpis, living documents, repos', ordered(pcko, ('id="map-embed"', 'id="dash-cko"', 'class="in-empty"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')))
+    ok('page: cfo cost dashboards, work, lens, kpis', ordered(pcfo, ('id="dash-cfo"', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"')))
+    ok('page: the only part slots are signal slots', all(k.split('/')[1] == 'signal' for k in bi.slots(bi.block(page)) if '/' in k), str([k for k in bi.slots(bi.block(page)) if '/' in k]))
+    ids2 = re.findall(r' id="([^"]+)"', sig)
+    ok('every id once with a signal slot', len(ids2) == len(set(ids2)))
 
     # 2. Counts: the chief executive over every area, the others over their own areas; done in the window only
     live_all = [x for x in ck['items'] if x['status'] in ('open', 'in_progress', 'blocked')]

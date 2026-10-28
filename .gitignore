@@ -10,3 +10,4 @@ inside/board/issues.json
 llms-full.txt
 llms-passages.json
 *.html.md
+__pycache__/
