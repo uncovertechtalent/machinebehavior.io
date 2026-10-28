@@ -74,6 +74,25 @@ def main():
     ok('a slot keeps its hand-written content', '<!-- seat-extra:cto --><p id="mine">kept</p><!-- /seat-extra:cto -->' in kept)
     ok('slots() reads it back', bi.slots(kept) == {'ceo': '', 'cto': '<p id="mine">kept</p>', 'publisher': ''}, str(bi.slots(kept)))
 
+    # 1c. Layout: a seat that names its order puts a part slot and a generated block first; a seat without one keeps the default
+    lay = bi.b_seats(doc, ck, {'cto/top': '<p id="top">first</p>'}, {'cto': ['cto/top', 'work']})
+    seg = panel(lay, 'cto')
+    pos = [seg.find(x) for x in ('in-panel-head', '<!-- seat-extra:cto/top -->', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"', '<!-- seat-extra:cto -->')]
+    ok('layout: head, part slot, work, then lens, kpis, the seat slot', -1 not in pos and pos == sorted(pos), str(pos))
+    ok('layout: a part slot keeps its content and reads back', '<!-- seat-extra:cto/top --><p id="top">first</p><!-- /seat-extra:cto/top -->' in lay and bi.slots(lay)['cto/top'] == '<p id="top">first</p>')
+    ok('layout: the seat slot is still last', seg.rstrip().endswith('<!-- seat-extra:cto --><!-- /seat-extra:cto --></section>'))
+    ok('layout: a seat without one keeps the default order', panel(lay, 'ceo') == panel(out, 'ceo') and panel(lay, 'publisher') == panel(out, 'publisher'))
+    ok('the real layout orders cko map, work, dashboards and cfo dashboards first',
+       bi.LAYOUT['cko'] == ['cko/map', 'work', 'cko/dash'] and bi.LAYOUT['cfo'] == ['cfo/dash'])
+    page = bi.PAGE.read_text(encoding='utf-8')
+    cko, cfo = (page[page.index(f'id="seat-{k}"'):] for k in ('cko', 'cfo'))
+    at = lambda t, x: t.index(x)
+    ok('page: cko map, work, dashboards, then lens, kpis, living documents, repos',
+       [at(cko, x) for x in ('id="map-embed"', 'class="in-empty"', 'id="dash-cko"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')] == sorted(at(cko, x) for x in ('id="map-embed"', 'class="in-empty"', 'id="dash-cko"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')))
+    ok('page: cfo dashboards, then lens, kpis, work', at(cfo, 'id="dash-cfo"') < at(cfo, 'class="in-lens"') < at(cfo, 'class="in-kpis"') < at(cfo, 'Not done, blocked first'))
+    ids2 = re.findall(r' id="([^"]+)"', lay)
+    ok('layout: every id once', len(ids2) == len(set(ids2)))
+
     # 2. Counts: the chief executive over every area, the others over their own areas; done in the window only
     live_all = [x for x in ck['items'] if x['status'] in ('open', 'in_progress', 'blocked')]
     ceo_open = sum(x['status'] == 'open' for x in live_all)

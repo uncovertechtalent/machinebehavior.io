@@ -21,6 +21,10 @@ Each dashboard ends with a hand-written slot, <!-- seat-extra:SEAT --> ... <!-- 
 that belong to the seat (deploy feed, apps, front page and the like). The build writes everything else in the block and
 carries each slot's content over from the page unchanged, so the slots are edited by hand in inside/index.html.
 
+A seat can also name the order of its panel in LAYOUT, to put a hand-written card above generated blocks: the card
+sits in a part slot, <!-- seat-extra:SEAT/PART -->, which the layout lists next to the generated blocks. A seat without a
+layout keeps the order above.
+
 Without a script the cards are a plain list of links and every dashboard follows in order; the page script turns the
 list into tabs. The Conformity checks job runs --check; the deploy job runs the build after the cockpit's fetch,
 artifact only, so the tabs are as fresh as the cockpit. Stdlib only. Tests: python3 scripts/test_build_inside_seats.py.
@@ -37,6 +41,14 @@ PAGE_REL = 'inside/index.html'
 PAGE = ROOT / PAGE_REL
 BLOCK = 'inside-seats'
 CEO = 'ceo'  # the seat that reads every area (ADR-0032)
+# Panel order for the seats that move something. A name is a generated block (lens, kpis, areas, work, pending) or a
+# hand-written part slot written 'seat/part'; blocks and slots not named keep their default order after the named ones,
+# the seat's own slot last. A seat without an entry gets the default order.
+LAYOUT = {
+    'cko': ['cko/map', 'work', 'cko/dash'],
+    'cfo': ['cfo/dash'],
+}
+DEFAULT_ORDER = ['lens', 'kpis', 'areas', 'work', 'pending']
 
 # Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number.
 PENDING = {
@@ -144,35 +156,43 @@ def area_tiles(ck, titles):
     return f'<ul class="in-areas">{out}</ul>'
 
 
-def panel(s, ck, titles, extra=''):
+def slot(name, extras):
+    return f'<!-- seat-extra:{name} -->{extras.get(name, "")}<!-- /seat-extra:{name} -->'
+
+
+def panel(s, ck, titles, extras=None, layout=None):
     k = esc(s['seat'])
+    extras = extras or {}
     own = [x for x in ck['items'] if x['area'] in s['areas']]
-    body = (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
-            f'<ol>{"".join(f"<li>{esc(q)}</li>" for q in s["lens"])}</ol></div>'
-            + kpis(tally(scope(s, ck))))
+    parts = {'lens': (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
+                      f'<ol>{"".join(f"<li>{esc(q)}</li>" for q in s["lens"])}</ol></div>'),
+             'kpis': kpis(tally(scope(s, ck))), 'areas': '', 'pending': ''}
     if s['seat'] == CEO:
         waiting = [x for x in live(ck['items']) if x['kind'] == 'decision']
-        body += (f'<h3>Areas</h3>{area_tiles(ck, titles)}<h3>Decisions waiting</h3>'
+        parts['areas'] = (f'<h3>Areas</h3>{area_tiles(ck, titles)}<h3>Decisions waiting</h3>'
                  + (rows(waiting, titles) if waiting else '<p class="in-empty">No open decision with an area label.</p>'))
     mine = live(own)
     names = ' · '.join(esc(titles[a]) for a in s['areas'])
     if mine:
-        body += f'<h3>Not done, blocked first <span class="in-h-meta">{names}</span></h3>{rows(mine, titles)}'
+        parts['work'] = f'<h3>Not done, blocked first <span class="in-h-meta">{names}</span></h3>{rows(mine, titles)}'
     else:
         done = tally(own)['done']
-        body += (f'<p class="in-empty">Nothing open in this seat\'s areas ({names}). {plural(done, "item")} done there in '
+        parts['work'] = (f'<p class="in-empty">Nothing open in this seat\'s areas ({names}). {plural(done, "item")} done there in '
                  f'the last {bc.WINDOW_DAYS} days.</p>')
     if s['seat'] in PENDING:
         name, line = PENDING[s['seat']]
-        body += (f'<div class="in-pending"><p class="in-label">{esc(name)} · not wired yet</p><p>{esc(line)}</p></div>')
+        parts['pending'] = (f'<div class="in-pending"><p class="in-label">{esc(name)} · not wired yet</p><p>{esc(line)}</p></div>')
+    named = (LAYOUT if layout is None else layout).get(s['seat'], [])
+    order = named + [n for n in DEFAULT_ORDER if n not in named]
+    body = ''.join(slot(n, extras) if '/' in n else parts[n] for n in order)
     return (f'<section class="in-panel" id="seat-{k}" aria-labelledby="seat-{k}-h">'
             f'<div class="in-panel-head"><div><p class="in-label in-accent">{esc(code(s))} dashboard</p>'
             f'<h2 id="seat-{k}-h">{esc(s["title"])}</h2></div>'
             f'<p class="in-panel-meta">holder {esc(s["holder"])} · {areas_label(s, titles)}</p></div>'
-            f'{body}<!-- seat-extra:{k} -->{extra}<!-- /seat-extra:{k} --></section>')
+            f'{body}{slot(k, extras)}</section>')
 
 
-def b_seats(doc, ck, extras=None):
+def b_seats(doc, ck, extras=None, layout=None):
     extras = extras or {}
     titles, who = bm.area_titles(), bm.holders(doc)
     if len(who) == 1:
@@ -184,7 +204,7 @@ def b_seats(doc, ck, extras=None):
             f'<div class="in-sec-head"><h2 id="in-seats-h">Seats</h2><p>{sub}</p></div>'
             f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck) for s in doc["seats"])}</ul>'
             f'</section>'
-            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras.get(s["seat"], "")) for s in doc["seats"])}</div>'
+            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras, layout) for s in doc["seats"])}</div>'
             f'<p class="in-note">Counts and items: the issues and pull requests with an area label in the public '
             f'<a href="/inside/cockpit/">cockpit</a> data as of {bc.stamp(ck)}; done counts those closed as completed or '
             f'merged in the {bc.WINDOW_DAYS} days to then. Seats, holders, areas, and lens questions: the '
@@ -203,8 +223,8 @@ def block(src):
 
 
 def slots(text):
-    """The hand-written content of each seat slot in a block, by seat key."""
-    return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
+    """The hand-written content of each slot in a block, by slot name: the seat key, or 'seat/part'."""
+    return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+(?:/\w+)?) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
 
 
 def put_block(src, doc, ck):
