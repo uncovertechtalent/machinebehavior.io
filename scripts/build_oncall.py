@@ -34,6 +34,7 @@ DATA = ROOT / 'inside' / 'oncall' / 'oncall.json'
 REPO = 'uncovertechtalent/machinebehavior.io'
 ROTATION_URL = 'https://raw.githubusercontent.com/uncovertechtalent/agent-observability/main/pager/rotation.yml'
 BOT = 'uncovertechtalent'
+ROLE = 'Operator'  # what a table cell calls the site's owner (the docs: "the operator")
 WEEKS, LAST_PAGES = 8, 20
 DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
@@ -264,14 +265,23 @@ def span(s):
     return f'{m} min' if m < 120 else f'{m // 60} h {m % 60} min'
 
 
+def operator():
+    """The site's owner from site/nav.yml: the one human the rotation names. The tables show the role, not the name."""
+    return mini_yaml.load_file(ROOT / 'site' / 'nav.yml')['site']['owner']
+
+
 def render(data):
     e = html.escape
+    owner = operator()
+
+    def who(name, lead=True):
+        return (ROLE if lead else ROLE.lower()) if name == owner else name
     out = ['<div class="oncall-snapshot">', '<h3>Rotation</h3>', '<div class="tbl"><table><thead><tr>'
            '<th>Schedule</th><th>On call at the snapshot</th><th>Layers</th></tr></thead><tbody>']
     for oc in data['on_call']:
-        lays = '; '.join(f'{e(l["name"])}: {e(", ".join(l["members"]))}, {e(l["hours"])}'
+        lays = '; '.join(f'{e(l["name"])}: {e(", ".join(who(m, False) for m in l["members"]))}, {e(l["hours"])}'
                          for l in data['layers'] if l['schedule'] == oc['schedule'])
-        person = e(oc['person']) + (' (agent)' if oc['kind'] == 'agent' else '') if oc['person'] else 'nobody'
+        person = e(who(oc['person'])) + (' (agent)' if oc['kind'] == 'agent' else '') if oc['person'] else 'nobody'
         out.append(f'<tr><td>{e(oc["schedule"])}</td><td>{person}</td><td>{lays}</td></tr>')
     out.append('</tbody></table></div>')
     pol = data['policy']
@@ -282,7 +292,7 @@ def render(data):
             f'<p>Until somebody acknowledges, the person on call is mentioned again every {pol["renotify_min"]} '
             f'minutes, {pol["renotify_limit"]} times. A level with nobody on call passes the page on at once.</p>']
     if data['overrides']:
-        out.append('<p>Overrides: ' + '; '.join(f'{e(o["person"])} on {e(o["schedule"])}, {o["start"][:16].replace("T", " ")} '
+        out.append('<p>Overrides: ' + '; '.join(f'{e(who(o["person"], False))} on {e(o["schedule"])}, {o["start"][:16].replace("T", " ")} '
                                                  f'to {o["end"][:16].replace("T", " ")} UTC' for o in data['overrides']) + '.</p>')
     out.append('<h3>Last pages</h3>')
     if data['pages']:
@@ -290,9 +300,9 @@ def render(data):
                    '<th>Time to acknowledge</th><th>Resolved by</th><th>Time to resolve</th></tr></thead><tbody>')
         for p in data['pages']:
             when = p['fired'][:16].replace('T', ' ') + (' (out of hours)' if p['out_of_hours'] else '') + (' (drill)' if p['drill'] else '')
-            ack = e(p['acknowledged_by']) if p['acknowledged_by'] else ('responder only' if p['responder_ran'] else 'no')
+            ack = e(who(p['acknowledged_by'])) if p['acknowledged_by'] else ('responder only' if p['responder_ran'] else 'no')
             out.append(f'<tr><td>{when}</td><td><code>{e(p["alert"])}</code></td><td>{ack}</td>'
-                       f'<td>{span(p["time_to_acknowledge_s"])}</td><td>{e(p["resolved_by"] or "open")}</td>'
+                       f'<td>{span(p["time_to_acknowledge_s"])}</td><td>{e(who(p["resolved_by"]) if p["resolved_by"] else "open")}</td>'
                        f'<td>{span(p["time_to_resolve_s"])}</td></tr>')
         out.append('</tbody></table></div>')
     else:

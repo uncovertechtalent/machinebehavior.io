@@ -205,10 +205,12 @@ def panel(s, ck, titles, extras=None, seats=None):
         name, line = PENDING[s['seat']]
         parts['pending'] = (f'<div class="in-pending"><p class="in-label">{esc(name)} · not wired yet</p><p>{esc(line)}</p></div>')
     body = ''.join(slot(f'{k}{n}', extras) if n.startswith('/') else parts[n] for n in ORDER)
+    # The holder is named on a seat line only where the seats differ; with one holder the seats sentence names them once.
+    holder = f'holder {esc(s["holder"])} · ' if len({x['holder'] for x in seats or [s]}) > 1 else ''
     return (f'<section class="in-panel" id="seat-{k}" aria-labelledby="seat-{k}-h">'
             f'<div class="in-panel-head"><div><p class="in-label in-accent">{esc(code(s))} dashboard</p>'
             f'<h2 id="seat-{k}-h">{esc(s["title"])}</h2></div>'
-            f'<p class="in-panel-meta">holder {esc(s["holder"])} · {areas_label(s, titles)}</p></div>'
+            f'<p class="in-panel-meta">{holder}{areas_label(s, titles)}</p></div>'
             f'{body}{slot(k, extras)}</section>')
 
 

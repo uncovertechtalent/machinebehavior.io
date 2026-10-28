@@ -260,19 +260,28 @@ def area_chips(areas, titles):
     return ''.join(f'<li><a href="/inside/cockpit/#{esc(a)}">{esc(titles[a])}</a></li>' for a in areas)
 
 
+def named_seats(doc):
+    """True when the seats have more than one holder: only then does a seat heading or line name its holder. With one
+    holder the lede names them once."""
+    return len(holders(doc)) > 1
+
+
 def b_seats(doc):
     titles = area_titles()
+    named = named_seats(doc)
     out = ['<div class="mh-seats">']
     for s in doc['seats']:
         machinery = ''.join(f'<li><b>{esc(r["name"])}</b> {esc(r["what"])}</li>' for r in s['machinery'])
         gates = ''.join(f'<li><code>{esc(r["check"])}</code> <span class="mh-where-chip">{esc(r["where"])}</span> {esc(r["what"])}</li>'
                         for r in s['gates'])
         bundle = esc(s['bundle']) if s['bundle'] else 'none yet'
+        holder_line = (f'<p class="mh-holder">Holder: <b>{esc(s["holder"])}</b> · bundle: <span class="mono">{bundle}</span></p>' if named
+                       else f'<p class="mh-holder">Bundle: <span class="mono">{bundle}</span></p>')
         out.append(
             f'<section class="mh-seat card" id="{esc(s["seat"])}" aria-labelledby="mh-{esc(s["seat"])}">'
             f'<div class="mh-seat-head"><p class="mh-label">{esc(s["seat"]).upper()}</p>'
             f'<h3 id="mh-{esc(s["seat"])}">{esc(s["title"])}</h3>'
-            f'<p class="mh-holder">Holder: <b>{esc(s["holder"])}</b> · bundle: <span class="mono">{bundle}</span></p>'
+            f'{holder_line}'
             f'<ul class="mh-areas" aria-label="Areas">{area_chips(s["areas"], titles)}</ul></div>'
             f'<div class="mh-cols"><div><h4>Machinery</h4><ul class="mh-list">{machinery}</ul></div>'
             f'<div><h4>Gates</h4><ul class="mh-list">{gates}</ul></div></div>'
@@ -321,10 +330,11 @@ def decisions(ck, day):
     return f'<ul class="ck-items">{"".join(bc.card(x, day) for x in live)}</ul>'
 
 
-def seat_panel(s, ck, info, day, titles):
+def seat_panel(s, ck, info, day, titles, named=True):
     key, areas = s['seat'], s['areas']
     f = filtered(ck, areas)
-    head = (f'<h3 id="mh-tab-h-{esc(key)}">{esc(s["title"])} · {esc(s["holder"])}</h3>'
+    heading = f'{esc(s["title"])} · {esc(s["holder"])}' if named else esc(s['title'])
+    head = (f'<h3 id="mh-tab-h-{esc(key)}">{heading}</h3>'
             f'<ul class="mh-areas" aria-label="Areas">{area_chips(areas, titles)}</ul>')
     body = lens_block(s)
     if key == 'ceo':
@@ -353,7 +363,8 @@ def b_tabs(doc, ck=None):
               + ''.join(f'<input type="radio" name="mh-tab" id="mh-tab-{esc(k)}" class="mh-tab-in mb-sr">' for k in keys))
     labels = ('<label for="mh-tab-seats">Seats</label>'
               + ''.join(f'<label for="mh-tab-{esc(s["seat"])}">{esc(s["title"])}</label>' for s in doc['seats']))
-    panels = ''.join(seat_panel(s, ck, info, day, titles) for s in doc['seats'])
+    named = named_seats(doc)
+    panels = ''.join(seat_panel(s, ck, info, day, titles, named) for s in doc['seats'])
     return f'{inputs}<div class="mh-tablist" aria-label="Seat tabs">{labels}</div>{panels}'
 
 

@@ -257,6 +257,7 @@ def service_page(s, all_s, status_live):
 
 def catalog_page(svcs, status_live):
     newest = max(s['updated'] for s in svcs.values())
+    site_owner = site_chrome.tree().site['owner']  # a card names an owner only where it is not the site's owner; the service page always does
     groups = ''
     for sys_name in SYSTEMS:
         members = sorted((s for s in svcs.values() if s['system'] == sys_name), key=lambda s: (s['tier'], s['name'].lower()))
@@ -267,10 +268,11 @@ def catalog_page(svcs, status_live):
             slo = ', '.join(f'{o["name"]} {o["target"]}' for o in s.get('slo') or []) or 'none'
             dash = ext_link(s['dashboard']['url'], s['dashboard']['name']) if s.get('dashboard') else '<span class="dim">none</span>'
             stat = f' · <a href="/inside/status/#{esc(s["id"])}">status</a>' if status_live else ''
+            owner_fact = '' if s['owner'] == site_owner else f'<dt>owner</dt><dd>{esc(s["owner"])}</dd>'
             cards += (f'<li class="svc-card" id="{esc(s["id"])}"><div class="svc-top"><a class="svc-name" href="{s["page"]}">{esc(s["name"])}</a>'
                       f'{chip_tier(s["tier"])}{chip_life(s["lifecycle"])}</div>'
                       f'<p class="svc-desc">{esc(" ".join(s["description"].split()))}</p>'
-                      f'<dl class="svc-facts"><dt>owner</dt><dd>{esc(s["owner"])}</dd><dt>SLO</dt><dd>{esc(slo)}</dd>'
+                      f'<dl class="svc-facts">{owner_fact}<dt>SLO</dt><dd>{esc(slo)}</dd>'
                       f'<dt>dashboard</dt><dd>{dash}</dd><dt>docs</dt><dd>{len(s["docs_l"])} pages · {len(s["runbooks_l"])} runbooks{stat}</dd></dl></li>')
         sid = sys_name.lower().replace(' ', '-')
         groups += f'<section class="sys" aria-labelledby="{sid}"><h2 id="{sid}">{esc(sys_name)} <span class="n">{len(members)}</span></h2><ul class="svc-list">{cards}</ul></section>'
