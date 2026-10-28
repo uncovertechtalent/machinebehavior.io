@@ -21,9 +21,14 @@ Each dashboard ends with a hand-written slot, <!-- seat-extra:SEAT --> ... <!-- 
 that belong to the seat (deploy feed, apps, front page and the like). The build writes everything else in the block and
 carries each slot's content over from the page unchanged, so the slots are edited by hand in inside/index.html.
 
-A seat can also name the order of its panel in LAYOUT, to put a hand-written card above generated blocks: the card
-sits in a part slot, <!-- seat-extra:SEAT/PART -->, which the layout lists next to the generated blocks. A seat without a
-layout keeps the order above.
+Every dashboard follows one pane grammar (ADR-0049): four bands in a fixed order, signal, queue, state, tools. The
+signal band holds the seat's one live picture: on the chief executive's dashboard a generated roll-up of the seats (one
+tile per seat with its state, linking to its dashboard), then the seat's hand-written visual in the part slot
+<!-- seat-extra:SEAT/signal --> (the Second brain and the search dashboard on CKO, the cost dashboards on CFO, the site
+cards on CEO). The queue band holds what needs the seat: the decisions waiting on CEO, then the seat's items that are
+not done. The state band holds the lens questions, the counts, and the chief executive's area tiles. The tools band is
+the seat's own slot. The build refuses a part slot other than SEAT/signal that holds content, and a part slot of a seat
+the seats file does not have, so nothing hand-written is dropped by a rebuild.
 
 Without a script the cards are a plain list of links and every dashboard follows in order; the page script turns the
 list into tabs. The Conformity checks job runs --check; the deploy job runs the build after the cockpit's fetch,
@@ -41,14 +46,12 @@ PAGE_REL = 'inside/index.html'
 PAGE = ROOT / PAGE_REL
 BLOCK = 'inside-seats'
 CEO = 'ceo'  # the seat that reads every area (ADR-0032)
-# Panel order for the seats that move something. A name is a generated block (lens, kpis, areas, work, pending) or a
-# hand-written part slot written 'seat/part'; blocks and slots not named keep their default order after the named ones,
-# the seat's own slot last. A seat without an entry gets the default order.
-LAYOUT = {
-    'cko': ['cko/map', 'work', 'cko/dash'],
-    'cfo': ['cfo/dash'],
-}
-DEFAULT_ORDER = ['lens', 'kpis', 'areas', 'work', 'pending']
+# The pane grammar (ADR-0049): the blocks of every dashboard in one fixed order, by band. A name is a generated block;
+# '/signal' is the seat's hand-written visual, the part slot <!-- seat-extra:SEAT/signal -->. The seat's own slot comes
+# last, as the tools band. A block a seat has nothing for renders as nothing.
+BANDS = (('signal', ['rollup', '/signal']), ('queue', ['decisions', 'work', 'pending']), ('state', ['lens', 'kpis', 'areas']))
+ORDER = [n for _, names in BANDS for n in names]
+PARTS = ('signal',)  # the part slots a seat may hold content in
 
 # Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number.
 PENDING = {
@@ -160,17 +163,36 @@ def slot(name, extras):
     return f'<!-- seat-extra:{name} -->{extras.get(name, "")}<!-- /seat-extra:{name} -->'
 
 
-def panel(s, ck, titles, extras=None, layout=None):
+def rollup(seats, ck):
+    """The chief executive's signal (ADR-0049): one tile per seat in masthead order, the seat code, its title, and its
+    state in the tab's pill rule, linking to the seat's dashboard; the counts behind the pill on one line beneath. The
+    heading says how fresh the counts are."""
+    out = ''
+    for s in seats:
+        k, c = esc(s['seat']), tally(scope(s, ck))
+        sty, long, _ = state(c)
+        out += (f'<li{cls("is-bad", c["blocked"])}><a href="#seat-{k}"><span class="in-rollup-code">{esc(code(s))}</span>'
+                f'<span class="in-rollup-title">{esc(s["title"])}</span><span class="in-pill {sty}">{long}</span></a>'
+                f'<span>{c["open"]} open · {c["in_progress"]} in progress · {c["blocked"]} blocked · '
+                f'{c["done"]} done in {bc.WINDOW_DAYS} days</span></li>')
+    return (f'<h3>Seats <span class="in-h-meta">one tile per seat · counts as of {esc(bc.stamp(ck))}</span></h3>'
+            f'<ul class="in-rollup">{out}</ul>')
+
+
+def panel(s, ck, titles, extras=None, seats=None):
     k = esc(s['seat'])
     extras = extras or {}
     own = [x for x in ck['items'] if x['area'] in s['areas']]
-    parts = {'lens': (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
-                      f'<ol>{"".join(f"<li>{esc(q)}</li>" for q in s["lens"])}</ol></div>'),
-             'kpis': kpis(tally(scope(s, ck))), 'areas': '', 'pending': ''}
+    parts = {n: '' for n in ORDER}
+    parts['lens'] = (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
+                     f'<ol>{"".join(f"<li>{esc(q)}</li>" for q in s["lens"])}</ol></div>')
+    parts['kpis'] = kpis(tally(scope(s, ck)))
     if s['seat'] == CEO:
         waiting = [x for x in live(ck['items']) if x['kind'] == 'decision']
-        parts['areas'] = (f'<h3>Areas</h3>{area_tiles(ck, titles)}<h3>Decisions waiting</h3>'
-                 + (rows(waiting, titles) if waiting else '<p class="in-empty">No open decision with an area label.</p>'))
+        parts['rollup'] = rollup(seats or [s], ck)
+        parts['decisions'] = ('<h3>Decisions waiting</h3>'
+                              + (rows(waiting, titles) if waiting else '<p class="in-empty">No open decision with an area label.</p>'))
+        parts['areas'] = f'<h3>Areas</h3>{area_tiles(ck, titles)}'
     mine = live(own)
     names = ' · '.join(esc(titles[a]) for a in s['areas'])
     if mine:
@@ -182,9 +204,7 @@ def panel(s, ck, titles, extras=None, layout=None):
     if s['seat'] in PENDING:
         name, line = PENDING[s['seat']]
         parts['pending'] = (f'<div class="in-pending"><p class="in-label">{esc(name)} · not wired yet</p><p>{esc(line)}</p></div>')
-    named = (LAYOUT if layout is None else layout).get(s['seat'], [])
-    order = named + [n for n in DEFAULT_ORDER if n not in named]
-    body = ''.join(slot(n, extras) if '/' in n else parts[n] for n in order)
+    body = ''.join(slot(f'{k}{n}', extras) if n.startswith('/') else parts[n] for n in ORDER)
     return (f'<section class="in-panel" id="seat-{k}" aria-labelledby="seat-{k}-h">'
             f'<div class="in-panel-head"><div><p class="in-label in-accent">{esc(code(s))} dashboard</p>'
             f'<h2 id="seat-{k}-h">{esc(s["title"])}</h2></div>'
@@ -192,7 +212,7 @@ def panel(s, ck, titles, extras=None, layout=None):
             f'{body}{slot(k, extras)}</section>')
 
 
-def b_seats(doc, ck, extras=None, layout=None):
+def b_seats(doc, ck, extras=None):
     extras = extras or {}
     titles, who = bm.area_titles(), bm.holders(doc)
     if len(who) == 1:
@@ -204,7 +224,7 @@ def b_seats(doc, ck, extras=None, layout=None):
             f'<div class="in-sec-head"><h2 id="in-seats-h">Seats</h2><p>{sub}</p></div>'
             f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck) for s in doc["seats"])}</ul>'
             f'</section>'
-            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras, layout) for s in doc["seats"])}</div>'
+            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras, doc["seats"]) for s in doc["seats"])}</div>'
             f'<p class="in-note">Counts and items: the issues and pull requests with an area label in the public '
             f'<a href="/inside/cockpit/">cockpit</a> data as of {bc.stamp(ck)}; done counts those closed as completed or '
             f'merged in the {bc.WINDOW_DAYS} days to then. Seats, holders, areas, and lens questions: the '
@@ -227,14 +247,16 @@ def slots(text):
     return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+(?:/\w+)?) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
 
 
-def put_block(src, doc, ck, layout=None):
+def put_block(src, doc, ck):
     found = slots(block(src))
-    named = {n for v in (LAYOUT if layout is None else layout).values() for n in v}
-    lost = sorted(k for k, v in found.items() if '/' in k and v.strip() and k not in named)
+    keys = {s['seat'] for s in doc['seats']}
+    lost = sorted(k for k, v in found.items()
+                  if '/' in k and v.strip() and (k.split('/', 1)[0] not in keys or k.split('/', 1)[1] not in PARTS))
     if lost:
-        raise SystemExit(f'build_inside_seats: {PAGE_REL} holds content in slot {", ".join(lost)} that LAYOUT does not name; '
-                         f'a rebuild would drop it. Move the content, or name the slot in LAYOUT')
-    body = b_seats(doc, ck, found, layout)
+        raise SystemExit(f'build_inside_seats: {PAGE_REL} holds content in slot {", ".join(lost)}, which the pane grammar '
+                         f'(ADR-0049) has no place for; a rebuild would drop it. Move the content to the seat\'s signal slot '
+                         f'(SEAT/signal) or its own slot (SEAT)')
+    body = b_seats(doc, ck, found)
     return block_rx().sub(lambda _: f'<!-- static:{BLOCK} -->{body}<!-- /static:{BLOCK} -->', src, count=1)
 
 

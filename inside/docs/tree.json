@@ -346,6 +346,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0049-seat-pane-grammar/",
+"t": "ADR-0049: Every seat dashboard follows one pane grammar, and the chief executive's opens with the seats",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
