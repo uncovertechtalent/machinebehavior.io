@@ -1,0 +1,260 @@
+{
+ "schema": 1,
+ "generated": "2026-10-31T08:05:34Z",
+ "source": "the bead tracker of the knowledge vault, records with the label public",
+ "window_days": 30,
+ "items": [
+  {
+   "id": "vault-hy2o",
+   "title": "Second independent rater on the 8 stance-layer relapses",
+   "area": "ai",
+   "kind": "action",
+   "status": "open",
+   "created": "2026-09-21",
+   "closed": null
+  },
+  {
+   "id": "vault-9enh",
+   "title": "Private-terms check: powersuit rule + machinebehavior.io gate (local-only)",
+   "area": "security",
+   "kind": "action",
+   "status": "open",
+   "created": "2026-10-11",
+   "closed": null
+  },
+  {
+   "id": "vault-4uh7",
+   "title": "machinebehavior.io IA review and restructure",
+   "area": "delivery",
+   "kind": "action",
+   "status": "open",
+   "created": "2026-10-23",
+   "closed": null
+  },
+  {
+   "id": "vault-bk29.6",
+   "title": "First engagement runs in public on /inside/, client anonymised (Feb to Apr)",
+   "area": "direction",
+   "kind": "action",
+   "status": "open",
+   "created": "2026-10-26",
+   "closed": null
+  },
+  {
+   "id": "vault-6kfl",
+   "title": "Deploy Agent tool calls dashboard and denial alert to grafana.scoetzee.de",
+   "area": "operations",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-12",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-0w6l",
+   "title": "Research: tech debt and startup causes of death, mapped to CTO Powersuit modules",
+   "area": "knowledge",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-17",
+   "closed": "2026-10-17"
+  },
+  {
+   "id": "vault-3e9y",
+   "title": "Research: documented cases where IT, security, or delivery decisions killed or nearly killed companies (consequence horizon)",
+   "area": "knowledge",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-17",
+   "closed": "2026-10-17"
+  },
+  {
+   "id": "vault-92ol",
+   "title": "Alertmanager routing live for both Prometheus servers (machinebehavior.io#36)",
+   "area": "operations",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-17",
+   "closed": "2026-10-17"
+  },
+  {
+   "id": "vault-kkoq",
+   "title": "Inside landing as light intranet dashboard with seat tabs (machinebehavior.io PR)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-17",
+   "closed": "2026-10-17"
+  },
+  {
+   "id": "vault-bmuy",
+   "title": "Vault working tree was overwritten with 10-17 file versions on 2026-10-20 23:23: label fixes undone, 7 quarantined notes back in the live tree",
+   "area": "knowledge",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-20",
+   "closed": "2026-10-21"
+  },
+  {
+   "id": "vault-d7xn",
+   "title": "Vault maintenance pass: orphans, broken wikilinks, MOC gaps",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-20",
+   "closed": "2026-10-20"
+  },
+  {
+   "id": "vault-18cp",
+   "title": "Article: Six business worries, one gate run (CTO Powersuit demo)",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-21",
+   "closed": "2026-10-21"
+  },
+  {
+   "id": "vault-sv0k",
+   "title": "Stance vs censorship abliteration probe",
+   "area": "ai",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-22",
+   "closed": "2026-10-22"
+  },
+  {
+   "id": "vault-mb33",
+   "title": "mbio sidebar: 'All {group}' link plus five most recent pages per group",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-26",
+   "closed": "2026-10-26"
+  },
+  {
+   "id": "vault-0siq",
+   "title": "Restructure /inside/ as a walled garden (skeleton only)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-27",
+   "closed": "2026-10-27"
+  },
+  {
+   "id": "vault-3dhv",
+   "title": "FinOps dashboard in Grafana: one bill, virtual tags, unit costs, anomalies",
+   "area": "money",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-27",
+   "closed": "2026-10-27"
+  },
+  {
+   "id": "vault-4uud",
+   "title": "mbio: research and front page in the paper theme (ADR-0047, PR 197)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-27",
+   "closed": "2026-10-27"
+  },
+  {
+   "id": "vault-jeca",
+   "title": "FinOps: resource-level cost from the CUR / Data Export in the exporter and dashboard",
+   "area": "money",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-27",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-rv0d",
+   "title": "Retake founder-tour screenshots in light theme (machinebehavior.io /inside/tour/)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-27",
+   "closed": "2026-10-27"
+  },
+  {
+   "id": "vault-512l",
+   "title": "mbio: seat pane grammar (ADR-0049) and CEO roll-up, PR 210",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-28",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-9vdt",
+   "title": "Name count on public pages 2026-10-28",
+   "area": "security",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-28",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-yso7",
+   "title": "Inside seat panels: CKO graph, work block and dashboard first; CFO dashboard first",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-28",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-zd3z",
+   "title": "LAN monitoring coverage after the 2026-10-28 power cut",
+   "area": "operations",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-28",
+   "closed": "2026-10-28"
+  },
+  {
+   "id": "vault-6o67",
+   "title": "AJP-4 alignment: draft piece logistics-of-state-aligned-with-ajp-4",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-30",
+   "closed": "2026-10-30"
+  },
+  {
+   "id": "vault-8cuc",
+   "title": "Abliteration follow-up run 2026-10-30: Heretic full battery + stock template (Qwen3.8-27B)",
+   "area": "ai",
+   "kind": "finding",
+   "status": "done",
+   "created": "2026-10-30",
+   "closed": "2026-10-30"
+  },
+  {
+   "id": "vault-mgqx",
+   "title": "AJP-4 alignment: medical and military police remapped",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-30",
+   "closed": "2026-10-30"
+  },
+  {
+   "id": "vault-uair",
+   "title": "AJP-4 alignment: frameworks atom nato-ajp-4-logistics-doctrine",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-30",
+   "closed": "2026-10-30"
+  },
+  {
+   "id": "vault-w3cq",
+   "title": "AJP-4 alignment: chapter-by-chapter table in source notes",
+   "area": "knowledge",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-30",
+   "closed": "2026-10-30"
+  }
+ ]
+}

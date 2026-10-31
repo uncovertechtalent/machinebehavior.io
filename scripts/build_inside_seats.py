@@ -13,9 +13,13 @@ areas, and the seat's items that are not done, blocked first, each linked to its
 executive's dashboard counts every area, shows one tile per area and the decisions waiting (kind decision, not done) as
 on the masthead (ADR-0032), then the items of its own areas, a list new in ADR-0034.
 
-No new data source: the seats, holders, areas, and lens come from the seats contract (ADR-0032), the items and the area
-titles from the cockpit's (ADR-0031), each read through its own loader and check. A panel whose data source does not
-exist yet (the publisher's pipeline) is a labelled placeholder with no number.
+The seats, holders, areas, and lens come from the seats contract (ADR-0032), the items and the area titles from the
+cockpit's (ADR-0031), each read through its own loader and check. Two more sources since ADR-0050, each with its own
+contract and loader: the house ledger (inside/board/ledger.json, the vault's bead records with the label public), whose
+records not done join every seat's queue band for the seat's areas as their own block with their own freshness line,
+and the publishing pipeline (inside/publisher/pipeline.json, the drafts with a public teaser), which fills the
+publisher's queue band in place of the placeholder it held from ADR-0034. A panel whose data source does not exist
+yet is a labelled placeholder with no number; none is pending today.
 
 Each dashboard ends with a hand-written slot, <!-- seat-extra:SEAT --> ... <!-- /seat-extra:SEAT -->: the cards and tools
 that belong to the seat (deploy feed, apps, front page and the like). The build writes everything else in the block and
@@ -39,7 +43,7 @@ from pathlib import Path
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import build_cockpit as bc, build_masthead as bm  # noqa: E402
+import build_cockpit as bc, build_ledger as bl, build_masthead as bm, build_pipeline as bp  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGE_REL = 'inside/index.html'
@@ -49,15 +53,14 @@ CEO = 'ceo'  # the seat that reads every area (ADR-0032)
 # The pane grammar (ADR-0049): the blocks of every dashboard in one fixed order, by band. A name is a generated block;
 # '/signal' is the seat's hand-written visual, the part slot <!-- seat-extra:SEAT/signal -->. The seat's own slot comes
 # last, as the tools band. A block a seat has nothing for renders as nothing.
-BANDS = (('signal', ['rollup', '/signal']), ('queue', ['decisions', 'work', 'pending']), ('state', ['lens', 'kpis', 'areas']))
+BANDS = (('signal', ['rollup', '/signal']), ('queue', ['decisions', 'work', 'ledger', 'pipeline', 'pending']),
+         ('state', ['lens', 'kpis', 'areas']))
 ORDER = [n for _, names in BANDS for n in names]
 PARTS = ('signal',)  # the part slots a seat may hold content in
 
-# Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number.
-PENDING = {
-    'publisher': ('Publishing pipeline', 'Drafts, pieces in review, and pieces live this week. No public data source '
-                  'feeds this panel yet, so it shows no count.'),
-}
+# Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number. Empty since
+# ADR-0050 wired the publisher's pipeline; the mechanism stays for the next seat that gets a panel before its data.
+PENDING = {}
 
 STATUS = {'blocked': ('blocked', 'is-bad'), 'in_progress': ('in progress', 'is-warn'), 'open': ('open', 'is-open')}
 
@@ -159,6 +162,34 @@ def area_tiles(ck, titles):
     return f'<ul class="in-areas">{out}</ul>'
 
 
+def ledger_row(x, titles):
+    text, cls = STATUS[x['status']]
+    kind = f' · {esc(x["kind"])}' if x['kind'] else ''
+    return (f'<li class="in-item"><span class="in-pill {cls}">{text}</span>'
+            f'<span class="in-item-main">{esc(x["title"])}'
+            f'<span class="in-item-meta">ledger {esc(x["id"])} · {esc(titles[x["area"]])}{kind}</span></span>'
+            f'<span class="in-item-date">opened {esc(x["created"])}</span></li>')
+
+
+def ledger_block(s, led, titles):
+    """The house ledger in a seat's queue band (ADR-0050): the records not done for the seat's areas (every area for the
+    chief executive), blocked first, with the done count and the export time in the heading. A seat with no record in
+    its areas gets nothing; one with records but none open gets the done count on one line."""
+    mine = [x for x in led['items'] if s['seat'] == CEO or x['area'] in s['areas']]
+    if not mine:
+        return ''
+    done, when = bl.tally(mine)['done'], esc(bl.stamp(led))
+    names = ' · '.join(esc(titles[a]) for a in s['areas']) if s['seat'] != CEO else 'every area'
+    open_ = bl.live(mine)
+    if not open_:
+        where = 'any area' if s['seat'] == CEO else names
+        return (f'<p class="in-empty">House ledger: nothing open in {where}; {plural(done, "record")} done in '
+                f'{bl.WINDOW_DAYS} days, as of {when}.</p>')
+    return (f'<h3>House ledger, not done <span class="in-h-meta">{names} · {plural(done, "record")} done in '
+            f'{bl.WINDOW_DAYS} days · as of {when}, the last export</span></h3>'
+            f'<ul class="in-items in-ledger">{"".join(ledger_row(x, titles) for x in open_)}</ul>')
+
+
 def slot(name, extras):
     return f'<!-- seat-extra:{name} -->{extras.get(name, "")}<!-- /seat-extra:{name} -->'
 
@@ -179,9 +210,9 @@ def rollup(seats, ck):
             f'<ul class="in-rollup">{out}</ul>')
 
 
-def panel(s, ck, titles, extras=None, seats=None):
+def panel(s, ck, titles, extras=None, seats=None, led=None, pipe=None):
     k = esc(s['seat'])
-    extras = extras or {}
+    extras, led, pipe = extras or {}, led or bl.empty(), pipe or bp.empty()
     own = [x for x in ck['items'] if x['area'] in s['areas']]
     parts = {n: '' for n in ORDER}
     parts['lens'] = (f'<div class="in-lens"><p class="in-label">Lens · the questions for every item in this seat</p>'
@@ -201,6 +232,9 @@ def panel(s, ck, titles, extras=None, seats=None):
         done = tally(own)['done']
         parts['work'] = (f'<p class="in-empty">Nothing open in this seat\'s areas ({names}). {plural(done, "item")} done there in '
                  f'the last {bc.WINDOW_DAYS} days.</p>')
+    parts['ledger'] = ledger_block(s, led, titles)
+    if s['seat'] == 'publisher':
+        parts['pipeline'] = bp.block(pipe)
     if s['seat'] in PENDING:
         name, line = PENDING[s['seat']]
         parts['pending'] = (f'<div class="in-pending"><p class="in-label">{esc(name)} · not wired yet</p><p>{esc(line)}</p></div>')
@@ -214,8 +248,8 @@ def panel(s, ck, titles, extras=None, seats=None):
             f'{body}{slot(k, extras)}</section>')
 
 
-def b_seats(doc, ck, extras=None):
-    extras = extras or {}
+def b_seats(doc, ck, extras=None, led=None, pipe=None):
+    extras, led, pipe = extras or {}, led or bl.empty(), pipe or bp.empty()
     titles, who = bm.area_titles(), bm.holders(doc)
     if len(who) == 1:
         sub = f'One holder in every seat today: {esc(who[0])}.'
@@ -226,11 +260,25 @@ def b_seats(doc, ck, extras=None):
             f'<div class="in-sec-head"><h2 id="in-seats-h">Seats</h2><p>{sub}</p></div>'
             f'<ul class="in-seat-tabs" aria-label="Seat dashboards">{"".join(card(s, ck) for s in doc["seats"])}</ul>'
             f'</section>'
-            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras, doc["seats"]) for s in doc["seats"])}</div>'
+            f'<div class="in-panels">{"".join(panel(s, ck, titles, extras, doc["seats"], led, pipe) for s in doc["seats"])}</div>'
             f'<p class="in-note">Counts and items: the issues and pull requests with an area label in the public '
             f'<a href="/inside/cockpit/">cockpit</a> data as of {bc.stamp(ck)}; done counts those closed as completed or '
             f'merged in the {bc.WINDOW_DAYS} days to then. Seats, holders, areas, and lens questions: the '
-            f'<a href="/inside/masthead/">masthead</a>.</p>')
+            f'<a href="/inside/masthead/">masthead</a>.{sources(led, pipe)}</p>')
+
+
+def sources(led, pipe):
+    """The sentence on the two vault sources (ADR-0050), with each file's export time; nothing when neither has a record."""
+    out = []
+    if led['items']:
+        out.append(f'the house ledger, the vault\'s bead records with the label public, as of {esc(bl.stamp(led))} '
+                   f'(<a href="/inside/board/ledger.json">ledger.json</a>, shown in full on the <a href="/inside/board/#ledger-h">board</a>)')
+    if pipe['pieces']:
+        out.append(f'the publishing pipeline, the drafts with a public teaser, as of {esc(bp.stamp(pipe))} '
+                   f'(<a href="/inside/publisher/pipeline.json">pipeline.json</a>)')
+    if not out:
+        return ''
+    return ' From the knowledge vault, exported on the holder\'s machine and committed: ' + '; '.join(out) + '.'
 
 
 def block_rx():
@@ -249,7 +297,7 @@ def slots(text):
     return {m.group(1): m.group(2) for m in re.finditer(r'<!-- seat-extra:(\w+(?:/\w+)?) -->(.*?)<!-- /seat-extra:\1 -->', text, re.S)}
 
 
-def put_block(src, doc, ck):
+def put_block(src, doc, ck, led=None, pipe=None):
     found = slots(block(src))
     keys = {s['seat'] for s in doc['seats']}
     lost = sorted(k for k, v in found.items()
@@ -258,7 +306,7 @@ def put_block(src, doc, ck):
         raise SystemExit(f'build_inside_seats: {PAGE_REL} holds content in slot {", ".join(lost)}, which the pane grammar '
                          f'(ADR-0049) has no place for; a rebuild would drop it. Move the content to the seat\'s signal slot '
                          f'(SEAT/signal) or its own slot (SEAT)')
-    body = b_seats(doc, ck, found)
+    body = b_seats(doc, ck, found, led, pipe)
     return block_rx().sub(lambda _: f'<!-- static:{BLOCK} -->{body}<!-- /static:{BLOCK} -->', src, count=1)
 
 
@@ -285,9 +333,24 @@ def main(argv=None):
         for line in str(e).splitlines():
             print('  ' + line, file=sys.stderr)
         return 1
+    try:
+        led = bl.load(bl.DATA)
+    except bl.ContractError as e:
+        print(f'build_inside_seats: {bl.DATA.name} breaks the ledger contract (ADR-0050):', file=sys.stderr)
+        for line in str(e).splitlines():
+            print('  ' + line, file=sys.stderr)
+        return 1
+    try:
+        pipe = bp.load(bp.DATA)
+    except bp.ContractError as e:
+        print(f'build_inside_seats: {bp.DATA.name} breaks the pipeline contract (ADR-0050):', file=sys.stderr)
+        for line in str(e).splitlines():
+            print('  ' + line, file=sys.stderr)
+        return 1
     page = PAGE.read_text(encoding='utf-8')
-    new = put_block(page, doc, ck)
-    summary = f'{plural(len(doc["seats"]), "seat")}, cockpit data of {ck["generated"]}'
+    new = put_block(page, doc, ck, led, pipe)
+    summary = (f'{plural(len(doc["seats"]), "seat")}, cockpit data of {ck["generated"]}, ledger of {led["generated"]} '
+               f'({plural(len(led["items"]), "record")}), pipeline of {pipe["generated"]} ({plural(len(pipe["pieces"]), "piece")})')
     if argv == ['--check']:
         same = block(page) == block(new)
         if not same:

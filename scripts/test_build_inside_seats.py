@@ -2,7 +2,10 @@
 """Tests for scripts/build_inside_seats.py (ADR-0034): the seat cards and dashboards on a synthetic seats file and cockpit
 document (the chief executive counts every area, another seat its own areas only; blocked before in progress before
 open; done and dropped items stay off the lists; decisions waiting are open decisions only; the empty state and the
-publisher's placeholder show no invented number; titles are escaped; no panel is hidden in the markup, so the page reads
+house ledger and the publishing pipeline (ADR-0050) render in the queue band with their own freshness lines, the ledger
+per seat's areas and blocked first, the pipeline on the publisher only and in place of the placeholder; a seat without a
+ledger record gets nothing and one with only done records gets the count; the empty state shows no invented number;
+titles are escaped; no panel is hidden in the markup, so the page reads
 as a plain list without a script; every id once), the pane grammar and the chief executive's roll-up (ADR-0049: the band
 order on a synthetic seat, the signal slot, the roll-up's tiles, pills, links and freshness line, the refusal of a stray
 or orphaned part slot, the order on the real page), the tab's pill rule and short code (ADR-0036), a page with the block
@@ -23,6 +26,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_inside_seats as bi  # noqa: E402
 import test_build_cockpit as tc  # noqa: E402
 import test_build_masthead as tm  # noqa: E402
+import test_build_ledger as tl  # noqa: E402
+import test_build_pipeline as tp  # noqa: E402
 
 
 def seats():
@@ -78,7 +83,7 @@ def main():
 
     # 1c. The pane grammar (ADR-0049): signal, queue, state, tools in that order on every seat; the signal slot is the one
     # part slot a seat may fill; the chief executive opens with a roll-up of the seats
-    ok('the order is signal, queue, state, by band', bi.ORDER == ['rollup', '/signal', 'decisions', 'work', 'pending', 'lens', 'kpis', 'areas'] and bi.PARTS == ('signal',), str(bi.ORDER))
+    ok('the order is signal, queue, state, by band', bi.ORDER == ['rollup', '/signal', 'decisions', 'work', 'ledger', 'pipeline', 'pending', 'lens', 'kpis', 'areas'] and bi.PARTS == ('signal',), str(bi.ORDER))
     sig = bi.b_seats(doc, ck, {'cto/signal': '<p id="top">first</p>'})
     seg = panel(sig, 'cto')
     pos = [seg.find(x) for x in ('in-panel-head', '<!-- seat-extra:cto/signal -->', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"', '<!-- seat-extra:cto -->')]
@@ -174,13 +179,44 @@ def main():
     no_dec['items'] = [x for x in no_dec['items'] if x['kind'] != 'decision']
     ok('no decision: says so', 'No open decision with an area label.' in panel(bi.b_seats(doc, no_dec), 'ceo'))
 
-    # 4. Empty state and placeholder: no invented number
+    # 4. Empty state: no invented number; no placeholder is pending today
     pub = panel(out, 'publisher')
     ok('empty state counts the done items', "Nothing open in this seat's areas (AI). 1 item done there in the last 14 days." in pub, pub)
-    pending = pub[pub.index('in-pending'):pub.index('</div>', pub.index('in-pending'))]
-    ok('publisher placeholder is labelled', 'Publishing pipeline · not wired yet' in pending)
-    ok('publisher placeholder shows no number', not re.search(r'\d', re.sub(r'<[^>]+>', '', pending)))
-    ok('only the publisher has a placeholder', out.count('in-pending') == 1)
+    ok('no panel carries a placeholder', 'in-pending' not in out and bi.PENDING == {})
+    ok('without a pipeline file the publisher says so, with no count beyond the heading', 'No piece carries a public teaser.' in pub and '0 pieces pending' in pub and 'in-pipeline' not in pub)
+    ok('the pipeline block is on the publisher only', out.count('Publishing pipeline') == 1 and 'Publishing pipeline' in pub)
+    ok('without a ledger file no seat has a ledger block', 'House ledger' not in out and 'in-ledger' not in out)
+
+    # 4b. The house ledger and the publishing pipeline (ADR-0050)
+    led, pipe = tl.base(), tp.base()
+    led['items'].append(tl.rec('vault-eee1', 'Knowledge open', area='knowledge', created='2026-10-27'))
+    both = bi.b_seats(doc, ck, None, led, pipe)
+    ceo_l, cto_l, pub_l = (panel(both, k) for k in ('ceo', 'cto', 'publisher'))
+    ok('ceo: the ledger block lists every area, blocked first', 'House ledger, not done' in ceo_l and 'Blocked one' in ceo_l and 'Knowledge open' in ceo_l
+       and ceo_l.index('Blocked one') < ceo_l.index('Progress one') < ceo_l.index('Open two'), ceo_l)
+    ok("ceo: the heading says every area, the done count and the export time",
+       '<h3>House ledger, not done <span class="in-h-meta">every area · 2 records done in 30 days · as of 2026-10-31 08:00 UTC, the last export</span></h3>' in ceo_l, ceo_l)
+    ok('cto: its own areas only (delivery, operations)', 'Open one' in cto_l and 'Blocked one' in cto_l and 'Progress one' not in cto_l and 'Knowledge open' not in cto_l, cto_l)
+    ok('cto: blocked first, then open, the longest waiting first', cto_l.index('Blocked one') < cto_l.index('Open one') < cto_l.index('Open two'))
+    ok('a ledger row carries the status pill, the title, the id, the area and the kind, and no link',
+       '<li class="in-item"><span class="in-pill is-bad">blocked</span><span class="in-item-main">Blocked one<span class="in-item-meta">ledger vault-bbb1 · Operations · decision</span></span><span class="in-item-date">opened 2026-10-10</span></li>' in cto_l, cto_l)
+    ok('ledger titles are escaped', 'Open two &lt;b&gt;' in cto_l)
+    ok('publisher: a ledger record in its area shows; a done-only seat gets the count line', 'Progress one' in pub_l and 'in-ledger' in pub_l)
+    only_done = copy.deepcopy(led)
+    only_done['items'] = [x for x in only_done['items'] if x['status'] == 'done']
+    od = bi.b_seats(doc, ck, None, only_done, pipe)
+    ok('a seat with only done records gets one line with the count', 'House ledger: nothing open in any area; 2 records done in 30 days, as of 2026-10-31 08:00 UTC.' in panel(od, 'ceo')
+       and 'in-ledger' not in panel(od, 'ceo'), panel(od, 'ceo'))
+    ok("a seat with no record in its areas gets nothing", 'House ledger' not in panel(od, 'cto') and 'House ledger' not in panel(od, 'publisher'))
+    ok('the pipeline renders on the publisher with its counts and pieces', 'in-pipeline' in pub_l and '3 pieces pending' in pub_l and 'Live piece' in pub_l and '<span class="in-pill is-warn">in review</span>' in pub_l)
+    ok('the pipeline comes after the work and the ledger, before the lens', [pub_l.index(x) for x in ('Nothing open', 'House ledger', 'Publishing pipeline', 'class="in-lens"')] == sorted(pub_l.index(x) for x in ('Nothing open', 'House ledger', 'Publishing pipeline', 'class="in-lens"')))
+    ok('the pipeline is on no other seat', 'in-pipeline' not in ceo_l and 'in-pipeline' not in cto_l)
+    ok('the footer names both sources with their export times', 'the house ledger' in both and 'as of 2026-10-31 08:00 UTC (<a href="/inside/board/ledger.json">ledger.json</a>' in both and 'the publishing pipeline' in both and 'pipeline.json</a>)' in both, both[-900:])
+    ok('the footer names neither source when both are empty', 'From the knowledge vault' not in out)
+    ids3 = re.findall(r' id="([^"]+)"', both)
+    ok('every id once with both blocks', len(ids3) == len(set(ids3)))
+    src2 = f'<!-- static:{bi.BLOCK} -->{both}<!-- /static:{bi.BLOCK} -->'
+    ok('a rebuild with both files reproduces the block', bi.block(bi.put_block(src2, doc, ck, led, pipe)) == both)
     ok('lens questions render', '<li>Does it move the goal?</li>' in ceo)
     ok('two holders: the line counts them', 'One holder in every seat today' not in out and '2 holders across 3 seats today.' in out)
     solo = copy.deepcopy(doc)
@@ -233,6 +269,22 @@ def main():
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             rc = bi.main(['--check'])
         ok('--check fails on a seats file outside the contract', rc == 1 and 'seats contract' in buf.getvalue(), buf.getvalue().strip())
+        bi.bm.DATA.write_text(json.dumps(json.loads((bi.ROOT / 'inside/masthead/seats.json').read_text(encoding='utf-8'))), encoding='utf-8')
+        (tmp / 'inside/board').mkdir(parents=True, exist_ok=True)
+        bad_l = json.loads((bi.ROOT / 'inside/board/ledger.json').read_text(encoding='utf-8'))
+        bad_l['items'].insert(0, tl.rec('vault-zzz8', 'see 10.0.0.7'))
+        (tmp / 'inside/board/ledger.json').write_text(json.dumps(bad_l), encoding='utf-8')
+        saved_l, bi.bl.DATA = bi.bl.DATA, tmp / 'inside/board/ledger.json'
+        try:
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+                rc = bi.main(['--check'])
+            ok('--check fails on a ledger file outside the contract, naming the pattern', rc == 1 and 'ledger contract' in buf.getvalue() and 'private IPv4' in buf.getvalue(), buf.getvalue().strip())
+        finally:
+            bi.bl.DATA = saved_l
+        bad = json.loads(bi.bm.DATA.read_text(encoding='utf-8'))
+        bad['seats'][0]['areas'] = ['sales']
+        bi.bm.DATA.write_text(json.dumps(bad), encoding='utf-8')
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             rc = bi.main([])

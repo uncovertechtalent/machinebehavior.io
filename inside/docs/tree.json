@@ -351,6 +351,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0050-house-ledger-and-publishing-pipeline-from-the-vault/",
+"t": "ADR-0050: The house ledger and the publishing pipeline reach Inside from the knowledge vault, label-gated",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
