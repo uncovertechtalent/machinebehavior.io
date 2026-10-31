@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://machinebehavior.io/</loc><lastmod>2026-10-30</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/claims/</loc><lastmod>2026-10-30</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-10-30</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://machinebehavior.io/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/claims/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://machinebehavior.io/research/terms/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/articles/the-cheating-moved/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/slips/</loc><lastmod>2026-10-26</lastmod></url>
@@ -17,7 +17,7 @@
   <url><loc>https://machinebehavior.io/conformity/standard/the-six-month-problem/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/self-assessment/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/evidence/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/evidence/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/tactics/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/method/</loc><lastmod>2026-10-26</lastmod></url>
@@ -60,13 +60,13 @@
   <url><loc>https://machinebehavior.io/research/registers/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/reference/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/sycophancy-and-stance/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/conformity-and-law/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/operations-and-sre/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/observability/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/finops/</loc><lastmod>2026-10-17</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/agents-and-harness/</loc><lastmod>2026-10-26</lastmod></url>
-  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://machinebehavior.io/topics/evaluation/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://machinebehavior.io/topics/ai-search/</loc><lastmod>2026-10-26</lastmod></url>
   <!-- hubs:end -->
   <!-- powersuit:begin (scripts/build_powersuit.py) -->
