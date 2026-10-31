@@ -1,5 +1,5 @@
 title: Ticket board
-summary: The board at /inside/board/ shows the work on the platform in columns, from GitHub Issues on the public repository, as a snapshot written at each deploy.
+summary: The board at /inside/board/ shows the work on the platform in columns, from GitHub Issues on the public repository, as a snapshot written at each deploy, and under it the house ledger, the work tracked in the knowledge vault, from a committed export.
 order: 65
 labels: board, issues, workflow, inside
 owner: Stefan Coetzee
@@ -68,3 +68,11 @@ Within a column, cards sort by priority, then by number. Done sorts by closing d
 
 - [Inside portal](doc:eng/inside-portal): the front page links the board as an app.
 - Page source: `inside/board/index.html`. Snapshot script: `scripts/board_snapshot.py`.
+
+## The house ledger
+
+Under the board sits the work of the house that is tracked outside GitHub: the records of the knowledge vault's bead tracker that carry the label `public` ([ADR-0050](doc:eng/adr-0050-house-ledger-and-publishing-pipeline-from-the-vault)). The vault is a local repository with no remote, so the deploy job cannot read it; `scripts/export_ledger.py` runs on the holder's machine, writes `inside/board/ledger.json`, and the file is committed with a pull request. `scripts/build_ledger.py` renders the four lanes (in progress, blocked, open, done in the last 30 days) into the page and, with `--check`, holds the gate: a file that breaks the contract, or a page block that differs from the file, blocks the merge.
+
+A record is the bead id, the title, the area of the CTO job (the label `area:<key>`), the kind (`kind:<kind>`, else by the bead's type), the status, and the dates. Nothing else leaves the vault, and no record links anywhere, since a bead has no public page. A title that holds a private pattern (an address, a host shorthand, an e-mail address, a home path, the former employer's name, a placeholder word) is refused by name at export and in the gate, and nothing is written until the record is fixed at its source.
+
+To publish a bead: in the vault, `bd update <id> --add-label public --add-label area:<key> --add-label kind:<kind>`, then from the repo root `python3 scripts/export_ledger.py` and `python3 scripts/build_ledger.py`, commit, and open a pull request. To take one off the page, remove the label and export again. The lanes say when the last export was.

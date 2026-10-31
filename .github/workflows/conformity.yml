@@ -63,10 +63,23 @@ jobs:
         # updated date. No network.
         run: python3 scripts/build_masthead.py --check
 
-      - name: Inside landing seat tabs match seats.json and cockpit.json
+      - name: Inside landing seat tabs match seats.json, cockpit.json, ledger.json and pipeline.json
         # ADR-0034: the seat cards and dashboards on /inside/ come from inside/masthead/seats.json and the committed
-        # inside/cockpit/cockpit.json, each checked against its own contract (ADR-0032, ADR-0031). No network.
+        # inside/cockpit/cockpit.json, each checked against its own contract (ADR-0032, ADR-0031), and since ADR-0050 from
+        # inside/board/ledger.json and inside/publisher/pipeline.json, each checked against its own. No network.
         run: python3 scripts/build_inside_seats.py --check
+
+      - name: House ledger matches its contract and the board page
+        # ADR-0050: inside/board/ledger.json holds the knowledge vault's bead records with the label public in the keys and
+        # forms of its contract (its one kind of free text is a record title, refused when it holds a private pattern), and
+        # the board page's ledger block matches it. No network.
+        run: python3 scripts/build_ledger.py --check
+
+      - name: Publishing pipeline matches its contract
+        # ADR-0050: inside/publisher/pipeline.json holds the public teasers of the vault's drafts in the keys and forms of
+        # its contract (free text: a title and a standfirst, refused when either holds a private pattern; a live piece's
+        # address on one of the house's surfaces). The block it feeds is checked with the seat tabs above. No network.
+        run: python3 scripts/build_pipeline.py --check
 
       - name: On-call snapshot matches its contract
         # #36, ADR-0037: inside/oncall/oncall.json holds names from pager/rotation.yml, alert names, times and durations

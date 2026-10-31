@@ -1,0 +1,43 @@
+{
+ "schema": 1,
+ "generated": "2026-10-31T08:05:35Z",
+ "source": "the article drafts of the knowledge vault whose front matter says teaser: public",
+ "pieces": [
+  {
+   "slug": "mckinsey-ai-os-needs-to-hold",
+   "title": "What McKinsey's AI operating system needs to hold",
+   "standfirst": "McKinsey names the layers a chief executive runs the enterprise on. This piece names what each layer has to hold up under, with the incidents of 2026 as the test cases.",
+   "stage": "review",
+   "home": "machinebehavior.io",
+   "url": null,
+   "since": "2026-10-25"
+  },
+  {
+   "slug": "logistics-of-state-aligned-with-ajp-4",
+   "title": "The logistics of state, held against NATO's logistics doctrine (working title)",
+   "standfirst": "NATO wrote the doctrine for moving things that weigh something. Held against it chapter by chapter, the practice of running AI systems with a receipt covers 11 of its 37 parts in full, 22 in part, and 4 badly or not at all.",
+   "stage": "review",
+   "home": "open",
+   "url": null,
+   "since": "2026-10-30"
+  },
+  {
+   "slug": "harness-runs-the-experiment",
+   "title": "The Harness Ran the Experiment (working title)",
+   "standfirst": "An abliteration probe on a rented GPU, run end to end by the agent harness: the launch, the capacity hunt, the cost cap, the copy-back, and what the operator did with the two hours.",
+   "stage": "drafting",
+   "home": "open",
+   "url": null,
+   "since": "2026-10-30"
+  },
+  {
+   "slug": "stance-vs-censorship-abliteration",
+   "title": "Stance versus censorship: an abliteration probe, two generations",
+   "standfirst": "On Qwen3.5, removing the refusal direction also removed the refusal of orders, 54 folds of 54 at three sizes. On Qwen3.8-27B it did not: two ablation methods held 15 of 15, and the benign check shows the ablation active.",
+   "stage": "live",
+   "home": "machinebehavior.io",
+   "url": "https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/",
+   "since": "2026-10-30"
+  }
+ ]
+}
