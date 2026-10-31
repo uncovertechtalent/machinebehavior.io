@@ -18,7 +18,7 @@ Six dashboards are public at https://grafana.scoetzee.de and framed on [Inside](
 | Local LLM (Ollama), public | local-llm-public | [open](https://grafana.scoetzee.de/public-dashboards/e6a9dd2153004ad0a868ce6f0e19071f) |
 | SearXNG search engines | searxng-public | [open](https://grafana.scoetzee.de/public-dashboards/8bfa9ce4bdb946de8c37c738c9e61346) |
 
-On 2026-10-09 each link returned the dashboard named in the table, with the same panels as the JSON in the repository. The FinOps link was checked on 2026-10-31 the same way: it returned the dashboard named in the table, with the 44 panels of the JSON, and the login page of the host still answered 404.
+On 2026-10-09 each link returned the dashboard named in the table, with the same panels as the JSON in the repository. The FinOps link was checked on 2026-10-31 the same way: it returned the dashboard named in the table, with the 44 panels of the JSON (rows counted), and the login page of the host still answered 404.
 
 ## Website deploys
 
