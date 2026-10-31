@@ -124,10 +124,10 @@
         <div id="gate"><p class="empty">This site's gate result and its last 30 runs, from the <a href="/conformity/latest.json">gate record</a>; every check and finding is on the <a href="/conformity/">run record</a>.</p></div>
       </section>
       <section class="card panel-c" aria-labelledby="h-aws">
-        <h2 id="h-aws">AWS spend</h2>
+        <h2 id="h-aws">AWS spend <a href="#dashboards" data-dash="finops">finops tab</a></h2>
         <div class="slot">
-          <p>The AWS account's month to date, forecast and budget sit on an internal dashboard; none of it is public. This slot holds that panel in the internal view.</p>
-          <p><a href="/inside/docs/fin/budgets-and-alerts/#aws-spend-internal">What the internal view shows</a></p>
+          <p>The AWS bill is public: the month so far against the same days of last month, the forecast against the budget, the cost centers, the services that moved most, usage types, and the anomalies against a 28-day median, all read from the cost and usage report. The finops tab of the dashboards below frames it.</p>
+          <p>The public cut leaves out the per-resource panels, the fixed costs entered by hand, and the Claude plan row. <a href="/inside/docs/obs/public-dashboards/#finops">What the public cut shows</a>, and <a href="/inside/docs/fin/budgets-and-alerts/#aws-spend-internal">what the internal view shows</a>.</p>
         </div>
       </section>
     </div>
@@ -274,6 +274,13 @@ function showDash(key, load) {
 $('dash-tabs').append(...DASHES.map(d => el('button', {role: 'tab', type: 'button', textContent: d.label, 'data-key': d.key,
   onclick: () => { showDash(d.key, true); history.replaceState(null, '', '#' + d.key); }})));
 $('dash-load').onclick = () => showDash(dashKey, true);
+// a link with data-dash opens that tab and loads its frame (the AWS spend card links to the finops tab)
+document.querySelectorAll('[data-dash]').forEach(a => { a.onclick = e => {
+  e.preventDefault();
+  showDash(a.dataset.dash, true);
+  history.replaceState(null, '', '#' + a.dataset.dash);
+  $('dashboards').scrollIntoView({behavior: 'smooth'});
+}; });
 const hk = location.hash.slice(1);
 showDash(DASHES.some(d => d.key === hk) ? hk : dashKey, false);
 </script>

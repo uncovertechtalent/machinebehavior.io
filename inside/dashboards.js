@@ -6,6 +6,8 @@ window.MB_DASHES = [
    about: 'Every GitHub Actions run of the three sites: outcome per hour, push-to-live time, where the time goes per step, the gate result for each check on every run, and what the deploy shipped.'},
   {key: 'agents', label: 'claude code', token: '3a4ba6b21e6f4924ab2845b47a300af0', range: 'now-7d',
    about: 'The Claude Code sessions that build this work, from their OpenTelemetry export: spend by model and by source, tokens by type, prompt-cache reads, and the number of API calls, prompts and tool calls. Every figure is summed from the events Claude Code writes per call, so parallel sessions cannot inflate it. Aggregates only; identifying labels are stripped before storage.'},
+  {key: 'finops', label: 'finops', token: '9a0e4c394fc14f9880e766524aa637e8', range: 'now/M',
+   about: 'The AWS bill for the month so far and the Claude Code API calls at list price, against the same days of last month, split into cost centers by rule, with the services that moved most, usage types, usage, tax, and credits by month, anomalies against a 28-day median, unit costs, and how much of the bill the rules explain.'},
   {key: 'llm', label: 'local llm', token: 'e6a9dd2153004ad0a868ce6f0e19071f', range: 'now-7d',
    about: 'The self-hosted model server on the home lab, metered by a pass-through proxy: time to first token, decode speed, token counts, model load time, and which models sit in GPU memory.'},
   {key: 'search', label: 'search', token: '8bfa9ce4bdb946de8c37c738c9e61346', range: 'now-24h',
