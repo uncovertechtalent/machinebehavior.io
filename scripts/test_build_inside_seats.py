@@ -205,7 +205,7 @@ def main():
     only_done = copy.deepcopy(led)
     only_done['items'] = [x for x in only_done['items'] if x['status'] == 'done']
     od = bi.b_seats(doc, ck, None, only_done, pipe)
-    ok('a seat with only done records gets one line with the count', 'House ledger: nothing open in every area; 2 records done in 30 days, as of 2026-10-31 08:00 UTC.' in panel(od, 'ceo')
+    ok('a seat with only done records gets one line with the count', 'House ledger: nothing open in any area; 2 records done in 30 days, as of 2026-10-31 08:00 UTC.' in panel(od, 'ceo')
        and 'in-ledger' not in panel(od, 'ceo'), panel(od, 'ceo'))
     ok("a seat with no record in its areas gets nothing", 'House ledger' not in panel(od, 'cto') and 'House ledger' not in panel(od, 'publisher'))
     ok('the pipeline renders on the publisher with its counts and pieces', 'in-pipeline' in pub_l and '3 pieces pending' in pub_l and 'Live piece' in pub_l and '<span class="in-pill is-warn">in review</span>' in pub_l)

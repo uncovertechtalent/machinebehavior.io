@@ -182,7 +182,8 @@ def ledger_block(s, led, titles):
     names = ' · '.join(esc(titles[a]) for a in s['areas']) if s['seat'] != CEO else 'every area'
     open_ = bl.live(mine)
     if not open_:
-        return (f'<p class="in-empty">House ledger: nothing open in {names}; {plural(done, "record")} done in '
+        where = 'any area' if s['seat'] == CEO else names
+        return (f'<p class="in-empty">House ledger: nothing open in {where}; {plural(done, "record")} done in '
                 f'{bl.WINDOW_DAYS} days, as of {when}.</p>')
     return (f'<h3>House ledger, not done <span class="in-h-meta">{names} · {plural(done, "record")} done in '
             f'{bl.WINDOW_DAYS} days · as of {when}, the last export</span></h3>'

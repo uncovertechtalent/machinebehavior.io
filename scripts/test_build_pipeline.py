@@ -90,6 +90,10 @@ def main():
     ok('the counts by stage', all(f'<dt>{k}</dt><dd>{v}</dd>' in out for k, v in (('Idea', 1), ('Drafting', 1), ('In review', 1), (f'Live in {bp.WINDOW_DAYS} days', 1))), out)
     order = [out.index(x) for x in ('In review', 'A draft', 'An idea', 'Live piece')]
     ok('in review, then drafting, then idea, then live', order == sorted(order), str(order))
+    two = copy.deepcopy(doc)
+    two['pieces'].append(piece('review-two', 'Older review', stage='review', since='2026-10-20'))
+    out2 = bp.block(two)
+    ok('within a stage the longest waiting first', out2.index('Older review') < out2.index('In review') < out2.index('A draft'), out2)
     ok('a live piece links to its page', '<a href="https://machinebehavior.io/research/experiments/live-one/">Live piece</a>' in out)
     ok('a pending piece is not a link', '>In review<span class="in-item-lede">' in out and 'href' not in out.split('Live piece')[0].split('In review')[1].split('</li>')[0])
     ok('the stage pill', '<span class="in-pill is-warn">in review</span>' in out and '<span class="in-pill is-open">idea</span>' in out and '<span class="in-pill is-ok">live</span>' in out)

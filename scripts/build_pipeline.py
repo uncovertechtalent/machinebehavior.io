@@ -143,7 +143,8 @@ def tally(pieces):
 
 def ordered(pieces):
     """Pending pieces first, the nearest to publication at the top (in review, drafting, idea), then the live pieces;
-    the newest stage date first within a stage."""
+    within a stage the piece that has waited longest first (the oldest stage date), as the cockpit and the ledger order
+    their items."""
     return sorted(pieces, key=lambda x: (STAGE_RANK[x['stage']], x['since'], x['slug']), reverse=False)
 
 

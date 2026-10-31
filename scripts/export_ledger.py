@@ -48,7 +48,7 @@ def to_record(b, now):
         if any(reason.startswith(d) for d in DROPPED):
             return None, ''
         closed = (b.get('closed_at') or '')[:10]
-        if not closed:
+        if bc._day(closed) is None:
             return None, 'closed without a closed_at date'
         if bc._day(closed) < now.date() - datetime.timedelta(days=bl.WINDOW_DAYS):
             return None, ''

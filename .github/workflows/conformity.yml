@@ -451,6 +451,7 @@ jobs:
     # Tests of the site's scripts (#85, #90, #99, ADR-0031): scripts/test_indexnow.py checks which URLs the indexnow job submits;
     # scripts/test_build_masthead.py checks the seats.json contract, the masthead page blocks, and --check (#99);
     # scripts/test_build_inside_seats.py checks the seat cards and dashboards of the Inside landing page and --check (ADR-0034, ADR-0036);
+    # scripts/test_build_ledger.py and scripts/test_build_pipeline.py check the house ledger and publishing pipeline contracts and blocks (ADR-0050);
     # scripts/test_seat_tabs.mjs drives inside/seat-tabs.js over a minimal DOM (node --test) for the keyboard moves and ARIA state;
     # scripts/test_bar.mjs runs inside/bar.js with a stub DOM for the section sidebar's open state across the 1100 px width;
     # scripts/test_docs_tree.mjs runs inside/docs/docs.js with a stub DOM for the page tree's open state across the 820 px width;
@@ -506,6 +507,16 @@ jobs:
 
       - name: Inside landing seat tabs
         run: python3 scripts/test_build_inside_seats.py
+
+      - name: Ledger contract and board block
+        # ADR-0050: scripts/test_build_ledger.py checks the ledger contract (every key, form, limit, and the refusal of a
+        # private pattern by name), the four lanes, and --check on the committed files and on copies outside the contract.
+        run: python3 scripts/test_build_ledger.py
+
+      - name: Pipeline contract and publisher block
+        # ADR-0050: scripts/test_build_pipeline.py checks the pipeline contract (slug, title, standfirst, stage, home, a
+        # live piece's address and window) and the publisher's block, and --check on the committed file.
+        run: python3 scripts/test_build_pipeline.py
 
       - name: Full text for language models (twins, llms-full.txt, passage index)
         # The unit cases, then a build of every page of this checkout in memory, so a page the HTML pass cannot read
