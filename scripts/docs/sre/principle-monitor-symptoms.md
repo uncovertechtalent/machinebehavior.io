@@ -1,5 +1,5 @@
 title: Monitor symptoms, page on user pain
-summary: Monitoring should say what is broken for users before it says why, and a page should reach a person only when they must act. Here burn-rate and degraded-search alerts read what users get, five dashboards are public, and no alert is delivered.
+summary: Monitoring should say what is broken for users before it says why, and a page should reach a person only when they must act. Here burn-rate and degraded-search alerts read what users get, six dashboards are public, and no alert is delivered.
 parent: principles-in-practice
 order: 70
 labels: principle, sre, monitoring, alerting, observability
