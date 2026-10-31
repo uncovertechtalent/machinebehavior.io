@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-10-31T08:05:34Z",
+ "generated": "2026-10-31T17:14:55Z",
  "source": "the bead tracker of the knowledge vault, records with the label public",
  "window_days": 30,
  "items": [
@@ -255,6 +255,33 @@
    "status": "done",
    "created": "2026-10-30",
    "closed": "2026-10-30"
+  },
+  {
+   "id": "vault-dyig",
+   "title": "FinOps public cut on the Inside CFO seat",
+   "area": "money",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-31",
+   "closed": "2026-10-31"
+  },
+  {
+   "id": "vault-kn49",
+   "title": "FinOps public cut: real bill, plan against list price, cache hit ratio",
+   "area": "money",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-31",
+   "closed": "2026-10-31"
+  },
+  {
+   "id": "vault-ktvi",
+   "title": "Inside: house ledger and publishing pipeline from the vault (ADR-0050), machinebehavior.io PR 218",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-10-31",
+   "closed": "2026-10-31"
   }
  ]
 }
