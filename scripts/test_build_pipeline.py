@@ -72,6 +72,7 @@ def main():
         ('a live piece on a foreign host', lambda d: d['pieces'][3].__setitem__('url', 'https://example.org/x/'), 'pieces[3].url'),
         ('a live piece over http', lambda d: d['pieces'][3].__setitem__('url', 'http://machinebehavior.io/x/'), 'pieces[3].url'),
         ('a live piece with a query string', lambda d: d['pieces'][3].__setitem__('url', 'https://machinebehavior.io/x/?a=1'), 'pieces[3].url'),
+        ('a live piece whose path holds a private pattern', lambda d: d['pieces'][3].__setitem__('url', 'https://machinebehavior.io/10.0.0.7/'), 'private IPv4'),
         ('a bad since date', lambda d: d['pieces'][0].__setitem__('since', 'soon'), 'pieces[0].since'),
         ('since after generated', lambda d: d['pieces'][0].__setitem__('since', '2026-11-03'), 'after generated'),
         ('a live piece older than the window', lambda d: d['pieces'][3].__setitem__('since', '2026-09-01'), 'older than'),
@@ -105,6 +106,16 @@ def main():
     empty = bp.block(bp.empty(GEN))
     ok('the empty state is one line with no number beyond the heading', 'No piece carries a public teaser.' in empty and 'in-kpis' not in empty and '0 pieces pending' in empty)
     ok('ordered() keeps every piece', sorted(x['slug'] for x in bp.ordered(doc['pieces'])) == sorted(x['slug'] for x in doc['pieces']))
+
+    # 2b. The export leaves an aged live piece out and refuses a private pattern in the url
+    import export_pipeline as ep
+    meta = {'teaser': 'public', 'title': 'T', 'standfirst': 'S line.', 'stage': 'live', 'home': 'machinebehavior.io',
+            'url': 'https://machinebehavior.io/x/', 'since': '2026-09-01'}
+    ok('export: a live piece older than the window is left out, not refused', ep.to_piece('x', dict(meta), '', '2026-10-31') == (None, ''))
+    ok('export: a live piece inside the window is kept', ep.to_piece('x', dict(meta, since='2026-10-20'), '', '2026-10-31')[0]['since'] == '2026-10-20')
+    ok('export: an old pending piece is kept', ep.to_piece('x', dict(meta, stage='drafting', url=''), '', '2026-10-31')[0]['stage'] == 'drafting')
+    bad_url = ep.to_piece('x', dict(meta, since='2026-10-20', url='https://machinebehavior.io/10.0.0.7/'), '', '2026-10-31')
+    ok('export: a private pattern in the url is refused by name', bad_url[0] is None and 'private IPv4' in bad_url[1], str(bad_url))
 
     # 3. The committed file
     buf = io.StringIO()

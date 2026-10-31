@@ -73,6 +73,8 @@ def check_piece(x, where, generated):
     if x['stage'] == 'live':
         if not (isinstance(x['url'], str) and URL_RX.fullmatch(x['url'])):
             errs.append(f'{where}.url: a live piece needs an https address on one of the house\'s surfaces')
+        elif ve.private_hits(x['url']):
+            errs.append(f'{where}.url: holds a private pattern ({", ".join(ve.private_hits(x["url"]))}); fix the draft at its source')
     elif x['url'] is not None:
         errs.append(f'{where}.url: must be null until the piece is live')
     since = bc._day(x['since'])
