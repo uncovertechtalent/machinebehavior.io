@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-01T10:31:03Z",
+ "generated": "2026-11-01T15:36:18Z",
  "source": "the bead tracker of the knowledge vault, records with the label public",
  "window_days": 30,
  "items": [
@@ -20,6 +20,123 @@
    "kind": "action",
    "status": "in_progress",
    "created": "2026-10-31",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.11",
+   "title": "Chain Traveler: use my location in Plan B (nearest station, on the device)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.12",
+   "title": "site-infra: geolocation for chaintraveler.app, drop CORS headers from its CDN (removes Vary: Origin)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.13",
+   "title": "Chain Traveler: name timetable builds by the feed's date, not the build day",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.14",
+   "title": "Plan B v2: wider network context in the graph (the hub-planner look)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.16",
+   "title": "Chain Traveler: sign the timetable manifest (publisher authenticity)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.17",
+   "title": "Chain Traveler: internationalise the app (pl, ru, ro, bg, uk, tr, nl, fr, es)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.18",
+   "title": "Chain Traveler: public traffic dashboard (agent-observability, not shared)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.19",
+   "title": "Chain Traveler docs: GPS for the Deutschlandticket, graphs by parable, infrastructure as an amplifier",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.20",
+   "title": "Chain Traveler: Navigate mode (follow the chain by clock and position, recalculate by itself)",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.21",
+   "title": "Chain Traveler: map behind the Plan B and Navigate graphs, with pan and zoom",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.22",
+   "title": "Chain Traveler: station names lose their city (Stuttgart cannot be picked)",
+   "area": "delivery",
+   "kind": "finding",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.23",
+   "title": "Chain Traveler: republish the same feed on request, compare meta.json before a dated path is reused",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
+   "closed": null
+  },
+  {
+   "id": "vault-xlf1.24",
+   "title": "Chain Traveler: open on Plan B and share one where-and-when bar between the tabs",
+   "area": "delivery",
+   "kind": "action",
+   "status": "in_progress",
+   "created": "2026-11-01",
    "closed": null
   },
   {
@@ -137,6 +254,15 @@
    "kind": "action",
    "status": "open",
    "created": "2026-10-31",
+   "closed": null
+  },
+  {
+   "id": "vault-5ax9",
+   "title": "FinOps: incorporate the GitHub bills into the FinOps pane and alerts",
+   "area": "money",
+   "kind": "action",
+   "status": "open",
+   "created": "2026-11-01",
    "closed": null
   },
   {
@@ -390,6 +516,15 @@
    "status": "done",
    "created": "2026-10-31",
    "closed": "2026-10-31"
+  },
+  {
+   "id": "vault-xlf1.15",
+   "title": "Chain Traveler: what real delays (GTFS-RT) would take. Research, then decide",
+   "area": "delivery",
+   "kind": "action",
+   "status": "done",
+   "created": "2026-11-01",
+   "closed": "2026-11-01"
   }
  ]
 }
