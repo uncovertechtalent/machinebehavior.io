@@ -32,4 +32,4 @@ The repository holds two kinds of work. Code: the build scripts, the gate, the c
 
 ## Consequences
 
-The public claim holds: every repository of the house is under a licence that allows reuse. A reader who copies a page knows the terms and the attribution line. GitHub shows two licences on the repository page, MIT and CC BY 4.0, which is the accurate picture. What this does not do: grant rights over third-party quotations, add a visible licence line to every page, or change the terms of the copies of pieces published on other platforms.
+The public claim holds: every repository of the house is under a licence that allows reuse. A reader who copies a page knows the terms and the attribution line. GitHub reads `LICENSE` and names MIT on the repository page; `LICENSE-CONTENT` opens with a header of its own, so GitHub's licence detection may not name it, and the README names both. What this does not do: grant rights over third-party quotations, add a visible licence line to every page, or change the terms of the copies of pieces published on other platforms.
