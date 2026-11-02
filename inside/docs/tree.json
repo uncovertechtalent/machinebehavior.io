@@ -356,6 +356,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0051-code-mit-content-cc-by/",
+"t": "ADR-0051: The repository's code is under MIT and the site's own text is under CC BY 4.0",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
