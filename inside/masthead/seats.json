@@ -121,7 +121,7 @@
    "machinery": [
     {"name": "aieo", "what": "A plain index for agents, structured data that matches the visible page, a fixed query set probed against AI search engines, and predictions hashed before a page goes live."},
     {"name": "press", "what": "The press page: the house in one sentence and one paragraph, who holds the seats, what to cite with its canonical link, how to reach the holder, and how corrections are made."},
-    {"name": "reach signals", "what": "Counts of what reaches the site, taken from the server's access log, which holds no IP address; the index submissions that go out after every deploy from main; and a fixed query set to probe AI search engines, which the AIEO measurement page lists as not built. No page requests anything from another company when it loads."}
+    {"name": "reach signals", "what": "Counts of what reaches the site, taken from the server's access log, which holds no IP address; the index submissions that go out after every deploy from main; and the module's fixed query set put to AI search engines, which this site has not run: the AIEO measurement page lists the probe as not built. No page requests anything from another company when it loads."}
    ],
    "gates": [
     {"check": "predictions.hashes", "where": "site gate", "what": "Every prediction file matches its recorded hash."},
