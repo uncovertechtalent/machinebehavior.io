@@ -81,6 +81,8 @@ sections:
         url: /impressum/
       - title: Privacy notice
         url: /privacy/
+      - title: Press
+        url: /press/
 
   - key: research
     title: Research

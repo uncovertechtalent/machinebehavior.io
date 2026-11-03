@@ -19,7 +19,8 @@ contract and loader: the house ledger (inside/board/ledger.json, the vault's bea
 records not done join every seat's queue band for the seat's areas as their own block with their own freshness line,
 and the publishing pipeline (inside/publisher/pipeline.json, the drafts with a public teaser), which fills the
 publisher's queue band in place of the placeholder it held from ADR-0034. A panel whose data source does not exist
-yet is a labelled placeholder with no number; none is pending today.
+yet is a labelled placeholder with no number; the chief marketing officer's reach signals are the one pending today
+(ADR-0053).
 
 Each dashboard ends with a hand-written slot, <!-- seat-extra:SEAT --> ... <!-- /seat-extra:SEAT -->: the cards and tools
 that belong to the seat (deploy feed, apps, front page and the like). The build writes everything else in the block and
@@ -58,9 +59,13 @@ BANDS = (('signal', ['rollup', '/signal']), ('queue', ['decisions', 'work', 'led
 ORDER = [n for _, names in BANDS for n in names]
 PARTS = ('signal',)  # the part slots a seat may hold content in
 
-# Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number. Empty since
-# ADR-0050 wired the publisher's pipeline; the mechanism stays for the next seat that gets a panel before its data.
-PENDING = {}
+# Panels with no data source yet: a title and one line, shown as a labelled placeholder with no number. Empty from
+# ADR-0050, which wired the publisher's pipeline, until ADR-0053 gave the chief marketing officer a seat before its data.
+PENDING = {
+    'cmo': ('Reach signals', 'Index submissions go out on every deploy and the server keeps an access log, but the panel that '
+            'shows them does not exist yet, and the AIEO answer probe is not built. Until then the AIEO measurement page '
+            'states what is and is not measured.'),
+}
 
 STATUS = {'blocked': ('blocked', 'is-bad'), 'in_progress': ('in progress', 'is-warn'), 'open': ('open', 'is-open')}
 

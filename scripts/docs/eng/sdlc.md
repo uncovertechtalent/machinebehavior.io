@@ -54,7 +54,7 @@ GitHub Issues on [uncovertechtalent/machinebehavior.io](https://github.com/uncov
 | Priority | `P0`, `P1`, `P2`, `P3` | P0 must close before anyone outside sees the platform; P3 is optional |
 | Status | `status: ready`, `status: in progress`, `status: blocked` | The board column. No status label means Backlog; closed means Done |
 
-The bug and change-request templates set no labels, so a new report stays untriaged until a maintainer reads it. The six request forms ([ADR-0052](doc:eng/adr-0052-requests-through-one-issue-form-per-seat)) set the seat's area label and nothing else. Close an issue with a comment that links the commit. Issue text is public: no private addresses, host names, personal or financial details.
+The bug and change-request templates set no labels, so a new report stays untriaged until a maintainer reads it. The seven request forms ([ADR-0052](doc:eng/adr-0052-requests-through-one-issue-form-per-seat)) set the seat's area label and nothing else. Close an issue with a comment that links the commit. Issue text is public: no private addresses, host names, personal or financial details.
 
 Commit subjects should name the issue (`#123`) or the decision (`ADR-0007`). Commits before 2026-10-11 do not.
 
