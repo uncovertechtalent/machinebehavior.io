@@ -4,7 +4,9 @@ contract at each level, a key twice, a JSON constant, a seat twice or out of ord
 in place of a string, an empty or trailing-newline holder, markup, a hidden character or a URL in free text, a bundle
 that is not a slug, a gate with an unknown where, a bad date), the page blocks (the house name comes from the one
 field, every seat renders with its areas, machinery and gates, text is escaped), a page with a block missing or twice,
---check on the committed files, and --check on a copy with a changed block or a bad file. Stdlib only.
+--check on the committed files (seven seats since ADR-0053: the chief marketing officer reads the AI area, takes the
+aieo machinery and the predictions.hashes gate from the publisher), and --check on a copy with a changed block or a bad
+file. Stdlib only.
 
     python3 scripts/test_build_masthead.py
 
@@ -172,6 +174,27 @@ def main():
     ok('committed seats.json and page pass --check', rc == 0, buf.getvalue().strip())
     committed = json.loads(bm.DATA.read_text(encoding='utf-8'))
     ok('committed file has every seat in order', [s['seat'] for s in committed['seats']] == bm.SEATS)
+    ok('the house has seven seats, the chief marketing officer between publisher and cko (ADR-0053)',
+       bm.SEATS == ['ceo', 'cto', 'cfo', 'chro', 'publisher', 'cmo', 'cko'] and len(committed['seats']) == 7)
+    by = {s['seat']: s for s in committed['seats']}
+    cmo, pub = by['cmo'], by['publisher']
+    ok('cmo: title, holder, and the one existing area it reads (no ninth area)',
+       cmo['title'] == 'Chief marketing officer' and cmo['holder'] == 'Stefan Coetzee' and cmo['areas'] == ['ai'] and cmo['bundle'] is None)
+    ok('cmo: machinery is aieo, press, reach signals', [r['name'] for r in cmo['machinery']] == ['aieo', 'press', 'reach signals'])
+    ok('cmo: gates are predictions.hashes on the site gate and press.cite-verbatim as policy',
+       [(r['check'], r['where']) for r in cmo['gates']] == [('predictions.hashes', 'site gate'), ('press.cite-verbatim', 'policy')])
+    reach = {r['name']: r['what'] for r in cmo['machinery']}['reach signals']
+    ok('cmo: reach signals says the answer probe is not built and promises nothing', 'not built' in reach and 'will ' not in reach and 'planned' not in reach)
+    ok('publisher: areas are delivery and knowledge, and its form label follows the first',
+       pub['areas'] == ['delivery', 'knowledge'])
+    ok('publisher: machinery lost aieo, gates lost predictions.hashes, the lens lost the reach line',
+       [r['name'] for r in pub['machinery']] == ['site gate', 'change review', 'editorial standards']
+       and 'predictions.hashes' not in [r['check'] for r in pub['gates']]
+       and not any('reach' in q.lower() for q in pub['lens']) and len(pub['lens']) == 3)
+    ok('aieo and predictions.hashes each sit under exactly one seat',
+       sum(r['name'] == 'aieo' for s in committed['seats'] for r in s['machinery']) == 1
+       and sum(r['check'] == 'predictions.hashes' for s in committed['seats'] for r in s['gates']) == 1)
+    ok('the cmo area is one of the cockpit eight', set(cmo['areas']) <= set(bm.AREAS) and len(bm.AREAS) == 8)
     ok('an unknown argument is refused', bm.main(['--chek']) == 2)
 
     # 5. --check on a copy with a changed block, and with a bad file

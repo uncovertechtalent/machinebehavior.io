@@ -1,8 +1,8 @@
-# Request form for the publisher seat (ADR-0052). The six request forms differ only in name, description, and label.
+# Request form for the publisher seat (ADR-0052). The seven request forms differ only in name, description, and label.
 name: "Request: Publisher"
-description: "The publisher decides which surface a piece reaches its audience through, whether it passes the editorial standards and the site gate, and which claims stay labelled as unverified."
+description: "The publisher decides whether a piece passes the editorial standards and the site gate, which claims stay labelled as unverified, and whether it says what its source says, with the source linked."
 labels:
-  - "area:ai"
+  - "area:delivery"
 body:
   - type: markdown
     attributes:
