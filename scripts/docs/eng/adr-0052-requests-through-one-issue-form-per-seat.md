@@ -35,6 +35,8 @@ The [access model](doc:eng/access-model) already names the production end state:
 
 **What comes later, one decision each.** Stages as labels, so a request can show where it stands. A form on the site itself for people without a GitHub account. A login, which waits for the access model's end state. Each is its own record.
 
+**Amended by ADR-0053.** [ADR-0053](doc:eng/adr-0053-chief-marketing-officer-seat) adds the seventh form, `request-cmo.yml` with `area:ai`, and moves the publisher's label to `area:delivery`, the first area the publisher now reads.
+
 ## Consequences
 
 A request to a seat has one shape and one place to go. The seat gets the four things it needs to decide, the cockpit places the item in the seat's area from the first minute, and the seat tab links to the form, so the page that shows the work is also the way to ask for it. The change is small and reversible: six form files, six cards, a test, and one sentence or paragraph in each of three docs pages, with no change to a generator and no new data on the site.

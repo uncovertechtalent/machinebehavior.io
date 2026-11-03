@@ -366,6 +366,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0053-chief-marketing-officer-seat/",
+"t": "ADR-0053: A chief marketing officer seat owns reach, and public relations is one press page",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
