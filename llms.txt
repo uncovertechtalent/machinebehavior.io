@@ -104,7 +104,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (422 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (423 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -161,6 +161,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (422 pages). S
 - [ADR-0048: The research index and the group index pages are contents lists](https://machinebehavior.io/inside/docs/eng/adr-0048-research-index-and-group-indexes-as-contents-lists/)
 - [ADR-0049: Every seat dashboard follows one pane grammar, and the chief executive's opens with the seats](https://machinebehavior.io/inside/docs/eng/adr-0049-seat-pane-grammar/)
 - [ADR-0050: The house ledger and the publishing pipeline reach Inside from the knowledge vault, label-gated](https://machinebehavior.io/inside/docs/eng/adr-0050-house-ledger-and-publishing-pipeline-from-the-vault/)
+- [ADR-0052: Requests to the house come in through one issue form per seat](https://machinebehavior.io/inside/docs/eng/adr-0052-requests-through-one-issue-form-per-seat/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

@@ -1,0 +1,62 @@
+# Request form for the cfo seat (ADR-0052). The six request forms differ only in name, description, and label.
+name: "Request: Chief financial officer"
+description: "The chief financial officer decides what a thing costs over which period, what cash it needs and when, and whether every figure is dated and sourced."
+labels:
+  - "area:money"
+body:
+  - type: markdown
+    attributes:
+      value: "Issue text is public. Leave out private addresses, host names, personal and financial details. List prices, specs, and measured results are fine."
+  - type: textarea
+    id: what
+    attributes:
+      label: "What"
+      description: "What is being asked for, in one paragraph."
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: "Why"
+      description: "What happens if the house does nothing, with the numbers you have."
+    validations:
+      required: true
+  - type: textarea
+    id: blocked_on
+    attributes:
+      label: "Blocked on"
+      description: "What has to happen first, and who decides it. Write none if nothing."
+    validations:
+      required: true
+  - type: textarea
+    id: done_when
+    attributes:
+      label: "Done when"
+      description: "A result someone can check without asking the author."
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: "Constraints"
+      description: "Limits the answer has to respect."
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: "Kind"
+      description: "A choice to make, work to do, or a gap found. A maintainer sets the matching label at triage."
+      options:
+        - "decision"
+        - "action"
+        - "finding"
+    validations:
+      required: true
+  - type: checkboxes
+    id: public
+    attributes:
+      label: "Public text"
+      options:
+        - label: "This text holds nothing private."
+          required: true
