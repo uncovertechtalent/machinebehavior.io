@@ -30,6 +30,8 @@ Every public repository of the owner has these labels. The area and kind labels 
 
 An item reaches the page with its title only when it has an area label and its author is the owner, a member, or a collaborator. Anyone can open an issue on a public repository and edit its title later, so a label does not let a stranger's title onto the page. A lead never shows its title. Other open items are counted per repository, without their text. The status of an open item comes from the board's labels: `status: blocked`, then `status: in progress`. An open pull request counts as in progress, and every other open item as open. Closed in 7 days counts issues closed as completed and pull requests merged. Issues closed as not planned or as duplicates, and pull requests closed without a merge, are left out of it.
 
+The six request forms, one per seat, set the seat's first area label when the issue is created: `area:direction`, `area:delivery`, `area:money`, `area:people`, `area:ai`, or `area:knowledge`. They set no kind label and no status label. The trust rule above still decides whether the title shows, so a request from an author outside the owner's account, its members, and its collaborators is counted without its text, with the label the form set. Decision record: [ADR-0052](doc:eng/adr-0052-requests-through-one-issue-form-per-seat).
+
 To place an item, add its labels:
 
 ```bash

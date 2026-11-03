@@ -356,6 +356,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0052-requests-through-one-issue-form-per-seat/",
+"t": "ADR-0052: Requests to the house come in through one issue form per seat",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"
