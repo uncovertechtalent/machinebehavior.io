@@ -23,3 +23,7 @@ Gate dry run, from the repo root (Python 3 and Node, no network):
 ```bash
 python3 .github/actions/conformity/run.py --root . --config conformity/site-tier.json --requirements conformity/requirements.json --out conformity --dry-run
 ```
+
+## Licence
+
+Code: [MIT](LICENSE). The site's own text, images, and data files: [CC BY 4.0](LICENSE-CONTENT), attribution "Stefan Coetzee, machinebehavior.io" with a link to the page used. Quotations from other works stay under their authors' rights (ADR-0051).
