@@ -52,7 +52,7 @@ Milestones group the work by phase of the platform review: Phase 0 (legal and le
 
 Issue text is public: plain English with what, why and done when, and no private addresses, host names, personal or financial details.
 
-Requests to a seat come in through the six request forms in `.github/ISSUE_TEMPLATE/`, one per seat and linked from the seat's tab on [Inside](/inside/), and a form sets the seat's `area:` label while the board still shows the issue only after a maintainer adds a `type:` label ([ADR-0052](doc:eng/adr-0052-requests-through-one-issue-form-per-seat)).
+Requests to a seat come in through the seven request forms in `.github/ISSUE_TEMPLATE/`, one per seat and linked from the seat's tab on [Inside](/inside/), and a form sets the seat's `area:` label while the board still shows the issue only after a maintainer adds a `type:` label ([ADR-0052](doc:eng/adr-0052-requests-through-one-issue-form-per-seat)).
 
 ## Columns
 

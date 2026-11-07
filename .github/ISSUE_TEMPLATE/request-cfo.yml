@@ -1,4 +1,4 @@
-# Request form for the cfo seat (ADR-0052). The six request forms differ only in name, description, and label.
+# Request form for the cfo seat (ADR-0052). The seven request forms differ only in name, description, and label.
 name: "Request: Chief financial officer"
 description: "The chief financial officer decides what a thing costs over which period, what cash it needs and when, and whether every figure is dated and sourced."
 labels:

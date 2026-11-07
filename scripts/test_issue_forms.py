@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for the six request forms in .github/ISSUE_TEMPLATE/ and their links on the Inside landing page (ADR-0052).
+"""Tests for the seven request forms in .github/ISSUE_TEMPLATE/ and their links on the Inside landing page (ADR-0052).
 
 One form per seat of inside/masthead/seats.json, in masthead order, named request-<seat>.yml. Each form is read with
 scripts/mini_yaml.py (GitHub renders the file; this checks the shape GitHub needs and the shape the ADR fixes): the name
@@ -130,11 +130,11 @@ def main():
         pr = problems(forms[s['seat']], s)
         ok(f'{path.name} holds the shape', not pr, '; '.join(pr))
 
-    # 2. The six bodies are the same except for the name, the description, and the label
+    # 2. The seven bodies are the same except for the name, the description, and the label
     if len(forms) == len(keys):
         bodies = {json.dumps(f['body'], sort_keys=True) for f in forms.values()}
-        ok('the six bodies are identical', len(bodies) == 1, f'{len(bodies)} distinct bodies')
-        ok('the six descriptions differ', len({f['description'] for f in forms.values()}) == len(keys))
+        ok('the seven bodies are identical', len(bodies) == 1, f'{len(bodies)} distinct bodies')
+        ok('the seven descriptions differ', len({f['description'] for f in forms.values()}) == len(keys))
 
     # 3. The folder keeps blank issues and names no third party (ADR-0010)
     cfg = FORMS / 'config.yml'

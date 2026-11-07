@@ -18,13 +18,13 @@ The [masthead](/inside/masthead/) shows the seats of the house, the holder of ea
 | `house` | up to 60 characters: letters, digits, spaces, `.` and `-` | The house name, in one place |
 | `source` | up to 400 characters | One paragraph on where the file comes from |
 | `where` | an object of 1 to 8 entries, each a short key and one line | The places a gate can run; every gate's `where` is one of these keys |
-| `seats` | a list, one entry per seat, in masthead order | `ceo`, `cto`, `cfo`, `chro`, `publisher`, `cko`; each at most once |
+| `seats` | a list, one entry per seat, in masthead order | `ceo`, `cto`, `cfo`, `chro`, `publisher`, `cmo`, `cko`; each at most once |
 
 Per seat:
 
 | Key | Form | Meaning |
 |---|---|---|
-| `seat` | one of the six keys | The seat |
+| `seat` | one of the seven keys | The seat |
 | `title` | up to 80 characters | The title shown on the page |
 | `holder` | up to 80 characters | The person who holds the seat |
 | `areas` | a non-empty list of distinct keys from the cockpit's eight | The areas the seat reads; each links to the cockpit |

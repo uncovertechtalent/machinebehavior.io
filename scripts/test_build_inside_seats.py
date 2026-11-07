@@ -10,7 +10,8 @@ as a plain list without a script; every id once), the pane grammar and the chief
 order on a synthetic seat, the signal slot, the roll-up's tiles, pills, links and freshness line, the refusal of a stray
 or orphaned part slot, the order on the real page), the tab's pill rule and short code (ADR-0036), a page with the block
 missing or twice, --check on the committed files, and --check on a copy with an edited block or a seats file outside its
-contract. Stdlib only. The tab script in inside/seat-tabs.js (roles, roving tabindex, arrow keys, hidden panels, the
+contract. Since ADR-0053 the seats are seven: the one placeholder pending is the chief marketing officer's reach signals,
+and the committed page holds that seat's Press and Request cards in its tools slot. Stdlib only. The tab script in inside/seat-tabs.js (roles, roving tabindex, arrow keys, hidden panels, the
 hash, Back and Forward, a first load under a Grafana hash such as /inside/#dashboards) is tested in
 scripts/test_seat_tabs.mjs (node --test).
 
@@ -43,6 +44,10 @@ def cockpit():
     d['items'] += [tc.item(tc.MB, 7, 'operations', 'blocked', kind='decision', title='Pick a pager', created='2026-10-12'),
                    tc.item(tc.MB, 8, 'money', kind='decision', title='Pick a ledger <now>', created='2026-10-02')]
     return d
+
+
+def bm_seats():
+    return [x['seat'] for x in tm.bm.load(tm.bm.DATA)['seats']]
 
 
 def panel(html, key):
@@ -126,6 +131,19 @@ def main():
     ok('page: cko second brain, search dashboard, work, lens, kpis, living documents, repos', ordered(pcko, ('id="map-embed"', 'id="dash-cko"', 'class="in-empty"', 'class="in-lens"', 'class="in-kpis"', 'id="ld"', 'id="rt"')))
     ok('page: cfo cost dashboards, work, lens, kpis', ordered(pcfo, ('id="dash-cfo"', 'Not done, blocked first', 'class="in-lens"', 'class="in-kpis"')))
     ok('page: the only part slots are signal slots', all(k.split('/')[1] == 'signal' for k in bi.slots(bi.block(page)) if '/' in k), str([k for k in bi.slots(bi.block(page)) if '/' in k]))
+    keys_on_page = re.findall(r'<a class="in-seat" id="in-tab-(\w+)"', page)
+    ok('page: seven tabs in masthead order, the chief marketing officer between publisher and cko', keys_on_page == bm_seats(), str(keys_on_page))
+    pcmo = page[page.index('id="seat-cmo"'):page.index('id="seat-cko"')]
+    ok('page: cmo placeholder, lens, kpis', ordered(pcmo, ('class="in-pending"', 'class="in-lens"', 'class="in-kpis"')))
+    cmo_slots = bi.slots(bi.block(page))
+    ok('page: cmo signal slot is empty, nothing hand-written is parked in it', cmo_slots['cmo/signal'].strip() == '')
+    cmo_tools = cmo_slots['cmo']
+    ok('page: cmo tools slot holds a Press card, then the Request card last',
+       re.findall(r'<section class="card" aria-labelledby="([\w-]+)">', cmo_tools) == ['press-cmo', 'req-cmo'], cmo_tools)
+    ok('page: the Press card says what the page holds and links /press/ root-absolute',
+       '<h3 id="press-cmo">Press</h3>' in cmo_tools and cmo_tools.count('href="/press/"') == 1 and cmo_tools.count('<p class="note">') == 2)
+    ok("page: no other seat's tools slot carries a Press card", sum('press-' in v for k, v in cmo_slots.items() if k != 'cmo') == 0)
+    ok('page: the seven-column tab grid and no six-tab wording in the stylesheet', 'repeat(7, minmax(0, 1fr)); gap: 4px' in page and 'Six tabs' not in page)
     ids2 = re.findall(r' id="([^"]+)"', sig)
     ok('every id once with a signal slot', len(ids2) == len(set(ids2)))
 
@@ -179,10 +197,21 @@ def main():
     no_dec['items'] = [x for x in no_dec['items'] if x['kind'] != 'decision']
     ok('no decision: says so', 'No open decision with an area label.' in panel(bi.b_seats(doc, no_dec), 'ceo'))
 
-    # 4. Empty state: no invented number; no placeholder is pending today
+    # 4. Empty state: no invented number; the one placeholder pending is the chief marketing officer's (ADR-0053)
     pub = panel(out, 'publisher')
     ok('empty state counts the done items', "Nothing open in this seat's areas (AI). 1 item done there in the last 14 days." in pub, pub)
-    ok('no panel carries a placeholder', 'in-pending' not in out and bi.PENDING == {})
+    ok('no panel of this file carries a placeholder; the one pending seat is the chief marketing officer', 'in-pending' not in out and list(bi.PENDING) == ['cmo'])
+    withcmo = copy.deepcopy(doc)
+    withcmo['seats'].append(tm.seat('cmo', 'Chief marketing officer', ['ai']))
+    cmo_out = bi.b_seats(withcmo, ck)
+    cmo_p = panel(cmo_out, 'cmo')
+    name, line = bi.PENDING['cmo']
+    ok('the chief marketing officer panel shows its placeholder with a name, one line and no number',
+       f'<div class="in-pending"><p class="in-label">{name} \u00b7 not wired yet</p><p>{line}</p></div>' in cmo_p and name == 'Reach signals'
+       and not any(ch.isdigit() for ch in name + line), cmo_p)
+    ok('the placeholder is in the queue band, before the lens', cmo_p.index('in-pending') < cmo_p.index('class="in-lens"'))
+    ok('the placeholder is on the chief marketing officer panel only', cmo_out.count('in-pending') == 1 and 'in-pending' not in panel(cmo_out, 'publisher'))
+    ok('the placeholder names no source that does not exist', 'is not built' in line and 'does not exist yet' in line)
     ok('without a pipeline file the publisher says so, with no count beyond the heading', 'No piece carries a public teaser.' in pub and '0 pieces pending' in pub and 'in-pipeline' not in pub)
     ok('the pipeline block is on the publisher only', out.count('Publishing pipeline') == 1 and 'Publishing pipeline' in pub)
     ok('without a ledger file no seat has a ledger block', 'House ledger' not in out and 'in-ledger' not in out)

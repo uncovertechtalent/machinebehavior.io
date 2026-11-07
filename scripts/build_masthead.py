@@ -41,7 +41,7 @@ SITEMAP = ROOT / 'sitemap.xml'
 DATA = ROOT / 'inside' / 'masthead' / 'seats.json'
 
 SCHEMA = 1
-SEATS = ['ceo', 'cto', 'cfo', 'chro', 'publisher', 'cko']  # masthead order
+SEATS = ['ceo', 'cto', 'cfo', 'chro', 'publisher', 'cmo', 'cko']  # masthead order
 AREAS = build_cockpit.AREA_KEYS  # the cockpit's eight, in its order; the titles come from the powersuit pages (ADR-0031)
 TOP_KEYS = {'schema', 'updated', 'house', 'source', 'where', 'seats'}
 SEAT_KEYS = {'seat', 'title', 'holder', 'areas', 'bundle', 'lens', 'machinery', 'gates'}
