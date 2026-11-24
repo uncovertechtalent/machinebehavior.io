@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comments on ISO/IEC DIS 23282: Machine Behavior</title>
+<meta name="description" content="Six comments on ISO/IEC DIS 23282, Evaluation methods for accurate natural language processing systems: name the evaluated configuration, re-evaluate after every change and on a schedule, validate automatic graders, date reference data, include a run that does not look like a test, record results in machine-readable form.">
+<meta name="mb-register" content="innovator">
+<link rel="canonical" href="https://machinebehavior.io/conformity/din-23282/">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛋️</text></svg>">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://machinebehavior.io/conformity/din-23282/">
+<meta property="og:site_name" content="Machine Behavior">
+<meta property="og:title" content="Comments on ISO/IEC DIS 23282">
+<meta property="og:description" content="Six comments on ISO/IEC DIS 23282, Evaluation methods for accurate natural language processing systems: name the evaluated configuration, re-evaluate after every change and on a schedule, validate automatic graders, date reference data, include a run that does not look like a test, record results in machine-readable form.">
+<meta property="og:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta property="og:image:width" content="1640">
+<meta property="og:image:height" content="820">
+<meta property="og:image:alt" content="Second brain: a graph of Stefan Coetzee&#x27;s published pages, posts, repos and threads, coloured by site, with the links between them.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://machinebehavior.io/map/home-graph.png">
+<meta property="article:published_time" content="2026-11-24">
+<meta property="article:tag" content="continuous conformity">
+<meta property="article:tag" content="ISO/IEC 23282">
+<meta property="article:tag" content="AI standards">
+<!-- mb:head --><link rel="stylesheet" href="/fonts/fonts.css"><link rel="stylesheet" href="/design/tokens.css"><link rel="stylesheet" href="/design/chrome.css"><link rel="stylesheet" href="/design/components.css"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "@id": "https://machinebehavior.io/conformity/din-23282/#breadcrumb", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://machinebehavior.io/"}, {"@type": "ListItem", "position": 2, "name": "Conformity", "item": "https://machinebehavior.io/conformity/"}, {"@type": "ListItem", "position": 3, "name": "Comments on ISO/IEC DIS 23282", "item": "https://machinebehavior.io/conformity/din-23282/"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Person", "@id": "https://machinebehavior.io/#stefan", "name": "Stefan Coetzee", "url": "https://machinebehavior.io/", "sameAs": ["https://www.linkedin.com/in/coetzeestefan/", "https://coetzeestefan.substack.com/", "https://github.com/uncovertechtalent", "https://machinebehavior.io/", "https://tychat.io/", "https://uncovertechtalent.com/", "https://x.com/scoetzeede"], "jobTitle": "Site Reliability Engineer"}, {"@type": "WebSite", "@id": "https://machinebehavior.io/#website", "name": "Machine Behavior", "url": "https://machinebehavior.io/", "inLanguage": "en", "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "potentialAction": {"@type": "SearchAction", "target": {"@type": "EntryPoint", "urlTemplate": "https://machinebehavior.io/inside/search/?q={search_term_string}"}, "query-input": "required name=search_term_string"}}, {"@type": "WebPage", "@id": "https://machinebehavior.io/conformity/din-23282/#page", "url": "https://machinebehavior.io/conformity/din-23282/", "name": "Comments on ISO/IEC DIS 23282", "inLanguage": "en", "isPartOf": {"@id": "https://machinebehavior.io/#website"}, "breadcrumb": {"@id": "https://machinebehavior.io/conformity/din-23282/#breadcrumb"}, "author": {"@id": "https://machinebehavior.io/#stefan"}, "publisher": {"@id": "https://machinebehavior.io/#stefan"}, "description": "Six comments on ISO/IEC DIS 23282, Evaluation methods for accurate natural language processing systems: name the evaluated configuration, re-evaluate after every change and on a schedule, validate automatic graders, date reference data, include a run that does not look like a test, record results in machine-readable form.", "datePublished": "2026-11-24", "dateModified": "2026-11-24", "keywords": "continuous conformity, ISO/IEC 23282, AI standards", "image": "https://machinebehavior.io/map/home-graph.png"}]}</script><!-- /mb:head --></head>
+<body class="mb-read mb-s-conformity mb-has-side"><!-- mb:bar --><a class="mb-skip" href="#main">Skip to content</a><header class="mb-bar"><a class="mb-brand" href="/"><span class="mb-mark" aria-hidden="true">🛋️</span><span class="mb-name">Machine Behavior</span></a><nav class="mb-nav" aria-label="Sections"><ul class="mb-nav-list"><li class="mb-nav-group"><details class="mb-drop"><summary>Research</summary><ul class="mb-drop-panel"><li><a href="/research/">Research overview</a></li><li><a href="/research/red-team/">Red team</a></li></ul></details></li><li><a href="/conformity/" aria-current="true">Conformity</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li class="mb-nav-group"><details class="mb-drop"><summary>More</summary><ul class="mb-drop-panel"><li><a href="/aieo/">AIEO</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Second brain</a></li></ul></details></li></ul></nav><form class="mb-search" role="search" action="/inside/search/" method="get"><label class="mb-sr" for="ib-q">Search the site</label><input type="search" id="ib-q" name="q" placeholder="Search pages, docs, services" autocomplete="off" aria-controls="ib-hits" aria-describedby="ib-help"><span class="mb-sr" id="ib-help">Enter opens the results page. Arrow down moves into the suggestions.</span><kbd class="mb-key" aria-hidden="true">/</kbd><ul id="ib-hits" class="ib-hits" aria-label="Suggestions"></ul></form><a class="mb-cta" href="/your-next-cto/">CTO</a><details class="mb-menu"><summary><span class="mb-menu-icon" aria-hidden="true"></span>Menu</summary><nav class="mb-menu-panel" aria-label="All sections"><ul><li class="mb-menu-group"><span class="mb-menu-label">Research</span><ul><li><a href="/research/">Research overview</a></li><li><a href="/research/red-team/">Red team</a></li></ul></li><li><a href="/conformity/" aria-current="true">Conformity</a></li><li><a href="/inside/">Inside</a></li><li><a href="/inside/docs/">Docs</a></li><li class="mb-menu-group"><span class="mb-menu-label">More</span><ul><li><a href="/aieo/">AIEO</a></li><li><a href="/topics/">Topics</a></li><li><a href="/map/">Second brain</a></li></ul></li><li><a href="/your-next-cto/">CTO</a></li></ul></nav></details></header><script>(function(){var q=function(){return document.querySelectorAll(".mb-bar details[open]")};document.addEventListener("click",function(e){q().forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});document.addEventListener("keydown",function(e){if(e.key==="Escape")q().forEach(function(d){d.removeAttribute("open");var s=d.querySelector("summary");if(s)s.focus()})})})();</script><!-- /mb:bar -->
+
+<!-- mb:side --><nav class="mb-side" aria-label="Conformity pages"><details class="mb-side-wrap" open><summary><span>Conformity</span><span class="mb-side-n">5 pages</span></summary><a class="mb-side-head" href="/conformity/">Conformity</a><ul class="mb-side-tree"><li><details><summary><a href="/conformity/standard/">The standard</a></summary><ul><li><a href="/conformity/standard/why-test-the-running-system/">Why test the running system</a></li><li><a href="/conformity/standard/the-six-month-problem/">The six-month problem</a></li></ul></details></li><li><a href="/conformity/din-23282/" aria-current="page">Comments on ISO/IEC DIS 23282</a></li><li><a href="/conformity/self-assessment/">Self-assessment, run 1</a></li></ul></details></nav><!-- /mb:side -->
+<div class="sheet" id="main" role="main" data-register="innovator"><!-- mb:crumbs --><div class="mb-crumbbar"><nav class="mb-crumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/conformity/">Conformity</a></li><li><a href="/conformity/din-23282/" aria-current="page">Comments on ISO/IEC DIS 23282</a></li></ol></nav><p class="mb-page-meta"><span>Owner Stefan Coetzee</span><span>Updated 2026-11-24</span></p></div><!-- /mb:crumbs -->
+
+  <header>
+    <div class="eyebrow">Continuous conformity · 2026-11-24 · public comments on ISO/IEC DIS 23282</div>
+    <h1>What should a standard for evaluating language systems require of a system in operation?</h1>
+    <p class="subtitle">Six comments on the one open ISO draft on evaluating language systems, published before the committee reviews them.</p>
+  </header>
+
+<p class="thesis">It should name the configuration it tested, re-test after every change and on a fixed schedule, check its automatic graders before trusting them, date its reference data, include a run that does not look like a test, and record results in a form a machine can compare. Stefan Coetzee is submitting these six points as comments on ISO/IEC DIS 23282, "Evaluation methods for accurate natural language processing systems", through DIN's Norm-Entwurfs-Portal, before the comment period closes on 2026-11-25. This page was published first, on 2026-11-24, so the public record predates the committee's review.</p>
+
+<p>This page is the public record of those comments. When ISO/IEC 23282 is published, each point can be checked against the final text.</p>
+
+<h2 id="what-and-where">What is submitted, and where</h2>
+<ul>
+<li><strong>Draft:</strong> ISO/IEC DIS 23282, Artificial Intelligence, Evaluation methods for accurate natural language processing systems. Catalogue page: <a href="https://www.iso.org/standard/87387.html">iso.org/standard/87387.html</a>.</li>
+<li><strong>Committees:</strong> ISO/IEC JTC 1/SC 42/JWG 5, a joint working group of SC 42 and ISO/TC 37. German mirror: DIN NA 105-00-06-01 GAK, Natural Language Processing.</li>
+<li><strong>Route:</strong> DIN Norm-Entwurfs-Portal, comment period ending 2026-11-25.</li>
+<li><strong>Status of the commenter:</strong> individual expert, not on behalf of a company or a committee.</li>
+<li><strong>Form:</strong> seven entries, all at clause level "General": one disclosure and six comments. The text below is the exact text of the submission.</li>
+</ul>
+
+<h2 id="why-general">Why every comment says "General"</h2>
+<p>The standards that compliance as code would encode are licensed against machine reading. DIN Media's terms (AGB section 5.4) require "the separate acquisition of a corresponding AI licence" for machine processing of standards. The comments were drafted with AI assistance, so no text of the draft went into any AI tool, and no comment cites a clause. The submission says so in its first entry:</p>
+<blockquote><p>Disclosure. These comments were drafted with AI assistance and are submitted by an individual expert, who is responsible for them. No text of the draft was given to any AI tool, because DIN Media&#x27;s terms (AGB section 5.4) require a separate licence for machine processing of standards. The comments are therefore made at the general level, without clause references. A public copy of these comments and this note is kept at machinebehavior.io/conformity/din-23282/.</p></blockquote>
+<p>How that licence rule reached the working sessions, and what they did with it, is documented in <a href="/research/case-files/case-12-licence-rule-mid-task/">Case 12: A Licence Rule Relayed Mid-Task</a>.</p>
+
+<h2 id="comments">The six comments</h2>
+<h3 id="comment-1">1. Name the evaluated configuration</h3>
+<p class="mono">technical comment · clause: General · Continuous Conformity CC-5.1, CC-5.2</p>
+<p><strong>Comment.</strong> For systems built on a language model, the output depends on the full configuration in use: model version, system instructions, retrieved documents, tools and memory. A result for one configuration does not carry over to another configuration with the same model. The document should state what object the evaluation results apply to. If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add the following requirement: &quot;The evaluation report shall identify the evaluated configuration, including the model version, system instructions, retrieval sources and tools, by version or content hash. Results shall not be reported for a configuration other than the one evaluated.&quot;</p>
+<h3 id="comment-2">2. Re-evaluate after every change and on a schedule</h3>
+<p class="mono">technical comment · clause: General · Continuous Conformity CC-7.1, CC-7.3</p>
+<p><strong>Comment.</strong> Accuracy measured once before deployment does not show accuracy in operation. Configurations change after deployment (model updates by third parties, edits to instructions, new documents in retrieval). Regulation (EU) 2024/1689 requires that high-risk systems &quot;perform consistently ... throughout their lifecycle&quot; (Art. 15(1)) and that post-market monitoring allows the provider &quot;to evaluate the continuous compliance&quot; of the system (Art. 72(2)). If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add a subclause on re-evaluation: &quot;The evaluation should be repeated after every change to the evaluated configuration and at an interval stated by the user of this document during operation. The report shall state the date of evaluation and the configuration identifiers, so that results from successive evaluations can be compared.&quot;</p>
+<h3 id="comment-3">3. Validate automatic graders</h3>
+<p class="mono">technical comment · clause: General · Continuous Conformity CC-6.5</p>
+<p><strong>Comment.</strong> Automatic metrics and model-based graders (&quot;LLM as judge&quot;) can fail silently: a grader that cannot detect a failure produces passing results. The validity of the grader is part of the technical resources of the evaluation. If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add the following requirement: &quot;Before use, and after any change, each automatic grader shall be checked against a set of cases with known correct results and a set with known incorrect results. The report shall include the outcome of this check.&quot;</p>
+<h3 id="comment-4">4. Give reference data a source and a verification date</h3>
+<p class="mono">technical comment · clause: General · Continuous Conformity CC-8.2, CC-8.4</p>
+<p><strong>Comment.</strong> For NLP systems that answer from documents (retrieval-augmented systems), the reference answers depend on documents that change over time. A reference answer that was correct when written can be wrong at the time of evaluation, which makes the accuracy result invalid. If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add the following requirement: &quot;Where reference data are derived from documents that can change, each reference item shall record its source and the date it was last verified against that source. Reference items older than a stated interval shall be re-verified before use.&quot;</p>
+<h3 id="comment-5">5. Include a condition that does not look like a test</h3>
+<p class="mono">technical comment · clause: General · Continuous Conformity CC-6.4</p>
+<p><strong>Comment.</strong> Language models can behave differently when the input shows that it is a test (Greenblatt et al., arXiv:2412.14093; Meinke et al., arXiv:2412.04984). An evaluation run only under visible test conditions may not show behaviour in use. If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add as a recommendation: &quot;Where feasible, evaluations should include a condition in which the input gives no indication that it is part of an evaluation. Where both conditions are run, the report should state the difference between them.&quot;</p>
+<h3 id="comment-6">6. Record results in machine-readable form</h3>
+<p class="mono">general comment · clause: General · Continuous Conformity CC-12.5</p>
+<p><strong>Comment.</strong> Evaluation reports in free text are hard to compare across repeated evaluations and between parties. Open machine-readable formats for assessment results exist; the NIST OSCAL assessment model &quot;supports information from periodic and continuous assessments&quot; (pages.nist.gov/OSCAL). If the document already covers this, please read this comment as support for that provision.</p>
+<p><strong>Proposed change.</strong> Add as a note or recommendation: &quot;Evaluation results should be recorded in a structured, machine-readable form, so that repeated evaluations and evaluations by different parties can be compared. An open format for assessment results, such as the NIST OSCAL Assessment Results model, can be used.&quot;</p>
+
+<h2 id="check">How to check the final standard against this page</h2>
+<table>
+<thead><tr><th>#</th><th>Point</th><th>Continuous Conformity requirement</th><th>In the published ISO/IEC 23282</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Name the evaluated configuration</td><td>CC-5.1, CC-5.2</td><td>pending</td></tr>
+<tr><td>2</td><td>Re-evaluate after every change and on a schedule</td><td>CC-7.1, CC-7.3</td><td>pending</td></tr>
+<tr><td>3</td><td>Validate automatic graders</td><td>CC-6.5</td><td>pending</td></tr>
+<tr><td>4</td><td>Give reference data a source and a verification date</td><td>CC-8.2, CC-8.4</td><td>pending</td></tr>
+<tr><td>5</td><td>Include a condition that does not look like a test</td><td>CC-6.4</td><td>pending</td></tr>
+<tr><td>6</td><td>Record results in machine-readable form</td><td>CC-12.5</td><td>pending</td></tr>
+</tbody>
+</table>
+<p>Each row moves from "pending" to "present", "changed" or "absent" once the final text is published. A comment the committee rejects stays on this page with its reason, if DIN or ISO publishes one.</p>
+
+<h2 id="origin">Where the six points come from</h2>
+<p>Each comment is one requirement of <a href="/conformity/standard/">Continuous Conformity for Deployed AI Systems</a>, a reference text Stefan Coetzee published at machinebehavior.io on 2026-10-09: 36 requirements for testing a deployed AI system, and the knowledge it runs on, on every change and on a fixed schedule, decided by someone other than the system, with records a third party can rerun. The submitted comments do not use the term; they carry its requirements into the one open ISO draft on evaluating language systems.</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li>ISO/IEC DIS 23282 catalogue page: <a href="https://www.iso.org/standard/87387.html">iso.org/standard/87387.html</a> (abstract only; the draft text was not processed).</li>
+<li>DIN Media general terms and conditions, section 5.4: <a href="https://www.dinmedia.de/en/general-terms-and-conditions">dinmedia.de/en/general-terms-and-conditions</a>.</li>
+<li>Regulation (EU) 2024/1689, Art. 15(1) and Art. 72(2) (comment 2): <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj">eur-lex.europa.eu/eli/reg/2024/1689/oj</a>.</li>
+<li>Greenblatt et al., <a href="https://arxiv.org/abs/2412.14093">arXiv:2412.14093</a>; Meinke et al., <a href="https://arxiv.org/abs/2412.04984">arXiv:2412.04984</a> (comment 5).</li>
+<li>NIST OSCAL Assessment Results model: <a href="https://pages.nist.gov/OSCAL/">pages.nist.gov/OSCAL</a> (comment 6).</li>
+</ul>
+
+  <div class="footer">
+    <span class="sig">Stefan Coetzee, 2026</span>
+    <span class="motto">The receipts are the argument.</span>
+  </div>
+</div>
+<!-- mb:foot --><footer class="mb-foot"><div class="mb-foot-in"><p class="mb-foot-site"><a href="/"><span aria-hidden="true">🛋️</span> Machine Behavior</a> · Stefan Coetzee</p><p class="mb-foot-conf"><span class="conf mono" data-conformity>conformity: <a class="mono" href="/conformity/">latest run</a></span> · self-assessment, not a certification</p><nav class="mb-foot-links" aria-label="This page"><a href="https://github.com/uncovertechtalent/machinebehavior.io/blob/main/conformity/din-23282/index.html">Page source</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/commits/main/conformity/din-23282/index.html">History</a><a href="https://github.com/uncovertechtalent/machinebehavior.io/issues/new?title=Page%20%2Fconformity%2Fdin-23282%2F%3A%20">Report an issue</a></nav><nav class="mb-foot-legal" aria-label="Legal"><a href="/impressum/">Impressum</a><a href="/privacy/">Privacy</a></nav></div></footer><script src="/conformity/footer.js" defer></script><script src="/inside/bar.js" defer></script><!-- /mb:foot -->
+</body>
+</html>
