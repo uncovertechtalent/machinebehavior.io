@@ -261,6 +261,9 @@ sections:
             url: /conformity/standard/why-test-the-running-system/
           - title: The six-month problem
             url: /conformity/standard/the-six-month-problem/
+      - title: Comments on ISO/IEC DIS 23282
+        url: /conformity/din-23282/
+        published: 2026-11-24
       - title: Self-assessment, run 1
         url: /conformity/self-assessment/
         published: 2026-10-03
