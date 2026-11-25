@@ -120,7 +120,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (425 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (426 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -192,6 +192,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (425 pages). S
 - [Map crawler](https://machinebehavior.io/inside/docs/eng/map-crawler/)
 - [Masthead page](https://machinebehavior.io/inside/docs/eng/masthead/)
 - [Gate blocked a deploy](https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/)
+- [Pages deploy finds no artifact](https://machinebehavior.io/inside/docs/eng/runbook-pages-artifact/)
 - [Push rejected](https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/)
 - [Roll back a deploy](https://machinebehavior.io/inside/docs/eng/runbook-rollback/)
 - [Link check flags a template string](https://machinebehavior.io/inside/docs/eng/runbook-template-href/)
