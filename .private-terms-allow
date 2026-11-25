@@ -13,3 +13,9 @@ research/case-files/running-conjobs-for-ai/index.html* ai-tell-honest moved by A
 .private-terms-allow ai-tell-to-be-honest the allow file names the label it scopes
 .private-terms-allow ai-tell-delve the allow file names the label it scopes
 .private-terms-allow ai-tell-tapestry the allow file names the label it scopes
+# Experiment 06 data folder: model output and the instruction texts are published as recorded (the harness texts list these words as phrases to avoid); nothing in it is reworded.
+research/experiments/06-stance-instructions-uncensored/data/* ai-tell-honest model output and instruction texts published as recorded
+research/experiments/06-stance-instructions-uncensored/data/* ai-tell-honestly model output and instruction texts published as recorded
+research/experiments/06-stance-instructions-uncensored/data/* ai-tell-to-be-honest model output and instruction texts published as recorded
+research/experiments/06-stance-instructions-uncensored/data/* ai-tell-delve model output and instruction texts published as recorded
+research/experiments/06-stance-instructions-uncensored/data/* ai-tell-tapestry model output and instruction texts published as recorded

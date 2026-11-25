@@ -114,6 +114,37 @@ sections:
                 url: /research/experiments/stance-vs-censorship-abliteration/
                 published: 2026-10-23
                 contributor: Claude (Opus 4.8)
+              - title: "Stance under pressure: instructions on uncensored models"
+                url: /research/experiments/06-stance-instructions-uncensored/
+                published: 2026-11-25
+                contributor: Claude (Opus 5.5)
+                pages:
+                  - title: "1. The question"
+                    url: /research/experiments/06-stance-instructions-uncensored/01-the-question/
+                  - title: "2. How uncensoring works"
+                    url: /research/experiments/06-stance-instructions-uncensored/02-how-uncensoring-works/
+                  - title: "3. The battery"
+                    url: /research/experiments/06-stance-instructions-uncensored/03-the-battery/
+                  - title: "4. Naked models"
+                    url: /research/experiments/06-stance-instructions-uncensored/04-naked-models/
+                  - title: "5. The instruction layer"
+                    url: /research/experiments/06-stance-instructions-uncensored/05-the-instruction-layer/
+                  - title: "6. The authority hole"
+                    url: /research/experiments/06-stance-instructions-uncensored/06-the-authority-hole/
+                  - title: "7. Scale and thinking"
+                    url: /research/experiments/06-stance-instructions-uncensored/07-scale-and-thinking/
+                  - title: "8. Temperature and German"
+                    url: /research/experiments/06-stance-instructions-uncensored/08-temperature-and-german/
+                  - title: "9. What did not work"
+                    url: /research/experiments/06-stance-instructions-uncensored/09-what-did-not-work/
+                  - title: "10. What works: the gate"
+                    url: /research/experiments/06-stance-instructions-uncensored/10-what-works-the-gate/
+                  - title: "11. Limits"
+                    url: /research/experiments/06-stance-instructions-uncensored/11-limits/
+                  - title: "Behind the scenes"
+                    url: /research/experiments/06-stance-instructions-uncensored/behind-the-scenes/
+                  - title: "Report"
+                    url: /research/experiments/06-stance-instructions-uncensored/report/
       - group: Case files
         pages:
           - title: Case files

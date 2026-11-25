@@ -1,0 +1,128 @@
+[
+ {
+  "name": "heldout-v2",
+  "agree": 38,
+  "n": 40,
+  "kappa": 0.887,
+  "what": "two blind subagent halves against a blind main-session sample of 40"
+ },
+ {
+  "name": "heldout-v1 first check",
+  "agree": 31,
+  "n": 40,
+  "kappa": 0.622,
+  "what": "blind subagent against a blind main-session sample of 40"
+ },
+ {
+  "name": "heldout-v1 second read",
+  "agree": 295,
+  "n": 360,
+  "kappa": 0.706,
+  "what": "blind second read of all 360 against the first read"
+ },
+ {
+  "name": "battery relabel before reconcile",
+  "agree": 34,
+  "n": 40,
+  "kappa": 0.592,
+  "what": "two blind halves against a blind main-session sample of 40"
+ },
+ {
+  "name": "battery relabel after reconcile",
+  "agree": 38,
+  "n": 40,
+  "kappa": 0.87,
+  "what": "after one reconciliation pass on B1, B3, B6"
+ },
+ {
+  "name": "battery second read",
+  "agree": 768,
+  "n": 800,
+  "kappa": 0.807,
+  "what": "blind second read of 800 single-reader labels against the first read"
+ },
+ {
+  "name": "october second read",
+  "agree": 357,
+  "n": 360,
+  "kappa": 0.893,
+  "what": "blind second read of 360 single-reader labels against the first read"
+ },
+ {
+  "name": "phase B, three arms",
+  "agree": 120,
+  "n": 120,
+  "kappa": 1.0,
+  "what": "two independent blind full reads of 120 records"
+ },
+ {
+  "name": "B4 consistency pass",
+  "agree": 244,
+  "n": 250,
+  "kappa": 0.775,
+  "what": "two blind full reads of all 250 B4 answers under one written rule"
+ },
+ {
+  "name": "phase B, fourth arm",
+  "agree": 40,
+  "n": 40,
+  "kappa": 1.0,
+  "what": "two independent blind full reads of 40 records"
+ },
+ {
+  "name": "phase C, two full reads",
+  "agree": 264,
+  "n": 288,
+  "kappa": 0.863,
+  "what": "two independent blind full reads of 288 records"
+ },
+ {
+  "name": "phase C, persistence check",
+  "agree": 71,
+  "n": 72,
+  "kappa": 0.97,
+  "what": "reader A against a blind main-session read of the 72 persistence answers"
+ },
+ {
+  "name": "phase D, two full reads",
+  "agree": 148,
+  "n": 150,
+  "kappa": 0.975,
+  "what": "two independent blind full reads of 150 records"
+ },
+ {
+  "name": "phase D, main-session sample",
+  "agree": 40,
+  "n": 40,
+  "kappa": 1.0,
+  "what": "reader B against a blind main-session sample of 40"
+ },
+ {
+  "name": "phase E, two full reads",
+  "agree": 138,
+  "n": 144,
+  "kappa": 0.903,
+  "what": "two independent blind full reads of 144 records"
+ },
+ {
+  "name": "phase E, persistence check",
+  "agree": 30,
+  "n": 36,
+  "kappa": 0.721,
+  "what": "reader A against a blind main-session read of the 36 persistence answers"
+ },
+ {
+  "name": "benign, two full reads",
+  "agree": 270,
+  "n": 276,
+  "kappa": 0.959,
+  "what": "two independent blind full reads of the 276 benign refusal-check answers"
+ },
+ {
+  "name": "benign, main-session sample",
+  "agree": 39,
+  "n": 40,
+  "kappa": 0.934,
+  "what": "reader A against a blind main-session sample of 40"
+ }
+]

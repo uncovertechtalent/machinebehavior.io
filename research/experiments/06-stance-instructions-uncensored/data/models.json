@@ -1,0 +1,451 @@
+[
+ {
+  "name": "GLM-5.3 (hosted, provider Z.AI)",
+  "weights": "hosted via OpenRouter",
+  "repository": "zai-org/GLM-5.3",
+  "commit": null,
+  "files": [],
+  "quantiser": "FP8 as stated by OpenRouter (provider tag z-ai/fp8)",
+  "method_as_stated": "none (stock, reasoning forced on)",
+  "pinned": false,
+  "verified": "model id z-ai/glm-5.3 as returned on every call; no fallback",
+  "licence": {
+   "name": "glm-5.3 (custom MIT-style grant) for the weights; Z.AI API terms and OpenRouter terms for the hosted calls",
+   "url": "https://huggingface.co/zai-org/GLM-5.3/blob/main/LICENSE; https://docs.z.ai/legal-agreement/terms-of-use; https://openrouter.ai/terms",
+   "output_terms": "Weights licence: no restriction on outputs. Z.AI terms (summarised, not read verbatim): user keeps rights in outputs; outputs must be marked as AI-generated and not presented as human-written; outputs may not be used to train competing models. OpenRouter defers to the model's terms.",
+   "restricts_publishing_outputs": "no; labelling duty and a training-use limit apply",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Gemma 4 E4B Heretic (wsp)",
+  "weights": "local GGUF",
+  "repository": "mradermacher/gemma-4-E4B-it-weight-space-programming-UNCENSORED-heretic-GGUF",
+  "commit": "4694d5090046514fe39bbf4aed03d6210907b112",
+  "files": [
+   {
+    "name": "gemma-4-E4B-it-weight-space-programming-UNCENSORED-heretic.Q4_K_M.gguf",
+    "sha256": "4254a61aa621cf47c3f51bf608b55a6f46d80a3ca0b434b50ef8918861dc5294",
+    "bytes": 5302275360
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "optional extra arm; card (qread summary of the xtools-at source repository): a weight-space programming patch (64 MLP columns across layers 38 to 41, 0.002 percent of the weights) on a Heretic build of Gemma-4-E4B-it; mradermacher static quant",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "repo tag 'gemma'; base google/gemma-4-E4B-it is Apache 2.0",
+   "url": "https://huggingface.co/google/gemma-4-E4B-it; https://ai.google.dev/gemma/docs/gemma_4_license",
+   "output_terms": "Base licence Apache 2.0, no clause on outputs. The quant repo's 'gemma' tag is copied from an intermediate repo and was not resolved to a text.",
+   "restricts_publishing_outputs": "unclear (likely no)",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Gemma 4 E4B huihui (abliterated)",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Huihui-gemma-4-E4B-it-abliterated-GGUF",
+  "commit": "580a4a13e9633a0f123befcfab222cfcd9a36b77",
+  "files": [
+   {
+    "name": "Huihui-gemma-4-E4B-it-abliterated.Q4_K_M.gguf",
+    "sha256": "d793116ec11cacac0228e7c907a40e9765969d76dd45708f0f638df008718f87",
+    "bytes": 5335286272
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "abliteration by huihui-ai (card summary); mradermacher static quant",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Gemma 4)",
+   "url": "https://ai.google.dev/gemma/docs/gemma_4_license",
+   "output_terms": "Apache 2.0, no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Gemma 4 E4B stock",
+  "weights": "local GGUF",
+  "repository": "mradermacher/gemma-4-E4B-it-GGUF",
+  "commit": "bccd4df108bbde6cd495f2594c17a5182bc59304",
+  "files": [
+   {
+    "name": "gemma-4-E4B-it.Q4_K_M.gguf",
+    "sha256": "e5555564868766605415f0e1401feac79c9327333c051521934c90aea67df897",
+    "bytes": 5335290304
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "none (stock google/gemma-4-E4B-it); mradermacher static quant",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Gemma 4)",
+   "url": "https://ai.google.dev/gemma/docs/gemma_4_license",
+   "output_terms": "Apache 2.0, no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "NVIDIA Nemotron 3.5 Lightning 30B-A3B stock",
+  "weights": "local GGUF",
+  "repository": "ggml-org/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-GGUF",
+  "commit": "8cd08217 (short form, as recorded)",
+  "files": [
+   {
+    "name": "NVIDIA-Nemotron-3.5-Lightning-30B-A3B-Q4_0.gguf",
+    "sha256": "61f87e75974e4b535dcdf9aad056541a9514f1dfa4538b463b081d19b7a00e3c",
+    "bytes": 18898091584
+   }
+  ],
+  "quantiser": "ggml-org (Q4_0)",
+  "method_as_stated": "none (stock); a control from another model family",
+  "pinned": true,
+  "verified": "hashed on the cloud instance against the Hugging Face LFS sha256 before entering the Ollama store, 2026-10-29",
+  "licence": {
+   "name": "OpenMDW License 1.1 (base nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16; the ggml-org quant is tagged 'other')",
+   "url": "https://openmdw.ai/license/1-1/",
+   "output_terms": "States it places no restriction or obligation on any use, modification, or sharing of outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-122B-A10B Heretic v2",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Qwen3.5-122B-A10B-heretic-v2-GGUF",
+  "commit": "214810bd43efea922e87e55e2117a78db3536a88",
+  "files": [
+   {
+    "name": "Qwen3.5-122B-A10B-heretic-v2.Q4_K_M.gguf",
+    "sha256": "55cea4a379dbccf274486126c45c95fd790e1f4195c0fd5a89ba1d83b82864e0",
+    "bytes": 74208241056
+   }
+  ],
+  "quantiser": "mradermacher (static Q4_K_M)",
+  "method_as_stated": "Heretic v2 build of Qwen3.5-122B-A10B (coder3101)",
+  "pinned": true,
+  "verified": "hash-checked on download 2026-11-22",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-122B-A10B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs. The upstream Heretic repo was not readable (401).",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-122B-A10B huihui (abliterated)",
+  "weights": "local GGUF (8 shards)",
+  "repository": "huihui-ai/Huihui-Qwen3.5-122B-A10B-abliterated-GGUF",
+  "commit": "5d378336d96a1e40b5458b566bb5556ab44b64c2",
+  "files": [
+   {
+    "name": "Q4_K-GGUF-00001-of-00008.gguf",
+    "sha256": "7f63d102bb3b8ea1e180fdd83688ebdb3f37b9f00c60aa4236c80297e8156926",
+    "bytes": 9911875936
+   },
+   {
+    "name": "Q4_K-GGUF-00002-of-00008.gguf",
+    "sha256": "222c2a0bb9a1225ed4a53dbdc0ec624b7a372353e4c22eb62130fad0713e21c8",
+    "bytes": 9896932096
+   },
+   {
+    "name": "Q4_K-GGUF-00003-of-00008.gguf",
+    "sha256": "d822975d4602bf707e0d6ff686c34300b70f8554a54996cfbf4721da7b1182a0",
+    "bytes": 9852262784
+   },
+   {
+    "name": "Q4_K-GGUF-00004-of-00008.gguf",
+    "sha256": "7112cdce82b618bb8440cc3e8761be87da2c4541446d253afef24e739e39158f",
+    "bytes": 9893774048
+   },
+   {
+    "name": "Q4_K-GGUF-00005-of-00008.gguf",
+    "sha256": "06686983122aa2b03d0ac15206fb83638cb3eaf81f2fa279a52679f192739b7f",
+    "bytes": 9896121184
+   },
+   {
+    "name": "Q4_K-GGUF-00006-of-00008.gguf",
+    "sha256": "9a850be27e041d278b06152f13e927fd4864fa35b318567587006826f81a6f86",
+    "bytes": 9602779264
+   },
+   {
+    "name": "Q4_K-GGUF-00007-of-00008.gguf",
+    "sha256": "236e55f5dd83f3342d23556fc2a691d74a31e74b512633f79e48ddd15f066b16",
+    "bytes": 9803517024
+   },
+   {
+    "name": "Q4_K-GGUF-00008-of-00008.gguf",
+    "sha256": "ea216754a4e6064136ff5e61ab7e556907409806a84dfcf6e8546f6284754422",
+    "bytes": 5350978624
+   }
+  ],
+  "quantiser": "huihui-ai (Q4_K)",
+  "method_as_stated": "abliteration by huihui-ai",
+  "pinned": true,
+  "verified": "each shard hash-checked on download 2026-11-22 and 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-122B-A10B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-122B-A10B stock",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Qwen3.5-122B-A10B-GGUF",
+  "commit": "b23a012e (short form, as recorded)",
+  "files": [
+   {
+    "name": "Qwen3.5-122B-A10B.Q4_K_M.gguf",
+    "sha256": "d1c99e6dc899d4ecc02de3c6218edcb6e17825a22524f6a2ab9ea50fbb5c5e53",
+    "bytes": 74208240608
+   }
+  ],
+  "quantiser": "mradermacher (static Q4_K_M)",
+  "method_as_stated": "none (stock)",
+  "pinned": true,
+  "verified": "re-hashed on the run host before the first cell, 2026-11-22",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-122B-A10B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-9B Heretic ARA v2",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Qwen3.5-9B-Heretic-ARA-v2-GGUF",
+  "commit": "d2a3ca533078fbf2573388e24b94b847b97c4dec",
+  "files": [
+   {
+    "name": "Qwen3.5-9B-Heretic-ARA-v2.Q4_K_M.gguf",
+    "sha256": "7079a79db38bf59c7c1ca984b79335651ac9f3c02d39e2e2f76e3512baa4a18c",
+    "bytes": 5629109952
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "card (qread summary of the NullpoLab source repo): Heretic v2.2.0.dev0 with Arbitrary-Rank Ablation (ARA); mradermacher static quant of that build",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-9B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-9B huihui (abliterated)",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Huihui-Qwen3.5-9B-abliterated-GGUF",
+  "commit": "419ca34f424adbd9276c09e0271cb6b718e8da1d",
+  "files": [
+   {
+    "name": "Huihui-Qwen3.5-9B-abliterated.Q4_K_M.gguf",
+    "sha256": "ea1858ef4dc4b648b8dbb44612962a0333e945060dd0545ac0f28d7c4416e4b3",
+    "bytes": 5627045248
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "abliteration by huihui-ai (repo tags); mradermacher static quant",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-9B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.5-9B stock",
+  "weights": "local GGUF",
+  "repository": "mradermacher/Qwen3.5-9B-GGUF",
+  "commit": "664ad08c870c0a6e80798eb4a98e2335ec6e93b4",
+  "files": [
+   {
+    "name": "Qwen3.5-9B.Q4_K_M.gguf",
+    "sha256": "9fa52e37c8293ee02cf277634f8d3a392dc3239b8ccef2315b4c8c9ef223e7fb",
+    "bytes": 5627045120
+   }
+  ],
+  "quantiser": "mradermacher (static)",
+  "method_as_stated": "none (stock); mradermacher static quant",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.5-9B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.5-9B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B Heretic (0bserverx)",
+  "weights": "local GGUF",
+  "repository": "0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF",
+  "commit": "ab8d7bd81d03117501e4da60cccdff4c80f0eea0",
+  "files": [
+   {
+    "name": "Qwen3.8-27B-Heretic-Q4_K_M.gguf",
+    "sha256": "5ae89d6720ba0a27f643e6fbb0d1b557870d17aeff23156e5981e863ec16985c",
+    "bytes": 16547400032
+   }
+  ],
+  "quantiser": "0bserverx (imatrix tag)",
+  "method_as_stated": "Heretic build by 0bserverx, dated 2026-09-20 or earlier (before Heretic 2.0); the Heretic version and method were not checked",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (repo tag; base Qwen/Qwen3.8-27B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B Swift 1.5 heretic unsycophantic",
+  "weights": "local GGUF",
+  "repository": "RacingAce66/Swift-1.5-Qwen3.8-27b-heretic-unsycophantic-GGUF",
+  "commit": "2dd5c9692ef63151eb25f3e062d207066b5d4d29",
+  "files": [
+   {
+    "name": "qwen3.8-27b-swift-1.5-heretic-unsycophantic-q4_k_m.gguf",
+    "sha256": "26acc6e48e5c3dcca536cc358d74950a5994ba9c59070e2b16a1eb83b0e83eac",
+    "bytes": 16547401024
+   }
+  ],
+  "quantiser": "RacingAce66 (llama.cpp)",
+  "method_as_stated": "card (qread summary): Swift 1.5, a derivative of Qwen3.8-27B described as reasoning-efficient (58.5 percent fewer thinking tokens); repo name and tags say heretic, abliterated, unsycophantic; the GGUF was made from a BF16 checkpoint; the card summary does not say how the heretic or unsycophantic step was done, so a fine-tune plus ablation cannot be separated",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "repo tag 'other'; base ukisai/Swift-1.5-Qwen3.8-27b is under swift-open-license-1.0",
+   "url": "https://huggingface.co/ukisai/Swift-1.5-Qwen3.8-27b/blob/main/LICENSE",
+   "output_terms": "Apache-style licence with no clause on outputs; commercial use of the weights is conditioned on a revenue threshold. The GGUF repo has no licence file of its own.",
+   "restricts_publishing_outputs": "unclear (no output clause; the condition is on the weights)",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B huihui (abliterated)",
+  "weights": "local GGUF",
+  "repository": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+  "commit": "1c69098e9c32db6dc06fc48f1d6cc75ad07da89e",
+  "files": [
+   {
+    "name": "Huihui-Qwen3.8-27B-abliterated-UD-DW-Q4_K_M.gguf",
+    "sha256": "0c7cfe3060493485bb9a6a51195897b0c1d347a49929206adb9a52170183ea03",
+    "bytes": 16551316384
+   }
+  ],
+  "quantiser": "Unsloth recipe (UD-DW), by huihui-ai",
+  "method_as_stated": "abliteration by huihui-ai; the card and tool version were not re-read",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (repo tag; base Qwen/Qwen3.8-27B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B huihui (abliterated), hosted",
+  "weights": "hosted by Featherless",
+  "repository": "huihui-ai/Huihui-Qwen3.8-27B-abliterated",
+  "commit": null,
+  "files": [],
+  "quantiser": "provider; precision not stated",
+  "method_as_stated": "abliteration by huihui-ai",
+  "pinned": false,
+  "verified": "model id as returned on every call",
+  "licence": {
+   "name": "Apache 2.0 for the weights; Featherless terms for the hosted calls",
+   "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated; https://featherless.ai/terms",
+   "output_terms": "Weights: no clause on outputs. Featherless: generated content belongs to the user; it may not be presented as human-generated; each model's own terms apply.",
+   "restricts_publishing_outputs": "no; labelling duty applies",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B stock (file of commit 4af51b35)",
+  "weights": "local GGUF",
+  "repository": "unsloth/Qwen3.8-27B-GGUF",
+  "commit": "4af51b3542f775b0a8e4b310bfb3f17e01c306c9",
+  "files": [
+   {
+    "name": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "sha256": "1bce504dfecd84153666928a41d8a66706f0158d3a317bc5196b72819d7dc529",
+    "bytes": 16564259744
+   }
+  ],
+  "quantiser": "Unsloth (UD dynamic, imatrix)",
+  "method_as_stated": "none (stock); the file at head after the 2026-11-12 replacement, sha256 differs from the 2026-10-30 file",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.8-27B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B stock (file of commit 4ca72078)",
+  "weights": "local GGUF",
+  "repository": "unsloth/Qwen3.8-27B-GGUF",
+  "commit": "4ca720788d1e01f1bff70c033e0d0028fd02e502",
+  "files": [
+   {
+    "name": "Qwen3.8-27B-UD-Q4_K_M.gguf",
+    "sha256": "322e194ff79741c7baa497c240f677f54b201b0efab44ca8e50f122b39123482",
+    "bytes": 16464440224
+   }
+  ],
+  "quantiser": "Unsloth (UD dynamic, imatrix)",
+  "method_as_stated": "none (stock); the file from commit 4ca72078, as tested on 2026-10-29 and 2026-10-30",
+  "pinned": true,
+  "verified": "Ollama blob sha256 equals the file sha256, checked 2026-11-24",
+  "licence": {
+   "name": "Apache 2.0 (Qwen3.8-27B)",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE",
+   "output_terms": "Apache 2.0 (Qwen); no clause on outputs.",
+   "restricts_publishing_outputs": "no",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ },
+ {
+  "name": "Qwen3.8-27B stock, hosted",
+  "weights": "hosted by Featherless",
+  "repository": "Qwen/Qwen3.8-27B",
+  "commit": null,
+  "files": [],
+  "quantiser": "provider; precision not stated",
+  "method_as_stated": "none (stock)",
+  "pinned": false,
+  "verified": "model id as returned on every call",
+  "licence": {
+   "name": "Apache 2.0 for the weights; Featherless terms for the hosted calls",
+   "url": "https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE; https://featherless.ai/terms",
+   "output_terms": "Weights: no clause on outputs. Featherless: generated content belongs to the user; it may not be presented as human-generated; each model's own terms apply.",
+   "restricts_publishing_outputs": "no; labelling duty applies",
+   "checked": "2026-11-25: Hugging Face API licence tags read for the repo and its base; licence texts read where named"
+  }
+ }
+]

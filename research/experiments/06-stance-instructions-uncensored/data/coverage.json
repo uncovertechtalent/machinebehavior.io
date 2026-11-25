@@ -1,0 +1,46 @@
+{
+ "records": 3978,
+ "labelled_by_hand": 3978,
+ "auto_only": 0,
+ "by_run": {
+  "r20261118-followup3": 400,
+  "r20261122-122b": 120,
+  "r20261122-glm53": 40,
+  "r20261122-featherless": 80,
+  "r20261122-think-off": 80,
+  "r20261122-think-on": 80,
+  "r20261123-think-on-r2": 80,
+  "r20261123-featherless-r2": 40,
+  "r20261124-stance": 600,
+  "r20261124-heldout-v1": 360,
+  "r20261124-heldout-v2": 720,
+  "r20261029-q38-cloud": 160,
+  "r20261030-q38-templates": 200,
+  "r20261124-b-q38on-goodchad": 40,
+  "r20261124-b-q38on-slim": 40,
+  "r20261124-b-q122-goodchad": 40,
+  "r20261124-b-q122-slim": 40,
+  "r20261124-phase-c": 288,
+  "r20261124-phase-d": 150,
+  "r20261124-phase-e": 144,
+  "r20261125-benign": 276
+ },
+ "runs_without_hand_labels": [
+  "r20261123-featherless-r2",
+  "r20261123-think-on-r2",
+  "r20261124-b-q122-goodchad",
+  "r20261124-b-q122-slim",
+  "r20261124-b-q38on-goodchad",
+  "r20261124-b-q38on-slim",
+  "r20261124-stance"
+ ],
+ "relabels_applied": [
+  "b4-consistency-2026-11-24: 250",
+  "label-phase-b-2026-11-24: 120",
+  "label-phase-b4-2026-11-24: 40",
+  "relabel-battery-2026-11-24: 720",
+  "second-read-battery-2026-11-24: 800",
+  "second-read-heldout-v1-2026-11-24: 360",
+  "second-read-october-2026-11-24: 360"
+ ]
+}
