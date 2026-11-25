@@ -6,7 +6,8 @@ usage: export.py --runs <runs> --vault <vault clone> --out <dir> [--sources sour
 Reads every run listed in sources.json, joins answers to their labels (blind hand labels where they exist,
 the battery's automatic label otherwise, marked as such), and writes:
   records.jsonl  labels.jsonl  probes.json  conditions/  models.json  results.csv  coverage.json  SHA256SUMS
-Fails (exit 2) if any output file contains a private pattern (LAN addresses, host names, home paths).
+Fails (exit 2) if any output file contains a private pattern (LAN addresses, host names, home paths); the public copy
+keeps the patterns private and holds one that never matches.
 Model answers are copied as recorded; only whitelisted metadata fields are emitted.
 Standard library only.
 """
@@ -249,8 +250,13 @@ class Export:
         json.dump(sorted(self.probes.values(), key=lambda p: p["id"]), open(os.path.join(o, "probes.json"), "w"), indent=1, ensure_ascii=False)
         index = {}
         for cid, text in sorted(self.conditions.items()):
-            open(os.path.join(o, "conditions", f"{cid}.txt"), "w").write(text + "\n")
-            index[cid] = {"file": f"conditions/{cid}.txt", "sha256": sha(text), "words": len(text.split())}
+            path = os.path.join(o, "conditions", f"{cid}.txt")
+            with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(text + "\n")
+            # sha256: the file's bytes, as sha256sum and SHA256SUMS report them; text_sha256: the text as the runners
+            # sent it (stripped, no trailing newline), the value they record as system_sha256 and user_suffix_sha256
+            index[cid] = {"file": f"conditions/{cid}.txt", "sha256": hashlib.sha256(open(path, "rb").read()).hexdigest(),
+                          "text_sha256": sha(text), "words": len(text.split())}
         json.dump(index, open(os.path.join(o, "conditions", "index.json"), "w"), indent=1)
         meta = self.src.get("model_meta", {})
         models = [{"name": m, **meta.get(m, {"status": "metadata missing"})} for m in sorted(self.seen_models)]
