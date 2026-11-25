@@ -3,6 +3,8 @@ summary: One GitHub Actions workflow runs the conformity checks, commits the rec
 order: 20
 labels: deploy, github-actions, pipeline
 owner: Stefan Coetzee
+created: 2026-10-16
+updated: 2026-11-25
 reviewed: 2026-10-13
 review_by: 2027-01-11
 type: explanation
@@ -20,14 +22,14 @@ Permissions: `contents: write`, for the bot commit when the deploy key is missin
 
 ## Job 2: deploy to Pages
 
-Permissions: `contents: read`, `pages: write` and `id-token: write` for the deploy, and `actions: read` and `issues: read` for the two snapshots in steps 4 and 5.
+Permissions: `contents: read`, `pages: write` and `id-token: write` for the deploy, and `actions: read` and `issues: read` for the two snapshots in steps 4 and 5; `actions: read` also serves the wait in step 6.
 
 1. Check out `main` again, after the bot commit, without persisting the credentials.
 2. Refresh the map: run `scripts/crawl_map.py` against the live sites. The new `map/graph.json` replaces the committed one only if it has at least as many nodes and links. A partial crawl (for example Substack answering 403 to the runner) keeps the committed snapshot. This step may fail without failing the job, and its result is never committed.
 3. Rebuild the search index: `scripts/build_search.py` merges the refreshed map with the docs and services into `inside/search.json`, so search matches the deployed map. It may fail without failing the job (the committed index is deployed) and is never committed. See [Top bar and search](doc:eng/top-bar-and-search).
 4. Snapshot the deploy feed: read the last 15 Actions runs of machinebehavior.io and tychat.io and write `inside/deploys.json` for [Inside](/inside/). Like the map refresh, it may fail without failing the job and is never committed.
 5. Snapshot the issues: `scripts/board_snapshot.py` reads the open and recently closed GitHub Issues and writes `inside/board/issues.json` for the [board](/inside/board/). It may fail without failing the job and is never committed. See [Ticket board](doc:eng/board).
-6. Upload the repository as the Pages artifact and deploy it.
+6. Upload the repository as the Pages artifact, wait, and deploy it. The deploy action lists the run's artifacts once, through the artifact service, and stops when the upload is not among them; on 2026-11-25 that list lagged the upload (#252). So a step between the two polls the run's REST artifact list every 5 seconds for up to 150 seconds as a stand-in; a failed API call counts as not listed yet, and on timeout it warns and lets the deploy make its own check.
 
 ## Job 3: workflow security (zizmor)
 
