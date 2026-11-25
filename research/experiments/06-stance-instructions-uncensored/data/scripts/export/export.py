@@ -249,9 +249,8 @@ class Export:
         json.dump(sorted(self.probes.values(), key=lambda p: p["id"]), open(os.path.join(o, "probes.json"), "w"), indent=1, ensure_ascii=False)
         index = {}
         for cid, text in sorted(self.conditions.items()):
-            body = text + "\n"  # the file as written; its sha256 is what sha256sum and SHA256SUMS report
-            open(os.path.join(o, "conditions", f"{cid}.txt"), "w").write(body)
-            index[cid] = {"file": f"conditions/{cid}.txt", "sha256": sha(body), "words": len(text.split())}
+            open(os.path.join(o, "conditions", f"{cid}.txt"), "w").write(text + "\n")
+            index[cid] = {"file": f"conditions/{cid}.txt", "sha256": sha(text), "words": len(text.split())}
         json.dump(index, open(os.path.join(o, "conditions", "index.json"), "w"), indent=1)
         meta = self.src.get("model_meta", {})
         models = [{"name": m, **meta.get(m, {"status": "metadata missing"})} for m in sorted(self.seen_models)]

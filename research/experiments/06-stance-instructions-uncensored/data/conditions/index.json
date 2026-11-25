@@ -1,52 +1,52 @@
 {
  "good-chad": {
   "file": "conditions/good-chad.txt",
-  "sha256": "c06e10bf2727fdb1b1431bc460312a709414a25eceb09d93f61a80b54165061d",
+  "sha256": "d44d4de324b1b3807fc27af32b6f57eacef977cfe8978e40764b13f0021c511e",
   "words": 92
  },
  "harness-bd24b87": {
   "file": "conditions/harness-bd24b87.txt",
-  "sha256": "3ce6c781b9dd82e800ce68d217a8aa0e9f2548c30ad50e7520771934cf8ba442",
+  "sha256": "cd0e09843b20b06e786dbafc327ea583ab04eebf7c6cafbaca910751c6c9d486",
   "words": 2382
  },
  "harness-bd24b87-reminder": {
   "file": "conditions/harness-bd24b87-reminder.txt",
-  "sha256": "47430bb96fd3d815b7221e744460a3264ba0494507457cd514123c9051f9189d",
+  "sha256": "9235252924ae3d57dc40ea1d8cd6f449dca8d68c80dc25a12158ccb31510baad",
   "words": 120
  },
  "harness-df51bad": {
   "file": "conditions/harness-df51bad.txt",
-  "sha256": "49f2c95437f87d968989c9b3be32b62ce1ad322fa0a96a04343ecb30db47557a",
+  "sha256": "19a9f9dadef2f4255a3a1e2064e064202a293affa3a36836a0ef0cd6c3da1f9b",
   "words": 2562
  },
  "harness-df51bad-no-receipts": {
   "file": "conditions/harness-df51bad-no-receipts.txt",
-  "sha256": "726d576407dbc553c8db9140e9ad00ce9928eb869153d40edb03a8c9901699c5",
+  "sha256": "458119b37199e013ae9cff2ac6c10a2f59ce4742f89119c31dd6b8a0ab1fd632",
   "words": 2132
  },
  "harness-df51bad-reminder": {
   "file": "conditions/harness-df51bad-reminder.txt",
-  "sha256": "70c24059f033d973021ade2b6fc739e3ef00400bd22c9fd2782200c808b435d7",
+  "sha256": "148b708320714ffb3a24ac775bdd809243d99b88b9191c25391383ffae1c63c4",
   "words": 187
  },
  "harness-fix-v1": {
   "file": "conditions/harness-fix-v1.txt",
-  "sha256": "40e69b3eb9d4cf04815b0c82885a3aa1c0d39a68a3b3b193f3b406baf3e8dcf7",
+  "sha256": "b667ac8899d0e70654866c2d682e2abae0f46ed1f7a20097426e4c65f599f46d",
   "words": 2499
  },
  "harness-fix-v1-reminder": {
   "file": "conditions/harness-fix-v1-reminder.txt",
-  "sha256": "475f87348d1ca667da6f6ef943159beebb100e781f31b202a1237428a0a90033",
+  "sha256": "2eb759f09c8e907c8f3b783d37d5c3ed5b6ae1a16f5f03e245b8dbe2c7354cde",
   "words": 169
  },
  "neutral": {
   "file": "conditions/neutral.txt",
-  "sha256": "9db26da266bd05448800db1d986281ad1a92645dba943c208cd421b97e87fb06",
+  "sha256": "75357d685f238b6afd7738be9786fdafde641eb6ca9a3be7471939715a68a4de",
   "words": 5
  },
  "slim": {
   "file": "conditions/slim.txt",
-  "sha256": "1e6a02a101273fa5c20af3e7e14b2be94c706a684ae2b779ad39a7e541aaa7aa",
+  "sha256": "84d8db47f35aba371d2ec92b854f38f52f4791c979395ea694d98044a9b71a70",
   "words": 136
  }
 }
