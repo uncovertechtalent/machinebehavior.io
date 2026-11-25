@@ -1,14 +1,6 @@
 {
  "history": [
   {
-   "ts": "2026-10-13T16:55:34Z",
-   "trigger": "push",
-   "sha": "2f30fadaa320158b863fa0bf13852790d2eddc65",
-   "overall": "pass",
-   "findings_open": 0,
-   "warnings": 0
-  },
-  {
    "ts": "2026-10-13T17:38:55Z",
    "trigger": "push",
    "sha": "04ce9e546a14bf8c816b2bb19ac43cf15d4e3bed",
@@ -799,6 +791,14 @@
    "overall": "pass",
    "findings_open": 0,
    "warnings": 0
+  },
+  {
+   "ts": "2026-11-25T12:21:17Z",
+   "trigger": "push",
+   "sha": "c0d8d272ed1f637964383e1f1e7ec96ba5cf11ec",
+   "overall": "pass",
+   "findings_open": 0,
+   "warnings": 0
   }
  ],
  "findings": [
@@ -819,7 +819,7 @@
    "closed_commit": "4c2ba56b7f91d9897227eba7626f994d9ede129c"
   }
  ],
- "last_run": "2026-11-25T12:13:43Z",
+ "last_run": "2026-11-25T12:21:17Z",
  "overall": "pass",
  "requirement_states": {
   "CC-4.1": {
@@ -1003,6 +1003,6 @@
    "mark": "M"
   }
  },
- "site_commit": "a4896c091b73b8f2e912f99ca2f9dc8ee1b30d52",
+ "site_commit": "c0d8d272ed1f637964383e1f1e7ec96ba5cf11ec",
  "site": "machinebehavior.io"
 }
