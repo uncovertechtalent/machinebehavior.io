@@ -99,6 +99,16 @@ class ResearchSidebar(unittest.TestCase):
         self.assertEqual(sub(site_chrome.side(t, t.by_url['/research/case-files/extra-5/']), 'All case files'), newest)
         self.assertEqual(sub(site_chrome.side(t, t.by_url[CASE12]), 'All case files'), newest + [CASE12])
 
+    def test_sequence_is_true_and_never_with_order(self):
+        text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
+        anchor = '                sequence: true  # '
+        self.assertIn(anchor, text)
+        for bad in ('                sequence: "false"  # ', '                sequence: yes-please  # ',
+                    '                order: newest\n                sequence: true  # '):
+            with self.assertRaises(SystemExit) as e:
+                tree_from(text.replace(anchor, bad, 1))
+            self.assertIn('Stance under pressure', str(e.exception))
+
     def test_newest_first_needs_a_date_on_every_page(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
         anchor = '                url: /research/case-files/running-conjobs-for-ai/\n                published: 2026-10-06\n'

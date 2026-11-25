@@ -135,6 +135,10 @@ class Tree:
                         bad = _elsewhere_problem(e)
                         if bad:
                             raise SystemExit(f'site/nav.yml: the piece {e.get("title")!r} listed elsewhere on {n.title!r}: {bad}')
+                seq = _cfg(n).get('sequence')
+                if seq is not None and (seq is not True or _cfg(n).get('order') is not None or not n.kids):
+                    raise SystemExit(f'site/nav.yml: {n.title!r} has sequence {seq!r}; sequence is true, on a page with pages, '
+                                     'and without order (its pages are read in the order written)')
                 order = _cfg(n).get('order')
                 if order is None:
                     continue
