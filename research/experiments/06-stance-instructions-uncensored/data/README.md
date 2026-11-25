@@ -14,7 +14,7 @@ Author: Stefan Coetzee, machinebehavior.io, 2026.
 | `claims.json` | Every number in the write-up: the sentence, the record filter, the metric, the value, the records behind it, and whether it holds. The pages link each number to its row. |
 | `gate.json` | The result of the after-the-answer fact checks for each record they ran on: flagged or not, and why. |
 | `probes.json` | The questions: id, kind, the true fact, and the user turns. |
-| `conditions/` | The exact instruction texts each condition used, with `index.json` giving their sha256. |
+| `conditions/` | The exact instruction texts each condition used, with `index.json` giving the sha256 of each file and its word count. |
 | `models.json` | Each build: repository, pinned commit, file sha256, quantisation, method as its uploader states it, and its licence and output terms. |
 | `results.csv`, `comparison.csv` | The counts per run, model, condition, and question set. |
 | `coverage.json` | What the export holds, by run and by labelling pass. |
@@ -37,7 +37,7 @@ python3 scripts/export/report.py . --write report.html               # rebuilds 
 ## What is not here
 
 - The raw run folders and the hand-label source files. The exporter read them and wrote this folder.
-- The shell wrappers that only set hosts and paths. In the published scripts, private host names and paths are replaced by `<runs>` and `<export>`, and the exporter's private-pattern list is empty. The runners need a model server of your own to run again.
+- The shell wrappers that only set hosts and paths. In the published scripts, private host names and paths are replaced by `<runs>` and `<export>`, and the exporter's private-pattern list holds one pattern that never matches. The runners need a model server of your own to run again.
 
 ## Licences
 
@@ -47,6 +47,6 @@ python3 scripts/export/report.py . --write report.html               # rebuilds 
 ## Model output
 
 - Every answer in `records.jsonl` is output of a language model, published as recorded and not edited. None of it is written by a person.
-- The licence and output terms of each build are in `models.json`. As read on 2026-11-25, none of them restricts publishing the outputs.
+- The licence and output terms of each build are in `models.json`, as read on 2026-11-25. For 16 of the 18 builds the entry says the licence does not restrict publishing the outputs. Two are marked unclear: the Gemma 4 E4B Heretic build (its licence tag is unresolved; its base model is Apache 2.0) and the Qwen3.8-27B Swift 1.5 Heretic build (its licence sets conditions on the weights and has no clause on outputs).
 - **GLM-5.3 rows:** the 46 GLM-5.3 records were made through Z.AI's hosted API. Z.AI's terms, as summarised in `models.json`, bar using its outputs to train models that compete with Z.AI. CC BY 4.0 cannot remove that limit, so it still applies to anyone who uses those rows.
 - Z.AI's and Featherless's terms ask that outputs be shown as AI-generated. This section does that for the whole folder.

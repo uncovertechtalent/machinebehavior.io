@@ -163,7 +163,7 @@
    "description": "The instruction texts used as system prompts and per-message reminders, with sha256.",
    "contentUrl": "conditions/index.json",
    "encodingFormat": "application/json",
-   "sha256": "dcd9b04291ce21be5662c2b01c5e58dfc56d2feaef28f6f5a715e3db802d52d3"
+   "sha256": "acb88cdf93842a39840e80d386f9b5003e49cfd48803fade6282e791f0578207"
   },
   {
    "@type": "cr:FileObject",
