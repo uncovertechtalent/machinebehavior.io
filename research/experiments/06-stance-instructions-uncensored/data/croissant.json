@@ -59,7 +59,7 @@
  },
  "citeAs": "@misc{machinebehavior_exp06_2026, title={Stance instructions on uncensored language models (experiment 06)}, author={{machinebehavior.io}}, year={2026}, url={https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/}}",
  "datePublished": "2026-11-24",
- "version": "0.1.0",
+ "version": "0.2.0",
  "inLanguage": [
   "en"
  ],
@@ -160,10 +160,10 @@
    "@type": "cr:FileObject",
    "@id": "conditions/index.json",
    "name": "conditions/index.json",
-   "description": "The instruction texts used as system prompts and per-message reminders, with sha256.",
+   "description": "The instruction texts used as system prompts and per-message reminders, with the sha256 of each file and of each text as sent.",
    "contentUrl": "conditions/index.json",
    "encodingFormat": "application/json",
-   "sha256": "dcd9b04291ce21be5662c2b01c5e58dfc56d2feaef28f6f5a715e3db802d52d3"
+   "sha256": "42bffd94b1d8103ff2a530d33c5dd13375e552a86021ee48624117ed0c683a9e"
   },
   {
    "@type": "cr:FileObject",

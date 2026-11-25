@@ -34,6 +34,8 @@ PUBLISHED = "2026-11-25"
 REPORT = BASE + "report/"
 SHORT = "Stance under pressure"
 OG_IMAGE = SITE + "/map/home-graph.png"
+# A file without an extension (SHA256SUMS) gets a trailing slash from the CDN and a 404, so it links to the repository
+REPO = "https://github.com/uncovertechtalent/machinebehavior.io/blob/main"
 
 # Each table, in page order per chapter: the caption (its finding, restating numbers on the page) and the note (sample).
 TABLES = {
@@ -421,7 +423,7 @@ def build(src):
             f'(<a class="mono" href="{BASE}data/labels.jsonl">labels.jsonl</a>), every number with the records behind it '
             f'(<a class="mono" href="{BASE}data/claims.json">claims.json</a>), the instruction texts, the model pins, the scripts, '
             f'Croissant metadata (<a class="mono" href="{BASE}data/croissant.json">croissant.json</a>), and '
-            f'<a class="mono" href="{BASE}data/SHA256SUMS">SHA256SUMS</a>. Data under CC BY 4.0, scripts under MIT; the '
+            f'<a class="mono" href="{REPO}{BASE}data/SHA256SUMS">SHA256SUMS</a>. Data under CC BY 4.0, scripts under MIT; the '
             f'README has the licence lines and the model-output notice.</p>')
     idx_desc = (f"{h1} {plain(lead)} Experiment 06 on machinebehavior.io: eleven chapters, a report page, and the data, "
                 "with every number recomputed from the published records.")
