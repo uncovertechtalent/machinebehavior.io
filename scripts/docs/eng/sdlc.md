@@ -2,7 +2,7 @@ title: Software delivery lifecycle
 summary: The stages a change moves through on machinebehavior.io, from request to a live page and back, with the entry and exit criteria, the owner and the record of each stage, and the stages with no practice yet.
 order: 15
 created: 2026-10-11
-updated: 2026-10-28
+updated: 2026-11-25
 labels: sdlc, process, delivery
 owner: Stefan Coetzee
 reviewed: 2026-10-12
@@ -37,7 +37,7 @@ Stages with no module or practice yet:
 | Stage | What is missing | Fills it |
 |---|---|---|
 | RFC | No comment round before a decision; a record goes from `proposed` to `accepted` on the operator's call | `decisions:rfc`, or comments on the issue that links the proposed record |
-| Review | No second person: every commit and every merge comes from one GitHub account, so GitHub cannot require an approval or tell a session's merge from Stefan's. The ask rule on `gh pr merge` holds only sessions started in this repository. The branch ruleset waits for the deploy key of the conformity bot | The ruleset per [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests); a second account for reviews if one is ever needed |
+| Review | Filled since 2026-11-25: agents work under their own account, and the ruleset requires Stefan Coetzee's approval on the final head before the agent account merges | [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head), on top of [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) |
 | Test | No unit tests for the Python generators in `scripts/`, and no check after a deploy that the pages answer | `sdlc:test-strategy` |
 | Build | Commit subjects do not name the issue or the decision, so a commit cannot be traced to its request | `sdlc.traceability` gate check on `warn` with `since: 2026-10-11` |
 | Release | No way to redeploy an earlier build: both jobs check out `main`. Rollback time is not measured | Owner decision; see [Roll back a deploy](doc:eng/runbook-rollback) |

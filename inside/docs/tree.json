@@ -371,6 +371,11 @@
 "p": "/inside/docs/eng/decision-log/"
 },
 {
+"u": "/inside/docs/eng/adr-0054-approval-on-the-final-head/",
+"t": "ADR-0054: Stefan Coetzee approves on the final head, and the agent account pushes and merges",
+"p": "/inside/docs/eng/decision-log/"
+},
+{
 "u": "/inside/docs/eng/changelog/",
 "t": "Changelog",
 "p": "/inside/docs/eng/"

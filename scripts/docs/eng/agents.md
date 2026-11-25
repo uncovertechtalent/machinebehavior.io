@@ -3,6 +3,8 @@ summary: Which coding agents work on machinebehavior.io, with which plugins, per
 order: 16
 labels: agents, ai-ops, harness
 owner: Stefan Coetzee
+created: 2026-10-11
+updated: 2026-11-25
 reviewed: 2026-10-11
 review_by: 2027-01-09
 type: reference
@@ -31,12 +33,12 @@ These settings load only in a session started in this folder. A session started 
 
 ## How a change reaches main
 
-Through a pull request ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A branch ruleset on `main` requires a pull request and a passing Conformity checks job ([Conformity gate](doc:eng/conformity-gate)); it goes on once the conformity bot pushes with its deploy key. No approval is required: GitHub never counts an author's approval of their own pull request, and every commit here comes from the same account. The merge is the review step.
+Through a pull request ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A branch ruleset on `main` requires a pull request and a passing Conformity checks job ([Conformity gate](doc:eng/conformity-gate)); it goes on once the conformity bot pushes with its deploy key. One approval is required ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)): Stefan Coetzee approves on GitHub as skjoldar, on the pull request's final head, and the session, under the agent account uncovertechtalent, pushes every commit and merges with that head pinned. A commit pushed from his account makes his approval not count.
 
 1. Branch from `origin/main`, run the gate dry run until it prints `overall=pass`, push the branch, open the pull request with the template.
 2. Wait for the Conformity checks job on the pull request.
-3. Run `/sdlc:change-review` on the pull request and put the review in its description.
-4. Stefan Coetzee merges, or a session merges on his explicit go in that session.
+3. Push every fix, wait until the pull request shows the pushed head, then run the local reviewer (`~/.config/powersuit/review-pr.sh`) on that head and post its comment.
+4. Stefan Coetzee approves on that head as skjoldar; the session merges with the head pinned (`gh pr merge --squash --match-head-commit <sha>`). A newer commit dismisses the approval and needs a new one.
 
 Two automated writers push to `main` directly, each through its own deploy key that the protection lets through: conformity-bot, which commits the gate result after every run, and the weekly decision-layer probe record. The lifecycle around this flow is in [Software delivery lifecycle](doc:eng/sdlc).
 
