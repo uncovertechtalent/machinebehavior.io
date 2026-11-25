@@ -16,8 +16,8 @@
 
 source:
   repo: https://github.com/uncovertechtalent/cto-powersuit
-  ref: v0.4.0
-  commit: c2f4c72a413c3600d92091beea9b0324c08d4c14
+  ref: v0.5.0
+  commit: 7b8e7cb92f711b793b6991f5d7e2db65312deb28
   release_note: "Every release after v0.1.0 carries a source tarball of its tag, the tarball's sha256, and a build provenance attestation. v0.1.0 was tagged before the release workflow existed and has neither."
 published: 2026-10-13
 
@@ -67,14 +67,14 @@ areas:
     about: What the platform costs, and where the money goes.
     modules:
       - name: finops
-        line: "A cost baseline from invoices and billing exports, showback, unit costs, a SaaS stack audit, and a FOCUS export, with a gate check that every cost figure carries a period and a source."
+        line: "A cost baseline from invoices and billing exports, showback, unit costs, a SaaS stack audit, and a FOCUS export, with a gate check that every cost figure carries a period and a source, and an example run on synthetic billing data."
         demo_title: FinOps space
         demo_url: /inside/docs/fin/
   - title: Security and risk
     about: Protecting systems and data, staying compliant, testing for failure.
     modules:
       - name: security
-        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills and MCP servers, pre-push hooks that refuse a secret or a private term, an inventory of admin entrances with their multi-factor method, and a quarantine for third-party text."
+        line: "Supply chain, secrets, and access for a repository and its agents: actions pinned by commit SHA with an owner allowlist, a vulnerability scan and an SBOM, provenance checks for skills, MCP servers, and repositories that ship an archive in place of code, pre-push hooks that refuse a secret or a private term, an inventory of admin entrances with their multi-factor method, and a quarantine for third-party text."
         demo_title: Gate runs
         demo_url: /conformity/
       - name: compliance
@@ -116,7 +116,7 @@ knowledge:
       demo_title: Conformity gate
       demo_url: /inside/docs/eng/conformity-gate/
     - name: vault
-      line: "A plain-Markdown vault with hybrid keyword and semantic search, served to Claude as an MCP server, with skills to seed it and to atomize documents into it."
+      line: "A plain-Markdown vault with hybrid keyword and semantic search, served to Claude as an MCP server, with skills to seed it and to atomize documents into it, an opt-in import of this site's pages as reference notes, and search that labels third-party notes and never returns external ones."
       demo_title: SRE Handbook space
       demo_url: /inside/docs/sre/
     - name: stance
