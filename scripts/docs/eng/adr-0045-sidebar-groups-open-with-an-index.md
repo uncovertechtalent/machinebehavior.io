@@ -5,7 +5,7 @@ order: 45
 adr: 45
 status: accepted
 created: 2026-10-26
-updated: 2026-10-27
+updated: 2026-11-25
 labels: adr, decision, site-chrome, navigation, research
 owner: Stefan Coetzee
 reviewed: 2026-10-26
@@ -24,7 +24,7 @@ type: explanation
 
 **Newest first where a list asks for it.** `order: newest` on a page or section lists its pages newest first by `published`, ties in the written order, in the sidebar, on its index page and on the research index. Every page in such a list needs a date, and the build stops on one without. Experiments, Case files, Articles and Red team are ordered this way. Registers and Reference keep their written order, because most of their pages carry no publication date and the sitemap dates move with every rebuild.
 
-**Five per list in the sidebar.** `SIDE_RECENT` caps each list under an index at five pages; older pages are on the index page. A page older than the five stays listed while it is the current page, so the sidebar always shows where the reader is. On 2026-10-26 no group holds more than four pages, so nothing is cut yet.
+**Five per list in the sidebar.** `SIDE_RECENT` caps each list under an index at five pages; older pages are on the index page. A page older than the five stays listed while it is the current page, so the sidebar always shows where the reader is. On 2026-10-26 no group holds more than four pages, so nothing is cut yet. Exception, 2026-11-25 (#242): a page with `sequence: true` in `site/nav.yml`, whose pages are chapters read in order, lists every one of them as written; experiment 06 is the first.
 
 **The index joins the breadcrumbs.** The index is the parent of the group's pages, so a case file's trail reads Research, Case files, the case file, and the registers and reference pages gain their index the same way. URLs do not change.
 

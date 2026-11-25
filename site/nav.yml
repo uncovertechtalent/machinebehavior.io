@@ -12,6 +12,8 @@
 #   side   the sidebar's name for a page or an included section, when it differs from the title (All case files)
 #   order  newest: its pages list newest first by `published`, in the sidebar, on its page and on the research index;
 #          every one of them needs a date (YYYY-MM-DD). Without it they keep the order written here
+#   sequence  true: its pages are read in order (chapters), so the sidebar lists every one of them as written, not the
+#          five of ADR-0045; never with order
 #   hub    true: the page is a list of its pages, written by scripts/build_hubs.py (ADR-0045); research pages only
 #   elsewhere  on a hub page with order newest: pieces that live on another site, listed on that page and on the research
 #          index, merged by date with its pages. Each has title, url (its home, a host in ELSEWHERE_HOMES in scripts/site_chrome.py),
