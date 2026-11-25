@@ -103,11 +103,16 @@ class ResearchSidebar(unittest.TestCase):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
         anchor = '                sequence: true  # '
         self.assertIn(anchor, text)
-        for bad in ('                sequence: "false"  # ', '                sequence: yes-please  # ',
+        for bad in ('                sequence: "false"  # ', '                sequence: false  # ', '                sequence: yes-please  # ',
                     '                order: newest\n                sequence: true  # '):
             with self.assertRaises(SystemExit) as e:
                 tree_from(text.replace(anchor, bad, 1))
             self.assertIn('Stance under pressure', str(e.exception))
+        leaf = '                url: /research/case-files/running-conjobs-for-ai/\n'
+        self.assertIn(leaf, text)
+        with self.assertRaises(SystemExit) as e:  # a page without pages has nothing to list
+            tree_from(text.replace(leaf, leaf + '                sequence: true\n', 1))
+        self.assertIn('Running conjobs for AI', str(e.exception))
 
     def test_newest_first_needs_a_date_on_every_page(self):
         text = site_chrome.NAV_FILE.read_text(encoding='utf-8')
