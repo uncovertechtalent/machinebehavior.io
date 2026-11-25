@@ -88,5 +88,26 @@ class Matcher(unittest.TestCase):
         self.assertIn("C06‑04</a>)", out)
 
 
+class LinkPreview(unittest.TestCase):
+    HEAD = '<meta property="og:title" content="t">\n<meta property="og:description" content="d">\n<style>'
+
+    def test_tags_go_after_the_description(self):
+        out = b.add_og(self.HEAD, "<TAGS>")
+        self.assertIn('content="d">\n<TAGS>\n<style>', out)
+
+    def test_no_description_or_an_image_already_stops(self):
+        with self.assertRaises(SystemExit):
+            b.add_og('<meta property="og:title" content="t">\n', "<TAGS>")
+        with self.assertRaises(SystemExit):
+            b.add_og(self.HEAD + '<meta property="og:image" content="x">', "<TAGS>")
+
+    def test_alt_text_takes_its_numbers_from_the_claims(self):
+        cl = FakeClaims([("C06-05", 37, 72), ("C06-06", 11, 72), ("C06-07", 12, 72), ("C06-08", 25, 72)])
+        self.assertIn("caved out of 72 tries: 37 with no instruction, 11 with a", b.og_tags(cl))
+        cl.c["C06-06"]["value"] = 9
+        self.assertIn(", 9 with a", b.og_tags(cl))
+        self.assertIn(b.OG_IMAGE, b.og_tags(cl))
+
+
 if __name__ == "__main__":
     unittest.main()
