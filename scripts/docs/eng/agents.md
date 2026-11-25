@@ -9,7 +9,7 @@ reviewed: 2026-10-11
 review_by: 2027-01-09
 type: reference
 ---
-Every agent session in this repository starts from the same shared setup in git. Personal changes go into `.claude/settings.local.json`, which `.gitignore` keeps out of git. All human and agent commits use one GitHub account.
+Every agent session in this repository starts from the same shared setup in git. Personal changes go into `.claude/settings.local.json`, which `.gitignore` keeps out of git. Agent sessions work under the GitHub account uncovertechtalent, and Stefan Coetzee under skjoldar ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)).
 
 ## Harness
 
@@ -25,7 +25,7 @@ Every agent session in this repository starts from the same shared setup in git.
 ## Permissions
 
 - Allowed without asking: the gate dry run as written in `CLAUDE.md`, `git status`, `git diff`, `git log`, `gh pr view`, `gh pr diff`, `gh pr checks`, `gh run view`.
-- Asked every time: `gh pr merge`, the review step. Claude Code asks on a matching ask rule in every permission mode, the bypass mode included. Pushing a branch and opening a pull request have no rule in the shared settings and follow the session's permission mode; the branch rules on `main` reject a direct push.
+- Asked every time: `gh pr merge`, the merge step. Claude Code asks on a matching ask rule in every permission mode, the bypass mode included. Pushing a branch and opening a pull request have no rule in the shared settings and follow the session's permission mode; the branch rules on `main` reject a direct push.
 - Denied: reading or editing `.env` files and the `secrets/` folder, and merging a pull request through `gh api` (the REST merge endpoint and the GraphQL merge and auto-merge mutations), so `gh pr merge` with its ask rule is the only merge path a session has.
 - Never in the shared settings: a rule that allows every shell command or every fetch, or the bypass mode.
 
@@ -33,7 +33,7 @@ These settings load only in a session started in this folder. A session started 
 
 ## How a change reaches main
 
-Through a pull request ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A branch ruleset on `main` requires a pull request and a passing Conformity checks job ([Conformity gate](doc:eng/conformity-gate)); it goes on once the conformity bot pushes with its deploy key. One approval is required ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)): Stefan Coetzee approves on GitHub as skjoldar, on the pull request's final head, and the session, under the agent account uncovertechtalent, pushes every commit and merges with that head pinned. A commit pushed from his account makes his approval not count.
+Through a pull request ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A branch ruleset on `main` requires a pull request and a passing Conformity checks job ([Conformity gate](doc:eng/conformity-gate)). One approval is required ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)): Stefan Coetzee approves on GitHub as skjoldar, on the pull request's final head, and the session, under the agent account uncovertechtalent, pushes every commit and merges with that head pinned. A commit pushed from his account makes his approval not count.
 
 1. Branch from `origin/main`, run the gate dry run until it prints `overall=pass`, push the branch, open the pull request with the template.
 2. Wait for the Conformity checks job on the pull request.

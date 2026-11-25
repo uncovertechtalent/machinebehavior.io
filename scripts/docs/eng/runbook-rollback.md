@@ -43,7 +43,7 @@ Re-running an earlier workflow run does not roll back. Both jobs in `.github/wor
    ```
 
    A revert can fail the gate when a rule or a check changed since the bad commit. Fix the failing check as in [Gate blocked a deploy](doc:eng/runbook-gate-blocked); until the gate passes, the bad build stays live.
-6. **Open the revert pull request and merge it.** `git push -u origin HEAD`, `gh pr create --fill`, wait for the Conformity checks on the pull request (`gh pr checks --watch`), then merge (`gh pr merge --squash`). The merge starts the run on `main`. A run already in progress on `main` finishes first; the workflow does not cancel it (`cancel-in-progress: false`).
+6. **Open the revert pull request and merge it.** `git push -u origin HEAD`, `gh pr create --fill`, wait for the Conformity checks on the pull request (`gh pr checks --watch`), get Stefan Coetzee's approval on the final head, then merge with that head pinned (`gh pr merge --squash --match-head-commit <sha>`, [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)). The merge starts the run on `main`. A run already in progress on `main` finishes first; the workflow does not cancel it (`cancel-in-progress: false`).
 7. **Check the result.** The Conformity checks job and the Deploy to Pages job are green, the [status page](/inside/status/) shows the site as operational, and the page itself is right. Then move the incident record through `monitoring` to `resolved`.
 
 ## What a rollback does not restore

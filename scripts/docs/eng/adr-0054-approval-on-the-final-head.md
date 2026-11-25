@@ -20,6 +20,8 @@ type: explanation
 - `require_extra_approval_for_unattributed_changes: true`: as seen on 2026-11-25, a pull request holding commits pushed from the approver's own account stays blocked on his approval, even when the last push came from another account;
 - `dismiss_stale_reviews_on_push: true`, squash merges only, and the required check "Conformity checks", as before.
 
+The repository belongs to the user account uncovertechtalent, the agent account, and its token has administrator rights (`admin: true`, read 2026-11-25). When a merge was refused that day, GitHub offered that account `gh pr merge --admin`: a repository administrator can bypass the ruleset.
+
 On 2026-11-25 the records and the practice came apart three ways ([#256](https://github.com/uncovertechtalent/machinebehavior.io/issues/256)). Three pull requests (#243, #246, #250) merged within a minute of their local review, before the session's review-fix commit reached GitHub, so each fix needed a follow-up pull request. A workflow change pushed from Stefan Coetzee's account because the agent token had no `workflow` scope could not be merged on his approval, and had to be closed and redone (#253, then #255).
 
 ## Decision
@@ -30,16 +32,18 @@ Stefan Coetzee, 2026-11-25: "it needs approvals", and "maybe we should stick wit
 - **Stefan Coetzee approves, the agent account merges.** He approves on GitHub as skjoldar. A session, under uncovertechtalent, merges only when an approval by skjoldar has a `commit_id` equal to the pull request's current head, and merges with that head pinned (`gh pr merge --squash --match-head-commit <sha>`). His approval on the final head is the explicit go that [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests) and `CLAUDE.md` ask for.
 - **The agent account pushes every commit of a pull request.** A commit pushed from the approver's account makes his approval not count, under both of the last two rules. The agent token has the `workflow` scope since 2026-11-25, so changes under `.github/workflows/` are pushed from it too.
 - **The review comes last.** A session pushes every fix first, waits until the pull request shows the pushed head, runs the local reviewer on that head and posts its comment, and only then asks for the approval. The approval therefore lands on the head the posted review covers.
+- **Never with administrator rights.** A session does not merge with `--admin`, does not change the ruleset, and does not merge without the approval. The shared settings (`.claude/settings.json`) ask before every `gh pr merge` and deny the merge endpoints of the API; they have no rule for `--admin` beyond that ask and none for the rulesets API. Closing that gap, by moving the ownership or by deny rules, is [#258](https://github.com/uncovertechtalent/machinebehavior.io/issues/258).
 - **`.github/` changes:** the required approval is now the control ADR-0029 said a second account would allow. The person approving reads every change under `.github/` and `conformity/site-tier.json` first. CODEOWNERS names skjoldar for those paths; the ruleset does not require a code owner review, so the approval covers them.
 
 ## Consequences
 
-- A session never merges on its own judgement: a merge needs an approval that only Stefan Coetzee's account can give, on the exact head the merge pins.
+- GitHub enforces the approval on every account except a repository administrator, and the agent account is the administrator. For the agent account the approval holds by this record, by the session settings, and by the pinned merge, until [#258](https://github.com/uncovertechtalent/machinebehavior.io/issues/258) closes the gap.
 - GitHub now records who approved and who merged under two names, so a session's merge can be told from Stefan's.
 - A late commit cannot slip past an approval: it dismisses the approval, and the merge pins the head.
-- A pull request whose commits were pushed from skjoldar cannot be merged by approval; it is redone with the agent account's commits, or merged with administrator rights by Stefan Coetzee.
+- A pull request whose commits were pushed from skjoldar cannot be merged by approval; it is redone with the agent account's commits.
+- A rollback is a revert pull request that waits for one more check run and for the approval ([Roll back a deploy](doc:eng/runbook-rollback)).
 - The agent token can now change workflow files, gate code and deploy permissions in a branch. Each such change still needs his approval before it reaches `main`, and a pull request runs its own copy of the workflow ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests), consequences), so the approval read of `.github/` matters more than before.
 
 ## What this replaces
 
-In ADR-0029: the premise that every commit uses one account, the ruleset clause "requires no approvals", the rule "Stefan Coetzee merges, or a session merges on his go", and the consequences that GitHub cannot tell a session's merge from Stefan's and that a required review for `.github/` would need a second account. ADR-0029 stays accepted for the rest: changes reach `main` through pull requests, the required Conformity checks, the deploy keys of the conformity bot and the probe record, and the manual-run guard.
+In ADR-0029: the premise that every commit uses one account, the ruleset clause "requires no approvals", the rule "Stefan Coetzee merges, or a session merges on his go", the consequences that GitHub cannot tell a session's merge from Stefan's and that a required review for `.github/` would need a second account, the rollback that waits for one check run only, and the deploy keys as the only bypass (a repository administrator can bypass too). ADR-0029 stays accepted for the rest: changes reach `main` through pull requests, the required Conformity checks, the deploy keys of the conformity bot and the probe record, and the manual-run guard.
