@@ -136,7 +136,7 @@ jobs:
       contents: read    # check out main after the bot commit
       pages: write      # deploy to Pages
       id-token: write   # the OIDC token deploy-pages needs
-      actions: read     # the deploy feed snapshot for Inside
+      actions: read     # the deploy feed snapshot for Inside; the wait for the Pages artifact (#252)
       issues: read      # the issue snapshot for the board
     outputs:
       sha: ${{ steps.deployed.outputs.sha }}
@@ -287,11 +287,13 @@ jobs:
       - name: Wait until the Pages artifact is listed
         # deploy-pages lists the run's artifacts once and stops when github-pages is not among them; the listing can
         # lag the upload by seconds, which failed five of seven deploys on 2026-11-25 (#252). Uses actions: read.
+        # A failed API call counts as not listed yet, so a short API error is waited out too.
+        timeout-minutes: 4
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           for i in $(seq 1 30); do
-            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length')
+            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length' || echo 0)
             if [ "$n" -ge 1 ]; then echo "github-pages listed after $(( (i - 1) * 5 )) s"; exit 0; fi
             sleep 5
           done
