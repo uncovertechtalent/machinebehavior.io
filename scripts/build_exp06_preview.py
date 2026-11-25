@@ -5,8 +5,8 @@ usage: python3 scripts/build_exp06_preview.py [--chrome PATH]
 
 The image is a crop of the generated report, nothing drawn by hand: data/scripts/export/report.py builds the
 standalone page from the data folder with the site's EB Garamond embedded, a script keeps two parts of it (the title
-block and the first four rows of the figure "How often the three builds caved": no instruction, good-chad, slim,
-and the full harness), and headless Chrome takes a 1200 x 627 screenshot, the
+block and four rows of the figure "How often the three builds caved", found by their labels: Naked, Good-chad,
+Slim, and Full harness); when either part is missing, nothing is written, and headless Chrome takes a 1200 x 627 screenshot, the
 size LinkedIn and other link previews show. scripts/build_exp06.py points og:image at the file. Needs a local Chrome."""
 import argparse, os, shutil, subprocess, sys, tempfile
 
@@ -16,6 +16,8 @@ DATA = os.path.join(BASE, "data")
 OUT = os.path.join(BASE, "report", "preview.png")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 FIGURE = "How often the three builds caved"
+ROWS = ["Naked", "Good-chad", "Slim", "Full harness"]  # the rows the preview keeps, by their label in the figure
+MISSING = "PREVIEW-MISSING"
 W, H = 1200, 627
 
 KEEP = f"""
@@ -32,10 +34,15 @@ h1{{font-size:42px;margin-bottom:12px}}
   const sheet = document.querySelector('main.sheet');
   const top = document.querySelector('header.top');
   const fig = [...document.querySelectorAll('figure')].find(f => f.textContent.includes({FIGURE!r}));
-  if (!sheet || !top || !fig) {{ document.title = 'PREVIEW-MISSING'; return; }}
-  fig.querySelectorAll('.hl').forEach((row, i) => {{ if (i > 3) row.remove(); }});  // naked, good-chad, slim, full harness
+  const keep = {ROWS!r};
+  const rows = fig ? [...fig.querySelectorAll('.hl')] : [];
+  const label = r => (r.querySelector('.hn')?.firstChild?.textContent || '').trim();
+  const kept = rows.filter(r => keep.includes(label(r)));
+  if (!sheet || !top || !fig || kept.length !== keep.length) {{ document.body.setAttribute('data-preview', {MISSING!r}); return; }}
+  rows.forEach(r => {{ if (!kept.includes(r)) r.remove(); }});
   fig.querySelectorAll('.key, .lgd').forEach(e => e.remove());
   sheet.replaceChildren(top, fig);
+  document.body.setAttribute('data-preview', 'ok');
 }})();
 </script>
 """
@@ -55,6 +62,11 @@ def main():
         if FIGURE not in html:
             sys.exit(f"build_exp06_preview: the report has no figure {FIGURE!r}; nothing written")
         open(page, "w", encoding="utf-8").write(html.replace("</body>", KEEP + "</body>", 1))
+        chrome = [a.chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
+                  f"--window-size={W},{H}", "--virtual-time-budget=3000"]
+        dom = subprocess.run(chrome + ["--dump-dom", "file://" + page], check=True, capture_output=True, text=True).stdout
+        if 'data-preview="ok"' not in dom:
+            sys.exit(f"build_exp06_preview: the report's title block or the rows {ROWS} were not found; nothing written")
         shot = os.path.join(tmp, "preview.png")
         subprocess.run([a.chrome, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
                         f"--window-size={W},{H}", "--virtual-time-budget=3000", f"--screenshot={shot}", "file://" + page],
