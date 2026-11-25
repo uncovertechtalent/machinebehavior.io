@@ -34,13 +34,32 @@ PUBLISHED = "2026-11-25"
 REPORT = BASE + "report/"
 SHORT = "Stance under pressure"
 OG_IMAGE = SITE + BASE + "report/preview.png"  # the link preview, a crop of the report (scripts/build_exp06_preview.py)
-OG_ALT = ("Experiment 06: how often three uncensored builds caved out of 72 tries: 37 with no instruction, 11 with "
-          "a 92-word stance instruction, 12 with a 136-word one, 25 with a 2,562-word harness.")
-OG_TAGS = (f'<meta property="og:image" content="{OG_IMAGE}">\n<meta property="og:image:width" content="1200">\n'
-           f'<meta property="og:image:height" content="627">\n<meta property="og:image:alt" content="{OG_ALT}">\n'
-           f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{OG_IMAGE}">')
+OG_TAGS = ""  # set by build() from claims.json (og_tags), so the alt text's numbers are the data's
 # A file without an extension (SHA256SUMS) gets a trailing slash from the CDN and a 404, so it links to the repository
 REPO = "https://github.com/uncovertechtalent/machinebehavior.io/blob/main"
+
+
+def og_tags(claims):
+    """The image tags of every experiment 06 page. The alt text says what the preview shows, figure 3's four rows,
+    with each number taken from claims.json and each word count from conditions/index.json."""
+    v = {c: claims.c[c]["value"] for c in ("C06-05", "C06-06", "C06-07", "C06-08")}
+    n = claims.c["C06-05"]["n"]
+    words = {k: e["words"] for k, e in json.load(open(os.path.join(DATA, "conditions", "index.json"))).items()}
+    alt = (f"Experiment 06: how often three uncensored builds caved out of {n} tries: {v['C06-05']} with no instruction, "
+           f"{v['C06-06']} with a {words['good-chad']}-word stance instruction, {v['C06-07']} with a {words['slim']}-word one, "
+           f"{v['C06-08']} with a {words['harness-df51bad']:,}-word harness.")
+    return (f'<meta property="og:image" content="{OG_IMAGE}">\n<meta property="og:image:width" content="1200">\n'
+            f'<meta property="og:image:height" content="627">\n<meta property="og:image:alt" content="{attr(alt)}">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{OG_IMAGE}">')
+
+
+def add_og(report_html, tags):
+    """The report page with the image tags after its og:description (report.py writes none). Stops when there is no
+    og:description to follow or the page already has an og:image."""
+    m = re.search(r'<meta property="og:description" content="[^"]*">\n', report_html)
+    if not m or "og:image" in report_html:
+        sys.exit("build_exp06: the report page has no og:description to follow, or already has an og:image")
+    return report_html[:m.end()] + tags + "\n" + report_html[m.end():]
 
 # Each table, in page order per chapter: the caption (its finding, restating numbers on the page) and the note (sample).
 TABLES = {
@@ -352,7 +371,9 @@ def dataset_ld(desc):
 
 
 def build(src):
+    global OG_TAGS
     claims = Claims()
+    OG_TAGS = og_tags(claims)
     files = sorted(f for f in os.listdir(src) if f.endswith(".md"))
     chapters = {}
     for f in files:
@@ -454,12 +475,13 @@ def main():
     if not a.check:
         subprocess.run([sys.executable, os.path.join(DATA, "scripts", "export", "report.py"), DATA, "--site", SITE + REPORT,
                         "--write", rep], check=True)
-        # the link preview: report.py writes no image tags, so they go in after its description
         r = open(rep, encoding="utf-8").read()
-        m = re.search(r'<meta property="og:description" content="[^"]*">\n', r)
-        if not m or 'og:image' in r:
-            sys.exit("build_exp06: the report page has no og:description to follow, or already has an og:image")
-        open(rep, "w", encoding="utf-8").write(r[:m.end()] + OG_TAGS + "\n" + r[m.end():])
+        open(rep, "w", encoding="utf-8").write(add_og(r, OG_TAGS))
+    else:  # the report page carries the tags of this build, and the image they name exists
+        if not os.path.exists(rep) or OG_TAGS not in open(rep, encoding="utf-8").read():
+            stale.append(REPORT)
+        if not os.path.exists(os.path.join(DIR, "report", "preview.png")):
+            sys.exit("build_exp06: report/preview.png is missing; run scripts/build_exp06_preview.py")
     if stale:
         sys.exit("build_exp06: stale pages: " + " ".join(stale))
     print(f"build_exp06: {len(pages)} pages{' checked' if a.check else ' written'} and the report page; "
