@@ -284,6 +284,20 @@ jobs:
           path: ${{ runner.temp }}/site
           include-hidden-files: true
 
+      - name: Wait until the Pages artifact is listed
+        # deploy-pages lists the run's artifacts once and stops when github-pages is not among them; the listing can
+        # lag the upload by seconds, which failed five of seven deploys on 2026-11-25 (#252). Uses actions: read.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in $(seq 1 30); do
+            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length')
+            if [ "$n" -ge 1 ]; then echo "github-pages listed after $(( (i - 1) * 5 )) s"; exit 0; fi
+            sleep 5
+          done
+          echo "::error::the github-pages artifact was not listed after 150 seconds"
+          exit 1
+
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
