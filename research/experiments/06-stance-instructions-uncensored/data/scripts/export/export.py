@@ -13,7 +13,7 @@ Standard library only.
 import argparse, ast, collections, csv, glob, hashlib, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-PRIVATE = []  # the private host and path patterns are kept off the public copy
+PRIVATE = [r"(?!)"]  # the private host and path patterns are kept off the public copy; this one never matches
 TEMP_DEFAULT = 0.3
 
 

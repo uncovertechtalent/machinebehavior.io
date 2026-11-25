@@ -815,6 +815,7 @@ const WALL={wall_js};
 <meta property="og:description" content="{H.escape(desc)}">
 <style>
 {scope_css(css)}.{SCOPE} [id]{{scroll-margin-top:calc(var(--mb-bar-h, 56px) + 16px)}}
+.mb-page-meta .mb-print{{margin-left:4px;padding:1px 10px;border:1px solid var(--mb-line);background:none;color:var(--mb-teal);font:inherit;cursor:pointer}}
 </style>
 </head>
 <body>

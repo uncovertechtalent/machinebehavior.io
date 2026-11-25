@@ -20,7 +20,9 @@ What it changes in the drafts, and nothing else:
   - "chapter N" links to chapter N, data file names link to the data folder, arXiv ids and the Heretic repository
     link to their pages;
   - each table gets a caption that states its finding, a source line, and a note (TABLES below).
---check fails when a written page differs from what the drafts would produce. The text itself is never rewritten."""
+--check fails when a written page differs from what the drafts would produce. The text itself is never rewritten.
+The drafts live outside this repository, so the build and --check run on the author's machine; a later hand edit to
+a page shows up as a stale page there. scripts/test_build_exp06.py tests the claim-tag matcher on fixture claims."""
 import argparse, html, json, os, re, subprocess, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -187,7 +189,8 @@ def inline(text, claims, where, chapter_urls):
                lambda m: f'<a class="cref" href="{claims.href(m.group(1))}" title="{attr(claims.title(m.group(1)))}">{m.group(2)}</a>', t)
     def rows(m):
         ids = m.group(1).split(",")
-        links = ", ".join(f'<a class="cref" href="{claims.href(c)}" title="{attr(claims.title(c))}">{c.replace("-", "\u2011")}</a>'
+        nb = "\u2011"  # a non-breaking hyphen keeps a row id on one line; outside the f-string for Python before 3.12
+        links = ", ".join(f'<a class="cref" href="{claims.href(c)}" title="{attr(claims.title(c))}">{c.replace("-", nb)}</a>'
                           for c in ids)
         return f" ({'row' if len(ids) == 1 else 'rows'} {links})"
     t = re.sub(r"\x05([^\x06]+)\x06", rows, t)
