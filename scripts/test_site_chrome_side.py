@@ -237,8 +237,9 @@ class ResearchSidebar(unittest.TestCase):
         self.assertNotIn('/topics/', [n.url for n in site_chrome._pages_under(self.t.section('research'))])
 
     def test_count_includes_the_red_team_and_skips_links(self):
-        # 12 research pages, 4 group index pages, the red-team overview and its 2 pages; the Topics link is not a page
-        self.assertIn('<span class="mb-side-n">19 pages</span>', self.side(PROBE))
+        # 26 research pages (experiment 06 is its index, 11 chapters, the behind-the-scenes piece and the report), 4 group
+        # index pages, the red-team overview and its 2 pages; the Topics link is not a page
+        self.assertIn('<span class="mb-side-n">33 pages</span>', self.side(PROBE))
 
     def test_unknown_include_stops_the_build(self):
         bad = site_chrome.NAV_FILE.read_text(encoding='utf-8').replace('include: red-team', 'include: no-such-section', 1)

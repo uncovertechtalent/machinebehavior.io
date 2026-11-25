@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://machinebehavior.io/</loc><lastmod>2026-10-31</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/claims/</loc><lastmod>2026-10-31</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/claims/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/01-the-question/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/02-how-uncensoring-works/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/03-the-battery/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/04-naked-models/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/05-the-instruction-layer/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/06-the-authority-hole/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/07-scale-and-thinking/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/08-temperature-and-german/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/09-what-did-not-work/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/10-what-works-the-gate/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/11-limits/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/behind-the-scenes/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/experiments/06-stance-instructions-uncensored/report/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/research/experiments/stance-vs-censorship-abliteration/</loc><lastmod>2026-10-31</lastmod></url>
   <url><loc>https://machinebehavior.io/research/terms/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/articles/the-cheating-moved/</loc><lastmod>2026-10-26</lastmod></url>
@@ -18,7 +32,7 @@
   <url><loc>https://machinebehavior.io/conformity/din-23282/</loc><lastmod>2026-11-24</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/self-assessment/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/conformity/</loc><lastmod>2026-10-07</lastmod></url>
-  <url><loc>https://machinebehavior.io/research/evidence/</loc><lastmod>2026-10-31</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/evidence/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/tactics/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/red-team/method/</loc><lastmod>2026-10-26</lastmod></url>
@@ -55,7 +69,7 @@
   <url><loc>https://machinebehavior.io/inside/status/</loc><lastmod>2026-10-09</lastmod></url>
   <!-- status:end -->
   <!-- hubs:begin (scripts/build_hubs.py) -->
-  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://machinebehavior.io/research/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/research/case-files/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/articles/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://machinebehavior.io/research/registers/</loc><lastmod>2026-10-26</lastmod></url>
