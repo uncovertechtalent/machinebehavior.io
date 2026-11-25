@@ -136,7 +136,7 @@ jobs:
       contents: read    # check out main after the bot commit
       pages: write      # deploy to Pages
       id-token: write   # the OIDC token deploy-pages needs
-      actions: read     # the deploy feed snapshot for Inside
+      actions: read     # the deploy feed snapshot for Inside; the wait for the Pages artifact (#252)
       issues: read      # the issue snapshot for the board
     outputs:
       sha: ${{ steps.deployed.outputs.sha }}
@@ -283,6 +283,25 @@ jobs:
         with:
           path: ${{ runner.temp }}/site
           include-hidden-files: true
+
+      - name: Wait until the Pages artifact is listed
+        # A delay before the deploy: deploy-pages lists the run's artifacts once (through the artifact service) and stops
+        # when github-pages is not among them, and on 2026-11-25 that list lagged the upload (#252). This step polls the
+        # REST list of the same run as a stand-in, so it never stops the deploy itself: on timeout it warns and the
+        # deploy makes its own check. A failed or odd API answer counts as not listed yet. Uses actions: read.
+        timeout-minutes: 4
+        continue-on-error: true  # a hung call or the timeout must not stop the deploy either
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          failed=0
+          for i in $(seq 1 30); do
+            if n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length' 2>"$RUNNER_TEMP/wait.err"); then :; else failed=$((failed + 1)); n=0; fi
+            case "$n" in ''|*[!0-9]*) n=0 ;; esac
+            if [ "$n" -ge 1 ]; then echo "github-pages listed after $(( (i - 1) * 5 )) s ($failed failed calls)"; exit 0; fi
+            sleep 5
+          done
+          echo "::warning::the github-pages artifact was not in the REST list after 150 seconds, $failed of 30 calls failed (last error: $(tail -c 200 "$RUNNER_TEMP/wait.err" | tr '\n' ' ')); deploying anyway (#252)"
 
       - name: Deploy
         id: deployment
