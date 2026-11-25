@@ -1,5 +1,5 @@
 title: ADR-0029: Changes reach main through pull requests
-summary: Every change to main goes through a pull request whose Conformity checks pass, enforced by a branch ruleset on main; the merge is the review step; the gate bot and the probe record push through deploy keys.
+summary: Every change to main goes through a pull request whose Conformity checks pass, enforced by a branch ruleset on main; the gate bot and the probe record push through deploy keys. The review and approval rules are in ADR-0054.
 parent: decision-log
 order: 29
 adr: 29
@@ -23,7 +23,7 @@ Stefan Coetzee, 2026-10-11:
 - Every change reaches `main` through a pull request from a branch.
 - A branch ruleset on `main` requires a pull request and a passing Conformity checks job, blocks force pushes and deletion of the branch, and requires no approvals (replaced by [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head): one approval, on the final head). A branch need not be up to date before the merge, because the gate bot moves `main` after every run.
 - The conformity workflow runs on every pull request to `main` and checks the merge result. A pull request run commits nothing and deploys nothing.
-- The merge is the review step. Before asking for the merge, the session runs `sdlc:change-review` on the pull request and puts the review in the description. Stefan Coetzee merges, or a session merges on his go (since [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head): he approves on the final head, and the agent account merges). The shared agent settings ask before `gh pr merge` in every permission mode ([Agents in this repository](doc:eng/agents)).
+- The merge is the review step (replaced by [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head): the review comment on the final head and Stefan Coetzee's approval on that head are the review). Before asking for the merge, the session runs `sdlc:change-review` on the pull request and puts the review in the description. Stefan Coetzee merges, or a session merges on his go (since [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head): he approves on the final head, and the agent account merges). The shared agent settings ask before `gh pr merge` in every permission mode ([Agents in this repository](doc:eng/agents)).
 - Two writers keep pushing to `main` directly, each through a deploy key, the only bypass the ruleset allows (since [ADR-0054](doc:eng/adr-0054-approval-on-the-final-head): a repository administrator can bypass too, and the agent account is one): the conformity bot (`conformity/latest.json` and the page after each run, key in the secret `CONFORMITY_PUSH_KEY`) and the weekly decision-layer probe record. The built-in GitHub Actions app cannot be a ruleset bypass actor, so the bot pushes with a deploy key in place of the workflow token.
 
 ## Consequences

@@ -11,7 +11,7 @@ type: reference
 ---
 Every change to machinebehavior.io moves through the stages below, in this order. The site serves readers, so a stage that fails lets a reader see a wrong or broken page. A stage is done when its exit criteria hold and its record exists. Each record links the one before it, so a line on a live page traces back to the issue that asked for it.
 
-The branch model is short-lived branches and pull requests to `main` ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)): agent sessions and the operator branch from `origin/main`, push the branch and open a pull request; a passing Conformity checks job is required before the merge. Only two automated writers push to `main` directly, through deploy keys. Only the workflow deploys, on a push to `main` that passes the conformity gate ([ADR-0002](doc:eng/adr-0002-deploy-is-gated)). Releases are continuous, several deploys a day.
+The branch model is short-lived branches and pull requests to `main` ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)): agent sessions and the operator branch from `origin/main`, push the branch and open a pull request; a passing Conformity checks job and Stefan Coetzee's approval on the final head are required before the merge ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)). Only two automated writers push to `main` directly, through deploy keys. Only the workflow deploys, on a push to `main` that passes the conformity gate ([ADR-0002](doc:eng/adr-0002-deploy-is-gated)). Releases are continuous, several deploys a day.
 
 ## Stages
 

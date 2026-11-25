@@ -26,7 +26,7 @@ Every agent session in this repository starts from the same shared setup in git.
 
 - Allowed without asking: the gate dry run as written in `CLAUDE.md`, `git status`, `git diff`, `git log`, `gh pr view`, `gh pr diff`, `gh pr checks`, `gh run view`.
 - Asked every time: `gh pr merge`, the merge step. Claude Code asks on a matching ask rule in every permission mode, the bypass mode included. Pushing a branch and opening a pull request have no rule in the shared settings and follow the session's permission mode; the branch rules on `main` reject a direct push.
-- Denied: reading or editing `.env` files and the `secrets/` folder, and merging a pull request through `gh api` (the REST merge endpoint and the GraphQL merge and auto-merge mutations), so `gh pr merge` with its ask rule is the only merge path a session has.
+- Denied: reading or editing `.env` files and the `secrets/` folder, and merging a pull request through `gh api` (the REST merge endpoint and the GraphQL merge and auto-merge mutations), so `gh pr merge` with its ask rule is the only merge path a session has. The agent account administers the repository, and nothing in these settings stops `gh pr merge --admin` beyond that ask or covers the rulesets API; closing that is [#258](https://github.com/uncovertechtalent/machinebehavior.io/issues/258).
 - Never in the shared settings: a rule that allows every shell command or every fetch, or the bypass mode.
 
 These settings load only in a session started in this folder. A session started elsewhere that works here does not get them.
