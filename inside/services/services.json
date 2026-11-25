@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-17",
+ "generated": "2026-11-25",
  "source": "https://github.com/uncovertechtalent/machinebehavior.io/tree/main/services",
  "services": [
   {
@@ -66,7 +66,9 @@
    ],
    "runbooks": [
     "/inside/docs/eng/runbook-push-rejected/",
-    "/inside/docs/eng/runbook-gate-blocked/"
+    "/inside/docs/eng/runbook-gate-blocked/",
+    "/inside/docs/eng/runbook-pages-artifact/",
+    "/inside/docs/eng/runbook-rollback/"
    ],
    "principles": [
     "/inside/docs/sre/principle-release-engineering/",
@@ -86,7 +88,7 @@
    "status": {
     "deploys": "uncovertechtalent/machinebehavior.io"
    },
-   "updated": "2026-10-13"
+   "updated": "2026-11-25"
   },
   {
    "id": "machinebehavior-io",
