@@ -37,6 +37,7 @@ Stages with no module or practice yet:
 | Stage | What is missing | Fills it |
 |---|---|---|
 | RFC | No comment round before a decision; a record goes from `proposed` to `accepted` on the operator's call | `decisions:rfc`, or comments on the issue that links the proposed record |
+| Review | The approval is not enforced on the agent account, which administers the repository: nothing stops `gh pr merge --admin` beyond the ask rule or covers the rulesets API, and the ask rule holds only sessions started in this repository ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)) | [#258](https://github.com/uncovertechtalent/machinebehavior.io/issues/258): move the ownership, or deny rules |
 | Test | No unit tests for the Python generators in `scripts/`, and no check after a deploy that the pages answer | `sdlc:test-strategy` |
 | Build | Commit subjects do not name the issue or the decision, so a commit cannot be traced to its request | `sdlc.traceability` gate check on `warn` with `since: 2026-10-11` |
 | Release | No way to redeploy an earlier build: both jobs check out `main`. Rollback time is not measured | Owner decision; see [Roll back a deploy](doc:eng/runbook-rollback) |
