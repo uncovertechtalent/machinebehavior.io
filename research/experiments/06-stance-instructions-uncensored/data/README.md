@@ -14,7 +14,7 @@ Author: Stefan Coetzee, machinebehavior.io, 2026.
 | `claims.json` | Every number in the write-up: the sentence, the record filter, the metric, the value, the records behind it, and whether it holds. The pages link each number to its row. |
 | `gate.json` | The result of the after-the-answer fact checks for each record they ran on: flagged or not, and why. |
 | `probes.json` | The questions: id, kind, the true fact, and the user turns. |
-| `conditions/` | The exact instruction texts each condition used. Each file is the text as sent plus one trailing newline. `index.json` gives the sha256 of each file (`sha256`, as in `SHA256SUMS`), the sha256 of the text as sent (`text_sha256`, the value the runners record), and the word count. |
+| `conditions/` | The exact instruction texts each condition used. Each file is the text as sent plus one trailing newline. `index.json` gives the sha256 of each file (`sha256`, as in `SHA256SUMS`), the sha256 of the text as sent (`text_sha256`; `scripts/runs/driver-battery.py` logs its first 16 hex characters in the raw run logs, which are not in this folder), and the word count. |
 | `models.json` | Each build: repository, pinned commit, file sha256, quantisation, method as its uploader states it, and its licence and output terms. |
 | `results.csv`, `comparison.csv` | The counts per run, model, condition, and question set. |
 | `coverage.json` | What the export holds, by run and by labelling pass. |
@@ -29,7 +29,7 @@ Author: Stefan Coetzee, machinebehavior.io, 2026.
 ```
 sha256sum -c SHA256SUMS                       # or: shasum -a 256 -c SHA256SUMS
 python3 scripts/export/claims.py . scripts/export/claims_spec.json   # recomputes every claim; exit 0 when all hold
-python3 scripts/export/report.py . --write report.html               # rebuilds the report page from this folder alone
+python3 scripts/export/report.py . --write /tmp/exp06-report.html    # rebuilds the report page from this folder alone; write it outside the folder
 ```
 
 `claims.py` writes a fresh `claims.json`, so run it on a copy if you want to keep the published one for comparison.

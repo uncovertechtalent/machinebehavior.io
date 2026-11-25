@@ -253,8 +253,8 @@ class Export:
             path = os.path.join(o, "conditions", f"{cid}.txt")
             with open(path, "w", encoding="utf-8", newline="\n") as fh:
                 fh.write(text + "\n")
-            # sha256: the file's bytes, as sha256sum and SHA256SUMS report them; text_sha256: the text as the runners
-            # sent it (stripped, no trailing newline), the value they record as system_sha256 and user_suffix_sha256
+            # sha256: the file's bytes, as sha256sum and SHA256SUMS report them; text_sha256: the text as sent (stripped,
+            # no trailing newline); driver-battery.py logs its first 16 hex characters in the raw run logs
             index[cid] = {"file": f"conditions/{cid}.txt", "sha256": hashlib.sha256(open(path, "rb").read()).hexdigest(),
                           "text_sha256": sha(text), "words": len(text.split())}
         json.dump(index, open(os.path.join(o, "conditions", "index.json"), "w"), indent=1)

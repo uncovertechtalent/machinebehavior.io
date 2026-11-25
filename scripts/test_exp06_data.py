@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Tests for the experiment 06 data folder: SHA256SUMS verifies, and conditions/index.json agrees with the files and
-with SHA256SUMS (sha256 is the file's bytes; text_sha256 is the text as the runners sent it, without the trailing
-newline). Reads the published folder only; no drafts, no network."""
+with SHA256SUMS (sha256 is the file's bytes; text_sha256 is the text as sent, without the trailing newline). Reads the
+published folder only; no drafts, no network."""
 import hashlib, json, os, unittest
 
 DATA = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
