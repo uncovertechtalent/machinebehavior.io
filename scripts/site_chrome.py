@@ -379,7 +379,8 @@ def powersuit_side(t, node):
 
 
 SIDEBAR_HOST = {'red-team': 'research'}  # sections whose pages show another section's sidebar, which includes them (ADR-0044)
-SIDE_RECENT = 5  # pages a group lists under its index in the sidebar; the rest are on the index (ADR-0045)
+SIDE_RECENT = 5  # pages a group lists under its index in the sidebar; the rest are on the index (ADR-0045). A page with
+# `sequence: true` in site/nav.yml (chapters read in order) lists all its pages, as written
 ELSEWHERE_HOMES = {'coetzeestefan.substack.com': 'Substack', 'uncovertechtalent.com': 'the Uncover Tech Talent blog'}  # hosts an `elsewhere` entry may live on, and their names (ADR-0046)
 
 
@@ -419,6 +420,8 @@ def side(t, node):
 
     def recent(n):
         kids = ordered(n)
+        if _cfg(n).get('sequence'):  # chapters read in order: every one, as written, no cap
+            return kids
         return kids[:SIDE_RECENT] + [k for k in kids[SIDE_RECENT:] if holds([k])]
 
     def items(kids, inner=False):

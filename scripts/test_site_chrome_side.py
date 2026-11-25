@@ -236,6 +236,17 @@ class ResearchSidebar(unittest.TestCase):
         self.assertEqual(self.t.by_url['/topics/'].section, 'topics')
         self.assertNotIn('/topics/', [n.url for n in site_chrome._pages_under(self.t.section('research'))])
 
+    def test_a_sequence_lists_every_chapter_in_order(self):
+        # experiment 06 has `sequence: true`: all thirteen pages under it, as written, on any of its pages (ADR-0045 cap off)
+        base = '/research/experiments/06-stance-instructions-uncensored/'
+        kids = [n.url for n in self.t.by_url[base].kids]
+        self.assertEqual(len(kids), 13)
+        for here in (base, kids[0], kids[5], kids[-1]):
+            h = self.side(here)
+            pos = [h.index(f'href="{u}"') for u in kids]
+            self.assertEqual(pos, sorted(pos), here)
+            self.assertEqual(h.count(f'href="{here}" aria-current="page"'), 1, here)
+
     def test_count_includes_the_red_team_and_skips_links(self):
         # 26 research pages (experiment 06 is its index, 11 chapters, the behind-the-scenes piece and the report), 4 group
         # index pages, the red-team overview and its 2 pages; the Topics link is not a page
