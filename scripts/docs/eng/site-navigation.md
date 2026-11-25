@@ -6,7 +6,7 @@ owner: Stefan Coetzee
 reviewed: 2026-10-09
 review_by: 2027-01-07
 created: 2026-10-09
-updated: 2026-10-26
+updated: 2026-11-25
 type: reference
 ---
 machinebehavior.io is one portal: "Machine Behavior" is the site, Inside is the portal within it. Every page carries the same top bar, breadcrumbs from Home to the page, and the same footer. The sections and their pages are defined once, in `site/nav.yml`; `scripts/site_chrome.py` writes the chrome of every page from that file.
@@ -113,7 +113,7 @@ The report lists orphans (an `index.html` outside the tree), pages in the tree w
 
 ## Sidebars
 
-Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, the current page marked, Services as a disclosure open on a service page. Groups are headings that fold out one at a time: each is a `<details name="mb-side">`, so opening one closes the others with no script, and the group holding the current page is open on load. Each group opens with its index page ("All case files"), then at most five of the index's pages (`SIDE_RECENT`), newest first where the index says `order: newest`, plus the current page when it is older; the rest are on the index page. A group with `include:` lists another section, whose pages then show this sidebar (`SIDEBAR_HOST`): the red-team pages show the research sidebar. Sidebars do not list the topics; Topics is in the top bar's More menu and a link in the research sidebar's Reference group. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars), [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups) and [ADR-0045](doc:eng/adr-0045-sidebar-groups-open-with-an-index).
+Research and Inside pages carry the section sidebar (`SIDEBARS` in `scripts/site_chrome.py`): every page of the section in the order of `site/nav.yml`, the current page marked, Services as a disclosure open on a service page. Groups are headings that fold out one at a time: each is a `<details name="mb-side">`, so opening one closes the others with no script, and the group holding the current page is open on load. Each group opens with its index page ("All case files"), then at most five of the index's pages (`SIDE_RECENT`), newest first where the index says `order: newest`, plus the current page when it is older; the rest are on the index page. A page marked `sequence: true` in `site/nav.yml` (chapters read in order, such as experiment 06) lists every one of its pages as written, and never takes `order` (ADR-0045). A group with `include:` lists another section, whose pages then show this sidebar (`SIDEBAR_HOST`): the red-team pages show the research sidebar. Sidebars do not list the topics; Topics is in the top bar's More menu and a link in the research sidebar's Reference group. From 1100 px it is a sticky column of 264 px beside the content; below that it is a disclosure above the content, closed on load by `/inside/bar.js`. Docs pages keep the space tree from `scripts/build_docs.py`. See [ADR-0022](doc:eng/adr-0022-section-sidebars), [ADR-0044](doc:eng/adr-0044-sidebar-accordion-groups) and [ADR-0045](doc:eng/adr-0045-sidebar-groups-open-with-an-index).
 
 ## Topics
 
