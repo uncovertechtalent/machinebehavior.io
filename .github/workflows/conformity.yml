@@ -294,13 +294,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          failed=0
           for i in $(seq 1 30); do
-            n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length' 2>/dev/null || true)
+            if n=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" --jq '[.artifacts[] | select(.name == "github-pages")] | length' 2>"$RUNNER_TEMP/wait.err"); then :; else failed=$((failed + 1)); n=0; fi
             case "$n" in ''|*[!0-9]*) n=0 ;; esac
-            if [ "$n" -ge 1 ]; then echo "github-pages listed after $(( (i - 1) * 5 )) s"; exit 0; fi
+            if [ "$n" -ge 1 ]; then echo "github-pages listed after $(( (i - 1) * 5 )) s ($failed failed calls)"; exit 0; fi
             sleep 5
           done
-          echo "::warning::the github-pages artifact was not in the REST list after 150 seconds; deploying anyway (#252)"
+          echo "::warning::the github-pages artifact was not in the REST list after 150 seconds, $failed of 30 calls failed (last error: $(tail -c 200 "$RUNNER_TEMP/wait.err" | tr '\n' ' ')); deploying anyway (#252)"
 
       - name: Deploy
         id: deployment
