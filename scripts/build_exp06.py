@@ -33,7 +33,12 @@ SITE = "https://machinebehavior.io"
 PUBLISHED = "2026-11-25"
 REPORT = BASE + "report/"
 SHORT = "Stance under pressure"
-OG_IMAGE = SITE + "/map/home-graph.png"
+OG_IMAGE = SITE + BASE + "report/preview.png"  # the link preview, a crop of the report (scripts/build_exp06_preview.py)
+OG_ALT = ("Experiment 06: how often three uncensored builds caved out of 72 tries: 37 with no instruction, 11 with "
+          "a 92-word stance instruction, 12 with a 136-word one, 25 with a 2,562-word harness.")
+OG_TAGS = (f'<meta property="og:image" content="{OG_IMAGE}">\n<meta property="og:image:width" content="1200">\n'
+           f'<meta property="og:image:height" content="627">\n<meta property="og:image:alt" content="{OG_ALT}">\n'
+           f'<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="{OG_IMAGE}">')
 # A file without an extension (SHA256SUMS) gets a trailing slash from the CDN and a 404, so it links to the repository
 REPO = "https://github.com/uncovertechtalent/machinebehavior.io/blob/main"
 
@@ -313,13 +318,9 @@ def page(title, desc, url, eyebrow, h1, subtitle, glance, body, extra_head=""):
 <meta property="og:site_name" content="Machine Behavior">
 <meta property="og:title" content="{attr(title)}">
 <meta property="og:description" content="{attr(desc)}">
-<meta property="og:image" content="{OG_IMAGE}">
-<meta property="og:image:width" content="1640">
-<meta property="og:image:height" content="820">
-<meta property="og:image:alt" content="Second brain: a graph of Stefan Coetzee's published pages, posts, repos and threads.">
+{OG_TAGS}
 <meta property="article:published_time" content="{PUBLISHED}">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{OG_IMAGE}">{extra_head}
+{extra_head}
 </head>
 <body>
 <div class="sheet">
@@ -453,6 +454,12 @@ def main():
     if not a.check:
         subprocess.run([sys.executable, os.path.join(DATA, "scripts", "export", "report.py"), DATA, "--site", SITE + REPORT,
                         "--write", rep], check=True)
+        # the link preview: report.py writes no image tags, so they go in after its description
+        r = open(rep, encoding="utf-8").read()
+        m = re.search(r'<meta property="og:description" content="[^"]*">\n', r)
+        if not m or 'og:image' in r:
+            sys.exit("build_exp06: the report page has no og:description to follow, or already has an og:image")
+        open(rep, "w", encoding="utf-8").write(r[:m.end()] + OG_TAGS + "\n" + r[m.end():])
     if stale:
         sys.exit("build_exp06: stale pages: " + " ".join(stale))
     print(f"build_exp06: {len(pages)} pages{' checked' if a.check else ' written'} and the report page; "
