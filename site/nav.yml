@@ -118,6 +118,7 @@ sections:
                 url: /research/experiments/06-stance-instructions-uncensored/
                 published: 2026-11-25
                 contributor: Claude (Opus 5.5)
+                sequence: true  # chapters read in order: the sidebar lists every one, not the five newest (ADR-0045)
                 pages:
                   - title: "1. The question"
                     url: /research/experiments/06-stance-instructions-uncensored/01-the-question/
