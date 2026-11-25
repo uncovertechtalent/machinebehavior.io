@@ -108,6 +108,7 @@ class ResearchSidebar(unittest.TestCase):
             with self.assertRaises(SystemExit) as e:
                 tree_from(text.replace(anchor, bad, 1))
             self.assertIn('Stance under pressure', str(e.exception))
+            self.assertIn('has sequence', str(e.exception))  # the sequence check, not the newest-first date check
         leaf = '                url: /research/case-files/running-conjobs-for-ai/\n'
         self.assertIn(leaf, text)
         with self.assertRaises(SystemExit) as e:  # a page without pages has nothing to list
