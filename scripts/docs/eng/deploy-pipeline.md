@@ -64,7 +64,7 @@ Permissions: `id-token: write`, for the OIDC token the deploy role trusts. Runs 
 2. Check out the deploy script of uncovertechtalent-git/site-infra at the commit pinned in the workflow.
 3. Exchange the job's OIDC token for a 15-minute session of the deploy role (role ARN, bucket and distribution are repository secrets, masked in the log), sync the build to the bucket with the content types and `Cache-Control` GitHub Pages sends, and invalidate the distribution.
 
-Until the cutover, GitHub Pages serves the site. A failed job 6 then leaves Pages live and up to date, though the [deploy exporter](doc:obs/deploy-exporter) records the run as failed: there is nothing to roll back; re-run the workflow. After the cutover CloudFront serves the site, and a failed job 6 means the live site did not change.
+Until the cutover, GitHub Pages serves the site. A failed job 6 then leaves Pages live and up to date, though the [deploy exporter](doc:obs/deploy-exporter) records the run as failed: there is nothing to roll back; start a fresh run on `main`. A re-run of the old run either uploads a second Pages artifact and stops ([Pages deploy finds no artifact](doc:eng/runbook-pages-artifact)) or, for the S3 job alone, syncs an artifact older than the live site once a later run has deployed. After the cutover CloudFront serves the site, and a failed job 6 means the live site did not change.
 
 ## What happens around a deploy
 

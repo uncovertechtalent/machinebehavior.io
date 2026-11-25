@@ -4,6 +4,8 @@ parent: runbooks
 order: 40
 labels: runbook, deploy, rollback
 owner: Stefan Coetzee
+created: 2026-10-16
+updated: 2026-11-25
 reviewed: 2026-10-12
 review_by: 2027-01-10
 type: how-to
@@ -12,13 +14,13 @@ type: how-to
 
 **If the gate failed instead,** there is nothing to roll back: the deploy did not run and the previous build is still live. Follow [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
 
-**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run the workflow.
+**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Start a fresh run on `main`. Do not re-run the old run: a re-run of the whole workflow or of "Deploy to Pages" uploads a second Pages artifact and the deploy stops ([Pages deploy finds no artifact](doc:eng/runbook-pages-artifact)), and a re-run of only the S3 job syncs that run's artifact, which is older than the live site once a later run has deployed.
 
 ## How a rollback works here
 
 The only path to the live site is a push to `main` that passes the gate ([Deploy pipeline](doc:eng/deploy-pipeline)), and changes reach `main` through pull requests ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)). A rollback is therefore a revert pull request that undoes the bad commit, and it goes through the same check, gate and deploy as any other change.
 
-Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` on every run except a pull request run, so a re-run, or a run started by hand from `main`, deploys the current `main`. A run started by hand from another branch is a dry run: it commits and deploys nothing. There is no way in the workflow to redeploy an earlier build.
+Re-running an earlier workflow run does not roll back. Both jobs in `.github/workflows/conformity.yml` check out `main` on every run except a pull request run, so a run started by hand from `main` deploys the current `main`. A re-run checks out the current `main` too: if the earlier attempt uploaded a Pages artifact that is still kept (one day), the deploy stops on the second one; otherwise it deploys the current `main`. Either way it does not roll back. A run started by hand from another branch is a dry run: it commits and deploys nothing. There is no way in the workflow to redeploy an earlier build.
 
 ## Steps
 

@@ -3,6 +3,8 @@ summary: Step-by-step fixes for the failures seen so far in the build and deploy
 order: 90
 labels: runbook, operations
 owner: Stefan Coetzee
+created: 2026-10-11
+updated: 2026-11-25
 reviewed: 2026-10-09
 review_by: 2027-01-07
 type: reference
@@ -15,3 +17,4 @@ Each runbook covers one failure that has happened, with how to see it, the cause
 | `git push` is rejected after a successful run | [Push rejected after a deploy](doc:eng/runbook-push-rejected) |
 | `site.consistency` fails with a relative link that is not in the page text | [Link check flags a template string](doc:eng/runbook-template-href) |
 | A deploy passed the gate but a live page is wrong | [Roll back a deploy](doc:eng/runbook-rollback) |
+| Deploy to Pages fails with `No artifacts named "github-pages" were found`; S3 and IndexNow are skipped | [Pages deploy finds no artifact](doc:eng/runbook-pages-artifact) |

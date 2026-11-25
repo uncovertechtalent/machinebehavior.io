@@ -51,11 +51,11 @@
   <url><loc>https://machinebehavior.io/your-next-cto/experiment/</loc><lastmod>2026-10-16</lastmod></url>
   <url><loc>https://machinebehavior.io/cto-powersuit/</loc><lastmod>2026-11-25</lastmod></url>
   <!-- services:begin (scripts/build_inside.py) -->
-  <url><loc>https://machinebehavior.io/inside/services/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/services/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/agent-sessions/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/conformity-gate/</loc><lastmod>2026-10-13</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/deploy-exporter/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/services/deploy-job/</loc><lastmod>2026-10-13</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/services/deploy-job/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/docs-build/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/local-llm/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/services/machinebehavior-io/</loc><lastmod>2026-10-13</lastmod></url>
@@ -179,10 +179,11 @@
   <url><loc>https://machinebehavior.io/inside/docs/eng/map-crawler/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/masthead/</loc><lastmod>2026-11-07</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-gate-blocked/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-pages-artifact/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-push-rejected/</loc><lastmod>2026-10-11</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-rollback/</loc><lastmod>2026-10-16</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-rollback/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/runbook-template-href/</loc><lastmod>2026-10-09</lastmod></url>
-  <url><loc>https://machinebehavior.io/inside/docs/eng/runbooks/</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://machinebehavior.io/inside/docs/eng/runbooks/</loc><lastmod>2026-11-25</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/sdlc/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/service-catalog/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://machinebehavior.io/inside/docs/eng/site-architecture/</loc><lastmod>2026-10-09</lastmod></url>
