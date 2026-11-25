@@ -18,7 +18,7 @@ The workflow now waits before the deploy (step 6 of job 2 in [Deploy pipeline](d
 ## Steps
 
 1. **Check the log.** Open the failed run, the "Deploy to Pages" job, the Deploy step. The two lines above confirm this failure; the "Wait until the Pages artifact is listed" step prints how long it waited (`github-pages listed after N s`) or a warning after 150 seconds.
-2. **Do not re-run the failed job.** A re-run uploads a second `github-pages` artifact into the same run, and the deploy then stops with `Multiple artifacts named "github-pages" were unexpectedly found`.
+2. **Do not re-run the "Deploy to Pages" job or the whole workflow.** Either runs "Upload site" again, which adds a second `github-pages` artifact to the same run, and the deploy then stops with `Multiple artifacts named "github-pages" were unexpectedly found` (seen on 2026-11-25 in the second attempt of [run 45615883287](https://github.com/uncovertechtalent/machinebehavior.io/actions/runs/45615883287)).
 3. **Start a fresh run on `main`,** unless one is already queued or running: the workflow does not cancel a run in progress on `main` ([Roll back a deploy](doc:eng/runbook-rollback)), and on a day with several merges a later push run may already be deploying the same `main`. Check first, and wait for that run if there is one:
 
    ```bash

@@ -4,6 +4,8 @@ parent: runbooks
 order: 40
 labels: runbook, deploy, rollback
 owner: Stefan Coetzee
+created: 2026-10-16
+updated: 2026-11-25
 reviewed: 2026-10-12
 review_by: 2027-01-10
 type: how-to
@@ -12,7 +14,7 @@ type: how-to
 
 **If the gate failed instead,** there is nothing to roll back: the deploy did not run and the previous build is still live. Follow [Gate blocked a deploy](doc:eng/runbook-gate-blocked).
 
-**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run the workflow.
+**If only Deploy to S3 and CloudFront failed** before the cutover ([ADR-0033](doc:eng/adr-0033-s3-and-cloudfront-next-to-pages)), GitHub Pages is live and up to date: there is nothing to roll back. Re-run only the failed job (it downloads the artifact already uploaded), or start a fresh run on `main`. A re-run of the whole workflow uploads a second Pages artifact and the deploy stops ([Pages deploy finds no artifact](doc:eng/runbook-pages-artifact)).
 
 ## How a rollback works here
 
