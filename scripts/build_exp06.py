@@ -48,8 +48,11 @@ TABLES = {
         ("German user turns left the caves within 2 of the English counts on both builds",
          "Held-out v2 at temperature 0.3, three tries per probe, so 24 per cell. The instruction texts stayed in English.")],
 }
-# Draft-to-page fixes that touch no meaning: a working heading in chapter 2.
-TEXT_FIXES = [("Sources to cite and spot-check before publishing:", "Sources:")]
+# Draft-to-page fixes that touch no meaning: a working heading in chapter 2, and chapter 11's count of agreement
+# checks, which predates the two benign-label checks (agreement.json holds 18; the kappa range and the six below the
+# bar are unchanged).
+TEXT_FIXES = [("Sources to cite and spot-check before publishing:", "Sources:"),
+              ("We ran 16 agreement checks (`agreement.json`).", "We ran 18 agreement checks (`agreement.json`).")]
 LINKS = [(r"arXiv (\d{4}\.\d{4,5})", lambda m: f'<a class="mono" href="https://arxiv.org/abs/{m.group(1)}">arXiv {m.group(1)}</a>'),
          (r"\(p-e-w/heretic\)", lambda m: '(<a class="mono" href="https://github.com/p-e-w/heretic">p-e-w/heretic</a>)')]
 NUMWORDS = "one two three four five six seven eight nine ten eleven twelve".split()
@@ -182,9 +185,12 @@ def inline(text, claims, where, chapter_urls):
     t = t.replace("the behind-the-scenes piece", f'<a href="{BASE}behind-the-scenes/">the behind-the-scenes piece</a>')
     t = re.sub(r"\x02([^\x03]+)\x03([^\x04]+)\x04",
                lambda m: f'<a class="cref" href="{claims.href(m.group(1))}" title="{attr(claims.title(m.group(1)))}">{m.group(2)}</a>', t)
-    t = re.sub(r"\x05([^\x06]+)\x06",
-               lambda m: " " + " ".join(f'<a class="cref" href="{claims.href(c)}" title="{attr(claims.title(c))}">{c.replace("-", "\u2011")}</a>'
-                                        for c in m.group(1).split(",")), t)
+    def rows(m):
+        ids = m.group(1).split(",")
+        links = ", ".join(f'<a class="cref" href="{claims.href(c)}" title="{attr(claims.title(c))}">{c.replace("-", "\u2011")}</a>'
+                          for c in ids)
+        return f" ({'row' if len(ids) == 1 else 'rows'} {links})"
+    t = re.sub(r"\x05([^\x06]+)\x06", rows, t)
 
     def code(m):
         s = codes[ord(m.group(0)) - 0xE000]
@@ -401,8 +407,7 @@ def build(src):
     h1 = bl[0][1][0][2:].strip()
     lead = " ".join(bl[1][1])
     rest = [b for b in bl[2:] if not (b[0] == "list" and "[[" in b[1][0])]
-    glance = [f"<em>{il(chapters[n]['lead'].split('. ')[0].rstrip('.') + '.')}</em> (<a href=\"{chapters[n]['url']}\">chapter {n}</a>)"
-              for n in range(4, 11)]
+    glance = [f"<em>{esc(chapters[n]['lead'])}</em> (<a href=\"{chapters[n]['url']}\">chapter {n}</a>)" for n in range(4, 11)]
     toc = "".join(f'<li><a href="{c["url"]}">{esc(c["title"])}</a></li>' for n, c in sorted(chapters.items()))
     body = (body_html(rest, il, 0)
             + f'\n\n  <h2 id="chapters">Chapters</h2>\n  <ol>{toc}</ol>\n  <p class="thesis">With a companion piece: '
