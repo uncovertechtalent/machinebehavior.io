@@ -120,7 +120,7 @@ Stefan Coetzee: site reliability engineer (30 years), founder of r/Leathercraft 
 
 ## Inside docs
 
-The documentation tree at https://machinebehavior.io/inside/docs/ (426 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
+The documentation tree at https://machinebehavior.io/inside/docs/ (427 pages). Search index: https://machinebehavior.io/inside/docs/search.json (docs only; the site-wide index is https://machinebehavior.io/inside/search.json). Pages from the knowledge vault (SRE Handbook, Standards and Compliance) are labelled as not reviewed against their sources. Owner, review date and type per page, and the pages past review: https://machinebehavior.io/inside/docs/health/.
 
 ### Engineering
 
@@ -180,6 +180,7 @@ The documentation tree at https://machinebehavior.io/inside/docs/ (426 pages). S
 - [ADR-0051: The repository's code is under MIT and the site's own text is under CC BY 4.0](https://machinebehavior.io/inside/docs/eng/adr-0051-code-mit-content-cc-by/)
 - [ADR-0052: Requests to the house come in through one issue form per seat](https://machinebehavior.io/inside/docs/eng/adr-0052-requests-through-one-issue-form-per-seat/)
 - [ADR-0053: A chief marketing officer seat owns reach, and public relations is one press page](https://machinebehavior.io/inside/docs/eng/adr-0053-chief-marketing-officer-seat/)
+- [ADR-0054: Stefan Coetzee approves on the final head, and the agent account pushes and merges](https://machinebehavior.io/inside/docs/eng/adr-0054-approval-on-the-final-head/)
 - [Agents in this repository](https://machinebehavior.io/inside/docs/eng/agents/)
 - [Ticket board](https://machinebehavior.io/inside/docs/eng/board/)
 - [Changelog](https://machinebehavior.io/inside/docs/eng/changelog/)

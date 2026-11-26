@@ -2,7 +2,7 @@ title: Software delivery lifecycle
 summary: The stages a change moves through on machinebehavior.io, from request to a live page and back, with the entry and exit criteria, the owner and the record of each stage, and the stages with no practice yet.
 order: 15
 created: 2026-10-11
-updated: 2026-10-28
+updated: 2026-11-25
 labels: sdlc, process, delivery
 owner: Stefan Coetzee
 reviewed: 2026-10-12
@@ -11,7 +11,7 @@ type: reference
 ---
 Every change to machinebehavior.io moves through the stages below, in this order. The site serves readers, so a stage that fails lets a reader see a wrong or broken page. A stage is done when its exit criteria hold and its record exists. Each record links the one before it, so a line on a live page traces back to the issue that asked for it.
 
-The branch model is short-lived branches and pull requests to `main` ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)): agent sessions and the operator branch from `origin/main`, push the branch and open a pull request; a passing Conformity checks job is required before the merge. Only two automated writers push to `main` directly, through deploy keys. Only the workflow deploys, on a push to `main` that passes the conformity gate ([ADR-0002](doc:eng/adr-0002-deploy-is-gated)). Releases are continuous, several deploys a day.
+The branch model is short-lived branches and pull requests to `main` ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)): agent sessions and the operator branch from `origin/main`, push the branch and open a pull request; a passing Conformity checks job and Stefan Coetzee's approval on the final head are required before the merge ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)). Only two automated writers push to `main` directly, through deploy keys. Only the workflow deploys, on a push to `main` that passes the conformity gate ([ADR-0002](doc:eng/adr-0002-deploy-is-gated)). Releases are continuous, several deploys a day.
 
 ## Stages
 
@@ -21,7 +21,7 @@ The branch model is short-lived branches and pull requests to `main` ([ADR-0029]
 | RFC | The change touches more than one site or the shared gate, or is hard to undo | A decision record with status `accepted` | Operator | Decision record with status `proposed` | No comment round; see Gaps |
 | Decision | A choice was made that others need to know | Decision record with status `accepted` | Operator | `scripts/docs/eng/adr-NNNN-*.md`, listed in [Decision records](doc:eng/decision-log) | Numbered records ([ADR-0018](doc:eng/adr-0018-numbered-records-and-changelog)); the docs build checks numbers and supersede links |
 | Build | Issue in `status: ready`; whoever picks it up assigns it and sets `status: in progress` | Commits on a branch from `origin/main`, pushed, a pull request open with the template; merges are squash-only, so the title starts with the issue id and the description says `Closes #N` | Operator | Commits, pull request | Agent sessions, `sdlc:work-item`, `.github/pull_request_template.md` |
-| Review | Pull request open, Conformity checks passed on it | The change review is on the pull request: the comment from the change-review workflow, or, until CI has its key, the comment from the local runner `review-pr.sh`; the operator merges, or a session merges on his go | Operator | Pull request with the review and the merge | `sdlc:change-review` (in CI: `.github/workflows/change-review.yml`, advisory); the shared agent settings ask before `gh pr merge` ([Agents in this repository](doc:eng/agents)) |
+| Review | Pull request open, Conformity checks passed on it | The change review is on the pull request: the comment from the change-review workflow, or, until CI has its key, the comment from the local runner `review-pr.sh`, posted on the final head; the operator approves on that head, and the agent account merges with the head pinned ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)) | Operator | Pull request with the review and the merge | `sdlc:change-review` (in CI: `.github/workflows/change-review.yml`, advisory); the shared agent settings ask before `gh pr merge` ([Agents in this repository](doc:eng/agents)) |
 | Test | Code or a page changed | The gate dry run prints `overall=pass`; the docs build finishes without stopping | Operator | Local dry run output | Gate dry run, checks in `scripts/build_docs.py` ([Docs tree](doc:eng/docs-tree)) |
 | Gate | Pull request to `main` (required check), then the push to `main` the merge makes | The Conformity checks job passes | Operator | Workflow run and its artifacts (90 days), `conformity/latest.json` in git | [Conformity gate](doc:eng/conformity-gate), `.github/workflows/conformity.yml` |
 | Release | Gate passed | The Deploy to Pages job succeeded; the rollback path is known | Operator | Deploy run in the `github-pages` environment, [changelog](doc:eng/changelog) | [Deploy pipeline](doc:eng/deploy-pipeline), [Roll back a deploy](doc:eng/runbook-rollback), `sdlc:release` |
@@ -37,7 +37,7 @@ Stages with no module or practice yet:
 | Stage | What is missing | Fills it |
 |---|---|---|
 | RFC | No comment round before a decision; a record goes from `proposed` to `accepted` on the operator's call | `decisions:rfc`, or comments on the issue that links the proposed record |
-| Review | No second person: every commit and every merge comes from one GitHub account, so GitHub cannot require an approval or tell a session's merge from Stefan's. The ask rule on `gh pr merge` holds only sessions started in this repository. The branch ruleset waits for the deploy key of the conformity bot | The ruleset per [ADR-0029](doc:eng/adr-0029-changes-through-pull-requests); a second account for reviews if one is ever needed |
+| Review | The approval is not enforced on the agent account, which administers the repository: nothing stops `gh pr merge --admin` beyond the ask rule or covers the rulesets API, and the ask rule holds only sessions started in this repository ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)) | [#258](https://github.com/uncovertechtalent/machinebehavior.io/issues/258): move the ownership, or deny rules |
 | Test | No unit tests for the Python generators in `scripts/`, and no check after a deploy that the pages answer | `sdlc:test-strategy` |
 | Build | Commit subjects do not name the issue or the decision, so a commit cannot be traced to its request | `sdlc.traceability` gate check on `warn` with `since: 2026-10-11` |
 | Release | No way to redeploy an earlier build: both jobs check out `main`. Rollback time is not measured | Owner decision; see [Roll back a deploy](doc:eng/runbook-rollback) |

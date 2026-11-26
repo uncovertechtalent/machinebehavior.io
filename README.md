@@ -16,7 +16,7 @@ A new page needs an entry in `site/nav.yml`, in `sitemap.xml`, and in `llms.txt`
 
 ## Deploy and the gate
 
-Every change to `main` goes through a pull request. The branch ruleset requires a passing Conformity gate and no approvals; the merge is the review step, and Stefan Coetzee merges or a session merges on his go (ADR-0029). The site deploys to GitHub Pages and to S3 behind CloudFront (ADR-0033). Agent notes, the gate, and the pull request flow: `CLAUDE.md` and `scripts/docs/eng/agents.md`.
+Every change to `main` goes through a pull request. The branch ruleset requires a passing Conformity gate and one approval: Stefan Coetzee approves on the pull request's final head, and the agent account merges with that head pinned (ADR-0029, ADR-0054). The site deploys to GitHub Pages and to S3 behind CloudFront (ADR-0033). Agent notes, the gate, and the pull request flow: `CLAUDE.md` and `scripts/docs/eng/agents.md`.
 
 Gate dry run, from the repo root (Python 3 and Node, no network):
 

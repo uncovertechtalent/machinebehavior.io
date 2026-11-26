@@ -4,13 +4,15 @@ parent: runbooks
 order: 20
 labels: runbook, git
 owner: Stefan Coetzee
+created: 2026-10-11
+updated: 2026-11-25
 reviewed: 2026-10-11
 review_by: 2027-01-09
 type: how-to
 ---
 **Symptom.** `git push` to `main` fails with "protected branch" or "Changes must be made through a pull request".
 
-**Cause.** A branch ruleset on `main` lets only the two deploy keys push there ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)).
+**Cause.** A branch ruleset on `main` lets only the two deploy keys push there ([ADR-0029](doc:eng/adr-0029-changes-through-pull-requests)); a repository administrator can bypass it too, and must not ([ADR-0054](doc:eng/adr-0054-approval-on-the-final-head)).
 
 ## Fix: open a pull request
 
